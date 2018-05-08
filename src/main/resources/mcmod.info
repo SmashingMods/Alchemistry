@@ -1,0 +1,16 @@
+[
+{
+  "modid": "alchemistry",
+  "name": "Alchemistry",
+  "description": "Alchemistry stuff",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["al132"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

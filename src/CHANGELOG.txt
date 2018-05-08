@@ -1,0 +1,33 @@
+0.5.6
+==
+-Hotfix for startup crash when ran outside of dev
+
+
+0.5.5
+==
+-Able to shrink jar size down by more than 50%
+-Removed some debug stuff that was left in
+
+0.5.1
+==
+-Added a progress bar for the evaporator
+-Added a few more miscellaneous machine recipes
+-Trimmed down the jar file size a bit
+
+
+0.5.0
+==
+-Added primitive "smart insertion" with recipe locking and machine pausing buttons
+ to facilitate automation
+-All NBT data (items,energy,fluids,etc) should now be saved properly when any machines are broken
+-Electrolyzer can now only use the proper electrolyte, not any ingredient
+
+
+
+0.4.1
+==
+-Added a texture for energy bars
+-Added colors for the rest of the current elements and compounds
+-Fixed bug where some dissolver recipes (planks, silicon)
+    would mess with all of the crafting recipes in JEI that had that item
+-Added a few miscellaneous recipes

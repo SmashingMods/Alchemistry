@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IQI",
+    "GQG",
+    "IPI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "Q": {
+      "item": "minecraft:quartz_block",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "alchemistry:electrolyzer",
+    "data": 0
+  }
+}

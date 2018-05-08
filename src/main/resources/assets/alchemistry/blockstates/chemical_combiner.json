@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alchemistry:chemical_combiner"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

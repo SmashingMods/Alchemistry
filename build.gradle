@@ -1,0 +1,113 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'kotlin'
+apply plugin: 'idea'
+
+version = mod_version
+group = "al132.alchemistry" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "alchemistry"
+
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = "1.8"
+}
+
+
+minecraft {
+    version = "1.12.2-14.23.3.2679"
+    runDir = "run"
+    mappings = "snapshot_20171003"
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+}
+
+
+
+repositories {
+    jcenter()
+
+    maven { //JEI
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "modmaven.k-4u.nl"
+    }
+    maven { //Forgelin
+        url "http://maven.shadowfacts.net/"
+    }
+    /* maven {
+         url 'http://dl.bintray.com/kotlin/kotlin-eap-1.1'
+     }*/
+    mavenCentral()
+}
+
+dependencies {
+    // compile against the JEI API
+    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
+    // at runtime, use the full JEI jar
+    runtime "mezz.jei:jei_${mc_version}:${jei_version}"
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile group: "net.shadowfacts", name: "Forgelin", version: "1.6.0"
+
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += 'src/main/kotlin'
+        }
+    }
+}
+
+processResources {
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    // copy everything else except the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

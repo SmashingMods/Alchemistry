@@ -11,7 +11,9 @@ import al132.alib.utils.extensions.areItemsEqual
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
+import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.ITickable
+import net.minecraftforge.common.util.Constants
 import net.minecraftforge.items.ItemStackHandler
 
 /**
@@ -25,7 +27,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     var progressTicks = 0
     var paused = false
 
-    val clientRecipeTarget = ItemStackHandler(1)
+    val clientRecipeTarget = ALTileStackHandler(1, this)
 
 
     companion object {
@@ -87,15 +89,34 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
         super.readFromNBT(compound)
         this.recipeIsLocked = compound.getBoolean("RecipeIsLocked")
         this.progressTicks = compound.getInteger("ProgressTicks")
-        clientRecipeTarget.deserializeNBT(compound.getCompoundTag("ClientRecipeTarget"))
         this.paused = compound.getBoolean("Paused")
+        if(this.recipeIsLocked){
+            val tempItemHandler = ItemStackHandler(9)
+            val recipeInputsList = compound.getTagList("RecipeInputs", Constants.NBT.TAG_COMPOUND)
+            for(i in 0 until recipeInputsList.tagCount()){
+                tempItemHandler.setStackInSlot(i,ItemStack(recipeInputsList.getCompoundTagAt(i)))
+            }
+            this.currentRecipe = CombinerRecipe.match(tempItemHandler)
+            clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
+            this.markDirtyClient()
+        }
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {
         compound.setBoolean("RecipeIsLocked", this.recipeIsLocked)
         compound.setInteger("ProgressTicks", this.progressTicks)
-        compound.setTag("ClientRecipeTarget", clientRecipeTarget.serializeNBT())
         compound.setBoolean("Paused", this.paused)
+        if (this.recipeIsLocked && this.currentRecipe != null) {
+            val recipeInputs = NBTTagList()
+            for (i in this.currentRecipe!!.inputs.indices) {
+                val recipeInputEntry = NBTTagCompound()
+                val tempStack = this.currentRecipe!!.inputs[i]
+                tempStack.writeToNBT(recipeInputEntry)
+                recipeInputs.appendTag(recipeInputEntry)
+            }
+            compound.setTag("RecipeInputs", recipeInputs)
+        }
+        //TODO save recipe to NBT tag
         return super.writeToNBT(compound)
     }
 }

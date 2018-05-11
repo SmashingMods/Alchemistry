@@ -64,7 +64,6 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
     }
 
 
-
     fun drawItemStack(stack: ItemStack, x: Int, y: Int, altText: String?) {
         GlStateManager.translate(0.0f, 0.0f, 32.0f)
         this.zLevel = 200.0f

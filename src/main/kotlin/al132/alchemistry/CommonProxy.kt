@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
+import java.io.File
 
 open class CommonProxy {
 
@@ -16,7 +17,17 @@ open class CommonProxy {
     open fun preInit(e: FMLPreInitializationEvent) {
         ConfigHandler.init(e.suggestedConfigurationFile)
         Reference.configPath = e.suggestedConfigurationFile.parent
-        Reference.configDir = e.modConfigurationDirectory
+        Reference.configDir = File(e.modConfigurationDirectory,"alchemistry")
+        if (!Reference.configDir.exists()) Reference.configDir.mkdir()
+        val exampleFile = File(Reference.configDir, "custom.xml")
+        if (!exampleFile.exists()) {
+            exampleFile.printWriter().use { out ->
+                out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+                out.println("<recipes>")
+                out.println("</recipes>")
+            }
+        }
+        //XMLRecipeParser().init("custom.xml")
         ElementRegistry.init()
         CompoundRegistry.init()
         //ModFluids.registerFluidContainers()
@@ -24,7 +35,7 @@ open class CommonProxy {
     }
 
     open fun init(e: FMLInitializationEvent) {
-       // if (Loader.isModLoaded("crafttweaker")) CTPlugin.init()
+        // if (Loader.isModLoaded("crafttweaker")) CTPlugin.init()
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
     }
 
@@ -32,6 +43,7 @@ open class CommonProxy {
         ModRecipes.init()
         //RecipeLoader.init()
     }
+
 
     //open fun initFluidModel(block: Block, fluid: Fluid) {}
 }

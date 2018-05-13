@@ -150,3 +150,5 @@ jei.combiner.name=Chemical Combiner
 jei.dissolver.name=Chemical Dissolver
 jei.electrolyzer.name=Electrolyzer
 jei.evaporator.name=Evaporator
+
+itemGroup.alchemistry=Alchemistry

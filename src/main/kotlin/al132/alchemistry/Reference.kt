@@ -12,7 +12,7 @@ object Reference {
 
     const val MODID = "alchemistry"
     const val MODNAME = "Alchemistry"
-    const val VERSION = "0.7.1"
+    const val VERSION = "0.7.2"
     const val DEPENDENCIES = "required-after:forgelin;required-after:alib"
     val DECIMAL_FORMAT: NumberFormat = DecimalFormat("#0.00")
 
@@ -23,4 +23,5 @@ object Reference {
     val creativeTab: CreativeTabs = object : CreativeTabs("alchemistry") {
         override fun getTabIconItem(): ItemStack = ModBlocks.chemical_combiner.toStack()
     }
+
 }

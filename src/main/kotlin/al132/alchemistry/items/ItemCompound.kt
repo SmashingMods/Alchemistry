@@ -1,5 +1,6 @@
 package al132.alchemistry.items
 
+import al132.alchemistry.Reference
 import al132.alchemistry.chemistry.CompoundRegistry
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.creativetab.CreativeTabs
@@ -24,7 +25,9 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(itemIn: CreativeTabs, tab: NonNullList<ItemStack>) {
-        (0 until CompoundRegistry.size()).forEach { tab.add(ItemStack(this, 1, it)) }
+        if(itemIn == Reference.creativeTab) {
+            (0 until CompoundRegistry.size()).forEach { tab.add(ItemStack(this, 1, it)) }
+        }
     }
 
     override fun getUnlocalizedName(stack: ItemStack?): String {

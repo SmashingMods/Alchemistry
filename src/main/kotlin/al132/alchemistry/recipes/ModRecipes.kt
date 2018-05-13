@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.IFuelHandler
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
-import kotlin.concurrent.thread
 
 /**
  * Created by al132 on 1/16/2017.
@@ -102,10 +101,10 @@ object ModRecipes {
 
 
     fun init() {
-        thread { initElectrolyzerRecipes() }
-        thread { initEvaporatorRecipes() }
-        thread { initFuelHandler() }
-        thread { initAlloyRecipes() }
+        initElectrolyzerRecipes()
+        initEvaporatorRecipes()
+        initFuelHandler()
+        initAlloyRecipes()
         initDissolverRecipes() //before combiner, so combiner can use reversible recipes
         initCombinerRecipes()
     }

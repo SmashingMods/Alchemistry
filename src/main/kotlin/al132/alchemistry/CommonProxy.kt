@@ -27,9 +27,9 @@ open class CommonProxy {
                 out.println("</recipes>")
             }
         }
-        //XMLRecipeParser().init("custom.xml")
         ElementRegistry.init()
         CompoundRegistry.init()
+
         //ModFluids.registerFluidContainers()
         PacketHandler.registerMessages(Reference.MODID)
     }
@@ -41,6 +41,8 @@ open class CommonProxy {
 
     open fun postInit(e: FMLPostInitializationEvent) {
         ModRecipes.init()
+        XMLRecipeParser().init("custom.xml")
+
         //RecipeLoader.init()
     }
 

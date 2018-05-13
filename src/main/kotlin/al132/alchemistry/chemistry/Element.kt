@@ -17,4 +17,8 @@ class Element constructor(override var name: String, val abbreviation: String, o
         get() = ElementRegistry.getMeta(this.name)
 
     override fun toItemStack(quantity: Int) = ItemStack(item, quantity, this.meta)
+
+    override fun toString(): String {
+        return "Element: $name"
+    }
 }

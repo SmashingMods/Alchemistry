@@ -24,19 +24,25 @@ class XMLRecipeParser {
     fun init(path: String) {
         val docBuilderFactory = javax.xml.parsers.DocumentBuilderFactory.newInstance()
         val docBuilder = docBuilderFactory.newDocumentBuilder()
-        val doc = docBuilder.parse(File(Reference.configDir, path))
-        doc.documentElement.normalize()
+        try {
+            val doc = docBuilder.parse(File(Reference.configDir, path))
 
-        val nodes: NodeList = doc.getElementsByTagName("recipe")
-        for (index in 0 until nodes.length) {
-            val element = nodes.item(index) as Element
-            val recipeType = element.getAttribute("type").toLowerCase()
-            when (recipeType) {
-                "dissolver"    -> parseDissolverRecipe(element)
-                "combiner"     -> parseCombinerRecipe(element)
-                "evaporator"   -> parseEvaporatorRecipe(element)
-                "electrolyzer" -> parseElectrolyzerRecipe(element)
+            doc.documentElement.normalize()
+
+            val nodes: NodeList = doc.getElementsByTagName("recipe")
+            for (index in 0 until nodes.length) {
+                val element = nodes.item(index) as Element
+                val recipeType = element.getAttribute("type").toLowerCase()
+                when (recipeType) {
+                    "dissolver"    -> parseDissolverRecipe(element)
+                    "combiner"     -> parseCombinerRecipe(element)
+                    "evaporator"   -> parseEvaporatorRecipe(element)
+                    "electrolyzer" -> parseElectrolyzerRecipe(element)
+                }
             }
+        }
+        catch(e: org.xml.sax.SAXParseException){
+            println(e.message)
         }
     }
 

@@ -24,7 +24,6 @@ open class CommonProxy {
         if (!exampleFile.exists()) {
             exampleFile.printWriter().use { out ->
                 out.println("<!--Read the wiki for more info on using custom recipes https://github.com/al132mc/alchemistry/wiki -->")
-                out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
                 out.println("<recipes>")
                 out.println("</recipes>")
             }

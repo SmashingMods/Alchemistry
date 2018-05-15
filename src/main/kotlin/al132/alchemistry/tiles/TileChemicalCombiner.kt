@@ -22,7 +22,6 @@ import net.minecraftforge.items.ItemStackHandler
 class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItemTile {
 
     var currentRecipe: CombinerRecipe? = null
-        private set
     var recipeIsLocked = false
     var progressTicks = 0
     var paused = false
@@ -90,16 +89,20 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
         this.recipeIsLocked = compound.getBoolean("RecipeIsLocked")
         this.progressTicks = compound.getInteger("ProgressTicks")
         this.paused = compound.getBoolean("Paused")
-        if(this.recipeIsLocked){
+        if (this.recipeIsLocked) {
             val tempItemHandler = ItemStackHandler(9)
             val recipeInputsList = compound.getTagList("RecipeInputs", Constants.NBT.TAG_COMPOUND)
-            for(i in 0 until recipeInputsList.tagCount()){
-                tempItemHandler.setStackInSlot(i,ItemStack(recipeInputsList.getCompoundTagAt(i)))
+            for (i in 0 until recipeInputsList.tagCount()) {
+                tempItemHandler.setStackInSlot(i, ItemStack(recipeInputsList.getCompoundTagAt(i)))
             }
             this.currentRecipe = CombinerRecipe.match(tempItemHandler)
             clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
-            this.markDirtyClient()
+        } else {
+            this.currentRecipe = null
+            clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY)
         }
+        this.markDirtyClient()
+
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

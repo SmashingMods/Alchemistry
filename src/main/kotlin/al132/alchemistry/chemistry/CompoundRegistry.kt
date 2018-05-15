@@ -7,7 +7,7 @@ import java.awt.Color
  */
 object CompoundRegistry {
 
-    val compounds = ArrayList<Compound>()
+    val compounds = ArrayList<ChemicalCompound>()
 
     fun init() {
         compounds.add(Compound {

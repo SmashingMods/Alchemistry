@@ -8,7 +8,7 @@ import java.util.*
  */
 object ElementRegistry {
 
-    private val elements = ArrayList<Element>()
+    private val elements = ArrayList<ChemicalElement>()
 
     fun init() {
         add(0, "placeholder", "?")
@@ -123,12 +123,12 @@ object ElementRegistry {
         add(109, "meitnerium", "Mt", Color(169, 138, 37))
     }
 
-    operator fun get(atomicNumber: Int): Element? = elements.firstOrNull { it.meta == atomicNumber }
+    operator fun get(atomicNumber: Int): ChemicalElement? = elements.firstOrNull { it.meta == atomicNumber }
 
-    operator fun get(elementName: String): Element? = elements.firstOrNull { it.name == elementName }
+    operator fun get(elementName: String): ChemicalElement? = elements.firstOrNull { it.name == elementName }
 
     fun add(atomicNumber: Int, name: String, abbreviation: String, color: Color = Color.white) {
-        elements.add(atomicNumber, Element(name, abbreviation, color))
+        elements.add(atomicNumber, ChemicalElement(name, abbreviation, color))
     }
 
     fun size() = elements.size

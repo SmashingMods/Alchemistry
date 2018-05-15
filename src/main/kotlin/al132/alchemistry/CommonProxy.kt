@@ -5,6 +5,7 @@ import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.client.GuiHandler
 import al132.alchemistry.network.PacketHandler
 import al132.alchemistry.recipes.ModRecipes
+import al132.alchemistry.recipes.XMLRecipeParser
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -22,6 +23,7 @@ open class CommonProxy {
         val exampleFile = File(Reference.configDir, "custom.xml")
         if (!exampleFile.exists()) {
             exampleFile.printWriter().use { out ->
+                out.println("<!--Read the wiki for more info on using custom recipes https://github.com/al132mc/alchemistry/wiki -->")
                 out.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
                 out.println("<recipes>")
                 out.println("</recipes>")

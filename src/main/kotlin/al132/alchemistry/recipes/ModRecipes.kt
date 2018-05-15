@@ -109,9 +109,9 @@ object ModRecipes {
         initCombinerRecipes()
     }
 
-    fun initAlloyRecipes(){
-        alloyRecipes.apply{
-           // add(AlloyRecipe())
+    fun initAlloyRecipes() {
+        alloyRecipes.apply {
+            // add(AlloyRecipe())
         }
     }
 
@@ -505,6 +505,15 @@ object ModRecipes {
             }
         })
 
+        dissolverRecipes.add(dissolverRecipe {
+            stack = Items.COAL.toStack(meta = 1)
+            reversible = true
+            output {
+                addStack { "carbon".toElementStack(quantity = 8) }
+            }
+        })
+
+
         dissolverRecipes.add(dissolverRecipe
         {
             dictName = "slabWood"
@@ -807,7 +816,7 @@ object ModRecipes {
             if (fuel.item == ModItems.elements) {
                 when (fuel.itemDamage) {
                     ElementRegistry["hydrogen"]!!.meta -> return@IFuelHandler 10
-                    ElementRegistry["carbon"]!!.meta -> return@IFuelHandler 200
+                    ElementRegistry["carbon"]!!.meta   -> return@IFuelHandler 200
                 }
             }
             return@IFuelHandler 0
@@ -819,7 +828,7 @@ object ModRecipes {
     fun initCombinerRecipes() {
 
         combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(meta = 1),
-                listOf(ItemStack.EMPTY, "carbon".toElementStack(4))))
+                listOf(ItemStack.EMPTY, "carbon".toElementStack(8))))
 
 
         metals.forEach { entry ->

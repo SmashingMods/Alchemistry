@@ -1,7 +1,7 @@
 package al132.alchemistry.items
 
 import al132.alchemistry.Reference
-import al132.alchemistry.chemistry.Element
+import al132.alchemistry.chemistry.ChemicalElement
 import al132.alchemistry.chemistry.ElementRegistry
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.util.ITooltipFlag
@@ -28,7 +28,7 @@ class ItemElement(name: String) : ItemMetaBase(name) {
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, playerIn: World?, tooltip: List<String>, advanced: ITooltipFlag) {
-    val element: Element? = ElementRegistry[stack.itemDamage]
+    val element: ChemicalElement? = ElementRegistry[stack.itemDamage]
         element?.let {
             (tooltip as MutableList).add(element.abbreviation + " - " + element.meta)
         }

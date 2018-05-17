@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
+import org.apache.logging.log4j.Logger
 
 //TODO: Everything
 @Mod(modid = Reference.MODID,
@@ -23,6 +24,9 @@ import net.minecraftforge.fml.relauncher.SideOnly
         dependencies = Reference.DEPENDENCIES,
         modLanguageAdapter = "net.shadowfacts.forgelin.KotlinAdapter")
 object Alchemistry {
+
+
+    lateinit var logger: Logger
 
     @SidedProxy(clientSide = "al132.alchemistry.ClientProxy", serverSide = "al132.alchemistry.CommonProxy")
     var proxy: CommonProxy? = null

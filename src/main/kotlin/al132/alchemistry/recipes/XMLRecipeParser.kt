@@ -1,7 +1,9 @@
 package al132.alchemistry.recipes
 
+import al132.alchemistry.Alchemistry
 import al132.alchemistry.Reference
-import al132.alchemistry.utils.Utils
+import al132.alchemistry.utils.toStack
+import al132.alchemistry.utils.toStacks
 import al132.alib.utils.extensions.areItemStacksEqual
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
@@ -17,6 +19,14 @@ import java.io.File
 
 fun Element.getFirst(name: String): Element? {
     return this.getElementsByTagName(name).item(0) as? Element
+}
+
+fun Element.getNth(name: String, nth: Int): Element? {
+    return this.getElementsByTagName(name).item(nth) as? Element
+}
+
+fun NodeList.getNth(nth: Int): Element? {
+    return this.item(nth) as Element?
 }
 
 class XMLRecipeParser {
@@ -40,40 +50,65 @@ class XMLRecipeParser {
                     "electrolyzer" -> parseElectrolyzerRecipe(element)
                 }
             }
-        }
-        catch(e: org.xml.sax.SAXParseException){
+        } catch (e: org.xml.sax.SAXParseException) {
             println(e.message)
         }
     }
 
 
     fun parseElectrolyzerRecipe(element: Element) {
-        /*TODO
         val inputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("input")?.textContent ?: "")
         val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
         val actionType: String? = element.getAttribute("action")
         if (actionType != "remove") {
-            val electrolytes: List<ItemStack> = listOf()
+            val electrolytes: ArrayList<ItemStack> = arrayListOf()
             val electrolyteConsumptionChance = element.getFirst("electrolytes")?.getAttribute("probability")?.toIntOrNull() ?: 50
-
-            val outputs: List<ItemStack> = listOf()
+            val electrolytesXML = element.getElementsByTagName("electrolytes")
+            for (index in 0 until electrolytesXML.length) {
+                electrolytes.addAll((element.getNth("item", index)?.textContent ?: "").toStacks())
+            }
+            val outputs: ArrayList<ItemStack> = arrayListOf()
             val outputXMLElement = element.getFirst("output")
-            if (inputFluid != null) {
+            for (index in 0 until 2) {
+                val outputQuantity: Int = outputXMLElement?.getNth("item", index)?.getAttribute("quantity")?.toIntOrNull() ?: 1
+                val tempStack = (outputXMLElement?.getNth("item", index)?.textContent ?: "").toStack(quantity = outputQuantity)
+                if (!tempStack.isEmpty) outputs.add(tempStack)
+            }
+            if (inputFluid != null && electrolytes.count() > 0 && outputs.count() > 0) {
                 ModRecipes.electrolyzerRecipes.add(ElectrolyzerRecipe(fluid = inputFluid,
                         fluidQuantity = inputQuantity,
-                        electrolyte = electrolytes,
+                        electrolytes = electrolytes,
                         elecConsumption = electrolyteConsumptionChance,
-                        outputOne = ItemStack.EMPTY,
-                        outputTwo = ItemStack.EMPTY))
+                        outputOne = outputs[0],
+                        outputTwo = outputs[1]))
+                Alchemistry.logger.info("Added Electrolyzer recipe for [${inputFluid.name},$inputQuantity,$electrolytes]")
             }
         } else if (actionType == "remove") {
-
-        }*/
+            //TODO
+        }
     }
 
 
     fun parseCombinerRecipe(element: Element) {
         //TODO
+        /*  val actionType: String? = element.getAttribute("action")
+          if (actionType != "remove") {
+              val output: ItemStack = ItemStack.EMPTY
+              val ingredientMap: HashMap<String, ItemStack> = hashMapOf()
+              val itemsXML = element.getFirst("input")?.getElementsByTagName("item")
+              for (index in 0 until (itemsXML?.length ?: 0)) {
+
+                  //ingredientMap.put(itemsXML?.getNth(index)?.getAttribute("key"))
+              }
+              val rowsXML = element.getFirst("input")?.getElementsByTagName("row")
+
+              ModRecipes.combinerRecipes.add(CombinerRecipe(output = output, objsIn = listOf(ItemStack.EMPTY)))
+          } else {
+              for (recipe in ModRecipes.combinerRecipes)
+                  if (false) {
+                      ModRecipes.combinerRecipes.remove(recipe)
+                  }
+          }*/
     }
 
 
@@ -87,15 +122,21 @@ class XMLRecipeParser {
             val outputStr: String = outputXMLElement?.getFirst("item")?.textContent ?: ""
             val outputQuantity: Int = outputXMLElement?.getFirst("item")?.getAttribute("quantity")?.toIntOrNull() ?: 1
             val outputMeta: Int = outputXMLElement?.getFirst("item")?.getAttribute("meta")?.toIntOrNull() ?: 0
-            val outputStack = Utils.stackFromResourceLocation(outputStr, quantity = outputQuantity, meta = outputMeta)
+            val outputStack = outputStr.toStack(quantity = outputQuantity, meta = outputMeta)
 
             if (inputFluid != null && !outputStack.isEmpty) {
                 ModRecipes.evaporatorRecipes.add(EvaporatorRecipe(fluid = inputFluid, fluidQuantity = inputQuantity, output = outputStack))
+                Alchemistry.logger.info("Added Evaporator recipe for [${inputFluid.name},$inputQuantity]")
+
             }
         } else if (actionType == "remove") {
             ModRecipes.evaporatorRecipes
                     .filter { it.input.fluid == inputFluid }
-                    .forEach { ModRecipes.evaporatorRecipes.remove(it) }
+                    .forEach {
+                        ModRecipes.evaporatorRecipes.remove(it)
+                        Alchemistry.logger.info("Removed Evaporator recipe: $it")
+
+                    }
         }
     }
 
@@ -103,7 +144,7 @@ class XMLRecipeParser {
         val inputStr: String = element.getFirst("input")?.textContent ?: ""
         val itemMeta: Int = element.getFirst("input")?.getAttribute("meta")?.toIntOrNull() ?: 0
         val actionType: String? = element.getAttribute("action")
-        val inputStack: ItemStack = Utils.stackFromResourceLocation(inputStr, meta = itemMeta)
+        val inputStack: ItemStack = inputStr.toStack(meta = itemMeta)
 
         if (actionType != "remove") {
             val outputXMLElement: Element? = element.getFirst("output")
@@ -121,7 +162,8 @@ class XMLRecipeParser {
                 for (itemIndex in 0 until (xmlItems?.length ?: 0)) {
                     val itemName = xmlItems?.item(itemIndex)?.textContent ?: ""
                     val itemQuantity: Int = (xmlItems?.item(itemIndex) as Element).getAttribute("quantity").toIntOrNull() ?: 1
-                    itemStacks.add(Utils.stackFromResourceLocation(itemName, quantity = itemQuantity))
+                    val itemMeta: Int = (xmlItems?.item(itemIndex) as Element).getAttribute("meta").toIntOrNull() ?: 0
+                    itemStacks.add(itemName.toStack(meta = itemMeta, quantity = itemQuantity))
                 }
                 groupsList.add(ProbabilityGroup(_output = itemStacks, probability = probability))
             }
@@ -130,20 +172,32 @@ class XMLRecipeParser {
             if (inputStack.isEmpty) {
                 if (OreDictionary.doesOreNameExist(inputStr)) {
                     ModRecipes.dissolverRecipes.add(DissolverRecipe(dictName = inputStr, _outputs = outputSet))
+                    Alchemistry.logger.info("Added Chemical Dissolver recipe for $inputStr")
+
+                } else {
+                    Alchemistry.logger.info("Failed to add Chemical Dissolver recipe for $inputStr")
                 }
             } else {
                 ModRecipes.dissolverRecipes.add(DissolverRecipe(stack = inputStack, _outputs = outputSet))
+                Alchemistry.logger.info("Added Chemical Dissolver recipe for $inputStack")
             }
         } else if (actionType == "remove") {
             if (!inputStack.isEmpty) {
                 ModRecipes.dissolverRecipes
                         .filter { it.inputs.count() == 1 && it.inputs[0].areItemStacksEqual(inputStack) }
-                        .forEach { ModRecipes.dissolverRecipes.remove(it) }
+                        .forEach {
+                            ModRecipes.dissolverRecipes.remove(it)
+                            Alchemistry.logger.info("Removed Chemical Dissolver recipe: $it")
+
+                        }
             } else {
                 if (OreDictionary.doesOreNameExist(inputStr)) {
                     ModRecipes.dissolverRecipes
                             .filter { it.dictName == inputStr }
-                            .forEach { ModRecipes.dissolverRecipes.remove(it) }
+                            .forEach {
+                                ModRecipes.dissolverRecipes.remove(it)
+                                Alchemistry.logger.info("Removed Chemical Dissolver recipe: $it")
+                            }
                 }
             }
         }

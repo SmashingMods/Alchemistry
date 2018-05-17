@@ -580,7 +580,7 @@ object ModRecipes {
         {
             dictName = "stoneGranite"
             output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 150 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
                 addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
                 addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
                 addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
@@ -592,7 +592,7 @@ object ModRecipes {
         {
             dictName = "stoneDiorite"
             output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 150 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
                 addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
                 addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
                 addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
@@ -605,7 +605,7 @@ object ModRecipes {
             stack = Blocks.MAGMA.toStack()
             output {
                 rolls = 2
-                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 80 }
                 addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
                 addGroup { addStack { "magnesium_oxide".toCompoundStack(1) }; probability = 20 }
                 addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
@@ -627,7 +627,7 @@ object ModRecipes {
         {
             dictName = "stoneAndesite"
             output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 150 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
                 addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
                 addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
                 addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
@@ -639,7 +639,7 @@ object ModRecipes {
         {
             dictName = "stone"
             output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 150 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
                 addGroup { addStack { "aluminum".toElementStack(1) } }
                 addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
                 addGroup { addStack { "gold".toElementStack(1) } }
@@ -791,11 +791,11 @@ object ModRecipes {
 
 
     fun initElectrolyzerRecipes() {
-        electrolyzerRecipes.add(ElectrolyzerRecipe(FluidStack(FluidRegistry.WATER, 62),
+        electrolyzerRecipes.add(ElectrolyzerRecipe(FluidStack(FluidRegistry.WATER, 100),
                 listOf("calcium_carbonate".toCompoundStack()), 20,
                 "hydrogen".toElementStack(2), "oxygen".toElementStack(1)))
 
-        electrolyzerRecipes.add(ElectrolyzerRecipe(FluidStack(FluidRegistry.WATER, 62),
+        electrolyzerRecipes.add(ElectrolyzerRecipe(FluidStack(FluidRegistry.WATER, 100),
                 listOf("sodium_chloride".toCompoundStack()), 20,
                 outputOne = "hydrogen".toElementStack(2),
                 outputTwo = "oxygen".toElementStack(1),
@@ -889,14 +889,14 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Items.WATER_BUCKET.toStack(),
                 listOf(null, null, null,
-                        null, "water".toCompoundStack(16), null,
+                        null, "water".toCompoundStack(10), null,
                         null, Items.BUCKET, null)))
 
 
         combinerRecipes.add(CombinerRecipe(Items.POTIONITEM.toStack()
                 .apply { this.setTagInfo("Potion", net.minecraft.nbt.NBTTagString("water")) },
                 listOf(null, null, null,
-                        null, "water".toCompoundStack(16), null,
+                        null, "water".toCompoundStack(10), null,
                         null, Items.GLASS_BOTTLE, null)))
 
         combinerRecipes.add(CombinerRecipe(Blocks.REDSTONE_BLOCK.toStack(),

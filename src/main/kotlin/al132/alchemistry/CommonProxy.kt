@@ -16,6 +16,7 @@ open class CommonProxy {
 
 
     open fun preInit(e: FMLPreInitializationEvent) {
+        Alchemistry.logger = e.modLog;
         ConfigHandler.init(e.suggestedConfigurationFile)
         Reference.configPath = e.suggestedConfigurationFile.parent
         Reference.configDir = File(e.modConfigurationDirectory,"alchemistry")

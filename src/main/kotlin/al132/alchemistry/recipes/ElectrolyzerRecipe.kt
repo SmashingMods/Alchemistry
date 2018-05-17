@@ -19,9 +19,9 @@ data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
                               private val outputFour: ItemStack = ItemStack.EMPTY,
                               val output4Probability: Int = 0) {
 
-    constructor(fluid: Fluid, fluidQuantity: Int, electrolyte: List<ItemStack>, elecConsumption: Int,
+    constructor(fluid: Fluid, fluidQuantity: Int, electrolytes: List<ItemStack>, elecConsumption: Int,
                 outputOne: ItemStack, outputTwo: ItemStack)
-            : this(FluidStack(fluid, fluidQuantity), electrolyte, elecConsumption, outputOne, outputTwo)
+            : this(FluidStack(fluid, fluidQuantity), electrolytes, elecConsumption, outputOne, outputTwo)
 
     val input: FluidStack
         get() = this.inputFluid.copy()

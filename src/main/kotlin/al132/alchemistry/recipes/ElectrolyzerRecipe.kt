@@ -1,33 +1,72 @@
 package al132.alchemistry.recipes
 
-import al132.alib.utils.extensions.copy
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
+import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
 /**
  * Created by al132 on 1/20/2017.
  */
 data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
-                              private val electrolytesInternal: List<ItemStack>,
+                              private val electrolyteInternal: ItemStack = ItemStack.EMPTY,
+                              private val electrolyteOre: String = "",
                               val electrolyteConsumptionChanceInternal: Int,
                               private val outputOne: ItemStack,
                               private val outputTwo: ItemStack,
                               private val outputThree: ItemStack = ItemStack.EMPTY,
-                              val output3Probability: Int = 0,
+                              val output3Probability: Int = 50,
                               private val outputFour: ItemStack = ItemStack.EMPTY,
-                              val output4Probability: Int = 0) {
+                              val output4Probability: Int = 50) {
 
-    constructor(fluid: Fluid, fluidQuantity: Int, electrolytes: List<ItemStack>, elecConsumption: Int,
-                outputOne: ItemStack, outputTwo: ItemStack)
-            : this(FluidStack(fluid, fluidQuantity), electrolytes, elecConsumption, outputOne, outputTwo)
+    constructor(fluid: Fluid, fluidQuantity: Int,
+                electrolyte: ItemStack,
+                elecConsumption: Int,
+                outputOne: ItemStack,
+                outputTwo: ItemStack,
+                outputThree: ItemStack = ItemStack.EMPTY,
+                output3Probability: Int = 50,
+                outputFour: ItemStack = ItemStack.EMPTY,
+                output4Probability: Int = 50)
+            : this(inputFluid = FluidStack(fluid, fluidQuantity),
+            electrolyteInternal = electrolyte,
+            electrolyteConsumptionChanceInternal = elecConsumption,
+            outputOne = outputOne,
+            outputTwo = outputTwo,
+            outputThree = outputThree,
+            output3Probability = output3Probability,
+            outputFour = outputFour,
+            output4Probability = output4Probability)
+
+    constructor(fluid: Fluid, fluidQuantity: Int, electrolyte: String, elecConsumption: Int,
+                outputOne: ItemStack,
+                outputTwo: ItemStack,
+                outputThree: ItemStack = ItemStack.EMPTY,
+                output3Probability: Int = 50,
+                outputFour: ItemStack = ItemStack.EMPTY,
+                output4Probability: Int = 50)
+            : this(inputFluid = FluidStack(fluid, fluidQuantity),
+            electrolyteOre = electrolyte,
+            electrolyteConsumptionChanceInternal = elecConsumption,
+            outputOne = outputOne,
+            outputTwo = outputTwo,
+            outputThree = outputThree,
+            output3Probability = output3Probability,
+            outputFour = outputFour,
+            output4Probability = output4Probability)
 
     val input: FluidStack
         get() = this.inputFluid.copy()
 
     val electrolytes: List<ItemStack>
-        get() = electrolytesInternal.copy()
+        get() {
+            return when {
+                !electrolyteInternal.isEmpty                   -> listOf(electrolyteInternal.copy())
+                OreDictionary.doesOreNameExist(electrolyteOre) -> OreDictionary.getOres(electrolyteOre)
+                else                                           -> listOf()
+            }
+        }
 
     val electrolyteConsumptionChance: Int
         get() = this.electrolyteConsumptionChanceInternal

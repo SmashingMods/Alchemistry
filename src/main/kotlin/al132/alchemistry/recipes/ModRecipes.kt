@@ -16,7 +16,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidRegistry
-import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.IFuelHandler
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
@@ -791,12 +790,19 @@ object ModRecipes {
 
 
     fun initElectrolyzerRecipes() {
-        electrolyzerRecipes.add(ElectrolyzerRecipe(FluidStack(FluidRegistry.WATER, 100),
-                listOf("calcium_carbonate".toCompoundStack()), 20,
-                "hydrogen".toElementStack(2), "oxygen".toElementStack(1)))
+        electrolyzerRecipes.add(ElectrolyzerRecipe(
+                fluid = FluidRegistry.WATER,
+                fluidQuantity = 100,
+                electrolyte = "calcium_carbonate".toCompoundStack(),
+                elecConsumption = 20,
+                outputOne = "hydrogen".toElementStack(2),
+                outputTwo = "oxygen".toElementStack(1)))
 
-        electrolyzerRecipes.add(ElectrolyzerRecipe(FluidStack(FluidRegistry.WATER, 100),
-                listOf("sodium_chloride".toCompoundStack()), 20,
+        electrolyzerRecipes.add(ElectrolyzerRecipe(
+                fluid = FluidRegistry.WATER,
+                fluidQuantity = 100,
+                electrolyte = "sodium_chloride".toCompoundStack(),
+                elecConsumption = 20,
                 outputOne = "hydrogen".toElementStack(2),
                 outputTwo = "oxygen".toElementStack(1),
                 outputThree = "chlorine".toElementStack(2), output3Probability = 10))

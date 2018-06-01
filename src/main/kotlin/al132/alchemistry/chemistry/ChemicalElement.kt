@@ -21,4 +21,8 @@ class ChemicalElement constructor(override var name: String, val abbreviation: S
     override fun toString(): String {
         return "Element: $name"
     }
+
+    override fun toAbbreviatedString(): String {
+        return this.abbreviation
+    }
 }

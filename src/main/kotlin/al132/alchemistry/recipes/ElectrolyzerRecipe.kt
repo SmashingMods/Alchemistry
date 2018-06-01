@@ -1,5 +1,6 @@
 package al132.alchemistry.recipes
 
+import al132.alib.utils.extensions.areItemStacksEqual
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
@@ -84,4 +85,9 @@ data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
         }
         return ItemStack.EMPTY
     }
+
+    fun matchesElectrolyte(target: String) = (target == this.electrolyteOre)
+    fun matchesElectrolyte(target: ItemStack): Boolean = (target.areItemStacksEqual(this.electrolyteInternal))
+
+
 }

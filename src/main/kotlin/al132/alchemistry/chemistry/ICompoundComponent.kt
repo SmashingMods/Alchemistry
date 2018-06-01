@@ -14,4 +14,5 @@ interface ICompoundComponent {
     val item: Item
     val meta: Int
     fun toItemStack(quantity: Int): ItemStack
+    fun toAbbreviatedString(): String
 }

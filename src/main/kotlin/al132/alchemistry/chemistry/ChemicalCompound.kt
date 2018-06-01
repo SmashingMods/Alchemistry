@@ -9,7 +9,7 @@ import java.awt.Color
  * Created by al132 on 1/22/2017.
  */
 
-inline fun Compound(crossinline init: ChemicalCompound.() -> Unit) = ChemicalCompound().apply{init()}
+inline fun Compound(crossinline init: ChemicalCompound.() -> Unit) = ChemicalCompound().apply { init() }
 
 
 fun find(name: String): ICompoundComponent? {
@@ -29,9 +29,9 @@ data class CompoundPair(val compound: ICompoundComponent, val quantity: Int) {
 
 class ChemicalCompound constructor(override var name: String = "",
                                    override var color: Color = Color.WHITE,
-                                   var autoCombinerRecipe: Boolean  = true,
+                                   var autoCombinerRecipe: Boolean = true,
                                    var autoDissolverRecipe: Boolean = true,
-                                   var components: List<CompoundPair> = ArrayList<CompoundPair>()): ICompoundComponent {
+                                   var components: List<CompoundPair> = ArrayList<CompoundPair>()) : ICompoundComponent {
 
     override val item: Item
         get() = ModItems.compounds
@@ -42,4 +42,18 @@ class ChemicalCompound constructor(override var name: String = "",
 
     override val meta: Int
         get() = CompoundRegistry.getMeta(this.name)
+
+    override fun toAbbreviatedString(): String {
+        val builder = StringBuilder()
+        for (component in components) {
+            if (component.compound is ChemicalCompound) {
+                builder.append("(" + component.compound.toAbbreviatedString() + ")")
+            } else {
+                builder.append(component.compound.toAbbreviatedString())
+            }
+            if (component.quantity > 1) builder.append(component.quantity)
+        }
+        return builder.toString()
+    }
+
 }

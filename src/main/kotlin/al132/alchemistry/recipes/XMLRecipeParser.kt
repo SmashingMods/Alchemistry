@@ -16,19 +16,13 @@ import java.io.File
  * Created by al132 on 5/10/2018.
  */
 
-fun Element.getFirst(name: String): Element? {
-    return this.getElementsByTagName(name).item(0) as? Element
-}
+fun Element.getFirst(name: String) = this.getElementsByTagName(name).item(0) as? Element
 
-fun Element.getNth(name: String, nth: Int): Element? {
-    return this.getElementsByTagName(name).item(nth) as? Element
-}
+fun Element.getNth(name: String, nth: Int) = this.getElementsByTagName(name).item(nth) as? Element
 
-fun NodeList.getNth(nth: Int): Element? {
-    return this.item(nth) as Element?
-}
+fun NodeList.getNth(nth: Int) = this.item(nth) as Element?
 
-fun Element?.itemTagToStack(): ItemStack {
+fun Element?.tagToStack(): ItemStack {
     val meta = this?.getAttribute("meta")?.toIntOrNull() ?: 0
     val quantity = this?.getAttribute("quantity")?.toIntOrNull() ?: 1
     return this?.textContent?.toStack(quantity = quantity, meta = meta) ?: ItemStack.EMPTY
@@ -45,7 +39,7 @@ class XMLRecipeParser {
             doc.documentElement.normalize()
 
             val nodes: NodeList = doc.getElementsByTagName("recipe")
-            for (index in 0 until nodes.length) {
+            (0 until nodes.length).forEach { index ->
                 val element = nodes.item(index) as Element
                 val recipeType = element.getAttribute("type").toLowerCase()
                 when (recipeType) {
@@ -56,7 +50,7 @@ class XMLRecipeParser {
                 }
             }
         } catch (e: org.xml.sax.SAXParseException) {
-            println(e.message)
+            Alchemistry.logger.info(e.message)
         }
     }
 
@@ -65,14 +59,15 @@ class XMLRecipeParser {
         val inputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("input")?.textContent ?: "")
         val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
         val actionType: String? = element.getAttribute("action")
+        val electrolyteConsumptionChance = element.getFirst("electrolyte")?.getAttribute("probability")?.toIntOrNull() ?: 50
+        val electrolytesXML = element.getFirst("electrolyte")
+        val electrolyteString = electrolytesXML?.textContent ?: ""
+        val electrolyteStack = electrolytesXML.tagToStack()
+
         if (actionType != "remove") {
-            val electrolyteConsumptionChance = element.getFirst("electrolytes")?.getAttribute("probability")?.toIntOrNull() ?: 50
-            val electrolytesXML = element.getFirst("electrolytes")
-            val electrolyteString = electrolytesXML?.getFirst("item")?.textContent ?: ""
-            val electrolyteStack = electrolyteString.toStack()
             val outputs: ArrayList<ItemStack> = arrayListOf()
             val outputXMLElement = element.getFirst("output")
-            for (index in 0 until 2) {
+            (0 until 2).forEach { index ->
                 val outputQuantity: Int = outputXMLElement?.getNth("item", index)?.getAttribute("quantity")?.toIntOrNull() ?: 1
                 val tempStack = (outputXMLElement?.getNth("item", index)?.textContent ?: "").toStack(quantity = outputQuantity)
                 if (!tempStack.isEmpty) outputs.add(tempStack)
@@ -100,42 +95,55 @@ class XMLRecipeParser {
                 }
             }
         } else if (actionType == "remove") {
+            ModRecipes.electrolyzerRecipes
+                    .filter {
+                        it.input.fluid == inputFluid
+                                && it.input.amount == inputQuantity
+                                && (it.matchesElectrolyte(electrolyteStack) || it.matchesElectrolyte(electrolyteString))
+                    }
+                    .forEach {
+                        ModRecipes.electrolyzerRecipes.remove(it)
+                        Alchemistry.logger.info("Removed Electrolyzer recipe: $it")
+                    }
         }
     }
 
 
     fun parseCombinerRecipe(element: Element) {
         val actionType: String? = element.getAttribute("action")
+        val inputs: ArrayList<ItemStack> = arrayListOf()
+        val ingredientMap: HashMap<String, ItemStack> = hashMapOf()
+        val itemsXML = element.getFirst("input")?.getElementsByTagName("item")
+        (0 until (itemsXML?.length ?: 0)).forEach { index ->
+            val key = itemsXML?.getNth(index)?.getAttribute("key") ?: ""
+            val stack = itemsXML?.getNth(index).tagToStack()
+            if (key.length == 1) {
+                ingredientMap.put(key, stack)
+            }
+        }
+        val rowsXML = element.getFirst("input")?.getElementsByTagName("row")
+        (0 until 3).forEach { i ->
+            val rowText = (rowsXML?.item(i)?.textContent ?: "").padEnd(3)
+            for (c in rowText) {
+                inputs.add(ingredientMap[c.toString()] ?: ItemStack.EMPTY)
+            }
+        }
         if (actionType != "remove") {
-            val inputs: ArrayList<ItemStack> = arrayListOf()
-            val ingredientMap: HashMap<String, ItemStack> = hashMapOf()
-            val itemsXML = element.getFirst("input")?.getElementsByTagName("item")
-            for (index in 0 until (itemsXML?.length ?: 0)) {
-                val key = itemsXML?.getNth(index)?.getAttribute("key") ?: ""
-                val stack = itemsXML?.getNth(index).itemTagToStack()
-                if (key.length == 1) {
-                    ingredientMap.put(key, stack)
-                }
-            }
-            val rowsXML = element.getFirst("input")?.getElementsByTagName("row")
-            for (i in 0 until 3) {
-                val rowText = (rowsXML?.item(i)?.textContent ?: "").padEnd(3)
-                for (c in rowText) {
-                    inputs.add(ingredientMap[c.toString()] ?: ItemStack.EMPTY)
-                }
-            }
             val outputXML = element.getFirst("output")?.getFirst("item")
-            val output = outputXML.itemTagToStack()
-
+            val output = outputXML.tagToStack()
             Alchemistry.logger.info("Added Combiner recipe: for $inputs")
             ModRecipes.combinerRecipes.add(CombinerRecipe(output = output, objsIn = inputs))
-        } else {
-            //TODO
-            /*for (recipe in ModRecipes.combinerRecipes) {
-                if (false) {
-                    ModRecipes.combinerRecipes.remove(recipe)
+        } else if (actionType == "remove") {
+            recipeCheck@ for (recipe in ModRecipes.combinerRecipes) {
+                for (i in recipe.inputs.indices) {
+                    if (!recipe.inputs[i].areItemStacksEqual(inputs[i])) {
+                        continue@recipeCheck
+                    }
                 }
-            }*/
+                ModRecipes.combinerRecipes.remove(recipe)
+                Alchemistry.logger.info("Removed Combiner recipe: $recipe")
+                break@recipeCheck
+            }
         }
     }
 
@@ -149,7 +157,7 @@ class XMLRecipeParser {
             val outputXMLElement: Element? = element.getFirst("output")
             val outputStr: String = outputXMLElement?.getFirst("item")?.textContent ?: ""
 
-            val outputStack = outputXMLElement?.getFirst("item").itemTagToStack()
+            val outputStack = outputXMLElement?.getFirst("item").tagToStack()
 
             if (inputFluid != null && !outputStack.isEmpty) {
                 ModRecipes.evaporatorRecipes.add(EvaporatorRecipe(fluid = inputFluid, fluidQuantity = inputQuantity, output = outputStack))
@@ -179,14 +187,14 @@ class XMLRecipeParser {
             val groupsList: ArrayList<ProbabilityGroup> = arrayListOf()
 
             val xmlGroups = outputXMLElement?.getElementsByTagName("group")
-            for (groupIndex in 0 until (xmlGroups?.length ?: 0)) {
-                val currentXMLElement = xmlGroups?.item(groupIndex) as? Element
+            (0 until (xmlGroups?.length ?: 0)).forEach { groupIndex ->
+                val currentXMLElement = xmlGroups?.getNth(groupIndex)
                 val probability: Int = currentXMLElement?.getAttribute("probability")?.toIntOrNull() ?: 100
                 val xmlItems = currentXMLElement?.getElementsByTagName("item")
                 val itemStacks: ArrayList<ItemStack> = arrayListOf()
 
-                for (itemIndex in 0 until (xmlItems?.length ?: 0)) {
-                    itemStacks.add(xmlItems?.getNth(itemIndex).itemTagToStack())
+                (0 until (xmlItems?.length ?: 0)).forEach { itemIndex ->
+                    itemStacks.add(xmlItems?.getNth(itemIndex).tagToStack())
                 }
                 groupsList.add(ProbabilityGroup(_output = itemStacks, probability = probability))
             }

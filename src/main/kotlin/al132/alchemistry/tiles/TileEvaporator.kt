@@ -9,7 +9,7 @@ import al132.alib.tiles.IItemTile
 import al132.alib.utils.extensions.get
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ITickable
-import net.minecraft.world.biome.BiomeDesert
+import net.minecraftforge.common.BiomeDictionary
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidTank
@@ -75,10 +75,10 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
                 && output[0].count + currentRecipe!!.outputs[0].count <= 64
     }
 
-    fun calculateProcessingTime(): Int { //TODO more elaborate calculation
+    fun calculateProcessingTime(): Int { //TODO more elaborate calculation?
         var temp = BASE_TICKS_PER_OPERATION
-        if (world.getBiomeForCoordsBody(this.pos).biomeClass != BiomeDesert::class.java) {
-            temp += 100
+        if (!BiomeDictionary.hasType(world.getBiomeForCoordsBody(this.pos), BiomeDictionary.Type.DRY)) {// != BiomeDesert::class.java) {
+            temp += (BASE_TICKS_PER_OPERATION * .5).toInt()
         }
         return temp
     }

@@ -18,11 +18,7 @@ class ChemicalElement constructor(override var name: String, val abbreviation: S
 
     override fun toItemStack(quantity: Int) = ItemStack(item, quantity, this.meta)
 
-    override fun toString(): String {
-        return "Element: $name"
-    }
+    override fun toString(): String = "Element: $name"
 
-    override fun toAbbreviatedString(): String {
-        return this.abbreviation
-    }
+    override fun toAbbreviatedString(): String = this.abbreviation
 }

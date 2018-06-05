@@ -80,6 +80,7 @@ class AlchemistryPlugin : IModPlugin {
         registry.addRecipeCatalyst(ModBlocks.evaporator.toStack(), AlchemistryRecipeUID.EVAPORATOR)
 
         val transferRegistry: IRecipeTransferRegistry = registry.recipeTransferRegistry
+        //transferRegistry.addRecipeTransferHandler(CombinerRecipeTransferHandler(),COMBINER)
         transferRegistry.addRecipeTransferHandler(ContainerChemicalCombiner::class.java, COMBINER, 0, 9, 10, 36)
     }
 }

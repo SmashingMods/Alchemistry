@@ -62,5 +62,4 @@ class ChemicalCompound constructor(override var name: String = "",
         }
         return builder.toString()
     }
-
 }

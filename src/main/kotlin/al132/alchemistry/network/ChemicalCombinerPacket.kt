@@ -38,8 +38,6 @@ class ChemicalCombinerPacket() : IMessage {
 
     class Handler : IMessageHandler<ChemicalCombinerPacket, IMessage> {
 
-
-
         override fun onMessage(message: ChemicalCombinerPacket, ctx: MessageContext): IMessage? {
             FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask { handle(message, ctx) }
             return null

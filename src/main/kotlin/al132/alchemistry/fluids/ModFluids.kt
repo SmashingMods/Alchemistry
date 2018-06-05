@@ -113,10 +113,7 @@ object ModFluids {
     }
 
     fun registerFluidContainers() {
-
-        for (fluid in FLUIDS) {
-            registerBucket(fluid)
-        }
+        FLUIDS.forEach { registerBucket(it) }
     }
 
     private fun registerBucket(fluid: Fluid) {

@@ -5,6 +5,7 @@ import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
 import al132.alchemistry.utils.toCompoundStack
 import al132.alchemistry.utils.toElementStack
+import al132.alchemistry.utils.toStack
 import al132.alib.utils.Utils.firstOre
 import al132.alib.utils.Utils.oreExists
 import al132.alib.utils.extensions.toDict
@@ -37,7 +38,7 @@ object ModRecipes {
     val dissolverRecipes = ArrayList<DissolverRecipe>()
     val combinerRecipes = ArrayList<CombinerRecipe>()
     val evaporatorRecipes = ArrayList<EvaporatorRecipe>()
-    val alloyRecipes = ArrayList<AlloyRecipe>()
+    //val alloyRecipes = ArrayList<AlloyRecipe>()
 
     val metals: List<String> = listOf(//not all technically metals, I know
             "aluminum",
@@ -98,19 +99,58 @@ object ModRecipes {
             DissolverOreData("nugget", 1, metals),
             DissolverOreData("plate", 16, metals))
 
-
     fun init() {
         initElectrolyzerRecipes()
         initEvaporatorRecipes()
         initFuelHandler()
-        initAlloyRecipes()
         initDissolverRecipes() //before combiner, so combiner can use reversible recipes
         initCombinerRecipes()
     }
 
-    fun initAlloyRecipes() {
-        alloyRecipes.apply {
-            // add(AlloyRecipe())
+
+    fun addDissolverRecipesForAlloy(alloySuffix: String, //Should start with uppercase, i.e. "Bronze" or "ElectricalSteel"
+                                    ingotOne: String,
+                                    quantityOne: Int,
+                                    ingotTwo: String,
+                                    quantityTwo: Int,
+                                    ingotThree: String = "",
+                                    quantityThree: Int = 0) {
+
+        val ores: List<String> = listOf(("ingot" + alloySuffix), ("plate" + alloySuffix), ("dust" + alloySuffix))
+        val threeIngredients: Boolean = ingotThree.length > 0 && quantityThree > 0
+
+        ores.filter { oreExists(it) }
+                .forEach { ore ->
+                    dissolverRecipes.add(dissolverRecipe {
+                        dictName = ore
+                        output {
+                            addGroup {
+                                addStack { ingotOne.toStack(quantity = quantityOne * 16) }
+                                addStack { ingotTwo.toStack(quantity = quantityTwo * 16) }
+                                if (threeIngredients) {
+                                    addStack { ingotThree.toStack(quantity = quantityThree * 16) }
+                                }
+                            }
+                        }
+                    })
+                }
+
+        if (oreExists("block" + alloySuffix)) {
+            dissolverRecipes.add(dissolverRecipe {
+                dictName = "block" + alloySuffix
+                output {
+                    addGroup {
+                        if (threeIngredients) {
+                            addStack { ingotOne.toStack(quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityOne) }
+                            addStack { ingotTwo.toStack(quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityTwo) }
+                            addStack { ingotThree.toStack(quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityThree) }
+                        } else {
+                            addStack { ingotOne.toStack(quantity = 144 / (quantityOne + quantityTwo) * quantityOne) }
+                            addStack { ingotTwo.toStack(quantity = 144 / (quantityOne + quantityTwo) * quantityTwo) }
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -152,6 +192,42 @@ object ModRecipes {
                 }
             })
         }*/
+
+
+        listOf("ingotChrome", "plateChrome", "dustChrome")
+                .filter { oreExists(it) }
+                .forEach { ore ->
+                    dissolverRecipes.add(dissolverRecipe {
+                        dictName = ore
+                        output {
+                            addGroup {
+                                addStack { "chromium".toElementStack(16) }
+                            }
+                        }
+                    })
+                }
+
+        if (oreExists("blockChrome")) {
+            dissolverRecipes.add(dissolverRecipe {
+                dictName = "blockChrome"
+                output {
+                    addGroup {
+                        addStack { "chromium".toElementStack(16 * 9) }
+                    }
+                }
+            })
+        }
+
+        if (oreExists("oreChrome")) {
+            dissolverRecipes.add(dissolverRecipe {
+                dictName = "oreChrome"
+                output {
+                    addGroup {
+                        addStack { "chromium".toElementStack(16 * 2) }
+                    }
+                }
+            })
+        }
 
         dissolverRecipes.add(dissolverRecipe {
             stack = Blocks.NETHERRACK.toStack()
@@ -968,31 +1044,41 @@ object ModRecipes {
             })
         }
 
-        if (oreExists("ingotElectrum")) {
-            dissolverRecipes.add(dissolverRecipe {
-                dictName = "ingotElectrum"
-                reversible = true
-                output {
-                    addGroup {
-                        addStack { "gold".toElementStack(quantity = 8) }
-                        addStack { "silver".toElementStack(quantity = 8) }
-                    }
-                }
-            })
-        }
+        addDissolverRecipesForAlloy("Bronze", "copper", 3, "tin", 1)
+        addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1)
+        addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1)
+        addDissolverRecipesForAlloy("Invar", "iron", 2, "copper", 1)
 
-        if (oreExists("ingotBronze")) {
-            dissolverRecipes.add(dissolverRecipe {
-                dictName = "ingotBronze"
-                reversible = true
-                output {
-                    addGroup {
-                        addStack { "copper".toElementStack(quantity = 12) }
-                        addStack { "tin".toElementStack(quantity = 4) }
-                    }
+
+        listOf("gemRuby", "dustRuby", "plateRuby")
+                .filter { oreExists(it) }
+                .forEach { ore ->
+                    dissolverRecipes.add(dissolverRecipe {
+                        dictName = ore
+                        output {
+                            addGroup {
+                                addStack { "aluminum_oxide".toCompoundStack(quantity = 16) }
+                                addStack { "chromium".toElementStack(quantity = 8) }
+                            }
+                        }
+                    })
                 }
-            })
-        }
+
+        listOf("gemSapphire", "dustSapphire", "plateSapphire")
+                .filter { oreExists(it) }
+                .forEach { ore ->
+                    dissolverRecipes.add(dissolverRecipe {
+                        dictName = ore
+                        output {
+                            addGroup {
+                                addStack { "aluminum_oxide".toCompoundStack(quantity = 16) }
+                                addStack { "iron".toElementStack(quantity = 4) }
+                                addStack { "titanium".toElementStack(quantity = 4) }
+
+                            }
+                        }
+                    })
+                }
 
         dissolverRecipes.add(dissolverRecipe {
             stack = Blocks.MELON_BLOCK.toStack()
@@ -1168,18 +1254,30 @@ object ModRecipes {
                 listOf(null, null, null,
                         null, null, "silicon_dioxide".toCompoundStack(1))))
 
-        combinerRecipes.add(CombinerRecipe(Items.FLINT.toStack(), //andesite
+        combinerRecipes.add(CombinerRecipe(Items.FLINT.toStack(),
                 listOf(null, null, null,
                         null, null, null,
                         null, "silicon_dioxide".toCompoundStack(4), null)))
 
-        combinerRecipes.add(CombinerRecipe(Items.POTATO.toStack(), //andesite
+        combinerRecipes.add(CombinerRecipe(Items.POTATO.toStack(),
                 listOf("starch".toCompoundStack(), "potassium".toCompoundStack(4))))
 
-        combinerRecipes.add(CombinerRecipe(Items.APPLE.toStack(), //andesite
+        combinerRecipes.add(CombinerRecipe(Items.APPLE.toStack(),
                 listOf(null, "cellulose".toCompoundStack(), null,
                         null, "sucrose".toCompoundStack(1), null)))
 
+        if (oreExists("gemRuby")) {
+            val rubyStack = firstOre("gemRuby")
+            combinerRecipes.add(CombinerRecipe(rubyStack,
+                    listOf("aluminum_oxide".toCompoundStack(16), "chromium".toElementStack(8))))
+        }
+
+        if (oreExists("gemSapphire")) {
+            combinerRecipes.add(CombinerRecipe(firstOre("gemSapphire"),
+                    listOf("aluminum_oxide".toCompoundStack(16),
+                            "iron".toElementStack(4),
+                            "titanium".toElementStack(4))))
+        }
 
         val seeds = listOf(Items.WHEAT_SEEDS.toStack(),
                 Items.PUMPKIN_SEEDS.toStack(),

@@ -3,10 +3,13 @@ package al132.alchemistry.compat.jei
 import al132.alchemistry.Reference
 import al132.alchemistry.blocks.ModBlocks
 import al132.alchemistry.client.*
+import al132.alchemistry.compat.jei.AlchemistryRecipeUID.ATOMIZER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.COMBINER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.DISSOLVER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.ELECTROLYZER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.EVAPORATOR
+import al132.alchemistry.compat.jei.atomizer.AtomizerRecipeCategory
+import al132.alchemistry.compat.jei.atomizer.AtomizerRecipeWrapper
 import al132.alchemistry.compat.jei.combiner.CombinerRecipeCategory
 import al132.alchemistry.compat.jei.combiner.CombinerRecipeWrapper
 import al132.alchemistry.compat.jei.dissolver.DissolverRecipeCategory
@@ -43,7 +46,8 @@ class AlchemistryPlugin : IModPlugin {
                     DissolverRecipeCategory(guiHelper),
                     CombinerRecipeCategory(guiHelper),
                     ElectrolyzerRecipeCategory(guiHelper),
-                    EvaporatorRecipeCategory(guiHelper)
+                    EvaporatorRecipeCategory(guiHelper),
+                    AtomizerRecipeCategory(guiHelper)
             )
         }
     }
@@ -63,21 +67,29 @@ class AlchemistryPlugin : IModPlugin {
         registry.handleRecipes(EvaporatorRecipe::class.java,
                 { recipe -> EvaporatorRecipeWrapper(recipe) },
                 EVAPORATOR)
+        registry.handleRecipes(AtomizerRecipe::class.java,
+                { recipe -> AtomizerRecipeWrapper(recipe) },
+                ATOMIZER)
 
         registry.addRecipes(ModRecipes.dissolverRecipes.map { DissolverRecipeWrapper(it) }, DISSOLVER)
         registry.addRecipes(ModRecipes.combinerRecipes.map { CombinerRecipeWrapper(it) }, COMBINER)
         registry.addRecipes(ModRecipes.electrolyzerRecipes.map { ElectrolyzerRecipeWrapper(it) }, ELECTROLYZER)
         registry.addRecipes(ModRecipes.evaporatorRecipes.map { EvaporatorRecipeWrapper(it) }, EVAPORATOR)
+        registry.addRecipes(ModRecipes.atomizerRecipes.map {AtomizerRecipeWrapper(it)}, ATOMIZER)
 
         registry.addRecipeClickArea(GuiChemicalDissolver::class.java, 86, 50, 17, 33, AlchemistryRecipeUID.DISSOLVER)
         registry.addRecipeClickArea(GuiChemicalCombiner::class.java, 100, 20, 35, 33, AlchemistryRecipeUID.COMBINER)
         registry.addRecipeClickArea(GuiElectrolyzer::class.java, 73, 58, 39, 23, AlchemistryRecipeUID.ELECTROLYZER)
         registry.addRecipeClickArea(GuiEvaporator::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.EVAPORATOR)
+        registry.addRecipeClickArea(GuiAtomizer::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.ATOMIZER)
+
 
         registry.addRecipeCatalyst(ModBlocks.chemical_dissolver.toStack(), AlchemistryRecipeUID.DISSOLVER)
         registry.addRecipeCatalyst(ModBlocks.chemical_combiner.toStack(), AlchemistryRecipeUID.COMBINER)
         registry.addRecipeCatalyst(ModBlocks.electrolyzer.toStack(), AlchemistryRecipeUID.ELECTROLYZER)
         registry.addRecipeCatalyst(ModBlocks.evaporator.toStack(), AlchemistryRecipeUID.EVAPORATOR)
+        registry.addRecipeCatalyst(ModBlocks.atomizer.toStack(), AlchemistryRecipeUID.ATOMIZER)
+
 
         val transferRegistry: IRecipeTransferRegistry = registry.recipeTransferRegistry
         //transferRegistry.addRecipeTransferHandler(CombinerRecipeTransferHandler(),COMBINER)
@@ -90,6 +102,7 @@ object AlchemistryRecipeUID {
     val DISSOLVER = Reference.MODID + ".dissolver"
     val ELECTROLYZER = Reference.MODID + ".electrolyzer"
     val EVAPORATOR = Reference.MODID + ".evaporator"
+    val ATOMIZER = Reference.MODID + ".atomizer"
 }
 
 abstract class AlchemistryRecipeWrapper<out R>(val recipe: R) : IRecipeWrapper

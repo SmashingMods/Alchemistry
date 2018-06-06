@@ -17,6 +17,8 @@ object ConfigHandler {
     var electrolyzerEnergyPerTick: Int? = null
     var electrolyzerProcessingTicks: Int? = null
     var evaporatorProcessingTicks: Int? = null
+    var atomizerEnergyPerTick: Int? = null
+    var atomizerProcessingTicks: Int? = null
 
 
     fun init(configFile: File) {
@@ -39,7 +41,10 @@ object ConfigHandler {
                 "Number of ticks per electrolyzer operation")
         evaporatorProcessingTicks = config?.getInt("evaporatorProcessingticks", "Machines", 160, 1, Integer.MAX_VALUE,
                 "The best possible processing time for the evaporator. In practice it will be increased by biome, time of day, etc")
-
+        atomizerEnergyPerTick = config?.getInt("atomizerProcessingTicks","Machines",50,0,Integer.MAX_VALUE,
+                "Set the energy consumption rate per tick for the Atomizer")
+        atomizerProcessingTicks = config?.getInt("atomizerProcessingticks", "Machines", 100,1,Integer.MAX_VALUE,
+                "Number of ticks per Atomizer operation")
         if (config?.hasChanged() ?: false) config!!.save()
     }
 }

@@ -17,6 +17,7 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.IFuelHandler
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
@@ -38,6 +39,7 @@ object ModRecipes {
     val dissolverRecipes = ArrayList<DissolverRecipe>()
     val combinerRecipes = ArrayList<CombinerRecipe>()
     val evaporatorRecipes = ArrayList<EvaporatorRecipe>()
+    val atomizerRecipes = ArrayList<AtomizerRecipe>()
     //val alloyRecipes = ArrayList<AlloyRecipe>()
 
     val metals: List<String> = listOf(//not all technically metals, I know
@@ -105,6 +107,7 @@ object ModRecipes {
         initFuelHandler()
         initDissolverRecipes() //before combiner, so combiner can use reversible recipes
         initCombinerRecipes()
+        initAtomizerRecipes()
     }
 
 
@@ -1314,5 +1317,9 @@ object ModRecipes {
             if (i < 4) combinerRecipes.add(CombinerRecipe(ItemStack(Blocks.LOG, 1, i), input))
             else combinerRecipes.add(CombinerRecipe(ItemStack(Blocks.LOG2, 1, i - 4), input))
         }
+    }
+
+    fun initAtomizerRecipes(){
+        atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER,500),"water".toCompoundStack(5)))
     }
 }

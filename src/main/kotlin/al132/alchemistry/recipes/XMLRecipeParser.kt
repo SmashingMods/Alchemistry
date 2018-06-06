@@ -47,6 +47,7 @@ class XMLRecipeParser {
                     "combiner"     -> parseCombinerRecipe(element)
                     "evaporator"   -> parseEvaporatorRecipe(element)
                     "electrolyzer" -> parseElectrolyzerRecipe(element)
+                    "atomizer"     -> parseAtomizerRecipe(element)
                 }
             }
         } catch (e: org.xml.sax.SAXParseException) {
@@ -154,10 +155,8 @@ class XMLRecipeParser {
 
         if (actionType != "remove") {
             val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
-            val outputXMLElement: Element? = element.getFirst("output")
-            val outputStr: String = outputXMLElement?.getFirst("item")?.textContent ?: ""
-
-            val outputStack = outputXMLElement?.getFirst("item").tagToStack()
+            val outputStack = element.getFirst("output").tagToStack()
+            //val outputStack = outputXMLElement?.getFirst("item").tagToStack()
 
             if (inputFluid != null && !outputStack.isEmpty) {
                 ModRecipes.evaporatorRecipes.add(EvaporatorRecipe(fluid = inputFluid, fluidQuantity = inputQuantity, output = outputStack))
@@ -231,6 +230,31 @@ class XMLRecipeParser {
                             }
                 }
             }
+        }
+    }
+
+
+    fun parseAtomizerRecipe(element: Element) {
+        val inputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("input")?.textContent ?: "")
+        val actionType: String? = element.getAttribute("action")
+
+        if (actionType != "remove") {
+            val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
+            val outputStack: ItemStack = element.getFirst("output").tagToStack()
+            //val outputStack = outputXMLElement?.getFirst("item").tagToStack()
+
+            if (inputFluid != null && !outputStack.isEmpty) {
+                ModRecipes.atomizerRecipes.add(AtomizerRecipe(fluid = inputFluid, fluidQuantity = inputQuantity, output = outputStack))
+                Alchemistry.logger.info("Added Atomizer recipe for [${inputFluid.name},$inputQuantity]")
+
+            }
+        } else if (actionType == "remove") {
+            ModRecipes.atomizerRecipes
+                    .filter { it.input.fluid == inputFluid }
+                    .forEach {
+                        ModRecipes.atomizerRecipes.remove(it)
+                        Alchemistry.logger.info("Removed Atomizer recipe: $it")
+                    }
         }
     }
 }

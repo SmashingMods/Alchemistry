@@ -2,6 +2,7 @@ tile.electrolyzer.name=Electrolyzer
 tile.chemical_dissolver.name=Chemical Dissolver
 tile.chemical_combiner.name=Chemical Combiner
 tile.evaporator.name=Evaporator
+tile.atomizer.name=Atomizer
 
 item.alchemistry:mineral_salt.name=Mineral Salt
 
@@ -150,5 +151,6 @@ jei.combiner.name=Chemical Combiner
 jei.dissolver.name=Chemical Dissolver
 jei.electrolyzer.name=Electrolyzer
 jei.evaporator.name=Evaporator
+jei.atomizer.name=Atomizer
 
 itemGroup.alchemistry=Alchemistry

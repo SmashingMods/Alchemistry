@@ -12,7 +12,7 @@ object Reference {
 
     const val MODID = "alchemistry"
     const val MODNAME = "Alchemistry"
-    const val VERSION = "0.7.8"
+    const val VERSION = "0.7.9"
     const val DEPENDENCIES = "required-after:forgelin;required-after:alib;"
     val DECIMAL_FORMAT: NumberFormat = DecimalFormat("#0.00")
 

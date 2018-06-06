@@ -3,10 +3,7 @@ package al132.alchemistry.blocks
 import al132.alchemistry.Alchemistry
 import al132.alchemistry.Reference
 import al132.alchemistry.client.GuiHandler
-import al132.alchemistry.tiles.TileChemicalCombiner
-import al132.alchemistry.tiles.TileChemicalDissolver
-import al132.alchemistry.tiles.TileElectrolyzer
-import al132.alchemistry.tiles.TileEvaporator
+import al132.alchemistry.tiles.*
 import al132.alib.blocks.ALBlock
 import al132.alib.blocks.ALTileBlock
 import net.minecraft.block.Block
@@ -22,13 +19,15 @@ object ModBlocks {
     var chemical_dissolver = BaseTileBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
     var chemical_combiner = ChemicalCombinerBlock("chemical_combiner", TileChemicalCombiner::class.java, GuiHandler.CHEMICAL_COMBINER_ID)
     var evaporator = EvaporatorBlock("evaporator", TileEvaporator::class.java, GuiHandler.EVAPORATOR_ID)
+    val atomizer = BaseTileBlock("atomizer", TileAtomizer::class.java,GuiHandler.ATOMIZER_ID)
     //var alloy_furnace = BaseTileBlock("alloy_furnace", TileAlloyFurnace::class.java, GuiHandler.ALLOY_FURNACE_ID )
 
     val blocks = arrayOf<ALBlock>(
             electrolyzer,
             chemical_dissolver,
             chemical_combiner,
-            evaporator
+            evaporator,
+            atomizer
           //  alloy_furnace
     )
 

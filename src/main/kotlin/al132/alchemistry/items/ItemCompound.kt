@@ -33,9 +33,9 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getSubItems(itemIn: CreativeTabs, tab: NonNullList<ItemStack>) {
-        if (itemIn == Reference.creativeTab) {
-            (0 until CompoundRegistry.size()).forEach { tab.add(ItemStack(this, 1, it)) }
+    override fun getSubItems(tab: CreativeTabs, stacks: NonNullList<ItemStack>) {
+        if (tab == Reference.creativeTab) {
+            (0 until CompoundRegistry.size()).forEach { stacks.add(ItemStack(this, 1, it)) }
         }
     }
 

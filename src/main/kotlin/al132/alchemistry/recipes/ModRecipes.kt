@@ -232,6 +232,18 @@ object ModRecipes {
             })
         }
 
+        if(oreExists("dustAsh")){
+            dissolverRecipes.add(dissolverRecipe {
+                dictName = "dustAsh"
+                reversible = true
+                output{
+                    addGroup{
+                        addStack {"potassium_carbonate".toCompoundStack(4)}
+                    }
+                }
+            })
+        }
+
         dissolverRecipes.add(dissolverRecipe {
             stack = Blocks.NETHERRACK.toStack()
             output {
@@ -1269,6 +1281,11 @@ object ModRecipes {
                 listOf(null, "cellulose".toCompoundStack(), null,
                         null, "sucrose".toCompoundStack(1), null)))
 
+        combinerRecipes.add(CombinerRecipe(ModItems.fertilizer.toStack(),
+                listOf("urea".toCompoundStack(4),
+                        "diammonium_phosphate".toCompoundStack(4),
+                        "potassium_chloride".toCompoundStack(4))))
+
         if (oreExists("gemRuby")) {
             val rubyStack = firstOre("gemRuby")
             combinerRecipes.add(CombinerRecipe(rubyStack,
@@ -1319,7 +1336,12 @@ object ModRecipes {
         }
     }
 
-    fun initAtomizerRecipes(){
-        atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER,500),"water".toCompoundStack(5)))
+    fun initAtomizerRecipes() {
+        atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(5)))
+
+        if(FluidRegistry.isFluidRegistered("canolaoil")) {
+            atomizerRecipes.add(AtomizerRecipe(
+                    FluidRegistry.getFluidStack("canolaoil",500)!!, "triglyceride".toCompoundStack(5)))
+        }
     }
 }

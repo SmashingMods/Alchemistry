@@ -20,7 +20,7 @@ fun Element.getFirst(name: String) = this.getElementsByTagName(name).item(0) as?
 
 fun Element.getNth(name: String, nth: Int) = this.getElementsByTagName(name).item(nth) as? Element
 
-fun NodeList.getNth(nth: Int) = this.item(nth) as Element?
+fun NodeList.getNth(nth: Int) = this.item(nth) as? Element
 
 fun Element?.tagToStack(): ItemStack {
     val meta = this?.getAttribute("meta")?.toIntOrNull() ?: 0
@@ -156,7 +156,6 @@ class XMLRecipeParser {
         if (actionType != "remove") {
             val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
             val outputStack = element.getFirst("output").tagToStack()
-            //val outputStack = outputXMLElement?.getFirst("item").tagToStack()
 
             if (inputFluid != null && !outputStack.isEmpty) {
                 ModRecipes.evaporatorRecipes.add(EvaporatorRecipe(fluid = inputFluid, fluidQuantity = inputQuantity, output = outputStack))
@@ -192,9 +191,9 @@ class XMLRecipeParser {
                 val xmlItems = currentXMLElement?.getElementsByTagName("item")
                 val itemStacks: ArrayList<ItemStack> = arrayListOf()
 
-                (0 until (xmlItems?.length ?: 0)).forEach { itemIndex ->
-                    itemStacks.add(xmlItems?.getNth(itemIndex).tagToStack())
-                }
+                (0 until (xmlItems?.length ?: 0))
+                        .forEach { itemIndex -> itemStacks.add(xmlItems?.getNth(itemIndex).tagToStack()) }
+
                 groupsList.add(ProbabilityGroup(_output = itemStacks, probability = probability))
             }
 
@@ -241,12 +240,10 @@ class XMLRecipeParser {
         if (actionType != "remove") {
             val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
             val outputStack: ItemStack = element.getFirst("output").tagToStack()
-            //val outputStack = outputXMLElement?.getFirst("item").tagToStack()
 
             if (inputFluid != null && !outputStack.isEmpty) {
                 ModRecipes.atomizerRecipes.add(AtomizerRecipe(fluid = inputFluid, fluidQuantity = inputQuantity, output = outputStack))
                 Alchemistry.logger.info("Added Atomizer recipe for [${inputFluid.name},$inputQuantity]")
-
             }
         } else if (actionType == "remove") {
             ModRecipes.atomizerRecipes

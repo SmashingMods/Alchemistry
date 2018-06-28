@@ -102,7 +102,6 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY)
         }
         this.markDirtyClient()
-
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {
@@ -119,7 +118,6 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             }
             compound.setTag("RecipeInputs", recipeInputs)
         }
-        //TODO save recipe to NBT tag
         return super.writeToNBT(compound)
     }
 }

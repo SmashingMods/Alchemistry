@@ -178,7 +178,7 @@ object CompoundRegistry {
 
         compounds.add(Compound {
             name = "psilocybin"
-            color = Color.yellow
+            color = Color(80, 255, 80)
             components = listOf(
                     CompoundPair("carbon", 12),
                     CompoundPair("hydrogen", 17),
@@ -204,18 +204,69 @@ object CompoundRegistry {
         compounds.add(Compound {
             //linoleic acid is the formula used here, i'd rather not get pedantic and make 20 different fats
             name = "triglyceride"
-            color = Color.yellow
+            color = Color(200, 200, 90)
             components = listOf(
-                CompoundPair("carbon",18),
-                CompoundPair("hydrogen",32),
-                CompoundPair("oxygen",2))
+                    CompoundPair("carbon", 18),
+                    CompoundPair("hydrogen", 32),
+                    CompoundPair("oxygen", 2))
         })
         compounds.add(Compound {
             name = "lead_iodide"
             color = Color.yellow
             components = listOf(
-                    CompoundPair("lead",1),
-                    CompoundPair("iodine",2))
+                    CompoundPair("lead", 1),
+                    CompoundPair("iodine", 2))
+        })
+        compounds.add(Compound {
+            name = "ethanol"
+            color = Color(210, 250, 150)
+            components = listOf(
+                    CompoundPair("carbon", 2),
+                    CompoundPair("hydrogen", 5),
+                    CompoundPair("hydroxide", 1)
+            )
+        })
+        compounds.add(Compound {
+            name = "amide"
+            color = Color(210, 250, 250)
+            components = listOf(
+                    CompoundPair("nitrogen", 1),
+                    CompoundPair("hydrogen", 2)
+            )
+        })
+        compounds.add(Compound {
+            name = "urea"
+            color = Color(230, 240, 180)
+            components = listOf(
+                    CompoundPair("carbon", 1),
+                    CompoundPair("oxygen", 1),
+                    CompoundPair("amide", 2)
+            )
+        })
+        compounds.add(Compound {
+            name = "ammonium"
+            color = Color(180,250,250)
+            components = listOf(
+                    CompoundPair("nitrogen",1),
+                    CompoundPair("hydrogen",4)
+            )
+        })
+        compounds.add(Compound {
+            name = "diammonium_phosphate"
+            color = Color(210,250,150)
+            components = listOf(
+                    CompoundPair("ammonium",2),
+                    CompoundPair("hydrogen",1),
+                    CompoundPair("phosphate",1)
+            )
+        })
+        compounds.add(Compound {
+            name = "potassium_carbonate"
+            color = Color(40,210,90)
+            components = listOf(
+                    CompoundPair("potassium",2),
+                    CompoundPair("carbonate",1)
+            )
         })
     }
 

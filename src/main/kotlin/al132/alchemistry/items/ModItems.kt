@@ -3,6 +3,7 @@ package al132.alchemistry.items
 import al132.alchemistry.Reference
 import al132.alib.items.ALItem
 import net.minecraft.client.Minecraft
+import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraftforge.event.RegistryEvent
@@ -15,6 +16,7 @@ object ModItems {
     var compounds = ItemCompound("compound")
     var mineralSalt = ItemBase("mineral_salt")
     var condensedMilk = ItemBase("condensed_milk")
+    var fertilizer = ItemFertilizer()//("fertilizer")
     var diamondEnrichedGlass = ItemBase("diamond_enriched_glass")
 
     val items = arrayOf<ALItem>(
@@ -22,7 +24,8 @@ object ModItems {
             compounds,
             mineralSalt,
             condensedMilk,
-            diamondEnrichedGlass
+            diamondEnrichedGlass,
+            fertilizer
     )
 
     fun registerItems(event: RegistryEvent.Register<Item>) {
@@ -40,6 +43,7 @@ object ModItems {
 
         itemColors.registerItemColorHandler(colorHandler, elements)
         itemColors.registerItemColorHandler(colorHandler, compounds)
+        Items.DYE
     }
 }
 

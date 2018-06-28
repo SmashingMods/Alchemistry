@@ -5,6 +5,7 @@ tile.evaporator.name=Evaporator
 tile.atomizer.name=Atomizer
 
 item.alchemistry:mineral_salt.name=Mineral Salt
+item.alchemistry:fertilizer.name=Fertilizer
 
 item.alchemistry:element_hydrogen.name=Hydrogen
 item.alchemistry:element_helium.name=Helium
@@ -146,6 +147,13 @@ item.alchemistry:compound_zinc_oxide.name=Zinc Oxide
 item.alchemistry:compound_cobalt_aluminate.name=Cobalt Aluminate
 item.alchemistry:compound_triglyceride.name=Triglyceride
 item.alchemistry:compound_lead_iodide.name=Lead Iodide
+item.alchemistry:compound_urea.name=Urea
+item.alchemistry:compound_ammonium.name=Ammonium
+item.alchemistry:compound_diammonium_phosphate.name=Diammonium Phosphate
+item.alchemistry:compound_amide.name=Amide
+item.alchemistry:compound_ethanol.name=Ethanol
+item.alchemistry:compound_potassium_carbonate.name=Potassium Carbonate
+
 
 jei.combiner.name=Chemical Combiner
 jei.dissolver.name=Chemical Dissolver

@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
 import net.minecraftforge.fml.common.network.NetworkRegistry
 import java.io.File
+import java.io.FileFilter
 
 open class CommonProxy {
 
@@ -37,17 +38,16 @@ open class CommonProxy {
     }
 
     open fun init(e: FMLInitializationEvent) {
-        // if (Loader.isModLoaded("crafttweaker")) CTPlugin.init()
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
     }
 
     open fun postInit(e: FMLPostInitializationEvent) {
         ModRecipes.init()
-        XMLRecipeParser().init("custom.xml")
-
-        //RecipeLoader.init()
+        val files = Reference.configDir.listFiles(FileFilter({it.extension.toLowerCase() == "xml"}))
+        files.forEach{
+            XMLRecipeParser().init(it.name)
+        }
     }
-
 
     //open fun initFluidModel(block: Block, fluid: Fluid) {}
 }

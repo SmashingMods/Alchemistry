@@ -58,12 +58,9 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
 
     override fun update() {
         if (!world.isRemote) {
-            this.currentRecipe =
-                    ModRecipes.electrolyzerRecipes.firstOrNull {
-                        inputTank.fluid?.containsFluid(it.input) ?: false
-                                && it.electrolytes.containsItem(input[0])
-                    }
-
+            this.currentRecipe = ModRecipes.electrolyzerRecipes.firstOrNull {
+                (inputTank.fluid?.containsFluid(it.input) ?: false) && it.electrolytes.containsItem(input[0])
+            }
             if (canProcess()) process()
             this.markDirtyEvery(5)
         }
@@ -92,7 +89,6 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
                 && input[0].count >= currentRecipe!!.electrolytes[0].count
                 && this.energyCapability.energyStored >= ENERGY_PER_TICK
-
                 && (0 until 4).all {
             val outputStack = output[it]
             val recipeStack = currentRecipe!!.outputs[it]

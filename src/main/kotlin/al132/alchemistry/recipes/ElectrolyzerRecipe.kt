@@ -21,7 +21,8 @@ data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
                               private val outputFour: ItemStack = ItemStack.EMPTY,
                               val output4Probability: Int = 50) {
 
-    constructor(fluid: Fluid, fluidQuantity: Int,
+    constructor(fluid: Fluid,
+                fluidQuantity: Int,
                 electrolyte: ItemStack,
                 elecConsumption: Int,
                 outputOne: ItemStack,
@@ -40,7 +41,10 @@ data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
             outputFour = outputFour,
             output4Probability = output4Probability)
 
-    constructor(fluid: Fluid, fluidQuantity: Int, electrolyte: String, elecConsumption: Int,
+    constructor(fluid: Fluid,
+                fluidQuantity: Int,
+                electrolyte: String,
+                elecConsumption: Int,
                 outputOne: ItemStack,
                 outputTwo: ItemStack,
                 outputThree: ItemStack = ItemStack.EMPTY,

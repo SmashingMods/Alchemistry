@@ -37,9 +37,6 @@ class GuiHandler : IGuiHandler {
             ATOMIZER_ID -> {
                 if (entity is TileAtomizer) return ContainerAtomizer(player.inventory, entity)
             }
-            /*ALLOY_FURNACE_ID -> {
-                if (entity is TileAlloyFurnace) return ContainerAlloyFurnace(player.inventory, entity)
-            }*/
         }
         return null
     }

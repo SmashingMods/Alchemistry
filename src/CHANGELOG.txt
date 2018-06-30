@@ -1,3 +1,12 @@
+0.7.10
+==
+-Custom XML recipes will now be loaded from all .xml files in the /config/alchemistry directory. Previously only custom.xml was allowed.
+-Added a fertilizer item, which essentially functions the same as vanilla bonemeal, but is acquired a different way
+-Added miscellaneous chemical compounds, recipes, etc.
+
+If you have any additions or changes you would like to see to the mod then please let me know on the github issue tracker
+
+
 0.5.6
 ==
 -Hotfix for startup crash when ran outside of dev

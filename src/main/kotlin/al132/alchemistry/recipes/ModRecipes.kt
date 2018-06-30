@@ -232,17 +232,24 @@ object ModRecipes {
             })
         }
 
-        if(oreExists("dustAsh")){
+        if (oreExists("dustAsh")) {
             dissolverRecipes.add(dissolverRecipe {
                 dictName = "dustAsh"
                 reversible = true
-                output{
-                    addGroup{
-                        addStack {"potassium_carbonate".toCompoundStack(4)}
+                output {
+                    addGroup {
+                        addStack { "potassium_carbonate".toCompoundStack(4) }
                     }
                 }
             })
         }
+
+        dissolverRecipes.add(dissolverRecipe {
+            stack = Blocks.COAL_ORE.toStack()
+            output {
+                addGroup { addStack { "carbon".toElementStack(quantity = 16) } }
+            }
+        })
 
         dissolverRecipes.add(dissolverRecipe {
             stack = Blocks.NETHERRACK.toStack()
@@ -252,7 +259,9 @@ object ModRecipes {
                 addGroup { addStack { "gold".toElementStack() }; probability = 1 }
                 addGroup { addStack { "phosphorus".toElementStack() }; probability = 1 }
                 addGroup { addStack { "sulfur".toElementStack() }; probability = 1 }
+                addGroup { addStack { "germanium".toElementStack() }; probability = 1 }
                 addGroup { addStack { "silicon".toElementStack() }; probability = 4 }
+
             }
         })
 
@@ -264,6 +273,7 @@ object ModRecipes {
                 addGroup { addStack { "gold".toElementStack() }; probability = 1 }
                 addGroup { addStack { "phosphorus".toElementStack() }; probability = 1 }
                 addGroup { addStack { "sulfur".toElementStack() }; probability = 1 }
+                addGroup { addStack { "germanium".toElementStack() }; probability = 1 }
                 addGroup { addStack { "silicon".toElementStack() }; probability = 4 }
             }
         })
@@ -357,14 +367,16 @@ object ModRecipes {
             }
         })
 
-        dissolverRecipes.add(dissolverRecipe {
-            stack = Blocks.DIRT.toStack()
-            output {
-                addGroup { addStack { "water".toCompoundStack() }; probability = 25 }
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25 }
-                addGroup { addStack { "kaolinite".toCompoundStack() }; probability = 10 }
-            }
-        })
+        listOf(Blocks.GRASS.toStack(), Blocks.DIRT.toStack(), Blocks.DIRT.toStack(meta = 1), Blocks.DIRT.toStack(meta = 2)).forEach {
+            dissolverRecipes.add(dissolverRecipe {
+                stack = it
+                output {
+                    addGroup { addStack { "water".toCompoundStack() }; probability = 25 }
+                    addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25 }
+                    addGroup { addStack { "kaolinite".toCompoundStack() }; probability = 10 }
+                }
+            })
+        }
 
         dissolverRecipes.add(dissolverRecipe
         {
@@ -559,7 +571,12 @@ object ModRecipes {
             }
         })
 
-
+        dissolverRecipes.add(dissolverRecipe {
+            stack = Blocks.GRAVEL.toStack()
+            output {
+                addGroup { addStack { "silicon_dioxide".toCompoundStack() } }
+            }
+        })
 
         dissolverRecipes.add(dissolverRecipe
         {
@@ -655,6 +672,8 @@ object ModRecipes {
                 //reversible = true
                 addGroup {
                     addStack { "protein".toCompoundStack(4) }
+                    addStack { "selenium".toElementStack(2) }
+
                 }
             }
         })
@@ -666,6 +685,8 @@ object ModRecipes {
                 //reversible = true
                 addGroup {
                     addStack { "protein".toCompoundStack(4) }
+                    addStack { "selenium".toElementStack(2) }
+
                 }
             }
         })
@@ -899,29 +920,36 @@ object ModRecipes {
             }
         })
 
-        dissolverRecipes.add(dissolverRecipe
-        {
-            dictName = "stoneGranite"
-            output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
-                addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
-                addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
-                addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10 }
-            }
-        })
+        listOf("stoneGranite", "stoneGranitePolished").forEach {
+            dissolverRecipes.add(dissolverRecipe
+            {
+                dictName = it
+                output {
+                    addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
+                    addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
+                    addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
+                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
+                    addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10 }
+                }
+            })
+        }
 
-        dissolverRecipes.add(dissolverRecipe
-        {
-            dictName = "stoneDiorite"
-            output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
-                addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
-                addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
-                addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10 }
-            }
-        })
+
+        listOf("stoneDiorite", "stoneDioritePolished").forEach {
+            dissolverRecipes.add(dissolverRecipe
+            {
+                dictName = it
+                output {
+                    addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
+                    addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
+                    addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
+                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
+                    addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10 }
+                }
+            })
+        }
+
+
 
         dissolverRecipes.add(dissolverRecipe
         {
@@ -946,17 +974,19 @@ object ModRecipes {
             }
         })
 
-        dissolverRecipes.add(dissolverRecipe
-        {
-            dictName = "stoneAndesite"
-            output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
-                addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
-                addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
-                addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10 }
-            }
-        })
+        listOf("stoneAndesite", "stoneAndesitePolished").forEach {
+            dissolverRecipes.add(dissolverRecipe
+            {
+                dictName = it
+                output {
+                    addGroup { addStack { ItemStack.EMPTY }; probability = 100 }
+                    addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5 }
+                    addGroup { addStack { "iron".toElementStack(1) }; probability = 2 }
+                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2 }
+                    addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10 }
+                }
+            })
+        }
 
         dissolverRecipes.add(dissolverRecipe
         {
@@ -1022,7 +1052,7 @@ object ModRecipes {
 
         dissolverRecipes.add(dissolverRecipe
         {
-            stack = ItemStack(Items.GLOWSTONE_DUST)
+            stack = Items.GLOWSTONE_DUST.toStack()
             reversible = true
             output {
                 addStack { "phosphorus".toElementStack(quantity = 4) }
@@ -1031,9 +1061,28 @@ object ModRecipes {
 
         dissolverRecipes.add(dissolverRecipe
         {
-            stack = ItemStack(Blocks.IRON_BARS)
+            stack = Blocks.IRON_BARS.toStack()
             output {
                 addStack { "iron".toElementStack(quantity = 6) }
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe {
+            stack = Items.BLAZE_POWDER.toStack()
+            reversible = true
+            output {
+                addStack { "germanium".toElementStack(quantity = 8) }
+                addStack { "carbon".toElementStack(quantity = 8) }
+                addStack { "sulfur".toElementStack(quantity = 8) }
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe {
+            stack = Items.NETHER_WART.toStack()
+            output {
+                addStack { "cellulose".toCompoundStack() }
+                addStack { "germanium".toElementStack(quantity = 4) }
+                addStack { "selenium".toElementStack(quantity = 4) }
             }
         })
 
@@ -1189,7 +1238,10 @@ object ModRecipes {
         CompoundRegistry.compounds
                 .filter { it.autoCombinerRecipe }
                 .forEach { compound ->
-                    combinerRecipes.add(CombinerRecipe(compound.toItemStack(1), compound.toItemStackList()))
+                    if (compound.hasShiftedRecipe) {
+                        val inputList: List<Any> = compound.toItemStackList().toMutableList().apply { this.add(0, ItemStack.EMPTY) }
+                        combinerRecipes.add(CombinerRecipe(compound.toItemStack(1), inputList))
+                    } else combinerRecipes.add(CombinerRecipe(compound.toItemStack(1), compound.toItemStackList()))
                 }
 
         dissolverRecipes.filter { it.reversible }.forEach { recipe ->
@@ -1227,7 +1279,11 @@ object ModRecipes {
                 listOf(ItemStack.EMPTY, "kaolinite".toCompoundStack(4))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.DIRT.toStack(4),
-                listOf("water".toCompoundStack(1), "cellulose".toCompoundStack(1), "kaolinite".toCompoundStack(1))))
+                listOf("water".toCompoundStack(), "cellulose".toCompoundStack(), "kaolinite".toCompoundStack())))
+
+        combinerRecipes.add(CombinerRecipe(Blocks.GRASS.toStack(),
+                listOf(null, null, null,
+                        "water".toCompoundStack(), "cellulose".toCompoundStack(), "kaolinite".toCompoundStack())))
 
         combinerRecipes.add(CombinerRecipe(Blocks.GRAVEL.toStack(),
                 listOf(null, null, "silicon_dioxide".toCompoundStack(1))))
@@ -1251,6 +1307,12 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Items.STRING.toStack(4),
                 listOf(null, "protein".toCompoundStack(), null,
                         null, "protein".toCompoundStack())))
+
+        combinerRecipes.add(CombinerRecipe(Blocks.WOOL.toStack(),
+                listOf(null,null,null,
+                        null,null,null,
+                        "protein".toCompoundStack(),null,"protein".toCompoundStack())))
+
 
 
         combinerRecipes.add(CombinerRecipe(Items.REEDS.toStack(),
@@ -1339,9 +1401,9 @@ object ModRecipes {
     fun initAtomizerRecipes() {
         atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(5)))
 
-        if(FluidRegistry.isFluidRegistered("canolaoil")) {
+        if (FluidRegistry.isFluidRegistered("canolaoil")) {
             atomizerRecipes.add(AtomizerRecipe(
-                    FluidRegistry.getFluidStack("canolaoil",500)!!, "triglyceride".toCompoundStack(5)))
+                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(5)))
         }
     }
 }

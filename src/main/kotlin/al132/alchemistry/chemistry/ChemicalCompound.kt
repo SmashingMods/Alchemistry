@@ -30,6 +30,7 @@ data class CompoundPair(val compound: ICompoundComponent, val quantity: Int) {
 class ChemicalCompound constructor(override var name: String = "",
                                    override var color: Color = Color.WHITE,
                                    var autoCombinerRecipe: Boolean = true,
+                                   var hasShiftedRecipe: Boolean = false,
                                    var autoDissolverRecipe: Boolean = true,
                                    var components: List<CompoundPair> = ArrayList<CompoundPair>()) : ICompoundComponent {
 

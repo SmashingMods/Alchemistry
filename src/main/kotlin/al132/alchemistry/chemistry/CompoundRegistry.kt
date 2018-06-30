@@ -246,6 +246,7 @@ object CompoundRegistry {
         compounds.add(Compound {
             name = "ammonium"
             color = Color(180,250,250)
+            hasShiftedRecipe = true
             components = listOf(
                     CompoundPair("nitrogen",1),
                     CompoundPair("hydrogen",4)

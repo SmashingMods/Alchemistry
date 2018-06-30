@@ -44,7 +44,6 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>)
 
         fun match(handler: IItemHandler): CombinerRecipe? {
             if (handler.slots == INPUT_COUNT) {
-
                 val inputStacks: ArrayList<ItemStack> = handler.toStackList()
                 for (recipe in ModRecipes.combinerRecipes) {
                     var matchingStacks = 0

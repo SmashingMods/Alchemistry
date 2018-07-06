@@ -62,7 +62,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
                 (inputTank.fluid?.containsFluid(it.input) ?: false) && it.electrolytes.containsItem(input[0])
             }
             if (canProcess()) process()
-            this.markDirtyEvery(5)
+            this.markDirtyClientEvery(5)
         }
     }
 

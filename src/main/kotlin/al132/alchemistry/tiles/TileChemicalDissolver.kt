@@ -52,7 +52,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
         if (!getWorld().isRemote) {
             this.currentRecipe = DissolverRecipe.match(input[0], true)
             if (canProcess()) process()
-            this.markDirtyEvery(5)
+            this.markDirtyClientEvery(5)
         }
     }
 

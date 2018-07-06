@@ -48,13 +48,10 @@ class ChemicalCombinerPacket() : IMessage {
 
             val tile = playerEntity.world.getTileEntity(message.blockPos!!)
             if (tile is TileChemicalCombiner) {
-                if(message.lock) {
+                if (message.lock) {
                     tile.recipeIsLocked = !(tile.recipeIsLocked)
-                    tile.markDirtyClient()
-                }
-                else if(message.pause){
+                } else if (message.pause) {
                     tile.paused = !(tile.paused)
-                    tile.markDirtyClient()
                 }
             }
         }

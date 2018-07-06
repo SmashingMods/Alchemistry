@@ -57,7 +57,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             if (!recipeIsLocked) this.currentRecipe = CombinerRecipe.match(input)
             clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
             if (!this.paused && canProcess()) process()
-            this.markDirtyEvery(5)
+            this.markDirtyClientEvery(5)
         }
     }
 
@@ -101,7 +101,6 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             this.currentRecipe = null
             clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY)
         }
-        this.markDirtyClient()
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

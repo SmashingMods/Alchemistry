@@ -49,7 +49,7 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
         if (!world.isRemote) {
             this.currentRecipe = ModRecipes.atomizerRecipes.firstOrNull { inputTank.fluid?.containsFluid(it.input) ?: false }
             if (canProcess()) process()
-            this.markDirtyEvery(5)
+            this.markDirtyClientEvery(5)
         }
     }
 

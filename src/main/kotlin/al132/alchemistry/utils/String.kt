@@ -35,7 +35,7 @@ fun String.toStack(quantity: Int = 1, meta: Int = 0): ItemStack {
     val outputCompound: ChemicalCompound? = CompoundRegistry[this.replace(" ", "_")]
     if (outputItem != null) {
         outputStack = outputItem.toStack(quantity = quantity, meta = actualMeta)
-    } else if (outputBlock != null && outputBlock != Blocks.AIR) {
+    } else if (outputBlock != null && outputBlock != Blocks.AIR && outputBlock != Blocks.WATER) {
         outputStack = outputBlock.toStack(quantity = quantity, meta = actualMeta)
     } else if (outputElement != null) {
         outputStack = outputElement.toItemStack(quantity = quantity)

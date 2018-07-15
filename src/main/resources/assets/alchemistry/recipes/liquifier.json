@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ISI",
+    "SIS",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:stone_pressure_plate"
+    }
+  },
+  "result": {
+    "item": "alchemistry:liquifier",
+    "data": 0
+  }
+}

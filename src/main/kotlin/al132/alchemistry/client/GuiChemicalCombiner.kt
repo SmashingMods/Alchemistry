@@ -1,5 +1,6 @@
 package al132.alchemistry.client
 
+import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.network.ChemicalCombinerPacket
 import al132.alchemistry.network.PacketHandler
 import al132.alchemistry.tiles.TileChemicalCombiner
@@ -18,7 +19,7 @@ import net.minecraft.util.ResourceLocation
 class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner) :
         GuiBase<TileChemicalCombiner>(ContainerChemicalCombiner(playerInv, tile), tile) {
 
-    override val displayName = "Chemical Combiner"
+    override val displayName = Translator.translateToLocal("tile.chemical_combiner.name")
 
     lateinit var toggleRecipeLock: GuiButton
     lateinit var pauseButton: GuiButton
@@ -45,11 +46,11 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
     }
 
     fun updateButtonStrings() {
-        if (tile.recipeIsLocked) toggleRecipeLock.displayString = "Unlock Recipe"
-        else toggleRecipeLock.displayString = "Lock Recipe"
+        if (tile.recipeIsLocked) toggleRecipeLock.displayString = Translator.translateToLocal("tile.combiner.unlock_recipe")
+        else toggleRecipeLock.displayString = Translator.translateToLocal("tile.combiner.lock_recipe")
 
-        if (tile.paused) pauseButton.displayString = "Resume"
-        else pauseButton.displayString = "Pause"
+        if (tile.paused) pauseButton.displayString = Translator.translateToLocal("tile.combiner.resume")
+        else pauseButton.displayString = Translator.translateToLocal("tile.combiner.pause")
     }
 
     override fun drawGuiContainerForegroundLayer(mouseX: Int, mouseY: Int) {
@@ -59,7 +60,7 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
         pauseButton.drawButtonForegroundLayer(mouseX, mouseY)
 
         if (!tile.clientRecipeTarget.getStackInSlot(0).isEmpty) {
-            this.drawItemStack(tile.clientRecipeTarget[0], 140, 5, "Target")
+            this.drawItemStack(tile.clientRecipeTarget[0], 140, 5, Translator.translateToLocal("tile.combiner.target"))
         }
     }
 

@@ -1,5 +1,6 @@
 package al132.alchemistry.client
 
+import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.tiles.TileEvaporator
 import al132.alib.client.CapabilityFluidDisplayWrapper
 import al132.alib.client.IResource
@@ -13,7 +14,7 @@ import net.minecraft.util.ResourceLocation
 class GuiEvaporator(playerInv: InventoryPlayer, tile: TileEvaporator)
     : GuiBase<TileEvaporator>(ContainerEvaporator(playerInv, tile),tile) {
 
-    override val displayName = "Evaporator"
+    override val displayName = Translator.translateToLocal("tile.evaporator.name")
 
     init {
         this.displayData.add(CapabilityFluidDisplayWrapper(48, 40, 16, 60, tile::inputTank))

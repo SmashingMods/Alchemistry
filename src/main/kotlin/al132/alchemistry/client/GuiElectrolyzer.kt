@@ -1,5 +1,6 @@
 package al132.alchemistry.client
 
+import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.tiles.TileElectrolyzer
 import al132.alib.client.CapabilityEnergyDisplayWrapper
 import al132.alib.client.CapabilityFluidDisplayWrapper
@@ -13,7 +14,7 @@ import net.minecraft.util.ResourceLocation
 class GuiElectrolyzer(playerInv: InventoryPlayer, tile: TileElectrolyzer)
     : GuiBase<TileElectrolyzer>(ContainerElectrolyzer(playerInv, tile),tile) {
 
-    override val displayName = "Electrolyzer"
+    override val displayName = Translator.translateToLocal("tile.electrolyzer.name")
 
     init {
         this.displayData.add(CapabilityEnergyDisplayWrapper(8, 68, 16, 60, tile::energyCapability))

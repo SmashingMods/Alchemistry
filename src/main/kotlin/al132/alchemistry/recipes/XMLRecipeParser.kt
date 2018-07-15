@@ -4,9 +4,11 @@ import al132.alchemistry.Alchemistry
 import al132.alchemistry.Reference
 import al132.alchemistry.utils.toStack
 import al132.alib.utils.extensions.areItemStacksEqual
+import al132.alib.utils.extensions.areItemsEqual
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
+import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.oredict.OreDictionary
 import org.w3c.dom.Element
 import org.w3c.dom.NodeList
@@ -48,6 +50,7 @@ class XMLRecipeParser {
                     "evaporator"   -> parseEvaporatorRecipe(element)
                     "electrolyzer" -> parseElectrolyzerRecipe(element)
                     "atomizer"     -> parseAtomizerRecipe(element)
+                    "liquifier"    -> parseLiquifierRecipe(element)
                 }
             }
         } catch (e: org.xml.sax.SAXParseException) {
@@ -60,7 +63,8 @@ class XMLRecipeParser {
         val inputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("input")?.textContent ?: "")
         val inputQuantity: Int = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 100
         val actionType: String? = element.getAttribute("action")
-        val electrolyteConsumptionChance = element.getFirst("electrolyte")?.getAttribute("probability")?.toIntOrNull() ?: 50
+        val electrolyteConsumptionChance = element.getFirst("electrolyte")?.getAttribute("probability")?.toIntOrNull()
+                ?: 50
         val electrolytesXML = element.getFirst("electrolyte")
         val electrolyteString = electrolytesXML?.textContent ?: ""
         val electrolyteStack = electrolytesXML.tagToStack()
@@ -69,8 +73,10 @@ class XMLRecipeParser {
             val outputs: ArrayList<ItemStack> = arrayListOf()
             val outputXMLElement = element.getFirst("output")
             (0 until 2).forEach { index ->
-                val outputQuantity: Int = outputXMLElement?.getNth("item", index)?.getAttribute("quantity")?.toIntOrNull() ?: 1
-                val tempStack = (outputXMLElement?.getNth("item", index)?.textContent ?: "").toStack(quantity = outputQuantity)
+                val outputQuantity: Int = outputXMLElement?.getNth("item", index)?.getAttribute("quantity")?.toIntOrNull()
+                        ?: 1
+                val tempStack = (outputXMLElement?.getNth("item", index)?.textContent
+                        ?: "").toStack(quantity = outputQuantity)
                 if (!tempStack.isEmpty) outputs.add(tempStack)
             }
             if (inputFluid != null && outputs.count() > 0) {
@@ -251,6 +257,32 @@ class XMLRecipeParser {
                     .forEach {
                         ModRecipes.atomizerRecipes.remove(it)
                         Alchemistry.logger.info("Removed Atomizer recipe: $it")
+                    }
+        }
+    }
+
+    fun parseLiquifierRecipe(element: Element) {
+        val actionType: String? = element.getAttribute("action")
+        val inputXML = element.getFirst("input")
+        val inputString = inputXML?.textContent ?: ""
+        val inputStack = inputXML.tagToStack()
+
+        if (actionType != "remove") {
+            val outputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("output")?.textContent ?: "")
+            val outputQuantity: Int = element.getFirst("output")?.getAttribute("quantity")?.toIntOrNull() ?: 100
+            if(outputFluid != null && !inputStack.isEmpty) {
+                ModRecipes.liquifierRecipes.add(LiquifierRecipe(inputStack = inputStack, outputFluid = FluidStack(outputFluid, outputQuantity)))
+            }
+            else{
+                Alchemistry.logger.info("Failed to add Liquifier recipe for: $inputString")
+            }
+        } else if (actionType == "remove") {
+            ModRecipes.liquifierRecipes
+                    .filter {
+                        it.input.areItemsEqual(inputStack) }
+                    .forEach {
+                        ModRecipes.liquifierRecipes.remove(it)
+                        Alchemistry.logger.info("Removed Liquifier recipe: $it")
                     }
         }
     }

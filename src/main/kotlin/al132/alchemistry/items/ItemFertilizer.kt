@@ -1,5 +1,6 @@
 package al132.alchemistry.items;
 
+import al132.alchemistry.compat.jei.Translator
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.item.ItemDye.applyBonemeal
@@ -35,6 +36,6 @@ class ItemFertilizer : ItemBase("Fertilizer") {
 
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, playerIn: World?, tooltip: List<String>, advanced: ITooltipFlag) {
-        (tooltip as MutableList).add("Can be used like bonemeal")
+        (tooltip as MutableList).add(Translator.translateToLocal("item.alchemistry:fertilizer.tooltip"))
     }
 }

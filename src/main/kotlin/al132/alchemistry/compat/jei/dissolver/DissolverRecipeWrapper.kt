@@ -2,6 +2,7 @@ package al132.alchemistry.compat.jei.dissolver
 
 import al132.alchemistry.Reference
 import al132.alchemistry.compat.jei.AlchemistryRecipeWrapper
+import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.recipes.DissolverRecipe
 import mezz.jei.api.ingredients.IIngredients
 import net.minecraft.client.Minecraft
@@ -19,18 +20,17 @@ class DissolverRecipeWrapper(recipe: DissolverRecipe) : AlchemistryRecipeWrapper
 
         var y = 50
         for (index in recipe.outputs.set.indices) {
-            //TODO localization support
             val text = formatProbability(recipe.outputs.probabilityAtIndex(index))
             minecraft!!.fontRenderer?.drawString(text, -5, y, Color.BLACK.rgb)
             y += 18
         }
 
         var probabilityType = ""
-        if(recipe.outputs.relativeProbability) probabilityType = "Relative"
-        else probabilityType = "Absolute"
+        if(recipe.outputs.relativeProbability) probabilityType = Translator.translateToLocal("jei.dissolver.relative")
+        else probabilityType =  Translator.translateToLocal("jei.dissolver.absolute")
 
-        minecraft!!.fontRenderer.drawString("Type: $probabilityType",5,4,Color.BLACK.rgb)
-        minecraft.fontRenderer.drawString("Rolls: ${recipe.outputs.rolls}", 5, 16, Color.BLACK.rgb)
+        minecraft!!.fontRenderer.drawString("${Translator.translateToLocal("jei.dissolver.type")}: $probabilityType",5,4,Color.BLACK.rgb)
+        minecraft.fontRenderer.drawString("${Translator.translateToLocal("jei.dissolver.rolls")}: ${recipe.outputs.rolls}", 5, 16, Color.BLACK.rgb)
     }
 
     override fun getIngredients(ingredients: IIngredients) {

@@ -3,6 +3,7 @@ tile.chemical_dissolver.name=Chemical Dissolver
 tile.chemical_combiner.name=Chemical Combiner
 tile.evaporator.name=Evaporator
 tile.atomizer.name=Atomizer
+tile.liquifier.name=Liquifier
 
 item.alchemistry:mineral_salt.name=Mineral Salt
 item.alchemistry:fertilizer.name=Fertilizer
@@ -160,5 +161,22 @@ jei.dissolver.name=Chemical Dissolver
 jei.electrolyzer.name=Electrolyzer
 jei.evaporator.name=Evaporator
 jei.atomizer.name=Atomizer
+jei.liquifier.name=Liqufier
 
 itemGroup.alchemistry=Alchemistry
+
+item.alchemistry:fertilizer.tooltip=Can be used like bonemeal
+tile.evaporator.tooltip=Operates 50% slower in non-dry biomes
+
+tile.combiner.unlock_recipe=Unlock Recipe
+tile.combiner.lock_recipe=Lock Recipe
+tile.combiner.pause=Pause
+tile.combiner.resume=Resume
+tile.combiner.target=Target
+
+jei.electrolyzer.electrolyte=Electrolyte
+jei.electrolyzer.consumption_probability=Consumption Probability
+jei.dissolver.relative=Relative
+jei.dissolver.absolute=Absolute
+jei.dissolver.type=Type
+jei.dissolver.rolls=Rolls

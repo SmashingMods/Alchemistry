@@ -40,6 +40,7 @@ object ModRecipes {
     val combinerRecipes = ArrayList<CombinerRecipe>()
     val evaporatorRecipes = ArrayList<EvaporatorRecipe>()
     val atomizerRecipes = ArrayList<AtomizerRecipe>()
+    val liquifierRecipes = ArrayList<LiquifierRecipe>()
     //val alloyRecipes = ArrayList<AlloyRecipe>()
 
     val metals: List<String> = listOf(//not all technically metals, I know
@@ -108,6 +109,7 @@ object ModRecipes {
         initDissolverRecipes() //before combiner, so combiner can use reversible recipes
         initCombinerRecipes()
         initAtomizerRecipes()
+        initLiquifierRecipes()
     }
 
 
@@ -1309,9 +1311,9 @@ object ModRecipes {
                         null, "protein".toCompoundStack())))
 
         combinerRecipes.add(CombinerRecipe(Blocks.WOOL.toStack(),
-                listOf(null,null,null,
-                        null,null,null,
-                        "protein".toCompoundStack(),null,"protein".toCompoundStack())))
+                listOf(null, null, null,
+                        null, null, null,
+                        "protein".toCompoundStack(), null, "protein".toCompoundStack())))
 
 
 
@@ -1405,5 +1407,10 @@ object ModRecipes {
             atomizerRecipes.add(AtomizerRecipe(
                     FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(5)))
         }
+    }
+
+    fun initLiquifierRecipes() {
+        liquifierRecipes.add(LiquifierRecipe("water".toCompoundStack(5), FluidStack(FluidRegistry.WATER, 500)))
+
     }
 }

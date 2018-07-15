@@ -54,8 +54,8 @@ class ElectrolyzerRecipeCategory(guiHelper: IGuiHelper)
         guiItemStacks.addTooltipCallback(object : ITooltipCallback<ItemStack> {
             override fun onTooltip(slotIndex: Int, input: Boolean, ingredient: ItemStack?, tooltip: MutableList<String>?) {
                 if (input) {
-                    tooltip!!.add("Electrolyte")
-                    tooltip.add("Consumption Probability: ${recipeWrapper.recipe.electrolyteConsumptionChance}%")
+                    tooltip?.add(Translator.translateToLocal("jei.electrolyzer.electrolyte"))
+                    tooltip?.add(Translator.translateToLocal("jei.electrolyzer.consumption_probability") + ": ${recipeWrapper.recipe.electrolyteConsumptionChance}%")
                 }
             }
         })

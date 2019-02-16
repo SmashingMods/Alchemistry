@@ -35,7 +35,7 @@ compileJava {
 
 
 minecraft {
-    version = "1.12.2-14.23.4.2707"
+    version = "1.12.2-14.23.5.2814"
     runDir = "run"
     mappings = "snapshot_20171003"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
@@ -65,7 +65,7 @@ repositories {
 
 dependencies {
     // compile against the JEI API
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}:api"
+    deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
 

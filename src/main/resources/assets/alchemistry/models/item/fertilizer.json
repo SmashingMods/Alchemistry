@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	 "textures": { 
-		"layer0": "alchemistry:items/diamond_enriched_glass"
+		"layer0": "alchemistry:items/fertilizer"
 	}
 }

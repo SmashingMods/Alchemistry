@@ -1,15 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "I I",
-    "S S",
-    "SSS"
+    "P P",
+    "P P",
+    "SPS"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
     "S": {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "P": {
       "item": "minecraft:stone_pressure_plate"
     }
   },

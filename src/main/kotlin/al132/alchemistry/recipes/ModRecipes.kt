@@ -1171,21 +1171,29 @@ object ModRecipes {
                 }
             })
         }
+        dissolverRecipes.add(dissolverRecipe {
+            dictName = "blockCactus"
+            reversible = true
+            output {
+                addStack { "cellulose".toCompoundStack() }
+                addStack { "mescaline".toCompoundStack() }
+            }
+        })
     }
 
 
     fun initElectrolyzerRecipes() {
         electrolyzerRecipes.add(ElectrolyzerRecipe(
                 fluid = FluidRegistry.WATER,
-                fluidQuantity = 100,
+                fluidQuantity = 125,
                 electrolyte = "calcium_carbonate".toCompoundStack(),
                 elecConsumption = 20,
-                outputOne = "hydrogen".toElementStack(2),
-                outputTwo = "oxygen".toElementStack(1)))
+                outputOne = "hydrogen".toElementStack(4),
+                outputTwo = "oxygen".toElementStack(2)))
 
         electrolyzerRecipes.add(ElectrolyzerRecipe(
                 fluid = FluidRegistry.WATER,
-                fluidQuantity = 100,
+                fluidQuantity = 125,
                 electrolyte = "sodium_chloride".toCompoundStack(),
                 elecConsumption = 20,
                 outputOne = "hydrogen".toElementStack(2),
@@ -1195,7 +1203,7 @@ object ModRecipes {
 
 
     fun initEvaporatorRecipes() {
-        evaporatorRecipes.add(EvaporatorRecipe(FluidRegistry.WATER, 100, ModItems.mineralSalt.toStack()))
+        evaporatorRecipes.add(EvaporatorRecipe(FluidRegistry.WATER, 125, ModItems.mineralSalt.toStack()))
         FluidRegistry.getFluid("milk")?.let {
             evaporatorRecipes.add(EvaporatorRecipe(FluidRegistry.getFluid("milk"), 500, ModItems.condensedMilk.toStack()))
         }
@@ -1292,14 +1300,14 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Items.WATER_BUCKET.toStack(),
                 listOf(null, null, null,
-                        null, "water".toCompoundStack(10), null,
+                        null, "water".toCompoundStack(16), null,
                         null, Items.BUCKET, null)))
 
 
         combinerRecipes.add(CombinerRecipe(Items.POTIONITEM.toStack()
                 .apply { this.setTagInfo("Potion", net.minecraft.nbt.NBTTagString("water")) },
                 listOf(null, null, null,
-                        null, "water".toCompoundStack(10), null,
+                        null, "water".toCompoundStack(16), null,
                         null, Items.GLASS_BOTTLE, null)))
 
         combinerRecipes.add(CombinerRecipe(Blocks.REDSTONE_BLOCK.toStack(),
@@ -1345,7 +1353,7 @@ object ModRecipes {
                 listOf(null, "cellulose".toCompoundStack(), null,
                         null, "sucrose".toCompoundStack(1), null)))
 
-        combinerRecipes.add(CombinerRecipe(ModItems.fertilizer.toStack(),
+        combinerRecipes.add(CombinerRecipe(ModItems.fertilizer.toStack(8),
                 listOf("urea".toCompoundStack(4),
                         "diammonium_phosphate".toCompoundStack(4),
                         "potassium_chloride".toCompoundStack(4))))
@@ -1401,16 +1409,33 @@ object ModRecipes {
     }
 
     fun initAtomizerRecipes() {
-        atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(5)))
+        atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(8)))
 
-        if (FluidRegistry.isFluidRegistered("canolaoil")) {
+        if (fluidExists("canolaoil")) {
             atomizerRecipes.add(AtomizerRecipe(
-                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(5)))
+                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(1)))
+        }
+
+        ElementRegistry.getAllElements().forEach {
+            if (fluidExists(it.name)) {
+                atomizerRecipes.add(AtomizerRecipe(
+                        FluidRegistry.getFluidStack(it.name, 500)!!, it.name.toElementStack(8)))
+            }
         }
     }
 
     fun initLiquifierRecipes() {
-        liquifierRecipes.add(LiquifierRecipe("water".toCompoundStack(5), FluidStack(FluidRegistry.WATER, 500)))
+        liquifierRecipes.add(LiquifierRecipe("water".toCompoundStack(8), FluidStack(FluidRegistry.WATER, 500)))
+
+        ElementRegistry.getAllElements().forEach {
+            if (fluidExists(it.name)) {
+                liquifierRecipes.add(LiquifierRecipe(
+                        it.name.toElementStack(8), FluidRegistry.getFluidStack(it.name, 500)!!
+                ))
+            }
+        }
 
     }
 }
+
+fun fluidExists(name: String): Boolean = FluidRegistry.isFluidRegistered(name)

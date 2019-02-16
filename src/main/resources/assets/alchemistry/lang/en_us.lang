@@ -154,6 +154,7 @@ item.alchemistry:compound_diammonium_phosphate.name=Diammonium Phosphate
 item.alchemistry:compound_amide.name=Amide
 item.alchemistry:compound_ethanol.name=Ethanol
 item.alchemistry:compound_potassium_carbonate.name=Potassium Carbonate
+item.alchemistry:compound_mescaline.name=Mescaline
 
 
 jei.combiner.name=Chemical Combiner

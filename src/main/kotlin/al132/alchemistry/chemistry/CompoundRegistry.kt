@@ -245,28 +245,38 @@ object CompoundRegistry {
         })
         compounds.add(Compound {
             name = "ammonium"
-            color = Color(180,250,250)
+            color = Color(180, 250, 250)
             hasShiftedRecipe = true
             components = listOf(
-                    CompoundPair("nitrogen",1),
-                    CompoundPair("hydrogen",4)
+                    CompoundPair("nitrogen", 1),
+                    CompoundPair("hydrogen", 4)
             )
         })
         compounds.add(Compound {
             name = "diammonium_phosphate"
-            color = Color(210,250,150)
+            color = Color(210, 250, 150)
             components = listOf(
-                    CompoundPair("ammonium",2),
-                    CompoundPair("hydrogen",1),
-                    CompoundPair("phosphate",1)
+                    CompoundPair("ammonium", 2),
+                    CompoundPair("hydrogen", 1),
+                    CompoundPair("phosphate", 1)
             )
         })
         compounds.add(Compound {
             name = "potassium_carbonate"
-            color = Color(40,210,90)
+            color = Color(40, 210, 90)
             components = listOf(
-                    CompoundPair("potassium",2),
-                    CompoundPair("carbonate",1)
+                    CompoundPair("potassium", 2),
+                    CompoundPair("carbonate", 1)
+            )
+        })
+        compounds.add(Compound {
+            name = "mescaline"
+            color = Color(30, 30, 30)
+            components = listOf(
+                    CompoundPair("carbon", 11),
+                    CompoundPair("hydrogen", 17),
+                    CompoundPair("nitrogen", 1),
+                    CompoundPair("oxygen", 3)
             )
         })
     }

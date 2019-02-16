@@ -134,4 +134,6 @@ object ElementRegistry {
     fun size() = elements.size
 
     fun getMeta(name: String) = elements.indices.firstOrNull { elements[it].name == name } ?: -1
+
+    fun getAllElements() = this.elements
 }

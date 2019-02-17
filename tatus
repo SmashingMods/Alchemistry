@@ -1,0 +1,148 @@
+[33mcommit 931076800dd7a614c68d6e77b6857e58256a401d[m
+Merge: ca6cd0b f375d01
+Author: al132mc <39097092+al132mc@users.noreply.github.com>
+Date:   Sat Feb 16 12:03:27 2019 -0600
+
+    Merge pull request #16 from kellixon/patch-1
+    
+    Create ru_ru.lang
+
+[33mcommit f375d011d7e3620c1c5475b402fc12e24ef6ea43[m
+Author: Konstantin <lyalinkostya@gmail.com>
+Date:   Sat Feb 16 12:38:56 2019 +0300
+
+    Create ru_ru.lang
+    
+    MC 1.12.2. Alchemistry 0.7.14.
+
+[33mcommit ca6cd0b9b258291beced8a2b13bbba206bf44479[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Sat Feb 16 02:41:01 2019 -0600
+
+    v0.7.14 electric boogaloo
+
+[33mcommit 7fe5b343d19b3e5ea0c44c09a48940ee5e1b0db5[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Sat Feb 16 02:36:21 2019 -0600
+
+    v0.7.14
+
+[33mcommit 1dedc12493eff5f44955b6b80b3989ccd1bf87c8[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Sun Jul 15 15:51:51 2018 -0500
+
+    v0.7.13
+
+[33mcommit 8c4c55bb031bbe744c69f4eb09b5536629e84449[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Fri Jul 6 14:37:23 2018 -0500
+
+    v0.7.12
+
+[33mcommit 6eb3960c834cf699fe2f1fb6fbcd2de64e3a484d[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Sat Jun 30 18:16:56 2018 -0500
+
+    v0.7.11
+
+[33mcommit c94b800839d62fae949a225e07c385302c4b3f35[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu Jun 28 01:14:45 2018 -0500
+
+    v0.7.10 fixed commit
+
+[33mcommit b1d76b4b4021c57ff32e5c874e1952dffb71bbfb[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu Jun 28 01:13:22 2018 -0500
+
+    v0.7.10
+
+[33mcommit c44c3485db0da7403d99ecaef53f4858601aa30e[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Wed Jun 6 18:09:20 2018 -0500
+
+    v 0.7.9
+
+[33mcommit fa94bb7e863c7dfcc530bd32e3a5e2f8a9189785[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Wed Jun 6 11:47:28 2018 -0500
+
+    Cleanup take 2
+
+[33mcommit aa4a2a9052dcb096dbb62143054772b17432930e[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Wed Jun 6 11:45:27 2018 -0500
+
+    cleanup
+
+[33mcommit 13c918bbfca0a8d410399f0728888b4d0d21ed46[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Tue Jun 5 15:42:16 2018 -0500
+
+    v0.7.8
+
+[33mcommit fe3fab390178969643734ab1f360497d1da56e1d[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Sat Jun 2 20:12:04 2018 -0500
+
+    Add subscripts to chemical compounds #6
+
+[33mcommit f4d5dd8b6a7f69157acfe6c70dc2963f71f2dbae[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Fri Jun 1 17:08:57 2018 -0500
+
+    v0.7.7
+
+[33mcommit 3aefcefd398be54b3954804b998897eaf95681cc[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu May 24 20:44:59 2018 -0500
+
+    Combiner custom recipes
+
+[33mcommit e9b45b07c3dac6f867d9a0105fc7708279237fb7[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu May 17 14:26:15 2018 -0500
+
+    v0.7.5
+
+[33mcommit b59b58f19598c32778ab61fc154db9e3bfb997a7[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu May 17 14:25:16 2018 -0500
+
+    More recipe stuff
+
+[33mcommit 517947878e3d46b86a57a41105d4155aacc7b793[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Tue May 15 09:59:20 2018 -0500
+
+    Fix XML crash
+
+[33mcommit d5a75c3ced55a4b1ed729a44879943f6546e1fb2[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Mon May 14 22:53:01 2018 -0500
+
+    v0.7.3
+
+[33mcommit 6c9c12fdba6dcf6dfd7ea3c748ba725b1168be26[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Sat May 12 19:31:07 2018 -0500
+
+    Fixed creative tabs, custom recipes for chemical dissolver
+
+[33mcommit bf615168a9a24161ae6ff8a06bd562412b466874[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu May 10 23:32:40 2018 -0500
+
+    v0.7.1
+
+[33mcommit ef9fec2cbf20bf405007e2bc0c080ea54f2be640[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Thu May 10 23:31:34 2018 -0500
+
+    Fixed locked recipe being erased in chemical combiner when chunks unload. Started work on custom recipes
+
+[33mcommit 6e2b7acb0fce5c05a25c4ccf784608a115d45edc[m
+Author: al132mc <apbertram1@gmail.com>
+Date:   Tue May 8 14:20:22 2018 -0500
+
+    initial 1.12.2 commit

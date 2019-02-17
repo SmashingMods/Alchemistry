@@ -16,11 +16,11 @@ import net.minecraftforge.fml.relauncher.SideOnly
 object ModBlocks {
 
     var electrolyzer = ElectrolyzerBlock("electrolyzer", TileElectrolyzer::class.java, GuiHandler.ELECTROLYZER_ID)
-    var chemical_dissolver = BaseTileBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
+    var chemical_dissolver = ChemicalDissolverBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
     var chemical_combiner = ChemicalCombinerBlock("chemical_combiner", TileChemicalCombiner::class.java, GuiHandler.CHEMICAL_COMBINER_ID)
     var evaporator = EvaporatorBlock("evaporator", TileEvaporator::class.java, GuiHandler.EVAPORATOR_ID)
-    val atomizer = BaseTileBlock("atomizer", TileAtomizer::class.java, GuiHandler.ATOMIZER_ID)
-    val liquifier = BaseTileBlock("liquifier", TileLiquifier::class.java, GuiHandler.LIQUIFIER_ID)
+    val atomizer = AtomizerBlock("atomizer", TileAtomizer::class.java, GuiHandler.ATOMIZER_ID)
+    val liquifier = LiquifierBlock("liquifier", TileLiquifier::class.java, GuiHandler.LIQUIFIER_ID)
     //var alloy_furnace = BaseTileBlock("alloy_furnace", TileAlloyFurnace::class.java, GuiHandler.ALLOY_FURNACE_ID )
 
     val blocks = arrayOf<ALBlock>(

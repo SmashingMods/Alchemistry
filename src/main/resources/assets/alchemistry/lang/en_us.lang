@@ -167,6 +167,11 @@ jei.liquifier.name=Liqufier
 itemGroup.alchemistry=Alchemistry
 
 item.alchemistry:fertilizer.tooltip=Can be used like bonemeal
+tile.electrolyzer.tooltip=Requires
+tile.chemical_dissolver.tooltip=Requires
+tile.chemical_combiner.tooltip=Requires
+tile.atomizer.tooltip=Requires
+tile.liquifier.tooltip=Requires
 tile.evaporator.tooltip=Operates 50% slower in non-dry biomes
 
 tile.combiner.unlock_recipe=Unlock Recipe

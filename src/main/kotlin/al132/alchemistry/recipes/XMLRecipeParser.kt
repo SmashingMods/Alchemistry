@@ -180,9 +180,10 @@ class XMLRecipeParser {
 
     fun parseDissolverRecipe(element: Element) {
         val inputStr: String = element.getFirst("input")?.textContent ?: ""
-        val itemMeta: Int = element.getFirst("input")?.getAttribute("meta")?.toIntOrNull() ?: 0
+        val inputMeta: Int = element.getFirst("input")?.getAttribute("meta")?.toIntOrNull() ?: 0
+        val inputQuantity = element.getFirst("input")?.getAttribute("quantity")?.toIntOrNull() ?: 1
         val actionType: String? = element.getAttribute("action")
-        val inputStack: ItemStack = inputStr.toStack(meta = itemMeta)
+        val inputStack: ItemStack = inputStr.toStack(meta = inputMeta, quantity = inputQuantity)
 
         if (actionType != "remove") {
             val outputXMLElement: Element? = element.getFirst("output")
@@ -206,7 +207,7 @@ class XMLRecipeParser {
             val outputSet = ProbabilitySet(_set = groupsList, relativeProbability = outputType != "absolute", rolls = outputRolls)
             if (inputStack.isEmpty) {
                 if (OreDictionary.doesOreNameExist(inputStr)) {
-                    ModRecipes.dissolverRecipes.add(DissolverRecipe(dictName = inputStr, _outputs = outputSet))
+                    ModRecipes.dissolverRecipes.add(DissolverRecipe(dictName = inputStr, inputQuantity = inputQuantity, _outputs = outputSet))
                     Alchemistry.logger.info("Added Chemical Dissolver recipe for $inputStr")
 
                 } else {
@@ -270,16 +271,16 @@ class XMLRecipeParser {
         if (actionType != "remove") {
             val outputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("output")?.textContent ?: "")
             val outputQuantity: Int = element.getFirst("output")?.getAttribute("quantity")?.toIntOrNull() ?: 100
-            if(outputFluid != null && !inputStack.isEmpty) {
+            if (outputFluid != null && !inputStack.isEmpty) {
                 ModRecipes.liquifierRecipes.add(LiquifierRecipe(inputStack = inputStack, outputFluid = FluidStack(outputFluid, outputQuantity)))
-            }
-            else{
+            } else {
                 Alchemistry.logger.info("Failed to add Liquifier recipe for: $inputString")
             }
         } else if (actionType == "remove") {
             ModRecipes.liquifierRecipes
                     .filter {
-                        it.input.areItemsEqual(inputStack) }
+                        it.input.areItemsEqual(inputStack)
+                    }
                     .forEach {
                         ModRecipes.liquifierRecipes.remove(it)
                         Alchemistry.logger.info("Removed Liquifier recipe: $it")

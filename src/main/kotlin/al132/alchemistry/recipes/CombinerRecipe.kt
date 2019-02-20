@@ -29,25 +29,25 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>)
 
             when (tempInput) {
                 is ItemStack -> inputsInternal.add(tempInput)
-                is Item -> inputsInternal.add(ItemStack(tempInput))
-                is Block -> inputsInternal.add(ItemStack(tempInput))
-                is String -> {
+                is Item      -> inputsInternal.add(ItemStack(tempInput))
+                is Block     -> inputsInternal.add(ItemStack(tempInput))
+                is String    -> {
                 } //TODO oredict input
-                else -> inputsInternal.add(ItemStack.EMPTY)
+                else         -> inputsInternal.add(ItemStack.EMPTY)
             }
         }
     }
 
     companion object {
 
-        private val INPUT_COUNT = 9
+        private const val INPUT_COUNT = 9
 
         fun match(handler: IItemHandler): CombinerRecipe? {
             if (handler.slots == INPUT_COUNT) {
                 val inputStacks: ArrayList<ItemStack> = handler.toStackList()
                 for (recipe in ModRecipes.combinerRecipes) {
                     var matchingStacks = 0
-                    for ((index, recipeStack) in recipe.inputs.withIndex()) {
+                    for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
                         val inputStack: ItemStack = inputStacks[index]
 
                         if (inputStack.isEmpty && recipeStack.isEmpty) matchingStacks++

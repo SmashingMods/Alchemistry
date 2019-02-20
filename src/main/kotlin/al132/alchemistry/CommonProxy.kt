@@ -33,20 +33,24 @@ open class CommonProxy {
         ElementRegistry.init()
         CompoundRegistry.init()
 
+
         //ModFluids.registerFluidContainers()
         PacketHandler.registerMessages(Reference.MODID)
+
     }
+
 
     open fun init(e: FMLInitializationEvent) {
-        NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
-    }
-
-    open fun postInit(e: FMLPostInitializationEvent) {
         ModRecipes.init()
         val files = Reference.configDir.listFiles(FileFilter({it.extension.toLowerCase() == "xml"}))
         files.forEach{
             XMLRecipeParser().init(it.name)
         }
+        NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
+
+    }
+
+    open fun postInit(e: FMLPostInitializationEvent) {
     }
 
     //open fun initFluidModel(block: Block, fluid: Fluid) {}

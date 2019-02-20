@@ -28,7 +28,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
     private var outputSuccessful = true
     var outputThisTick: ItemStack = ItemStack.EMPTY
     var currentRecipe: DissolverRecipe? = null
-    private var outputBuffer: MutableList<ItemStack> = ArrayList<ItemStack>()
+    private var outputBuffer: MutableList<ItemStack> = ArrayList()
 
 
     init {

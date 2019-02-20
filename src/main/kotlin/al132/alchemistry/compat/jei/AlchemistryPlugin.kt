@@ -75,22 +75,22 @@ class AlchemistryPlugin : IModPlugin {
                 { recipe -> AtomizerRecipeWrapper(recipe) },
                 ATOMIZER)
         registry.handleRecipes(LiquifierRecipe::class.java,
-                { recipe -> LiquifierRecipeWrapper(recipe)},
+                { recipe -> LiquifierRecipeWrapper(recipe) },
                 LIQUIFIER)
 
         registry.addRecipes(ModRecipes.dissolverRecipes.map { DissolverRecipeWrapper(it) }, DISSOLVER)
         registry.addRecipes(ModRecipes.combinerRecipes.map { CombinerRecipeWrapper(it) }, COMBINER)
         registry.addRecipes(ModRecipes.electrolyzerRecipes.map { ElectrolyzerRecipeWrapper(it) }, ELECTROLYZER)
         registry.addRecipes(ModRecipes.evaporatorRecipes.map { EvaporatorRecipeWrapper(it) }, EVAPORATOR)
-        registry.addRecipes(ModRecipes.atomizerRecipes.map {AtomizerRecipeWrapper(it)}, ATOMIZER)
-        registry.addRecipes(ModRecipes.liquifierRecipes.map {LiquifierRecipeWrapper(it)},LIQUIFIER)
+        registry.addRecipes(ModRecipes.atomizerRecipes.map { AtomizerRecipeWrapper(it) }, ATOMIZER)
+        registry.addRecipes(ModRecipes.liquifierRecipes.map { LiquifierRecipeWrapper(it) }, LIQUIFIER)
 
         registry.addRecipeClickArea(GuiChemicalDissolver::class.java, 86, 50, 17, 33, AlchemistryRecipeUID.DISSOLVER)
         registry.addRecipeClickArea(GuiChemicalCombiner::class.java, 100, 20, 35, 33, AlchemistryRecipeUID.COMBINER)
         registry.addRecipeClickArea(GuiElectrolyzer::class.java, 73, 58, 39, 23, AlchemistryRecipeUID.ELECTROLYZER)
         registry.addRecipeClickArea(GuiEvaporator::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.EVAPORATOR)
         registry.addRecipeClickArea(GuiAtomizer::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.ATOMIZER)
-        registry.addRecipeClickArea(GuiLiquifier::class.java, 73,54,39,23,AlchemistryRecipeUID.LIQUIFIER)
+        registry.addRecipeClickArea(GuiLiquifier::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.LIQUIFIER)
 
 
         registry.addRecipeCatalyst(ModBlocks.chemical_dissolver.toStack(), AlchemistryRecipeUID.DISSOLVER)
@@ -102,8 +102,12 @@ class AlchemistryPlugin : IModPlugin {
 
 
         val transferRegistry: IRecipeTransferRegistry = registry.recipeTransferRegistry
-        //transferRegistry.addRecipeTransferHandler(CombinerRecipeTransferHandler(),COMBINER)
+
         transferRegistry.addRecipeTransferHandler(ContainerChemicalCombiner::class.java, COMBINER, 0, 9, 10, 36)
+        transferRegistry.addRecipeTransferHandler(ContainerChemicalDissolver::class.java, DISSOLVER, 0, 1, 11, 36)
+        transferRegistry.addRecipeTransferHandler(ContainerLiquifier::class.java, LIQUIFIER, 0, 1, 1, 36)
+        transferRegistry.addRecipeTransferHandler(ContainerElectrolyzer::class.java, ELECTROLYZER, 0, 1, 1, 36)
+
     }
 }
 

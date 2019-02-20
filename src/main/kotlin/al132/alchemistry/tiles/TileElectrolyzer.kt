@@ -93,7 +93,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
             val outputStack = output[it]
             val recipeStack = currentRecipe!!.outputs[it]
             (outputStack.isEmpty || ItemStack.areItemsEqual(outputStack, recipeStack))
-                    && outputStack.count + recipeStack.count <= 64
+                    && outputStack.count + recipeStack.count <= recipeStack.maxStackSize
         }
     }
 

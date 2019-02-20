@@ -279,6 +279,14 @@ object CompoundRegistry {
                     CompoundPair("oxygen", 3)
             )
         })
+        compounds.add(Compound {
+            name = "mullite"
+            color = Color(110,110,150)
+            components = listOf(
+                    CompoundPair("aluminum_oxide",2),
+                    CompoundPair("silicon_dioxide",1)
+            )
+        })
     }
 
     operator fun get(name: String) = compounds.find { it.name == name }

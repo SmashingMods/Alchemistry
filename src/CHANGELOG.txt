@@ -1,9 +1,17 @@
+0.8.0
+==
+-Fixed XML bug with Chem Dissolver input not working with the 'quantity' attribute
+-Added JEI transfer handlers (the [+] button) for the Chemical Dissolver, Liquifier, and Electrolyzer
+-Alloy recipes should be fixed now (before they could generate more resources than they took to make)
+-Added a few micellaneous machine recipes
+-Machines should no longer assume a stack size of 64 for all items
+-Added basic CraftTweaker support for all machines(!)
+
 0.7.15
 ==
 -Added a Russian translation, thanks to kellixon on github
 -Added tooltips for all of the energy consuming blocks telling how much FE/t they consume as per the configs
 -All machines have had a texture/model makeover
-
 0.7.14
 ==
 -The evaporator recipe has been changed to no longer require iron, only stone

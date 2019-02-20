@@ -56,5 +56,4 @@ class CombinerRecipeCategory(guiHelper: IGuiHelper) :
         //guiItemStacks.set(OUTPUT_SLOT, ingredients.getOutputs(ItemStack::class.java)[0])
         guiItemStacks.set(OUTPUT_SLOT, recipeWrapper.recipe.output)
     }
-
 }

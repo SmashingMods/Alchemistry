@@ -155,6 +155,8 @@ item.alchemistry:compound_amide.name=Amide
 item.alchemistry:compound_ethanol.name=Ethanol
 item.alchemistry:compound_potassium_carbonate.name=Potassium Carbonate
 item.alchemistry:compound_mescaline.name=Mescaline
+item.alchemistry:compound_mullite.name=Mullite
+
 
 
 jei.combiner.name=Chemical Combiner

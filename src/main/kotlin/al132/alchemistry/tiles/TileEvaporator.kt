@@ -72,7 +72,7 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
     fun canProcess(): Boolean {
         return currentRecipe != null
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
-                && output[0].count + currentRecipe!!.outputs[0].count <= 64
+                && output[0].count + currentRecipe!!.outputs[0].count <= currentRecipe!!.outputs[0].maxStackSize
     }
 
     fun calculateProcessingTime(): Int { //TODO more elaborate calculation?

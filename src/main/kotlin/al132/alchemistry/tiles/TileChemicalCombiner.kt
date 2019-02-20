@@ -80,7 +80,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
         return currentRecipe != null
                 && (!recipeIsLocked || CombinerRecipe.match(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
                 && (ItemStack.areItemsEqual(output[0], currentRecipe?.output) || output[0].isEmpty)
-                && (currentRecipe!!.output.count + output[0].count <= 64)
+                && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize)
                 && energyCapability.energyStored >= ENERGY_PER_TICK
     }
 

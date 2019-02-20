@@ -75,7 +75,7 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
         return currentRecipe != null
                 && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty)
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
-                && output[0].count + currentRecipe!!.output.count <= 64
+                && output[0].count + currentRecipe!!.output.count <= currentRecipe!!.output.maxStackSize
     }
 
     fun process() {

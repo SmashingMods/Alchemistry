@@ -25,7 +25,7 @@ class LiquifierRecipeCategory(guiHelper: IGuiHelper)
 
         var x = 48 - u
         var y = 57 - v
-        guiItemStacks.init(INPUT_ONE, false, x, y)
+        guiItemStacks.init(INPUT_ONE, true, x, y)
         guiItemStacks.set(INPUT_ONE, ingredients.getInputs(ItemStack::class.java)[0])
 
         x = 122 - u
@@ -37,7 +37,7 @@ class LiquifierRecipeCategory(guiHelper: IGuiHelper)
 
     companion object {
 
-        private val INPUT_ONE = 1
+        private val INPUT_ONE = 0
         private val FLUID_ONE = 1
 
         private val u = 40

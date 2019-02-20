@@ -16,6 +16,7 @@ import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.IFuelHandler
@@ -119,21 +120,37 @@ object ModRecipes {
                                     ingotTwo: String,
                                     quantityTwo: Int,
                                     ingotThree: String = "",
-                                    quantityThree: Int = 0) {
+                                    quantityThree: Int = 0,
+                                    conservationOfMass: Boolean = true) {
+
+        fun fitInto16(q1: Int, q2: Int, q3: Int): List<Int>? {
+            val sum = q1 + q2 + q3
+            val new1 = Math.round(q1.toDouble() / sum * 16.0).toInt()
+            val new2 = Math.round(q2.toDouble() / sum * 16.0).toInt()
+            val new3 = Math.round(q3.toDouble() / sum * 16.0).toInt()
+            if ((16).rem(sum) == 0) return listOf(new1, new2, new3)
+            else return null
+        }
 
         val ores: List<String> = listOf(("ingot" + alloySuffix), ("plate" + alloySuffix), ("dust" + alloySuffix))
         val threeIngredients: Boolean = ingotThree.length > 0 && quantityThree > 0
+        val fractionalQuantities = fitInto16(quantityOne, quantityTwo, quantityThree)
+        val isConserved = fractionalQuantities != null && conservationOfMass
+        val calculatedQuantity1 = if (isConserved) fractionalQuantities!![0] else quantityOne * 16
+        val calculatedQuantity2 = if (isConserved) fractionalQuantities!![1] else quantityOne * 16
+        val calculatedQuantity3 = if (isConserved) fractionalQuantities!![2] else quantityOne * 16
 
         ores.filter { oreExists(it) }
                 .forEach { ore ->
                     dissolverRecipes.add(dissolverRecipe {
                         dictName = ore
+                        if (fractionalQuantities == null && conservationOfMass) inputQuantity = quantityOne + quantityTwo + quantityThree
                         output {
                             addGroup {
-                                addStack { ingotOne.toStack(quantity = quantityOne * 16) }
-                                addStack { ingotTwo.toStack(quantity = quantityTwo * 16) }
+                                addStack { ingotOne.toStack(quantity = calculatedQuantity1) }
+                                addStack { ingotTwo.toStack(quantity = calculatedQuantity2) }
                                 if (threeIngredients) {
-                                    addStack { ingotThree.toStack(quantity = quantityThree * 16) }
+                                    addStack { ingotThree.toStack(quantity = calculatedQuantity3) }
                                 }
                             }
                         }
@@ -146,12 +163,12 @@ object ModRecipes {
                 output {
                     addGroup {
                         if (threeIngredients) {
-                            addStack { ingotOne.toStack(quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityOne) }
-                            addStack { ingotTwo.toStack(quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityTwo) }
-                            addStack { ingotThree.toStack(quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityThree) }
+                            addStack { ingotOne.toStack(calculatedQuantity1*9)}//quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityOne) }
+                            addStack { ingotTwo.toStack(calculatedQuantity2*9)}//quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityTwo) }
+                            addStack { ingotThree.toStack(calculatedQuantity3*9)}//quantity = 144 / (quantityOne + quantityTwo + quantityThree) * quantityThree) }
                         } else {
-                            addStack { ingotOne.toStack(quantity = 144 / (quantityOne + quantityTwo) * quantityOne) }
-                            addStack { ingotTwo.toStack(quantity = 144 / (quantityOne + quantityTwo) * quantityTwo) }
+                            addStack { ingotOne.toStack(quantity = calculatedQuantity1*9)}//144 / (quantityOne + quantityTwo) * quantityOne) }
+                            addStack { ingotTwo.toStack(quantity = calculatedQuantity2*9)}//144 / (quantityOne + quantityTwo) * quantityTwo) }
                         }
                     }
                 }
@@ -1004,13 +1021,25 @@ object ModRecipes {
 
         dissolverRecipes.add(dissolverRecipe
         {
-            dictName = "sand"
+            stack = Blocks.SAND.toStack()
             output {
                 relativeProbability = false
                 addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100 }
                 addGroup { addStack { "gold".toElementStack() } }
             }
         })
+
+        dissolverRecipes.add(dissolverRecipe
+        {
+            stack = Blocks.SAND.toStack(meta = 1) //red sand
+            output {
+                relativeProbability = false
+                addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100 }
+                addGroup { addStack { "iron_oxide".toCompoundStack() }; probability = 10 }
+            }
+        })
+
+
 
         dissolverRecipes.add(dissolverRecipe
         {
@@ -1110,10 +1139,10 @@ object ModRecipes {
             })
         }
 
-        addDissolverRecipesForAlloy("Bronze", "copper", 3, "tin", 1)
-        addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1)
-        addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1)
-        addDissolverRecipesForAlloy("Invar", "iron", 2, "copper", 1)
+        addDissolverRecipesForAlloy("Bronze", "copper", 3, "tin", 1, conservationOfMass = true)
+        addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1, conservationOfMass = true)
+        addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1, conservationOfMass = false)
+        addDissolverRecipesForAlloy("Invar", "iron", 2, "copper", 1, conservationOfMass = true)
 
 
         listOf("gemRuby", "dustRuby", "plateRuby")
@@ -1179,23 +1208,77 @@ object ModRecipes {
                 addStack { "mescaline".toCompoundStack() }
             }
         })
+
+        dissolverRecipes.add(dissolverRecipe {
+            stack = Blocks.HARDENED_CLAY.toStack()
+            reversible = true
+            output {
+                addStack { "mullite".toCompoundStack(quantity = 2) }
+            }
+        })
+
+        (0 until 16).forEach {
+            dissolverRecipes.add(dissolverRecipe {
+                stack = Blocks.STAINED_HARDENED_CLAY.toStack(meta = it)
+                reversible = false
+                output {
+                    addStack { "mullite".toCompoundStack(quantity = 2) }
+                }
+            })
+        }
+        listOf(Blocks.BLACK_GLAZED_TERRACOTTA,
+                Blocks.BLUE_GLAZED_TERRACOTTA,
+                Blocks.BROWN_GLAZED_TERRACOTTA,
+                Blocks.CYAN_GLAZED_TERRACOTTA,
+                Blocks.GRAY_GLAZED_TERRACOTTA,
+                Blocks.GREEN_GLAZED_TERRACOTTA,
+                Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA,
+                Blocks.LIME_GLAZED_TERRACOTTA,
+                Blocks.MAGENTA_GLAZED_TERRACOTTA,
+                Blocks.ORANGE_GLAZED_TERRACOTTA,
+                Blocks.PINK_GLAZED_TERRACOTTA,
+                Blocks.PURPLE_GLAZED_TERRACOTTA,
+                Blocks.RED_GLAZED_TERRACOTTA,
+                Blocks.SILVER_GLAZED_TERRACOTTA,
+                Blocks.WHITE_GLAZED_TERRACOTTA,
+                Blocks.YELLOW_GLAZED_TERRACOTTA).forEach {
+            dissolverRecipes.add(dissolverRecipe {
+                stack = it.toStack()
+                reversible = false
+                output {
+                    addStack { "mullite".toCompoundStack(quantity = 2) }
+                }
+            })
+        }
+
+        if (oreExists("cropRice")) {
+            dissolverRecipes.add(dissolverRecipe {
+                dictName = "cropRice"
+                output {
+                    addGroup {
+                        relativeProbability = false
+                        probability = 10
+                        addStack { "starch".toCompoundStack(); }
+                    }
+                }
+            })
+        }
     }
 
+    fun Fluid.toStack(quantity: Int): FluidStack = FluidStack(this,quantity)
 
     fun initElectrolyzerRecipes() {
         electrolyzerRecipes.add(ElectrolyzerRecipe(
-                fluid = FluidRegistry.WATER,
-                fluidQuantity = 125,
-                electrolyte = "calcium_carbonate".toCompoundStack(),
-                elecConsumption = 20,
+                inputFluid = FluidRegistry.WATER.toStack(quantity=125),
+                electrolyteInternal = "calcium_carbonate".toCompoundStack(),
+                electrolyteConsumptionChanceInternal = 20,
                 outputOne = "hydrogen".toElementStack(4),
                 outputTwo = "oxygen".toElementStack(2)))
 
         electrolyzerRecipes.add(ElectrolyzerRecipe(
-                fluid = FluidRegistry.WATER,
-                fluidQuantity = 125,
-                electrolyte = "sodium_chloride".toCompoundStack(),
-                elecConsumption = 20,
+                inputFluid = FluidRegistry.WATER.toStack(125),
+                electrolyteInternal = "sodium_chloride".toCompoundStack(),
+                electrolyteConsumptionChanceInternal = 20,
                 outputOne = "hydrogen".toElementStack(2),
                 outputTwo = "oxygen".toElementStack(1),
                 outputThree = "chlorine".toElementStack(2), output3Probability = 10))
@@ -1269,10 +1352,9 @@ object ModRecipes {
                 listOf("silicon_dioxide".toCompoundStack(), "silicon_dioxide".toCompoundStack(), null,
                         "silicon_dioxide".toCompoundStack(), "silicon_dioxide".toCompoundStack())))
 
-        combinerRecipes.add(CombinerRecipe(Blocks.SAND.toStack(meta = 1), //red sand
-                listOf(null, null, null,
-                        null, "silicon_dioxide".toCompoundStack(), "silicon_dioxide".toCompoundStack(),
-                        null, "silicon_dioxide".toCompoundStack(), "silicon_dioxide".toCompoundStack())))
+        combinerRecipes.add(CombinerRecipe(Blocks.SAND.toStack(quantity = 8, meta = 1), //red sand
+                listOf("silicon_dioxide".toCompoundStack(quantity = 8), "silicon_dioxide".toCompoundStack(quantity = 8), "iron_oxide".toCompoundStack(),
+                        "silicon_dioxide".toCompoundStack(quantity = 8), "silicon_dioxide".toCompoundStack(quantity = 8))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.COBBLESTONE.toStack(quantity = 2),
                 listOf("silicon_dioxide".toCompoundStack())))

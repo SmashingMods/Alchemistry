@@ -13,6 +13,7 @@ import al132.alchemistry.compat.jei.atomizer.AtomizerRecipeCategory
 import al132.alchemistry.compat.jei.atomizer.AtomizerRecipeWrapper
 import al132.alchemistry.compat.jei.combiner.CombinerRecipeCategory
 import al132.alchemistry.compat.jei.combiner.CombinerRecipeWrapper
+import al132.alchemistry.compat.jei.combiner.CombinerTransferHandler
 import al132.alchemistry.compat.jei.dissolver.DissolverRecipeCategory
 import al132.alchemistry.compat.jei.dissolver.DissolverRecipeWrapper
 import al132.alchemistry.compat.jei.electrolyzer.ElectrolyzerRecipeCategory
@@ -102,8 +103,9 @@ class AlchemistryPlugin : IModPlugin {
 
 
         val transferRegistry: IRecipeTransferRegistry = registry.recipeTransferRegistry
+        transferRegistry.addRecipeTransferHandler(CombinerTransferHandler(), COMBINER)
 
-        transferRegistry.addRecipeTransferHandler(ContainerChemicalCombiner::class.java, COMBINER, 0, 9, 10, 36)
+        //transferRegistry.addRecipeTransferHandler(ContainerChemicalCombiner::class.java, COMBINER, 0, 9, 10, 36)
         transferRegistry.addRecipeTransferHandler(ContainerChemicalDissolver::class.java, DISSOLVER, 0, 1, 11, 36)
         transferRegistry.addRecipeTransferHandler(ContainerLiquifier::class.java, LIQUIFIER, 0, 1, 1, 36)
         transferRegistry.addRecipeTransferHandler(ContainerElectrolyzer::class.java, ELECTROLYZER, 0, 1, 1, 36)

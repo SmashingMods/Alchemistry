@@ -6,7 +6,6 @@ import al132.alib.tiles.ALTileStackHandler
 import al132.alib.tiles.IEnergyTile
 import al132.alib.tiles.IGuiTile
 import al132.alib.tiles.IItemTile
-import al132.alib.utils.extensions.areItemStacksEqual
 import al132.alib.utils.extensions.areItemsEqual
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
@@ -53,8 +52,8 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     }
 
     override fun update() {
+        if (!recipeIsLocked) this.currentRecipe = null
         if (!getWorld().isRemote) {
-            if (!recipeIsLocked) this.currentRecipe = CombinerRecipe.match(input)
             clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
             if (!this.paused && canProcess()) process()
             this.markDirtyClientEvery(5)
@@ -78,7 +77,9 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
 
     fun canProcess(): Boolean {
         return currentRecipe != null
-                && (!recipeIsLocked || CombinerRecipe.match(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
+                && currentRecipe!!.matchesHandlerStacks(this.input)
+                && recipeIsLocked
+                //&& (!recipeIsLocked || CombinerRecipe.matchInputs(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
                 && (ItemStack.areItemsEqual(output[0], currentRecipe?.output) || output[0].isEmpty)
                 && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize)
                 && energyCapability.energyStored >= ENERGY_PER_TICK
@@ -95,7 +96,8 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             for (i in 0 until recipeInputsList.tagCount()) {
                 tempItemHandler.setStackInSlot(i, ItemStack(recipeInputsList.getCompoundTagAt(i)))
             }
-            this.currentRecipe = CombinerRecipe.match(tempItemHandler)
+            val recipeTarget = ItemStack(compound.getCompoundTag("RecipeTarget"))
+            this.currentRecipe = CombinerRecipe.matchOutput(recipeTarget)
             clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
         } else {
             this.currentRecipe = null
@@ -117,6 +119,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             }
             compound.setTag("RecipeInputs", recipeInputs)
         }
+        compound.setTag("RecipeTarget", clientRecipeTarget[0].serializeNBT())
         return super.writeToNBT(compound)
     }
 }

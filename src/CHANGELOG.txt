@@ -1,3 +1,14 @@
+0.8.2
+==
+The Chemical Combiner now has a custom JEI transfer handler (the [+] button).
+It no longer transfers items, but it *does* instantly set the recipe template
+This has a few side effects:
+ * Better performance due to some internal refactoring
+ * Setting combiner recipe templates no longer makes you want to rip your hair out, as all it takes is a single click in JEI
+ * The Combiner will not function without JEI now (but who played without JEI anyway?)
+ * The CraftTweaker 'Combiner.removeRecipe' handler now takes an output instead of a list of inputs
+ * Recipe clashes (with same ingredients in same slots, but different quantities) are no longer an issue
+
 0.8.0
 ==
 -Fixed XML bug with Chem Dissolver input not working with the 'quantity' attribute

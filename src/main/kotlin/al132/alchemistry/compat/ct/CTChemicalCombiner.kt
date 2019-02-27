@@ -8,7 +8,6 @@ import crafttweaker.annotations.ModOnly
 import crafttweaker.annotations.ZenRegister
 import crafttweaker.api.item.IItemStack
 import net.minecraft.item.ItemStack
-import net.minecraftforge.items.ItemStackHandler
 import stanhebben.zenscript.annotations.ZenClass
 import stanhebben.zenscript.annotations.ZenMethod
 
@@ -25,7 +24,7 @@ object CTChemicalCombiner {
 
     @ZenMethod
     @JvmStatic
-    fun removeRecipe(input: Array<IItemStack?>) {
+    fun removeRecipe(input: IItemStack?) {
         Alchemistry.LATE_REMOVALS.add(Remove(input))
     }
 
@@ -47,15 +46,11 @@ object CTChemicalCombiner {
         override fun describe(): String? = null
     }
 
-    class Remove(var input: Array<IItemStack?>) : IAction {
+    class Remove(var input: IItemStack?) : IAction {
 
         override fun apply() {
-            val inputs = input.map { it?.internal as? ItemStack ?: ItemStack.EMPTY }
-            val handler = ItemStackHandler(9)
-            for (i in 0 until inputs.size) {
-                handler.setStackInSlot(i, inputs[i])
-            }
-            val recipe = CombinerRecipe.match(handler)
+            val unwrappedInput = input?.internal as? ItemStack ?: ItemStack.EMPTY
+            val recipe = CombinerRecipe.matchOutput(unwrappedInput)
             if (recipe != null) ModRecipes.combinerRecipes.remove(recipe)
         }
 

@@ -293,7 +293,7 @@ object CompoundRegistry {
 
     operator fun get(index: Int): ChemicalCompound? = compounds[index]
 
-    fun getMeta(name: String) = compounds.indexOfFirst { it.name == name } //indexOfFirst returns -1 if none match
+    fun getMeta(name: String) = compounds.indexOfFirst { it.name == name } //indexOfFirst returns -1 if none matchInputs
 
     fun size(): Int = compounds.size
 }

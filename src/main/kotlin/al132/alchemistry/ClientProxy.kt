@@ -2,6 +2,7 @@ package al132.alchemistry
 
 
 import al132.alchemistry.items.ModItems
+import net.minecraftforge.client.model.obj.OBJLoader
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -14,6 +15,7 @@ class ClientProxy : CommonProxy() {
     @SideOnly(Side.CLIENT)
     override fun preInit(e: FMLPreInitializationEvent) {
         super.preInit(e)
+        OBJLoader.INSTANCE.addDomain(Reference.MODID);
     }
 
     override fun init(e: FMLInitializationEvent) {
@@ -24,6 +26,7 @@ class ClientProxy : CommonProxy() {
         super.postInit(e)
         ModItems.initColors()
     }
+
 
     /*override fun initFluidModel(block: Block, fluid: Fluid) {
         val fluidLocation = ModelResourceLocation(

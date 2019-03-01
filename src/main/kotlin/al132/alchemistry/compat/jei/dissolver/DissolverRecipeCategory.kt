@@ -19,8 +19,8 @@ class DissolverRecipeCategory(guiHelper: IGuiHelper)
         val OUTPUT_STARTING_INDEX = 3
         val u = 5
         val v = 5
-        val width = 170
-        val height = 170
+        val width = 180//170
+        val height = 256//170
         val guiTexture = ResourceLocation("alchemistry:textures/gui/container/chemical_dissolver_jei.png")
     }
 

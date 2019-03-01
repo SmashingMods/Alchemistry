@@ -155,6 +155,8 @@ item.alchemistry:compound_amide.name=Амид
 item.alchemistry:compound_ethanol.name=Этанол
 item.alchemistry:compound_potassium_carbonate.name=Карбонат калия
 item.alchemistry:compound_mescaline.name=Мескалин
+item.alchemistry:compound_mullite.name=Муллит
+
 
 
 jei.combiner.name=Химический комбайн
@@ -167,6 +169,11 @@ jei.liquifier.name=Разжижитель
 itemGroup.alchemistry=Alchemistry
 
 item.alchemistry:fertilizer.tooltip=Может использоваться как костная мука
+tile.electrolyzer.tooltip=Требует
+tile.chemical_dissolver.tooltip=Требует
+tile.chemical_combiner.tooltip=Требует
+tile.atomizer.tooltip=Требует
+tile.liquifier.tooltip=Требует
 tile.evaporator.tooltip=Работает на 50% медленнее в несухих биомах
 
 tile.combiner.unlock_recipe=Разблокировать рецепт

@@ -21,7 +21,7 @@ class DissolverRecipeWrapper(recipe: DissolverRecipe) : AlchemistryRecipeWrapper
         var y = 50
         for (index in recipe.outputs.set.indices) {
             val text = formatProbability(recipe.outputs.probabilityAtIndex(index))
-            minecraft!!.fontRenderer?.drawString(text, -5, y, Color.BLACK.rgb)
+            minecraft!!.fontRenderer?.drawString(text, 0/*-5*/, y, Color.BLACK.rgb)
             y += 18
         }
 

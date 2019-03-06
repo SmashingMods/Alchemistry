@@ -54,8 +54,10 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     override fun update() {
         if (!recipeIsLocked) this.currentRecipe = null
         if (!getWorld().isRemote) {
-            clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
-            if (!this.paused && canProcess()) process()
+            if(currentRecipe != null) {
+                clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
+                if (!this.paused && canProcess()) process()
+            }
             this.markDirtyClientEvery(5)
         }
     }

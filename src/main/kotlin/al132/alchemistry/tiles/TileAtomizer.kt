@@ -47,11 +47,16 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
 
     override fun update() {
         if (!world.isRemote) {
-            this.currentRecipe = ModRecipes.atomizerRecipes.firstOrNull { inputTank.fluid?.containsFluid(it.input) ?: false }
-            if (canProcess()) process()
+            if(inputTank.fluidAmount > 0) {
+                this.currentRecipe = ModRecipes.atomizerRecipes.firstOrNull {
+                    inputTank.fluid?.containsFluid(it.input) ?: false
+                }
+                if (canProcess()) process()
+            }
             this.markDirtyClientEvery(5)
         }
     }
+
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(compound)

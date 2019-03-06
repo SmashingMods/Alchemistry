@@ -56,8 +56,10 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IE
 
     override fun update() {
         if (!world.isRemote) {
-            this.currentRecipe = ModRecipes.liquifierRecipes.firstOrNull { it.input.areItemsEqual(this.input[0]) }
-            if (canProcess()) process()
+            if(!this.input[0].isEmpty) {
+                this.currentRecipe = ModRecipes.liquifierRecipes.firstOrNull { it.input.areItemsEqual(this.input[0]) }
+                if (canProcess()) process()
+            }
             this.markDirtyClientEvery(5)
         }
     }

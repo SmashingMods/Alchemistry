@@ -45,8 +45,12 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
 
     override fun update() {
         if (!world.isRemote) {
-            this.currentRecipe = ModRecipes.evaporatorRecipes.firstOrNull { inputTank.fluid?.containsFluid(it.input) ?: false }
-            if (canProcess()) process()
+            if(inputTank.fluidAmount > 0) {
+                this.currentRecipe = ModRecipes.evaporatorRecipes.firstOrNull {
+                    inputTank.fluid?.containsFluid(it.input) ?: false
+                }
+                if (canProcess()) process()
+            }
             this.markDirtyClientEvery(5)
         }
     }

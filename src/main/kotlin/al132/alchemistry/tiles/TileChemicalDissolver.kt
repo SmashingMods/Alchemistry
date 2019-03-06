@@ -42,16 +42,17 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
                 if (DissolverRecipe.match(stack, false) != null) {
                     return super.insertItem(slot, stack, simulate)
-                }
-                else return stack
+                } else return stack
             }
         }
     }
 
     override fun update() {
         if (!getWorld().isRemote) {
-            this.currentRecipe = DissolverRecipe.match(input[0], true)
-            if (canProcess()) process()
+            if (!input[0].isEmpty) {
+                this.currentRecipe = DissolverRecipe.match(input[0], true)
+                if (canProcess()) process()
+            }
             this.markDirtyClientEvery(5)
         }
     }

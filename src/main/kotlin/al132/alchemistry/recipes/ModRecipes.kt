@@ -1478,7 +1478,7 @@ object ModRecipes {
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
                 atomizerRecipes.add(AtomizerRecipe(
-                        FluidRegistry.getFluidStack(it.name, 500)!!, it.name.toElementStack(8)))
+                        FluidRegistry.getFluidStack(it.name, 144)!!, it.name.toElementStack(16)))
             }
         }
     }
@@ -1489,7 +1489,7 @@ object ModRecipes {
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
                 liquifierRecipes.add(LiquifierRecipe(
-                        it.name.toElementStack(8), FluidRegistry.getFluidStack(it.name, 500)!!
+                        it.name.toElementStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
                 ))
             }
         }

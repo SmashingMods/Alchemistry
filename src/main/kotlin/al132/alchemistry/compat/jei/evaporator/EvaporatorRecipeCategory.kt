@@ -7,8 +7,7 @@ import al132.alchemistry.compat.jei.Translator
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
-import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidStack
+import mezz.jei.api.ingredients.VanillaTypes
 
 class EvaporatorRecipeCategory(guiHelper: IGuiHelper)
     : AlchemistryRecipeCategory<EvaporatorRecipeWrapper>(guiHelper.createDrawable(guiTexture, u, v, 100, 125),
@@ -26,11 +25,11 @@ class EvaporatorRecipeCategory(guiHelper: IGuiHelper)
         var x = 121 - u
         var y = 51 - v
         guiItemStacks.init(OUTPUT_ONE, false, x, y)
-        guiItemStacks.set(OUTPUT_ONE, ingredients.getOutputs(ItemStack::class.java)[0])
+        guiItemStacks.set(OUTPUT_ONE, ingredients.getOutputs(VanillaTypes.ITEM)[0])
 
         x = 48 - u
         y = 69 - u
-        val inputStack = ingredients.getInputs(FluidStack::class.java)[0][0]
+        val inputStack = ingredients.getInputs(VanillaTypes.FLUID)[0][0]
         guiFluidStacks.init(FLUID_ONE, true, x, y, 16, 60, inputStack.amount, false, null)
         guiFluidStacks.set(FLUID_ONE, inputStack)
     }

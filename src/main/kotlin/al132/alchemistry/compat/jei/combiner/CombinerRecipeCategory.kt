@@ -7,7 +7,7 @@ import al132.alchemistry.compat.jei.Translator
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
-import net.minecraft.item.ItemStack
+import mezz.jei.api.ingredients.VanillaTypes
 
 class CombinerRecipeCategory(guiHelper: IGuiHelper) :
         AlchemistryRecipeCategory<CombinerRecipeWrapper>
@@ -15,11 +15,11 @@ class CombinerRecipeCategory(guiHelper: IGuiHelper) :
 
     companion object {
 
-        private val INPUT_SIZE = 9
-        private val OUTPUT_SLOT = 9
+        private const val INPUT_SIZE = 9
+        private const val OUTPUT_SLOT = 9
 
-        private val u = 35
-        private val v = 10
+        private const val u = 35
+        private const val v = 10
 
         private val guiTexture = GuiChemicalCombiner.textureLocation()
     }
@@ -46,7 +46,7 @@ class CombinerRecipeCategory(guiHelper: IGuiHelper) :
 
 
         for (i in 0 until INPUT_SIZE) {
-            guiItemStacks.set(i, ingredients.getInputs(ItemStack::class.java)[i])
+            guiItemStacks.set(i, ingredients.getInputs(VanillaTypes.ITEM)[i])
         }
 
         x = 139 - u

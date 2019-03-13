@@ -1,7 +1,26 @@
+0.8.5
+==
+-Fixed tile break particles for all tiles
+-Fixed Atomizer working without power
+-Fixed ghost/invalid recipes in Dissolver JEI
+-Added a new CT function to fetch elements/compounds rather than needing to look up the meta value
+
+
+0.8.4
+==
+-Tile performance improvement
+
+0.8.3
+==
+-Updated ru_ru.lang, again thanks to kellixon
+-Minor tweaking of the Combiner JEI display
+-The Evaporator now renders fluids in-world(!)
+
+
 0.8.2
 ==
-The Chemical Combiner now has a custom JEI transfer handler (the [+] button).
-It no longer transfers items, but it *does* instantly set the recipe template
+-The Chemical Combiner now has a custom JEI transfer handler (the [+] button).
+-It no longer transfers items, but it *does* instantly set the recipe template
 This has a few side effects:
  * Better performance due to some internal refactoring
  * Setting combiner recipe templates no longer makes you want to rip your hair out, as all it takes is a single click in JEI

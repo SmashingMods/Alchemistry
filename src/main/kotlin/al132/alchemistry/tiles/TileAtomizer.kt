@@ -81,6 +81,8 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
                 && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty)
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
                 && output[0].count + currentRecipe!!.output.count <= currentRecipe!!.output.maxStackSize
+                && energyCapability.energyStored >= TileChemicalCombiner.ENERGY_PER_TICK
+
     }
 
     fun process() {

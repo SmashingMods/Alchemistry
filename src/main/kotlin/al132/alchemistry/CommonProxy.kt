@@ -17,10 +17,10 @@ open class CommonProxy {
 
 
     open fun preInit(e: FMLPreInitializationEvent) {
-        Alchemistry.logger = e.modLog;
+        Alchemistry.logger = e.modLog
         ConfigHandler.init(e.suggestedConfigurationFile)
         Reference.configPath = e.suggestedConfigurationFile.parent
-        Reference.configDir = File(e.modConfigurationDirectory,"alchemistry")
+        Reference.configDir = File(e.modConfigurationDirectory, "alchemistry")
         if (!Reference.configDir.exists()) Reference.configDir.mkdir()
         val exampleFile = File(Reference.configDir, "custom.xml")
         if (!exampleFile.exists()) {
@@ -39,19 +39,15 @@ open class CommonProxy {
 
     }
 
-
     open fun init(e: FMLInitializationEvent) {
-        ModRecipes.init()
-        val files = Reference.configDir.listFiles(FileFilter({it.extension.toLowerCase() == "xml"}))
-        files.forEach{
+        val files = Reference.configDir.listFiles(FileFilter { it.extension.toLowerCase() == "xml" })
+        files.forEach {
             XMLRecipeParser().init(it.name)
         }
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
-
     }
 
     open fun postInit(e: FMLPostInitializationEvent) {
+        ModRecipes.init()
     }
-
-    //open fun initFluidModel(block: Block, fluid: Fluid) {}
 }

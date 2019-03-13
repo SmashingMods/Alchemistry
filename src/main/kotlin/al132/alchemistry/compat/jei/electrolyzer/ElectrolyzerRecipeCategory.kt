@@ -8,8 +8,8 @@ import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.gui.ITooltipCallback
 import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidStack
 
 class ElectrolyzerRecipeCategory(guiHelper: IGuiHelper)
     : AlchemistryRecipeCategory<ElectrolyzerRecipeWrapper>(guiHelper.createDrawable(guiTexture, u, v, 100, 125),
@@ -39,15 +39,15 @@ class ElectrolyzerRecipeCategory(guiHelper: IGuiHelper)
         y += 18
         guiItemStacks.init(OUTPUT_FOUR, false, x, y)
 
-        guiItemStacks.set(OUTPUT_ONE, ingredients.getOutputs(ItemStack::class.java)[0])
-        guiItemStacks.set(OUTPUT_TWO, ingredients.getOutputs(ItemStack::class.java)[1])
-        guiItemStacks.set(OUTPUT_THREE, ingredients.getOutputs(ItemStack::class.java)[2])
-        guiItemStacks.set(OUTPUT_FOUR, ingredients.getOutputs(ItemStack::class.java)[3])
+        guiItemStacks.set(OUTPUT_ONE, ingredients.getOutputs(VanillaTypes.ITEM)[0])
+        guiItemStacks.set(OUTPUT_TWO, ingredients.getOutputs(VanillaTypes.ITEM)[1])
+        guiItemStacks.set(OUTPUT_THREE, ingredients.getOutputs(VanillaTypes.ITEM)[2])
+        guiItemStacks.set(OUTPUT_FOUR, ingredients.getOutputs(VanillaTypes.ITEM)[3])
 
 
         x = 48 - u
         y = 69 - u
-        val inputStack = ingredients.getInputs(FluidStack::class.java)[0][0]
+        val inputStack = ingredients.getInputs(VanillaTypes.FLUID)[0][0]
         guiFluidStacks.init(FLUID_ONE, true, x, y, 16, 60, inputStack.amount, false, null)
         guiFluidStacks.set(FLUID_ONE, inputStack)
 

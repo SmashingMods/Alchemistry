@@ -1,4 +1,4 @@
-package al132.alchemistry.client;
+package al132.alchemistry.client
 
 import al132.alchemistry.tiles.TileEvaporator
 import net.minecraft.client.Minecraft
@@ -34,7 +34,7 @@ import org.lwjgl.opengl.GL11
 
     fun renderFluid(tess: Tessellator, fluid: Fluid, tile: TileEvaporator) {
         val buffer: BufferBuilder = tess.buffer
-        val sprite: TextureAtlasSprite = Minecraft.getMinecraft().textureMapBlocks.getAtlasSprite(fluid.getStill(tile.inputTank.fluid).toString());
+        val sprite: TextureAtlasSprite = Minecraft.getMinecraft().textureMapBlocks.getAtlasSprite(fluid.getStill(tile.inputTank.fluid).toString())
         val capacity: Double = tile.inputTank.capacity.toDouble()
         val amount: Double = tile.inputTank.fluidAmount.toDouble()
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR)
@@ -50,10 +50,10 @@ import org.lwjgl.opengl.GL11
 
         //Render in inner 12 bits, trim off 2 bits on each side
         val margin = 2.0 / 16.0
-        buffer.pos(margin, scale + offset, margin).tex(u1, v1).color(255, 255, 255, 128).endVertex();
-        buffer.pos(margin, scale + offset, 1.0 - margin).tex(u1, v2).color(255, 255, 255, 128).endVertex();
-        buffer.pos(1.0 - margin, scale + offset, 1.0 - margin).tex(u2, v2).color(255, 255, 255, 128).endVertex();
-        buffer.pos(1.0 - margin, scale + offset, margin).tex(u2, v1).color(255, 255, 255, 128).endVertex();
+        buffer.pos(margin, scale + offset, margin).tex(u1, v1).color(255, 255, 255, 128).endVertex()
+        buffer.pos(margin, scale + offset, 1.0 - margin).tex(u1, v2).color(255, 255, 255, 128).endVertex()
+        buffer.pos(1.0 - margin, scale + offset, 1.0 - margin).tex(u2, v2).color(255, 255, 255, 128).endVertex()
+        buffer.pos(1.0 - margin, scale + offset, margin).tex(u2, v1).color(255, 255, 255, 128).endVertex()
         tess.draw()
     }
 }

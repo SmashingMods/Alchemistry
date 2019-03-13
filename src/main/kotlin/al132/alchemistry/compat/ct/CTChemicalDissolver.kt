@@ -1,11 +1,9 @@
 package al132.alchemistry.compat.ct
 
 import al132.alchemistry.Alchemistry
-import al132.alchemistry.recipes.DissolverRecipe
-import al132.alchemistry.recipes.ModRecipes
-import al132.alchemistry.recipes.ProbabilityGroup
-import al132.alchemistry.recipes.ProbabilitySet
+import al132.alchemistry.recipes.*
 import al132.alib.utils.extensions.containsItem
+import al132.alib.utils.extensions.equalsIgnoreMeta
 import crafttweaker.IAction
 import crafttweaker.annotations.ModOnly
 import crafttweaker.annotations.ZenRegister
@@ -13,6 +11,8 @@ import crafttweaker.api.item.IIngredient
 import crafttweaker.api.item.IItemStack
 import crafttweaker.api.oredict.IOreDictEntry
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.Ingredient
+import net.minecraftforge.oredict.OreDictionary
 import stanhebben.zenscript.annotations.ZenClass
 import stanhebben.zenscript.annotations.ZenMethod
 
@@ -44,15 +44,13 @@ object CTChemicalDissolver {
             }
             val outputSet = ProbabilitySet(_set = groups, relativeProbability = relativeProbability, rolls = rolls)
             if (input is IOreDictEntry) {
-                ModRecipes.dissolverRecipes.add(DissolverRecipe(input.name as String, ItemStack.EMPTY, input.amount, false, outputSet))
+                ModRecipes.dissolverRecipes.add(DissolverRecipe(input.name.toOre(), false, outputSet))
             } else if (input is IItemStack) {
-                ModRecipes.dissolverRecipes.add(DissolverRecipe("", input.internal as ItemStack, input.amount, false, outputSet))
+                ModRecipes.dissolverRecipes.add(DissolverRecipe(Ingredient.fromStacks(input.internal as ItemStack), false, outputSet))
             }
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe(): String? = null
     }
 
     class Remove(val input: IIngredient) : IAction {
@@ -60,11 +58,15 @@ object CTChemicalDissolver {
         override fun apply() {
             val inputStack = input.internal
             if (inputStack is ItemStack) ModRecipes.dissolverRecipes.removeIf { it.inputs.containsItem(inputStack) }
-            else if (inputStack is String) ModRecipes.dissolverRecipes.removeIf { it.dictName == inputStack }
+            else if (inputStack is String) {
+                ModRecipes.dissolverRecipes.removeIf { recipe ->
+                    val inputEntry = OreDictionary.getOres(inputStack)[0]
+                    val recipeEntry = recipe.inputs[0]
+                    recipeEntry.equalsIgnoreMeta(inputEntry)
+                }
+            }
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe(): String? = null
     }
 }

@@ -30,10 +30,8 @@ class DissolverRecipeCategory(guiHelper: IGuiHelper)
 
     override fun setRecipe(recipeLayout: IRecipeLayout, recipeWrapper: DissolverRecipeWrapper, ingredients: IIngredients) {
         val guiItemStacks = recipeLayout.itemStacks
-
-        val inputStack: List<ItemStack> = ingredients.getInputs(ItemStack::class.java)[0]
+        val inputStack: List<ItemStack> = recipeWrapper.recipe.inputs//ingredients.getInputs(VanillaTypes.ITEM)[0]
         val outputSet = recipeWrapper.recipe.outputs.set
-
         var x = 95 - u
         var y = 7 - v
         guiItemStacks.init(INPUT_ONE, true, x, y)

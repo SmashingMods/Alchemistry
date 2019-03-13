@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alchemistry:evaporator"
+    "model": "alchemistry:evaporator",
+    "textures": {
+      "particle": "alchemistry:blocks/dark_block"
+    }
   },
   "variants": {
     "normal": [{}],

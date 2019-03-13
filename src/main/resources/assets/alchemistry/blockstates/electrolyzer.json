@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alchemistry:electrolyzer"
+    "model": "alchemistry:electrolyzer",
+    "textures": {
+      "particle": "alchemistry:blocks/dark_block"
+    }
   },
   "variants": {
     "normal": [{}],

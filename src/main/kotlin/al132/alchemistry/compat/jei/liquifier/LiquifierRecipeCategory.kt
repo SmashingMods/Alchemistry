@@ -7,8 +7,7 @@ import al132.alchemistry.compat.jei.Translator
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients
-import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidStack
+import mezz.jei.api.ingredients.VanillaTypes
 
 class LiquifierRecipeCategory(guiHelper: IGuiHelper)
     : AlchemistryRecipeCategory<LiquifierRecipeWrapper>(guiHelper.createDrawable(guiTexture, u, v, 100, 125),
@@ -26,11 +25,11 @@ class LiquifierRecipeCategory(guiHelper: IGuiHelper)
         var x = 48 - u
         var y = 57 - v
         guiItemStacks.init(INPUT_ONE, true, x, y)
-        guiItemStacks.set(INPUT_ONE, ingredients.getInputs(ItemStack::class.java)[0])
+        guiItemStacks.set(INPUT_ONE, ingredients.getInputs(VanillaTypes.ITEM)[0])
 
         x = 122 - u
         y = 40 - v
-        val outputFluidStack = ingredients.getOutputs(FluidStack::class.java)[0][0]
+        val outputFluidStack = ingredients.getOutputs(VanillaTypes.FLUID)[0][0]
         guiFluidStacks.init(FLUID_ONE, true, x, y, 16, 60, outputFluidStack.amount, false, null)
         guiFluidStacks.set(FLUID_ONE, outputFluidStack)
     }

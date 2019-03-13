@@ -207,14 +207,14 @@ class XMLRecipeParser {
             val outputSet = ProbabilitySet(_set = groupsList, relativeProbability = outputType != "absolute", rolls = outputRolls)
             if (inputStack.isEmpty) {
                 if (OreDictionary.doesOreNameExist(inputStr)) {
-                    ModRecipes.dissolverRecipes.add(DissolverRecipe(dictName = inputStr, inputQuantity = inputQuantity, _outputs = outputSet))
+                    ModRecipes.dissolverRecipes.add(DissolverRecipe(input = inputStr.toOre(), _outputs = outputSet))
                     Alchemistry.logger.info("Added Chemical Dissolver recipe for $inputStr")
 
                 } else {
                     Alchemistry.logger.info("Failed to add Chemical Dissolver recipe for $inputStr")
                 }
             } else {
-                ModRecipes.dissolverRecipes.add(DissolverRecipe(stack = inputStack, _outputs = outputSet))
+                ModRecipes.dissolverRecipes.add(DissolverRecipe(input = inputStack.toIngredient(), _outputs = outputSet))
                 Alchemistry.logger.info("Added Chemical Dissolver recipe for $inputStack")
             }
         } else if (actionType == "remove") {
@@ -229,7 +229,8 @@ class XMLRecipeParser {
             } else {
                 if (OreDictionary.doesOreNameExist(inputStr)) {
                     ModRecipes.dissolverRecipes
-                            .filter { it.dictName == inputStr }
+                            //TODO does this work properly?
+                            .filter { it.input?.matchingStacks?.contentEquals(OreDictionary.getOres(inputStr).toArray())?:false }
                             .forEach {
                                 ModRecipes.dissolverRecipes.remove(it)
                                 Alchemistry.logger.info("Removed Chemical Dissolver recipe: $it")

@@ -1,4 +1,4 @@
-package al132.alchemistry.items;
+package al132.alchemistry.items
 
 import al132.alchemistry.compat.jei.Translator
 import net.minecraft.client.util.ITooltipFlag

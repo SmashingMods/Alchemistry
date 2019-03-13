@@ -51,6 +51,6 @@ object ConfigHandler {
                 "Set the energy consumption rate per tick for the Liquifier")
         liquifierProcessingTicks = config?.getInt("liquifierProcessingTicks", "Machines", 100,1,Integer.MAX_VALUE,
                 "Number of ticks per Liquifier operation")
-        if (config?.hasChanged() ?: false) config!!.save()
+        if (config?.hasChanged() == true) config!!.save()
     }
 }

@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alchemistry:chemical_combiner"
+    "model": "alchemistry:chemical_combiner",
+    "textures": {
+      "particle": "alchemistry:blocks/dark_block"
+    }
   },
   "variants": {
     "normal": [{}],

@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alchemistry:alloy_furnace"
+    "model": "alchemistry:alloy_furnace",
+    "textures": {
+      "particle": "alchemistry:blocks/dark_block"
+    }
   },
   "variants": {
     "normal": [{}],

@@ -15,11 +15,7 @@ class ClientProxy : CommonProxy() {
     @SideOnly(Side.CLIENT)
     override fun preInit(e: FMLPreInitializationEvent) {
         super.preInit(e)
-        OBJLoader.INSTANCE.addDomain(Reference.MODID);
-    }
-
-    override fun init(e: FMLInitializationEvent) {
-        super.init(e)
+        OBJLoader.INSTANCE.addDomain(Reference.MODID)
     }
 
     override fun postInit(e: FMLPostInitializationEvent) {

@@ -4,9 +4,8 @@ import al132.alchemistry.Reference
 import al132.alchemistry.compat.jei.AlchemistryRecipeWrapper
 import al132.alchemistry.recipes.ElectrolyzerRecipe
 import mezz.jei.api.ingredients.IIngredients
+import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.client.Minecraft
-import net.minecraft.item.ItemStack
-import net.minecraftforge.fluids.FluidStack
 import java.awt.Color
 
 class ElectrolyzerRecipeWrapper(recipe: ElectrolyzerRecipe) : AlchemistryRecipeWrapper<ElectrolyzerRecipe>(recipe) {
@@ -25,8 +24,8 @@ class ElectrolyzerRecipeWrapper(recipe: ElectrolyzerRecipe) : AlchemistryRecipeW
     }
 
     override fun getIngredients(ingredients: IIngredients) {
-        ingredients.setInput(FluidStack::class.java, recipe.input)
-        ingredients.setInputs(ItemStack::class.java, recipe.electrolytes)
-        ingredients.setOutputs(ItemStack::class.java, recipe.outputs)
+        ingredients.setInput(VanillaTypes.FLUID, recipe.input)
+        ingredients.setInputs(VanillaTypes.ITEM, recipe.electrolytes)
+        ingredients.setOutputs(VanillaTypes.ITEM, recipe.outputs)
     }
 }

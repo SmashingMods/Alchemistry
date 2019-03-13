@@ -1,6 +1,5 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-    "parent": "block/cube_all",
     "textures": {
         "1": "alchemistry:blocks/light_blue",
         "2": "alchemistry:blocks/light_gray",

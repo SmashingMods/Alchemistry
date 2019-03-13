@@ -24,7 +24,6 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
         var ENERGY_PER_TICK: Int = ConfigHandler.dissolverEnergyPerTick ?: 100
     }
 
-    //TODO read/write NBT for these
     private var outputSuccessful = true
     var outputThisTick: ItemStack = ItemStack.EMPTY
     var currentRecipe: DissolverRecipe? = null

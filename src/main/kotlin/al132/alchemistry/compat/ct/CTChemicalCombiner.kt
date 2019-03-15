@@ -43,7 +43,7 @@ object CTChemicalCombiner {
             else Alchemistry.logger.info("Unable to add crafttweaker recipe")
         }
 
-        override fun describe(): String? = null
+        override fun describe(): String? = "Added Chemical Combiner recipe for [${input.toList()}]->[$output]"
     }
 
     class Remove(var input: IItemStack?) : IAction {
@@ -54,6 +54,6 @@ object CTChemicalCombiner {
             if (recipe != null) ModRecipes.combinerRecipes.remove(recipe)
         }
 
-        override fun describe(): String? = null
+        override fun describe(): String? = "Removed Chemical Combiner recipe for [$input]"
     }
 }

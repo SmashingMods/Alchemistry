@@ -38,9 +38,7 @@ object CTLiquifier {
             ModRecipes.liquifierRecipes.add(LiquifierRecipe(inputStack, outputStack))
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe() = "Added Liquifier recipe for [$input] -> [$output]"
     }
 
     class Remove(var input: IItemStack) : IAction {
@@ -50,8 +48,7 @@ object CTLiquifier {
             ModRecipes.liquifierRecipes.removeIf { it.input.isItemEqual(inputStack) }
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe() = "Removed Liquifier recipe for [$input]"
+
     }
 }

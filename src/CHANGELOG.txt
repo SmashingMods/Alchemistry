@@ -1,3 +1,20 @@
+0.8.8
+==
+-Added elements 110-118 (some of which didn't even have names when I started making this mod!)
+-Fixed buggy Dissolver output probably caused by v0.8.4
+
+0.8.7
+==
+-Fixed crafttweaker Dissolver removeRecipe bug introduced in 0.8.5 for oredict entries
+-Added basic log messages for all crafttweaker recipes
+
+
+0.8.6
+==
+-The Liquifier/Atomizer metal recipes are now normalized with other mods i.e. 1 ingot = 16 chem items = 144mb
+ to prevent item duplication with a mod like Tinkers
+
+
 0.8.5
 ==
 -Fixed tile break particles for all tiles

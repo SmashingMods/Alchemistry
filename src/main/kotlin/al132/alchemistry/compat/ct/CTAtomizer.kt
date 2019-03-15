@@ -38,9 +38,7 @@ object CTAtomizer {
             ModRecipes.atomizerRecipes.add(AtomizerRecipe(inputStack, outputStack))
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe() = "Added Atomizer recipe for [$input] -> [$output]"
     }
 
     class Remove(var input: ILiquidStack) : IAction {
@@ -50,8 +48,6 @@ object CTAtomizer {
             ModRecipes.atomizerRecipes.removeIf { it.input.isFluidEqual(inputStack) }
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe() = "Added Atomizer recipe for [$input]"
     }
 }

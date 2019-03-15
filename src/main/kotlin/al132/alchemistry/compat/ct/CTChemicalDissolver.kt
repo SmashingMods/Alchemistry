@@ -50,7 +50,7 @@ object CTChemicalDissolver {
             }
         }
 
-        override fun describe(): String? = null
+        override fun describe(): String? = "Added Chemical Dissolver Recipe for [$input]"
     }
 
     class Remove(val input: IIngredient) : IAction {
@@ -60,13 +60,16 @@ object CTChemicalDissolver {
             if (inputStack is ItemStack) ModRecipes.dissolverRecipes.removeIf { it.inputs.containsItem(inputStack) }
             else if (inputStack is String) {
                 ModRecipes.dissolverRecipes.removeIf { recipe ->
-                    val inputEntry = OreDictionary.getOres(inputStack)[0]
-                    val recipeEntry = recipe.inputs[0]
-                    recipeEntry.equalsIgnoreMeta(inputEntry)
+                    if(recipe.inputs.isNotEmpty() && OreDictionary.getOres(inputStack).isNotEmpty()) {
+                        val inputEntry = OreDictionary.getOres(inputStack)[0]
+                        val recipeEntry = recipe.inputs[0]
+                        recipeEntry.equalsIgnoreMeta(inputEntry)
+                    }
+                    else false
                 }
             }
         }
 
-        override fun describe(): String? = null
+        override fun describe(): String? = "Removed Chemical Dissolver Recipe for [$input]"
     }
 }

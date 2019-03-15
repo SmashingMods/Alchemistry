@@ -48,7 +48,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
     override fun update() {
         if (!getWorld().isRemote) {
-            if (!input[0].isEmpty) {
+            if (!input[0].isEmpty || outputBuffer.isNotEmpty()) {
                 this.currentRecipe = DissolverRecipe.match(input[0], true)
                 if (canProcess()) process()
             }

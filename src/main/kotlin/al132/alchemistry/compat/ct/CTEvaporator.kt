@@ -39,9 +39,7 @@ object CTEvaporator {
             ModRecipes.evaporatorRecipes.add(EvaporatorRecipe(inputStack, outputStack))
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe() = "Added Evaporator recipe for [$input] -> [$output]"
     }
 
     class Remove(var input: ILiquidStack) : IAction {
@@ -51,8 +49,7 @@ object CTEvaporator {
             ModRecipes.evaporatorRecipes.removeIf { it.input.isFluidEqual(inputStack) }
         }
 
-        override fun describe(): String? {
-            return null
-        }
+        override fun describe() = "Removed Evaporator recipe for [$input]"
+
     }
 }

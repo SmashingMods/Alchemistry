@@ -118,6 +118,15 @@ item.alchemistry:element_seaborgium.name=Seaborgium
 item.alchemistry:element_bohrium.name=Bohrium
 item.alchemistry:element_hassium.name=Hassium
 item.alchemistry:element_meitnerium.name=Meitnerium
+item.alchemistry:element_darmstadtium.name=Darmstadtium
+item.alchemistry:element_roentgenium.name=Roentgenium
+item.alchemistry:element_copernicium.name=Copernicium
+item.alchemistry:element_nihonium.name=Nihonium
+item.alchemistry:element_flerovium.name=Flerovium
+item.alchemistry:element_moscovium.name=Moscovium
+item.alchemistry:element_livermorium.name=Livermorium
+item.alchemistry:element_tennessine.name=Tennessine
+item.alchemistry:element_oganesson.name=Oganesson
 
 
 item.alchemistry:compound_cellulose.name=Cellulose

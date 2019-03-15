@@ -51,7 +51,7 @@ object CTElectrolyzer {
             } else Alchemistry.logger.info("Unable to add crafttweaker recipe")
         }
 
-        override fun describe(): String? = null
+        override fun describe(): String? = "Added Electrolyzer recipe for [$input and $electrolyte]"
     }
 
     class Remove(val input: ILiquidStack, val electrolyte: IItemStack) : IAction {
@@ -64,6 +64,6 @@ object CTElectrolyzer {
             }
         }
 
-        override fun describe(): String? = null
+        override fun describe(): String? = "Removed Electrolyzer recipe for [$input and $electrolyte]"
     }
 }

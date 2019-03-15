@@ -115,12 +115,21 @@ object ElementRegistry {
         add(101, "mendelevium", "Md", Color(175, 176, 249))
         add(102, "nobelium", "No", Color(94, 44, 52))
         add(103, "lawrencium", "Lr", Color(216, 45, 92))
-        add(104, "rutherfordium", "Rf", Color(206, 61, 22))
+        add(104, "rutherfordium", "Rf", Color(240, 61, 22))
         add(105, "dubnium", "Db", Color(11, 112, 108))
         add(106, "seaborgium", "Sg", Color(158, 49, 74))
         add(107, "bohrium", "Bh", Color(166, 251, 51))
         add(108, "hassium", "Hs", Color(78, 5, 51))
         add(109, "meitnerium", "Mt", Color(169, 138, 37))
+        add(110, "darmstadtium", "Ds", Color(14, 144, 190))
+        add(111,"roentgenium","Rg",Color(150,90,90))
+        add(112,"copernicium","Cn",Color(160,40,240))
+        add(113,"nihonium","Nh",Color(220,250,180))
+        add(114,"flerovium","Fl",Color(200,180,254))
+        add(115,"moscovium","Mc",Color(250,180,200))
+        add(116,"livermorium","Lv",Color(250,250,200))
+        add(117,"tennessine","Ts",Color(150,250,250))
+        add(118,"oganesson","Og",Color(250,150,250))
     }
 
     operator fun get(atomicNumber: Int): ChemicalElement? = elements.firstOrNull { it.meta == atomicNumber }

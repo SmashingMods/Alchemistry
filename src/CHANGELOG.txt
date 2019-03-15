@@ -1,3 +1,13 @@
+0.8.9
+==
+-Added a new item the "Obsidian Breaker", a consumable item that instantly harvests obsidian
+-The dissolver now should be smart about how it stacks its output. It will try to stack with existing stacks if possible
+before moving to empty slots
+-Added an evaporator recipe for Lava -> Magma blocks, allowing the Dissolver to be built before going to the Nether, and thus
+allowing the obsidian breaker to be made before going to the Nether as well.
+-Tweaked a few miscellaneous machine recipes
+
+
 0.8.8
 ==
 -Added elements 110-118 (some of which didn't even have names when I started making this mod!)

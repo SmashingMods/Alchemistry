@@ -79,12 +79,22 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
             outputSuccessful = false
         }
 
-        //try to output in each slot until there's a "hit"
-        f@ for (i in 0 until output.slots) {
-            if (canStacksMerge(outputThisTick, output[i])) {
+        //Try to stack output with existing stacks in output, if possible
+        for (i in 0 until output.slots) {
+            if (canStacksMerge(outputThisTick, output[i], stacksCanbeEmpty = false)) {
                 output.setOrIncrement(i, outputThisTick)
                 outputSuccessful = true
-                break@f
+                break
+            }
+        }
+        //Otherwise try the empty stacks
+        if (!outputSuccessful) {
+            for (i in 0 until output.slots) {
+                if (canStacksMerge(outputThisTick, output[i], stacksCanbeEmpty = true)) {
+                    output.setOrIncrement(i, outputThisTick)
+                    outputSuccessful = true
+                    break
+                }
             }
         }
 

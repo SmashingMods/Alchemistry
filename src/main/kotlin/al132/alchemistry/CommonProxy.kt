@@ -6,6 +6,7 @@ import al132.alchemistry.client.GuiHandler
 import al132.alchemistry.network.PacketHandler
 import al132.alchemistry.recipes.ModRecipes
 import al132.alchemistry.recipes.XMLRecipeParser
+import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -45,6 +46,7 @@ open class CommonProxy {
             XMLRecipeParser().init(it.name)
         }
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
+        MinecraftForge.EVENT_BUS.register(EventHandler())
     }
 
     open fun postInit(e: FMLPostInitializationEvent) {

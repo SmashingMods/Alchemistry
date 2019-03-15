@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SK",
+    "KS"
+  ],
+  "key": {
+    "S": {
+      "item": "alchemistry:element",
+      "data":16
+    },
+    "K": {
+      "item": "alchemistry:element",
+      "data":19
+    }
+  },
+  "result": {
+    "item": "alchemistry:obsidian_breaker",
+    "data": 0
+  }
+}

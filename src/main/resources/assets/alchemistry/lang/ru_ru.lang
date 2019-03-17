@@ -7,6 +7,7 @@ tile.liquifier.name=Разжижитель
 
 item.alchemistry:mineral_salt.name=Минеральная соль
 item.alchemistry:fertilizer.name=Удобрение
+item.alchemistry:obsidian_breaker.name=Обсидиановый разрушитель
 
 item.alchemistry:element_hydrogen.name=Водород
 item.alchemistry:element_helium.name=Гелий
@@ -118,6 +119,15 @@ item.alchemistry:element_seaborgium.name=Сиборгий
 item.alchemistry:element_bohrium.name=Борий
 item.alchemistry:element_hassium.name=Хассий
 item.alchemistry:element_meitnerium.name=Мейтнерий
+item.alchemistry:element_darmstadtium.name=Дармштадтий
+item.alchemistry:element_roentgenium.name=Рентгений
+item.alchemistry:element_copernicium.name=Коперниций
+item.alchemistry:element_nihonium.name=Нихоний
+item.alchemistry:element_flerovium.name=Флеровий
+item.alchemistry:element_moscovium.name=Московий
+item.alchemistry:element_livermorium.name=Ливерморий
+item.alchemistry:element_tennessine.name=Теннессин
+item.alchemistry:element_oganesson.name=Оганесон
 
 
 item.alchemistry:compound_cellulose.name=Целлюлоза
@@ -129,7 +139,7 @@ item.alchemistry:compound_potassium_chloride.name=Хлористый калий
 item.alchemistry:compound_sodium_chloride.name=Хлорид натрия
 item.alchemistry:compound_water.name=Вода
 item.alchemistry:compound_kaolinite.name=Каолинит
-item.alchemistry:compound_protein.name=Белок 
+item.alchemistry:compound_protein.name=Белок
 item.alchemistry:compound_iron_oxide.name=Оксид железа
 item.alchemistry:compound_sucrose.name=Сахароза
 item.alchemistry:compound_calcium_carbonate.name=Карбонат кальция
@@ -169,6 +179,8 @@ jei.liquifier.name=Разжижитель
 itemGroup.alchemistry=Alchemistry
 
 item.alchemistry:fertilizer.tooltip=Может использоваться как костная мука
+item.alchemistry:obsidian_breaker.tooltip=ПКМ на блоке обсидиана, удерживая этот предмет, чтобы мгновенно собрать обсидиан. Этот предмет будет израсходован.
+
 tile.electrolyzer.tooltip=Требует
 tile.chemical_dissolver.tooltip=Требует
 tile.chemical_combiner.tooltip=Требует

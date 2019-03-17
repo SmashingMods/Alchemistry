@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11
 
 //Peeked off of https://github.com/McJtyMods/DeepResonance/blob/1.12/src/main/java/mcjty/deepresonance/blocks/tank/TankTESR.java
 //for guidance
- class EvaporatorTESR : TileEntitySpecialRenderer<TileEvaporator>() {
+ class TESREvaporator : TileEntitySpecialRenderer<TileEvaporator>() {
 
     override fun render(tile: TileEvaporator, x: Double, y: Double, z: Double, partialTicks: Float, destroyStage: Int, alpha: Float) {
         val fluidStack = tile.inputTank.fluid

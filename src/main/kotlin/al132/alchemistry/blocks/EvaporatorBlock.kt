@@ -1,6 +1,6 @@
 package al132.alchemistry.blocks
 
-import al132.alchemistry.client.EvaporatorTESR
+import al132.alchemistry.client.TESREvaporator
 import al132.alchemistry.items.ItemBlockEvaporator
 import al132.alchemistry.tiles.TileEvaporator
 import net.minecraft.block.state.IBlockState
@@ -29,7 +29,7 @@ class EvaporatorBlock(name: String,
 
     override fun registerModel() {
         super.registerModel()
-        ClientRegistry.bindTileEntitySpecialRenderer(TileEvaporator::class.java, EvaporatorTESR())
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEvaporator::class.java, TESREvaporator())
     }
 
     override fun registerItemBlock(event: RegistryEvent.Register<Item>){

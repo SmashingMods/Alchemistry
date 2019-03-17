@@ -23,7 +23,7 @@ object CTChemicalDissolver {
 
     @ZenMethod
     @JvmStatic
-    fun addRecipe(input: IIngredient, relativeProbability: Boolean, rolls: Int, outputs: Array<Array<Any>>) {
+    fun addRecipe(input: IIngredient, relativeProbability: Boolean, rolls: Int, outputs: Array<Array<Any?>>) {
         Alchemistry.LATE_ADDITIONS.add(Add(input, relativeProbability, rolls, outputs))
     }
 
@@ -33,13 +33,16 @@ object CTChemicalDissolver {
         Alchemistry.LATE_REMOVALS.add(Remove(input))
     }
 
-    class Add(val input: IIngredient, val relativeProbability: Boolean, val rolls: Int, val outputs: Array<Array<Any>>) : IAction {
+    class Add(val input: IIngredient, val relativeProbability: Boolean, val rolls: Int, val outputs: Array<Array<Any?>>) : IAction {
 
         override fun apply() {
             val groups = ArrayList<ProbabilityGroup>()
             outputs.forEach { rawArray ->
                 val probability = rawArray[0] as Int
-                val group = rawArray.drop(1).map { (it as IItemStack).internal as ItemStack }
+                val group = rawArray.drop(1).map {
+                    if (it == null) ItemStack.EMPTY
+                    else (it as IItemStack).internal as ItemStack
+                }
                 groups.add(ProbabilityGroup(group, probability))
             }
             val outputSet = ProbabilitySet(_set = groups, relativeProbability = relativeProbability, rolls = rolls)
@@ -60,12 +63,11 @@ object CTChemicalDissolver {
             if (inputStack is ItemStack) ModRecipes.dissolverRecipes.removeIf { it.inputs.containsItem(inputStack) }
             else if (inputStack is String) {
                 ModRecipes.dissolverRecipes.removeIf { recipe ->
-                    if(recipe.inputs.isNotEmpty() && OreDictionary.getOres(inputStack).isNotEmpty()) {
+                    if (recipe.inputs.isNotEmpty() && OreDictionary.getOres(inputStack).isNotEmpty()) {
                         val inputEntry = OreDictionary.getOres(inputStack)[0]
                         val recipeEntry = recipe.inputs[0]
                         recipeEntry.equalsIgnoreMeta(inputEntry)
-                    }
-                    else false
+                    } else false
                 }
             }
         }

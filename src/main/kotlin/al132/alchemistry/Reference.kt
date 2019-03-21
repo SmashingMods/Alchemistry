@@ -12,8 +12,8 @@ object Reference {
 
     const val MODID = "alchemistry"
     const val MODNAME = "Alchemistry"
-    const val VERSION = "0.8.10"
-    const val DEPENDENCIES = "required-after:forgelin;required-after:alib;"
+    const val VERSION = "0.8.11"
+    const val DEPENDENCIES = "required-after:forgelin;required-after:alib;after:crafttweaker;"
     val DECIMAL_FORMAT: NumberFormat = DecimalFormat("#0.00")
 
     val pathPrefix = "alchemistry:"

@@ -20,7 +20,7 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
-        (0 until CompoundRegistry.size()).forEach {
+        CompoundRegistry.keys().forEach {
             ModelLoader.setCustomModelResourceLocation(this, it,
                     ModelResourceLocation(registryName.toString(), "inventory"))
         }
@@ -35,14 +35,21 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, stacks: NonNullList<ItemStack>) {
         if (tab == Reference.creativeTab) {
-            (0 until CompoundRegistry.size()).forEach { stacks.add(ItemStack(this, 1, it)) }
+            CompoundRegistry.keys().forEach { stacks.add(ItemStack(this, 1, it)) }
         }
+    }
+
+    override fun getItemStackDisplayName(stack: ItemStack): String {
+        val compound = CompoundRegistry[stack.metadata]
+        if (stack.item == ModItems.compounds && compound != null && !(compound.isInternalCompound)) {
+            val compoundName = CompoundRegistry[stack.metadata]?.name ?: "<Error>"
+            return compoundName.split("_").joinToString(separator = " ") { it.first().toUpperCase() + it.drop(1) }
+        } else return super.getItemStackDisplayName(stack)
     }
 
     override fun getUnlocalizedName(stack: ItemStack?): String {
         var i = stack!!.itemDamage
-        if (!(0 until CompoundRegistry.size()).contains(i)) i = 0
-        //if (i < 0 || i >= CompoundRegistry.size()) i = 0
-        return super.getUnlocalizedName() + "_" + CompoundRegistry.compounds[i].name
+        if (!CompoundRegistry.keys().contains(i)) i = 0
+        return super.getUnlocalizedName() + "_" + CompoundRegistry[i]!!.name
     }
 }

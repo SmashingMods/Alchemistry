@@ -1,3 +1,16 @@
+0.8.11
+===
+-Added 'addElement' crafttweaker function, allowing you to create new elements
+-Added 'addCompound' crafttweaker function, unsurprisingly, allowing you to create new chemical compounds
+-Added a '/dissolver' command which copies the Chemical Dissolver recipe
+for the item that you're holding so it can be easily edited.
+-Minor recipe tweaks
+
+0.8.10
+===
+-Fixed crafttweaker dissolver recipes not accepting null stacks
+-Updated ru_ru.lang (thanks again to kellixon)
+
 0.8.9
 ==
 -Added a new item the "Obsidian Breaker", a consumable item that instantly harvests obsidian

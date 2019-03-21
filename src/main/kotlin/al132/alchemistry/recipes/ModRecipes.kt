@@ -182,7 +182,7 @@ object ModRecipes {
 
     fun initDissolverRecipes() {
 
-        CompoundRegistry.compounds
+        CompoundRegistry.compounds()
                 .filter { it.autoDissolverRecipe }
                 .forEach { compound ->
                     dissolverRecipes.add(dissolverRecipe {
@@ -774,6 +774,20 @@ object ModRecipes {
         })
 
         dissolverRecipes.add(dissolverRecipe {
+            input = Blocks.OBSIDIAN.toIngredient()
+            output{
+                addGroup{
+                    addStack { "magnesium_oxide".toCompoundStack(8)}
+                    addStack { "potassium_chloride".toCompoundStack(8)}
+                    addStack { "aluminum_oxide".toCompoundStack(8)}
+                    addStack { "silicon_dioxide".toCompoundStack(24)}
+
+                }
+
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe {
             input = Items.DYE.toIngredient(meta = 15) //bonemeal
             output {
                 relativeProbability = false
@@ -804,12 +818,13 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = ModItems.mineralSalt.toIngredient()
             output {
-                addGroup { addStack { "sodium_chloride".toCompoundStack() }; probability = 80 }
-                addGroup { addStack { "lithium".toElementStack() }; probability = 2 }
-                addGroup { addStack { "potassium_chloride".toCompoundStack() }; probability = 5 }
-                addGroup { addStack { "iron".toElementStack() }; probability = 2 }
-                addGroup { addStack { "copper".toElementStack() }; probability = 2 }
-                addGroup { addStack { "zinc".toElementStack() } }
+                addGroup { addStack { "sodium_chloride".toCompoundStack() }; probability = 60 }
+                addGroup { addStack { "lithium".toElementStack() }; probability = 5 }
+                addGroup { addStack { "potassium_chloride".toCompoundStack() }; probability = 10 }
+                addGroup { addStack { "magnesium".toElementStack() }; probability = 10; }
+                addGroup { addStack { "iron".toElementStack() }; probability = 5 }
+                addGroup { addStack { "copper".toElementStack() }; probability = 4 }
+                addGroup { addStack { "zinc".toElementStack() }; probability = 2 }
             }
         })
 
@@ -1276,7 +1291,7 @@ object ModRecipes {
             }
         }
 
-        CompoundRegistry.compounds
+        CompoundRegistry.compounds()
                 .filter { it.autoCombinerRecipe }
                 .forEach { compound ->
                     if (compound.hasShiftedRecipe) {
@@ -1286,7 +1301,7 @@ object ModRecipes {
                 }
 
         dissolverRecipes.filter { it.reversible }.forEach { recipe ->
-            if (recipe.inputs.size > 0) combinerRecipes.add(CombinerRecipe(recipe.inputs[0], recipe.outputs.toStackList()))
+            if (recipe.inputs.isNotEmpty()) combinerRecipes.add(CombinerRecipe(recipe.inputs[0], recipe.outputs.toStackList()))
         }
 
 
@@ -1384,9 +1399,9 @@ object ModRecipes {
                         null, "sucrose".toCompoundStack(1), null)))
 
         combinerRecipes.add(CombinerRecipe(ModItems.fertilizer.toStack(8),
-                listOf("urea".toCompoundStack(4),
-                        "diammonium_phosphate".toCompoundStack(4),
-                        "potassium_chloride".toCompoundStack(4))))
+                listOf("urea".toCompoundStack(1),
+                        "diammonium_phosphate".toCompoundStack(1),
+                        "potassium_chloride".toCompoundStack(1))))
 
         if (oreExists("gemRuby")) {
             val rubyStack = firstOre("gemRuby")

@@ -8,10 +8,10 @@ import java.util.*
  */
 object ElementRegistry {
 
-    private val elements = ArrayList<ChemicalElement>()
+    private val elements = HashMap<Int,ChemicalElement>()
 
     fun init() {
-        add(0, "placeholder", "?")
+        //add(0, "placeholder", "?")
         add(1, "hydrogen", "H", Color.blue)
         add(2, "helium", "He", Color.red)
         add(3, "lithium", "Li", Color(40, 158, 86))
@@ -132,17 +132,23 @@ object ElementRegistry {
         add(118,"oganesson","Og",Color(250,150,250))
     }
 
-    operator fun get(atomicNumber: Int): ChemicalElement? = elements.firstOrNull { it.meta == atomicNumber }
+    operator fun get(atomicNumber: Int): ChemicalElement? = elements.values.firstOrNull { it.meta == atomicNumber }
 
-    operator fun get(elementName: String): ChemicalElement? = elements.firstOrNull { it.name == elementName }
+    operator fun get(elementName: String): ChemicalElement? = elements.values.firstOrNull { it.name == elementName }
 
-    fun add(atomicNumber: Int, name: String, abbreviation: String, color: Color = Color.white) {
-        elements.add(atomicNumber, ChemicalElement(name, abbreviation, color))
+    fun add(atomicNumber: Int, name: String, abbreviation: String, color: Color = Color.white): Boolean {
+        if(elements.containsKey(atomicNumber)) return false
+        else {
+            elements[atomicNumber] = ChemicalElement(name, abbreviation, color)
+            return true
+        }
     }
 
-    fun size() = elements.size
+    //fun size(): Int = elements.size
 
-    fun getMeta(name: String) = elements.indices.firstOrNull { elements[it].name == name } ?: -1
+    fun getMeta(name: String): Int = elements.entries.firstOrNull { it.value.name == name }?.key ?: -1
 
-    fun getAllElements() = this.elements
+    fun getAllElements() = this.elements.values
+
+    fun keys() = this.elements.keys
 }

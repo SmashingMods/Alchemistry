@@ -11,15 +11,14 @@ import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.common.Mod.EventHandler
 import net.minecraftforge.fml.common.SidedProxy
-import net.minecraftforge.fml.common.event.FMLInitializationEvent
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
+import net.minecraftforge.fml.common.event.*
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.logging.log4j.Logger
 import java.util.*
+
+
 
 
 //TODO: Everything
@@ -40,7 +39,11 @@ object Alchemistry {
     var proxy: CommonProxy? = null
 
     @EventHandler
-    fun preInit(e: FMLPreInitializationEvent) = proxy!!.preInit(e)
+    fun preInit(e: FMLPreInitializationEvent)  {
+        proxy!!.preInit(e)
+        CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
+        //LanguageMap
+    }
 
     @EventHandler
     fun init(e: FMLInitializationEvent) = proxy!!.init(e)
@@ -48,6 +51,10 @@ object Alchemistry {
     @EventHandler
     fun postInit(e: FMLPostInitializationEvent) = proxy!!.postInit(e)
 
+    @EventHandler
+    fun serverStarting(e: FMLServerStartingEvent) {
+        e.registerServerCommand(DissolverCommand())
+    }
 
     @EventHandler
     fun loadComplete(e: FMLLoadCompleteEvent) {

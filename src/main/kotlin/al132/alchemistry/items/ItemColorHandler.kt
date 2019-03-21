@@ -17,12 +17,11 @@ class ItemColorHandler : IItemColor {
         val meta = stack.metadata
 
         if (tintIndex != 0) return Color.WHITE.rgb
-        else if (item is ItemElement && meta < ElementRegistry.size()) {
+        else if (item is ItemElement && ElementRegistry.keys().contains(meta)) {
             return ElementRegistry[meta]!!.color.rgb
-        } else if (item is ItemCompound && meta < CompoundRegistry.size()) {
-            return CompoundRegistry.compounds[meta].color.rgb
+        } else if (item is ItemCompound && CompoundRegistry.keys().contains(meta)) {
+            return CompoundRegistry[meta]!!.color.rgb
         }
-
         return Color.BLACK.rgb
     }
 }

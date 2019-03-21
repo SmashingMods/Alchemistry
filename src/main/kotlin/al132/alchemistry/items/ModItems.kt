@@ -19,7 +19,7 @@ object ModItems {
     var compounds = ItemCompound("compound")
     var mineralSalt = ItemBase("mineral_salt")
     var condensedMilk = ItemBase("condensed_milk")
-    var fertilizer = ItemFertilizer()//("fertilizer")
+    var fertilizer = ItemFertilizer()
     var diamondEnrichedGlass = ItemBase("diamond_enriched_glass")
     var obsidianBreaker = object : ItemBase("obsidian_breaker") {
         override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {

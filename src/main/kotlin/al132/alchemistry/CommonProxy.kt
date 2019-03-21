@@ -37,7 +37,6 @@ open class CommonProxy {
 
         //ModFluids.registerFluidContainers()
         PacketHandler.registerMessages(Reference.MODID)
-
     }
 
     open fun init(e: FMLInitializationEvent) {

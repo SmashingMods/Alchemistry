@@ -28,11 +28,12 @@ data class CompoundPair(val compound: ICompoundComponent, val quantity: Int) {
 
 
 data class ChemicalCompound constructor(override var name: String = "",
-                                   override var color: Color = Color.WHITE,
-                                   var autoCombinerRecipe: Boolean = true,
-                                   var hasShiftedRecipe: Boolean = false,
-                                   var autoDissolverRecipe: Boolean = true,
-                                   var components: List<CompoundPair> = ArrayList<CompoundPair>()) : ICompoundComponent {
+                                        override var color: Color = Color.WHITE,
+                                        var autoCombinerRecipe: Boolean = true,
+                                        var hasShiftedRecipe: Boolean = false,
+                                        var autoDissolverRecipe: Boolean = true,
+                                        var components: List<CompoundPair> = ArrayList<CompoundPair>(),
+                                        var isInternalCompound: Boolean = true) : ICompoundComponent {
 
     override val item: Item
         get() = ModItems.compounds

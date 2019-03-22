@@ -41,8 +41,6 @@ object Alchemistry {
     @EventHandler
     fun preInit(e: FMLPreInitializationEvent)  {
         proxy!!.preInit(e)
-        CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
-        //LanguageMap
     }
 
     @EventHandler

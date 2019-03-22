@@ -69,8 +69,8 @@ dependencies {
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_${mc_version}:${jei_version}"
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile group: "net.shadowfacts", name: "Forgelin", version: "1.6.0"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    deobfCompile group: "net.shadowfacts", name: "Forgelin", version: forgelin_version
 
 }
 

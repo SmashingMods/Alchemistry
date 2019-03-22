@@ -45,7 +45,6 @@ class ItemElement(name: String) : ItemMetaBase(name) {
         val element = ElementRegistry[stack.metadata]
         if (stack.metadata > 118 &&  stack.item == ModItems.elements) {
             val elementName = ElementRegistry[stack.metadata]?.name ?: "<Error>"
-            println(elementName)
             return elementName.split("_").joinToString(separator = " ") { it.first().toUpperCase() + it.drop(1) }
         } else return super.getItemStackDisplayName(stack)
     }

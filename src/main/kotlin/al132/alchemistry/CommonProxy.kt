@@ -6,6 +6,7 @@ import al132.alchemistry.client.GuiHandler
 import al132.alchemistry.network.PacketHandler
 import al132.alchemistry.recipes.ModRecipes
 import al132.alchemistry.recipes.XMLRecipeParser
+import crafttweaker.CraftTweakerAPI
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -15,7 +16,6 @@ import java.io.File
 import java.io.FileFilter
 
 open class CommonProxy {
-
 
     open fun preInit(e: FMLPreInitializationEvent) {
         Alchemistry.logger = e.modLog
@@ -34,9 +34,9 @@ open class CommonProxy {
         ElementRegistry.init()
         CompoundRegistry.init()
 
-
-        //ModFluids.registerFluidContainers()
         PacketHandler.registerMessages(Reference.MODID)
+
+        CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
     }
 
     open fun init(e: FMLInitializationEvent) {

@@ -194,7 +194,7 @@ class XMLRecipeParser {
             val xmlGroups = outputXMLElement?.getElementsByTagName("group")
             (0 until (xmlGroups?.length ?: 0)).forEach { groupIndex ->
                 val currentXMLElement = xmlGroups?.getNth(groupIndex)
-                val probability: Int = currentXMLElement?.getAttribute("probability")?.toIntOrNull() ?: 100
+                val probability: Double = currentXMLElement?.getAttribute("probability")?.toDoubleOrNull() ?: 100.0
                 val xmlItems = currentXMLElement?.getElementsByTagName("item")
                 val itemStacks: ArrayList<ItemStack> = arrayListOf()
 

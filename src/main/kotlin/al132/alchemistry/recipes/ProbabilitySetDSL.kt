@@ -25,7 +25,9 @@ class ProbabilitySetDSL(var components: ArrayList<ProbabilityGroup> = ArrayList<
 }
 
 class ProbabilityGroupDSL(var stacks: ArrayList<ItemStack> = ArrayList<ItemStack>(),
-                          var probability: Int = 1) {
+                          var probability: Double = 1.0) {
+
+    //constructor(stacks: ArrayList<ItemStack> = ArrayList<ItemStack>(), probability: Int = 1): this(stacks,probability.toDouble())
 
     inline fun addStack(init: ProbabilityGroupDSL.() -> ItemStack) = stacks.add(init())
 

@@ -9,6 +9,7 @@ import al132.alib.client.IResource
 import al132.alib.utils.extensions.get
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.renderer.GlStateManager
+import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
@@ -32,7 +33,7 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
     override fun actionPerformed(guibutton: GuiButton) {
         when (guibutton.id) {
             toggleRecipeLock.id -> PacketHandler.INSTANCE!!.sendToServer(ChemicalCombinerPacket(tile.pos, lock = true))
-            pauseButton.id -> PacketHandler.INSTANCE!!.sendToServer(ChemicalCombinerPacket(tile.pos, pause = true))
+            pauseButton.id      -> PacketHandler.INSTANCE!!.sendToServer(ChemicalCombinerPacket(tile.pos, pause = true))
         }
     }
 
@@ -66,13 +67,16 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
 
 
     fun drawItemStack(stack: ItemStack, x: Int, y: Int, altText: String?) {
+        RenderHelper.enableGUIStandardItemLighting();
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
         GlStateManager.translate(0.0f, 0.0f, 32.0f)
         this.zLevel = 200.0f
         this.itemRender.zLevel = 200.0f
-        var font: net.minecraft.client.gui.FontRenderer? = stack.item.getFontRenderer(stack)
-        if (font == null) font = fontRenderer
+        //var font: net.minecraft.client.gui.FontRenderer? = stack.item.getFontRenderer(stack)
+        //if (font == null) font = fontRenderer
         this.itemRender.renderItemAndEffectIntoGUI(stack, x, y)
-        this.itemRender.renderItemOverlayIntoGUI(font!!, stack, x, y, altText)
+        //this.itemRender.renderItemOverlayIntoGUI(font!!, stack, x, y, altText)
+        this.itemRender.renderItemOverlayIntoGUI(fontRenderer, stack, x, y + 5, altText)
         this.zLevel = 0.0f
         this.itemRender.zLevel = 0.0f
     }

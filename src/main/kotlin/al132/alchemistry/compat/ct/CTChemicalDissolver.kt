@@ -38,7 +38,8 @@ object CTChemicalDissolver {
         override fun apply() {
             val groups = ArrayList<ProbabilityGroup>()
             outputs.forEach { rawArray ->
-                val probability = rawArray[0] as Int
+
+                val probability = if (rawArray[0] is Double) rawArray[0] as Double else (rawArray[0] as Int).toDouble()
                 val group = rawArray.drop(1).map {
                     if (it == null) ItemStack.EMPTY
                     else (it as IItemStack).internal as ItemStack

@@ -7,7 +7,7 @@ import java.util.*
 
 
 data class ProbabilityGroup(private val _output: List<ItemStack>,
-                            val probability: Int = 1) {
+                            val probability: Double = 1.0) {
 
     val output: List<ItemStack>
         get(): List<ItemStack> = _output.toImmutable()
@@ -29,7 +29,7 @@ data class ProbabilitySet(private var _set: List<ProbabilityGroup>? = ArrayList<
     }
 
     fun probabilityAtIndex(index: Int): Double {
-        if (relativeProbability) return (set[index].probability.toDouble() / set.sumBy { it.probability })
+        if (relativeProbability) return (set[index].probability.toDouble() / set.sumByDouble { it.probability })
         else return set[index].probability.toDouble()
     }
 
@@ -37,17 +37,17 @@ data class ProbabilitySet(private var _set: List<ProbabilityGroup>? = ArrayList<
     fun calculateOutput(): List<ItemStack> {
         val temp = ArrayList<ItemStack>()
         val rando = Random()
-        (1..rolls).forEach {
+        (1..rolls).forEach { _ ->
             if (relativeProbability) {
-                val totalProbability = set.sumBy { it.probability }
+                val totalProbability = set.sumByDouble { it.probability }
                 val targetProbability = rando.nextDouble()
                 var trackingProbability = 0.0
 
-                f@ for (component in set) {
+                for (component in set) {
                     trackingProbability += (component.probability.toDouble() / totalProbability)
                     if (trackingProbability >= targetProbability) {
                         component.output.filterNot { it.isEmpty }.forEach { temp.add(it.copy()) }
-                        break@f
+                        break
                     }
                 }
             } else { //absolute probability

@@ -21,18 +21,13 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate
  */
 class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEnergyTile {
 
-    companion object {
-        val ENERGY_PER_TICK: Int = ConfigHandler.atomizerEnergyPerTick ?: 50
-        var BASE_TICKS_PER_OPERATION = ConfigHandler.atomizerProcessingTicks ?: 100
-    }
-
     val inputTank: FluidTank
     private var currentRecipe: AtomizerRecipe? = null
     var progressTicks = 0
 
     init {
         initInventoryCapability(0, 1)
-        initEnergyCapability(100000)
+        initEnergyCapability(ConfigHandler.atomizerEnergyCapacity!!)
 
         inputTank = object : FluidTank(Fluid.BUCKET_VOLUME * 10) {
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
@@ -81,12 +76,12 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
                 && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty)
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
                 && output[0].count + currentRecipe!!.output.count <= currentRecipe!!.output.maxStackSize
-                && energyCapability.energyStored >= TileChemicalCombiner.ENERGY_PER_TICK
+                && energyCapability.energyStored >= ConfigHandler.atomizerEnergyPerTick!!
 
     }
 
     fun process() {
-        if (progressTicks < TileAtomizer.BASE_TICKS_PER_OPERATION) {
+        if (progressTicks < ConfigHandler.atomizerProcessingTicks!!) {
             progressTicks++
         } else {
             progressTicks = 0
@@ -94,6 +89,6 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
 
             output.setOrIncrement(0, currentRecipe!!.output)
         }
-        this.energyCapability.extractEnergy(TileAtomizer.ENERGY_PER_TICK, false)
+        this.energyCapability.extractEnergy(ConfigHandler.atomizerEnergyPerTick!!, false)
     }
 }

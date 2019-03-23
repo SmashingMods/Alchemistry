@@ -5,7 +5,6 @@ import al132.alchemistry.network.ChemicalCombinerPacket
 import al132.alchemistry.network.PacketHandler
 import al132.alchemistry.tiles.TileChemicalCombiner
 import al132.alib.client.CapabilityEnergyDisplayWrapper
-import al132.alib.client.IResource
 import al132.alib.utils.extensions.get
 import net.minecraft.client.gui.GuiButton
 import net.minecraft.client.renderer.GlStateManager
@@ -18,7 +17,11 @@ import net.minecraft.util.ResourceLocation
  * Created by al132 on 1/16/2017.
  */
 class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner) :
-        GuiBase<TileChemicalCombiner>(ContainerChemicalCombiner(playerInv, tile), tile) {
+        GuiBase<TileChemicalCombiner>(ContainerChemicalCombiner(playerInv, tile), tile, GuiChemicalCombiner.textureLocation) {
+
+    companion object {
+        val textureLocation = ResourceLocation(root + "chemical_combiner_gui.png")
+    }
 
     override val displayName = Translator.translateToLocal("tile.chemical_combiner.name")
 
@@ -72,16 +75,10 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
         GlStateManager.translate(0.0f, 0.0f, 32.0f)
         this.zLevel = 200.0f
         this.itemRender.zLevel = 200.0f
-        //var font: net.minecraft.client.gui.FontRenderer? = stack.item.getFontRenderer(stack)
-        //if (font == null) font = fontRenderer
         this.itemRender.renderItemAndEffectIntoGUI(stack, x, y)
-        //this.itemRender.renderItemOverlayIntoGUI(font!!, stack, x, y, altText)
         this.itemRender.renderItemOverlayIntoGUI(fontRenderer, stack, x, y + 5, altText)
         this.zLevel = 0.0f
         this.itemRender.zLevel = 0.0f
     }
 
-    companion object : IResource {
-        override fun textureLocation() = ResourceLocation(GuiBase.root + "chemical_combiner_gui.png")
-    }
 }

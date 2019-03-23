@@ -73,6 +73,6 @@ class ElectrolyzerRecipeCategory(guiHelper: IGuiHelper)
         private val u = 40
         private val v = 11
 
-        private val guiTexture = GuiElectrolyzer.textureLocation()
+        private val guiTexture = GuiElectrolyzer.textureLocation
     }
 }

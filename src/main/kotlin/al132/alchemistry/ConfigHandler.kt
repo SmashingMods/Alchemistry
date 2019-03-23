@@ -22,6 +22,13 @@ object ConfigHandler {
     var liquifierEnergyPerTick: Int? = null
     var liquifierProcessingTicks: Int? = null
 
+    var combinerEnergyCapacity: Int? = null
+    var dissolverEnergyCapacity: Int? = null
+    var electrolyzerEnergyCapacity: Int? = null
+    var atomizerEnergyCapacity: Int? = null
+    var liquifierEnergyCapacity: Int? = null
+
+
 
     fun init(configFile: File) {
         if (config == null) {
@@ -51,6 +58,16 @@ object ConfigHandler {
                 "Set the energy consumption rate per tick for the Liquifier")
         liquifierProcessingTicks = config?.getInt("liquifierProcessingTicks", "Machines", 100,1,Integer.MAX_VALUE,
                 "Number of ticks per Liquifier operation")
+        combinerEnergyCapacity = config?.getInt("combinerEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Combiner")
+        dissolverEnergyCapacity = config?.getInt("dissolverEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Dissolver")
+        electrolyzerEnergyCapacity = config?.getInt("electrolyzerEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Electrolyzer")
+        atomizerEnergyCapacity = config?.getInt("atomizerEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Atomizer")
+        liquifierEnergyCapacity = config?.getInt("liquifierEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Liquifier")
         if (config?.hasChanged() == true) config!!.save()
     }
 }

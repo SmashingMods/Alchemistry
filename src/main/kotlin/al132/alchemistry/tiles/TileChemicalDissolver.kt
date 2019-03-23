@@ -20,10 +20,6 @@ import java.util.*
  */
 class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IItemTile {
 
-    companion object {
-        var ENERGY_PER_TICK: Int = ConfigHandler.dissolverEnergyPerTick ?: 100
-    }
-
     private var outputSuccessful = true
     var outputThisTick: ItemStack = ItemStack.EMPTY
     var currentRecipe: DissolverRecipe? = null
@@ -32,16 +28,15 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
     init {
         this.initInventoryCapability(1, 10)
-        this.initEnergyCapability(100000)
+        this.initEnergyCapability(ConfigHandler.dissolverEnergyCapacity!!)
     }
 
     override fun initInventoryInputCapability() {
 
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-                if (DissolverRecipe.match(stack, false) != null) {
-                    return super.insertItem(slot, stack, simulate)
-                } else return stack
+                if (DissolverRecipe.match(stack, false) != null) return super.insertItem(slot, stack, simulate)
+                else return stack
             }
         }
     }
@@ -58,7 +53,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
     fun canProcess(): Boolean {
         return (currentRecipe != null || !outputBuffer.isEmpty())
-                && energyCapability.energyStored >= ENERGY_PER_TICK
+                && energyCapability.energyStored >= ConfigHandler.dissolverEnergyPerTick!!
     }
 
 
@@ -100,7 +95,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
         //consume energy and single stack if successful, won't be designated as such until there's a "hit" above
         if (outputSuccessful) {
-            this.energyCapability.extractEnergy(ENERGY_PER_TICK, false)
+            this.energyCapability.extractEnergy(ConfigHandler.dissolverEnergyPerTick!!, false)
             outputThisTick = ItemStack.EMPTY
         }
     }

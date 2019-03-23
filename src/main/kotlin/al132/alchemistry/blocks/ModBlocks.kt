@@ -14,14 +14,12 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 object ModBlocks {
-
     var electrolyzer = ElectrolyzerBlock("electrolyzer", TileElectrolyzer::class.java, GuiHandler.ELECTROLYZER_ID)
     var chemical_dissolver = ChemicalDissolverBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
     var chemical_combiner = ChemicalCombinerBlock("chemical_combiner", TileChemicalCombiner::class.java, GuiHandler.CHEMICAL_COMBINER_ID)
     var evaporator = EvaporatorBlock("evaporator", TileEvaporator::class.java, GuiHandler.EVAPORATOR_ID)
     val atomizer = AtomizerBlock("atomizer", TileAtomizer::class.java, GuiHandler.ATOMIZER_ID)
     val liquifier = LiquifierBlock("liquifier", TileLiquifier::class.java, GuiHandler.LIQUIFIER_ID)
-    //var alloy_furnace = BaseTileBlock("alloy_furnace", TileAlloyFurnace::class.java, GuiHandler.ALLOY_FURNACE_ID )
 
     val blocks = arrayOf<ALBlock>(
             electrolyzer,
@@ -32,18 +30,13 @@ object ModBlocks {
             liquifier
     )
 
-    fun registerBlocks(event: RegistryEvent.Register<Block>) {
-        blocks.forEach { it.registerBlock(event) }
-    }
+    fun registerBlocks(event: RegistryEvent.Register<Block>) = blocks.forEach { it.registerBlock(event) }
 
-    fun registerItemBlocks(event: RegistryEvent.Register<Item>) {
-        blocks.forEach { it.registerItemBlock(event) }
-    }
+    fun registerItemBlocks(event: RegistryEvent.Register<Item>) = blocks.forEach { it.registerItemBlock(event) }
 
     @SideOnly(Side.CLIENT)
     fun registerModels() = blocks.forEach { it.registerModel() }
 }
-
 
 open class BaseBlock(name: String) : ALBlock(name, Reference.creativeTab)
 

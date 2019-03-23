@@ -42,6 +42,6 @@ class EvaporatorRecipeCategory(guiHelper: IGuiHelper)
         private val u = 40
         private val v = 11
 
-        private val guiTexture = GuiEvaporator.textureLocation()
+        private val guiTexture = GuiEvaporator.textureLocation
     }
 }

@@ -17,7 +17,6 @@ class GuiHandler : IGuiHandler {
         val EVAPORATOR_ID = 3
         val ATOMIZER_ID = 4
         val LIQUIFIER_ID = 5
-        // val ALLOY_FURNACE_ID = 4
     }
 
     override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {

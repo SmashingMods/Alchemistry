@@ -20,31 +20,27 @@ object ModItems {
     var mineralSalt = ItemBase("mineral_salt")
     var condensedMilk = ItemBase("condensed_milk")
     var fertilizer = ItemFertilizer()
-    var diamondEnrichedGlass = ItemBase("diamond_enriched_glass")
+    //var diamondEnrichedGlass = ItemBase("diamond_enriched_glass")
     var obsidianBreaker = object : ItemBase("obsidian_breaker") {
         override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
             tooltip.add(Translator.translateToLocal("item.alchemistry:obsidian_breaker.tooltip"))
         }
     }
 
-
     val items = arrayOf<ALItem>(
             elements,
             compounds,
             mineralSalt,
             condensedMilk,
-            diamondEnrichedGlass,
+            //diamondEnrichedGlass,
             fertilizer,
             obsidianBreaker
     )
 
-    fun registerItems(event: RegistryEvent.Register<Item>) {
-        items.forEach { it.registerItem(event) }
-    }
+    fun registerItems(event: RegistryEvent.Register<Item>) = items.forEach { it.registerItem(event) }
 
     @SideOnly(Side.CLIENT)
     fun registerModels() = items.forEach { it.registerModel() }
-
 
     @SideOnly(Side.CLIENT)
     fun initColors() {
@@ -57,9 +53,7 @@ object ModItems {
     }
 }
 
-
 open class ItemBase(name: String) : ALItem(name, Reference.creativeTab)
-
 
 abstract class ItemMetaBase(name: String) : ItemBase(name) {
 

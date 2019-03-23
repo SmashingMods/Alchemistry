@@ -1,3 +1,19 @@
+0.8.14 (Requires alib 1.0.7)
+===
+-Fixed GUIs freezing for a second when being opened for the first time after world load
+-Fixed a few machines that were using the wrong config values for energy consumption
+-Added config options for machine max energy capacity
+-Lots of internal code cleanup
+
+0.8.13
+===
+-Dissolver recipes now can use floating-point numbers for probability
+-The Combiner "target" item now has proper light for blocks (before all items were fine, but blocks would look dim)
+
+0.8.12
+===
+-Removed debug spam
+
 0.8.11
 ===
 -Added 'addElement' crafttweaker function, allowing you to create new elements

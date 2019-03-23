@@ -8,7 +8,6 @@ import net.minecraft.item.ItemBlock
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
 
-
 class ItemBlockElectrolyzer(block: Block) : ItemBlock(block) {
 
     override fun addInformation(stack: ItemStack?, worldIn: World?, tooltip: MutableList<String>?, flagIn: ITooltipFlag?) {

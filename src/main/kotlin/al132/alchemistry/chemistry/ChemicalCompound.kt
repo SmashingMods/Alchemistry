@@ -11,8 +11,7 @@ import java.awt.Color
 
 inline fun Compound(crossinline init: ChemicalCompound.() -> Unit) = ChemicalCompound().apply { init() }
 
-
-fun find(name: String): ICompoundComponent? {
+private fun find(name: String): ICompoundComponent? {
     ElementRegistry[name]?.let { return it }
     CompoundRegistry[name]?.let { return it }
     return null

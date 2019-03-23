@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 
 class ChemicalCombinerPacket() : IMessage {
 
-
     private var blockPos: BlockPos? = null
     private var lock = false
     private var pause = false

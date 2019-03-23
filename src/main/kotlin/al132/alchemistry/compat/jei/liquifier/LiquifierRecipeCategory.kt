@@ -42,6 +42,6 @@ class LiquifierRecipeCategory(guiHelper: IGuiHelper)
         private val u = 40
         private val v = 11
 
-        private val guiTexture = GuiLiquifier.textureLocation()
+        private val guiTexture = GuiLiquifier.textureLocation
     }
 }

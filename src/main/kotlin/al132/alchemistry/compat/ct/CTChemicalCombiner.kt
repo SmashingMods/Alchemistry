@@ -19,41 +19,33 @@ object CTChemicalCombiner {
     @ZenMethod
     @JvmStatic
     fun addRecipe(output: IItemStack?, input: Array<IItemStack?>) {
-        Alchemistry.LATE_ADDITIONS.add(Add(input, output))
+        Alchemistry.LATE_ADDITIONS.add(object : IAction {
+            override fun describe(): String? = "Added Chemical Combiner recipe for [${input.toList()}]->[$output]"
+
+            override fun apply() {
+                val inputStacks = input.toList()
+                val outputStack: ItemStack? = output?.internal as? ItemStack
+                if (outputStack != null) {
+                    val recipe = CombinerRecipe(outputStack, inputStacks.map { stack: IItemStack? ->
+                        (stack?.internal as? ItemStack) ?: ItemStack.EMPTY
+                    })
+                    ModRecipes.combinerRecipes.add(recipe)
+                } else Alchemistry.logger.info("Unable to add crafttweaker recipe")
+            }
+        })
     }
 
     @ZenMethod
     @JvmStatic
     fun removeRecipe(input: IItemStack?) {
-        Alchemistry.LATE_REMOVALS.add(Remove(input))
-    }
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe(): String? = "Removed Chemical Combiner recipe for [$input]"
 
-    class Add(val input: Array<IItemStack?>, val output: IItemStack?) : IAction {
-
-        override fun apply() {
-            val inputStacks = input.toList()
-            val outputStack: ItemStack? = output?.internal as? ItemStack
-            if(outputStack != null) {
-                val recipe = CombinerRecipe(outputStack, inputStacks.map { stack: IItemStack? ->
-                    (stack?.internal as? ItemStack) ?: ItemStack.EMPTY
-                    // if(stack == null || stack.internal == null) ItemStack.EMPTY else stack.internal
-                })
-                ModRecipes.combinerRecipes.add(recipe)
+            override fun apply() {
+                val unwrappedInput = input?.internal as? ItemStack ?: ItemStack.EMPTY
+                val recipe = CombinerRecipe.matchOutput(unwrappedInput)
+                if (recipe != null) ModRecipes.combinerRecipes.remove(recipe)
             }
-            else Alchemistry.logger.info("Unable to add crafttweaker recipe")
-        }
-
-        override fun describe(): String? = "Added Chemical Combiner recipe for [${input.toList()}]->[$output]"
-    }
-
-    class Remove(var input: IItemStack?) : IAction {
-
-        override fun apply() {
-            val unwrappedInput = input?.internal as? ItemStack ?: ItemStack.EMPTY
-            val recipe = CombinerRecipe.matchOutput(unwrappedInput)
-            if (recipe != null) ModRecipes.combinerRecipes.remove(recipe)
-        }
-
-        override fun describe(): String? = "Removed Chemical Combiner recipe for [$input]"
+        })
     }
 }

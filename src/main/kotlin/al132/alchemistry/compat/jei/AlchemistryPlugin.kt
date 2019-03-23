@@ -30,6 +30,7 @@ import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import mezz.jei.api.recipe.IRecipeWrapper
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry
+import net.minecraft.util.text.translation.I18n
 
 
 @JEIPlugin
@@ -93,7 +94,6 @@ class AlchemistryPlugin : IModPlugin {
         registry.addRecipeClickArea(GuiAtomizer::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.ATOMIZER)
         registry.addRecipeClickArea(GuiLiquifier::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.LIQUIFIER)
 
-
         registry.addRecipeCatalyst(ModBlocks.chemical_dissolver.toStack(), AlchemistryRecipeUID.DISSOLVER)
         registry.addRecipeCatalyst(ModBlocks.chemical_combiner.toStack(), AlchemistryRecipeUID.COMBINER)
         registry.addRecipeCatalyst(ModBlocks.electrolyzer.toStack(), AlchemistryRecipeUID.ELECTROLYZER)
@@ -101,15 +101,11 @@ class AlchemistryPlugin : IModPlugin {
         registry.addRecipeCatalyst(ModBlocks.atomizer.toStack(), AlchemistryRecipeUID.ATOMIZER)
         registry.addRecipeCatalyst(ModBlocks.liquifier.toStack(), AlchemistryRecipeUID.LIQUIFIER)
 
-
         val transferRegistry: IRecipeTransferRegistry = registry.recipeTransferRegistry
         transferRegistry.addRecipeTransferHandler(CombinerTransferHandler(), COMBINER)
-
-        //transferRegistry.addRecipeTransferHandler(ContainerChemicalCombiner::class.java, COMBINER, 0, 9, 10, 36)
         transferRegistry.addRecipeTransferHandler(ContainerChemicalDissolver::class.java, DISSOLVER, 0, 1, 11, 36)
         transferRegistry.addRecipeTransferHandler(ContainerLiquifier::class.java, LIQUIFIER, 0, 1, 1, 36)
         transferRegistry.addRecipeTransferHandler(ContainerElectrolyzer::class.java, ELECTROLYZER, 0, 1, 1, 36)
-
     }
 }
 
@@ -124,7 +120,6 @@ object AlchemistryRecipeUID {
 
 abstract class AlchemistryRecipeWrapper<out R>(val recipe: R) : IRecipeWrapper
 
-
 abstract class AlchemistryRecipeCategory<T : IRecipeWrapper>(private val background: IDrawable, unlocalizedName: String) :
         IRecipeCategory<T> {
 
@@ -133,4 +128,12 @@ abstract class AlchemistryRecipeCategory<T : IRecipeWrapper>(private val backgro
     override fun getBackground(): IDrawable = background
 
     override fun getModName() = Reference.MODID
+}
+
+//From JEI, MIT license https://github.com/mezz/JustEnoughItems/blob/47afa1a9f57e85060c363db447eca023ed378717/src/main/java/mezz/jei/util/Translator.java
+object Translator {
+    fun translateToLocal(key: String): String {
+        if (I18n.canTranslate(key)) return I18n.translateToLocal(key)
+        else return I18n.translateToFallback(key)
+    }
 }

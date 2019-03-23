@@ -11,7 +11,6 @@ object ElementRegistry {
     private val elements = HashMap<Int,ChemicalElement>()
 
     fun init() {
-        //add(0, "placeholder", "?")
         add(1, "hydrogen", "H", Color.blue)
         add(2, "helium", "He", Color.red)
         add(3, "lithium", "Li", Color(40, 158, 86))
@@ -143,8 +142,6 @@ object ElementRegistry {
             return true
         }
     }
-
-    //fun size(): Int = elements.size
 
     fun getMeta(name: String): Int = elements.entries.firstOrNull { it.value.name == name }?.key ?: -1
 

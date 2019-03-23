@@ -19,18 +19,13 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate
  */
 class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEnergyTile {
 
-    companion object {
-        val ENERGY_PER_TICK: Int = ConfigHandler.liquifierEnergyPerTick ?: 50
-        var BASE_TICKS_PER_OPERATION = ConfigHandler.liquifierProcessingTicks ?: 100
-    }
-
     val outputTank: FluidTank
     private var currentRecipe: LiquifierRecipe? = null
     var progressTicks = 0
 
     init {
         initInventoryCapability(1, 0)
-        initEnergyCapability(100000)
+        initEnergyCapability(ConfigHandler.liquifierEnergyCapacity!!)
 
         outputTank = object : FluidTank(Fluid.BUCKET_VOLUME * 10) {
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
@@ -86,18 +81,18 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IE
         return currentRecipe != null
                 && ((outputTank.fluid?.fluid == currentRecipe!!.output.fluid ?: false) || outputTank.fluid == null)
                 && outputTank.capacity >= outputTank.fluidAmount + currentRecipe!!.output.amount
-                && this.energyCapability.energyStored >= TileLiquifier.ENERGY_PER_TICK
+                && this.energyCapability.energyStored >= ConfigHandler.liquifierEnergyPerTick!!
                 && input[0].count >= currentRecipe!!.input.count
     }
 
     fun process() {
-        if (progressTicks < TileLiquifier.BASE_TICKS_PER_OPERATION) {
+        if (progressTicks < ConfigHandler.liquifierProcessingTicks!!) {
             progressTicks++
         } else {
             progressTicks = 0
             input[0].shrink(currentRecipe!!.input.count)
             outputTank.fillInternal(currentRecipe!!.output, true)//; .setOrIncrement(0, currentRecipe!!.output)
         }
-        this.energyCapability.extractEnergy(TileLiquifier.ENERGY_PER_TICK, false)
+        this.energyCapability.extractEnergy(ConfigHandler.liquifierEnergyPerTick!!, false)
     }
 }

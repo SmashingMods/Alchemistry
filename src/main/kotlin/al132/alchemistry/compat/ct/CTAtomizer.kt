@@ -20,34 +20,28 @@ object CTAtomizer {
 
     @ZenMethod
     @JvmStatic
-    fun addRecipe(output: IItemStack,input: ILiquidStack) {
-        Alchemistry.LATE_ADDITIONS.add(Add(input, output))
+    fun addRecipe(output: IItemStack, input: ILiquidStack) {
+        Alchemistry.LATE_ADDITIONS.add(object : IAction {
+            override fun describe() = "Added Atomizer recipe for [$input] -> [$output]"
+
+            override fun apply() {
+                val inputStack = input.internal as FluidStack
+                val outputStack = output.internal as ItemStack
+                ModRecipes.atomizerRecipes.add(AtomizerRecipe(inputStack, outputStack))
+            }
+        })
     }
 
     @ZenMethod
     @JvmStatic
     fun removeRecipe(input: ILiquidStack) {
-        Alchemistry.LATE_REMOVALS.add(Remove(input))
-    }
+        Alchemistry.LATE_REMOVALS.add(object: IAction{
+            override fun describe() = "Added Atomizer recipe for [$input]"
 
-    class Add(internal var input: ILiquidStack, internal var output: IItemStack) : IAction {
-
-        override fun apply() {
-            val inputStack = input.internal as FluidStack
-            val outputStack = output.internal as ItemStack
-            ModRecipes.atomizerRecipes.add(AtomizerRecipe(inputStack, outputStack))
-        }
-
-        override fun describe() = "Added Atomizer recipe for [$input] -> [$output]"
-    }
-
-    class Remove(var input: ILiquidStack) : IAction {
-
-        override fun apply() {
-            val inputStack = input.internal as FluidStack
-            ModRecipes.atomizerRecipes.removeIf { it.input.isFluidEqual(inputStack) }
-        }
-
-        override fun describe() = "Added Atomizer recipe for [$input]"
+            override fun apply() {
+                val inputStack = input.internal as FluidStack
+                ModRecipes.atomizerRecipes.removeIf { it.input.isFluidEqual(inputStack) }
+            }
+        })
     }
 }

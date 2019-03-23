@@ -21,7 +21,7 @@ class CombinerRecipeCategory(guiHelper: IGuiHelper) :
         private const val u = 35
         private const val v = 10
 
-        private val guiTexture = GuiChemicalCombiner.textureLocation()
+        private val guiTexture = GuiChemicalCombiner.textureLocation
     }
 
     override fun getTitle() = Translator.translateToLocal("jei.combiner.name")

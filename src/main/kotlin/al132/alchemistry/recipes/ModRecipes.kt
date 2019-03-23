@@ -686,6 +686,15 @@ object ModRecipes {
         })
 
         dissolverRecipes.add(dissolverRecipe {
+            input = Items.ROTTEN_FLESH.toIngredient()
+            output {
+                addGroup {
+                    addStack { "protein".toCompoundStack(3) }
+                }
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe {
             input = Items.RABBIT.toIngredient()
             output {
                 addGroup {
@@ -775,12 +784,12 @@ object ModRecipes {
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.OBSIDIAN.toIngredient()
-            output{
-                addGroup{
-                    addStack { "magnesium_oxide".toCompoundStack(8)}
-                    addStack { "potassium_chloride".toCompoundStack(8)}
-                    addStack { "aluminum_oxide".toCompoundStack(8)}
-                    addStack { "silicon_dioxide".toCompoundStack(24)}
+            output {
+                addGroup {
+                    addStack { "magnesium_oxide".toCompoundStack(8) }
+                    addStack { "potassium_chloride".toCompoundStack(8) }
+                    addStack { "aluminum_oxide".toCompoundStack(8) }
+                    addStack { "silicon_dioxide".toCompoundStack(24) }
 
                 }
 
@@ -965,7 +974,7 @@ object ModRecipes {
                     addGroup { addStack { ItemStack.EMPTY }; probability = 100.0 }
                     addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5.0 }
                     addGroup { addStack { "iron".toElementStack(1) }; probability = 2.0 }
-                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2.0}
+                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2.0 }
                     addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10.0 }
                 }
             })
@@ -986,7 +995,7 @@ object ModRecipes {
             input = Blocks.SAND.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100.0}
+                addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100.0 }
                 addGroup { addStack { "gold".toElementStack() } }
             }
         })
@@ -1461,6 +1470,12 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Items.LEATHER.toStack(),
                 listOf(null, null, null,
+                        "protein".toCompoundStack(), "protein".toCompoundStack(), "protein".toCompoundStack())))
+
+
+        combinerRecipes.add(CombinerRecipe(Items.ROTTEN_FLESH.toStack(),
+                listOf(null, null, null,
+                        null, null, null,
                         "protein".toCompoundStack(), "protein".toCompoundStack(), "protein".toCompoundStack())))
     }
 

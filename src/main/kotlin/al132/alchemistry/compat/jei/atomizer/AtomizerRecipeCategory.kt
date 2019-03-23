@@ -42,6 +42,6 @@ class AtomizerRecipeCategory(guiHelper: IGuiHelper)
         private val u = 40
         private val v = 11
 
-        private val guiTexture = GuiAtomizer.textureLocation()
+        private val guiTexture = GuiAtomizer.textureLocation
     }
 }

@@ -18,20 +18,14 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate
  * Created by al132 on 1/16/2017.
  */
 class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTile, IItemTile {
-
     //TODO implement buffer-style output, like the dissolver has?
-
-    companion object {
-        var ENERGY_PER_TICK = ConfigHandler.electrolyzerEnergyPerTick ?: 100
-        var TICKS_PER_OPERATION = ConfigHandler.electrolyzerProcessingTicks ?: 10
-    }
 
     val inputTank: FluidTank
     var progressTicks = 0
     private var currentRecipe: ElectrolyzerRecipe? = null
 
     init {
-        this.initEnergyCapability(100000)
+        this.initEnergyCapability(ConfigHandler.electrolyzerEnergyCapacity!!)
         this.initInventoryCapability(1, 4)
 
         inputTank = object : FluidTank(Fluid.BUCKET_VOLUME * 10) {
@@ -90,7 +84,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
         return currentRecipe != null
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
                 && input[0].count >= currentRecipe!!.electrolytes[0].count
-                && this.energyCapability.energyStored >= ENERGY_PER_TICK
+                && this.energyCapability.energyStored >= ConfigHandler.electrolyzerEnergyPerTick!!
                 && (0 until 4).all {
             val outputStack = output[it]
             val recipeStack = currentRecipe!!.outputs[it]
@@ -100,7 +94,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
     }
 
     fun process() {
-        if (progressTicks < TICKS_PER_OPERATION) {
+        if (progressTicks < ConfigHandler.electrolyzerProcessingTicks!!) {
             progressTicks++
         } else {
             progressTicks = 0
@@ -111,7 +105,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
 
             (0 until 4).forEach { output.setOrIncrement(it, currentRecipe!!.calculatedInSlot(it)) }
 
-            this.energyCapability.extractEnergy(ENERGY_PER_TICK, false)
+            this.energyCapability.extractEnergy(ConfigHandler.electrolyzerEnergyPerTick!!, false)
         }
     }
 }

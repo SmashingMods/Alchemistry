@@ -40,5 +40,4 @@ class LiquifierBlock(name: String,
 
         addCollisionBoxToList(pos, entityBox, collidingBoxes, boundingBox)
     }
-
 }

@@ -27,26 +27,17 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
 
     val clientRecipeTarget = ALTileStackHandler(1, this)
 
-
-    companion object {
-        val ENERGY_PER_TICK: Int = ConfigHandler.combinerEnergyPerTick ?: 250
-        val TICKS_PER_PROCESS = ConfigHandler.combinerProcessingTicks ?: 20
-    }
-
     init {
         initInventoryCapability(9, 1)
-        initEnergyCapability(100000)
+        initEnergyCapability(ConfigHandler.combinerEnergyCapacity!!)
     }
 
     override fun initInventoryInputCapability() {
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-
                 if (currentRecipe == null) return super.insertItem(slot, stack, simulate)
-                else if (currentRecipe!!.inputs[slot].areItemsEqual(stack)) {
-                    return super.insertItem(slot, stack, simulate)
-                }
-                return stack
+                else if (currentRecipe!!.inputs[slot].areItemsEqual(stack)) return super.insertItem(slot, stack, simulate)
+                else return stack
             }
         }
     }
@@ -54,7 +45,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     override fun update() {
         if (!recipeIsLocked) this.currentRecipe = null
         if (!getWorld().isRemote) {
-            if(currentRecipe != null) {
+            if (currentRecipe != null) {
                 clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
                 if (!this.paused && canProcess()) process()
             }
@@ -63,9 +54,9 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     }
 
     fun process() {
-        this.energyCapability.extractEnergy(TileChemicalDissolver.ENERGY_PER_TICK, false)
+        this.energyCapability.extractEnergy(ConfigHandler.combinerEnergyPerTick!!, false)
 
-        if (progressTicks < TICKS_PER_PROCESS) progressTicks++
+        if (progressTicks < ConfigHandler.combinerProcessingTicks!!) progressTicks++
         else {
             progressTicks = 0
             currentRecipe?.let { output.setOrIncrement(0, it.output.copy()) }
@@ -84,7 +75,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
                 //&& (!recipeIsLocked || CombinerRecipe.matchInputs(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
                 && (ItemStack.areItemsEqual(output[0], currentRecipe?.output) || output[0].isEmpty)
                 && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize)
-                && energyCapability.energyStored >= ENERGY_PER_TICK
+                && energyCapability.energyStored >= ConfigHandler.combinerEnergyPerTick!!
     }
 
     override fun readFromNBT(compound: NBTTagCompound) {

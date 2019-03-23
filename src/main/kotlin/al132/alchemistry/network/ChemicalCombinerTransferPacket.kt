@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext
 
 class ChemicalCombinerTransferPacket() : IMessage {
 
-
     private var blockPos: BlockPos? = null
     private var outputStack: ItemStack? = ItemStack.EMPTY
 

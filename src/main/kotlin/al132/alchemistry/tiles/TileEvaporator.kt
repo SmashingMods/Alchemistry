@@ -20,10 +20,6 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate
  */
 class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
 
-    companion object {
-        var BASE_TICKS_PER_OPERATION = ConfigHandler.evaporatorProcessingTicks ?: 160
-    }
-
     val inputTank: FluidTank
     private var currentRecipe: EvaporatorRecipe? = null
     var progressTicks = 0
@@ -80,9 +76,9 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
     }
 
     fun calculateProcessingTime(): Int { //TODO more elaborate calculation?
-        var temp = BASE_TICKS_PER_OPERATION
+        var temp =ConfigHandler.evaporatorProcessingTicks!!
         if (!BiomeDictionary.hasType(world.getBiomeForCoordsBody(this.pos), BiomeDictionary.Type.DRY)) {// != BiomeDesert::class.java) {
-            temp += (BASE_TICKS_PER_OPERATION * .5).toInt()
+            temp += (ConfigHandler.evaporatorProcessingTicks!! * .5).toInt()
         }
         return temp
     }

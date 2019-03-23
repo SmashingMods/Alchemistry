@@ -13,7 +13,6 @@ import java.awt.datatransfer.StringSelection
 
 class DissolverCommand : CommandBase() {
 
-
     override fun getName() = "dissolver"
 
     override fun execute(server: MinecraftServer, sender: ICommandSender, args: Array<String>) {

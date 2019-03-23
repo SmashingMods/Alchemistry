@@ -21,34 +21,27 @@ object CTLiquifier {
     @ZenMethod
     @JvmStatic
     fun addRecipe(output: ILiquidStack, input: IItemStack) {
-        Alchemistry.LATE_ADDITIONS.add(Add(input, output))
+        Alchemistry.LATE_ADDITIONS.add(object : IAction {
+            override fun describe() = "Added Liquifier recipe for [$input] -> [$output]"
+
+            override fun apply() {
+                val inputStack = input.internal as ItemStack
+                val outputStack = output.internal as FluidStack
+                ModRecipes.liquifierRecipes.add(LiquifierRecipe(inputStack, outputStack))
+            }
+        })
     }
 
     @ZenMethod
     @JvmStatic
     fun removeRecipe(input: IItemStack) {
-        Alchemistry.LATE_REMOVALS.add(Remove(input))
-    }
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed Liquifier recipe for [$input]"
 
-    class Add(internal var input: IItemStack, internal var output: ILiquidStack) : IAction {
-
-        override fun apply() {
-            val inputStack = input.internal as ItemStack
-            val outputStack = output.internal as FluidStack
-            ModRecipes.liquifierRecipes.add(LiquifierRecipe(inputStack, outputStack))
-        }
-
-        override fun describe() = "Added Liquifier recipe for [$input] -> [$output]"
-    }
-
-    class Remove(var input: IItemStack) : IAction {
-
-        override fun apply() {
-            val inputStack = input.internal as ItemStack
-            ModRecipes.liquifierRecipes.removeIf { it.input.isItemEqual(inputStack) }
-        }
-
-        override fun describe() = "Removed Liquifier recipe for [$input]"
-
+            override fun apply() {
+                val inputStack = input.internal as ItemStack
+                ModRecipes.liquifierRecipes.removeIf { it.input.isItemEqual(inputStack) }
+            }
+        })
     }
 }

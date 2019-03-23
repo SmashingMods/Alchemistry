@@ -11,7 +11,6 @@ import java.awt.Color
 @SideOnly(Side.CLIENT)
 class ItemColorHandler : IItemColor {
 
-
     override fun colorMultiplier(stack: ItemStack, tintIndex: Int): Int {
         val item = stack.item
         val meta = stack.metadata

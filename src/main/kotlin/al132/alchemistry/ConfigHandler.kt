@@ -28,6 +28,7 @@ object ConfigHandler {
     var atomizerEnergyCapacity: Int? = null
     var liquifierEnergyCapacity: Int? = null
 
+    var dissolverSpeed: Int? = null
 
 
     fun init(configFile: File) {
@@ -38,9 +39,9 @@ object ConfigHandler {
     }
 
     fun load() {
-        combinerEnergyPerTick = config?.getInt("combinerEnergyPerTick", "Machines", 250, 0, Integer.MAX_VALUE,
+        combinerEnergyPerTick = config?.getInt("combinerEnergyPerTick", "Machines", 200, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Chemical Combiner")
-        combinerProcessingTicks = config?.getInt("combinerProcessingTicks", "Machines", 20, 1, Integer.MAX_VALUE,
+        combinerProcessingTicks = config?.getInt("combinerProcessingTicks", "Machines", 10, 1, Integer.MAX_VALUE,
                 "Set the number of ticks per operation for the Chemical Combiner")
         dissolverEnergyPerTick = config?.getInt("dissolverEnergyPerTick", "Machines", 100, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Chemical Dissolver")
@@ -50,24 +51,28 @@ object ConfigHandler {
                 "Number of ticks per electrolyzer operation")
         evaporatorProcessingTicks = config?.getInt("evaporatorProcessingTicks", "Machines", 160, 1, Integer.MAX_VALUE,
                 "The best possible processing time for the evaporator. In practice it will be increased by biome, time of day, etc")
-        atomizerEnergyPerTick = config?.getInt("atomizerEnergyPerTick","Machines",50,0,Integer.MAX_VALUE,
+        atomizerEnergyPerTick = config?.getInt("atomizerEnergyPerTick", "Machines", 50, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Atomizer")
-        atomizerProcessingTicks = config?.getInt("atomizerProcessingTicks", "Machines", 100,1,Integer.MAX_VALUE,
+        atomizerProcessingTicks = config?.getInt("atomizerProcessingTicks", "Machines", 100, 1, Integer.MAX_VALUE,
                 "Number of ticks per Atomizer operation")
-        liquifierEnergyPerTick = config?.getInt("liquifierEnergyPerTick","Machines",50,0,Integer.MAX_VALUE,
+        liquifierEnergyPerTick = config?.getInt("liquifierEnergyPerTick", "Machines", 50, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Liquifier")
-        liquifierProcessingTicks = config?.getInt("liquifierProcessingTicks", "Machines", 100,1,Integer.MAX_VALUE,
+        liquifierProcessingTicks = config?.getInt("liquifierProcessingTicks", "Machines", 100, 1, Integer.MAX_VALUE,
                 "Number of ticks per Liquifier operation")
-        combinerEnergyCapacity = config?.getInt("combinerEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+        combinerEnergyCapacity = config?.getInt("combinerEnergyCapacity", "Machines", 10000, 1, Integer.MAX_VALUE,
                 "Max energy capacity of the Combiner")
-        dissolverEnergyCapacity = config?.getInt("dissolverEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+        dissolverEnergyCapacity = config?.getInt("dissolverEnergyCapacity", "Machines", 10000, 1, Integer.MAX_VALUE,
                 "Max energy capacity of the Dissolver")
-        electrolyzerEnergyCapacity = config?.getInt("electrolyzerEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+        electrolyzerEnergyCapacity = config?.getInt("electrolyzerEnergyCapacity", "Machines", 10000, 1, Integer.MAX_VALUE,
                 "Max energy capacity of the Electrolyzer")
-        atomizerEnergyCapacity = config?.getInt("atomizerEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+        atomizerEnergyCapacity = config?.getInt("atomizerEnergyCapacity", "Machines", 10000, 1, Integer.MAX_VALUE,
                 "Max energy capacity of the Atomizer")
-        liquifierEnergyCapacity = config?.getInt("liquifierEnergyCapacity","Machines",10000,1,Integer.MAX_VALUE,
+        liquifierEnergyCapacity = config?.getInt("liquifierEnergyCapacity", "Machines", 10000, 1, Integer.MAX_VALUE,
                 "Max energy capacity of the Liquifier")
+        dissolverSpeed = config?.getInt("dissolverSpeed", "Machines", 2, 1, 64,
+                "The max amount of items that the Dissolver will output each tick. Please note: only one element will be outputted per tick," +
+                        " \nand only the elements from one input are eligible at a time. For example: Cellulose (C6 H10 O5) with speed 4 would be outputted like so," +
+                        " \nwith each comma-seperated value representing 1 tick [4xC,2xC,4xH,4xH,2xH,4xO,1xO]")
         if (config?.hasChanged() == true) config!!.save()
     }
 }

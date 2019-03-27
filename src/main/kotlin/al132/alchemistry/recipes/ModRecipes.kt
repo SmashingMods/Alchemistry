@@ -1366,7 +1366,7 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Blocks.REDSTONE_BLOCK.toStack(),
                 listOf(null, null, null,
-                        "iron_oxide".toCompoundStack(36), "strontium_carbonate".toCompoundStack(36))))
+                        "iron_oxide".toCompoundStack(9), "strontium_carbonate".toCompoundStack(9))))
 
         combinerRecipes.add(CombinerRecipe(Items.STRING.toStack(4),
                 listOf(null, "protein".toCompoundStack(), null,

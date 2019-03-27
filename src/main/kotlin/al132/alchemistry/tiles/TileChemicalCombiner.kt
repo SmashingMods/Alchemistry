@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.util.Constants
+import net.minecraftforge.energy.EnergyStorage
 import net.minecraftforge.items.ItemStackHandler
 
 /**
@@ -96,6 +97,10 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
             this.currentRecipe = null
             clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY)
         }
+
+        val energyStored = compound.getInteger("EnergyStored")
+        energyCapability = EnergyStorage(ConfigHandler.combinerEnergyCapacity!!)
+        energyCapability.receiveEnergy(energyStored, false)
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

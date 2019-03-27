@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.util.Constants
+import net.minecraftforge.energy.EnergyStorage
 import java.util.*
 
 /**
@@ -67,7 +68,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
         //If output didn't happen or didn't fail last tick, queue up next output single stack
         if (outputSuccessful) {
-            if (outputBuffer.size > 0) outputThisTick = outputBuffer[0].splitStack(1)
+            if (outputBuffer.size > 0) outputThisTick = outputBuffer[0].splitStack(ConfigHandler.dissolverSpeed!!)
             else outputThisTick = ItemStack.EMPTY
 
             if (outputBuffer.size > 0 && outputBuffer[0].isEmpty) outputBuffer.removeAt(0)
@@ -108,6 +109,10 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
         for (i in 0 until outputBufferList.tagCount()) {
             outputBuffer.add(ItemStack(outputBufferList.getCompoundTagAt(i)))
         }
+
+        val energyStored = compound.getInteger("EnergyStored")
+        energyCapability = EnergyStorage(ConfigHandler.dissolverEnergyCapacity!!)
+        energyCapability.receiveEnergy(energyStored, false)
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

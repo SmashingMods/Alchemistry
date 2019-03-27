@@ -11,6 +11,7 @@ import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ITickable
+import net.minecraftforge.energy.EnergyStorage
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidTank
@@ -66,6 +67,9 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEn
         super.readFromNBT(compound)
         this.inputTank.readFromNBT(compound.getCompoundTag("InputTankNBT"))
         this.progressTicks = compound.getInteger("ProgressTicks")
+        val energyStored = compound.getInteger("EnergyStored")
+        energyCapability = EnergyStorage(ConfigHandler.atomizerEnergyCapacity!!)
+        energyCapability.receiveEnergy(energyStored, false)
     }
 
     override val fluidTanks: FluidHandlerConcatenate?

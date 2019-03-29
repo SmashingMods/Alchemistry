@@ -135,8 +135,11 @@ object ModRecipes {
             else return null
         }
 
+        val sum = quantityOne + quantityTwo + quantityThree
+
+
         val ores: List<String> = listOf(("ingot$alloySuffix"), ("plate$alloySuffix"), ("dust$alloySuffix"))
-        val threeIngredients: Boolean = ingotThree.length > 0 && quantityThree > 0
+        val threeIngredients: Boolean = ingotThree.isNotEmpty() && quantityThree > 0
         val fractionalQuantities = fitInto16(quantityOne, quantityTwo, quantityThree)
         val isConserved = fractionalQuantities != null && conservationOfMass
         val calculatedQuantity1 = if (isConserved) fractionalQuantities!![0] else quantityOne * 16
@@ -268,7 +271,7 @@ object ModRecipes {
                 addGroup { addStack { "zinc_oxide".toCompoundStack() }; probability = 2.0 }
                 addGroup { addStack { "gold".toElementStack() }; probability = 1.0 }
                 addGroup { addStack { "phosphorus".toElementStack() }; probability = 1.0 }
-                addGroup { addStack { "sulfur".toElementStack() }; probability = 1.0 }
+                addGroup { addStack { "sulfur".toElementStack() }; probability = 3.0 }
                 addGroup { addStack { "germanium".toElementStack() }; probability = 1.0 }
                 addGroup { addStack { "silicon".toElementStack() }; probability = 4.0 }
 
@@ -278,11 +281,11 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Items.NETHERBRICK.toIngredient()
             output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 10.0 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 5.0 }
                 addGroup { addStack { "zinc_oxide".toCompoundStack() }; probability = 2.0 }
                 addGroup { addStack { "gold".toElementStack() }; probability = 1.0 }
                 addGroup { addStack { "phosphorus".toElementStack() }; probability = 1.0 }
-                addGroup { addStack { "sulfur".toElementStack() }; probability = 1.0 }
+                addGroup { addStack { "sulfur".toElementStack() }; probability = 4.0 }
                 addGroup { addStack { "germanium".toElementStack() }; probability = 1.0 }
                 addGroup { addStack { "silicon".toElementStack() }; probability = 4.0 }
             }
@@ -360,7 +363,7 @@ object ModRecipes {
             output {
                 reversible = true
                 addGroup {
-                    addStack { "beryl".toCompoundStack(16) }
+                    addStack { "beryl".toCompoundStack(8) }
                     addStack { "chromium".toElementStack(8) }
                     addStack { "vanadium".toElementStack(4) }
                 }
@@ -393,7 +396,7 @@ object ModRecipes {
             input = Blocks.EMERALD_BLOCK.toIngredient()
             output {
                 addGroup {
-                    addStack { "beryl".toCompoundStack(16 * 9) }
+                    addStack { "beryl".toCompoundStack(8 * 9) }
                     addStack { "chromium".toElementStack(8 * 9) }
                     addStack { "vanadium".toElementStack(4 * 9) }
                 }
@@ -847,7 +850,7 @@ object ModRecipes {
 
         dissolverRecipes.add(dissolverRecipe {
             input = Items.COAL.toIngredient(meta = 1)
-            reversible = true
+            reversible = false
             output {
                 addStack { "carbon".toElementStack(quantity = 8) }
             }
@@ -1110,7 +1113,7 @@ object ModRecipes {
         addDissolverRecipesForAlloy("Bronze", "copper", 3, "tin", 1, conservationOfMass = true)
         addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1, conservationOfMass = true)
         addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1, conservationOfMass = false)
-        addDissolverRecipesForAlloy("Invar", "iron", 2, "copper", 1, conservationOfMass = true)
+        //addDissolverRecipesForAlloy("Invar", "iron", 2, "nickel", 1, conservationOfMass = true)
 
 
         listOf("gemRuby", "dustRuby", "plateRuby")

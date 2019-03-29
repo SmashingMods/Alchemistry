@@ -1,3 +1,8 @@
+0.8.15
+==
+-Removed invar dissolver recipes for now
+-Removed the duplicate combiner charcoal recipe
+
 0.8.14 (Requires alib 1.0.7)
 ===
 -Fixed GUIs freezing for a second when being opened for the first time after world load

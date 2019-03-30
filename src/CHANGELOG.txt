@@ -1,7 +1,24 @@
-0.8.15
+0.8.17
+==
+-Fixed bug where the combiner recipe would change to the bottom recipe on the JEI page if you didn't select any recipe
+-Dissolver recipes with multiple rolls will be outputted much more efficiently/quickly now
+(output stacks will be merged if possible, for example, if you have 20 rolls of 100% [2x Stone] with a dissolver speed of 8,
+then it will be outputted in 5 ticks rather than 20)
+
+
+0.8.16
 ==
 -Removed invar dissolver recipes for now
 -Removed the duplicate combiner charcoal recipe
+-Emeralds <-> Beryl changed from 16 to 8
+-Slightly better dissolver output for nether bricks
+
+0.8.15
+
+===
+-Fixed machine energy capacity configs again, so this time they should /actually/ work for pre-existing machines, not only newly placed ones
+-Added a config to control the speed of the Chemical Dissolver, it is now faster by default as well
+
 
 0.8.14 (Requires alib 1.0.7)
 ===

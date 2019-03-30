@@ -14,7 +14,7 @@ class CombinerTransferHandler : IRecipeTransferHandler<ContainerChemicalCombiner
 
     override fun transferRecipe(container: ContainerChemicalCombiner, recipeLayout: IRecipeLayout, player: EntityPlayer, maxTransfer: Boolean, doTransfer: Boolean): IRecipeTransferError? {
         val output: ItemStack? = recipeLayout.itemStacks.guiIngredients.entries.last().value.displayedIngredient
-        if (output != null) {
+        if (output != null && doTransfer) {
             PacketHandler.INSTANCE!!.sendToServer(ChemicalCombinerTransferPacket(container.tile.pos, output))
         }
         return null

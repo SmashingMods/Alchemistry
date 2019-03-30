@@ -1,5 +1,6 @@
 package al132.alchemistry.recipes
 
+import al132.alchemistry.utils.areStacksEqualIgnoreQuantity
 import al132.alib.utils.extensions.toImmutable
 import com.google.common.collect.ImmutableList
 import net.minecraft.item.ItemStack
@@ -29,8 +30,8 @@ data class ProbabilitySet(private var _set: List<ProbabilityGroup>? = ArrayList<
     }
 
     fun probabilityAtIndex(index: Int): Double {
-        if (relativeProbability) return (set[index].probability.toDouble() / set.sumByDouble { it.probability })
-        else return set[index].probability.toDouble()
+        if (relativeProbability) return (set[index].probability / set.sumByDouble { it.probability })
+        else return set[index].probability
     }
 
 
@@ -44,16 +45,26 @@ data class ProbabilitySet(private var _set: List<ProbabilityGroup>? = ArrayList<
                 var trackingProbability = 0.0
 
                 for (component in set) {
-                    trackingProbability += (component.probability.toDouble() / totalProbability)
+                    trackingProbability += (component.probability / totalProbability)
                     if (trackingProbability >= targetProbability) {
-                        component.output.filterNot { it.isEmpty }.forEach { temp.add(it.copy()) }
+                        component.output.filterNot { it.isEmpty }.forEach { x ->
+                            val stack: ItemStack = x.copy()
+                            val index = temp.indexOfFirst { stack.areStacksEqualIgnoreQuantity(it) }
+                            if (index != -1) temp[index].grow(stack.count)//stack.count)
+                            else temp.add(stack)
+                        }
                         break
                     }
                 }
             } else { //absolute probability
                 for (component in set) {
                     if (component.probability >= rando.nextInt(101)) {
-                        component.output.filterNot { it.isEmpty }.forEach { temp.add(it.copy()) }
+                        component.output.filterNot { it.isEmpty }.forEach { x ->
+                            val stack: ItemStack = x.copy()
+                            val index = temp.indexOfFirst { stack.areStacksEqualIgnoreQuantity(it) }
+                            if (index != -1) temp[index].grow(stack.count)
+                            else temp.add(stack)
+                        }
                     }
                 }
             }

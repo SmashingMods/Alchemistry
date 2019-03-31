@@ -1,3 +1,13 @@
+0.8.19
+===
+-About 20 new compounds
+-Many new recipes
+
+
+0.8.18
+===
+-0.8.17 upload didn't build properly for some reason, fixed now
+
 0.8.17
 ==
 -Fixed bug where the combiner recipe would change to the bottom recipe on the JEI page if you didn't select any recipe
@@ -14,7 +24,6 @@ then it will be outputted in 5 ticks rather than 20)
 -Slightly better dissolver output for nether bricks
 
 0.8.15
-
 ===
 -Fixed machine energy capacity configs again, so this time they should /actually/ work for pre-existing machines, not only newly placed ones
 -Added a config to control the speed of the Chemical Dissolver, it is now faster by default as well

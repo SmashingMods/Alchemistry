@@ -287,6 +287,156 @@ object CompoundRegistry {
                     CompoundPair("silicon_dioxide", 1)
             )
         })
+        addInternal(Compound {
+            name = "methane"
+            color = Color(200, 30, 180)
+            components = listOf(
+                    CompoundPair("carbon", 1),
+                    CompoundPair("hydrogen", 4)
+            )
+        })
+        addInternal(Compound {
+            name = "ethane"
+            color = Color(200, 30, 50)
+            components = listOf(
+                    CompoundPair("carbon", 2),
+                    CompoundPair("hydrogen", 6)
+            )
+        })
+        addInternal(Compound {
+            name = "propane"
+            color = Color(100, 30, 50)
+            components = listOf(
+                    CompoundPair("carbon", 3),
+                    CompoundPair("hydrogen", 8)
+            )
+        })
+        addInternal(Compound {
+            name = "butane"
+            color = Color(111, 150, 180)
+            components = listOf(
+                    CompoundPair("carbon", 4),
+                    CompoundPair("hydrogen", 10))
+        })
+        addInternal(Compound {
+            name = "pentane"
+            color = Color(111, 150, 85)
+            components = listOf(
+                    CompoundPair("carbon", 5),
+                    CompoundPair("hydrogen", 12))
+        })
+        addInternal(Compound {
+            name = "hexane"
+            color = Color(111, 205, 50)
+            components = listOf(
+                    CompoundPair("carbon", 6),
+                    CompoundPair("hydrogen", 14))
+        })
+        addInternal(Compound {
+            name = "potassium_dichromate"
+            color = Color(255, 150, 0)
+            components = listOf(
+                    CompoundPair("potassium", 2),
+                    CompoundPair("chromium", 2),
+                    CompoundPair("oxygen", 7))
+        })
+        addInternal(Compound {
+            name = "nickel_chloride"
+            color = Color(30, 255, 75)
+            components = listOf(
+                    CompoundPair("nickel", 1),
+                    CompoundPair("chlorine", 2))
+        })
+        addInternal(Compound {
+            name = "potassium_permanganate"
+            color = Color(120, 0, 100)
+            components = listOf(
+                    CompoundPair("potassium", 1),
+                    CompoundPair("manganese", 1),
+                    CompoundPair("oxygen", 4))
+        })
+        addInternal(Compound {
+            name = "magnesium_sulfate"
+            color = Color(200, 250, 200)
+            components = listOf(
+                    CompoundPair("magnesium", 1),
+                    CompoundPair("sulfur", 1),
+                    CompoundPair("oxygen", 4))
+        })
+        addInternal(Compound {
+            name = "copper_chloride"
+            color = Color(100, 250, 200)
+            components = listOf(
+                    CompoundPair("copper", 1),
+                    CompoundPair("chlorine", 2))
+        })
+        addInternal(Compound {
+            name = "cadmium_sulfide"
+            color = Color(250, 250, 94)
+            components = listOf(
+                    CompoundPair("cadmium", 1),
+                    CompoundPair("sulfur", 1))
+        })
+        addInternal(Compound {
+            name = "chromium_oxide"
+            color = Color(150, 255, 150)
+            components = listOf(
+                    CompoundPair("chromium", 2),
+                    CompoundPair("oxygen", 3))
+        })
+        addInternal(Compound {
+            name = "antimony_trioxide"
+            color = Color(250, 255, 200)
+            components = listOf(
+                    CompoundPair("antimony", 2),
+                    CompoundPair("oxygen", 3))
+        })
+        addInternal(Compound {
+            name = "titanium_oxide"
+            color = Color(50, 30, 50)
+            components = listOf(
+                    CompoundPair("titanium", 2),
+                    CompoundPair("oxygen", 3))
+        })
+        addInternal(Compound {
+            name = "han_purple"
+            color = Color(220, 100, 255)
+            components = listOf(
+                    CompoundPair("barium", 1),
+                    CompoundPair("copper", 1),
+                    CompoundPair("silicon", 2),
+                    CompoundPair("oxygen", 6))
+        })
+        addInternal(Compound {
+            name = "arsenic_sulfide"
+            color = Color(250, 100, 130)
+            components = listOf(
+                    CompoundPair("arsenic", 4),
+                    CompoundPair("sulfur", 4))
+        })
+        addInternal(Compound {
+            name = "barium_sulfate"
+            color = Color(220, 220, 255)
+            components = listOf(
+                    CompoundPair("barium", 1),
+                    CompoundPair("sulfur", 1),
+                    CompoundPair("oxygen",4))
+        })
+        addInternal(Compound {
+            name = "beta_carotene"
+            color = Color(255, 140, 40)
+            components = listOf(
+                    CompoundPair("carbon", 40),
+                    CompoundPair("hydrogen", 56))
+        })
+        addInternal(Compound {
+            name = "polyvinyl_chloride"
+            color = Color(95, 49, 40)
+            components = listOf(
+                    CompoundPair("carbon", 2),
+                    CompoundPair("hydrogen", 3),
+                    CompoundPair("chlorine",1))
+        })
     }
 
     private fun addInternal(compound: ChemicalCompound) {

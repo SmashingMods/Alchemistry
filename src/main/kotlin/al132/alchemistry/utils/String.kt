@@ -26,21 +26,21 @@ fun String.toCompoundStack(quantity: Int = 1): ItemStack =
 fun String.toStack(quantity: Int = 1, meta: Int = 0): ItemStack {
     val actualMeta = this.split(":").last().toIntOrNull() ?: meta
     val resourceLocation =
-            if(this.count{it == ':'} == 2) ResourceLocation(this.dropLastWhile { it != ':' }.dropLast(1))
+            if (this.count { it == ':' } == 2) ResourceLocation(this.dropLastWhile { it != ':' }.dropLast(1))
             else ResourceLocation(this)
     var outputStack: ItemStack = ItemStack.EMPTY
     val outputItem: Item? = Item.REGISTRY.getObject(resourceLocation)
     val outputBlock: Block? = Block.REGISTRY.getObject(resourceLocation)
     val outputElement: ChemicalElement? = ElementRegistry[this]
     val outputCompound: ChemicalCompound? = CompoundRegistry[this.replace(" ", "_")]
-    if (outputItem != null) {
-        outputStack = outputItem.toStack(quantity = quantity, meta = actualMeta)
-    } else if (outputBlock != null && outputBlock != Blocks.AIR && outputBlock != Blocks.WATER) {
-        outputStack = outputBlock.toStack(quantity = quantity, meta = actualMeta)
-    } else if (outputElement != null) {
+    if (outputElement != null) {
         outputStack = outputElement.toItemStack(quantity = quantity)
     } else if (outputCompound != null) {
         outputStack = outputCompound.toItemStack(quantity = quantity)
+    } else if (outputItem != null) {
+        outputStack = outputItem.toStack(quantity = quantity, meta = actualMeta)
+    } else if (outputBlock != null && outputBlock != Blocks.AIR && outputBlock != Blocks.WATER) {
+        outputStack = outputBlock.toStack(quantity = quantity, meta = actualMeta)
     }
     return outputStack
 }

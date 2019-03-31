@@ -139,7 +139,7 @@ item.alchemistry:compound_potassium_chloride.name=Хлористый калий
 item.alchemistry:compound_sodium_chloride.name=Хлорид натрия
 item.alchemistry:compound_water.name=Вода
 item.alchemistry:compound_kaolinite.name=Каолинит
-item.alchemistry:compound_protein.name=Белок
+item.alchemistry:compound_protein.name=Белок 
 item.alchemistry:compound_iron_oxide.name=Оксид железа
 item.alchemistry:compound_sucrose.name=Сахароза
 item.alchemistry:compound_calcium_carbonate.name=Карбонат кальция
@@ -166,6 +166,26 @@ item.alchemistry:compound_ethanol.name=Этанол
 item.alchemistry:compound_potassium_carbonate.name=Карбонат калия
 item.alchemistry:compound_mescaline.name=Мескалин
 item.alchemistry:compound_mullite.name=Муллит
+item.alchemistry:compound_methane.name=Метан
+item.alchemistry:compound_ethane.name=Этан
+item.alchemistry:compound_propane.name=Пропан
+item.alchemistry:compound_butane.name=Бутан
+item.alchemistry:compound_pentane.name=Пентан
+item.alchemistry:compound_hexane.name=Гексан
+item.alchemistry:compound_potassium_dichromate.name=Дихромат калия
+item.alchemistry:compound_nickel_chloride.name=Хлорид никеля
+item.alchemistry:compound_potassium_permanganate.name=Перманганат калия
+item.alchemistry:compound_magnesium_sulfate.name=Сульфат магния
+item.alchemistry:compound_copper_chloride.name=Хлорид меди
+item.alchemistry:compound_cadmium_sulfide.name=Сульфид кадмия
+item.alchemistry:compound_chromium_oxide.name=Оксид хрома
+item.alchemistry:compound_antimony_trioxide.name=Оксид сурьмы
+item.alchemistry:compound_titanium_oxide.name=Оксид титана
+item.alchemistry:compound_han_purple.name=Хань пурпурный
+item.alchemistry:compound_arsenic_sulfide.name=Сульфид мышьяка
+item.alchemistry:compound_barium_sulfate.name=Сульфат бария
+item.alchemistry:compound_beta_carotene.name=Бета-каротин
+item.alchemistry:compound_polyvinyl_chloride.name=Поливинилхлорид
 
 
 

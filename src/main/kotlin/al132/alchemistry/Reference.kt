@@ -12,7 +12,7 @@ object Reference {
 
     const val MODID = "alchemistry"
     const val MODNAME = "Alchemistry"
-    const val VERSION = "0.8.20"
+    const val VERSION = "0.8.21"
     const val DEPENDENCIES = "required-after:forgelin;required-after:alib;after:crafttweaker;"
     val DECIMAL_FORMAT: NumberFormat = DecimalFormat("#0.00")
 
@@ -21,6 +21,6 @@ object Reference {
     lateinit var configDir: File
 
     val creativeTab: CreativeTabs = object : CreativeTabs("alchemistry") {
-        override fun getTabIconItem(): ItemStack = ModBlocks.chemical_combiner.toStack()
+        override fun createIcon(): ItemStack = ModBlocks.chemical_combiner.toStack()
     }
 }

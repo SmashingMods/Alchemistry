@@ -47,9 +47,9 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
         } else return super.getItemStackDisplayName(stack)
     }
 
-    override fun getUnlocalizedName(stack: ItemStack?): String {
+    override fun getTranslationKey(stack: ItemStack?): String {
         var i = stack!!.itemDamage
         if (!CompoundRegistry.keys().contains(i)) i = 0
-        return super.getUnlocalizedName() + "_" + CompoundRegistry[i]!!.name
+        return super.getTranslationKey() + "_" + CompoundRegistry[i]!!.name
     }
 }

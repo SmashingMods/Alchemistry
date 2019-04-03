@@ -38,14 +38,12 @@ data class DissolverOreData(val prefix: String, val quantity: Int, val strs: Lis
 
 
 object ModRecipes {
-
     val electrolyzerRecipes = ArrayList<ElectrolyzerRecipe>()
     val dissolverRecipes = ArrayList<DissolverRecipe>()
     val combinerRecipes = ArrayList<CombinerRecipe>()
     val evaporatorRecipes = ArrayList<EvaporatorRecipe>()
     val atomizerRecipes = ArrayList<AtomizerRecipe>()
     val liquifierRecipes = ArrayList<LiquifierRecipe>()
-    //val alloyRecipes = ArrayList<AlloyRecipe>()
 
     val metals: List<String> = listOf(//not all technically metals, I know
             "aluminum",
@@ -528,7 +526,7 @@ object ModRecipes {
             }
         })
         dissolverRecipes.add(dissolverRecipe {
-            input = Blocks.REEDS.toIngredient()
+            input = Items.REEDS.toIngredient()
             output {
                 addGroup { addStack { "sucrose".toStack() } }
             }
@@ -1499,7 +1497,7 @@ object ModRecipes {
                         return when (fuel.itemDamage) {
                             ElementRegistry["hydrogen"]?.meta -> 20
                             ElementRegistry["carbon"]?.meta   -> 200
-                            else -> 0
+                            else                              -> 0
                         }
                     } else if (fuel.item == ModItems.compounds) {
                         return when (fuel.itemDamage) {
@@ -1509,7 +1507,7 @@ object ModRecipes {
                             CompoundRegistry["butane"]?.meta  -> ((4 * 200) + (10 * 20))
                             CompoundRegistry["pentane"]?.meta -> ((5 * 200) + (12 * 20))
                             CompoundRegistry["hexane"]?.meta  -> ((6 * 200) + (14 * 20))
-                            else -> 0
+                            else                              -> 0
                         }
                     }
                 }
@@ -1530,8 +1528,7 @@ object ModRecipes {
             val dustOutput: ItemStack? = firstOre(entry.toDict("dust"))
             if (dustOutput != null && !dustOutput.isEmpty) {
                 combinerRecipes.add(CombinerRecipe(dustOutput,
-                        listOf(entry.toElementStack(4), entry.toElementStack(4), entry.toElementStack(4),
-                                entry.toElementStack(4))))
+                        listOf(ItemStack.EMPTY, entry.toElementStack(16))))
             }
 
             val ingotOutput: ItemStack? = firstOre(entry.toDict("ingot"))
@@ -1562,12 +1559,13 @@ object ModRecipes {
                         carbon, carbon, carbon)))
 
         combinerRecipes.add(CombinerRecipe(Blocks.SAND.toStack(),
-                listOf("silicon_dioxide".toCompoundStack(), "silicon_dioxide".toCompoundStack(), null,
-                        "silicon_dioxide".toCompoundStack(), "silicon_dioxide".toCompoundStack())))
+                listOf(null, null, null,
+                        null, null, null,
+                        null, null, "silicon_dioxide".toStack(4))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.SAND.toStack(quantity = 8, meta = 1), //red sand
-                listOf("silicon_dioxide".toCompoundStack(quantity = 8), "silicon_dioxide".toCompoundStack(quantity = 8), "iron_oxide".toCompoundStack(),
-                        "silicon_dioxide".toCompoundStack(quantity = 8), "silicon_dioxide".toCompoundStack(quantity = 8))))
+                listOf(null, null, null,
+                        "silicon_dioxide".toStack(quantity = 32), "iron_oxide".toStack())))
 
         combinerRecipes.add(CombinerRecipe(Blocks.COBBLESTONE.toStack(quantity = 2),
                 listOf("silicon_dioxide".toCompoundStack())))
@@ -1577,8 +1575,7 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Blocks.OBSIDIAN.toStack(),
                 listOf("magnesium_oxide".toCompoundStack(8), "potassium_chloride".toCompoundStack(8), "aluminum_oxide".toCompoundStack(8),
-                        "silicon_dioxide".toCompoundStack(8), "silicon_dioxide".toCompoundStack(8), "silicon_dioxide".toCompoundStack(8)
-                )))
+                        "silicon_dioxide".toCompoundStack(24))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.CLAY.toStack(),
                 listOf(ItemStack.EMPTY, "kaolinite".toCompoundStack(4))))
@@ -1615,13 +1612,12 @@ object ModRecipes {
                         "iron_oxide".toCompoundStack(9), "strontium_carbonate".toCompoundStack(9))))
 
         combinerRecipes.add(CombinerRecipe(Items.STRING.toStack(4),
-                listOf(null, "protein".toCompoundStack(), null,
-                        null, "protein".toCompoundStack())))
+                listOf(null, "protein".toCompoundStack(2))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.WOOL.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        "protein".toCompoundStack(), null, "protein".toCompoundStack())))
+                        "protein".toCompoundStack(2))))
 
         combinerRecipes.add(CombinerRecipe(Items.CARROT.toStack(),
                 listOf(null, null, null,
@@ -1696,8 +1692,7 @@ object ModRecipes {
 
         (0..5).forEach { i ->
             val input = (0 until i).mapTo(ArrayList<ItemStack>(), { ItemStack.EMPTY })
-            input.add("cellulose".toCompoundStack())
-            input.add("cellulose".toCompoundStack())
+            input.add("cellulose".toCompoundStack(2))
             combinerRecipes.add(CombinerRecipe(Blocks.SAPLING.toStack(quantity = 4, meta = i), input))
         }
 
@@ -1734,13 +1729,13 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Items.LEATHER.toStack(),
                 listOf(null, null, null,
-                        "protein".toCompoundStack(), "protein".toCompoundStack(), "protein".toCompoundStack())))
+                        null, "protein".toCompoundStack(3))))
 
 
         combinerRecipes.add(CombinerRecipe(Items.ROTTEN_FLESH.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        "protein".toCompoundStack(), "protein".toCompoundStack(), "protein".toCompoundStack())))
+                        "protein".toCompoundStack(3))))
 
         combinerRecipes.add(CombinerRecipe(Items.NETHER_STAR.toStack(),
                 listOf("lutetium".toStack(64), "hydrogen".toStack(64), "titanium".toStack(64),

@@ -60,6 +60,4 @@ abstract class ItemMetaBase(name: String) : ItemBase(name) {
     init {
         this.hasSubtypes = true
     }
-
-    abstract override fun getUnlocalizedName(stack: ItemStack?): String
 }

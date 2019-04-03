@@ -36,6 +36,9 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     override fun initInventoryInputCapability() {
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
+                println("slot: $slot")
+                println("stack: $stack")
+                println("simulate: $simulate")
                 if (currentRecipe == null) return super.insertItem(slot, stack, simulate)
                 else if (currentRecipe!!.inputs[slot].areItemsEqual(stack)) return super.insertItem(slot, stack, simulate)
                 else return stack

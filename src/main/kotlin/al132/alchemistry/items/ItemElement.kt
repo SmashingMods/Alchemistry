@@ -18,6 +18,10 @@ import net.minecraftforge.fml.relauncher.SideOnly
  */
 class ItemElement(name: String) : ItemMetaBase(name) {
 
+    init{
+        //tileEntityItemStackRenderer = TEISRElement()
+    }
+
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
         ElementRegistry.keys().forEach {
@@ -49,9 +53,9 @@ class ItemElement(name: String) : ItemMetaBase(name) {
         } else return super.getItemStackDisplayName(stack)
     }
 
-    override fun getUnlocalizedName(stack: ItemStack?): String {
+    override fun getTranslationKey(stack: ItemStack?): String {
         var i = stack!!.itemDamage
         if (!ElementRegistry.keys().contains(i)) i = 1
-        return super.getUnlocalizedName() + "_" + ElementRegistry[i]!!.name.toLowerCase()
+        return super.getTranslationKey() + "_" + ElementRegistry[i]!!.name.toLowerCase()
     }
 }

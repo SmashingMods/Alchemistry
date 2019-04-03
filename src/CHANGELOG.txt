@@ -1,7 +1,7 @@
 0.8.19
 ===
--About 20 new compounds
--Many new recipes
+-About 20 new chemical compounds
+-Many new machine recipes
 
 
 0.8.18

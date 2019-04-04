@@ -8,6 +8,7 @@ import al132.alchemistry.recipes.ModRecipes
 import al132.alchemistry.recipes.XMLRecipeParser
 import crafttweaker.CraftTweakerAPI
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent
@@ -36,7 +37,7 @@ open class CommonProxy {
 
         PacketHandler.registerMessages(Reference.MODID)
 
-        CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
+        if(Loader.isModLoaded("crafttweaker")) CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
     }
 
     open fun init(e: FMLInitializationEvent) {

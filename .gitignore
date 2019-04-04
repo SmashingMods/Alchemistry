@@ -18,10 +18,10 @@ build
 .gradle
 
 # other
+OLD
 libs
 eclipse
 run
 classes
 gradle
-crafttweaker
 models

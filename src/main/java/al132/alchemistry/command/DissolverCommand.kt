@@ -1,4 +1,4 @@
-package al132.alchemistry
+package al132.alchemistry.command
 
 import al132.alchemistry.recipes.DissolverRecipe
 import net.minecraft.command.CommandBase

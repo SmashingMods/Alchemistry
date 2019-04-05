@@ -1,6 +1,7 @@
 package al132.alchemistry
 
 import al132.alchemistry.blocks.ModBlocks
+import al132.alchemistry.command.DissolverCommand
 import al132.alchemistry.items.ModItems
 import crafttweaker.CraftTweakerAPI
 import crafttweaker.IAction
@@ -22,7 +23,7 @@ import java.util.*
 
 
 //TODO: Everything
-@Mod(modid = Reference.MODID,
+@net.minecraftforge.fml.common.Mod(modid = Reference.MODID,
         name = Reference.MODNAME,
         version = Reference.VERSION,
         dependencies = Reference.DEPENDENCIES,

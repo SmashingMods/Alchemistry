@@ -60,7 +60,6 @@ open class ItemBase(name: String) : ALItem(name, Reference.creativeTab)
 abstract class ItemMetaBase(name: String) : ItemBase(name) {
 
     init {
-        this.creativeTab
         this.hasSubtypes = true
     }
 }

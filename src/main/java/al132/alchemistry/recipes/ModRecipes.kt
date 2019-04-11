@@ -44,6 +44,7 @@ object ModRecipes {
     val evaporatorRecipes = ArrayList<EvaporatorRecipe>()
     val atomizerRecipes = ArrayList<AtomizerRecipe>()
     val liquifierRecipes = ArrayList<LiquifierRecipe>()
+    val fissionRecipes = ArrayList<FissionRecipe>()
 
     val metals: List<String> = listOf(//not all technically metals, I know
             "aluminum",
@@ -112,6 +113,7 @@ object ModRecipes {
         initCombinerRecipes()
         initAtomizerRecipes()
         initLiquifierRecipes()
+        initFissionRecipes()
     }
 
 
@@ -781,6 +783,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Items.CARROT.toIngredient()
             output {
+                relativeProbability = false
                 addGroup { addStack { "beta_carotene".toCompoundStack(1) }; probability = 25.0 }
             }
         })
@@ -1370,12 +1373,13 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.MELON_BLOCK.toIngredient()
             output {
+                relativeProbability = false
                 addGroup {
-                    relativeProbability = false
                     probability = 50.0
                     addStack { "cucurbitacin".toCompoundStack(); }
                 }
                 addGroup {
+                    probability = 1.0
                     addStack { "water".toCompoundStack(quantity = 4) }
                     addStack { "sucrose".toCompoundStack(quantity = 2) }
                 }
@@ -1481,7 +1485,7 @@ object ModRecipes {
     fun initEvaporatorRecipes() {
         evaporatorRecipes.run {
             this.add(EvaporatorRecipe(FluidRegistry.WATER, 125, ModItems.mineralSalt.toStack()))
-            this.add(EvaporatorRecipe(FluidRegistry.LAVA, 125, Blocks.MAGMA.toStack()))
+            this.add(EvaporatorRecipe(FluidRegistry.LAVA, 1000, Blocks.MAGMA.toStack()))
             FluidRegistry.getFluid("milk")?.let {
                 this.add(EvaporatorRecipe(FluidRegistry.getFluid("milk"), 500, ModItems.condensedMilk.toStack()))
             }
@@ -1520,6 +1524,7 @@ object ModRecipes {
 
     fun initCombinerRecipes() {
 
+
         combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(meta = 1),
                 listOf(ItemStack.EMPTY, "carbon".toElementStack(8))))
 
@@ -1537,12 +1542,24 @@ object ModRecipes {
                         listOf(entry.toElementStack(16))))
             }
         }
+        combinerRecipes.add(CombinerRecipe("triglyceride".toStack(),
+                listOf(null,null,"oxygen".toStack(2),
+                        null,"hydrogen".toStack(32),null,
+                        "carbon".toStack(18))))
+
+        combinerRecipes.add(CombinerRecipe("cucurbitacin".toStack(),
+                listOf(null,null,null,
+                        null,"hydrogen".toStack(44),null,
+                        "carbon".toStack(32),null,"oxygen".toStack(8))))
 
         CompoundRegistry.compounds()
                 .filter { it.autoCombinerRecipe }
                 .forEach { compound ->
-                    if (compound.hasShiftedRecipe) {
-                        val inputList: List<Any> = compound.toItemStackList().toMutableList().apply { this.add(0, ItemStack.EMPTY) }
+                    if (compound.shiftedSlots > 0) {
+                        val inputList: List<Any> = compound.toItemStackList().toMutableList().also { list ->
+                            (0 until compound.shiftedSlots).forEach { list.add(0, ItemStack.EMPTY) }
+                        }
+                        assert(inputList.size <= 9)
                         combinerRecipes.add(CombinerRecipe(compound.toItemStack(1), inputList))
                     } else combinerRecipes.add(CombinerRecipe(compound.toItemStack(1), compound.toItemStackList()))
                 }
@@ -1679,6 +1696,7 @@ object ModRecipes {
             val inputs = mutableListOf(null, "triglyceride".toCompoundStack(), null)
             (0 until index).forEach { inputs.add(null) }
             inputs.add("sucrose".toCompoundStack())
+            if(stack.item == Items.BEETROOT_SEEDS) inputs.add("iron_oxide".toStack())
             combinerRecipes.add(CombinerRecipe(stack, inputs))
         }
 
@@ -1692,6 +1710,7 @@ object ModRecipes {
 
         (0..5).forEach { i ->
             val input = (0 until i).mapTo(ArrayList<ItemStack>(), { ItemStack.EMPTY })
+            input.add("oxygen".toStack())
             input.add("cellulose".toCompoundStack(2))
             combinerRecipes.add(CombinerRecipe(Blocks.SAPLING.toStack(quantity = 4, meta = i), input))
         }
@@ -1767,6 +1786,16 @@ object ModRecipes {
                 liquifierRecipes.add(LiquifierRecipe(
                         it.name.toElementStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
                 ))
+            }
+        }
+    }
+
+    fun initFissionRecipes() {
+        for (i in ElementRegistry.keys().filterNot { it == 1 }) {
+            val output1 = if (i % 2 == 0) i / 2 else (i / 2) + 1
+            val output2 = if (i % 2 == 0) 0 else i / 2
+            if (ElementRegistry[output1] != null && (output2 == 0 || ElementRegistry[output2] != null)) {
+                this.fissionRecipes.add(FissionRecipe(i, output1, output2))
             }
         }
     }

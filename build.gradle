@@ -38,11 +38,7 @@ minecraft {
     version = "1.12.2-14.23.5.2824"
     runDir = "run"
     mappings = "stable_39"
-    useDepAts = true
-    //makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-
-    clientJvmArgs = ["-Dfml.coreMods.load=al132.alchemistry.core.AlchemistryCore"]
-    serverJvmArgs = ["-Dfml.coreMods.load=al132.alchemistry.core.AlchemistryCore"]
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
 
@@ -60,10 +56,14 @@ repositories {
     maven { //Forgelin
         url "http://maven.shadowfacts.net/"
     }
+    maven {
+        url 'https://maven.blamejared.com'
+    }
     mavenCentral()
 }
 
 dependencies {
+    //compile "vazkii.patchouli:Patchouli:1.0-18.93"
     // compile against the JEI API
     deobfProvided "mezz.jei:jei_${mc_version}:${jei_version}:api"
     // at runtime, use the full JEI jar
@@ -83,14 +83,19 @@ sourceSets {
 }*/
 
 processResources {
+    // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
 
+    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
+
+        // replace version and mcversion
         expand 'version': project.version, 'mcversion': project.minecraft.version
     }
 
+    // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
@@ -107,10 +112,9 @@ compileTestKotlin {
     }
 }
 
-
 jar {
     manifest {
-        attributes 'FMLAT': 'alchemistry_at.cfg'
+        //attributes 'FMLAT': 'alchemistry_at.cfg'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
         attributes 'FMLCorePlugin': 'al132.alchemistry.core.AlchemistryCore'
     }

@@ -1,0 +1,15 @@
+{
+  "name": "Obsidian Breaker",
+  "icon": "alchemistry:obsidian_breaker",
+  "category": "utility_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Obsidian Breaker is a simple item that can be used to instantly harvest a block of obsidian by shift + right-clicking the block. This item will be consumed in the process"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:obsidian_breaker"
+    }
+  ]
+}

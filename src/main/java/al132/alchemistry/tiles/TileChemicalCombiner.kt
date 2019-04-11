@@ -6,6 +6,7 @@ import al132.alib.tiles.ALTileStackHandler
 import al132.alib.tiles.IEnergyTile
 import al132.alib.tiles.IGuiTile
 import al132.alib.tiles.IItemTile
+import al132.alib.utils.extensions.areItemStacksEqual
 import al132.alib.utils.extensions.areItemsEqual
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
@@ -36,23 +37,26 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     override fun initInventoryInputCapability() {
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-                println("slot: $slot")
-                println("stack: $stack")
-                println("simulate: $simulate")
-                if (currentRecipe == null) return super.insertItem(slot, stack, simulate)
-                else if (currentRecipe!!.inputs[slot].areItemsEqual(stack)) return super.insertItem(slot, stack, simulate)
-                else return stack
+                if (!recipeIsLocked) return super.insertItem(slot, stack, simulate)
+                else if (recipeIsLocked && (currentRecipe?.inputs?.get(slot)?.areItemsEqual(stack) ?: false)) {
+                    return super.insertItem(slot, stack, simulate)
+                } else return stack
+            }
+
+            override fun onContentsChanged(slot: Int) {
+                if (!recipeIsLocked) updateRecipe()
             }
         }
     }
 
+    fun updateRecipe() {
+        currentRecipe = CombinerRecipe.matchInputs(this.input)
+    }
+
     override fun update() {
-        if (!recipeIsLocked) this.currentRecipe = null
         if (!getWorld().isRemote) {
-            if (currentRecipe != null) {
-                clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
-                if (!this.paused && canProcess()) process()
-            }
+            if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY)
+            if (!this.paused && canProcess()) process()
             this.markDirtyClientEvery(5)
         }
     }
@@ -75,11 +79,11 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IEnergyTile, IItem
     fun canProcess(): Boolean {
         return currentRecipe != null
                 && currentRecipe!!.matchesHandlerStacks(this.input)
-                && recipeIsLocked
-                //&& (!recipeIsLocked || CombinerRecipe.matchInputs(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
-                && (ItemStack.areItemsEqual(output[0], currentRecipe?.output) || output[0].isEmpty)
-                && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize)
-                && energyCapability.energyStored >= ConfigHandler.combinerEnergyPerTick!!
+                //&& recipeIsLocked
+                && (!recipeIsLocked || CombinerRecipe.matchInputs(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
+                && (ItemStack.areItemsEqual(output[0], currentRecipe?.output) || output[0].isEmpty) //output item types can stack
+                && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize) //output quantities can stack
+                && energyCapability.energyStored >= ConfigHandler.combinerEnergyPerTick!! //has enough energy
     }
 
     override fun readFromNBT(compound: NBTTagCompound) {

@@ -102,6 +102,7 @@ object CompoundRegistry {
         {
             name = "sucrose"
             color = Color(224, 213, 210)
+            shiftedSlots = 3
             components = listOf(
                     CompoundPair("carbon", 12),
                     CompoundPair("hydrogen", 22),
@@ -162,6 +163,7 @@ object CompoundRegistry {
         })
         addInternal(Compound {
             name = "starch"
+            shiftedSlots = 6
             color = Color(252, 239, 166)
             components = listOf(CompoundPair("carbon", 12),
                     CompoundPair("hydrogen", 20),
@@ -170,6 +172,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "cucurbitacin"
             color = Color.orange
+            autoCombinerRecipe = false
             components = listOf(
                     CompoundPair("carbon", 32),
                     CompoundPair("hydrogen", 44),
@@ -204,6 +207,7 @@ object CompoundRegistry {
         addInternal(Compound {
             //linoleic acid is the formula used here, i'd rather not get pedantic and make 20 different fats
             name = "triglyceride"
+            autoCombinerRecipe = false
             color = Color(200, 200, 90)
             components = listOf(
                     CompoundPair("carbon", 18),
@@ -246,7 +250,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "ammonium"
             color = Color(180, 250, 250)
-            hasShiftedRecipe = true
+            shiftedSlots = 1
             components = listOf(
                     CompoundPair("nitrogen", 1),
                     CompoundPair("hydrogen", 4)
@@ -290,6 +294,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "methane"
             color = Color(200, 30, 180)
+            shiftedSlots = 1
             components = listOf(
                     CompoundPair("carbon", 1),
                     CompoundPair("hydrogen", 4)
@@ -298,6 +303,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "ethane"
             color = Color(200, 30, 50)
+            shiftedSlots = 2
             components = listOf(
                     CompoundPair("carbon", 2),
                     CompoundPair("hydrogen", 6)
@@ -306,6 +312,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "propane"
             color = Color(100, 30, 50)
+            shiftedSlots = 3
             components = listOf(
                     CompoundPair("carbon", 3),
                     CompoundPair("hydrogen", 8)
@@ -314,6 +321,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "butane"
             color = Color(111, 150, 180)
+            shiftedSlots = 4
             components = listOf(
                     CompoundPair("carbon", 4),
                     CompoundPair("hydrogen", 10))
@@ -321,6 +329,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "pentane"
             color = Color(111, 150, 85)
+            shiftedSlots = 5
             components = listOf(
                     CompoundPair("carbon", 5),
                     CompoundPair("hydrogen", 12))
@@ -328,6 +337,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "hexane"
             color = Color(111, 205, 50)
+            shiftedSlots = 6
             components = listOf(
                     CompoundPair("carbon", 6),
                     CompoundPair("hydrogen", 14))

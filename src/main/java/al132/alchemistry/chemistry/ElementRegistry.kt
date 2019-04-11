@@ -145,7 +145,7 @@ object ElementRegistry {
 
     fun getMeta(name: String): Int = elements.entries.firstOrNull { it.value.name == name }?.key ?: -1
 
-    fun getAllElements() = this.elements.values
+    fun getAllElements() = this.elements.values.toSet()
 
-    fun keys() = this.elements.keys
+    fun keys() = this.elements.keys.toSet()
 }

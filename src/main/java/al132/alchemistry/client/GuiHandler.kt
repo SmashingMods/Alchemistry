@@ -17,6 +17,8 @@ class GuiHandler : IGuiHandler {
         val EVAPORATOR_ID = 3
         val ATOMIZER_ID = 4
         val LIQUIFIER_ID = 5
+        val FISSION_CONTROLLER_ID = 6
+        val FUSION_CONTROLLER_ID = 7
     }
 
     override fun getServerGuiElement(ID: Int, player: EntityPlayer, world: World, x: Int, y: Int, z: Int): Any? {
@@ -39,6 +41,12 @@ class GuiHandler : IGuiHandler {
             }
             LIQUIFIER_ID          -> {
                 if (entity is TileLiquifier) return ContainerLiquifier(player.inventory, entity)
+            }
+            FISSION_CONTROLLER_ID          -> {
+                if (entity is TileFissionController) return ContainerFissionController(player.inventory, entity)
+            }
+            FUSION_CONTROLLER_ID          -> {
+                if (entity is TileFusionController) return ContainerFusionController(player.inventory, entity)
             }
         }
         return null
@@ -64,6 +72,12 @@ class GuiHandler : IGuiHandler {
             }
             LIQUIFIER_ID          -> {
                 if (entity is TileLiquifier) return GuiLiquifier(player.inventory, entity)
+            }
+            FISSION_CONTROLLER_ID          -> {
+                if (entity is TileFissionController) return GuiFissionController(player.inventory, entity)
+            }
+            FUSION_CONTROLLER_ID          -> {
+                if (entity is TileFusionController) return GuiFusionController(player.inventory, entity)
             }
         }
         return null

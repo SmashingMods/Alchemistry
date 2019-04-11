@@ -1,0 +1,15 @@
+{
+  "name": "Electrolyzer Overview",
+  "icon": "alchemistry:electrolyzer",
+  "category": "electrolyzer_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Electrolyzer is a powered machine that reacts catalyst items with fluids to create outputs. Every time the machine is finished processing there is a chance that the electrolyte will be consumed. This probability can be viewed in JEI by hovering over the catalyst item in a given recipe"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:electrolyzer"
+    }
+  ]
+}

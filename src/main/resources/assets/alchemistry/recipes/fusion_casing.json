@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ISI",
+    "SES",
+    "ISI"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_pearl"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "S": {
+      "item": "minecraft:stone",
+      "data": 0
+    }
+  },
+  "result": {
+    "count": 4,
+    "item": "alchemistry:fusion_casing"
+  }
+}

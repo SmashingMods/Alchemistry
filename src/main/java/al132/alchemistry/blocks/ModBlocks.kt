@@ -14,6 +14,9 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 
 object ModBlocks {
+
+    val blocks = ArrayList<ALBlock>()
+
     var electrolyzer = ElectrolyzerBlock("electrolyzer", TileElectrolyzer::class.java, GuiHandler.ELECTROLYZER_ID)
     var chemical_dissolver = ChemicalDissolverBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
     var chemical_combiner = ChemicalCombinerBlock("chemical_combiner", TileChemicalCombiner::class.java, GuiHandler.CHEMICAL_COMBINER_ID)
@@ -21,14 +24,14 @@ object ModBlocks {
     val atomizer = AtomizerBlock("atomizer", TileAtomizer::class.java, GuiHandler.ATOMIZER_ID)
     val liquifier = LiquifierBlock("liquifier", TileLiquifier::class.java, GuiHandler.LIQUIFIER_ID)
 
-    val blocks = arrayOf<ALBlock>(
-            electrolyzer,
-            chemical_dissolver,
-            chemical_combiner,
-            evaporator,
-            atomizer,
-            liquifier
-    )
+    val fissionCasing: BaseBlock = BaseBlock("fission_casing")
+    val fissionCore = BaseBlock("fission_core")
+    val fissionController = FissionControllerBlock("fission_controller", TileFissionController::class.java, GuiHandler.FISSION_CONTROLLER_ID)
+
+    val fusionCasing = BaseBlock("fusion_casing")
+    val fusionCore = BaseBlock("fusion_core")
+    val fusionController = FusionControllerBlock("fusion_controller",TileFusionController::class.java,GuiHandler.FUSION_CONTROLLER_ID)
+
 
     fun registerBlocks(event: RegistryEvent.Register<Block>) = blocks.forEach { it.registerBlock(event) }
 
@@ -38,7 +41,15 @@ object ModBlocks {
     fun registerModels() = blocks.forEach { it.registerModel() }
 }
 
-open class BaseBlock(name: String) : ALBlock(name, Reference.creativeTab)
+open class BaseBlock(name: String) : ALBlock(name, Reference.creativeTab) {
+    init {
+        ModBlocks.blocks.add(this)
+    }
+}
 
 open class BaseTileBlock(name: String, tileClass: Class<out TileEntity>, guiID: Int)
-    : ALTileBlock(name, Reference.creativeTab, tileClass, Alchemistry, guiID)
+    : ALTileBlock(name, Reference.creativeTab, tileClass, Alchemistry, guiID) {
+    init {
+        ModBlocks.blocks.add(this)
+    }
+}

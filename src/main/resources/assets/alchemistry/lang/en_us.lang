@@ -4,6 +4,12 @@ tile.chemical_combiner.name=Chemical Combiner
 tile.evaporator.name=Evaporator
 tile.atomizer.name=Atomizer
 tile.liquifier.name=Liquifier
+tile.fission_controller.name=Fission Controller
+tile.fission_core.name=Fission Core
+tile.fission_casing.name=Fission Casing
+tile.fusion_controller.name=Fusion Controller
+tile.fusion_core.name=Fusion Core
+tile.fusion_casing.name=Fusion Casing
 
 item.alchemistry:mineral_salt.name=Mineral Salt
 item.alchemistry:fertilizer.name=Fertilizer
@@ -195,6 +201,7 @@ jei.electrolyzer.name=Electrolyzer
 jei.evaporator.name=Evaporator
 jei.atomizer.name=Atomizer
 jei.liquifier.name=Liqufier
+jei.fission_controller.name=Fission Multiblock
 
 itemGroup.alchemistry=Alchemistry
 
@@ -206,6 +213,9 @@ tile.chemical_dissolver.tooltip=Requires
 tile.chemical_combiner.tooltip=Requires
 tile.atomizer.tooltip=Requires
 tile.liquifier.tooltip=Requires
+tile.fission_controller.tooltip=Requires
+tile.fusion_controller.tooltip=Requires
+
 tile.evaporator.tooltip=Operates 50% slower in non-dry biomes
 
 tile.combiner.unlock_recipe=Unlock Recipe
@@ -213,6 +223,8 @@ tile.combiner.lock_recipe=Lock Recipe
 tile.combiner.pause=Pause
 tile.combiner.resume=Resume
 tile.combiner.target=Target
+tile.fission.invalid_multiblock=Invalid Fission Multiblock
+tile.fusion.invalid_multiblock=Invalid Fusion Multiblock
 
 jei.electrolyzer.electrolyte=Electrolyte
 jei.electrolyzer.consumption_probability=Consumption Probability
@@ -220,3 +232,4 @@ jei.dissolver.relative=Relative
 jei.dissolver.absolute=Absolute
 jei.dissolver.type=Type
 jei.dissolver.rolls=Rolls
+jei.elements.description=All elements (except Hydrogen) can be created with the Fusion multiblock.\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers."

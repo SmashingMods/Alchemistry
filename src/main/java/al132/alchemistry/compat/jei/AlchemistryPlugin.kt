@@ -2,12 +2,14 @@ package al132.alchemistry.compat.jei
 
 import al132.alchemistry.Reference
 import al132.alchemistry.blocks.ModBlocks
+import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.client.*
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.ATOMIZER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.COMBINER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.DISSOLVER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.ELECTROLYZER
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.EVAPORATOR
+import al132.alchemistry.compat.jei.AlchemistryRecipeUID.FISSION
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID.LIQUIFIER
 import al132.alchemistry.compat.jei.atomizer.AtomizerRecipeCategory
 import al132.alchemistry.compat.jei.atomizer.AtomizerRecipeWrapper
@@ -20,12 +22,16 @@ import al132.alchemistry.compat.jei.electrolyzer.ElectrolyzerRecipeCategory
 import al132.alchemistry.compat.jei.electrolyzer.ElectrolyzerRecipeWrapper
 import al132.alchemistry.compat.jei.evaporator.EvaporatorRecipeCategory
 import al132.alchemistry.compat.jei.evaporator.EvaporatorRecipeWrapper
+import al132.alchemistry.compat.jei.fission.FissionRecipeCategory
+import al132.alchemistry.compat.jei.fission.FissionRecipeWrapper
 import al132.alchemistry.compat.jei.liquifier.LiquifierRecipeCategory
 import al132.alchemistry.compat.jei.liquifier.LiquifierRecipeWrapper
+import al132.alchemistry.items.ModItems
 import al132.alchemistry.recipes.*
 import al132.alib.utils.extensions.toStack
 import mezz.jei.api.*
 import mezz.jei.api.gui.IDrawable
+import mezz.jei.api.ingredients.VanillaTypes
 import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import mezz.jei.api.recipe.IRecipeWrapper
@@ -53,7 +59,8 @@ class AlchemistryPlugin : IModPlugin {
                     ElectrolyzerRecipeCategory(guiHelper),
                     EvaporatorRecipeCategory(guiHelper),
                     AtomizerRecipeCategory(guiHelper),
-                    LiquifierRecipeCategory(guiHelper)
+                    LiquifierRecipeCategory(guiHelper),
+                    FissionRecipeCategory(guiHelper)
             )
         }
     }
@@ -79,6 +86,9 @@ class AlchemistryPlugin : IModPlugin {
         registry.handleRecipes(LiquifierRecipe::class.java,
                 { recipe -> LiquifierRecipeWrapper(recipe) },
                 LIQUIFIER)
+        registry.handleRecipes(FissionRecipe::class.java,
+                { recipe -> FissionRecipeWrapper(recipe) },
+                FISSION)
 
         registry.addRecipes(ModRecipes.dissolverRecipes.map { DissolverRecipeWrapper(it) }, DISSOLVER)
         registry.addRecipes(ModRecipes.combinerRecipes.map { CombinerRecipeWrapper(it) }, COMBINER)
@@ -86,6 +96,8 @@ class AlchemistryPlugin : IModPlugin {
         registry.addRecipes(ModRecipes.evaporatorRecipes.map { EvaporatorRecipeWrapper(it) }, EVAPORATOR)
         registry.addRecipes(ModRecipes.atomizerRecipes.map { AtomizerRecipeWrapper(it) }, ATOMIZER)
         registry.addRecipes(ModRecipes.liquifierRecipes.map { LiquifierRecipeWrapper(it) }, LIQUIFIER)
+        registry.addRecipes(ModRecipes.fissionRecipes.map { FissionRecipeWrapper(it) }, FISSION)
+
 
         registry.addRecipeClickArea(GuiChemicalDissolver::class.java, 86, 50, 17, 33, AlchemistryRecipeUID.DISSOLVER)
         registry.addRecipeClickArea(GuiChemicalCombiner::class.java, 100, 20, 35, 33, AlchemistryRecipeUID.COMBINER)
@@ -93,6 +105,7 @@ class AlchemistryPlugin : IModPlugin {
         registry.addRecipeClickArea(GuiEvaporator::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.EVAPORATOR)
         registry.addRecipeClickArea(GuiAtomizer::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.ATOMIZER)
         registry.addRecipeClickArea(GuiLiquifier::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.LIQUIFIER)
+        registry.addRecipeClickArea(GuiFissionController::class.java, 73, 54, 39, 23, AlchemistryRecipeUID.FISSION)
 
         registry.addRecipeCatalyst(ModBlocks.chemical_dissolver.toStack(), AlchemistryRecipeUID.DISSOLVER)
         registry.addRecipeCatalyst(ModBlocks.chemical_combiner.toStack(), AlchemistryRecipeUID.COMBINER)
@@ -100,12 +113,18 @@ class AlchemistryPlugin : IModPlugin {
         registry.addRecipeCatalyst(ModBlocks.evaporator.toStack(), AlchemistryRecipeUID.EVAPORATOR)
         registry.addRecipeCatalyst(ModBlocks.atomizer.toStack(), AlchemistryRecipeUID.ATOMIZER)
         registry.addRecipeCatalyst(ModBlocks.liquifier.toStack(), AlchemistryRecipeUID.LIQUIFIER)
+        registry.addRecipeCatalyst(ModBlocks.fissionController.toStack(), AlchemistryRecipeUID.FISSION)
 
         val transferRegistry: IRecipeTransferRegistry = registry.recipeTransferRegistry
         transferRegistry.addRecipeTransferHandler(CombinerTransferHandler(), COMBINER)
         transferRegistry.addRecipeTransferHandler(ContainerChemicalDissolver::class.java, DISSOLVER, 0, 1, 11, 36)
         transferRegistry.addRecipeTransferHandler(ContainerLiquifier::class.java, LIQUIFIER, 0, 1, 1, 36)
         transferRegistry.addRecipeTransferHandler(ContainerElectrolyzer::class.java, ELECTROLYZER, 0, 1, 1, 36)
+        transferRegistry.addRecipeTransferHandler(ContainerFissionController::class.java, FISSION, 0, 1, 3, 36)
+
+        for (i in ElementRegistry.keys()) {
+           registry.addIngredientInfo(ModItems.elements.toStack(meta = i), VanillaTypes.ITEM, "jei.elements.description")
+        }
     }
 }
 
@@ -116,6 +135,8 @@ object AlchemistryRecipeUID {
     val EVAPORATOR = Reference.MODID + ".evaporator"
     val ATOMIZER = Reference.MODID + ".atomizer"
     val LIQUIFIER = Reference.MODID + ".liquifier"
+    val FISSION = Reference.MODID + ".fission"
+
 }
 
 abstract class AlchemistryRecipeWrapper<out R>(val recipe: R) : IRecipeWrapper

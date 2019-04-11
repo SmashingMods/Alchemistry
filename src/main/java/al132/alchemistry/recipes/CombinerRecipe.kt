@@ -4,9 +4,11 @@ import al132.alib.tiles.ALTileStackHandler
 import al132.alib.utils.Utils.areItemsEqualIgnoreMeta
 import al132.alib.utils.extensions.areItemStacksEqual
 import al132.alib.utils.extensions.get
+import al132.alib.utils.extensions.toStackList
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.oredict.OreDictionary
 import java.util.*
 
@@ -59,12 +61,10 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>)
 
         private const val INPUT_COUNT = 9
 
-        /* Rather than fix it, i'll burn ambiguous matching to the ground!
 
         fun matchInputs(handler: IItemHandler): CombinerRecipe? {
-            if (handler.slots == INPUT_COUNT) {
-                return matchInputs(handler.toStackList())
-            } else return null
+            assert(handler.slots == INPUT_COUNT)
+            return matchInputs(handler.toStackList())
         }
 
         fun matchInputs(inputStacks: List<ItemStack>): CombinerRecipe? {
@@ -84,7 +84,7 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>)
                 if (matchingStacks == INPUT_COUNT) return recipe.copy()
             }
             return null
-        }*/
+        }
 
         fun matchOutput(stack: ItemStack): CombinerRecipe? {
             return ModRecipes.combinerRecipes.firstOrNull { it.output.areItemStacksEqual(stack) }?.copy()

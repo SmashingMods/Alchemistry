@@ -1,0 +1,11 @@
+{
+  "name": "Fertilizer",
+  "icon": "alchemistry:fertilizer",
+  "category": "utility_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Fertilizer is a simple item that can be created in the Chemical Combiner that functions identically to vanilla bonemeal"
+    }
+  ]
+}

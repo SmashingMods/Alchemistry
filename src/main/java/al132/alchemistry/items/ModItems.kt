@@ -26,6 +26,7 @@ object ModItems {
             tooltip.add(Translator.translateToLocal("item.alchemistry:obsidian_breaker.tooltip"))
         }
     }
+    //var chemPattern = ItemChemPattern()
 
     val items = arrayOf<ALItem>(
             elements,
@@ -34,7 +35,8 @@ object ModItems {
             condensedMilk,
             //diamondEnrichedGlass,
             fertilizer,
-            obsidianBreaker
+            obsidianBreaker//,
+            //chemPattern
     )
 
     fun registerItems(event: RegistryEvent.Register<Item>) = items.forEach { it.registerItem(event) }

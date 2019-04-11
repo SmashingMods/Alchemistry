@@ -29,6 +29,7 @@ object CTElectrolyzer {
             override fun apply() {
                 val inputStack: FluidStack? = input.internal as? FluidStack
                 val electrolytestack: ItemStack? = electrolyte.internal as? ItemStack
+                output1.internal
                 val output1Stack: ItemStack? = output1.internal as? ItemStack
                 val output2Stack: ItemStack? = output2.internal as? ItemStack
                 val output3Stack: ItemStack = (output3?.internal as? ItemStack) ?: ItemStack.EMPTY

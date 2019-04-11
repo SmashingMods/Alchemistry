@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alchemistry:fission_casing"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

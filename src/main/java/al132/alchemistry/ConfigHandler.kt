@@ -28,8 +28,15 @@ object ConfigHandler {
     var atomizerEnergyCapacity: Int? = null
     var liquifierEnergyCapacity: Int? = null
 
-    var dissolverSpeed: Int? = null
+    var fissionEnergyPerTick: Int? = null
+    var fissionProcessingTicks: Int? = null
+    var fissionEnergyCapacity: Int? = null
 
+    var fusionEnergyPerTick: Int? = null
+    var fusionProcessingTicks: Int? = null
+    var fusionEnergyCapacity: Int? = null
+
+    var dissolverSpeed: Int? = null
 
     fun init(configFile: File) {
         if (config == null) {
@@ -39,6 +46,21 @@ object ConfigHandler {
     }
 
     fun load() {
+        fissionEnergyCapacity = config?.getInt("fissionEnergyCapacity","Fission",50000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Fission Multiblock")
+        fissionEnergyPerTick = config?.getInt("fissionEnergyperTick","Fission",300,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Fission Multiblock")
+        fissionProcessingTicks= config?.getInt("fissionProcessingTicks","Fission",40,1,Integer.MAX_VALUE,
+                "Max energy capacity of the Fission Multiblock")
+
+        fusionEnergyCapacity = config?.getInt("fusionEnergyCapacity","fusion",50000,1,Integer.MAX_VALUE,
+                "Max energy capacity of the fusion Multiblock")
+        fusionEnergyPerTick = config?.getInt("fusionEnergyperTick","fusion",300,1,Integer.MAX_VALUE,
+                "Max energy capacity of the fusion Multiblock")
+        fusionProcessingTicks= config?.getInt("fusionProcessingTicks","fusion",40,1,Integer.MAX_VALUE,
+                "Max energy capacity of the fusion Multiblock")
+
+        
         combinerEnergyPerTick = config?.getInt("combinerEnergyPerTick", "Machines", 200, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Chemical Combiner")
         combinerProcessingTicks = config?.getInt("combinerProcessingTicks", "Machines", 10, 1, Integer.MAX_VALUE,

@@ -4,6 +4,12 @@ tile.chemical_combiner.name=Химический комбайн
 tile.evaporator.name=Испаритель
 tile.atomizer.name=Атомайзер
 tile.liquifier.name=Разжижитель
+tile.fission_controller.name=Контроллер деления
+tile.fission_core.name=Ядро деления
+tile.fission_casing.name=Корпус деления
+tile.fusion_controller.name=Контроллер слияния
+tile.fusion_core.name=Ядро слияния
+tile.fusion_casing.name=Корпус слияния
 
 item.alchemistry:mineral_salt.name=Минеральная соль
 item.alchemistry:fertilizer.name=Удобрение
@@ -139,7 +145,7 @@ item.alchemistry:compound_potassium_chloride.name=Хлористый калий
 item.alchemistry:compound_sodium_chloride.name=Хлорид натрия
 item.alchemistry:compound_water.name=Вода
 item.alchemistry:compound_kaolinite.name=Каолинит
-item.alchemistry:compound_protein.name=Белок
+item.alchemistry:compound_protein.name=Белок 
 item.alchemistry:compound_iron_oxide.name=Оксид железа
 item.alchemistry:compound_sucrose.name=Сахароза
 item.alchemistry:compound_calcium_carbonate.name=Карбонат кальция
@@ -195,6 +201,7 @@ jei.electrolyzer.name=Электролизер
 jei.evaporator.name=Испаритель
 jei.atomizer.name=Атомайзер
 jei.liquifier.name=Разжижитель
+jei.fission_controller.name=Мультиблок деления
 
 itemGroup.alchemistry=Alchemistry
 
@@ -206,6 +213,9 @@ tile.chemical_dissolver.tooltip=Требует
 tile.chemical_combiner.tooltip=Требует
 tile.atomizer.tooltip=Требует
 tile.liquifier.tooltip=Требует
+tile.fission_controller.tooltip=Требует
+tile.fusion_controller.tooltip=Требует
+
 tile.evaporator.tooltip=Работает на 50% медленнее в несухих биомах
 
 tile.combiner.unlock_recipe=Разблокировать рецепт
@@ -213,6 +223,8 @@ tile.combiner.lock_recipe=Заблокировать рецепт
 tile.combiner.pause=Пауза
 tile.combiner.resume=Возобновить
 tile.combiner.target=Цель
+tile.fission.invalid_multiblock=Недопустимый мультиблок деления
+tile.fusion.invalid_multiblock=Недопустимый мультиблок слияния
 
 jei.electrolyzer.electrolyte=Электролит
 jei.electrolyzer.consumption_probability=Вероятность потребления
@@ -220,3 +232,4 @@ jei.dissolver.relative=Относительно
 jei.dissolver.absolute=Абсолютно
 jei.dissolver.type=Тип
 jei.dissolver.rolls=Роллы
+jei.elements.description=Все элементы (кроме водорода) могут быть созданы с помощью мультиблока слияния.\nМультиблок принимает 2 элемента в качестве входных данных и объединяет их вместе, чтобы создать новый элемент, равный сумме их атомных номеров.

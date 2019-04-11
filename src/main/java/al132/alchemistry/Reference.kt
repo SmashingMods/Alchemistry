@@ -6,7 +6,6 @@ import net.minecraft.creativetab.CreativeTabs
 import net.minecraft.item.ItemStack
 import java.io.File
 import java.text.DecimalFormat
-import java.text.NumberFormat
 
 object Reference {
 
@@ -14,7 +13,7 @@ object Reference {
     const val MODNAME = "Alchemistry"
     const val VERSION = "0.9.0"
     const val DEPENDENCIES = "required-after:forgelin;required-after:alib;after:crafttweaker;"
-    val DECIMAL_FORMAT: NumberFormat = DecimalFormat("#0.00")
+    val DECIMAL_FORMAT = DecimalFormat("#0.00")
 
     val pathPrefix = "alchemistry:"
     lateinit var configPath: String

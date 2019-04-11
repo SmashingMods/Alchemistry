@@ -461,7 +461,7 @@ object CompoundRegistry {
             components = _components
             isInternalCompound = false
         }
-        this.compounds[meta] = temp
+        if(this.compounds[meta] == null) this.compounds[meta] = temp
     }
 
     operator fun get(name: String) = compounds.values.firstOrNull { it.name == name }

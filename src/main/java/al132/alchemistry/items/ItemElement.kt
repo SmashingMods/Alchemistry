@@ -1,6 +1,5 @@
 package al132.alchemistry.items
 
-import al132.alchemistry.Reference
 import al132.alchemistry.chemistry.ChemicalElement
 import al132.alchemistry.chemistry.ElementRegistry
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -17,10 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly
  * Created by al132 on 1/16/2017.
  */
 class ItemElement(name: String) : ItemMetaBase(name) {
-
-    init{
-        //tileEntityItemStackRenderer = TEISRElement()
-    }
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
@@ -39,15 +34,14 @@ class ItemElement(name: String) : ItemMetaBase(name) {
     }
 
     @SideOnly(Side.CLIENT)
-    override fun getSubItems(itemIn: CreativeTabs, tab: NonNullList<ItemStack>) {
-        if (itemIn == Reference.creativeTab) {
-            ElementRegistry.keys().forEach { tab.add(ItemStack(this, 1, it)) }
-        }
+    override fun getSubItems(tab: CreativeTabs, items: NonNullList<ItemStack>) {
+        if (!isInCreativeTab(tab)) return;
+        ElementRegistry.keys().forEach { items.add(ItemStack(this, 1, it)) }
     }
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
         val element = ElementRegistry[stack.metadata]
-        if (stack.metadata > 118 &&  stack.item == ModItems.elements) {
+        if (stack.metadata > 118 && stack.item == ModItems.elements) {
             val elementName = ElementRegistry[stack.metadata]?.name ?: "<Error>"
             return elementName.split("_").joinToString(separator = " ") { it.first().toUpperCase() + it.drop(1) }
         } else return super.getItemStackDisplayName(stack)

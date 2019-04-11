@@ -1,6 +1,15 @@
+0.9.1
+===
+-Compounds made through CraftTweaker will no longer overwrite default compounds
+-Fixed Elements & Compounds not showing up in creative search
+
 0.9.0
 ===
 -The electrolyzer (the only obviously non-symmetrical machine) now uses proper directional block placing
+-Added Fission & Fusion multiblocks
+-Electrolyzer now orients properly on placement
+-A few recipe tweaks
+-Combiner now will process again when no recipe is set and inputs are in correct slot
 
 0.8.19
 ===

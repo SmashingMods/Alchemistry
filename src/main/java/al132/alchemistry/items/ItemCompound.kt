@@ -1,6 +1,5 @@
 package al132.alchemistry.items
 
-import al132.alchemistry.Reference
 import al132.alchemistry.chemistry.ChemicalCompound
 import al132.alchemistry.chemistry.CompoundRegistry
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
@@ -34,9 +33,9 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, stacks: NonNullList<ItemStack>) {
-        if (tab == Reference.creativeTab) {
-            CompoundRegistry.keys().forEach { stacks.add(ItemStack(this, 1, it)) }
-        }
+        if (!isInCreativeTab(tab)) return;
+        CompoundRegistry.keys().forEach { stacks.add(ItemStack(this, 1, it)) }
+
     }
 
     override fun getItemStackDisplayName(stack: ItemStack): String {

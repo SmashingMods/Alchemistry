@@ -1,6 +1,8 @@
 package al132.alchemistry.blocks
 
-import al132.alchemistry.items.ItemBlockChemicalCombiner
+import al132.alchemistry.ConfigHandler
+import al132.alchemistry.items.TooltipItemBlock
+import al132.alib.utils.extensions.translate
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.item.Item
@@ -25,7 +27,9 @@ class ChemicalCombinerBlock(name: String,
     val boundingBox = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
 
     override fun registerItemBlock(event: RegistryEvent.Register<Item>){
-        event.registry.register(ItemBlockChemicalCombiner(ModBlocks.chemical_combiner).setRegistryName(this.registryName))
+        event.registry.register(TooltipItemBlock(this,
+                "tile.chemical_combiner.tooltip".translate() + " " + ConfigHandler.combinerEnergyPerTick + " FE/t")
+                .setRegistryName(this.registryName))
     }
 
     override fun getRenderType(state: IBlockState): EnumBlockRenderType = EnumBlockRenderType.MODEL

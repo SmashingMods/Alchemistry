@@ -1,3 +1,7 @@
+0.9.2
+==
+-Fix Beetroot recipe
+
 0.9.1
 ===
 -Compounds made through CraftTweaker will no longer overwrite default compounds

@@ -6,10 +6,7 @@ import al132.alchemistry.blocks.ModBlocks
 import al132.alchemistry.chemistry.ChemicalElement
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
-import al132.alib.tiles.ALTileStackHandler
-import al132.alib.tiles.IEnergyTile
-import al132.alib.tiles.IGuiTile
-import al132.alib.tiles.IItemTile
+import al132.alib.tiles.*
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
@@ -17,12 +14,12 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.energy.EnergyStorage
 
 /**
  * Created by al132 on 4/29/2017.
  */
-class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnergyTile {
+class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
+        IEnergyTile by EnergyTileImpl(capacity = ConfigHandler.fusionEnergyCapacity!!) {
 
     var progressTicks = 0
     var recipeOutput: ItemStack = ItemStack.EMPTY
@@ -31,7 +28,6 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnergy
 
     init {
         initInventoryCapability(2, 1)
-        initEnergyCapability(ConfigHandler.fusionEnergyCapacity!!)
     }
 
     override fun initInventoryInputCapability() {
@@ -77,7 +73,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnergy
                 && !recipeOutput.isEmpty
                 && (ItemStack.areItemsEqual(output[0], recipeOutput) || output[0].isEmpty)
                 && output[0].count + recipeOutput.count <= recipeOutput.maxStackSize
-                && energyCapability.energyStored >= ConfigHandler.fusionEnergyPerTick!!
+                && energyStorage.energyStored >= ConfigHandler.fusionEnergyPerTick!!
 
     }
 
@@ -90,7 +86,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnergy
             input.decrementSlot(0, 1) //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
             input.decrementSlot(1, 1) //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
-        this.energyCapability.extractEnergy(ConfigHandler.fusionEnergyPerTick!!, false)
+        this.energyStorage.extractEnergy(ConfigHandler.fusionEnergyPerTick!!, false)
     }
 
 
@@ -103,9 +99,6 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnergy
     override fun readFromNBT(compound: NBTTagCompound) {
         super.readFromNBT(compound)
         this.progressTicks = compound.getInteger("ProgressTicks")
-        val energyStored = compound.getInteger("EnergyStored")
-        energyCapability = EnergyStorage(ConfigHandler.fusionEnergyCapacity!!)
-        energyCapability.receiveEnergy(energyStored, false)
         this.refreshRecipe()
     }
 

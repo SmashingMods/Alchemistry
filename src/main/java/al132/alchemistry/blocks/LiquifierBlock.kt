@@ -1,6 +1,8 @@
 package al132.alchemistry.blocks
 
-import al132.alchemistry.items.ItemBlockLiquifier
+import al132.alchemistry.ConfigHandler
+import al132.alchemistry.items.TooltipItemBlock
+import al132.alib.utils.extensions.translate
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.item.Item
@@ -17,8 +19,10 @@ class LiquifierBlock(name: String,
                      guiID: Int)
     : BaseTileBlock(name, tileClass, guiID) {
 
-    override fun registerItemBlock(event: RegistryEvent.Register<Item>){
-        event.registry.register(ItemBlockLiquifier(ModBlocks.liquifier).setRegistryName(this.registryName))
+    override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
+        event.registry.register(TooltipItemBlock(this,
+                "tile.liquifier.tooltip".translate() + " " + ConfigHandler.liquifierEnergyPerTick + " FE/t")
+                .setRegistryName(this.registryName))
     }
 
     val boundingBox = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0)

@@ -20,7 +20,6 @@ class ItemColorHandler : IItemColor {
             return ElementRegistry[meta]!!.color.rgb
         } else if (item is ItemCompound && CompoundRegistry.keys().contains(meta)) {
             return CompoundRegistry[meta]!!.color.rgb
-        }
-        return Color.BLACK.rgb
+        } else return Color.BLACK.rgb
     }
 }

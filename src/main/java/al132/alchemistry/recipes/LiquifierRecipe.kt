@@ -8,7 +8,6 @@ import net.minecraftforge.fluids.FluidStack
  * Created by al132 on 4/29/2017.
  */
 
-
 data class LiquifierRecipe(private val inputStack: ItemStack, private val outputFluid: FluidStack) {
 
     constructor(input: ItemStack, fluid: Fluid, fluidQuantity: Int) : this(input, FluidStack(fluid, fluidQuantity))

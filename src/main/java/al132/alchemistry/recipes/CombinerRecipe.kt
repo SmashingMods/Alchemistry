@@ -24,9 +24,7 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>)
     private val inputsInternal = ArrayList<ItemStack>()
 
     init {
-
         val tempInputs = objsIn
-
         (0 until INPUT_COUNT).forEach { index ->
             val tempInput = tempInputs.getOrNull(index)
 
@@ -60,7 +58,6 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>)
     companion object {
 
         private const val INPUT_COUNT = 9
-
 
         fun matchInputs(handler: IItemHandler): CombinerRecipe? {
             assert(handler.slots == INPUT_COUNT)

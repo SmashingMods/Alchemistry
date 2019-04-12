@@ -430,7 +430,7 @@ object CompoundRegistry {
             components = listOf(
                     CompoundPair("barium", 1),
                     CompoundPair("sulfur", 1),
-                    CompoundPair("oxygen",4))
+                    CompoundPair("oxygen", 4))
         })
         addInternal(Compound {
             name = "beta_carotene"
@@ -445,7 +445,7 @@ object CompoundRegistry {
             components = listOf(
                     CompoundPair("carbon", 2),
                     CompoundPair("hydrogen", 3),
-                    CompoundPair("chlorine",1))
+                    CompoundPair("chlorine", 1))
         })
     }
 
@@ -461,7 +461,7 @@ object CompoundRegistry {
             components = _components
             isInternalCompound = false
         }
-        if(this.compounds[meta] == null) this.compounds[meta] = temp
+        if (this.compounds[meta] == null) this.compounds[meta] = temp
     }
 
     operator fun get(name: String) = compounds.values.firstOrNull { it.name == name }

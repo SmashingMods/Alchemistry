@@ -1,9 +1,9 @@
 package al132.alchemistry.client
 
 import al132.alchemistry.ConfigHandler
-import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.tiles.TileFusionController
 import al132.alib.client.CapabilityEnergyDisplayWrapper
+import al132.alib.utils.Translator
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.util.ResourceLocation
 import java.awt.Color
@@ -22,7 +22,7 @@ class GuiFusionController(playerInv: InventoryPlayer, tile: TileFusionController
     override val displayName = Translator.translateToLocal("tile.fusion_controller.name")
 
     init {
-        this.displayData.add(CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile::energyCapability))
+        this.displayData.add(CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile::energyStorage))
     }
 
     override fun drawGuiContainerBackgroundLayer(partialTicks: Float, mouseX: Int, mouseY: Int) {

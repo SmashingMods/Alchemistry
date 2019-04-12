@@ -1,6 +1,8 @@
 package al132.alchemistry.blocks
 
-import al132.alchemistry.items.ItemBlockFissionController
+import al132.alchemistry.ConfigHandler
+import al132.alchemistry.items.TooltipItemBlock
+import al132.alib.utils.extensions.translate
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.BlockStateContainer
@@ -23,8 +25,11 @@ class FissionControllerBlock(name: String,
         this.defaultState = this.blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
 
     }
+
     override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
-        event.registry.register(ItemBlockFissionController(this).setRegistryName(this.registryName))
+        event.registry.register(TooltipItemBlock(this,
+                "tile.fission_controller.tooltip".translate() + " " + ConfigHandler.fissionEnergyPerTick + " FE/t")
+                .setRegistryName(this.registryName))
     }
 
     override fun createBlockState() = BlockStateContainer(this, *PROPERTIES)

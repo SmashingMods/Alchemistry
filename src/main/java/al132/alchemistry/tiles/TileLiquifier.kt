@@ -9,7 +9,6 @@ import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ITickable
-import net.minecraftforge.energy.EnergyStorage
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidTank
@@ -18,22 +17,23 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate
 /**
  * Created by al132 on 4/29/2017.
  */
-class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IEnergyTile {
+class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
+        IEnergyTile by EnergyTileImpl(ConfigHandler.liquifierEnergyCapacity!!) {
 
     val outputTank: FluidTank
     private var currentRecipe: LiquifierRecipe? = null
     var progressTicks = 0
 
+    override val fluidTanks: FluidHandlerConcatenate?
+        get() = FluidHandlerConcatenate(outputTank)
+
     init {
         initInventoryCapability(1, 0)
-        initEnergyCapability(ConfigHandler.liquifierEnergyCapacity!!)
-
         outputTank = object : FluidTank(Fluid.BUCKET_VOLUME * 10) {
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
                 return ModRecipes.liquifierRecipes.any { it.output.fluid == fluid?.fluid }
             }
         }
-
         outputTank.setTileEntity(this)
         outputTank.setCanFill(false)
         outputTank.setCanDrain(true)
@@ -49,10 +49,9 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IE
         }
     }
 
-
     override fun update() {
         if (!world.isRemote) {
-            if(!this.input[0].isEmpty) {
+            if (!this.input[0].isEmpty) {
                 this.currentRecipe = ModRecipes.liquifierRecipes.firstOrNull { it.input.areItemsEqual(this.input[0]) }
                 if (canProcess()) process()
             }
@@ -73,20 +72,13 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IE
         super.readFromNBT(compound)
         this.outputTank.readFromNBT(compound.getCompoundTag("OutputTankNBT"))
         this.progressTicks = compound.getInteger("ProgressTicks")
-
-        val energyStored = compound.getInteger("EnergyStored")
-        energyCapability = EnergyStorage(ConfigHandler.electrolyzerEnergyCapacity!!)
-        energyCapability.receiveEnergy(energyStored, false)
     }
-
-    override val fluidTanks: FluidHandlerConcatenate?
-        get() = FluidHandlerConcatenate(outputTank)
 
     fun canProcess(): Boolean {
         return currentRecipe != null
                 && ((outputTank.fluid?.fluid == currentRecipe!!.output.fluid ?: false) || outputTank.fluid == null)
                 && outputTank.capacity >= outputTank.fluidAmount + currentRecipe!!.output.amount
-                && this.energyCapability.energyStored >= ConfigHandler.liquifierEnergyPerTick!!
+                && this.energyStorage.energyStored >= ConfigHandler.liquifierEnergyPerTick!!
                 && input[0].count >= currentRecipe!!.input.count
     }
 
@@ -98,6 +90,6 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile, IE
             input[0].shrink(currentRecipe!!.input.count)
             outputTank.fillInternal(currentRecipe!!.output, true)//; .setOrIncrement(0, currentRecipe!!.output)
         }
-        this.energyCapability.extractEnergy(ConfigHandler.liquifierEnergyPerTick!!, false)
+        this.energyStorage.extractEnergy(ConfigHandler.liquifierEnergyPerTick!!, false)
     }
 }

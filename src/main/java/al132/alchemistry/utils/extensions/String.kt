@@ -1,4 +1,4 @@
-package al132.alchemistry.utils
+package al132.alchemistry.utils.extensions
 
 import al132.alchemistry.chemistry.ChemicalCompound
 import al132.alchemistry.chemistry.ChemicalElement
@@ -11,11 +11,13 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.oredict.OreDictionary
+import net.minecraftforge.oredict.OreIngredient
 
 /**
  * Created by al132 on 4/27/2017.
  */
 
+fun String.toOre(): OreIngredient = OreIngredient(this)
 
 fun String.toElementStack(quantity: Int = 1): ItemStack =
         ElementRegistry[this]?.toItemStack(quantity) ?: ItemStack.EMPTY

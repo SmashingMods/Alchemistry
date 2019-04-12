@@ -2,9 +2,11 @@ package al132.alchemistry.recipes
 
 import al132.alchemistry.Alchemistry
 import al132.alchemistry.Reference
-import al132.alchemistry.utils.toStack
+import al132.alchemistry.utils.extensions.toOre
+import al132.alchemistry.utils.extensions.toStack
 import al132.alib.utils.extensions.areItemStacksEqual
 import al132.alib.utils.extensions.areItemsEqual
+import al132.alib.utils.extensions.toIngredient
 import net.minecraft.item.ItemStack
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry

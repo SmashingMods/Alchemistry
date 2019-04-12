@@ -37,14 +37,12 @@ open class CommonProxy {
 
         PacketHandler.registerMessages(Reference.MODID)
 
-        if(Loader.isModLoaded("crafttweaker")) CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
+        if (Loader.isModLoaded("crafttweaker")) CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
     }
 
     open fun init(e: FMLInitializationEvent) {
         val files = Reference.configDir.listFiles(FileFilter { it.extension.toLowerCase() == "xml" })
-        files.forEach {
-            XMLRecipeParser().init(it.name)
-        }
+        files.forEach { XMLRecipeParser().init(it.name) }
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
         MinecraftForge.EVENT_BUS.register(EventHandler())
     }

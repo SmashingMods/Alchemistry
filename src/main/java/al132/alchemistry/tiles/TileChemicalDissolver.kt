@@ -2,10 +2,7 @@ package al132.alchemistry.tiles
 
 import al132.alchemistry.ConfigHandler
 import al132.alchemistry.recipes.DissolverRecipe
-import al132.alib.tiles.ALTileStackHandler
-import al132.alib.tiles.IEnergyTile
-import al132.alib.tiles.IGuiTile
-import al132.alib.tiles.IItemTile
+import al132.alib.tiles.*
 import al132.alib.utils.Utils.canStacksMerge
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
@@ -13,23 +10,21 @@ import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.nbt.NBTTagList
 import net.minecraft.util.ITickable
 import net.minecraftforge.common.util.Constants
-import net.minecraftforge.energy.EnergyStorage
 import java.util.*
 
 /**
  * Created by al132 on 1/16/2017.
  */
-class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IItemTile {
+class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IItemTile,
+        IEnergyTile by EnergyTileImpl(capacity = ConfigHandler.dissolverEnergyCapacity!!) {
 
     private var outputSuccessful = true
     var outputThisTick: ItemStack = ItemStack.EMPTY
     var currentRecipe: DissolverRecipe? = null
     private var outputBuffer: MutableList<ItemStack> = ArrayList()
 
-
     init {
         this.initInventoryCapability(1, 10)
-        this.initEnergyCapability(ConfigHandler.dissolverEnergyCapacity!!)
     }
 
     override fun initInventoryInputCapability() {
@@ -54,7 +49,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
     fun canProcess(): Boolean {
         return (currentRecipe != null || !outputBuffer.isEmpty())
-                && energyCapability.energyStored >= ConfigHandler.dissolverEnergyPerTick!!
+                && energyStorage.energyStored >= ConfigHandler.dissolverEnergyPerTick!!
     }
 
 
@@ -96,7 +91,7 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
 
         //consume energy and single stack if successful, won't be designated as such until there's a "hit" above
         if (outputSuccessful) {
-            this.energyCapability.extractEnergy(ConfigHandler.dissolverEnergyPerTick!!, false)
+            this.energyStorage.extractEnergy(ConfigHandler.dissolverEnergyPerTick!!, false)
             outputThisTick = ItemStack.EMPTY
         }
     }
@@ -109,10 +104,6 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IEnergyTile, IIte
         for (i in 0 until outputBufferList.tagCount()) {
             outputBuffer.add(ItemStack(outputBufferList.getCompoundTagAt(i)))
         }
-
-        val energyStored = compound.getInteger("EnergyStored")
-        energyCapability = EnergyStorage(ConfigHandler.dissolverEnergyCapacity!!)
-        energyCapability.receiveEnergy(energyStored, false)
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

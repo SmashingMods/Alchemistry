@@ -1,10 +1,10 @@
 package al132.alchemistry.client
 
 import al132.alchemistry.ConfigHandler
-import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.tiles.TileAtomizer
 import al132.alib.client.CapabilityEnergyDisplayWrapper
 import al132.alib.client.CapabilityFluidDisplayWrapper
+import al132.alib.utils.Translator
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.util.ResourceLocation
 
@@ -21,7 +21,7 @@ class GuiAtomizer(playerInv: InventoryPlayer, tile: TileAtomizer) :
     override val displayName = Translator.translateToLocal("tile.atomizer.name")
 
     init {
-        this.displayData.add(CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile::energyCapability))
+        this.displayData.add(CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile::energyStorage))
         this.displayData.add(CapabilityFluidDisplayWrapper(48, 40, 16, 60, tile::inputTank))
     }
 

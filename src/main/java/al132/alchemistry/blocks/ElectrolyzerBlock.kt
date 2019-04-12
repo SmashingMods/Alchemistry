@@ -1,6 +1,8 @@
 package al132.alchemistry.blocks
 
-import al132.alchemistry.items.ItemBlockElectrolyzer
+import al132.alchemistry.ConfigHandler
+import al132.alchemistry.items.TooltipItemBlock
+import al132.alib.utils.extensions.translate
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyDirection
 import net.minecraft.block.state.BlockStateContainer
@@ -34,11 +36,14 @@ class ElectrolyzerBlock(name: String,
         this.defaultState = this.blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
 
     }
+
     override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
-        event.registry.register(ItemBlockElectrolyzer(this).setRegistryName(this.registryName))
+        event.registry.register(TooltipItemBlock(this,
+                "tile.electrolyzer.tooltip".translate() + " " + ConfigHandler.electrolyzerEnergyPerTick + " FE/t")
+                .setRegistryName(this.registryName))
     }
 
-    override fun createBlockState() =BlockStateContainer(this, *PROPERTIES)
+    override fun createBlockState() = BlockStateContainer(this, *PROPERTIES)
 
     override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState {
         val state = super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)

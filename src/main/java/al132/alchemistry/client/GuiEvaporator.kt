@@ -1,8 +1,8 @@
 package al132.alchemistry.client
 
-import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.tiles.TileEvaporator
 import al132.alib.client.CapabilityFluidDisplayWrapper
+import al132.alib.utils.Translator
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.util.ResourceLocation
 

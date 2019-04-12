@@ -1,8 +1,9 @@
 package al132.alchemistry.blocks
 
 import al132.alchemistry.client.TESREvaporator
-import al132.alchemistry.items.ItemBlockEvaporator
+import al132.alchemistry.items.TooltipItemBlock
 import al132.alchemistry.tiles.TileEvaporator
+import al132.alib.utils.extensions.translate
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.item.Item
@@ -32,8 +33,9 @@ class EvaporatorBlock(name: String,
         ClientRegistry.bindTileEntitySpecialRenderer(TileEvaporator::class.java, TESREvaporator())
     }
 
-    override fun registerItemBlock(event: RegistryEvent.Register<Item>){
-        event.registry.register(ItemBlockEvaporator(ModBlocks.evaporator).setRegistryName(this.registryName))
+    override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
+        event.registry.register(TooltipItemBlock(this, "tile.evaporator.tooltip".translate())
+                .setRegistryName(this.registryName))
     }
 
     override fun getRenderType(state: IBlockState): EnumBlockRenderType = EnumBlockRenderType.MODEL

@@ -9,7 +9,6 @@ import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NBTTagCompound
 import net.minecraft.util.ITickable
-import net.minecraftforge.energy.EnergyStorage
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fluids.FluidTank
@@ -18,15 +17,14 @@ import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate
 /**
  * Created by al132 on 1/16/2017.
  */
-class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTile, IItemTile {
-    //TODO implement buffer-style output, like the dissolver has?
+class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IItemTile,
+        IEnergyTile by EnergyTileImpl(capacity = ConfigHandler.electrolyzerEnergyCapacity!!) {
 
     val inputTank: FluidTank
     var progressTicks = 0
     private var currentRecipe: ElectrolyzerRecipe? = null
 
     init {
-        this.initEnergyCapability(ConfigHandler.electrolyzerEnergyCapacity!!)
         this.initInventoryCapability(1, 4)
 
         inputTank = object : FluidTank(Fluid.BUCKET_VOLUME * 10) {
@@ -76,10 +74,6 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
         super.readFromNBT(compound)
         this.inputTank.readFromNBT(compound.getCompoundTag("InputTankNBT"))
         this.progressTicks = compound.getInteger("ProgressTicks")
-
-        val energyStored = compound.getInteger("EnergyStored")
-        energyCapability = EnergyStorage(ConfigHandler.electrolyzerEnergyCapacity!!)
-        energyCapability.receiveEnergy(energyStored, false)
     }
 
     override val fluidTanks: FluidHandlerConcatenate?
@@ -89,7 +83,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
         return currentRecipe != null
                 && inputTank.fluidAmount >= currentRecipe!!.input.amount
                 && input[0].count >= currentRecipe!!.electrolytes[0].count
-                && this.energyCapability.energyStored >= ConfigHandler.electrolyzerEnergyPerTick!!
+                && this.energyStorage.energyStored >= ConfigHandler.electrolyzerEnergyPerTick!!
                 && (0 until 4).all {
             val outputStack = output[it]
             val recipeStack = currentRecipe!!.outputs[it]
@@ -110,7 +104,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IEnergyTil
 
             (0 until 4).forEach { output.setOrIncrement(it, currentRecipe!!.calculatedInSlot(it)) }
 
-            this.energyCapability.extractEnergy(ConfigHandler.electrolyzerEnergyPerTick!!, false)
+            this.energyStorage.extractEnergy(ConfigHandler.electrolyzerEnergyPerTick!!, false)
         }
     }
 }

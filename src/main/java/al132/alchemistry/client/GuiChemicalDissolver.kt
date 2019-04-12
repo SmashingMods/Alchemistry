@@ -1,8 +1,8 @@
 package al132.alchemistry.client
 
-import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.tiles.TileChemicalDissolver
 import al132.alib.client.CapabilityEnergyDisplayWrapper
+import al132.alib.utils.Translator
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.util.ResourceLocation
 
@@ -19,6 +19,6 @@ class GuiChemicalDissolver(playerInv: InventoryPlayer, tile: TileChemicalDissolv
     override val displayName = Translator.translateToLocal("tile.chemical_dissolver.name")
 
     init {
-        this.displayData.add(CapabilityEnergyDisplayWrapper(13, 31, 16, 60, tile::energyCapability))
+        this.displayData.add(CapabilityEnergyDisplayWrapper(13, 31, 16, 60, tile::energyStorage))
     }
 }

@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
 
 class EventHandler{
 
-
     @SubscribeEvent
     fun x(e: PlayerInteractEvent.RightClickBlock){
         val target = e.world.getBlockState(e.pos)

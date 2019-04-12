@@ -1,8 +1,8 @@
 package al132.alchemistry.items
 
 import al132.alchemistry.Reference
-import al132.alchemistry.compat.jei.Translator
 import al132.alib.items.ALItem
+import al132.alib.utils.extensions.translate
 import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.init.Items
@@ -23,7 +23,7 @@ object ModItems {
     //var diamondEnrichedGlass = ItemBase("diamond_enriched_glass")
     var obsidianBreaker = object : ItemBase("obsidian_breaker") {
         override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
-            tooltip.add(Translator.translateToLocal("item.alchemistry:obsidian_breaker.tooltip"))
+            tooltip.add("item.alchemistry:obsidian_breaker.tooltip".translate())
         }
     }
     //var chemPattern = ItemChemPattern()
@@ -35,9 +35,7 @@ object ModItems {
             condensedMilk,
             //diamondEnrichedGlass,
             fertilizer,
-            obsidianBreaker//,
-            //chemPattern
-    )
+            obsidianBreaker)
 
     fun registerItems(event: RegistryEvent.Register<Item>) = items.forEach { it.registerItem(event) }
 

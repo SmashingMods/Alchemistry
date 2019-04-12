@@ -2,8 +2,8 @@ package al132.alchemistry.compat.jei.dissolver
 
 import al132.alchemistry.Reference
 import al132.alchemistry.compat.jei.AlchemistryRecipeWrapper
-import al132.alchemistry.compat.jei.Translator
 import al132.alchemistry.recipes.DissolverRecipe
+import al132.alib.utils.Translator
 import mezz.jei.api.ingredients.IIngredients
 import mezz.jei.api.ingredients.VanillaTypes
 import net.minecraft.client.Minecraft

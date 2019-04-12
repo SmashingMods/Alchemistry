@@ -1,7 +1,11 @@
 package al132.alchemistry.compat.ct
 
 import al132.alchemistry.Alchemistry
-import al132.alchemistry.recipes.*
+import al132.alchemistry.recipes.DissolverRecipe
+import al132.alchemistry.recipes.ModRecipes
+import al132.alchemistry.recipes.ProbabilityGroup
+import al132.alchemistry.recipes.ProbabilitySet
+import al132.alchemistry.utils.extensions.toOre
 import al132.alib.utils.extensions.containsItem
 import al132.alib.utils.extensions.equalsIgnoreMeta
 import crafttweaker.IAction

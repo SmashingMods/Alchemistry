@@ -5,10 +5,7 @@ import al132.alchemistry.blocks.FissionControllerBlock
 import al132.alchemistry.blocks.ModBlocks
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
-import al132.alib.tiles.ALTileStackHandler
-import al132.alib.tiles.IEnergyTile
-import al132.alib.tiles.IGuiTile
-import al132.alib.tiles.IItemTile
+import al132.alib.tiles.*
 import al132.alib.utils.extensions.get
 import al132.alib.utils.extensions.toStack
 import net.minecraft.item.ItemStack
@@ -17,12 +14,12 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.energy.EnergyStorage
 
 /**
  * Created by al132 on 4/29/2017.
  */
-class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnergyTile {
+class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
+        IEnergyTile by EnergyTileImpl(capacity = ConfigHandler.fissionEnergyCapacity!!) {
 
     var progressTicks = 0
     var recipeOutput1: ItemStack = ItemStack.EMPTY
@@ -32,9 +29,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnerg
 
     init {
         initInventoryCapability(1, 2)
-        initEnergyCapability(ConfigHandler.fissionEnergyCapacity!!)
     }
-
 
     override fun initInventoryInputCapability() {
         input = object : ALTileStackHandler(inputSlots, this) {
@@ -92,8 +87,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnerg
                 && (ItemStack.areItemsEqual(output[1], recipeOutput2) || output[1].isEmpty)
                 && output[0].count + recipeOutput1.count <= recipeOutput1.maxStackSize
                 && output[1].count + recipeOutput2.count <= recipeOutput1.maxStackSize
-                && energyCapability.energyStored >= ConfigHandler.fissionEnergyPerTick!!
-
+                && energyStorage.energyStored >= ConfigHandler.fissionEnergyPerTick!!
     }
 
     fun process() {
@@ -105,7 +99,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnerg
             if (!recipeOutput2.isEmpty) output.setOrIncrement(1, recipeOutput2.copy())
             input.decrementSlot(0, 1) //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
-        this.energyCapability.extractEnergy(ConfigHandler.fissionEnergyPerTick!!, false)
+        this.energyStorage.extractEnergy(ConfigHandler.fissionEnergyPerTick!!, false)
     }
 
 
@@ -118,9 +112,6 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile, IEnerg
     override fun readFromNBT(compound: NBTTagCompound) {
         super.readFromNBT(compound)
         this.progressTicks = compound.getInteger("ProgressTicks")
-        val energyStored = compound.getInteger("EnergyStored")
-        energyCapability = EnergyStorage(ConfigHandler.fissionEnergyCapacity!!)
-        energyCapability.receiveEnergy(energyStored, false)
         this.refreshRecipe()
     }
 

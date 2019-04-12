@@ -29,6 +29,7 @@ import al132.alchemistry.compat.jei.liquifier.LiquifierRecipeWrapper
 import al132.alchemistry.items.ModItems
 import al132.alchemistry.recipes.*
 import al132.alib.utils.extensions.toStack
+import al132.alib.utils.extensions.translate
 import mezz.jei.api.*
 import mezz.jei.api.gui.IDrawable
 import mezz.jei.api.ingredients.VanillaTypes
@@ -36,7 +37,6 @@ import mezz.jei.api.recipe.IRecipeCategory
 import mezz.jei.api.recipe.IRecipeCategoryRegistration
 import mezz.jei.api.recipe.IRecipeWrapper
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry
-import net.minecraft.util.text.translation.I18n
 
 
 @JEIPlugin
@@ -144,17 +144,9 @@ abstract class AlchemistryRecipeWrapper<out R>(val recipe: R) : IRecipeWrapper
 abstract class AlchemistryRecipeCategory<T : IRecipeWrapper>(private val background: IDrawable, unlocalizedName: String) :
         IRecipeCategory<T> {
 
-    val localizedName: String = Translator.translateToLocal(unlocalizedName)
+    val localizedName: String = unlocalizedName.translate()
 
     override fun getBackground(): IDrawable = background
 
     override fun getModName() = Reference.MODID
-}
-
-//From JEI, MIT license https://github.com/mezz/JustEnoughItems/blob/47afa1a9f57e85060c363db447eca023ed378717/src/main/java/mezz/jei/util/Translator.java
-object Translator {
-    fun translateToLocal(key: String): String {
-        if (I18n.canTranslate(key)) return I18n.translateToLocal(key)
-        else return I18n.translateToFallback(key)
-    }
 }

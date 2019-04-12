@@ -3,14 +3,15 @@ package al132.alchemistry.recipes
 import al132.alchemistry.chemistry.CompoundRegistry
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
-import al132.alchemistry.utils.toCompoundStack
-import al132.alchemistry.utils.toElementStack
-import al132.alchemistry.utils.toStack
+import al132.alchemistry.utils.extensions.toCompoundStack
+import al132.alchemistry.utils.extensions.toElementStack
+import al132.alchemistry.utils.extensions.toOre
+import al132.alchemistry.utils.extensions.toStack
 import al132.alib.utils.Utils.firstOre
 import al132.alib.utils.Utils.oreExists
 import al132.alib.utils.extensions.toDict
+import al132.alib.utils.extensions.toIngredient
 import al132.alib.utils.extensions.toStack
-import net.minecraft.block.Block
 import net.minecraft.block.BlockTallGrass
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -18,13 +19,11 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.item.crafting.Ingredient
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
 import net.minecraftforge.fml.common.IFuelHandler
 import net.minecraftforge.fml.common.registry.GameRegistry
 import net.minecraftforge.oredict.OreDictionary
-import net.minecraftforge.oredict.OreIngredient
 import java.util.*
 
 /**
@@ -125,7 +124,6 @@ object ModRecipes {
                                     ingotThree: String = "",
                                     quantityThree: Int = 0,
                                     conservationOfMass: Boolean = true) {
-
         fun fitInto16(q1: Int, q2: Int, q3: Int): List<Int>? {
             val sum = q1 + q2 + q3
             val new1 = Math.round(q1.toDouble() / sum * 16.0).toInt()
@@ -955,24 +953,32 @@ object ModRecipes {
             input = Items.SUGAR.toIngredient()
             reversible = true
             output {
-                addStack { "sucrose".toCompoundStack() }
+                addStack { "sucrose".toStack() }
             }
         })
 
 
         dissolverRecipes.add(dissolverRecipe {
             input = Items.BEETROOT.toIngredient()
-            reversible = true
             output {
-                addStack { "sucrose".toCompoundStack() }
+                relativeProbability = false
+                addGroup {
+                    probability = 100.0
+                    addStack { "sucrose".toStack() }
+                }
+                addGroup {
+                    probability = 50.0
+                    addStack { "iron_oxide".toStack() }
+                }
             }
+
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Items.BONE.toIngredient()
             reversible = true
             output {
-                addStack { "hydroxylapatite".toCompoundStack(2) }
+                addStack { "hydroxylapatite".toStack(2) }
             }
         })
 
@@ -1462,7 +1468,6 @@ object ModRecipes {
         }
     }
 
-    fun Fluid.toStack(quantity: Int): FluidStack = FluidStack(this, quantity)
 
     fun initElectrolyzerRecipes() {
         electrolyzerRecipes.add(ElectrolyzerRecipe(
@@ -1523,8 +1528,6 @@ object ModRecipes {
 
 
     fun initCombinerRecipes() {
-
-
         combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(meta = 1),
                 listOf(ItemStack.EMPTY, "carbon".toElementStack(8))))
 
@@ -1543,14 +1546,14 @@ object ModRecipes {
             }
         }
         combinerRecipes.add(CombinerRecipe("triglyceride".toStack(),
-                listOf(null,null,"oxygen".toStack(2),
-                        null,"hydrogen".toStack(32),null,
+                listOf(null, null, "oxygen".toStack(2),
+                        null, "hydrogen".toStack(32), null,
                         "carbon".toStack(18))))
 
         combinerRecipes.add(CombinerRecipe("cucurbitacin".toStack(),
-                listOf(null,null,null,
-                        null,"hydrogen".toStack(44),null,
-                        "carbon".toStack(32),null,"oxygen".toStack(8))))
+                listOf(null, null, null,
+                        null, "hydrogen".toStack(44), null,
+                        "carbon".toStack(32), null, "oxygen".toStack(8))))
 
         CompoundRegistry.compounds()
                 .filter { it.autoCombinerRecipe }
@@ -1696,16 +1699,18 @@ object ModRecipes {
             val inputs = mutableListOf(null, "triglyceride".toCompoundStack(), null)
             (0 until index).forEach { inputs.add(null) }
             inputs.add("sucrose".toCompoundStack())
-            if(stack.item == Items.BEETROOT_SEEDS) inputs.add("iron_oxide".toStack())
+            if (stack.item == Items.BEETROOT_SEEDS) inputs.add("iron_oxide".toStack())
             combinerRecipes.add(CombinerRecipe(stack, inputs))
         }
+
+        combinerRecipes.add(CombinerRecipe(Items.BEETROOT.toStack(), listOf(
+                null, "sucrose".toStack(), "iron_oxide".toStack())))
 
         Item.REGISTRY.getObject(ResourceLocation("forestry", "iodine_capsule"))?.let {
             combinerRecipes.add(CombinerRecipe(it.toStack(),
                     listOf(null, null, null,
                             "iodine".toElementStack(8), "iodine".toElementStack(8))))
         }
-
 
 
         (0..5).forEach { i ->
@@ -1803,8 +1808,4 @@ object ModRecipes {
 
 fun fluidExists(name: String): Boolean = FluidRegistry.isFluidRegistered(name)
 
-fun Item.toIngredient(quantity: Int = 1, meta: Int = 0): Ingredient = Ingredient.fromStacks(this.toStack(quantity, meta))
-fun Block.toIngredient(quantity: Int = 1, meta: Int = 0): Ingredient = Ingredient.fromStacks(this.toStack(quantity, meta))
-fun ItemStack.toIngredient() = Ingredient.fromStacks(this)
-fun String.toOre(): OreIngredient = OreIngredient(this)
 fun oreNotEmpty(ore: String) = oreExists(ore) && OreDictionary.getOres(ore).isNotEmpty()

@@ -1,6 +1,8 @@
 package al132.alchemistry.blocks
 
-import al132.alchemistry.items.ItemBlockAtomizer
+import al132.alchemistry.ConfigHandler
+import al132.alchemistry.items.TooltipItemBlock
+import al132.alib.utils.extensions.translate
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.item.Item
@@ -19,8 +21,10 @@ class AtomizerBlock(name: String,
 
     val boundingBox = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0)
 
-    override fun registerItemBlock(event: RegistryEvent.Register<Item>){
-        event.registry.register(ItemBlockAtomizer(ModBlocks.atomizer).setRegistryName(this.registryName))
+    override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
+        event.registry.register(TooltipItemBlock(this,
+                "tile.atomizer.tooltip".translate() + " " + ConfigHandler.atomizerEnergyPerTick + " FE/t")
+                .setRegistryName(this.registryName))
     }
 
     override fun getRenderType(state: IBlockState): EnumBlockRenderType = EnumBlockRenderType.MODEL

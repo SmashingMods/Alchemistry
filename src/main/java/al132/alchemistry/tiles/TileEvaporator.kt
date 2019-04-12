@@ -33,7 +33,6 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
                 return ModRecipes.evaporatorRecipes.any { it.input.fluid == fluid?.fluid }
             }
         }
-
         inputTank.setTileEntity(this)
         inputTank.setCanFill(true)
         inputTank.setCanDrain(false)

@@ -3,7 +3,7 @@ package al132.alchemistry.compat.jei.combiner
 import al132.alchemistry.client.GuiChemicalCombiner
 import al132.alchemistry.compat.jei.AlchemistryRecipeCategory
 import al132.alchemistry.compat.jei.AlchemistryRecipeUID
-import al132.alchemistry.compat.jei.Translator
+import al132.alib.utils.Translator
 import mezz.jei.api.IGuiHelper
 import mezz.jei.api.gui.IRecipeLayout
 import mezz.jei.api.ingredients.IIngredients

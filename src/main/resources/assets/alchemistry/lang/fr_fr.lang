@@ -7,9 +7,9 @@ tile.liquifier.name=Liquefieur
 tile.fission_controller.name=Controlleur de fission
 tile.fission_core.name=Coeur de fission
 tile.fission_casing.name=Corps de fission
-tile.fusion_controller.name=Controlleur de fission
-tile.fission_core.name=Coeur de fission
-tile.fission_casing.name=Corps de fission
+tile.fusion_controller.name=Controlleur de fusion
+tile.fusion_core.name=Coeur de fusion
+tile.fusion_casing.name=Corps de fusion
 
 item.alchemistry:mineral_salt.name=Sel Mineral
 item.alchemistry:fertilizer.name=Fertiliseur

@@ -5,6 +5,7 @@ import al132.alchemistry.items.TooltipItemBlock
 import al132.alib.utils.extensions.translate
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyDirection
+import net.minecraft.block.properties.PropertyEnum
 import net.minecraft.block.state.BlockStateContainer
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.EntityLivingBase
@@ -23,6 +24,7 @@ class FusionControllerBlock(name: String,
 
     init {
         this.defaultState = this.blockState.baseState.withProperty(FACING, EnumFacing.NORTH)
+                .withProperty(FusionControllerBlock.STATUS, PropertyPowerStatus.OFF)
 
     }
 
@@ -36,23 +38,54 @@ class FusionControllerBlock(name: String,
 
     override fun getStateForPlacement(world: World, pos: BlockPos, facing: EnumFacing, hitX: Float, hitY: Float, hitZ: Float, meta: Int, placer: EntityLivingBase, hand: EnumHand): IBlockState {
         val state = super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand)
-        return state.withProperty(FACING, placer.horizontalFacing.opposite)
+        return state.withProperty(FACING, placer.horizontalFacing.opposite).withProperty(FusionControllerBlock.STATUS, PropertyPowerStatus.OFF)
     }
 
     override fun getStateFromMeta(meta: Int): IBlockState {
-        var enumfacing = EnumFacing.byIndex(meta)
-        if (enumfacing.axis == EnumFacing.Axis.Y) {
-            enumfacing = EnumFacing.NORTH
+        lateinit var facing: EnumFacing
+        lateinit var status: PropertyPowerStatus
+        when (meta) {
+            in 0 until 3  -> facing = EnumFacing.NORTH
+            in 3 until 6  -> facing = EnumFacing.SOUTH
+            in 6 until 9  -> facing = EnumFacing.WEST
+            in 9 until 12 -> facing = EnumFacing.EAST
+            else          -> facing = EnumFacing.NORTH
         }
-        return this.defaultState.withProperty(FACING, enumfacing)
+        when (meta % 3) {
+            0 -> status = PropertyPowerStatus.OFF
+            1 -> status = PropertyPowerStatus.STANDBY
+            2 -> status = PropertyPowerStatus.ON
+        }
+        /* var enumfacing = EnumFacing.byIndex(meta)
+         if (enumfacing.axis == EnumFacing.Axis.Y) {
+             enumfacing = EnumFacing.NORTH
+         }
+         return this.defaultState.withProperty(FACING, enumfacing)
+         */
+        return this.defaultState.withProperty(FusionControllerBlock.FACING, facing).withProperty(FusionControllerBlock.STATUS, status)
     }
 
     override fun getMetaFromState(state: IBlockState): Int {
-        return (state.getValue(FACING) as EnumFacing).index
+        //val dir: Int = (state.getValue(FACING) as EnumFacing).index
+        var sum = 0
+        when (state.getValue(FusionControllerBlock.FACING)) {
+            EnumFacing.NORTH -> sum += 0
+            EnumFacing.SOUTH -> sum += 3
+            EnumFacing.WEST  -> sum += 6
+            EnumFacing.EAST  -> sum += 9
+        }
+        when (state.getValue(FusionControllerBlock.STATUS)) {
+            PropertyPowerStatus.OFF     -> sum += 0
+            PropertyPowerStatus.STANDBY -> sum += 1
+            PropertyPowerStatus.ON      -> sum += 2
+            else                        -> sum += 0
+        }
+        return sum
     }
 
     companion object {
         val FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL)
-        val PROPERTIES = arrayOf<IProperty<*>>(FACING)
+        val STATUS = PropertyEnum.create("status", PropertyPowerStatus::class.java)
+        val PROPERTIES = arrayOf<IProperty<*>>(FACING,STATUS)
     }
 }

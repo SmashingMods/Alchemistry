@@ -141,7 +141,7 @@ class XMLRecipeParser {
             val outputXML = element.getFirst("output")?.getFirst("item")
             val output = outputXML.tagToStack()
             Alchemistry.logger.info("Added Combiner recipe: for $inputs")
-            ModRecipes.combinerRecipes.add(CombinerRecipe(output = output, objsIn = inputs))
+            ModRecipes.combinerRecipes.add(CombinerRecipe(_output = output, objsIn = inputs))
         } else if (actionType == "remove") {
             recipeCheck@ for (recipe in ModRecipes.combinerRecipes) {
                 for (i in recipe.inputs.indices) {

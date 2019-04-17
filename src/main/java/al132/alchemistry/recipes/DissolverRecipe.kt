@@ -17,7 +17,7 @@ data class DissolverRecipe(var input: Ingredient? = null,
     inline val inputs: List<ItemStack>
         get(): List<ItemStack> {
             val temp = ArrayList<ItemStack>()
-            if (input != null) temp.addAll(input!!.matchingStacks)
+            if (input != null) temp.addAll(input!!.matchingStacks.copyOf())
             return temp.toImmutable()
         }
 

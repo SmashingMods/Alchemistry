@@ -3,6 +3,7 @@ package al132.alchemistry.recipes
 import al132.alib.tiles.ALTileStackHandler
 import al132.alib.utils.Utils.areItemsEqualIgnoreMeta
 import al132.alib.utils.extensions.areItemStacksEqual
+import al132.alib.utils.extensions.copy
 import al132.alib.utils.extensions.get
 import al132.alib.utils.extensions.toStackList
 import net.minecraft.block.Block
@@ -16,10 +17,13 @@ import java.util.*
  * Created by al132 on 1/22/2017.
  */
 
-data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>) {
+data class CombinerRecipe(private val _output: ItemStack, private val objsIn: List<Any?>) {
 
     val inputs: List<ItemStack>
-        get() = inputsInternal.toList()
+        get() = inputsInternal.toList().copy()
+
+    val output: ItemStack
+        get() = _output.copy()
 
     private val inputsInternal = ArrayList<ItemStack>()
 

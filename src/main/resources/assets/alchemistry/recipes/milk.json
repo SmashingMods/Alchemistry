@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EDE",
+    "DBD",
+    "EDE"
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "item": "minecraft:milk_bucket"
+    }
+  },
+  "result": {
+    "item": "alchemistry:milk"
+  }
+}

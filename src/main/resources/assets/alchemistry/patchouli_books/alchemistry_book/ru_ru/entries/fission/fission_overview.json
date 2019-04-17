@@ -1,0 +1,20 @@
+{
+  "name": "Обзор деления",
+  "icon": "alchemistry:fission_controller",
+  "category": "fission_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Мультиблок деления позволяет вам разделить саму ткань, которая удерживает элементы вместе, чтобы сформировать новые элементы. Все элементы, кроме водорода, могут быть разделены с помощью мультиблока деления. См JEI для рецептов"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fission_controller",
+      "recipe2": "alchemistry:fission_core"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fission_casing"
+    }
+  ]
+}

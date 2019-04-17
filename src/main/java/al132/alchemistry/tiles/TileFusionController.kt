@@ -2,7 +2,9 @@ package al132.alchemistry.tiles
 
 import al132.alchemistry.ConfigHandler
 import al132.alchemistry.blocks.FusionControllerBlock
+import al132.alchemistry.blocks.FusionControllerBlock.Companion.STATUS
 import al132.alchemistry.blocks.ModBlocks
+import al132.alchemistry.blocks.PropertyPowerStatus
 import al132.alchemistry.chemistry.ChemicalElement
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
@@ -54,12 +56,22 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     }
 
     override fun update() {
-        checkMultiblockTicks++
-        if (checkMultiblockTicks >= 20) {
-            updateMultiblock()
-            checkMultiblockTicks = 0
-        }
+
         if (!world.isRemote) {
+            checkMultiblockTicks++
+            if (checkMultiblockTicks >= 20) {
+                updateMultiblock()
+                checkMultiblockTicks = 0
+            }
+            val isActive = !this.input[0].isEmpty && !this.input[1].isEmpty
+            val state = this.world.getBlockState(this.pos)
+            val currentStatus = state.getValue(STATUS)
+            if (this.isValidMultiblock) {
+                if (isActive) {
+                    if (currentStatus != PropertyPowerStatus.ON) this.world.setBlockState(this.pos, state.withProperty(STATUS, PropertyPowerStatus.ON))
+                } else if (currentStatus != PropertyPowerStatus.STANDBY) world.setBlockState(pos, state.withProperty(STATUS, PropertyPowerStatus.STANDBY))
+            } else if (currentStatus != PropertyPowerStatus.OFF) world.setBlockState(pos, state.withProperty(STATUS, PropertyPowerStatus.OFF))
+
             if (canProcess()) process()
             this.markDirtyClientEvery(5)
         }
@@ -100,6 +112,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
         super.readFromNBT(compound)
         this.progressTicks = compound.getInteger("ProgressTicks")
         this.refreshRecipe()
+        this.updateMultiblock()
     }
 
     private fun containsCasing(pos: BlockPos): Boolean = (this.world.getBlockState(pos).block == ModBlocks.fusionCasing)

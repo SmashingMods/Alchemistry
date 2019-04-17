@@ -94,7 +94,8 @@ object ModRecipes {
             "uranium",
             "ytterbium",
             "yttrium",
-            "zinc")
+            "zinc",
+            "zirconium")
 
     val metalOreData: List<DissolverOreData> = listOf(
             DissolverOreData("ingot", 16, metals),
@@ -114,7 +115,7 @@ object ModRecipes {
         initLiquifierRecipes()
         initFissionRecipes()
     }
-
+/*
 
     fun addDissolverRecipesForAlloy(alloySuffix: String, //Should start with uppercase, i.e. "Bronze" or "ElectricalSteel"
                                     ingotOne: String,
@@ -178,7 +179,7 @@ object ModRecipes {
                 }
             })
         }
-    }
+    }*/
 
 
     fun initDissolverRecipes() {
@@ -782,7 +783,7 @@ object ModRecipes {
             input = Items.CARROT.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "beta_carotene".toCompoundStack(1) }; probability = 25.0 }
+                addGroup { addStack { "beta_carotene".toCompoundStack(1) }; probability = 20.0 }
             }
         })
 
@@ -1340,11 +1341,33 @@ object ModRecipes {
             })
         }
 
-        addDissolverRecipesForAlloy("Bronze", "copper", 3, "tin", 1, conservationOfMass = true)
-        addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1, conservationOfMass = true)
-        addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1, conservationOfMass = false)
+        //addDissolverRecipesForAlloy("Bronze", "copper", 3, "tin", 1, conservationOfMass = true)
+        //addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1, conservationOfMass = true)
+        //addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1, conservationOfMass = false)
         //addDissolverRecipesForAlloy("Invar", "iron", 2, "nickel", 1, conservationOfMass = true)
+        listOf("ingotBronze", "plateBronze", "dustBronze", "blockBronze").forEach {
+            dissolverRecipes.add(dissolverRecipe {
+                input = "ingotBronze".toOre()
+                output {
+                    addGroup {
+                        addStack { "copper".toStack(if (it == "blockBronze") 9 * 12 else 12) }
+                        addStack { "tin".toStack(if (it == "blockBronze") 9 * 4 else 4) }
+                    }
+                }
+            })
+        }
 
+        listOf("ingotElectrum", "plateElectrum", "dustElectrum", "blockElectrum").forEach {
+            dissolverRecipes.add(dissolverRecipe {
+                input = "ingotBronze".toOre()
+                output {
+                    addGroup {
+                        addStack { "copper".toStack(if (it == "blockElectrum") 9 * 8 else 8) }
+                        addStack { "tin".toStack(if (it == "blockElectrum") 9 * 8 else 8) }
+                    }
+                }
+            })
+        }
 
         listOf("gemRuby", "dustRuby", "plateRuby")
                 .filter { oreNotEmpty(it) }
@@ -1405,14 +1428,14 @@ object ModRecipes {
             input = "blockCactus".toOre()
             reversible = true
             output {
-                addGroup {
-                    addStack { "cellulose".toCompoundStack() }
-                    addStack { "mescaline".toCompoundStack() }
-                }
+                relativeProbability = false
+                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 100.0 }
+                addGroup { addStack { "mescaline".toCompoundStack() }; probability = 50.0 }
             }
         })
 
-        dissolverRecipes.add(dissolverRecipe {
+        dissolverRecipes.add(dissolverRecipe
+        {
             input = Blocks.HARDENED_CLAY.toIngredient()
             reversible = true
             output {
@@ -1637,7 +1660,7 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Blocks.WOOL.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        "protein".toCompoundStack(2))))
+                        "protein".toCompoundStack(1),"triglyceride".toStack(1))))
 
         combinerRecipes.add(CombinerRecipe(Items.CARROT.toStack(),
                 listOf(null, null, null,
@@ -1759,7 +1782,7 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Items.ROTTEN_FLESH.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        "protein".toCompoundStack(3))))
+                        null, "protein".toCompoundStack(3))))
 
         combinerRecipes.add(CombinerRecipe(Items.NETHER_STAR.toStack(),
                 listOf("lutetium".toStack(64), "hydrogen".toStack(64), "titanium".toStack(64),
@@ -1773,6 +1796,10 @@ object ModRecipes {
         if (fluidExists("canolaoil")) {
             atomizerRecipes.add(AtomizerRecipe(
                     FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(1)))
+        }
+        if(fluidExists("cocoa_butter")){
+            atomizerRecipes.add(AtomizerRecipe(
+                    FluidRegistry.getFluidStack("cocoa_butter", 144)!!, "triglyceride".toCompoundStack(1)))
         }
 
         ElementRegistry.getAllElements().forEach {

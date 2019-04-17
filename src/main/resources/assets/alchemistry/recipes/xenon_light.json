@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GEG",
+    "EEE",
+    "GEG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "E": {
+      "item": "alchemistry:element",
+      "data": 54
+    }
+  },
+  "result": {
+    "item": "alchemistry:xenon_light"
+ }
+}

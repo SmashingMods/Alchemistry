@@ -1,0 +1,30 @@
+{
+  "name": "Шаблон мультиблока деления",
+  "icon": "alchemistry:fission_casing",
+  "category": "fission_category",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Мультиблок деления",
+      "multiblock": {
+        "pattern": [
+          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "     "],
+          ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "C   C", "C 0 C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "  T  "]
+        ],
+        "mapping": {
+          "C": "alchemistry:fission_casing",
+          "T": "alchemistry:fission_controller",
+          "R": "alchemistry:fission_core",
+          "0": "alchemistry:fission_core"
+        }
+      }
+    },
+    {
+      "type": "text",
+      "text": "98x корпуса деления $(br) 3x ядра деления $(br) 1x контроллер деления"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Обсидиановый разрушитель",
+  "icon": "alchemistry:obsidian_breaker",
+  "category": "utility_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Обсидиановый разрушитель - это простой предмет, который можно использовать для мгновенного сбора блока обсидиана, Shift+ПКМ на блоке. Этот предмет будет израсходован в процессе."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:obsidian_breaker"
+    }
+  ]
+}

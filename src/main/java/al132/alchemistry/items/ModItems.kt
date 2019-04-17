@@ -5,7 +5,6 @@ import al132.alib.items.ALItem
 import al132.alib.utils.extensions.translate
 import net.minecraft.client.Minecraft
 import net.minecraft.client.util.ITooltipFlag
-import net.minecraft.init.Items
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.world.World
@@ -26,16 +25,21 @@ object ModItems {
             tooltip.add("item.alchemistry:obsidian_breaker.tooltip".translate())
         }
     }
-    //var chemPattern = ItemChemPattern()
+    var MILK = object: ItemBase("milk") {
+        override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
+            tooltip.add("item.alchemistry:milk.tooltip".translate())
+        }
+    }
 
     val items = arrayOf<ALItem>(
-            elements,
-            compounds,
+            MILK,
             mineralSalt,
             condensedMilk,
             //diamondEnrichedGlass,
             fertilizer,
-            obsidianBreaker)
+            obsidianBreaker,
+            elements,
+            compounds)
 
     fun registerItems(event: RegistryEvent.Register<Item>) = items.forEach { it.registerItem(event) }
 
@@ -46,10 +50,8 @@ object ModItems {
     fun initColors() {
         val colorHandler = ItemColorHandler()
         val itemColors = Minecraft.getMinecraft().itemColors
-
         itemColors.registerItemColorHandler(colorHandler, elements)
         itemColors.registerItemColorHandler(colorHandler, compounds)
-        Items.DYE
     }
 }
 

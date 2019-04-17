@@ -1,3 +1,23 @@
+0.9.5
+===
+-The Combiner recipe target now displays the stack tooltip, especially helpful for chemical compounds
+-Added Neon Lights (and other lights for other noble gases). They don't look brilliant, but they'll do for now
+-Zirconium recipes should now auto-generate (ores, ingots, plates, etc)
+-New Liquifier recipe for cocoa Butter recipe (from Nuclearcraft)
+-MILK
+
+0.9.4
+===
+-Fission/Fusion Controller blocks now indicate whether or not they are off (black), on standby (yellow), or turned on (green)
+-Textures for compounds & elements are no longer flat-colored. They have a slightly textured look now
+
+0.9.3
+===
+-Fix Wool/Rotten Flesh recipe clash
+-Made some crops a bit less OP
+-Updated ru_ru.lang and added ru_ru patchouli (thanks to kellixon)
+-Some internal refactoring, might help prevent potential bugs
+
 0.9.2
 ==
 -Fix Beetroot recipe

@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alchemistry:argon_light"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

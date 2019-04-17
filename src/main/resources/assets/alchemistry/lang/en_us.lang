@@ -11,9 +11,17 @@ tile.fusion_controller.name=Fusion Controller
 tile.fusion_core.name=Fusion Core
 tile.fusion_casing.name=Fusion Casing
 
+tile.neon_light.name=Neon Light
+tile.krypton_light.name=Krypton Light
+tile.xenon_light.name=Xenon Light
+tile.helium_light.name=Helium Light
+tile.argon_light.name=Argon Light
+
+
 item.alchemistry:mineral_salt.name=Mineral Salt
 item.alchemistry:fertilizer.name=Fertilizer
 item.alchemistry:obsidian_breaker.name=Obsidian Breaker
+item.alchemistry:milk.name=MILK
 
 item.alchemistry:element_hydrogen.name=Hydrogen
 item.alchemistry:element_helium.name=Helium
@@ -207,6 +215,7 @@ itemGroup.alchemistry=Alchemistry
 
 item.alchemistry:fertilizer.tooltip=Can be used like bonemeal
 item.alchemistry:obsidian_breaker.tooltip=Right-click an obsidian block while holding this item to instantly harvest the obsidian. This item will be consumed.
+item.alchemistry:milk.tooltip=All I do is milk
 
 tile.electrolyzer.tooltip=Requires
 tile.chemical_dissolver.tooltip=Requires

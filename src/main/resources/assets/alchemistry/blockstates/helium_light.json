@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "alchemistry:helium_light"
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

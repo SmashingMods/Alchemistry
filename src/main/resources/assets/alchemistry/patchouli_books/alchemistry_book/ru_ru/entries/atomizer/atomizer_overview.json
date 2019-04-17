@@ -1,0 +1,15 @@
+{
+  "name": "Обзор атомайзера",
+  "icon": "alchemistry:atomizer",
+  "category": "atomizer_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Атомайзер - это приводной механизм, который может использоваться для преобразования жидкостей в эквивалентные им элементы или соединения алхимии."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:atomizer"
+    }
+  ]
+}

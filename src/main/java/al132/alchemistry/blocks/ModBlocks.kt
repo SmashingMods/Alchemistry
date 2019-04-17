@@ -17,10 +17,10 @@ object ModBlocks {
 
     val blocks = ArrayList<ALBlock>()
 
-    var electrolyzer = ElectrolyzerBlock("electrolyzer", TileElectrolyzer::class.java, GuiHandler.ELECTROLYZER_ID)
-    var chemical_dissolver = ChemicalDissolverBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
-    var chemical_combiner = ChemicalCombinerBlock("chemical_combiner", TileChemicalCombiner::class.java, GuiHandler.CHEMICAL_COMBINER_ID)
-    var evaporator = EvaporatorBlock("evaporator", TileEvaporator::class.java, GuiHandler.EVAPORATOR_ID)
+    val electrolyzer = ElectrolyzerBlock("electrolyzer", TileElectrolyzer::class.java, GuiHandler.ELECTROLYZER_ID)
+    val chemical_dissolver = ChemicalDissolverBlock("chemical_dissolver", TileChemicalDissolver::class.java, GuiHandler.CHEMICAL_DISSOLVER_ID)
+    val chemical_combiner = ChemicalCombinerBlock("chemical_combiner", TileChemicalCombiner::class.java, GuiHandler.CHEMICAL_COMBINER_ID)
+    val evaporator = EvaporatorBlock("evaporator", TileEvaporator::class.java, GuiHandler.EVAPORATOR_ID)
     val atomizer = AtomizerBlock("atomizer", TileAtomizer::class.java, GuiHandler.ATOMIZER_ID)
     val liquifier = LiquifierBlock("liquifier", TileLiquifier::class.java, GuiHandler.LIQUIFIER_ID)
 
@@ -30,8 +30,13 @@ object ModBlocks {
 
     val fusionCasing = BaseBlock("fusion_casing")
     val fusionCore = BaseBlock("fusion_core")
-    val fusionController = FusionControllerBlock("fusion_controller",TileFusionController::class.java,GuiHandler.FUSION_CONTROLLER_ID)
+    val fusionController = FusionControllerBlock("fusion_controller", TileFusionController::class.java, GuiHandler.FUSION_CONTROLLER_ID)
 
+    val neonLight = LightBlock("neon_light")//red-orange
+    val heliumLight = LightBlock("helium_light") //red
+    val argonLight = LightBlock("argon_light") //purple-blue
+    val kryptonLight = LightBlock("krypton_light") //light yellow or green
+    val xenonLight = LightBlock("xenon_light") //gray-blue
 
     fun registerBlocks(event: RegistryEvent.Register<Block>) = blocks.forEach { it.registerBlock(event) }
 

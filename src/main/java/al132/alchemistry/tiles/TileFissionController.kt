@@ -2,7 +2,9 @@ package al132.alchemistry.tiles
 
 import al132.alchemistry.ConfigHandler
 import al132.alchemistry.blocks.FissionControllerBlock
+import al132.alchemistry.blocks.FissionControllerBlock.Companion.STATUS
 import al132.alchemistry.blocks.ModBlocks
+import al132.alchemistry.blocks.PropertyPowerStatus.*
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
 import al132.alib.tiles.*
@@ -30,6 +32,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
     init {
         initInventoryCapability(1, 2)
     }
+
 
     override fun initInventoryInputCapability() {
         input = object : ALTileStackHandler(inputSlots, this) {
@@ -67,18 +70,27 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
         recipeOutput2 = ItemStack.EMPTY
     }
 
+
     override fun update() {
-        checkMultiblockTicks++
-        if (checkMultiblockTicks >= 20) {
-            updateMultiblock()
-            checkMultiblockTicks = 0
-        }
         if (!world.isRemote) {
+            val isActive = !this.input[0].isEmpty
+            checkMultiblockTicks++
+            if (checkMultiblockTicks >= 20) {
+                updateMultiblock()
+                checkMultiblockTicks = 0
+            }
+            val state = this.world.getBlockState(this.pos)
+            val currentStatus = state.getValue(STATUS)
+            if (this.isValidMultiblock) {
+                if (isActive) {
+                    if (currentStatus != ON) this.world.setBlockState(this.pos, state.withProperty(STATUS, ON))
+                } else if (currentStatus != STANDBY) world.setBlockState(pos, state.withProperty(STATUS, STANDBY))
+            } else if (currentStatus != OFF) world.setBlockState(pos, state.withProperty(STATUS, OFF))
+
             if (canProcess()) process()
             this.markDirtyClientEvery(5)
         }
     }
-
 
     fun canProcess(): Boolean {
         return this.isValidMultiblock
@@ -86,7 +98,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
                 && (ItemStack.areItemsEqual(output[0], recipeOutput1) || output[0].isEmpty)
                 && (ItemStack.areItemsEqual(output[1], recipeOutput2) || output[1].isEmpty)
                 && output[0].count + recipeOutput1.count <= recipeOutput1.maxStackSize
-                && output[1].count + recipeOutput2.count <= recipeOutput1.maxStackSize
+                && output[1].count + recipeOutput2.count <= recipeOutput2.maxStackSize
                 && energyStorage.energyStored >= ConfigHandler.fissionEnergyPerTick!!
     }
 
@@ -113,6 +125,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
         super.readFromNBT(compound)
         this.progressTicks = compound.getInteger("ProgressTicks")
         this.refreshRecipe()
+        this.updateMultiblock()
     }
 
     private fun containsCasing(pos: BlockPos): Boolean = (this.world.getBlockState(pos).block == ModBlocks.fissionCasing)

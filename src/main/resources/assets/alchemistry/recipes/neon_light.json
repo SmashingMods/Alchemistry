@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GEG",
+    "EEE",
+    "GEG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "E": {
+      "item": "alchemistry:element",
+      "data": 10
+    }
+  },
+  "result": {
+    "item": "alchemistry:neon_light"
+ }
+}

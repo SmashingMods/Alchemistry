@@ -1,7 +1,10 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "alchemistry:fission_controller"
+    "model": "alchemistry:fission_controller",
+    "textures": {
+      "front": "alchemistry:blocks/fission_controller_front"
+    }
   },
   "variants": {
     "normal": [{}],
@@ -11,6 +14,19 @@
       "south": {"y": 180},
       "west": {"y": 270},
       "east": {"y": 90}
+    },
+    "status": {
+      "off": {},
+      "standby": {
+        "textures": {
+          "front": "alchemistry:blocks/controller_standby"
+        }
+      },
+      "on": {
+        "textures": {
+          "front": "alchemistry:blocks/controller_active"
+        }
+      }
     }
   }
 }

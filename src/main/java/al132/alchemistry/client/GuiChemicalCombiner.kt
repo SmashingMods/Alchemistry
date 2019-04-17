@@ -7,11 +7,10 @@ import al132.alib.client.CapabilityEnergyDisplayWrapper
 import al132.alib.utils.Translator
 import al132.alib.utils.extensions.get
 import net.minecraft.client.gui.GuiButton
-import net.minecraft.client.renderer.GlStateManager
-import net.minecraft.client.renderer.RenderHelper
 import net.minecraft.entity.player.InventoryPlayer
 import net.minecraft.item.ItemStack
 import net.minecraft.util.ResourceLocation
+import java.awt.Color
 
 /**
  * Created by al132 on 1/16/2017.
@@ -64,21 +63,24 @@ class GuiChemicalCombiner(playerInv: InventoryPlayer, tile: TileChemicalCombiner
         pauseButton.drawButtonForegroundLayer(mouseX, mouseY)
 
         if (!tile.clientRecipeTarget.getStackInSlot(0).isEmpty) {
-            this.drawItemStack(tile.clientRecipeTarget[0], 140, 5, Translator.translateToLocal("tile.combiner.target"))
+            this.drawItemStack(tile.clientRecipeTarget[0], 130, 21, Translator.translateToLocal("tile.combiner.target"))
         }
     }
 
 
-    fun drawItemStack(stack: ItemStack, x: Int, y: Int, altText: String?) {
-        RenderHelper.enableGUIStandardItemLighting();
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
-        GlStateManager.translate(0.0f, 0.0f, 32.0f)
+    fun drawItemStack(stack: ItemStack, x: Int, y: Int, text: String?) {
         this.zLevel = 200.0f
-        this.itemRender.zLevel = 200.0f
-        this.itemRender.renderItemAndEffectIntoGUI(stack, x, y)
-        this.itemRender.renderItemOverlayIntoGUI(fontRenderer, stack, x, y + 5, altText)
+        this.fontRenderer.drawString(text ?: "", x, y, Color.BLACK.rgb)
         this.zLevel = 0.0f
-        this.itemRender.zLevel = 0.0f
+        /* RenderHelper.enableGUIStandardItemLighting();
+         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f)
+         GlStateManager.translate(0.0f, 0.0f, 32.0f)
+         this.zLevel = 200.0f
+         this.itemRender.zLevel = 200.0f
+         this.itemRender.renderItemAndEffectIntoGUI(stack, x, y)
+         this.itemRender.renderItemOverlayIntoGUI(fontRenderer, stack, x, y + 5, altText)
+         this.zLevel = 0.0f
+         this.itemRender.zLevel = 0.0f*/
     }
 
 }

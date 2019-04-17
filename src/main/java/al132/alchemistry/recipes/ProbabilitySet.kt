@@ -15,12 +15,12 @@ data class ProbabilityGroup(private val _output: List<ItemStack>,
 }
 
 
-data class ProbabilitySet(private var _set: List<ProbabilityGroup>? = ArrayList<ProbabilityGroup>(),
+data class ProbabilitySet(private var _set: List<ProbabilityGroup>? = ArrayList(),
                           val relativeProbability: Boolean = true,
                           val rolls: Int = 1) {
 
-    val set: List<ProbabilityGroup>
-        get(): List<ProbabilityGroup> = ImmutableList.copyOf(_set)
+    val set: ImmutableList<ProbabilityGroup>
+        get() = ImmutableList.copyOf(_set)
 
 
     fun toStackList(): List<ItemStack> {

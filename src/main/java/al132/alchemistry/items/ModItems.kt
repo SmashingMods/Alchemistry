@@ -50,7 +50,7 @@ object ModItems {
     fun initColors() {
         val colorHandler = ItemColorHandler()
         val itemColors = Minecraft.getMinecraft().itemColors
-        itemColors.registerItemColorHandler(colorHandler, elements)
+        //itemColors.registerItemColorHandler(colorHandler, elements)
         itemColors.registerItemColorHandler(colorHandler, compounds)
     }
 }

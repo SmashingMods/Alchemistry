@@ -1,3 +1,10 @@
+1.0.2
+===
+The good news:
+-Element abbreviations now render everywhere, go make those periodic tables with item frames or storage drawers, or whatever
+The bad news:
+-Custom elements now require the ResourceLoader mod
+
 1.0.1
 ===
 -Fixed electrum recipes (again!)

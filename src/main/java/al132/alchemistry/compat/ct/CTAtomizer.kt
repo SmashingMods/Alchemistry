@@ -35,13 +35,23 @@ object CTAtomizer {
     @ZenMethod
     @JvmStatic
     fun removeRecipe(input: ILiquidStack) {
-        Alchemistry.LATE_REMOVALS.add(object: IAction{
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
             override fun describe() = "Added Atomizer recipe for [$input]"
 
             override fun apply() {
                 val inputStack = input.internal as FluidStack
                 ModRecipes.atomizerRecipes.removeIf { it.input.isFluidEqual(inputStack) }
             }
+        })
+    }
+
+    @ZenMethod
+    @JvmStatic
+    fun removeAllRecipes() {
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed ALL Atomizer recipes"
+
+            override fun apply() = ModRecipes.atomizerRecipes.clear()
         })
     }
 }

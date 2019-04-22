@@ -72,4 +72,14 @@ object CTChemicalDissolver {
             }
         })
     }
+
+    @ZenMethod
+    @JvmStatic
+    fun removeAllRecipes() {
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed ALL Chemical Dissolver recipes"
+
+            override fun apply() = ModRecipes.dissolverRecipes.clear()
+        })
+    }
 }

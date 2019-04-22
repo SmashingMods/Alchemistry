@@ -1,3 +1,22 @@
+1.0.1
+===
+-Fixed electrum recipes (again!)
+-Items oredicted with alumiNIUM instead of alumiNUM will now get recipes too
+-Recipes using oredicted items with ALL elements will get recipes (because GregTech)
+-Added CraftTweaker method called 'removeAllRecipes()' for all single-block machines
+
+1.0.0
+===
+-Added plenty of recipes for various vanilla content (special thanks to Habeeb M for suggestions)
+-Fixed borked bronze/electrum recipes
+-Added (partial) fr_fr.lang translation (thanks to Sufike)
+
+
+0.9.6
+===
+-Revert Item rendering for Chemical Combiner, should fix weird bugginess in the GUI
+
+
 0.9.5
 ===
 -The Combiner recipe target now displays the stack tooltip, especially helpful for chemical compounds

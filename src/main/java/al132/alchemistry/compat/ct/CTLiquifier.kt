@@ -44,4 +44,14 @@ object CTLiquifier {
             }
         })
     }
+
+    @ZenMethod
+    @JvmStatic
+    fun removeAllRecipes() {
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed ALL Liquifier recipes"
+
+            override fun apply() = ModRecipes.liquifierRecipes.clear()
+        })
+    }
 }

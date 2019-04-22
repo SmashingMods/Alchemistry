@@ -45,4 +45,14 @@ object CTEvaporator {
             }
         })
     }
+
+    @ZenMethod
+    @JvmStatic
+    fun removeAllRecipes() {
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed ALL Evaporator recipes"
+
+            override fun apply() = ModRecipes.evaporatorRecipes.clear()
+        })
+    }
 }

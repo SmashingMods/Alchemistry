@@ -24,19 +24,12 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
     var progressTicks = 0
     var paused = false
     val clientRecipeTarget: ALTileStackHandler
-    override val SIZE: Int
-        get() = 11
 
     init {
         initInventoryCapability(9, 1)
         clientRecipeTarget = object : ALTileStackHandler(1, this) {
-            override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-                return stack
-            }
-
-            override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
-                return ItemStack.EMPTY
-            }
+            override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean) = stack
+            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) =  ItemStack.EMPTY
         }
     }
 

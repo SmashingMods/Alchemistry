@@ -140,8 +140,8 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
     }
 
     fun validateMultiblock(): Boolean {
-        val multiblockDirection = (world.getBlockState(this.pos).getValue(FissionControllerBlock.FACING) as EnumFacing).opposite
-
+        val multiblockDirection: EnumFacing? = world?.getBlockState(this.pos)?.getValue(FissionControllerBlock.FACING)?.opposite
+        if(multiblockDirection == null) return false
         fun BlockPos.offsetUp(amt: Int = 1) = this.offset(EnumFacing.UP, amt)
         fun BlockPos.offsetLeft(amt: Int = 1) = this.offset(multiblockDirection.rotateY(), amt)
         fun BlockPos.offsetRight(amt: Int = 1) = this.offset(multiblockDirection.rotateY(), -1 * amt)

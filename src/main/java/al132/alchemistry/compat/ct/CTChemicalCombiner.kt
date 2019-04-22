@@ -48,4 +48,14 @@ object CTChemicalCombiner {
             }
         })
     }
+
+    @ZenMethod
+    @JvmStatic
+    fun removeAllRecipes() {
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed ALL Chemical Combiner recipes"
+
+            override fun apply() = ModRecipes.combinerRecipes.clear()
+        })
+    }
 }

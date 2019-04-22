@@ -59,4 +59,14 @@ object CTElectrolyzer {
             }
         })
     }
+
+    @ZenMethod
+    @JvmStatic
+    fun removeAllRecipes() {
+        Alchemistry.LATE_REMOVALS.add(object : IAction {
+            override fun describe() = "Removed ALL Electrolyzer recipes"
+
+            override fun apply() = ModRecipes.electrolyzerRecipes.clear()
+        })
+    }
 }

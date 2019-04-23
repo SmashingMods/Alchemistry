@@ -9,6 +9,7 @@ import net.minecraft.block.Block
 import net.minecraft.init.Blocks
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
 import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.oredict.OreIngredient
@@ -16,6 +17,8 @@ import net.minecraftforge.oredict.OreIngredient
 /**
  * Created by al132 on 4/27/2017.
  */
+
+fun String.toPotion(): Potion = Potion.getPotionFromResourceLocation(this)!!
 
 fun String.toOre(): OreIngredient = OreIngredient(this)
 

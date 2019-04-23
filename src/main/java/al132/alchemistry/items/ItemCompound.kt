@@ -1,12 +1,20 @@
 package al132.alchemistry.items
 
+import al132.alchemistry.ClientProxy
 import al132.alchemistry.chemistry.ChemicalCompound
 import al132.alchemistry.chemistry.CompoundRegistry
+import al132.alchemistry.utils.extensions.toPotion
+import al132.alib.utils.extensions.translate
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.client.util.ITooltipFlag
 import net.minecraft.creativetab.CreativeTabs
+import net.minecraft.entity.EntityLivingBase
+import net.minecraft.entity.player.EntityPlayer
+import net.minecraft.item.EnumAction
 import net.minecraft.item.ItemStack
-import net.minecraft.util.NonNullList
+import net.minecraft.potion.Potion
+import net.minecraft.potion.PotionEffect
+import net.minecraft.util.*
 import net.minecraft.world.World
 import net.minecraftforge.client.model.ModelLoader
 import net.minecraftforge.fml.relauncher.Side
@@ -16,6 +24,39 @@ import net.minecraftforge.fml.relauncher.SideOnly
  * Created by al132 on 1/16/2017.
  */
 class ItemCompound(name: String) : ItemMetaBase(name) {
+
+    override fun onItemUseFinish(stack: ItemStack, worldIn: World, entity: EntityLivingBase): ItemStack {
+        println(entity)
+        if (entity is EntityPlayer) {
+            val molecule = dankMolecules.firstOrNull { it.meta == stack.metadata }
+            molecule?.let {
+                for (effect in it.potionEffects) {
+                    entity.addPotionEffect(PotionEffect(effect, it.duration, it.amplifier))
+                }
+                it.entityEffects.invoke(entity)
+                stack.shrink(1)
+            }
+        }
+        return stack
+    }
+
+    override fun getMaxItemUseDuration(stack: ItemStack): Int {
+        return if (metaHasDankMolecule(stack.metadata)) 36
+        else super.getMaxItemUseDuration(stack)
+    }
+
+    override fun getItemUseAction(stack: ItemStack): EnumAction {
+        return if (metaHasDankMolecule(stack.metadata)) EnumAction.DRINK
+        else super.getItemUseAction(stack)
+    }
+
+    override fun onItemRightClick(worldIn: World, playerIn: EntityPlayer, handIn: EnumHand): ActionResult<ItemStack> {
+        playerIn.activeHand = handIn
+        val stack = playerIn.getHeldItem(handIn)
+        if (metaHasDankMolecule(stack.metadata)) return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn))
+        else return ActionResult(EnumActionResult.PASS, stack)
+
+    }
 
     @SideOnly(Side.CLIENT)
     override fun registerModel() {
@@ -28,14 +69,18 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
     @SideOnly(Side.CLIENT)
     override fun addInformation(stack: ItemStack, playerIn: World?, tooltip: List<String>, advanced: ITooltipFlag) {
         val compound: ChemicalCompound? = CompoundRegistry[stack.itemDamage]
-        compound?.let { (tooltip as MutableList).add(compound.toAbbreviatedString()) }
+        compound?.let {
+            (tooltip as MutableList).apply {
+                add(compound.toAbbreviatedString())
+                if (metaHasDankMolecule(compound.meta)) add("generic_potion_compound.tooltip".translate())
+            }
+        }
     }
 
     @SideOnly(Side.CLIENT)
     override fun getSubItems(tab: CreativeTabs, stacks: NonNullList<ItemStack>) {
         if (!isInCreativeTab(tab)) return;
         CompoundRegistry.keys().forEach { stacks.add(ItemStack(this, 1, it)) }
-
     }
 
     override fun getItemStackDisplayName(stack: ItemStack): String {
@@ -51,4 +96,39 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
         if (!CompoundRegistry.keys().contains(i)) i = 0
         return super.getTranslationKey() + "_" + CompoundRegistry[i]!!.name
     }
+
+    companion object {
+        val dankMolecules = ArrayList<DankMolecule>().apply {
+            add(DankMolecule(CompoundRegistry["potassium_cyanide"]!!.meta, 500, 2,
+                    listOf("wither".toPotion(), "poison".toPotion(), "nausea".toPotion(),
+                            "slowness".toPotion(), "hunger".toPotion()))
+            { e ->
+                e.foodStats.setFoodSaturationLevel(0.0f)
+                e.foodStats.foodLevel = 0
+                e.attackEntityFrom(DamageSource.STARVE, 12.0f)
+            })
+
+            add(DankMolecule(CompoundRegistry["psilocybin"]!!.meta, 600, 2,
+                    listOf("night_vision".toPotion(), "glowing".toPotion(), "slowness".toPotion()))
+            { e -> ClientProxy.highAF = 1200 })
+
+            add(DankMolecule(CompoundRegistry["penicillin"]!!.meta, 0, 0, listOf())
+            { e -> e.clearActivePotions(); e.heal(2.0f) })
+
+            add(DankMolecule(CompoundRegistry["epinephrine"]!!.meta, 400, 0,
+                    listOf("night_vision".toPotion(), "speed".toPotion(), "haste".toPotion())))
+
+            add(DankMolecule(CompoundRegistry["cocaine"]!!.meta, 400, 2,
+                    listOf("night_vision".toPotion(), "speed".toPotion(), "haste".toPotion(), "jump_boost".toPotion())))
+
+            add(DankMolecule(CompoundRegistry["acetylsalicylic_acid"]!!.meta, 0, 0, listOf())
+            { e -> e.heal(5.0f) })
+        }
+
+        fun metaHasDankMolecule(meta: Int) = dankMolecules.any { it.meta == meta }
+    }
 }
+
+
+data class DankMolecule(val meta: Int, val duration: Int, val amplifier: Int, val potionEffects: List<Potion>,
+                        val entityEffects: (EntityPlayer) -> Unit = {})

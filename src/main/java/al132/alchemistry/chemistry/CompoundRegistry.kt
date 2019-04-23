@@ -276,6 +276,7 @@ object CompoundRegistry {
         addInternal(Compound {
             name = "mescaline"
             color = Color(30, 30, 30)
+            shiftedSlots = 1
             components = listOf(
                     CompoundPair("carbon", 11),
                     CompoundPair("hydrogen", 17),
@@ -447,6 +448,56 @@ object CompoundRegistry {
                     CompoundPair("hydrogen", 3),
                     CompoundPair("chlorine", 1))
         })
+        addInternal(Compound {
+            name = "potassium_cyanide"
+            color = Color(70, 250, 150)
+            shiftedSlots = 1
+            components = listOf(
+                    CompoundPair("potassium", 1),
+                    CompoundPair("carbon", 1),
+                    CompoundPair("nitrogen", 1))
+        })
+        addInternal(Compound {
+            name = "epinephrine"
+            color = Color(230, 160, 120)
+            shiftedSlots = 2
+            components = listOf(
+                    CompoundPair("carbon", 9),
+                    CompoundPair("hydrogen", 13),
+                    CompoundPair("nitrogen", 1),
+                    CompoundPair("oxygen", 3))
+        })
+        addInternal(Compound {
+            name = "cocaine"
+            color = Color(210, 210, 255)
+            shiftedSlots = 3
+            components = listOf(
+                    CompoundPair("carbon", 17),
+                    CompoundPair("hydrogen", 21),
+                    CompoundPair("nitrogen", 1),
+                    CompoundPair("oxygen", 4))
+        })
+        addInternal(Compound {
+            name = "acetylsalicylic_acid"
+            color = Color(130, 190, 255)
+            shiftedSlots = 5
+            components = listOf(
+                    CompoundPair("carbon", 9),
+                    CompoundPair("hydrogen", 8),
+                    CompoundPair("oxygen", 4))
+        })
+        addInternal(Compound {
+            name = "penicillin"
+            color = Color(255, 210, 210)
+            shiftedSlots = 1
+            components = listOf(
+                    CompoundPair("carbon", 16),
+                    CompoundPair("hydrogen", 18),
+                    CompoundPair("nitrogen", 2),
+                    CompoundPair("oxygen", 5),
+                    CompoundPair("sulfur",1))
+        })
+
     }
 
     private fun addInternal(compound: ChemicalCompound) {

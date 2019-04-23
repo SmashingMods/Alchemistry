@@ -35,7 +35,6 @@ object ModItems {
             MILK,
             mineralSalt,
             condensedMilk,
-            //diamondEnrichedGlass,
             fertilizer,
             obsidianBreaker,
             elements,

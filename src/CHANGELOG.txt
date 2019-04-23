@@ -1,3 +1,18 @@
+1.0.3
+===
+-Few minor recipe tweaks for b a l a n c e
+-Salt and saltpeter (and equivalent oredict entries) should now have dissolver/combiner recipes
+-Updated fr_fr.lang (thanks to Sufike)
+-Several new compounds
+-several compounds now have potion effects
+    * penicillin
+    * epinephrine
+    * potassium cyanide
+    * psilocybin
+    * cocaine
+    * acetylsalicylic acid (aspirin)
+
+
 1.0.2
 ===
 The good news:

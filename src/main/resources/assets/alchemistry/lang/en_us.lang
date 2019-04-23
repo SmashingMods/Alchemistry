@@ -200,6 +200,13 @@ item.alchemistry:compound_arsenic_sulfide.name=Arsenic Sulfide
 item.alchemistry:compound_barium_sulfate.name=Barium Sulfate
 item.alchemistry:compound_beta_carotene.name=beta-Carotene
 item.alchemistry:compound_polyvinyl_chloride.name=Polyvinyl Chloride
+item.alchemistry:compound_potassium_cyanide.name=Potassium Cyanide
+item.alchemistry:compound_epinephrine.name=Epinephrine
+item.alchemistry:compound_cocaine.name=Cocaine
+item.alchemistry:compound_penicillin.name=Penicillin
+item.alchemistry:compound_acetylsalicylic_acid.name=Acetylsalicylic Acid
+
+generic_potion_compound.tooltip=Has an effect when consumed
 
 
 

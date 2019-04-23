@@ -11,9 +11,17 @@ tile.fusion_controller.name=Контроллер слияния
 tile.fusion_core.name=Ядро слияния
 tile.fusion_casing.name=Корпус слияния
 
+tile.neon_light.name=Неоновый свет
+tile.krypton_light.name=Криптоновый свет
+tile.xenon_light.name=Ксеноновый свет
+tile.helium_light.name=Гелиевый свет
+tile.argon_light.name=Аргонный свет
+
+
 item.alchemistry:mineral_salt.name=Минеральная соль
 item.alchemistry:fertilizer.name=Удобрение
 item.alchemistry:obsidian_breaker.name=Обсидиановый разрушитель
+item.alchemistry:milk.name=МОЛОКО
 
 item.alchemistry:element_hydrogen.name=Водород
 item.alchemistry:element_helium.name=Гелий
@@ -145,7 +153,7 @@ item.alchemistry:compound_potassium_chloride.name=Хлористый калий
 item.alchemistry:compound_sodium_chloride.name=Хлорид натрия
 item.alchemistry:compound_water.name=Вода
 item.alchemistry:compound_kaolinite.name=Каолинит
-item.alchemistry:compound_protein.name=Белок
+item.alchemistry:compound_protein.name=Белок 
 item.alchemistry:compound_iron_oxide.name=Оксид железа
 item.alchemistry:compound_sucrose.name=Сахароза
 item.alchemistry:compound_calcium_carbonate.name=Карбонат кальция
@@ -192,6 +200,13 @@ item.alchemistry:compound_arsenic_sulfide.name=Сульфид мышьяка
 item.alchemistry:compound_barium_sulfate.name=Сульфат бария
 item.alchemistry:compound_beta_carotene.name=Бета-каротин
 item.alchemistry:compound_polyvinyl_chloride.name=Поливинилхлорид
+item.alchemistry:compound_potassium_cyanide.name=Цианид калия
+item.alchemistry:compound_epinephrine.name=Адреналин
+item.alchemistry:compound_cocaine.name=Кокаин
+item.alchemistry:compound_penicillin.name=Пенициллин
+item.alchemistry:compound_acetylsalicylic_acid.name=Ацетилсалициловая кислота
+
+generic_potion_compound.tooltip=Имеет эффект при употреблении
 
 
 
@@ -207,6 +222,7 @@ itemGroup.alchemistry=Alchemistry
 
 item.alchemistry:fertilizer.tooltip=Может использоваться как костная мука
 item.alchemistry:obsidian_breaker.tooltip=ПКМ на блоке обсидиана, удерживая этот предмет, чтобы мгновенно собрать обсидиан. Этот предмет будет израсходован.
+item.alchemistry:milk.tooltip=Все что я делаю это молоко
 
 tile.electrolyzer.tooltip=Требует
 tile.chemical_dissolver.tooltip=Требует
@@ -218,8 +234,8 @@ tile.fusion_controller.tooltip=Требует
 
 tile.evaporator.tooltip=Работает на 50% медленнее в несухих биомах
 
-tile.combiner.unlock_recipe=Разблокировать рецепт
-tile.combiner.lock_recipe=Заблокировать рецепт
+tile.combiner.unlock_recipe=Разблок. рецепт
+tile.combiner.lock_recipe=Заблок. рецепт
 tile.combiner.pause=Пауза
 tile.combiner.resume=Возобновить
 tile.combiner.target=Цель
@@ -231,5 +247,5 @@ jei.electrolyzer.consumption_probability=Вероятность потребле
 jei.dissolver.relative=Относительно
 jei.dissolver.absolute=Абсолютно
 jei.dissolver.type=Тип
-jei.dissolver.rolls=Роллы
+jei.dissolver.rolls=Проходов
 jei.elements.description=Все элементы (кроме водорода) могут быть созданы с помощью мультиблока слияния.\nМультиблок принимает 2 элемента в качестве входных данных и объединяет их вместе, чтобы создать новый элемент, равный сумме их атомных номеров.

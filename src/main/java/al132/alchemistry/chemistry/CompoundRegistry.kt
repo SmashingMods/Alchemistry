@@ -497,7 +497,16 @@ object CompoundRegistry {
                     CompoundPair("oxygen", 5),
                     CompoundPair("sulfur",1))
         })
-
+        addInternal(Compound {
+            name = "caffeine"
+            color = Color(100, 100, 20)
+            shiftedSlots = 4
+            components = listOf(
+                    CompoundPair("carbon", 8),
+                    CompoundPair("hydrogen", 10),
+                    CompoundPair("nitrogen", 4),
+                    CompoundPair("oxygen", 2))
+        })
     }
 
     private fun addInternal(compound: ChemicalCompound) {

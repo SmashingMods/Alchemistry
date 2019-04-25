@@ -104,6 +104,8 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IItemTile,
         for (i in 0 until outputBufferList.tagCount()) {
             outputBuffer.add(ItemStack(outputBufferList.getCompoundTagAt(i)))
         }
+        currentRecipe = DissolverRecipe.match(input[0], true)
+        markDirty()
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

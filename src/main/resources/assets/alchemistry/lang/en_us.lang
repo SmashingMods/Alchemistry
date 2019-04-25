@@ -205,8 +205,10 @@ item.alchemistry:compound_epinephrine.name=Epinephrine
 item.alchemistry:compound_cocaine.name=Cocaine
 item.alchemistry:compound_penicillin.name=Penicillin
 item.alchemistry:compound_acetylsalicylic_acid.name=Acetylsalicylic Acid
+item.alchemistry:compound_caffeine.name=Caffeine
 
 generic_potion_compound.tooltip=Has an effect when consumed
+spiked_food.tooltip=Spiked with
 
 
 

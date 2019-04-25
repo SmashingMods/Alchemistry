@@ -1,3 +1,12 @@
+1.0.4
+===
+-Decided to remove all recipes
+-Added caffeine, another active compound
+-Added the ability to 'spike' foods with active compounds, as well as the ability to 'mask the flavor" by adding sodium chloride
+-Tweaked a few miscellaneous recipes
+-Added some basic information to the Patchouli guide regarding active compounds and food spiking
+-Updated ru_ru.lang (thanks to Kellixon)
+
 1.0.3
 ===
 -Few minor recipe tweaks for b a l a n c e

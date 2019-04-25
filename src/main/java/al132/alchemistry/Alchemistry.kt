@@ -2,11 +2,14 @@ package al132.alchemistry
 
 import al132.alchemistry.blocks.ModBlocks
 import al132.alchemistry.command.DissolverCommand
+import al132.alchemistry.crafting.DankFoodHandler
+import al132.alchemistry.crafting.SaltyFoodHandler
 import al132.alchemistry.items.ModItems
 import crafttweaker.CraftTweakerAPI
 import crafttweaker.IAction
 import net.minecraft.block.Block
 import net.minecraft.item.Item
+import net.minecraft.item.crafting.IRecipe
 import net.minecraftforge.client.event.ModelRegistryEvent
 import net.minecraftforge.event.RegistryEvent
 import net.minecraftforge.fml.common.Mod
@@ -18,8 +21,6 @@ import net.minecraftforge.fml.relauncher.Side
 import net.minecraftforge.fml.relauncher.SideOnly
 import org.apache.logging.log4j.Logger
 import java.util.*
-
-
 
 
 //TODO: Everything
@@ -40,7 +41,7 @@ object Alchemistry {
     var proxy: CommonProxy? = null
 
     @EventHandler
-    fun preInit(e: FMLPreInitializationEvent)  {
+    fun preInit(e: FMLPreInitializationEvent) {
         proxy!!.preInit(e)
     }
 
@@ -89,6 +90,13 @@ object Alchemistry {
         fun registerModels(event: ModelRegistryEvent) {
             ModBlocks.registerModels()
             ModItems.registerModels()
+        }
+
+        @JvmStatic
+        @SubscribeEvent
+        fun registerCraftingHandler(event: RegistryEvent.Register<IRecipe>) {
+            event.registry.register(DankFoodHandler())
+            event.registry.register(SaltyFoodHandler())
         }
     }
 }

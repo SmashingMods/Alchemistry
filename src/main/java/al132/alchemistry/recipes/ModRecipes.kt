@@ -242,6 +242,7 @@ object ModRecipes {
             }
         }
 
+
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.COAL_ORE.toIngredient()
             output {
@@ -399,10 +400,10 @@ object ModRecipes {
             }
         })
 
+
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.EMERALD_ORE.toIngredient()
             output {
-                reversible = true
                 addGroup {
                     addStack { "beryl".toCompoundStack(8 * 2) }
                     addStack { "chromium".toElementStack(8 * 2) }
@@ -554,9 +555,9 @@ object ModRecipes {
             }
         })
 
+
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.QUARTZ_ORE.toIngredient()
-            reversible = true
             output {
                 addGroup {
                     addStack { "barium".toElementStack(8 * 2) }
@@ -564,6 +565,7 @@ object ModRecipes {
                 }
             }
         })
+
         listOf(0, 1, 2).forEach {
             dissolverRecipes.add(dissolverRecipe {
                 input = Blocks.QUARTZ_BLOCK.toIngredient(meta = it)
@@ -634,12 +636,12 @@ object ModRecipes {
             input = Blocks.LAPIS_ORE.toIngredient()
             output {
                 addGroup {
-                    addStack { "sodium".toElementStack(6 * 2) }
-                    addStack { "calcium".toElementStack(2 * 2) }
-                    addStack { "aluminum".toElementStack(6 * 2) }
-                    addStack { "silicon".toElementStack(6 * 2) }
-                    addStack { "oxygen".toElementStack(24 * 2) }
-                    addStack { "sulfur".toElementStack(2 * 2) }
+                    addStack { "sodium".toElementStack(6 * 4) }
+                    addStack { "calcium".toElementStack(2 * 4) }
+                    addStack { "aluminum".toElementStack(6 * 4) }
+                    addStack { "silicon".toElementStack(6 * 4) }
+                    addStack { "oxygen".toElementStack(24 * 4) }
+                    addStack { "sulfur".toElementStack(2 * 4) }
                 }
             }
         })
@@ -748,8 +750,8 @@ object ModRecipes {
             input = Blocks.REDSTONE_ORE.toIngredient()
             output {
                 addGroup {
-                    addStack { "iron_oxide".toCompoundStack(quantity = 8) }
-                    addStack { "strontium_carbonate".toCompoundStack(quantity = 8) }
+                    addStack { "iron_oxide".toCompoundStack(quantity = 4) }
+                    addStack { "strontium_carbonate".toCompoundStack(quantity = 4) }
                 }
             }
         })
@@ -1308,6 +1310,7 @@ object ModRecipes {
                 addStack { "carbon".toElementStack(quantity = 64 * 8) }
             }
         })
+
 
         dissolverRecipes.add(dissolverRecipe
         {
@@ -1995,6 +1998,8 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Items.BEETROOT.toStack(), listOf(
                 null, "sucrose".toStack(), "iron_oxide".toStack())))
 
+
+
         Item.REGISTRY.getObject(ResourceLocation("forestry", "iodine_capsule"))?.let {
             combinerRecipes.add(CombinerRecipe(it.toStack(),
                     listOf(null, null, null,
@@ -2018,21 +2023,23 @@ object ModRecipes {
             else combinerRecipes.add(CombinerRecipe(ItemStack(Blocks.LOG2, 1, i - 4), input))
         }
 
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 11), listOf("lead_iodide".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 14), listOf("potassium_dichromate".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 2), listOf("nickel_chloride".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 5), listOf("potassium_permanganate".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 7), listOf("magnesium_sulfate".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 6), listOf("copper_chloride".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 0), listOf("titanium_oxide".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 13), listOf("han_purple".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 9), listOf("arsenic_sulfide".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 8), listOf("barium_sulfate".toCompoundStack(4))))
 
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 0), listOf("titanium_oxide".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 1), listOf(null, null, null, null, null, "iron_oxide".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 2), listOf("nickel_chloride".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 3), listOf("caffeine".toStack(1), "cellulose".toStack(1))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 5), listOf("potassium_permanganate".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 6), listOf("copper_chloride".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 7), listOf("magnesium_sulfate".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 8), listOf("barium_sulfate".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 9), listOf("arsenic_sulfide".toCompoundStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 10),
                 listOf("cadmium_sulfide".toCompoundStack(2), "chromium_oxide".toCompoundStack(2))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 11), listOf("lead_iodide".toCompoundStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 12),
                 listOf("cobalt_aluminate".toCompoundStack(2), "antimony_trioxide".toCompoundStack(2))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 13), listOf("han_purple".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 14), listOf("potassium_dichromate".toCompoundStack(4))))
 
 
         combinerRecipes.add(CombinerRecipe(Items.SNOWBALL.toStack(),
@@ -2094,6 +2101,10 @@ object ModRecipes {
 
     fun initLiquifierRecipes() {
         liquifierRecipes.add(LiquifierRecipe("water".toCompoundStack(8), FluidStack(FluidRegistry.WATER, 500)))
+        if (fluidExists("ethanol")) {
+            liquifierRecipes.add(LiquifierRecipe("ethanol".toCompoundStack(16),
+                    FluidRegistry.getFluidStack("ethanol", 500)!!))
+        }
 
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
@@ -2109,7 +2120,7 @@ object ModRecipes {
             val output1 = if (i % 2 == 0) i / 2 else (i / 2) + 1
             val output2 = if (i % 2 == 0) 0 else i / 2
             if (ElementRegistry[output1] != null && (output2 == 0 || ElementRegistry[output2] != null)) {
-                this.fissionRecipes.add(FissionRecipe(i, output1, output2))
+                fissionRecipes.add(FissionRecipe(i, output1, output2))
             }
         }
     }

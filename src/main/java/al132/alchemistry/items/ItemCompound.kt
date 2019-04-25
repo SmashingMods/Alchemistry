@@ -25,15 +25,13 @@ import net.minecraftforge.fml.relauncher.SideOnly
  */
 class ItemCompound(name: String) : ItemMetaBase(name) {
 
+
     override fun onItemUseFinish(stack: ItemStack, worldIn: World, entity: EntityLivingBase): ItemStack {
         println(entity)
         if (entity is EntityPlayer) {
             val molecule = dankMolecules.firstOrNull { it.meta == stack.metadata }
             molecule?.let {
-                for (effect in it.potionEffects) {
-                    entity.addPotionEffect(PotionEffect(effect, it.duration, it.amplifier))
-                }
-                it.entityEffects.invoke(entity)
+                it.activateForPlayer(entity)
                 stack.shrink(1)
             }
         }
@@ -123,12 +121,27 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
 
             add(DankMolecule(CompoundRegistry["acetylsalicylic_acid"]!!.meta, 0, 0, listOf())
             { e -> e.heal(5.0f) })
+
+            add(DankMolecule(CompoundRegistry["caffeine"]!!.meta, 400, 0,
+                    listOf("night_vision".toPotion(), "speed".toPotion(), "haste".toPotion())))
         }
 
         fun metaHasDankMolecule(meta: Int) = dankMolecules.any { it.meta == meta }
+
+        fun getDankMoleculeForMeta(meta: Int): DankMolecule? = dankMolecules.firstOrNull { it.meta == meta }
     }
 }
 
 
 data class DankMolecule(val meta: Int, val duration: Int, val amplifier: Int, val potionEffects: List<Potion>,
-                        val entityEffects: (EntityPlayer) -> Unit = {})
+                        val entityEffects: (EntityPlayer) -> Unit = {}) {
+
+    fun activateForPlayer(player: EntityPlayer) {
+        for (effect in this.potionEffects) {
+            player.addPotionEffect(PotionEffect(effect, duration, amplifier))
+        }
+        entityEffects.invoke(player)
+    }
+}
+
+

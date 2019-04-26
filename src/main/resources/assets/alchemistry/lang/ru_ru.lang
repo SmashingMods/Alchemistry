@@ -153,7 +153,7 @@ item.alchemistry:compound_potassium_chloride.name=Хлористый калий
 item.alchemistry:compound_sodium_chloride.name=Хлорид натрия
 item.alchemistry:compound_water.name=Вода
 item.alchemistry:compound_kaolinite.name=Каолинит
-item.alchemistry:compound_protein.name=Белок
+item.alchemistry:compound_protein.name=Белок 
 item.alchemistry:compound_iron_oxide.name=Оксид железа
 item.alchemistry:compound_sucrose.name=Сахароза
 item.alchemistry:compound_calcium_carbonate.name=Карбонат кальция
@@ -205,8 +205,10 @@ item.alchemistry:compound_epinephrine.name=Адреналин
 item.alchemistry:compound_cocaine.name=Кокаин
 item.alchemistry:compound_penicillin.name=Пенициллин
 item.alchemistry:compound_acetylsalicylic_acid.name=Ацетилсалициловая кислота
+item.alchemistry:compound_caffeine.name=Кофеин
 
 generic_potion_compound.tooltip=Имеет эффект при употреблении
+spiked_food.tooltip=Пронзённая с
 
 
 

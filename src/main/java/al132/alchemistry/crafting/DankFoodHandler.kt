@@ -27,7 +27,8 @@ class DankFoodHandler : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
 
     override fun isDynamic(): Boolean = true
 
-    override fun matches(inv: InventoryCrafting, worldIn: World): Boolean {
+    override fun matches(inv: InventoryCrafting?, world: World?): Boolean {
+        if(world == null || inv == null) return false
         var food = ItemStack.EMPTY
         var compound = ItemStack.EMPTY
 

@@ -507,6 +507,14 @@ object CompoundRegistry {
                     CompoundPair("nitrogen", 4),
                     CompoundPair("oxygen", 2))
         })
+        addInternal(Compound {
+            name = "mercury_sulfide"
+            color = Color(200, 50, 20)
+            shiftedSlots = 4
+            components = listOf(
+                    CompoundPair("mercury", 1),
+                    CompoundPair("sulfur", 1))
+        })
     }
 
     private fun addInternal(compound: ChemicalCompound) {

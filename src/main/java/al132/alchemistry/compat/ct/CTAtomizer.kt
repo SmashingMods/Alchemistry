@@ -27,7 +27,7 @@ object CTAtomizer {
             override fun apply() {
                 val inputStack = input.internal as FluidStack
                 val outputStack = output.internal as ItemStack
-                ModRecipes.atomizerRecipes.add(AtomizerRecipe(inputStack, outputStack))
+                ModRecipes.atomizerRecipes.add(AtomizerRecipe(false,inputStack, outputStack))
             }
         })
     }

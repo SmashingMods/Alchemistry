@@ -16,6 +16,7 @@ object ModItems {
 
     var elements = ItemElement("element")
     var compounds = ItemCompound("compound")
+    var ingots = ItemElementIngot("ingot")
     var mineralSalt = ItemBase("mineral_salt")
     var condensedMilk = ItemBase("condensed_milk")
     var fertilizer = ItemFertilizer()
@@ -38,7 +39,8 @@ object ModItems {
             fertilizer,
             obsidianBreaker,
             elements,
-            compounds)
+            compounds,
+            ingots)
 
     fun registerItems(event: RegistryEvent.Register<Item>) = items.forEach { it.registerItem(event) }
 
@@ -49,8 +51,9 @@ object ModItems {
     fun initColors() {
         val colorHandler = ItemColorHandler()
         val itemColors = Minecraft.getMinecraft().itemColors
-        //itemColors.registerItemColorHandler(colorHandler, elements)
         itemColors.registerItemColorHandler(colorHandler, compounds)
+        itemColors.registerItemColorHandler(colorHandler, ingots)
+
     }
 }
 

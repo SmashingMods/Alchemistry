@@ -1,3 +1,18 @@
+1.0.7
+===
+-Flint now worth 3 silicon dioxide instead of 4
+-Protein Dissolver recipe no longer has randomized output
+-Added a few new miscellaneous mod compat recipes for the liquifier/atomizer
+
+1.0.6
+===
+-Added (oredicted) ingots for all elements that make remotely make sense (i.e. not iron, gold, mercury, or most non-metals)
+-Red dye is now mapped to mercury sulfide instead of iron oxide
+
+1.0.5
+===
+-bugfix for compat with some other mods
+
 1.0.4
 ===
 -Decided to remove all recipes

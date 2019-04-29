@@ -206,9 +206,12 @@ item.alchemistry:compound_cocaine.name=Cocaine
 item.alchemistry:compound_penicillin.name=Penicillin
 item.alchemistry:compound_acetylsalicylic_acid.name=Acetylsalicylic Acid
 item.alchemistry:compound_caffeine.name=Caffeine
+item.alchemistry:compound_mercury_sulfide.name=Mercury Sulfide
 
 generic_potion_compound.tooltip=Has an effect when consumed
 spiked_food.tooltip=Spiked with
+
+element_ingot.name=Ingot
 
 
 

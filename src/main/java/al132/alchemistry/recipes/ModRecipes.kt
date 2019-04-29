@@ -2,6 +2,7 @@ package al132.alchemistry.recipes
 
 import al132.alchemistry.chemistry.CompoundRegistry
 import al132.alchemistry.chemistry.ElementRegistry
+import al132.alchemistry.items.ItemElementIngot
 import al132.alchemistry.items.ModItems
 import al132.alchemistry.utils.extensions.toCompoundStack
 import al132.alchemistry.utils.extensions.toElementStack
@@ -61,6 +62,7 @@ object ModRecipes {
             DissolverOreData("plate", 16, metals))
 
     fun init() {
+        oredictIngots()
         initElectrolyzerRecipes()
         initEvaporatorRecipes()
         initFuelHandler()
@@ -69,6 +71,13 @@ object ModRecipes {
         initAtomizerRecipes()
         initLiquifierRecipes()
         initFissionRecipes()
+    }
+
+    fun oredictIngots() {
+        (1 until 119).filterNot { ItemElementIngot.invalidIngots.contains(it) }.forEach { i ->
+            val elementName: String = ElementRegistry[i]!!.name.capitalize()
+            OreDictionary.registerOre("ingot$elementName", ModItems.ingots.toStack(meta = i))
+        }
     }
 /*
 
@@ -214,7 +223,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Items.FLINT.toIngredient()
             output {
-                addGroup { addStack { "silicon_dioxide".toStack(4) } }
+                addGroup { addStack { "silicon_dioxide".toStack(3) } }
             }
         })
 
@@ -926,7 +935,7 @@ object ModRecipes {
         {
             input = "dyeRed".toOre()
             output {
-                addStack { "iron_oxide".toCompoundStack(quantity = 4) }
+                addStack { "mercury_sulfide".toCompoundStack(quantity = 4) }
             }
         })
 
@@ -1075,12 +1084,13 @@ object ModRecipes {
         {
             input = "protein".toCompoundStack().toIngredient()
             output {
-                rolls = 14
-                addGroup { addStack { "oxygen".toElementStack() }; probability = 10.0 }
-                addGroup { addStack { "carbon".toElementStack() }; probability = 30.0 }
-                addGroup { addStack { "nitrogen".toElementStack() }; probability = 5.0 }
-                addGroup { addStack { "sulfur".toElementStack() }; probability = 5.0 }
-                addGroup { addStack { "hydrogen".toElementStack() }; probability = 20.0 }
+                addGroup {
+                    addStack { "carbon".toStack(3) };
+                    addStack { "hydrogen".toStack(7) }
+                    addStack { "nitrogen".toStack() }
+                    addStack { "oxygen".toStack(2) }
+                    addStack { "sulfur".toStack() }
+                }
             }
         })
 
@@ -1955,7 +1965,7 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Items.FLINT.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        null, "silicon_dioxide".toStack(4), null)))
+                        null, "silicon_dioxide".toStack(3), null)))
 
         combinerRecipes.add(CombinerRecipe(Items.POTATO.toStack(),
                 listOf("starch".toStack(), "potassium".toStack(4))))
@@ -2025,7 +2035,7 @@ object ModRecipes {
 
 
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 0), listOf("titanium_oxide".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 1), listOf(null, null, null, null, null, "iron_oxide".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 1), listOf("mercury_sulfide".toStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 2), listOf("nickel_chloride".toCompoundStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 3), listOf("caffeine".toStack(1), "cellulose".toStack(1))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 5), listOf("potassium_permanganate".toCompoundStack(4))))
@@ -2080,30 +2090,37 @@ object ModRecipes {
     }
 
     fun initAtomizerRecipes() {
-        atomizerRecipes.add(AtomizerRecipe(FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(8)))
+        atomizerRecipes.add(AtomizerRecipe(true, FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(8)))
 
+        if (fluidExists("if.protein")) {
+            atomizerRecipes.add(AtomizerRecipe(true,
+                    FluidRegistry.getFluidStack("if.protein", 500)!!, "protein".toCompoundStack(8)))
+        }
         if (fluidExists("canolaoil")) {
-            atomizerRecipes.add(AtomizerRecipe(
-                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(1)))
+            atomizerRecipes.add(AtomizerRecipe(true,
+                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(4)))
         }
         if (fluidExists("cocoa_butter")) {
-            atomizerRecipes.add(AtomizerRecipe(
+            atomizerRecipes.add(AtomizerRecipe(true,
                     FluidRegistry.getFluidStack("cocoa_butter", 144)!!, "triglyceride".toCompoundStack(1)))
+        }
+        if (fluidExists("ethanol")) {
+            atomizerRecipes.add(AtomizerRecipe(true,
+                    FluidRegistry.getFluidStack("ethanol", 500)!!, "ethanol".toCompoundStack(8)))
         }
 
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
-                atomizerRecipes.add(AtomizerRecipe(
+                atomizerRecipes.add(AtomizerRecipe(true,
                         FluidRegistry.getFluidStack(it.name, 144)!!, it.name.toElementStack(16)))
             }
         }
     }
 
     fun initLiquifierRecipes() {
-        liquifierRecipes.add(LiquifierRecipe("water".toCompoundStack(8), FluidStack(FluidRegistry.WATER, 500)))
-        if (fluidExists("ethanol")) {
-            liquifierRecipes.add(LiquifierRecipe("ethanol".toCompoundStack(16),
-                    FluidRegistry.getFluidStack("ethanol", 500)!!))
+
+        atomizerRecipes.filter { it.reversible }.forEach {
+            liquifierRecipes.add(LiquifierRecipe(it.output, it.input))
         }
 
         ElementRegistry.getAllElements().forEach {

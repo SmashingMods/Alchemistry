@@ -7,6 +7,7 @@ import al132.alchemistry.tiles.*
 import al132.alib.blocks.ALBlock
 import al132.alib.blocks.ALTileBlock
 import net.minecraft.block.Block
+import net.minecraft.block.material.Material
 import net.minecraft.item.Item
 import net.minecraft.tileentity.TileEntity
 import net.minecraftforge.event.RegistryEvent
@@ -38,6 +39,8 @@ object ModBlocks {
     val kryptonLight = LightBlock("krypton_light") //light yellow or green
     val xenonLight = LightBlock("xenon_light") //gray-blue
 
+    val wetSand = WetSandBlock()
+
     fun registerBlocks(event: RegistryEvent.Register<Block>) = blocks.forEach { it.registerBlock(event) }
 
     fun registerItemBlocks(event: RegistryEvent.Register<Item>) = blocks.forEach { it.registerItemBlock(event) }
@@ -46,7 +49,7 @@ object ModBlocks {
     fun registerModels() = blocks.forEach { it.registerModel() }
 }
 
-open class BaseBlock(name: String) : ALBlock(name, Reference.creativeTab) {
+open class BaseBlock(name: String, material: Material = Material.ROCK) : ALBlock(name, Reference.creativeTab,material) {
     init {
         ModBlocks.blocks.add(this)
     }

@@ -17,6 +17,8 @@ tile.xenon_light.name=Xenon Light
 tile.helium_light.name=Helium Light
 tile.argon_light.name=Argon Light
 
+tile.wet_sand.name=Wet Sand
+
 
 item.alchemistry:mineral_salt.name=Mineral Salt
 item.alchemistry:fertilizer.name=Fertilizer
@@ -238,6 +240,7 @@ tile.fission_controller.tooltip=Requires
 tile.fusion_controller.tooltip=Requires
 
 tile.evaporator.tooltip=Operates 50% slower in non-dry biomes
+tile.wet_sand.tooltip=Able to grow sugarcane without adjacent water blocks
 
 tile.combiner.unlock_recipe=Unlock Recipe
 tile.combiner.lock_recipe=Lock Recipe

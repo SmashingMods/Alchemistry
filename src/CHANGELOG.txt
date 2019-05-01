@@ -1,3 +1,8 @@
+1.0.8
+===
+-Added 'Wet Sand', allows you to grow sugarcane without adjacent water
+-Update ru_ru.lang (thanks to Kellixon)
+
 1.0.7
 ===
 -Flint now worth 3 silicon dioxide instead of 4

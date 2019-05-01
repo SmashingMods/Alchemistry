@@ -205,8 +205,10 @@ item.alchemistry:compound_epinephrine.name=Адреналин
 item.alchemistry:compound_cocaine.name=Кокаин
 item.alchemistry:compound_penicillin.name=Пенициллин
 item.alchemistry:compound_acetylsalicylic_acid.name=Ацетилсалициловая кислота
+item.alchemistry:compound_caffeine.name=Кофеин
 
 generic_potion_compound.tooltip=Имеет эффект при употреблении
+spiked_food.tooltip=Пронзённая с
 
 
 

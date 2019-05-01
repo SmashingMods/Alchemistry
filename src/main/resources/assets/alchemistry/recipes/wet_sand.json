@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WSW",
+    "WWW"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:sand",
+      "data": 0
+    },
+    "W": {
+      "item": "alchemistry:compound",
+      "data": 7
+    }
+  },
+  "result": {
+    "item": "alchemistry:wet_sand"
+ }
+}

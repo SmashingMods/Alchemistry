@@ -9,6 +9,7 @@ import crafttweaker.annotations.ZenRegister
 import crafttweaker.api.item.IItemStack
 import crafttweaker.api.liquid.ILiquidStack
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.Ingredient
 import net.minecraftforge.fluids.FluidStack
 import stanhebben.zenscript.annotations.ZenClass
 import stanhebben.zenscript.annotations.ZenMethod
@@ -35,7 +36,7 @@ object CTElectrolyzer {
                 val output3Stack: ItemStack = (output3?.internal as? ItemStack) ?: ItemStack.EMPTY
                 val output4Stack: ItemStack = (output4?.internal as? ItemStack) ?: ItemStack.EMPTY
                 if (inputStack != null && electrolytestack != null && output1Stack != null && output2Stack != null) {
-                    val recipe = ElectrolyzerRecipe(inputStack, electrolytestack, "", electrolyteConsumptionChance,
+                    val recipe = ElectrolyzerRecipe(inputStack, Ingredient.fromStacks(electrolytestack), electrolyteConsumptionChance,
                             output1Stack, output2Stack, output3Stack, output3Chance ?: 0, output4Stack, output4Chance
                             ?: 0)
                     ModRecipes.electrolyzerRecipes.add(recipe)

@@ -1,20 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ISI",
-    "SBS",
-    "ISI"
+    "AMA",
+    "MBM",
+    "AMA"
   ],
   "key": {
     "B": {
       "item": "minecraft:blaze_powder"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "A": {
+      "item": "alchemistry:ingot",
+      "data": 56
     },
-    "S": {
-      "item": "minecraft:stone",
-      "data": 0
+    "M": {
+      "item": "alchemistry:ingot",
+      "data": 12
     }
   },
   "result": {

@@ -1,20 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ISI",
-    "SES",
-    "ISI"
+    "WNW",
+    "NEN",
+    "WNW"
   ],
   "key": {
     "E": {
       "item": "minecraft:ender_pearl"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "W": {
+      "item": "alchemistry:ingot",
+      "data": 74
     },
-    "S": {
-      "item": "minecraft:stone",
-      "data": 0
+    "N": {
+      "item": "alchemistry:ingot",
+      "data": 60
     }
   },
   "result": {

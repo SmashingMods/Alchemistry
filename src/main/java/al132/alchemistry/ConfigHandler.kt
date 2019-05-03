@@ -63,7 +63,7 @@ object ConfigHandler {
         
         combinerEnergyPerTick = config?.getInt("combinerEnergyPerTick", "Machines", 200, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Chemical Combiner")
-        combinerProcessingTicks = config?.getInt("combinerProcessingTicks", "Machines", 10, 1, Integer.MAX_VALUE,
+        combinerProcessingTicks = config?.getInt("combinerProcessingTicks", "Machines", 5, 1, Integer.MAX_VALUE,
                 "Set the number of ticks per operation for the Chemical Combiner")
         dissolverEnergyPerTick = config?.getInt("dissolverEnergyPerTick", "Machines", 100, 0, Integer.MAX_VALUE,
                 "Set the energy consumption rate per tick for the Chemical Dissolver")
@@ -91,7 +91,7 @@ object ConfigHandler {
                 "Max energy capacity of the Atomizer")
         liquifierEnergyCapacity = config?.getInt("liquifierEnergyCapacity", "Machines", 10000, 1, Integer.MAX_VALUE,
                 "Max energy capacity of the Liquifier")
-        dissolverSpeed = config?.getInt("dissolverSpeed", "Machines", 2, 1, 64,
+        dissolverSpeed = config?.getInt("dissolverSpeed", "Machines", 8, 1, 64,
                 "The max amount of items that the Dissolver will output each tick. Please note: only one element will be outputted per tick," +
                         " \nand only the elements from one input are eligible at a time. For example: Cellulose (C6 H10 O5) with speed 4 would be outputted like so," +
                         " \nwith each comma-seperated value representing 1 tick [4xC,2xC,4xH,4xH,2xH,4xO,1xO]")

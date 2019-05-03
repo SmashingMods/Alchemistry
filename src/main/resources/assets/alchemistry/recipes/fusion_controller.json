@@ -1,16 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "ICI",
-    "GPI",
-    "ICI"
+    "SCS",
+    "GPS",
+    "SCS"
   ],
   "key": {
     "P": {
       "item": "minecraft:ender_pearl"
     },
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "S": {
+      "item": "alchemistry:ingot",
+      "data": 34
     },
     "G": {
       "item": "minecraft:glass"

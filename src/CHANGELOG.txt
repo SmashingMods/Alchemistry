@@ -1,3 +1,15 @@
+1.0.10
+===
+-Changed default recipes for Fission & Fusion parts to include some of the new elemental ingots
+-Fixed up some miscellaneous missing/clashing recipes
+-Internal Refactoring
+
+1.0.9
+===
+-Tweaked the default config speed of the Dissolver & Combiner to both be faster
+-Fixed the Chemical Combiner not starting up again (without manual intervention) after a world is re-opened when a recipe isn't set.
+-Fixed recipe clash between itemSilicon and ingotSilicon
+
 1.0.8
 ===
 -Added 'Wet Sand', allows you to grow sugarcane without adjacent water

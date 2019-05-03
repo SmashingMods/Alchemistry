@@ -31,7 +31,7 @@ data class ChemicalCompound constructor(override var name: String = "",
                                         var autoCombinerRecipe: Boolean = true,
                                         var shiftedSlots: Int = 0,
                                         var autoDissolverRecipe: Boolean = true,
-                                        var components: List<CompoundPair> = ArrayList<CompoundPair>(),
+                                        var components: List<CompoundPair> = ArrayList(),
                                         var isInternalCompound: Boolean = true) : ICompoundComponent {
 
     override val item: Item
@@ -39,7 +39,7 @@ data class ChemicalCompound constructor(override var name: String = "",
 
     override fun toItemStack(quantity: Int) = ItemStack(item, quantity, this.meta)
 
-    fun toItemStackList(): List<ItemStack> = components.mapTo(ArrayList<ItemStack>(), { it.toStack() })
+    fun toItemStackList(): List<ItemStack> = components.mapTo(ArrayList()) { it.toStack() }
 
     override val meta: Int
         get() = CompoundRegistry.getMeta(this.name)

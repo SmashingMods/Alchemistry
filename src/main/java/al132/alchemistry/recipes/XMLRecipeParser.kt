@@ -7,7 +7,9 @@ import al132.alchemistry.utils.extensions.toStack
 import al132.alib.utils.extensions.areItemStacksEqual
 import al132.alib.utils.extensions.areItemsEqual
 import al132.alib.utils.extensions.toIngredient
+import al132.alib.utils.extensions.toStack
 import net.minecraft.item.ItemStack
+import net.minecraft.item.crafting.Ingredient
 import net.minecraftforge.fluids.Fluid
 import net.minecraftforge.fluids.FluidRegistry
 import net.minecraftforge.fluids.FluidStack
@@ -84,20 +86,18 @@ class XMLRecipeParser {
             if (inputFluid != null && outputs.count() > 0) {
                 if (OreDictionary.doesOreNameExist(electrolyteString)) {
                     ModRecipes.electrolyzerRecipes.add(ElectrolyzerRecipe(
-                            fluid = inputFluid,
-                            fluidQuantity = inputQuantity,
-                            electrolyte = electrolyteString,
-                            elecConsumption = electrolyteConsumptionChance,
+                            inputFluid = FluidStack(inputFluid, inputQuantity),
+                            _electrolyte = Ingredient.fromStacks(*OreDictionary.getOres(electrolyteString).toTypedArray()),
+                            electrolyteConsumptionChance = electrolyteConsumptionChance,
                             outputOne = outputs[0],
                             outputTwo = outputs[1]))
                     Alchemistry.logger.info("Added Electrolyzer recipe for [${inputFluid.name},$inputQuantity,$electrolyteString]")
 
                 } else if (!electrolyteStack.isEmpty) {
                     ModRecipes.electrolyzerRecipes.add(ElectrolyzerRecipe(
-                            fluid = inputFluid,
-                            fluidQuantity = inputQuantity,
-                            electrolyte = electrolyteStack,
-                            elecConsumption = electrolyteConsumptionChance,
+                            inputFluid = inputFluid.toStack(inputQuantity),
+                            _electrolyte = Ingredient.fromStacks(electrolyteStack),
+                            electrolyteConsumptionChance = electrolyteConsumptionChance,
                             outputOne = outputs[0],
                             outputTwo = outputs[1]))
                     Alchemistry.logger.info("Added Electrolyzer recipe for [${inputFluid.name},$inputQuantity,$electrolyteStack]")
@@ -108,7 +108,7 @@ class XMLRecipeParser {
                     .filter {
                         it.input.fluid == inputFluid
                                 && it.input.amount == inputQuantity
-                                && (it.matchesElectrolyte(electrolyteStack) || it.matchesElectrolyte(electrolyteString))
+                                && (it.matchesElectrolyte(electrolyteStack))
                     }
                     .forEach {
                         ModRecipes.electrolyzerRecipes.remove(it)
@@ -232,7 +232,10 @@ class XMLRecipeParser {
                 if (OreDictionary.doesOreNameExist(inputStr)) {
                     ModRecipes.dissolverRecipes
                             //TODO does this work properly?
-                            .filter { it.input?.matchingStacks?.contentEquals(OreDictionary.getOres(inputStr).toArray())?:false }
+                            .filter {
+                                it.input?.matchingStacks?.contentEquals(OreDictionary.getOres(inputStr).toArray())
+                                        ?: false
+                            }
                             .forEach {
                                 ModRecipes.dissolverRecipes.remove(it)
                                 Alchemistry.logger.info("Removed Chemical Dissolver recipe: $it")

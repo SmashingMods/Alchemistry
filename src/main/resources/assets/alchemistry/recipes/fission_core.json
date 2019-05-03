@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "IBI",
-    "IBI",
-    "IBI"
+    "CBC",
+    "CBC",
+    "CBC"
   ],
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
+    "C": {
+      "item": "alchemistry:ingot",
+      "data": 24
     },
     "B": {
       "item": "minecraft:blaze_rod"

@@ -231,7 +231,6 @@ object ModRecipes {
             if (oreNotEmpty(it)) {
                 dissolverRecipes.add(dissolverRecipe {
                     input = it.toOre()
-                    reversible = true
                     output {
                         addGroup { addStack { "sodium_chloride".toStack(8) } }
                     }
@@ -243,7 +242,6 @@ object ModRecipes {
             if (oreNotEmpty(it)) {
                 dissolverRecipes.add(dissolverRecipe {
                     input = it.toOre()
-                    reversible = true
                     output {
                         addGroup { addStack { "potassium_nitrate".toStack(8) } }
                     }
@@ -1211,7 +1209,6 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe
         {
             input = Items.COAL.toIngredient()
-            reversible = true
             output {
                 addStack { "carbon".toElementStack(quantity = 8) }
             }
@@ -1220,7 +1217,6 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe
         {
             input = Items.COAL.toIngredient(meta = 1)
-            reversible = false
             output {
                 addStack { "carbon".toElementStack(quantity = 8) }
             }
@@ -1293,7 +1289,6 @@ object ModRecipes {
         if (oreNotEmpty("itemSilicon")) {
             dissolverRecipes.add(dissolverRecipe {
                 input = "itemSilicon".toOre()
-                reversible = true
                 output {
                     addStack { "silicon".toElementStack(16) }
                 }
@@ -1394,6 +1389,7 @@ object ModRecipes {
                     addGroup { addStack { "indium".toElementStack(1) }; probability = 1.5 }
                     addGroup { addStack { "manganese".toElementStack(1) }; probability = 2.0 }
                     addGroup { addStack { "osmium".toElementStack(1) }; probability = 2.0 }
+                    addGroup { addStack { "tin".toStack()}; probability = 3.0; }
                 }
             })
         }
@@ -1616,31 +1612,36 @@ object ModRecipes {
         //addDissolverRecipesForAlloy("Electrum", "gold", 1, "silver", 1, conservationOfMass = true)
         //addDissolverRecipesForAlloy("ElectricalSteel", "iron", 1, "carbon", 1, "silicon", 1, conservationOfMass = false)
         //addDissolverRecipesForAlloy("Invar", "iron", 2, "nickel", 1, conservationOfMass = true)
-        listOf("ingotBronze", "plateBronze", "dustBronze", "blockBronze").forEach {
-            dissolverRecipes.add(dissolverRecipe {
-                input = it.toOre()
-                output {
-                    addGroup {
-                        addStack { "copper".toStack(if (it == "blockBronze") 9 * 12 else 12) }
-                        addStack { "tin".toStack(if (it == "blockBronze") 9 * 4 else 4) }
-                    }
+        listOf("ingotBronze", "plateBronze", "dustBronze", "blockBronze")
+                .filter { oreNotEmpty(it) }
+                .forEach {
+                    dissolverRecipes.add(dissolverRecipe {
+                        input = it.toOre()
+                        output {
+                            addGroup {
+                                addStack { "copper".toStack(if (it == "blockBronze") 9 * 12 else 12) }
+                                addStack { "tin".toStack(if (it == "blockBronze") 9 * 4 else 4) }
+                            }
+                        }
+                    })
                 }
-            })
-        }
 
-        listOf("ingotElectrum", "plateElectrum", "dustElectrum", "blockElectrum").forEach {
-            dissolverRecipes.add(dissolverRecipe {
-                input = it.toOre()
-                output {
-                    addGroup {
-                        addStack { "gold".toStack(if (it == "blockElectrum") 9 * 8 else 8) }
-                        addStack { "silver".toStack(if (it == "blockElectrum") 9 * 8 else 8) }
-                    }
+        listOf("ingotElectrum", "plateElectrum", "dustElectrum", "blockElectrum")
+                .filter { oreNotEmpty(it) }
+                .forEach {
+                    dissolverRecipes.add(dissolverRecipe {
+                        input = it.toOre()
+                        output {
+                            addGroup {
+                                addStack { "gold".toStack(if (it == "blockElectrum") 9 * 8 else 8) }
+                                addStack { "silver".toStack(if (it == "blockElectrum") 9 * 8 else 8) }
+                            }
+                        }
+                    })
                 }
-            })
-        }
 
-        listOf("gemRuby", "dustRuby", "plateRuby").filter { oreNotEmpty(it) }
+        listOf("gemRuby", "dustRuby", "plateRuby")
+                .filter { oreNotEmpty(it) }
                 .forEach { ore ->
                     dissolverRecipes.add(dissolverRecipe {
                         input = ore.toOre()
@@ -1685,15 +1686,6 @@ object ModRecipes {
             }
         })
 
-        if (oreNotEmpty("itemSalt")) {
-            dissolverRecipes.add(dissolverRecipe {
-                input = "itemSalt".toOre()
-                reversible = true
-                output {
-                    addStack { "sodium_chloride".toCompoundStack(quantity = 16) }
-                }
-            })
-        }
         dissolverRecipes.add(dissolverRecipe
         {
             input = "blockCactus".toOre()
@@ -1767,15 +1759,15 @@ object ModRecipes {
     fun initElectrolyzerRecipes() {
         electrolyzerRecipes.add(ElectrolyzerRecipe(
                 inputFluid = FluidRegistry.WATER.toStack(quantity = 125),
-                electrolyteInternal = "calcium_carbonate".toCompoundStack(),
-                electrolyteConsumptionChanceInternal = 20,
+                _electrolyte = "calcium_carbonate".toStack().toIngredient(),
+                electrolyteConsumptionChance = 20,
                 outputOne = "hydrogen".toElementStack(4),
                 outputTwo = "oxygen".toElementStack(2)))
 
         electrolyzerRecipes.add(ElectrolyzerRecipe(
                 inputFluid = FluidRegistry.WATER.toStack(125),
-                electrolyteInternal = "sodium_chloride".toCompoundStack(),
-                electrolyteConsumptionChanceInternal = 20,
+                _electrolyte = "sodium_chloride".toStack().toIngredient(),
+                electrolyteConsumptionChance = 20,
                 outputOne = "hydrogen".toElementStack(2),
                 outputTwo = "oxygen".toElementStack(1),
                 outputThree = "chlorine".toElementStack(2), output3Probability = 10))
@@ -1824,7 +1816,10 @@ object ModRecipes {
 
     fun initCombinerRecipes() {
         combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(meta = 1),
-                listOf(ItemStack.EMPTY, "carbon".toElementStack(8))))
+                listOf(null, null, "carbon".toStack(8))))
+
+        combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(),
+                listOf(null, "carbon".toStack(8))))
 
 
         metals.forEach { entry ->
@@ -1840,6 +1835,21 @@ object ModRecipes {
                         listOf(if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toElementStack(16))))
             }
         }
+
+        listOf("lumpSalt", "materialSalt", "salt", "itemSalt", "dustSalt", "foodSalt")
+                .filter { oreNotEmpty(it) }
+                .forEachIndexed { i, name ->
+                    val input = (0 until i).mapTo(ArrayList<ItemStack>()) { ItemStack.EMPTY }.toMutableList()
+                    combinerRecipes.add(CombinerRecipe(firstOre(name), input.apply { add("sodium_chloride".toStack(8)) }))
+                }
+
+        listOf("dustSaltpeter", "nitrate", "nitre")
+                .filter { oreNotEmpty(it) }
+                .forEachIndexed { i, name ->
+                    val input = (0 until i).mapTo(ArrayList<ItemStack>()) { ItemStack.EMPTY }.toMutableList()
+                    combinerRecipes.add(CombinerRecipe(firstOre(name), input.apply { add("potassium_nitrate".toStack(8)) }))
+                }
+
         combinerRecipes.add(CombinerRecipe("triglyceride".toStack(),
                 listOf(null, null, "oxygen".toStack(2),
                         null, "hydrogen".toStack(32), null,
@@ -1957,6 +1967,12 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Blocks.STONE.toStack(meta = 3), //diorite
                 listOf(null, null, null,
                         null, "silicon_dioxide".toStack(1))))
+
+        if (oreNotEmpty("itemSilicon")) {
+            val rubyStack = firstOre("itemSilicon")
+            combinerRecipes.add(CombinerRecipe(rubyStack,
+                    listOf(null, "silicon".toStack(16))))
+        }
 
         combinerRecipes.add(CombinerRecipe(Blocks.STONE.toStack(meta = 5), //andesite
                 listOf(null, null, null,

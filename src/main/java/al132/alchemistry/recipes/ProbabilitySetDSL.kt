@@ -13,7 +13,7 @@ inline fun dissolverRecipe(init: DissolverRecipe.() -> Unit): DissolverRecipe {
 }
 
 
-class ProbabilitySetDSL(var components: ArrayList<ProbabilityGroup> = ArrayList<ProbabilityGroup>(),
+class ProbabilitySetDSL(var components: ArrayList<ProbabilityGroup> = ArrayList(),
                         var rolls: Int = 1,
                         var relativeProbability: Boolean = true) {
 

@@ -99,7 +99,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
             this.currentRecipe = CombinerRecipe.matchOutput(recipeTarget)
             clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
         } else {
-            this.currentRecipe = null
+            this.updateRecipe()
             clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY)
         }
     }

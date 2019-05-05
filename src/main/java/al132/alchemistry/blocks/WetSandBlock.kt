@@ -3,13 +3,13 @@ package al132.alchemistry.blocks
 import al132.alchemistry.items.TooltipItemBlock
 import al132.alib.utils.extensions.translate
 import net.minecraft.block.Block
+import net.minecraft.block.BlockCactus
 import net.minecraft.block.BlockFalling.fallInstantly
+import net.minecraft.block.BlockReed
 import net.minecraft.block.material.Material
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.item.EntityFallingBlock
 import net.minecraft.init.Blocks
-import net.minecraft.init.Blocks.CACTUS
-import net.minecraft.init.Blocks.REEDS
 import net.minecraft.item.Item
 import net.minecraft.util.EnumFacing
 import net.minecraft.util.EnumParticleTypes
@@ -35,7 +35,7 @@ class WetSandBlock : BaseBlock("wet_sand", Material.SAND) {
 
     override fun canSustainPlant(state: IBlockState, world: IBlockAccess, pos: BlockPos, direction: EnumFacing, plantable: IPlantable): Boolean {
         val plant = plantable.getPlant(world, pos.offset(direction))
-        return plant.block === CACTUS || plant.block === REEDS
+        return plant.block is BlockCactus || plant.block is BlockReed
     }
 
     /**

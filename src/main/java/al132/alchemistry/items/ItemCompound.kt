@@ -1,6 +1,6 @@
 package al132.alchemistry.items
 
-import al132.alchemistry.ClientProxy
+import al132.alchemistry.capability.CapabilityDrugInfo
 import al132.alchemistry.chemistry.ChemicalCompound
 import al132.alchemistry.chemistry.CompoundRegistry
 import al132.alchemistry.utils.extensions.toPotion
@@ -108,7 +108,7 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
 
             add(DankMolecule(CompoundRegistry["psilocybin"]!!.meta, 600, 2,
                     listOf("night_vision".toPotion(), "glowing".toPotion(), "slowness".toPotion()))
-            { e -> ClientProxy.highAF = 1200 })
+            { e: EntityPlayer -> e.getCapability(CapabilityDrugInfo.DRUG_INFO, null)?.psilocybinTicks = 1100 })
 
             add(DankMolecule(CompoundRegistry["penicillin"]!!.meta, 0, 0, listOf())
             { e -> e.clearActivePotions(); e.heal(2.0f) })

@@ -1,5 +1,6 @@
 package al132.alchemistry
 
+import al132.alchemistry.capability.AlchemistryDrugInfo
 import al132.alchemistry.chemistry.CompoundRegistry
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.client.GuiHandler
@@ -7,7 +8,11 @@ import al132.alchemistry.network.PacketHandler
 import al132.alchemistry.recipes.ModRecipes
 import al132.alchemistry.recipes.XMLRecipeParser
 import crafttweaker.CraftTweakerAPI
+import net.minecraft.nbt.NBTBase
+import net.minecraft.util.EnumFacing
 import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.fml.common.Loader
 import net.minecraftforge.fml.common.event.FMLInitializationEvent
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent
@@ -32,9 +37,10 @@ open class CommonProxy {
                 out.println("</recipes>")
             }
         }
+        registerCapabilities()
         ElementRegistry.init()
         CompoundRegistry.init()
-
+        ModRecipes.initOredict()
         PacketHandler.registerMessages(Reference.MODID)
 
         if (Loader.isModLoaded("crafttweaker")) CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
@@ -49,5 +55,19 @@ open class CommonProxy {
 
     open fun postInit(e: FMLPostInitializationEvent) {
         ModRecipes.init()
+    }
+
+    private fun registerCapabilities() {
+        CapabilityManager.INSTANCE.register(AlchemistryDrugInfo::class.java, object : Capability.IStorage<AlchemistryDrugInfo> {
+
+            override fun writeNBT(capability: Capability<AlchemistryDrugInfo>, instance: AlchemistryDrugInfo, side: EnumFacing): NBTBase? {
+                throw UnsupportedOperationException()
+            }
+
+            override fun readNBT(capability: Capability<AlchemistryDrugInfo>, instance: AlchemistryDrugInfo, side: EnumFacing, nbt: NBTBase) {
+                throw UnsupportedOperationException()
+            }
+
+        }) { throw UnsupportedOperationException() }
     }
 }

@@ -1,3 +1,17 @@
+1.0.13
+===
+-Fix crash with the "Hooked" mod, related to me not registering my capability
+-Wet sand should now support any modded blocks that inherit from BlockCactus or BlockReed
+
+1.0.12
+===
+Psilocybin will no longer afflict all players on the server at once whenever it is consumed
+
+
+1.0.11
+===
+-Moved Oredict registration to pre-init, should fix compatibility with unidict and others
+
 1.0.10
 ===
 -Changed default recipes for Fission & Fusion parts to include some of the new elemental ingots

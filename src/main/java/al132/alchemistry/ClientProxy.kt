@@ -25,7 +25,7 @@ class ClientProxy : CommonProxy() {
     }
 
     companion object {
-        var highAF: Int = 0
-        var cumulativeFovModifier = 1.0f
+        //var highAF: Int = 0
+        //var cumulativeFovModifier = 1.0f
     }
 }

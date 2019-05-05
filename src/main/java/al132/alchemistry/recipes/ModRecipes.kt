@@ -62,7 +62,6 @@ object ModRecipes {
             DissolverOreData("plate", 16, metals))
 
     fun init() {
-        oredictIngots()
         initElectrolyzerRecipes()
         initEvaporatorRecipes()
         initFuelHandler()
@@ -73,7 +72,7 @@ object ModRecipes {
         initFissionRecipes()
     }
 
-    fun oredictIngots() {
+    fun initOredict() {
         (1 until 119).filterNot { ItemElementIngot.invalidIngots.contains(it) }.forEach { i ->
             val elementName: String = ElementRegistry[i]!!.name.capitalize()
             OreDictionary.registerOre("ingot$elementName", ModItems.ingots.toStack(meta = i))

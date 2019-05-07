@@ -112,6 +112,7 @@ compileTestKotlin {
     }
 }
 
+/*
 jar {
     manifest {
         //attributes 'FMLAT': 'alchemistry_at.cfg'
@@ -119,3 +120,4 @@ jar {
         attributes 'FMLCorePlugin': 'al132.alchemistry.core.AlchemistryCore'
     }
 }
+*/

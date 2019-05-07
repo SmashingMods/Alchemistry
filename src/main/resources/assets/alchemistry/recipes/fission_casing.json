@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "pattern": [
     "AMA",
     "MBM",
@@ -10,12 +10,12 @@
       "item": "minecraft:blaze_powder"
     },
     "A": {
-      "item": "alchemistry:ingot",
-      "data": 56
+      "type": "forge:ore_dict",
+      "ore": "ingotBarium"
     },
     "M": {
-      "item": "alchemistry:ingot",
-      "data": 12
+      "type": "forge:ore_dict",
+      "ore": "ingotMagnesium"
     }
   },
   "result": {

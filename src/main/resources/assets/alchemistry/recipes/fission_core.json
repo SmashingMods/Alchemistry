@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "pattern": [
     "CBC",
     "CBC",
@@ -7,8 +7,8 @@
   ],
   "key": {
     "C": {
-      "item": "alchemistry:ingot",
-      "data": 24
+      "type": "forge:ore_dict",
+      "ore": "ingotChromium"
     },
     "B": {
       "item": "minecraft:blaze_rod"

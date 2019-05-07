@@ -1,3 +1,7 @@
+1.0.14
+===
+Fission & Fusion recipes will now use oredicted ingots
+
 1.0.13
 ===
 -Fix crash with the "Hooked" mod, related to me not registering my capability
@@ -6,7 +10,6 @@
 1.0.12
 ===
 Psilocybin will no longer afflict all players on the server at once whenever it is consumed
-
 
 1.0.11
 ===

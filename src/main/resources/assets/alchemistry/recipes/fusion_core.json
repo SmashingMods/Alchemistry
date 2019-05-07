@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "pattern": [
     "TCT",
     "TNT",
@@ -7,8 +7,8 @@
   ],
   "key": {
     "T": {
-      "item": "alchemistry:ingot",
-      "data": 90
+      "type": "forge:ore_dict",
+      "ore": "ingotThorium"
     },
     "C": {
       "item": "alchemistry:fusion_casing"

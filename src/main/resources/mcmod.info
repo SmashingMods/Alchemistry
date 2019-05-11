@@ -2,7 +2,7 @@
 {
   "modid": "alchemistry",
   "name": "Alchemistry",
-  "description": "Alchemistry stuff",
+  "description": "A chemistry mod",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",

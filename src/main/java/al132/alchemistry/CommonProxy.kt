@@ -40,13 +40,13 @@ open class CommonProxy {
         registerCapabilities()
         ElementRegistry.init()
         CompoundRegistry.init()
-        ModRecipes.initOredict()
         PacketHandler.registerMessages(Reference.MODID)
 
         if (Loader.isModLoaded("crafttweaker")) CraftTweakerAPI.tweaker.loadScript(false, "alchemistry")
     }
 
     open fun init(e: FMLInitializationEvent) {
+        ModRecipes.initOredict()
         val files = Reference.configDir.listFiles(FileFilter { it.extension.toLowerCase() == "xml" })
         files.forEach { XMLRecipeParser().init(it.name) }
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())

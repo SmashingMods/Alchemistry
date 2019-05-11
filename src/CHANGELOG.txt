@@ -1,3 +1,9 @@
+1.0.15
+===
+-Fixed debug spam regarding OreDict registration
+-Fixed patchouli guidebook recipe
+
+
 1.0.14
 ===
 Fission & Fusion recipes will now use oredicted ingots

@@ -210,6 +210,10 @@ item.alchemistry:compound_acetylsalicylic_acid.name=Acetylsalicylic Acid
 item.alchemistry:compound_caffeine.name=Caffeine
 item.alchemistry:compound_mercury_sulfide.name=Mercury Sulfide
 
+item.alchemistry:compound_cocaine_family.name=Generic Cola
+item.alchemistry:compound_psilocybin_family.name=Psyllium
+item.alchemistry:compound_mescaline_family.name=Mesquite
+
 generic_potion_compound.tooltip=Has an effect when consumed
 spiked_food.tooltip=Spiked with
 

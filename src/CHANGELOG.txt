@@ -1,3 +1,8 @@
+1.0.16
+===
+-Added a family-friendly config that modifies the names of drug compounds to something more innocuous
+-Added recipes for pufferfish and sponges
+
 1.0.15
 ===
 -Fixed debug spam regarding OreDict registration

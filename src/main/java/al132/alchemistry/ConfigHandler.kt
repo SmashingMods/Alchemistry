@@ -38,6 +38,8 @@ object ConfigHandler {
 
     var dissolverSpeed: Int? = null
 
+    var familyFriendlyMode: Boolean? = null
+
     fun init(configFile: File) {
         if (config == null) {
             config = Configuration(configFile)
@@ -46,6 +48,9 @@ object ConfigHandler {
     }
 
     fun load() {
+
+        familyFriendlyMode = config?.getBoolean("familyFriendlyMode","General",false,
+                "Illegal drug compounds will have their names replaced with more family-friendly versions")
         fissionEnergyCapacity = config?.getInt("fissionEnergyCapacity","Fission",50000,1,Integer.MAX_VALUE,
                 "Max energy capacity of the Fission Multiblock")
         fissionEnergyPerTick = config?.getInt("fissionEnergyperTick","Fission",300,1,Integer.MAX_VALUE,

@@ -11,7 +11,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.potion.Potion
 import net.minecraft.util.ResourceLocation
-import net.minecraftforge.oredict.OreDictionary
 import net.minecraftforge.oredict.OreIngredient
 
 /**
@@ -21,12 +20,6 @@ import net.minecraftforge.oredict.OreIngredient
 fun String.toPotion(): Potion = Potion.getPotionFromResourceLocation(this)!!
 
 fun String.toOre(): OreIngredient = OreIngredient(this)
-
-fun String.toElementStack(quantity: Int = 1): ItemStack =
-        ElementRegistry[this]?.toItemStack(quantity) ?: ItemStack.EMPTY
-
-fun String.toCompoundStack(quantity: Int = 1): ItemStack =
-        CompoundRegistry[this.replace(" ", "_")]?.toItemStack(quantity) ?: ItemStack.EMPTY
 
 fun String.toStack(quantity: Int = 1, meta: Int = 0): ItemStack {
     val actualMeta = this.split(":").last().toIntOrNull() ?: meta
@@ -48,15 +41,4 @@ fun String.toStack(quantity: Int = 1, meta: Int = 0): ItemStack {
         outputStack = outputBlock.toStack(quantity = quantity, meta = actualMeta)
     }
     return outputStack
-}
-
-fun String.toStacks(quantity: Int = 1, meta: Int = 0): List<ItemStack> {
-    val output = arrayListOf<ItemStack>()
-    val singleStack = this.toStack(quantity, meta)
-    if (singleStack.isEmpty) {
-        output.addAll(OreDictionary.getOres(this))
-    } else {
-        output.add(singleStack)
-    }
-    return output
 }

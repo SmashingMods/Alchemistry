@@ -4,8 +4,6 @@ import al132.alchemistry.chemistry.CompoundRegistry
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ItemElementIngot
 import al132.alchemistry.items.ModItems
-import al132.alchemistry.utils.extensions.toCompoundStack
-import al132.alchemistry.utils.extensions.toElementStack
 import al132.alchemistry.utils.extensions.toOre
 import al132.alchemistry.utils.extensions.toStack
 import al132.alib.utils.Utils.firstOre
@@ -167,7 +165,7 @@ object ModRecipes {
                 input = Blocks.TALLGRASS.toIngredient(meta = BlockTallGrass.EnumType.byMetadata(meta).ordinal)
                 output {
                     relativeProbability = false
-                    addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                    addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
                 }
             })
         }
@@ -179,7 +177,7 @@ object ModRecipes {
                         input = ore.toOre()
                         output {
                             addGroup {
-                                addStack { "chromium".toElementStack(16) }
+                                addStack { "chromium".toStack(16) }
                             }
                         }
                     })
@@ -190,7 +188,7 @@ object ModRecipes {
                 input = "blockChrome".toOre()
                 output {
                     addGroup {
-                        addStack { "chromium".toElementStack(16 * 9) }
+                        addStack { "chromium".toStack(16 * 9) }
                     }
                 }
             })
@@ -201,7 +199,7 @@ object ModRecipes {
                 input = "oreChrome".toOre()
                 output {
                     addGroup {
-                        addStack { "chromium".toElementStack(16 * 2) }
+                        addStack { "chromium".toStack(16 * 2) }
                     }
                 }
             })
@@ -259,7 +257,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.COAL_BLOCK.toIngredient()
             output {
-                addGroup { addStack { "carbon".toElementStack(quantity = 9 * 8) } }
+                addGroup { addStack { "carbon".toStack(quantity = 9 * 8) } }
             }
         })
 
@@ -269,12 +267,12 @@ object ModRecipes {
             input = Blocks.NETHERRACK.toIngredient()
             output {
                 addGroup { addStack { ItemStack.EMPTY }; probability = 15.0 }
-                addGroup { addStack { "zinc_oxide".toCompoundStack() }; probability = 2.0 }
-                addGroup { addStack { "gold".toElementStack() }; probability = 1.0 }
-                addGroup { addStack { "phosphorus".toElementStack() }; probability = 1.0 }
-                addGroup { addStack { "sulfur".toElementStack() }; probability = 3.0 }
-                addGroup { addStack { "germanium".toElementStack() }; probability = 1.0 }
-                addGroup { addStack { "silicon".toElementStack() }; probability = 4.0 }
+                addGroup { addStack { "zinc_oxide".toStack() }; probability = 2.0 }
+                addGroup { addStack { "gold".toStack() }; probability = 1.0 }
+                addGroup { addStack { "phosphorus".toStack() }; probability = 1.0 }
+                addGroup { addStack { "sulfur".toStack() }; probability = 3.0 }
+                addGroup { addStack { "germanium".toStack() }; probability = 1.0 }
+                addGroup { addStack { "silicon".toStack() }; probability = 4.0 }
 
             }
         })
@@ -285,12 +283,12 @@ object ModRecipes {
                 output {
                     rolls = if (it == Blocks.NETHER_BRICK) 4 else 1
                     addGroup { addStack { ItemStack.EMPTY }; probability = 5.0 }
-                    addGroup { addStack { "zinc_oxide".toCompoundStack() }; probability = 2.0 }
-                    addGroup { addStack { "gold".toElementStack() }; probability = 1.0 }
-                    addGroup { addStack { "phosphorus".toElementStack() }; probability = 1.0 }
-                    addGroup { addStack { "sulfur".toElementStack() }; probability = 4.0 }
-                    addGroup { addStack { "germanium".toElementStack() }; probability = 1.0 }
-                    addGroup { addStack { "silicon".toElementStack() }; probability = 4.0 }
+                    addGroup { addStack { "zinc_oxide".toStack() }; probability = 2.0 }
+                    addGroup { addStack { "gold".toStack() }; probability = 1.0 }
+                    addGroup { addStack { "phosphorus".toStack() }; probability = 1.0 }
+                    addGroup { addStack { "sulfur".toStack() }; probability = 4.0 }
+                    addGroup { addStack { "germanium".toStack() }; probability = 1.0 }
+                    addGroup { addStack { "silicon".toStack() }; probability = 4.0 }
                 }
             })
         }
@@ -308,63 +306,63 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Items.IRON_HORSE_ARMOR.toIngredient()
             output {
-                addStack { "iron".toElementStack(64) }
+                addStack { "iron".toStack(64) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Items.DIAMOND_HORSE_ARMOR.toIngredient()
             output {
-                addStack { "carbon".toElementStack(4 * (64 * 8)) }
+                addStack { "carbon".toStack(4 * (64 * 8)) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.ANVIL.toIngredient()
             output {
-                addStack { "iron".toElementStack((144 * 3) + (16 * 4)) }
+                addStack { "iron".toStack((144 * 3) + (16 * 4)) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Items.IRON_DOOR.toIngredient()
             output {
-                addStack { "iron".toElementStack(32) }
+                addStack { "iron".toStack(32) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.IRON_TRAPDOOR.toIngredient()
             output {
-                addStack { "iron".toElementStack(64) }
+                addStack { "iron".toStack(64) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.CHEST.toIngredient()
             output {
-                addStack { "cellulose".toCompoundStack(2) }
+                addStack { "cellulose".toStack(2) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.CRAFTING_TABLE.toIngredient()
             output {
-                addStack { "cellulose".toCompoundStack(1) }
+                addStack { "cellulose".toStack(1) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.WEB.toIngredient()
             output {
-                addStack { "protein".toCompoundStack(2) }
+                addStack { "protein".toStack(2) }
             }
         })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Items.GOLDEN_HORSE_ARMOR.toIngredient()
             output {
-                addStack { "gold".toElementStack(64) }
+                addStack { "gold".toStack(64) }
             }
         })
 
@@ -373,8 +371,8 @@ object ModRecipes {
             input = "wool".toOre()//Blocks.WOOL.toIngredient(meta = index)
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(1) }
-                    addStack { "triglyceride".toCompoundStack(1) }
+                    addStack { "protein".toStack(1) }
+                    addStack { "triglyceride".toStack(1) }
                 }
             }
         })
@@ -386,8 +384,8 @@ object ModRecipes {
                 output {
                     relativeProbability = false
                     addGroup {
-                        addStack { "protein".toCompoundStack(1) }
-                        addStack { "triglyceride".toCompoundStack(1) }
+                        addStack { "protein".toStack(1) }
+                        addStack { "triglyceride".toStack(1) }
                         probability = (2.0 / 3.0) * 100
                     }
                 }
@@ -399,9 +397,9 @@ object ModRecipes {
             output {
                 reversible = true
                 addGroup {
-                    addStack { "beryl".toCompoundStack(8) }
-                    addStack { "chromium".toElementStack(8) }
-                    addStack { "vanadium".toElementStack(4) }
+                    addStack { "beryl".toStack(8) }
+                    addStack { "chromium".toStack(8) }
+                    addStack { "vanadium".toStack(4) }
                 }
             }
         })
@@ -411,9 +409,9 @@ object ModRecipes {
             input = Blocks.EMERALD_ORE.toIngredient()
             output {
                 addGroup {
-                    addStack { "beryl".toCompoundStack(8 * 2) }
-                    addStack { "chromium".toElementStack(8 * 2) }
-                    addStack { "vanadium".toElementStack(4 * 2) }
+                    addStack { "beryl".toStack(8 * 2) }
+                    addStack { "chromium".toStack(8 * 2) }
+                    addStack { "vanadium".toStack(4 * 2) }
                 }
             }
         })
@@ -422,10 +420,10 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = it.toIngredient()
                 output {
-                    addGroup { addStack { "mercury".toElementStack() }; probability = 50.0 }
-                    addGroup { addStack { "neodymium".toElementStack() }; probability = 5.0 }
-                    addGroup { addStack { "silicon_dioxide".toCompoundStack(2) }; probability = 250.0 }
-                    addGroup { addStack { "lithium".toElementStack() }; probability = 50.0 }
+                    addGroup { addStack { "mercury".toStack() }; probability = 50.0 }
+                    addGroup { addStack { "neodymium".toStack() }; probability = 5.0 }
+                    addGroup { addStack { "silicon_dioxide".toStack(2) }; probability = 250.0 }
+                    addGroup { addStack { "lithium".toStack() }; probability = 50.0 }
                     addGroup { addStack { "thorium".toStack() }; probability = 2.0 }
                 }
             })
@@ -481,10 +479,10 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = it.toIngredient()
                 output {
-                    addGroup { addStack { "water".toCompoundStack() }; probability = 30.0 }
-                    addGroup { addStack { "silicon_dioxide".toCompoundStack() }; probability = 50.0 }
-                    addGroup { addStack { "cellulose".toCompoundStack() }; probability = 10.0 }
-                    addGroup { addStack { "kaolinite".toCompoundStack() }; probability = 10.0 }
+                    addGroup { addStack { "water".toStack() }; probability = 30.0 }
+                    addGroup { addStack { "silicon_dioxide".toStack() }; probability = 50.0 }
+                    addGroup { addStack { "cellulose".toStack() }; probability = 10.0 }
+                    addGroup { addStack { "kaolinite".toStack() }; probability = 10.0 }
                 }
             })
         }
@@ -493,9 +491,9 @@ object ModRecipes {
             input = Blocks.EMERALD_BLOCK.toIngredient()
             output {
                 addGroup {
-                    addStack { "beryl".toCompoundStack(8 * 9) }
-                    addStack { "chromium".toElementStack(8 * 9) }
-                    addStack { "vanadium".toElementStack(4 * 9) }
+                    addStack { "beryl".toStack(8 * 9) }
+                    addStack { "chromium".toStack(8 * 9) }
+                    addStack { "vanadium".toStack(4 * 9) }
                 }
             }
         })
@@ -503,7 +501,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = "blockGlass".toOre()
             output {
-                addStack { "silicon_dioxide".toCompoundStack(4) }
+                addStack { "silicon_dioxide".toStack(4) }
             }
         })
 
@@ -511,7 +509,7 @@ object ModRecipes {
             input = "treeSapling".toOre()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack(1) }; probability = 25.0 }
+                addGroup { addStack { "cellulose".toStack(1) }; probability = 25.0 }
             }
         })
 
@@ -519,7 +517,7 @@ object ModRecipes {
             input = Blocks.DEADBUSH.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
             }
         })
 
@@ -527,7 +525,7 @@ object ModRecipes {
             input = Blocks.VINE.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
             }
         })
 
@@ -535,7 +533,7 @@ object ModRecipes {
             input = Blocks.WATERLILY.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
             }
         })
 
@@ -545,7 +543,7 @@ object ModRecipes {
                 relativeProbability = false
                 addGroup {
                     probability = 50.0
-                    addStack { "cucurbitacin".toCompoundStack() }
+                    addStack { "cucurbitacin".toStack() }
                 }
             }
         })
@@ -555,8 +553,8 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "barium".toElementStack(8) }
-                    addStack { "silicon_dioxide".toCompoundStack(16) }
+                    addStack { "barium".toStack(8) }
+                    addStack { "silicon_dioxide".toStack(16) }
                 }
             }
         })
@@ -566,8 +564,8 @@ object ModRecipes {
             input = Blocks.QUARTZ_ORE.toIngredient()
             output {
                 addGroup {
-                    addStack { "barium".toElementStack(8 * 2) }
-                    addStack { "silicon_dioxide".toCompoundStack(16 * 2) }
+                    addStack { "barium".toStack(8 * 2) }
+                    addStack { "silicon_dioxide".toStack(16 * 2) }
                 }
             }
         })
@@ -578,8 +576,8 @@ object ModRecipes {
                 reversible = true
                 output {
                     addGroup {
-                        addStack { "barium".toElementStack(8 * 4) }
-                        addStack { "silicon_dioxide".toCompoundStack(16 * 4) }
+                        addStack { "barium".toStack(8 * 4) }
+                        addStack { "silicon_dioxide".toStack(16 * 4) }
                     }
                 }
             })
@@ -589,8 +587,8 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "psilocybin".toCompoundStack() }
-                    addStack { "cellulose".toCompoundStack() }
+                    addStack { "psilocybin".toStack() }
+                    addStack { "cellulose".toStack() }
                 }
             }
         })
@@ -600,8 +598,8 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "cellulose".toCompoundStack() }
-                    addStack { "psilocybin".toCompoundStack() }
+                    addStack { "cellulose".toStack() }
+                    addStack { "psilocybin".toStack() }
                 }
             }
         })
@@ -628,12 +626,12 @@ object ModRecipes {
             output {
                 reversible = true
                 addGroup {
-                    addStack { "sodium".toElementStack(6) }
-                    addStack { "calcium".toElementStack(2) }
-                    addStack { "aluminum".toElementStack(6) }
-                    addStack { "silicon".toElementStack(6) }
-                    addStack { "oxygen".toElementStack(24) }
-                    addStack { "sulfur".toElementStack(2) }
+                    addStack { "sodium".toStack(6) }
+                    addStack { "calcium".toStack(2) }
+                    addStack { "aluminum".toStack(6) }
+                    addStack { "silicon".toStack(6) }
+                    addStack { "oxygen".toStack(24) }
+                    addStack { "sulfur".toStack(2) }
                 }
             }
         })
@@ -642,12 +640,12 @@ object ModRecipes {
             input = Blocks.LAPIS_ORE.toIngredient()
             output {
                 addGroup {
-                    addStack { "sodium".toElementStack(6 * 4) }
-                    addStack { "calcium".toElementStack(2 * 4) }
-                    addStack { "aluminum".toElementStack(6 * 4) }
-                    addStack { "silicon".toElementStack(6 * 4) }
-                    addStack { "oxygen".toElementStack(24 * 4) }
-                    addStack { "sulfur".toElementStack(2 * 4) }
+                    addStack { "sodium".toStack(6 * 4) }
+                    addStack { "calcium".toStack(2 * 4) }
+                    addStack { "aluminum".toStack(6 * 4) }
+                    addStack { "silicon".toStack(6 * 4) }
+                    addStack { "oxygen".toStack(24 * 4) }
+                    addStack { "sulfur".toStack(2 * 4) }
                 }
             }
         })
@@ -657,12 +655,12 @@ object ModRecipes {
             input = Blocks.LAPIS_BLOCK.toIngredient()
             output {
                 addGroup {
-                    addStack { "sodium".toElementStack(6 * 9) }
-                    addStack { "calcium".toElementStack(2 * 9) }
-                    addStack { "aluminum".toElementStack(6 * 9) }
-                    addStack { "silicon".toElementStack(6 * 9) }
-                    addStack { "oxygen".toElementStack(24 * 9) }
-                    addStack { "sulfur".toElementStack(2 * 9) }
+                    addStack { "sodium".toStack(6 * 9) }
+                    addStack { "calcium".toStack(2 * 9) }
+                    addStack { "aluminum".toStack(6 * 9) }
+                    addStack { "silicon".toStack(6 * 9) }
+                    addStack { "oxygen".toStack(24 * 9) }
+                    addStack { "sulfur".toStack(2 * 9) }
                 }
             }
         })
@@ -674,7 +672,7 @@ object ModRecipes {
                 relativeProbability = false
                 addGroup {
                     probability = 50.0
-                    addStack { "protein".toCompoundStack() }
+                    addStack { "protein".toStack() }
                 }
             }
         })
@@ -684,9 +682,9 @@ object ModRecipes {
             input = ModItems.condensedMilk.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "calcium".toElementStack(4) }; probability = 40.0 }
-                addGroup { addStack { "protein".toCompoundStack() }; probability = 20.0 }
-                addGroup { addStack { "sucrose".toCompoundStack() }; probability = 20.0 }
+                addGroup { addStack { "calcium".toStack(4) }; probability = 40.0 }
+                addGroup { addStack { "protein".toStack() }; probability = 20.0 }
+                addGroup { addStack { "sucrose".toStack() }; probability = 20.0 }
             }
         })
 
@@ -695,8 +693,8 @@ object ModRecipes {
             input = Items.WHEAT.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "starch".toCompoundStack() }; probability = 5.0 }
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                addGroup { addStack { "starch".toStack() }; probability = 5.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
             }
         })
 
@@ -704,7 +702,7 @@ object ModRecipes {
         {
             input = Blocks.GRAVEL.toIngredient()
             output {
-                addGroup { addStack { "silicon_dioxide".toCompoundStack() } }
+                addGroup { addStack { "silicon_dioxide".toStack() } }
             }
         })
 
@@ -714,8 +712,8 @@ object ModRecipes {
             output {
                 rolls = 9
                 relativeProbability = false
-                addGroup { addStack { "starch".toCompoundStack() }; probability = 5.0 }
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                addGroup { addStack { "starch".toStack() }; probability = 5.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
             }
         })
 
@@ -724,8 +722,8 @@ object ModRecipes {
             input = Items.POTATO.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "starch".toCompoundStack() }; probability = 10.0 }
-                addGroup { addStack { "potassium".toElementStack(5) }; probability = 25.0 }
+                addGroup { addStack { "starch".toStack() }; probability = 10.0 }
+                addGroup { addStack { "potassium".toStack(5) }; probability = 25.0 }
             }
         })
 
@@ -734,8 +732,8 @@ object ModRecipes {
             input = Items.BAKED_POTATO.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "starch".toCompoundStack() }; probability = 10.0 }
-                addGroup { addStack { "potassium".toElementStack(5) }; probability = 25.0 }
+                addGroup { addStack { "starch".toStack() }; probability = 10.0 }
+                addGroup { addStack { "potassium".toStack(5) }; probability = 25.0 }
             }
         })
 
@@ -745,8 +743,8 @@ object ModRecipes {
             output {
                 reversible = true
                 addGroup {
-                    addStack { "iron_oxide".toCompoundStack() }
-                    addStack { "strontium_carbonate".toCompoundStack() }
+                    addStack { "iron_oxide".toStack() }
+                    addStack { "strontium_carbonate".toStack() }
                 }
             }
         })
@@ -756,8 +754,8 @@ object ModRecipes {
             input = Blocks.REDSTONE_ORE.toIngredient()
             output {
                 addGroup {
-                    addStack { "iron_oxide".toCompoundStack(quantity = 4) }
-                    addStack { "strontium_carbonate".toCompoundStack(quantity = 4) }
+                    addStack { "iron_oxide".toStack(quantity = 4) }
+                    addStack { "strontium_carbonate".toStack(quantity = 4) }
                 }
             }
         })
@@ -767,7 +765,7 @@ object ModRecipes {
             input = Items.BEEF.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
+                    addStack { "protein".toStack(4) }
                 }
             }
         })
@@ -776,7 +774,7 @@ object ModRecipes {
         {
             input = Items.COOKED_PORKCHOP.toIngredient()
             output {
-                addGroup { addStack { "protein".toCompoundStack(4) } }
+                addGroup { addStack { "protein".toStack(4) } }
             }
         })
 
@@ -784,7 +782,7 @@ object ModRecipes {
         {
             input = Items.MUTTON.toIngredient()
             output {
-                addGroup { addStack { "protein".toCompoundStack(4) } }
+                addGroup { addStack { "protein".toStack(4) } }
             }
         })
 
@@ -792,7 +790,7 @@ object ModRecipes {
         {
             input = Items.COOKED_MUTTON.toIngredient()
             output {
-                addGroup { addStack { "protein".toCompoundStack(4) } }
+                addGroup { addStack { "protein".toStack(4) } }
             }
         })
 
@@ -800,7 +798,7 @@ object ModRecipes {
         {
             input = Items.PORKCHOP.toIngredient()
             output {
-                addGroup { addStack { "protein".toCompoundStack(4) } }
+                addGroup { addStack { "protein".toStack(4) } }
             }
         })
 
@@ -809,7 +807,7 @@ object ModRecipes {
             input = Items.COOKED_BEEF.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
+                    addStack { "protein".toStack(4) }
                 }
             }
         })
@@ -819,7 +817,7 @@ object ModRecipes {
             input = Ingredient.fromStacks(Items.CHICKEN.toStack())
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
+                    addStack { "protein".toStack(4) }
                 }
             }
         })
@@ -829,7 +827,7 @@ object ModRecipes {
             input = Items.COOKED_CHICKEN.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
+                    addStack { "protein".toStack(4) }
                 }
             }
         })
@@ -839,8 +837,30 @@ object ModRecipes {
             input = Items.FISH.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
-                    addStack { "selenium".toElementStack(2) }
+                    addStack { "protein".toStack(4) }
+                    addStack { "selenium".toStack(2) }
+                }
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe
+        {
+            input = Items.FISH.toIngredient(meta = 3)
+            output {
+                addGroup {
+                    addStack { "protein".toStack(4) }
+                    addStack { "potassium_cyanide".toStack(4) }
+                }
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe
+        {
+            input = Blocks.SPONGE.toIngredient()
+            output {
+                addGroup {
+                    addStack { "kaolinite".toStack(8) }
+                    addStack { "calcium_carbonate".toStack(8) }
                 }
             }
         })
@@ -850,8 +870,8 @@ object ModRecipes {
             input = Items.FISH.toIngredient(meta = 1)
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
-                    addStack { "selenium".toElementStack(4) }
+                    addStack { "protein".toStack(4) }
+                    addStack { "selenium".toStack(4) }
                 }
             }
         })
@@ -861,8 +881,8 @@ object ModRecipes {
             input = Items.FISH.toIngredient(meta = 2)
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
-                    addStack { "selenium".toElementStack(4) }
+                    addStack { "protein".toStack(4) }
+                    addStack { "selenium".toStack(4) }
                 }
             }
         })
@@ -872,8 +892,8 @@ object ModRecipes {
             input = Items.COOKED_FISH.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
-                    addStack { "selenium".toElementStack(2) }
+                    addStack { "protein".toStack(4) }
+                    addStack { "selenium".toStack(2) }
 
                 }
             }
@@ -884,7 +904,7 @@ object ModRecipes {
             input = Items.LEATHER.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(3) }
+                    addStack { "protein".toStack(3) }
                 }
             }
         })
@@ -894,7 +914,7 @@ object ModRecipes {
             input = Items.ROTTEN_FLESH.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(3) }
+                    addStack { "protein".toStack(3) }
                 }
             }
         })
@@ -904,7 +924,7 @@ object ModRecipes {
             input = Items.RABBIT.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
+                    addStack { "protein".toStack(4) }
                 }
             }
         })
@@ -914,7 +934,7 @@ object ModRecipes {
             input = Items.COOKED_RABBIT.toIngredient()
             output {
                 addGroup {
-                    addStack { "protein".toCompoundStack(4) }
+                    addStack { "protein".toStack(4) }
                 }
             }
         })
@@ -924,7 +944,7 @@ object ModRecipes {
             input = Items.CARROT.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "beta_carotene".toCompoundStack(1) }; probability = 20.0 }
+                addGroup { addStack { "beta_carotene".toStack(1) }; probability = 20.0 }
             }
         })
 
@@ -932,7 +952,7 @@ object ModRecipes {
         {
             input = "dyeRed".toOre()
             output {
-                addStack { "mercury_sulfide".toCompoundStack(quantity = 4) }
+                addStack { "mercury_sulfide".toStack(quantity = 4) }
             }
         })
 
@@ -940,7 +960,7 @@ object ModRecipes {
         {
             input = "dyePink".toOre()
             output {
-                addStack { "arsenic_sulfide".toCompoundStack(quantity = 4) }
+                addStack { "arsenic_sulfide".toStack(quantity = 4) }
             }
         })
 
@@ -948,7 +968,7 @@ object ModRecipes {
         {
             input = "dyeGreen".toOre()
             output {
-                addStack { "nickel_chloride".toCompoundStack(quantity = 4) }
+                addStack { "nickel_chloride".toStack(quantity = 4) }
             }
         })
 
@@ -957,8 +977,8 @@ object ModRecipes {
             input = "dyeLime".toOre()
             output {
                 addGroup {
-                    addStack { "cadmium_sulfide".toCompoundStack(quantity = 2) }
-                    addStack { "chromium_oxide".toCompoundStack(quantity = 2) }
+                    addStack { "cadmium_sulfide".toStack(quantity = 2) }
+                    addStack { "chromium_oxide".toStack(quantity = 2) }
                 }
             }
         })
@@ -969,7 +989,7 @@ object ModRecipes {
         {
             input = "dyePurple".toOre()
             output {
-                addStack { "potassium_permanganate".toCompoundStack(quantity = 4) }
+                addStack { "potassium_permanganate".toStack(quantity = 4) }
             }
         })
 
@@ -977,7 +997,7 @@ object ModRecipes {
         {
             input = "dyeYellow".toOre()
             output {
-                addStack { "lead_iodide".toCompoundStack(quantity = 4) }
+                addStack { "lead_iodide".toStack(quantity = 4) }
             }
         })
 
@@ -985,7 +1005,7 @@ object ModRecipes {
         {
             input = "dyeOrange".toOre()
             output {
-                addStack { "potassium_dichromate".toCompoundStack(quantity = 4) }
+                addStack { "potassium_dichromate".toStack(quantity = 4) }
             }
         })
 
@@ -993,7 +1013,7 @@ object ModRecipes {
         {
             input = "dyeBlack".toOre()
             output {
-                addStack { "titanium_oxide".toCompoundStack(quantity = 4) }
+                addStack { "titanium_oxide".toStack(quantity = 4) }
             }
         })
 
@@ -1001,7 +1021,7 @@ object ModRecipes {
         {
             input = "dyeGray".toOre()
             output {
-                addStack { "barium_sulfate".toCompoundStack(quantity = 4) }
+                addStack { "barium_sulfate".toStack(quantity = 4) }
             }
         })
 
@@ -1009,7 +1029,7 @@ object ModRecipes {
         {
             input = "dyeMagenta".toOre()
             output {
-                addStack { "han_purple".toCompoundStack(quantity = 4) }
+                addStack { "han_purple".toStack(quantity = 4) }
             }
         })
 
@@ -1018,8 +1038,8 @@ object ModRecipes {
             input = "dyeLightBlue".toOre()
             output {
                 addGroup {
-                    addStack { "cobalt_aluminate".toCompoundStack(quantity = 2) }
-                    addStack { "antimony_trioxide".toCompoundStack(quantity = 2) }
+                    addStack { "cobalt_aluminate".toStack(quantity = 2) }
+                    addStack { "antimony_trioxide".toStack(quantity = 2) }
                 }
             }
         })
@@ -1028,7 +1048,7 @@ object ModRecipes {
         {
             input = "dyeLightGray".toOre()
             output {
-                addStack { "magnesium_sulfate".toCompoundStack(quantity = 4) }
+                addStack { "magnesium_sulfate".toStack(quantity = 4) }
             }
         })
 
@@ -1036,7 +1056,7 @@ object ModRecipes {
         {
             input = "dyeCyan".toOre()
             output {
-                addStack { "copper_chloride".toCompoundStack(quantity = 4) }
+                addStack { "copper_chloride".toStack(quantity = 4) }
             }
         })
 
@@ -1044,8 +1064,8 @@ object ModRecipes {
             input = Blocks.REDSTONE_BLOCK.toIngredient()
             output {
                 addGroup {
-                    addStack { "iron_oxide".toCompoundStack(9) }
-                    addStack { "strontium_carbonate".toCompoundStack(9) }
+                    addStack { "iron_oxide".toStack(9) }
+                    addStack { "strontium_carbonate".toStack(9) }
                 }
             }
         })
@@ -1079,7 +1099,7 @@ object ModRecipes {
 
         dissolverRecipes.add(dissolverRecipe
         {
-            input = "protein".toCompoundStack().toIngredient()
+            input = "protein".toStack().toIngredient()
             output {
                 addGroup {
                     addStack { "carbon".toStack(3) };
@@ -1096,7 +1116,7 @@ object ModRecipes {
         {
             input = Blocks.CLAY.toIngredient()
             output {
-                addStack { "kaolinite".toCompoundStack(4) }
+                addStack { "kaolinite".toStack(4) }
             }
         })
 
@@ -1105,7 +1125,7 @@ object ModRecipes {
             input = Items.CLAY_BALL.toIngredient()
             reversible = true
             output {
-                addStack { "kaolinite".toCompoundStack() }
+                addStack { "kaolinite".toStack() }
             }
         })
 
@@ -1150,10 +1170,10 @@ object ModRecipes {
             input = Blocks.OBSIDIAN.toIngredient()
             output {
                 addGroup {
-                    addStack { "magnesium_oxide".toCompoundStack(8) }
-                    addStack { "potassium_chloride".toCompoundStack(8) }
-                    addStack { "aluminum_oxide".toCompoundStack(8) }
-                    addStack { "silicon_dioxide".toCompoundStack(24) }
+                    addStack { "magnesium_oxide".toStack(8) }
+                    addStack { "potassium_chloride".toStack(8) }
+                    addStack { "aluminum_oxide".toStack(8) }
+                    addStack { "silicon_dioxide".toStack(24) }
 
                 }
 
@@ -1165,7 +1185,7 @@ object ModRecipes {
             input = Items.DYE.toIngredient(meta = 15) //bonemeal
             output {
                 relativeProbability = false
-                addGroup { addStack { "hydroxylapatite".toCompoundStack(1) }; probability = 50.0 }
+                addGroup { addStack { "hydroxylapatite".toStack(1) }; probability = 50.0 }
             }
         })
 
@@ -1175,7 +1195,7 @@ object ModRecipes {
             output {
                 rolls = 9
                 relativeProbability = false
-                addGroup { addStack { "hydroxylapatite".toCompoundStack(1) }; probability = 50.0 }
+                addGroup { addStack { "hydroxylapatite".toStack(1) }; probability = 50.0 }
             }
         })
 
@@ -1185,8 +1205,8 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "calcium_carbonate".toCompoundStack(8) }
-                    addStack { "protein".toCompoundStack(2) }
+                    addStack { "calcium_carbonate".toStack(8) }
+                    addStack { "protein".toStack(2) }
                 }
             }
         })
@@ -1195,13 +1215,13 @@ object ModRecipes {
         {
             input = ModItems.mineralSalt.toIngredient()
             output {
-                addGroup { addStack { "sodium_chloride".toCompoundStack() }; probability = 60.0 }
-                addGroup { addStack { "lithium".toElementStack() }; probability = 5.0 }
-                addGroup { addStack { "potassium_chloride".toCompoundStack() }; probability = 10.0 }
-                addGroup { addStack { "magnesium".toElementStack() }; probability = 10.0 }
-                addGroup { addStack { "iron".toElementStack() }; probability = 5.0 }
-                addGroup { addStack { "copper".toElementStack() }; probability = 4.0 }
-                addGroup { addStack { "zinc".toElementStack() }; probability = 2.0 }
+                addGroup { addStack { "sodium_chloride".toStack() }; probability = 60.0 }
+                addGroup { addStack { "lithium".toStack() }; probability = 5.0 }
+                addGroup { addStack { "potassium_chloride".toStack() }; probability = 10.0 }
+                addGroup { addStack { "magnesium".toStack() }; probability = 10.0 }
+                addGroup { addStack { "iron".toStack() }; probability = 5.0 }
+                addGroup { addStack { "copper".toStack() }; probability = 4.0 }
+                addGroup { addStack { "zinc".toStack() }; probability = 2.0 }
             }
         })
 
@@ -1209,7 +1229,7 @@ object ModRecipes {
         {
             input = Items.COAL.toIngredient()
             output {
-                addStack { "carbon".toElementStack(quantity = 8) }
+                addStack { "carbon".toStack(quantity = 8) }
             }
         })
 
@@ -1217,7 +1237,7 @@ object ModRecipes {
         {
             input = Items.COAL.toIngredient(meta = 1)
             output {
-                addStack { "carbon".toElementStack(quantity = 8) }
+                addStack { "carbon".toStack(quantity = 8) }
             }
         })
 
@@ -1227,7 +1247,7 @@ object ModRecipes {
             input = "slabWood".toOre()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 12.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 12.0 }
             }
         })
 
@@ -1289,7 +1309,7 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = "itemSilicon".toOre()
                 output {
-                    addStack { "silicon".toElementStack(16) }
+                    addStack { "silicon".toStack(16) }
                 }
             })
         }
@@ -1300,9 +1320,9 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "silicon".toElementStack(16) }
-                    addStack { "mercury".toElementStack(16) }
-                    addStack { "neodymium".toElementStack(16) }
+                    addStack { "silicon".toStack(16) }
+                    addStack { "mercury".toStack(16) }
+                    addStack { "neodymium".toStack(16) }
                 }
             }
         })
@@ -1311,7 +1331,7 @@ object ModRecipes {
         {
             input = Items.DIAMOND.toIngredient()
             output {
-                addStack { "carbon".toElementStack(quantity = 64 * 8) }
+                addStack { "carbon".toStack(quantity = 64 * 8) }
             }
         })
 
@@ -1320,7 +1340,7 @@ object ModRecipes {
         {
             input = Blocks.DIAMOND_ORE.toIngredient()
             output {
-                addStack { "carbon".toElementStack(quantity = 64 * 8 * 2) }
+                addStack { "carbon".toStack(quantity = 64 * 8 * 2) }
             }
         })
 
@@ -1328,7 +1348,7 @@ object ModRecipes {
         {
             input = Blocks.DIAMOND_BLOCK.toIngredient()
             output {
-                addStack { "carbon".toElementStack(quantity = 64 * 8 * 9) }
+                addStack { "carbon".toStack(quantity = 64 * 8 * 9) }
             }
         })
 
@@ -1337,7 +1357,7 @@ object ModRecipes {
             input = "plankWood".toOre()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 25.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 25.0 }
             }
         })
 
@@ -1346,15 +1366,15 @@ object ModRecipes {
             input = "cobblestone".toOre()
             output {
                 addGroup { addStack { ItemStack.EMPTY }; probability = 700.0 }
-                addGroup { addStack { "aluminum".toElementStack(1) }; probability = 2.0 }
-                addGroup { addStack { "iron".toElementStack(1) }; probability = 4.0 }
-                addGroup { addStack { "gold".toElementStack(1) }; probability = 1.5 }
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10.0 }
-                addGroup { addStack { "dysprosium".toElementStack(1) }; probability = 0.5 }
-                addGroup { addStack { "zirconium".toElementStack(1) }; probability = 1.25 }
-                addGroup { addStack { "nickel".toElementStack(1) }; probability = 0.5 }
-                addGroup { addStack { "gallium".toElementStack(1) }; probability = 0.5 }
-                addGroup { addStack { "tungsten".toElementStack(1) }; probability = 0.5 }
+                addGroup { addStack { "aluminum".toStack(1) }; probability = 2.0 }
+                addGroup { addStack { "iron".toStack(1) }; probability = 4.0 }
+                addGroup { addStack { "gold".toStack(1) }; probability = 1.5 }
+                addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
+                addGroup { addStack { "dysprosium".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "zirconium".toStack(1) }; probability = 1.25 }
+                addGroup { addStack { "nickel".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "gallium".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "tungsten".toStack(1) }; probability = 0.5 }
 
             }
         })
@@ -1364,13 +1384,13 @@ object ModRecipes {
                 input = it.toOre()
                 output {
                     addGroup { addStack { ItemStack.EMPTY }; probability = 80.0 }
-                    addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5.0 }
-                    addGroup { addStack { "iron".toElementStack(1) }; probability = 2.0 }
-                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2.0 }
-                    addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10.0 }
-                    addGroup { addStack { "technetium".toElementStack(1) }; probability = 1.0 }
-                    addGroup { addStack { "manganese".toElementStack(1) }; probability = 1.5 }
-                    addGroup { addStack { "radium".toElementStack(1) }; probability = 1.5 }
+                    addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 5.0 }
+                    addGroup { addStack { "iron".toStack(1) }; probability = 2.0 }
+                    addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 2.0 }
+                    addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
+                    addGroup { addStack { "technetium".toStack(1) }; probability = 1.0 }
+                    addGroup { addStack { "manganese".toStack(1) }; probability = 1.5 }
+                    addGroup { addStack { "radium".toStack(1) }; probability = 1.5 }
 
                 }
             })
@@ -1381,14 +1401,14 @@ object ModRecipes {
                 input = it.toOre()
                 output {
                     addGroup { addStack { ItemStack.EMPTY }; probability = 80.0 }
-                    addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 4.0 }
-                    addGroup { addStack { "iron".toElementStack(1) }; probability = 2.0 }
-                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 4.0 }
-                    addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10.0 }
-                    addGroup { addStack { "indium".toElementStack(1) }; probability = 1.5 }
-                    addGroup { addStack { "manganese".toElementStack(1) }; probability = 2.0 }
-                    addGroup { addStack { "osmium".toElementStack(1) }; probability = 2.0 }
-                    addGroup { addStack { "tin".toStack()}; probability = 3.0; }
+                    addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 4.0 }
+                    addGroup { addStack { "iron".toStack(1) }; probability = 2.0 }
+                    addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 4.0 }
+                    addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
+                    addGroup { addStack { "indium".toStack(1) }; probability = 1.5 }
+                    addGroup { addStack { "manganese".toStack(1) }; probability = 2.0 }
+                    addGroup { addStack { "osmium".toStack(1) }; probability = 2.0 }
+                    addGroup { addStack { "tin".toStack() }; probability = 3.0; }
                 }
             })
         }
@@ -1398,16 +1418,16 @@ object ModRecipes {
             input = Blocks.MAGMA.toIngredient()
             output {
                 rolls = 2
-                addGroup { addStack { "manganese".toElementStack(2) }; probability = 10.0 }
-                addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 5.0 }
-                addGroup { addStack { "magnesium_oxide".toCompoundStack(1) }; probability = 20.0 }
-                addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 2.0 }
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(2) }; probability = 10.0 }
-                addGroup { addStack { "sulfur".toElementStack(2) }; probability = 20.0 }
-                addGroup { addStack { "iron_oxide".toCompoundStack() }; probability = 10.0 }
-                addGroup { addStack { "lead".toElementStack(2) }; probability = 8.0 }
-                addGroup { addStack { "fluorine".toElementStack() }; probability = 4.0 }
-                addGroup { addStack { "bromine".toElementStack() }; probability = 4.0 }
+                addGroup { addStack { "manganese".toStack(2) }; probability = 10.0 }
+                addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 5.0 }
+                addGroup { addStack { "magnesium_oxide".toStack(1) }; probability = 20.0 }
+                addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 2.0 }
+                addGroup { addStack { "silicon_dioxide".toStack(2) }; probability = 10.0 }
+                addGroup { addStack { "sulfur".toStack(2) }; probability = 20.0 }
+                addGroup { addStack { "iron_oxide".toStack() }; probability = 10.0 }
+                addGroup { addStack { "lead".toStack(2) }; probability = 8.0 }
+                addGroup { addStack { "fluorine".toStack() }; probability = 4.0 }
+                addGroup { addStack { "bromine".toStack() }; probability = 4.0 }
             }
         })
 
@@ -1416,7 +1436,7 @@ object ModRecipes {
             input = "treeLeaves".toOre()
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 5.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 5.0 }
             }
         })
 
@@ -1425,12 +1445,12 @@ object ModRecipes {
                 input = it.toOre()
                 output {
                     addGroup { addStack { ItemStack.EMPTY }; probability = 80.0 }
-                    addGroup { addStack { "aluminum_oxide".toCompoundStack(1) }; probability = 4.0 }
-                    addGroup { addStack { "iron".toElementStack(1) }; probability = 3.0 }
-                    addGroup { addStack { "potassium_chloride".toCompoundStack(1) }; probability = 4.0 }
-                    addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10.0 }
-                    addGroup { addStack { "platinum".toElementStack() }; probability = 2.0 }
-                    addGroup { addStack { "calcium".toElementStack() }; probability = 4.0 }
+                    addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 4.0 }
+                    addGroup { addStack { "iron".toStack(1) }; probability = 3.0 }
+                    addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 4.0 }
+                    addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
+                    addGroup { addStack { "platinum".toStack() }; probability = 2.0 }
+                    addGroup { addStack { "calcium".toStack() }; probability = 4.0 }
                 }
             })
         }
@@ -1440,15 +1460,15 @@ object ModRecipes {
             input = "stone".toOre()
             output {
                 addGroup { addStack { ItemStack.EMPTY }; probability = 200.0 }
-                addGroup { addStack { "aluminum".toElementStack(1) }; probability = 2.0 }
-                addGroup { addStack { "iron".toElementStack(1) }; probability = 4.0 }
-                addGroup { addStack { "gold".toElementStack(1) }; probability = 1.5 }
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(1) }; probability = 10.0 }
-                addGroup { addStack { "dysprosium".toElementStack(1) }; probability = 0.5 }
-                addGroup { addStack { "zirconium".toElementStack(1) }; probability = 1.25 }
-                addGroup { addStack { "tungsten".toElementStack(1) }; probability = 0.5 }
-                addGroup { addStack { "nickel".toElementStack(1) }; probability = 0.5 }
-                addGroup { addStack { "gallium".toElementStack(1) }; probability = 0.5 }
+                addGroup { addStack { "aluminum".toStack(1) }; probability = 2.0 }
+                addGroup { addStack { "iron".toStack(1) }; probability = 4.0 }
+                addGroup { addStack { "gold".toStack(1) }; probability = 1.5 }
+                addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
+                addGroup { addStack { "dysprosium".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "zirconium".toStack(1) }; probability = 1.25 }
+                addGroup { addStack { "tungsten".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "nickel".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "gallium".toStack(1) }; probability = 0.5 }
             }
         })
 
@@ -1457,8 +1477,8 @@ object ModRecipes {
             input = Blocks.SAND.toIngredient()
             output {
                 relativeProbability = false
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100.0 }
-                addGroup { addStack { "gold".toElementStack() } }
+                addGroup { addStack { "silicon_dioxide".toStack(quantity = 4) }; probability = 100.0 }
+                addGroup { addStack { "gold".toStack() } }
             }
         })
 
@@ -1467,8 +1487,8 @@ object ModRecipes {
             input = Blocks.SAND.toIngredient(meta = 1) //red sand
             output {
                 relativeProbability = false
-                addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100.0 }
-                addGroup { addStack { "iron_oxide".toCompoundStack() }; probability = 10.0 }
+                addGroup { addStack { "silicon_dioxide".toStack(quantity = 4) }; probability = 100.0 }
+                addGroup { addStack { "iron_oxide".toStack() }; probability = 10.0 }
             }
         })
 
@@ -1478,8 +1498,8 @@ object ModRecipes {
                 output {
                     rolls = 4
                     relativeProbability = false
-                    addGroup { addStack { "silicon_dioxide".toCompoundStack(quantity = 4) }; probability = 100.0 }
-                    addGroup { addStack { "iron_oxide".toCompoundStack() }; probability = 10.0 }
+                    addGroup { addStack { "silicon_dioxide".toStack(quantity = 4) }; probability = 100.0 }
+                    addGroup { addStack { "iron_oxide".toStack() }; probability = 10.0 }
                 }
             })
         }
@@ -1490,9 +1510,9 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "potassium_nitrate".toCompoundStack(2) }
-                    addStack { "sulfur".toElementStack(8) }
-                    addStack { "carbon".toElementStack(8) }
+                    addStack { "potassium_nitrate".toStack(2) }
+                    addStack { "sulfur".toStack(8) }
+                    addStack { "carbon".toStack(8) }
                 }
             }
         })
@@ -1500,7 +1520,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = "logWood".toOre()
             output {
-                addStack { "cellulose".toCompoundStack() }
+                addStack { "cellulose".toStack() }
             }
         })
 
@@ -1527,7 +1547,7 @@ object ModRecipes {
             input = Items.GLOWSTONE_DUST.toIngredient()
             reversible = true
             output {
-                addStack { "phosphorus".toElementStack(quantity = 4) }
+                addStack { "phosphorus".toStack(quantity = 4) }
             }
         })
 
@@ -1536,7 +1556,7 @@ object ModRecipes {
             input = Blocks.GLOWSTONE.toIngredient()
             reversible = true
             output {
-                addStack { "phosphorus".toElementStack(quantity = 16) }
+                addStack { "phosphorus".toStack(quantity = 16) }
             }
         })
 
@@ -1544,7 +1564,7 @@ object ModRecipes {
         {
             input = Blocks.IRON_BARS.toIngredient()
             output {
-                addStack { "iron".toElementStack(quantity = 6) }
+                addStack { "iron".toStack(quantity = 6) }
             }
         })
 
@@ -1554,9 +1574,9 @@ object ModRecipes {
             reversible = true
             output {
                 addGroup {
-                    addStack { "germanium".toElementStack(quantity = 8) }
-                    addStack { "carbon".toElementStack(quantity = 8) }
-                    addStack { "sulfur".toElementStack(quantity = 8) }
+                    addStack { "germanium".toStack(quantity = 8) }
+                    addStack { "carbon".toStack(quantity = 8) }
+                    addStack { "sulfur".toStack(quantity = 8) }
                 }
             }
         })
@@ -1566,9 +1586,9 @@ object ModRecipes {
             input = Items.NETHER_WART.toIngredient()
             output {
                 addGroup {
-                    addStack { "cellulose".toCompoundStack() }
-                    addStack { "germanium".toElementStack(quantity = 4) }
-                    addStack { "selenium".toElementStack(quantity = 4) }
+                    addStack { "cellulose".toStack() }
+                    addStack { "germanium".toStack(quantity = 4) }
+                    addStack { "selenium".toStack(quantity = 4) }
                 }
             }
         })
@@ -1578,9 +1598,9 @@ object ModRecipes {
             input = Blocks.NETHER_WART_BLOCK.toIngredient()
             output {
                 addGroup {
-                    addStack { "cellulose".toCompoundStack(quantity = 9) }
-                    addStack { "germanium".toElementStack(quantity = 4 * 9) }
-                    addStack { "selenium".toElementStack(quantity = 4 * 9) }
+                    addStack { "cellulose".toStack(quantity = 9) }
+                    addStack { "germanium".toStack(quantity = 4 * 9) }
+                    addStack { "selenium".toStack(quantity = 4 * 9) }
                 }
             }
         })
@@ -1589,7 +1609,7 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = "dropHoney".toOre()
                 output {
-                    addStack { "sucrose".toCompoundStack(quantity = 4) }
+                    addStack { "sucrose".toStack(quantity = 4) }
                 }
             })
         }
@@ -1600,8 +1620,8 @@ object ModRecipes {
                 reversible = true
                 output {
                     addGroup {
-                        addStack { "beryl".toCompoundStack(quantity = 2) }
-                        addStack { "cobalt_aluminate".toCompoundStack(quantity = 4) }
+                        addStack { "beryl".toStack(quantity = 2) }
+                        addStack { "cobalt_aluminate".toStack(quantity = 4) }
                     }
                 }
             })
@@ -1646,8 +1666,8 @@ object ModRecipes {
                         input = ore.toOre()
                         output {
                             addGroup {
-                                addStack { "aluminum_oxide".toCompoundStack(quantity = 16) }
-                                addStack { "chromium".toElementStack(quantity = 8) }
+                                addStack { "aluminum_oxide".toStack(quantity = 16) }
+                                addStack { "chromium".toStack(quantity = 8) }
                             }
                         }
                     })
@@ -1660,9 +1680,9 @@ object ModRecipes {
                         input = ore.toOre()
                         output {
                             addGroup {
-                                addStack { "aluminum_oxide".toCompoundStack(quantity = 16) }
-                                addStack { "iron".toElementStack(quantity = 4) }
-                                addStack { "titanium".toElementStack(quantity = 4) }
+                                addStack { "aluminum_oxide".toStack(quantity = 16) }
+                                addStack { "iron".toStack(quantity = 4) }
+                                addStack { "titanium".toStack(quantity = 4) }
 
                             }
                         }
@@ -1675,12 +1695,12 @@ object ModRecipes {
                 relativeProbability = false
                 addGroup {
                     probability = 50.0
-                    addStack { "cucurbitacin".toCompoundStack(); }
+                    addStack { "cucurbitacin".toStack(); }
                 }
                 addGroup {
                     probability = 1.0
-                    addStack { "water".toCompoundStack(quantity = 4) }
-                    addStack { "sucrose".toCompoundStack(quantity = 2) }
+                    addStack { "water".toStack(quantity = 4) }
+                    addStack { "sucrose".toStack(quantity = 2) }
                 }
             }
         })
@@ -1691,8 +1711,8 @@ object ModRecipes {
             reversible = true
             output {
                 relativeProbability = false
-                addGroup { addStack { "cellulose".toCompoundStack() }; probability = 100.0 }
-                addGroup { addStack { "mescaline".toCompoundStack() }; probability = 50.0 }
+                addGroup { addStack { "cellulose".toStack() }; probability = 100.0 }
+                addGroup { addStack { "mescaline".toStack() }; probability = 50.0 }
             }
         })
 
@@ -1701,7 +1721,7 @@ object ModRecipes {
             input = Blocks.HARDENED_CLAY.toIngredient()
             reversible = true
             output {
-                addStack { "mullite".toCompoundStack(quantity = 2) }
+                addStack { "mullite".toStack(quantity = 2) }
             }
         })
 
@@ -1710,7 +1730,7 @@ object ModRecipes {
                 input = Blocks.STAINED_HARDENED_CLAY.toIngredient(meta = it)
                 reversible = false
                 output {
-                    addStack { "mullite".toCompoundStack(quantity = 2) }
+                    addStack { "mullite".toStack(quantity = 2) }
                 }
             })
         }
@@ -1735,7 +1755,7 @@ object ModRecipes {
                 input = it.toIngredient()
                 reversible = false
                 output {
-                    addStack { "mullite".toCompoundStack(quantity = 2) }
+                    addStack { "mullite".toStack(quantity = 2) }
                 }
             })
         }
@@ -1747,7 +1767,7 @@ object ModRecipes {
                     addGroup {
                         relativeProbability = false
                         probability = 10.0
-                        addStack { "starch".toCompoundStack(); }
+                        addStack { "starch".toStack(); }
                     }
                 }
             })
@@ -1760,16 +1780,16 @@ object ModRecipes {
                 inputFluid = FluidRegistry.WATER.toStack(quantity = 125),
                 _electrolyte = "calcium_carbonate".toStack().toIngredient(),
                 electrolyteConsumptionChance = 20,
-                outputOne = "hydrogen".toElementStack(4),
-                outputTwo = "oxygen".toElementStack(2)))
+                outputOne = "hydrogen".toStack(4),
+                outputTwo = "oxygen".toStack(2)))
 
         electrolyzerRecipes.add(ElectrolyzerRecipe(
                 inputFluid = FluidRegistry.WATER.toStack(125),
                 _electrolyte = "sodium_chloride".toStack().toIngredient(),
                 electrolyteConsumptionChance = 20,
-                outputOne = "hydrogen".toElementStack(2),
-                outputTwo = "oxygen".toElementStack(1),
-                outputThree = "chlorine".toElementStack(2), output3Probability = 10))
+                outputOne = "hydrogen".toStack(2),
+                outputTwo = "oxygen".toStack(1),
+                outputThree = "chlorine".toStack(2), output3Probability = 10))
     }
 
 
@@ -1825,13 +1845,13 @@ object ModRecipes {
             val dustOutput: ItemStack? = firstOre(entry.toDict("dust"))
             if (dustOutput != null && !dustOutput.isEmpty) {
                 combinerRecipes.add(CombinerRecipe(dustOutput,
-                        listOf(ItemStack.EMPTY, if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toElementStack(16))))
+                        listOf(ItemStack.EMPTY, if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toStack(16))))
             }
 
             val ingotOutput: ItemStack? = firstOre(entry.toDict("ingot"))
             if (ingotOutput != null && !ingotOutput.isEmpty) {
                 combinerRecipes.add(CombinerRecipe(ingotOutput,
-                        listOf(if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toElementStack(16))))
+                        listOf(if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toStack(16))))
             }
         }
 
@@ -1876,7 +1896,7 @@ object ModRecipes {
         }
 
 
-        val carbon = "carbon".toElementStack(quantity = 64)
+        val carbon = "carbon".toStack(quantity = 64)
         combinerRecipes.add(CombinerRecipe(Items.DIAMOND.toStack(),
                 listOf(carbon, carbon, carbon,
                         carbon, null, carbon,
@@ -1915,12 +1935,15 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Items.SPIDER_EYE.toStack(),
                 listOf(null, "beta_carotene".toStack(2), "protein".toStack(2))))
 
+        combinerRecipes.add(CombinerRecipe(Blocks.SPONGE.toStack(),
+                listOf(null,"calcium_carbonate".toStack(8),"kaolinite".toStack(8))))
+
         combinerRecipes.add(CombinerRecipe(Blocks.GRASS.toStack(4),
                 listOf(null, null, null,
                         "water".toStack(), "cellulose".toStack(), "kaolinite".toStack())))
 
         combinerRecipes.add(CombinerRecipe(Blocks.GRAVEL.toStack(),
-                listOf(null, null, "silicon_dioxide".toCompoundStack(1))))
+                listOf(null, null, "silicon_dioxide".toStack(1))))
 
         combinerRecipes.add(CombinerRecipe(Items.WATER_BUCKET.toStack(),
                 listOf(null, null, null,
@@ -1941,7 +1964,7 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Blocks.REDSTONE_BLOCK.toStack(),
                 listOf(null, null, null,
-                        "iron_oxide".toStack(9), "strontium_carbonate".toCompoundStack(9))))
+                        "iron_oxide".toStack(9), "strontium_carbonate".toStack(9))))
 
         combinerRecipes.add(CombinerRecipe(Items.STRING.toStack(4),
                 listOf(null, "protein".toStack(2))))
@@ -1990,7 +2013,7 @@ object ModRecipes {
                         null, "sucrose".toStack(1), null)))
 
         combinerRecipes.add(CombinerRecipe(ModItems.fertilizer.toStack(8),
-                listOf("urea".toCompoundStack(1),
+                listOf("urea".toStack(1),
                         "diammonium_phosphate".toStack(1),
                         "potassium_chloride".toStack(1))))
 
@@ -2013,9 +2036,9 @@ object ModRecipes {
                 Items.BEETROOT_SEEDS.toStack())
 
         seeds.withIndex().forEach { (index: Int, stack: ItemStack) ->
-            val inputs = mutableListOf(null, "triglyceride".toCompoundStack(), null)
+            val inputs = mutableListOf(null, "triglyceride".toStack(), null)
             (0 until index).forEach { inputs.add(null) }
-            inputs.add("sucrose".toCompoundStack())
+            inputs.add("sucrose".toStack())
             if (stack.item == Items.BEETROOT_SEEDS) inputs.add("iron_oxide".toStack())
             combinerRecipes.add(CombinerRecipe(stack, inputs))
         }
@@ -2028,20 +2051,20 @@ object ModRecipes {
         Item.REGISTRY.getObject(ResourceLocation("forestry", "iodine_capsule"))?.let {
             combinerRecipes.add(CombinerRecipe(it.toStack(),
                     listOf(null, null, null,
-                            "iodine".toElementStack(8), "iodine".toElementStack(8))))
+                            "iodine".toStack(8), "iodine".toStack(8))))
         }
 
 
         (0..5).forEach { i ->
             val input = (0 until i).mapTo(ArrayList<ItemStack>(), { ItemStack.EMPTY })
             input.add("oxygen".toStack())
-            input.add("cellulose".toCompoundStack(2))
+            input.add("cellulose".toStack(2))
             combinerRecipes.add(CombinerRecipe(Blocks.SAPLING.toStack(quantity = 4, meta = i), input))
         }
 
         (0 until 6).forEach { i ->
             val input = (0 until i).mapTo(ArrayList<ItemStack>()) { ItemStack.EMPTY }
-            input.add("cellulose".toCompoundStack())
+            input.add("cellulose".toStack())
 
             //y u gotta do dis mojang
             if (i < 4) combinerRecipes.add(CombinerRecipe(ItemStack(Blocks.LOG, 1, i), input))
@@ -2049,38 +2072,38 @@ object ModRecipes {
         }
 
 
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 0), listOf("titanium_oxide".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 0), listOf("titanium_oxide".toStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 1), listOf("mercury_sulfide".toStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 2), listOf("nickel_chloride".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 2), listOf("nickel_chloride".toStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 3), listOf("caffeine".toStack(1), "cellulose".toStack(1))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 5), listOf("potassium_permanganate".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 6), listOf("copper_chloride".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 7), listOf("magnesium_sulfate".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 8), listOf("barium_sulfate".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 9), listOf("arsenic_sulfide".toCompoundStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 5), listOf("potassium_permanganate".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 6), listOf("copper_chloride".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 7), listOf("magnesium_sulfate".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 8), listOf("barium_sulfate".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 9), listOf("arsenic_sulfide".toStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 10),
-                listOf("cadmium_sulfide".toCompoundStack(2), "chromium_oxide".toCompoundStack(2))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 11), listOf("lead_iodide".toCompoundStack(4))))
+                listOf("cadmium_sulfide".toStack(2), "chromium_oxide".toStack(2))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 11), listOf("lead_iodide".toStack(4))))
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 12),
-                listOf("cobalt_aluminate".toCompoundStack(2), "antimony_trioxide".toCompoundStack(2))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 13), listOf("han_purple".toCompoundStack(4))))
-        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 14), listOf("potassium_dichromate".toCompoundStack(4))))
+                listOf("cobalt_aluminate".toStack(2), "antimony_trioxide".toStack(2))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 13), listOf("han_purple".toStack(4))))
+        combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(meta = 14), listOf("potassium_dichromate".toStack(4))))
 
 
         combinerRecipes.add(CombinerRecipe(Items.SNOWBALL.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        "water".toCompoundStack(4))))
+                        "water".toStack(4))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.SNOW.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        null, "water".toCompoundStack(16))))
+                        null, "water".toStack(16))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.ICE.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        null, null, "water".toCompoundStack(16))))
+                        null, null, "water".toStack(16))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.BONE_BLOCK.toStack(),
                 listOf(null, "hydroxylapatite".toStack(6))))
@@ -2090,13 +2113,13 @@ object ModRecipes {
 
         combinerRecipes.add(CombinerRecipe(Items.LEATHER.toStack(),
                 listOf(null, null, null,
-                        null, "protein".toCompoundStack(3))))
+                        null, "protein".toStack(3))))
 
 
         combinerRecipes.add(CombinerRecipe(Items.ROTTEN_FLESH.toStack(),
                 listOf(null, null, null,
                         null, null, null,
-                        null, "protein".toCompoundStack(3))))
+                        null, "protein".toStack(3))))
 
         combinerRecipes.add(CombinerRecipe(Items.NETHER_STAR.toStack(),
                 listOf("lutetium".toStack(64), "hydrogen".toStack(64), "titanium".toStack(64),
@@ -2105,29 +2128,29 @@ object ModRecipes {
     }
 
     fun initAtomizerRecipes() {
-        atomizerRecipes.add(AtomizerRecipe(true, FluidStack(FluidRegistry.WATER, 500), "water".toCompoundStack(8)))
+        atomizerRecipes.add(AtomizerRecipe(true, FluidStack(FluidRegistry.WATER, 500), "water".toStack(8)))
 
         if (fluidExists("if.protein")) {
             atomizerRecipes.add(AtomizerRecipe(true,
-                    FluidRegistry.getFluidStack("if.protein", 500)!!, "protein".toCompoundStack(8)))
+                    FluidRegistry.getFluidStack("if.protein", 500)!!, "protein".toStack(8)))
         }
         if (fluidExists("canolaoil")) {
             atomizerRecipes.add(AtomizerRecipe(true,
-                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toCompoundStack(4)))
+                    FluidRegistry.getFluidStack("canolaoil", 500)!!, "triglyceride".toStack(4)))
         }
         if (fluidExists("cocoa_butter")) {
             atomizerRecipes.add(AtomizerRecipe(true,
-                    FluidRegistry.getFluidStack("cocoa_butter", 144)!!, "triglyceride".toCompoundStack(1)))
+                    FluidRegistry.getFluidStack("cocoa_butter", 144)!!, "triglyceride".toStack(1)))
         }
         if (fluidExists("ethanol")) {
             atomizerRecipes.add(AtomizerRecipe(true,
-                    FluidRegistry.getFluidStack("ethanol", 500)!!, "ethanol".toCompoundStack(8)))
+                    FluidRegistry.getFluidStack("ethanol", 500)!!, "ethanol".toStack(8)))
         }
 
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
                 atomizerRecipes.add(AtomizerRecipe(true,
-                        FluidRegistry.getFluidStack(it.name, 144)!!, it.name.toElementStack(16)))
+                        FluidRegistry.getFluidStack(it.name, 144)!!, it.name.toStack(16)))
             }
         }
     }
@@ -2141,7 +2164,7 @@ object ModRecipes {
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
                 liquifierRecipes.add(LiquifierRecipe(
-                        it.name.toElementStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
+                        it.name.toStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
                 ))
             }
         }

@@ -1,5 +1,6 @@
 package al132.alchemistry.items
 
+import al132.alchemistry.ConfigHandler
 import al132.alchemistry.capability.CapabilityDrugInfo
 import al132.alchemistry.chemistry.ChemicalCompound
 import al132.alchemistry.chemistry.CompoundRegistry
@@ -92,6 +93,12 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
     override fun getTranslationKey(stack: ItemStack?): String {
         var i = stack!!.itemDamage
         if (!CompoundRegistry.keys().contains(i)) i = 0
+        if (ConfigHandler.familyFriendlyMode!! &&
+                (i == CompoundRegistry["cocaine"]!!.meta
+                        || i == CompoundRegistry["psilocybin"]!!.meta
+                        || i == CompoundRegistry["mescaline"]!!.meta)) {
+        return super.getTranslationKey() + "_" + CompoundRegistry[i]!!.name + "_family"
+        }
         return super.getTranslationKey() + "_" + CompoundRegistry[i]!!.name
     }
 

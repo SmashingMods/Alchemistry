@@ -9,4 +9,20 @@ abstract class TileBase : ALTile() {
     override fun shouldRefresh(world: World, pos: BlockPos, oldState: IBlockState, newState: IBlockState): Boolean {
         return oldState.block != newState.block;
     }
+
+    fun markDirtyGUI(){
+        markDirty()
+        world?.let {
+            val state = world.getBlockState(getPos())
+            world.notifyBlockUpdate(pos, state, state, 6)
+        }
+    }
+
+    fun markDirtyGUIEvery(ticks : Int){
+        this.dirtyTicks++
+        if (this.dirtyTicks >= ticks) {
+            this.markDirtyGUI()
+            this.dirtyTicks = 0
+        }
+    }
 }

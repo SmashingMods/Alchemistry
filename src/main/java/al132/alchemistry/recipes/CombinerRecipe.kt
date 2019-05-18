@@ -1,5 +1,6 @@
 package al132.alchemistry.recipes
 
+import al132.alchemistry.items.ModItems
 import al132.alib.tiles.ALTileStackHandler
 import al132.alib.utils.Utils.areItemsEqualIgnoreMeta
 import al132.alib.utils.extensions.areItemStacksEqual
@@ -48,7 +49,7 @@ data class CombinerRecipe(private val _output: ItemStack, private val objsIn: Li
 
         for ((index: Int, recipeStack: ItemStack) in this.inputs.withIndex()) {
             val handlerStack = handler[index]
-            if (handlerStack.isEmpty && recipeStack.isEmpty) matchingStacks++
+            if ((handlerStack.item == ModItems.slotFiller || handlerStack.isEmpty) && recipeStack.isEmpty) matchingStacks++
             else if (handlerStack.isEmpty || recipeStack.isEmpty) continue
             else if (areItemsEqualIgnoreMeta(handlerStack, recipeStack)
                     && handlerStack.count >= recipeStack.count
@@ -74,7 +75,7 @@ data class CombinerRecipe(private val _output: ItemStack, private val objsIn: Li
                 for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
                     val inputStack: ItemStack = inputStacks[index]
 
-                    if (inputStack.isEmpty && recipeStack.isEmpty) matchingStacks++
+                    if ((inputStack.item == ModItems.slotFiller || inputStack.isEmpty) && recipeStack.isEmpty) matchingStacks++
                     else if (inputStack.isEmpty || recipeStack.isEmpty) continue
                     else if (areItemsEqualIgnoreMeta(inputStack, recipeStack)
                             && inputStack.count >= recipeStack.count

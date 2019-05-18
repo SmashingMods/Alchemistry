@@ -1383,7 +1383,6 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = it.toOre()
                 output {
-                    addGroup { addStack { ItemStack.EMPTY }; probability = 80.0 }
                     addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 5.0 }
                     addGroup { addStack { "iron".toStack(1) }; probability = 2.0 }
                     addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 2.0 }
@@ -1400,7 +1399,6 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = it.toOre()
                 output {
-                    addGroup { addStack { ItemStack.EMPTY }; probability = 80.0 }
                     addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 4.0 }
                     addGroup { addStack { "iron".toStack(1) }; probability = 2.0 }
                     addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 4.0 }
@@ -1444,7 +1442,6 @@ object ModRecipes {
             dissolverRecipes.add(dissolverRecipe {
                 input = it.toOre()
                 output {
-                    addGroup { addStack { ItemStack.EMPTY }; probability = 80.0 }
                     addGroup { addStack { "aluminum_oxide".toStack(1) }; probability = 4.0 }
                     addGroup { addStack { "iron".toStack(1) }; probability = 3.0 }
                     addGroup { addStack { "potassium_chloride".toStack(1) }; probability = 4.0 }
@@ -1584,6 +1581,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe
         {
             input = Items.NETHER_WART.toIngredient()
+            reversible = true
             output {
                 addGroup {
                     addStack { "cellulose".toStack() }

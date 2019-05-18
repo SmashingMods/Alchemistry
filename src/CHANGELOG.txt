@@ -1,3 +1,11 @@
+1.0.17
+===
+-Improved performance
+-Added Combiner recipe for Nether Wart
+-Added the "Slot Filler" as a way to allow AE2/RS/etc automation with the Combiner without needing 1 machine per recipe
+It's a consumable item with a max stack size of 1, that will just be ignored, then consumed.
+
+
 1.0.16
 ===
 -Added a family-friendly config that modifies the names of drug compounds to something more innocuous

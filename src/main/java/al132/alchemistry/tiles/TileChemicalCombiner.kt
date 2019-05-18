@@ -1,6 +1,7 @@
 package al132.alchemistry.tiles
 
 import al132.alchemistry.ConfigHandler
+import al132.alchemistry.items.ModItems
 import al132.alchemistry.recipes.CombinerRecipe
 import al132.alib.tiles.*
 import al132.alib.utils.extensions.areItemStacksEqual
@@ -29,7 +30,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
         initInventoryCapability(9, 1)
         clientRecipeTarget = object : ALTileStackHandler(1, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean) = stack
-            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) =  ItemStack.EMPTY
+            override fun extractItem(slot: Int, amount: Int, simulate: Boolean) = ItemStack.EMPTY
         }
     }
 
@@ -56,7 +57,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
         if (!getWorld().isRemote) {
             if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY)
             if (!this.paused && canProcess()) process()
-            this.markDirtyClientEvery(5)
+            this.markDirtyGUIEvery(5)
         }
     }
 
@@ -71,17 +72,20 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
                 if (!stack.isEmpty) {
                     (input.decrementSlot(index, stack.count))
                 }
+                if (input.getStackInSlot(index).item == ModItems.slotFiller) {
+                    input.decrementSlot(index, 1)
+                }
             }
         }
     }
 
     fun canProcess(): Boolean {
         return currentRecipe != null
+                && energyStorage.energyStored >= ConfigHandler.combinerEnergyPerTick!! //has enough energy
+                && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize) //output quantities can stack
+                && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty) //output item types can stack
                 && currentRecipe!!.matchesHandlerStacks(this.input)
                 && (!recipeIsLocked || CombinerRecipe.matchInputs(input)?.output?.areItemStacksEqual(currentRecipe!!.output) ?: false)
-                && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty) //output item types can stack
-                && (currentRecipe!!.output.count + output[0].count <= currentRecipe!!.output.maxStackSize) //output quantities can stack
-                && energyStorage.energyStored >= ConfigHandler.combinerEnergyPerTick!! //has enough energy
     }
 
     override fun readFromNBT(compound: NBTTagCompound) {

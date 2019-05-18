@@ -32,6 +32,11 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
                 return ModRecipes.evaporatorRecipes.any { it.input.fluid == fluid?.fluid }
             }
+
+            override fun onContentsChanged() {
+                super.onContentsChanged()
+                markDirtyClient()
+            }
         }
         inputTank.setTileEntity(this)
         inputTank.setCanFill(true)
@@ -45,8 +50,8 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
                     inputTank.fluid?.containsFluid(it.input) ?: false
                 }
                 if (canProcess()) process()
+                markDirtyGUIEvery(5)
             }
-            this.markDirtyClientEvery(5)
         }
     }
 

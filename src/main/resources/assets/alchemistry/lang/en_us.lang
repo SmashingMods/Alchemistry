@@ -24,6 +24,7 @@ item.alchemistry:mineral_salt.name=Mineral Salt
 item.alchemistry:fertilizer.name=Fertilizer
 item.alchemistry:obsidian_breaker.name=Obsidian Breaker
 item.alchemistry:milk.name=MILK
+item.alchemistry:slot_filler.name=Slot Filler
 
 item.alchemistry:element_hydrogen.name=Hydrogen
 item.alchemistry:element_helium.name=Helium

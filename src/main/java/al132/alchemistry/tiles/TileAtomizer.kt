@@ -27,7 +27,13 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
         initInventoryCapability(0, 1)
         inputTank = object : FluidTank(Fluid.BUCKET_VOLUME * 10) {
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
-                return ModRecipes.atomizerRecipes.any { it.input.fluid == fluid?.fluid }
+                if (this.fluid == null) return true
+                else return this.fluid?.fluid == fluid?.fluid
+            }
+
+            override fun onContentsChanged() {
+                updateRecipe()
+                markDirtyGUI()
             }
         }
 
@@ -36,15 +42,19 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
         inputTank.setCanDrain(false)
     }
 
+    fun updateRecipe() {
+        if (inputTank.fluid != null && currentRecipe == null) {
+            currentRecipe = ModRecipes.atomizerRecipes.firstOrNull { it.input.fluid == inputTank.fluid?.fluid }
+        }
+        if (inputTank.fluid == null) currentRecipe = null
+    }
+
     override fun update() {
         if (!world.isRemote) {
             if (inputTank.fluidAmount > 0) {
-                this.currentRecipe = ModRecipes.atomizerRecipes.firstOrNull {
-                    inputTank.fluid?.containsFluid(it.input) ?: false
-                }
                 if (canProcess()) process()
             }
-            this.markDirtyClientEvery(5)
+            markDirtyGUIEvery(5)
         }
     }
 
@@ -62,6 +72,7 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
         super.readFromNBT(compound)
         this.inputTank.readFromNBT(compound.getCompoundTag("InputTankNBT"))
         this.progressTicks = compound.getInteger("ProgressTicks")
+        updateRecipe()
     }
 
     override val fluidTanks: FluidHandlerConcatenate?
@@ -69,11 +80,10 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
 
     fun canProcess(): Boolean {
         return currentRecipe != null
-                && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty)
-                && inputTank.fluidAmount >= currentRecipe!!.input.amount
-                && output[0].count + currentRecipe!!.output.count <= currentRecipe!!.output.maxStackSize
                 && energyStorage.energyStored >= ConfigHandler.atomizerEnergyPerTick!!
-
+                && inputTank.fluidAmount >= currentRecipe!!.input.amount
+                && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty)
+                && output[0].count + currentRecipe!!.output.count <= currentRecipe!!.output.maxStackSize
     }
 
     fun process() {
@@ -81,9 +91,8 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
             progressTicks++
         } else {
             progressTicks = 0
-            inputTank.drainInternal(currentRecipe!!.input.amount, true)
-
             output.setOrIncrement(0, currentRecipe!!.output)
+            inputTank.drainInternal(currentRecipe!!.input.amount, true)
         }
         this.energyStorage.extractEnergy(ConfigHandler.atomizerEnergyPerTick!!, false)
     }

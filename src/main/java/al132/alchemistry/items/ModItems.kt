@@ -14,9 +14,13 @@ import net.minecraftforge.fml.relauncher.SideOnly
 
 object ModItems {
 
-    var elements = ItemElement("element")
-    var compounds = ItemCompound("compound")
-    var ingots = ItemElementIngot("ingot")
+    val items = ArrayList<ALItem>()
+
+    var MILK = object : ItemBase("milk") {
+        override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
+            tooltip.add("item.alchemistry:milk.tooltip".translate())
+        }
+    }
     var mineralSalt = ItemBase("mineral_salt")
     var condensedMilk = ItemBase("condensed_milk")
     var fertilizer = ItemFertilizer()
@@ -25,21 +29,12 @@ object ModItems {
             tooltip.add("item.alchemistry:obsidian_breaker.tooltip".translate())
         }
     }
-    var MILK = object: ItemBase("milk") {
-        override fun addInformation(stack: ItemStack, worldIn: World?, tooltip: MutableList<String>, flagIn: ITooltipFlag) {
-            tooltip.add("item.alchemistry:milk.tooltip".translate())
-        }
-    }
+    var slotFiller = ItemSlotFiller()
 
-    val items = arrayOf<ALItem>(
-            MILK,
-            mineralSalt,
-            condensedMilk,
-            fertilizer,
-            obsidianBreaker,
-            elements,
-            compounds,
-            ingots)
+    var elements = ItemElement("element")
+    var compounds = ItemCompound("compound")
+    var ingots = ItemElementIngot("ingot")
+
 
     fun registerItems(event: RegistryEvent.Register<Item>) = items.forEach { it.registerItem(event) }
 
@@ -52,11 +47,14 @@ object ModItems {
         val itemColors = Minecraft.getMinecraft().itemColors
         itemColors.registerItemColorHandler(colorHandler, compounds)
         itemColors.registerItemColorHandler(colorHandler, ingots)
-
     }
 }
 
-open class ItemBase(name: String) : ALItem(name, Reference.creativeTab)
+open class ItemBase(name: String) : ALItem(name, Reference.creativeTab) {
+    init {
+        ModItems.items.add(this)
+    }
+}
 
 abstract class ItemMetaBase(name: String) : ItemBase(name) {
 

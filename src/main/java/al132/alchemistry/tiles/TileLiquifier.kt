@@ -33,6 +33,11 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
                 return ModRecipes.liquifierRecipes.any { it.output.fluid == fluid?.fluid }
             }
+
+            override fun onContentsChanged() {
+                super.onContentsChanged()
+                markDirtyGUI()
+            }
         }
         outputTank.setTileEntity(this)
         outputTank.setCanFill(false)
@@ -46,16 +51,29 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
                     return super.insertItem(slot, stack, simulate)
                 } else return stack
             }
+
+            override fun onContentsChanged(slot: Int) {
+                updateRecipe()
+                markDirtyGUI()
+            }
         }
     }
+
+    fun updateRecipe() {
+        val inputStack = this.input.getStackInSlot(0)
+        if (!inputStack.isEmpty && currentRecipe == null) {
+            this.currentRecipe = ModRecipes.liquifierRecipes.firstOrNull { it.input.areItemsEqual(inputStack) }
+        }
+        if (inputStack.isEmpty) currentRecipe = null
+    }
+
 
     override fun update() {
         if (!world.isRemote) {
             if (!this.input[0].isEmpty) {
-                this.currentRecipe = ModRecipes.liquifierRecipes.firstOrNull { it.input.areItemsEqual(this.input[0]) }
                 if (canProcess()) process()
             }
-            this.markDirtyClientEvery(5)
+            this.markDirtyGUIEvery(5)
         }
     }
 
@@ -72,14 +90,15 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
         super.readFromNBT(compound)
         this.outputTank.readFromNBT(compound.getCompoundTag("OutputTankNBT"))
         this.progressTicks = compound.getInteger("ProgressTicks")
+        updateRecipe()
     }
 
     fun canProcess(): Boolean {
         return currentRecipe != null
-                && ((outputTank.fluid?.fluid == currentRecipe!!.output.fluid ?: false) || outputTank.fluid == null)
                 && outputTank.capacity >= outputTank.fluidAmount + currentRecipe!!.output.amount
                 && this.energyStorage.energyStored >= ConfigHandler.liquifierEnergyPerTick!!
                 && input[0].count >= currentRecipe!!.input.count
+                && ((outputTank.fluid?.fluid == currentRecipe!!.output.fluid ?: false) || outputTank.fluid == null)
     }
 
     fun process() {
@@ -87,8 +106,8 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
             progressTicks++
         } else {
             progressTicks = 0
-            input[0].shrink(currentRecipe!!.input.count)
             outputTank.fillInternal(currentRecipe!!.output, true)//; .setOrIncrement(0, currentRecipe!!.output)
+            input[0].shrink(currentRecipe!!.input.count)
         }
         this.energyStorage.extractEnergy(ConfigHandler.liquifierEnergyPerTick!!, false)
     }

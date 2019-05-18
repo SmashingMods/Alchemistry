@@ -31,6 +31,11 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IItemTile,
             override fun canFillFluidType(fluid: FluidStack?): Boolean {
                 return ModRecipes.electrolyzerRecipes.any { it.input.fluid == fluid?.fluid }
             }
+
+            override fun onContentsChanged() {
+                super.onContentsChanged()
+                markDirtyGUI()
+            }
         }
 
         inputTank.setTileEntity(this)
@@ -56,8 +61,8 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IItemTile,
                     (inputTank.fluid?.containsFluid(it.input) ?: false) && it.electrolytes.containsItem(input[0])
                 }
                 if (canProcess()) process()
+                this.markDirtyGUIEvery(5)
             }
-            this.markDirtyClientEvery(5)
         }
     }
 

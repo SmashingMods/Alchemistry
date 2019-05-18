@@ -31,25 +31,36 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IItemTile,
 
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-                if (DissolverRecipe.match(stack, false) != null) return super.insertItem(slot, stack, simulate)
+                if(!this.getStackInSlot(slot).isEmpty) return super.insertItem(slot, stack, simulate)
+                else if (DissolverRecipe.match(stack, false) != null) return super.insertItem(slot, stack, simulate)
                 else return stack
             }
+
+            override fun onContentsChanged(slot: Int) {
+                updateRecipe()
+                markDirtyGUI()
+            }
         }
+    }
+
+    fun updateRecipe(){
+        this.currentRecipe = DissolverRecipe.match(input[0], true)
+
     }
 
     override fun update() {
         if (!getWorld().isRemote) {
             if (!input[0].isEmpty || outputBuffer.isNotEmpty()) {
-                this.currentRecipe = DissolverRecipe.match(input[0], true)
+                //updateRecipe()
                 if (canProcess()) process()
             }
-            this.markDirtyClientEvery(5)
+            this.markDirtyGUIEvery(5)
         }
     }
 
     fun canProcess(): Boolean {
-        return (currentRecipe != null || !outputBuffer.isEmpty())
-                && energyStorage.energyStored >= ConfigHandler.dissolverEnergyPerTick!!
+        return energyStorage.energyStored >= ConfigHandler.dissolverEnergyPerTick!!
+                && (currentRecipe != null || !outputBuffer.isEmpty())
     }
 
 
@@ -104,8 +115,8 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IItemTile,
         for (i in 0 until outputBufferList.tagCount()) {
             outputBuffer.add(ItemStack(outputBufferList.getCompoundTagAt(i)))
         }
-        currentRecipe = DissolverRecipe.match(input[0], true)
-        markDirty()
+        updateRecipe()
+        markDirtyGUI()
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

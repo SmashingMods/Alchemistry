@@ -46,6 +46,7 @@ class DankFoodHandler : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
         }
         if (!food.isEmpty && !compound.isEmpty) {
             val tempResult: ItemStack = food.copy()//
+            tempResult.count = 1
             if (tempResult.hasTagCompound()) {
                 tempResult.tagCompound!!.apply {
                     this.setInteger("alchemistryPotion", compound.metadata)

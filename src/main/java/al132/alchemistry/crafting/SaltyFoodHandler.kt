@@ -47,6 +47,7 @@ class SaltyFoodHandler : IForgeRegistryEntry.Impl<IRecipe>(), IRecipe {
         }
         if (!food.isEmpty && countSalt == 8) {
             val tempResult: ItemStack = food.copy()
+            tempResult.count = 1
             tempResult.tagCompound!!.setBoolean("alchemistrySalted", true)
             resultItem = tempResult
             return true

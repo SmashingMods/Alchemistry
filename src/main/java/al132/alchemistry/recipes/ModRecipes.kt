@@ -250,9 +250,13 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.COAL_ORE.toIngredient()
             output {
-                addGroup { addStack { "carbon".toStack(quantity = 32) } }
+                addGroup {
+                    addStack { "carbon".toStack(quantity = 32) }
+                    addStack { "sulfur".toStack(quantity = 8) }
+                }
             }
         })
+
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.COAL_BLOCK.toIngredient()
@@ -261,7 +265,13 @@ object ModRecipes {
             }
         })
 
-
+        dissolverRecipes.add(dissolverRecipe {
+            input = Items.WHEAT_SEEDS.toIngredient()
+            output {
+                relativeProbability = false
+                addGroup { addStack { "cellulose".toStack() }; probability = 10.0 }
+            }
+        })
 
         dissolverRecipes.add(dissolverRecipe {
             input = Blocks.NETHERRACK.toIngredient()
@@ -1161,7 +1171,8 @@ object ModRecipes {
             input = Items.BONE.toIngredient()
             reversible = true
             output {
-                addStack { "hydroxylapatite".toStack(2) }
+                relativeProbability = false
+                addGroup { addStack { "hydroxylapatite".toStack(3) }; probability = 50.0 }
             }
         })
 
@@ -1177,6 +1188,13 @@ object ModRecipes {
 
                 }
 
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe {
+            input = Items.FEATHER.toIngredient()
+            output {
+                addGroup { addStack { "protein".toStack(2) } }
             }
         })
 
@@ -1266,7 +1284,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe
         {
             input = "blockSlime".toOre()
-            reversible = true
+            reversible = false
             output {
                 addGroup {
                     addStack { "protein".toStack(2 * 9) }
@@ -1530,8 +1548,17 @@ object ModRecipes {
                     dissolverRecipes.add(dissolverRecipe {
                         input = oreName.toOre()
                         output {
-                            addStack {
-                                ModItems.elements.toStack(quantity = data.quantity, meta = meta)
+                            addGroup {
+                                addStack {
+                                    ModItems.elements.toStack(quantity = data.quantity, meta = meta)
+                                }
+                                if (oreName == "oreIron") {
+                                    addStack { ModItems.elements.toStack(quantity = 2, meta = ElementRegistry["tungsten"]!!.meta) }
+                                    addStack { ModItems.elements.toStack(quantity = 4, meta = ElementRegistry["sulfur"]!!.meta) }
+                                } else if (oreName == "oreGold") {
+                                    addStack { ModItems.elements.toStack(quantity = 2, meta = ElementRegistry["copper"]!!.meta) }
+                                    addStack { ModItems.elements.toStack(quantity = 2, meta = ElementRegistry["silver"]!!.meta) }
+                                }
                             }
                         }
                     })
@@ -1930,11 +1957,15 @@ object ModRecipes {
                         null, null, "psilocybin".toStack(),
                         "water".toStack(), "cellulose".toStack(), "kaolinite".toStack())))
 
+        combinerRecipes.add(CombinerRecipe(Items.FEATHER.toStack(),
+                listOf(null, null, null,
+                        null, null, "protein".toStack(2))))
+
         combinerRecipes.add(CombinerRecipe(Items.SPIDER_EYE.toStack(),
                 listOf(null, "beta_carotene".toStack(2), "protein".toStack(2))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.SPONGE.toStack(),
-                listOf(null,"calcium_carbonate".toStack(8),"kaolinite".toStack(8))))
+                listOf(null, "calcium_carbonate".toStack(8), "kaolinite".toStack(8))))
 
         combinerRecipes.add(CombinerRecipe(Blocks.GRASS.toStack(4),
                 listOf(null, null, null,
@@ -2103,8 +2134,6 @@ object ModRecipes {
                         null, null, null,
                         null, null, "water".toStack(16))))
 
-        combinerRecipes.add(CombinerRecipe(Blocks.BONE_BLOCK.toStack(),
-                listOf(null, "hydroxylapatite".toStack(6))))
 
         combinerRecipes.add(CombinerRecipe(Items.DYE.toStack(quantity = 3, meta = 15),
                 listOf(null, null, "hydroxylapatite".toStack(2))))

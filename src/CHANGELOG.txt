@@ -1,3 +1,11 @@
+1.0.20
+===
+-Gold, Coal, and Iron ore now give small amounts of byproducts when dissolved
+-Added feather dissolver/combiner recipes
+-Modified bone-related recipes
+-Added wheat seed dissolver recipe
+
+
 1.0.19
 ===
 -Fixed food being duped when spiking/masking food with > 1 food in the crafting grid

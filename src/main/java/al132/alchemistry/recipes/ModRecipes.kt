@@ -1388,11 +1388,11 @@ object ModRecipes {
                 addGroup { addStack { "iron".toStack(1) }; probability = 4.0 }
                 addGroup { addStack { "gold".toStack(1) }; probability = 1.5 }
                 addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
-                addGroup { addStack { "dysprosium".toStack(1) }; probability = 0.5 }
-                addGroup { addStack { "zirconium".toStack(1) }; probability = 1.25 }
-                addGroup { addStack { "nickel".toStack(1) }; probability = 0.5 }
-                addGroup { addStack { "gallium".toStack(1) }; probability = 0.5 }
-                addGroup { addStack { "tungsten".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "dysprosium".toStack(1) }; probability = 1.0 }
+                addGroup { addStack { "zirconium".toStack(1) }; probability = 1.5 }
+                addGroup { addStack { "nickel".toStack(1) }; probability = 1.0 }
+                addGroup { addStack { "gallium".toStack(1) }; probability = 1.0 }
+                addGroup { addStack { "tungsten".toStack(1) }; probability = 1.0 }
 
             }
         })
@@ -1474,16 +1474,16 @@ object ModRecipes {
         {
             input = "stone".toOre()
             output {
-                addGroup { addStack { ItemStack.EMPTY }; probability = 200.0 }
+                addGroup { addStack { ItemStack.EMPTY }; probability = 20.0 }
                 addGroup { addStack { "aluminum".toStack(1) }; probability = 2.0 }
                 addGroup { addStack { "iron".toStack(1) }; probability = 4.0 }
                 addGroup { addStack { "gold".toStack(1) }; probability = 1.5 }
-                addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 10.0 }
+                addGroup { addStack { "silicon_dioxide".toStack(1) }; probability = 20.0 }
                 addGroup { addStack { "dysprosium".toStack(1) }; probability = 0.5 }
                 addGroup { addStack { "zirconium".toStack(1) }; probability = 1.25 }
-                addGroup { addStack { "tungsten".toStack(1) }; probability = 0.5 }
-                addGroup { addStack { "nickel".toStack(1) }; probability = 0.5 }
-                addGroup { addStack { "gallium".toStack(1) }; probability = 0.5 }
+                addGroup { addStack { "tungsten".toStack(1) }; probability = 1.0 }
+                addGroup { addStack { "nickel".toStack(1) }; probability = 1.0 }
+                addGroup { addStack { "gallium".toStack(1) }; probability = 1.0 }
             }
         })
 

@@ -3,6 +3,7 @@ package al132.alchemistry
 import al132.alchemistry.blocks.ModBlocks
 import al132.alchemistry.command.DissolverCommand
 import al132.alchemistry.crafting.DankFoodHandler
+import al132.alchemistry.crafting.MachineResettingHandler
 import al132.alchemistry.crafting.SaltyFoodHandler
 import al132.alchemistry.items.ModItems
 import crafttweaker.CraftTweakerAPI
@@ -97,6 +98,8 @@ object Alchemistry {
         fun registerCraftingHandler(event: RegistryEvent.Register<IRecipe>) {
             event.registry.register(DankFoodHandler())
             event.registry.register(SaltyFoodHandler())
+            event.registry.register(MachineResettingHandler())
+
         }
     }
 }

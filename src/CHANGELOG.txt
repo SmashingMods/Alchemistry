@@ -1,3 +1,9 @@
+1.0.21
+===
+-(Smooth) Stone Dissolver recipe is now significantly better
+-Empty NBT Tags (0 energy, no items, empty tanks) should no longer be stored when machines are broken
+-All machines can now be crafted alone to clear their NBT tags
+
 1.0.20
 ===
 -Gold, Coal, and Iron ore now give small amounts of byproducts when dissolved

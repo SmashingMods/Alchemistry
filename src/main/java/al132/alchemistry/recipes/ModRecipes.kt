@@ -1865,7 +1865,6 @@ object ModRecipes {
         combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(),
                 listOf(null, "carbon".toStack(8))))
 
-
         metals.forEach { entry ->
             val dustOutput: ItemStack? = firstOre(entry.toDict("dust"))
             if (dustOutput != null && !dustOutput.isEmpty) {

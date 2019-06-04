@@ -10,15 +10,15 @@
         "pattern": [
           ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "     "],
           ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
-          ["CCCCC", "C   C", "C 0 C", "C   C", "CCCCC", "     "],
           ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
-          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "  T  "]
+          ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "CCCCC", "CC0CC", "CCCCC", "CCCCC", "  T  "]
         ],
         "mapping": {
           "C": "alchemistry:fission_casing",
           "T": "alchemistry:fission_controller",
           "R": "alchemistry:fission_core",
-          "0": "alchemistry:fission_core"
+          "0": "alchemistry:fission_casing"
         }
       }
     },

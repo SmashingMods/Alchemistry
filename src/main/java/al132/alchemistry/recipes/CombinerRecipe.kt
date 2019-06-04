@@ -18,7 +18,7 @@ import java.util.*
  * Created by al132 on 1/22/2017.
  */
 
-data class CombinerRecipe(private val _output: ItemStack, private val objsIn: List<Any?>) {
+data class CombinerRecipe(private val _output: ItemStack, private val objsIn: List<Any?>, var gamestage: String = "") {
 
     val inputs: List<ItemStack>
         get() = inputsInternal.toList().copy()

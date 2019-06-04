@@ -11,7 +11,7 @@ import mezz.jei.api.ingredients.VanillaTypes
 
 class CombinerRecipeCategory(guiHelper: IGuiHelper) :
         AlchemistryRecipeCategory<CombinerRecipeWrapper>
-        (guiHelper.createDrawable(guiTexture, u, v, 159 - u, 70 - v), "jei.combiner.name") {
+        (guiHelper.createDrawable(guiTexture, u, v, 159 - u, /*70*/85 - v), "jei.combiner.name") {
 
     companion object {
 

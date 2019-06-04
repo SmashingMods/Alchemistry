@@ -56,9 +56,10 @@ open class BaseTileBlock(name: String, tileClass: Class<out TileEntity>, guiID: 
                     val inputTank = this.getCompoundTag("OutputTankNBT")
                     if (inputTank.hasKey("Empty")) this.removeTag("OutputTankNBT")
                 }
-                if(this.hasKey("EnergyStored") && this.getInteger("EnergyStored") == 0){
+                if (this.hasKey("EnergyStored") && this.getInteger("EnergyStored") == 0) {
                     this.removeTag("EnergyStored")
                 }
+                if (this.hasKey("Owner")) this.removeTag("Owner")
             }
             if (tag != null && tag.size == 0) droppedItem.tagCompound = null
         }

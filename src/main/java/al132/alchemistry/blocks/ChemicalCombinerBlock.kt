@@ -2,10 +2,13 @@ package al132.alchemistry.blocks
 
 import al132.alchemistry.ConfigHandler
 import al132.alchemistry.items.TooltipItemBlock
+import al132.alchemistry.tiles.TileChemicalCombiner
 import al132.alib.utils.extensions.translate
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityLivingBase
 import net.minecraft.item.Item
+import net.minecraft.item.ItemStack
 import net.minecraft.tileentity.TileEntity
 import net.minecraft.util.EnumBlockRenderType
 import net.minecraft.util.math.AxisAlignedBB
@@ -26,7 +29,7 @@ class ChemicalCombinerBlock(name: String,
 
     val boundingBox = AxisAlignedBB(0.0, 0.0, 0.0, 1.0, 0.875, 1.0)
 
-    override fun registerItemBlock(event: RegistryEvent.Register<Item>){
+    override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
         event.registry.register(TooltipItemBlock(this,
                 "tile.chemical_combiner.tooltip".translate() + " " + ConfigHandler.combinerEnergyPerTick + " FE/t")
                 .setRegistryName(this.registryName))
@@ -48,5 +51,11 @@ class ChemicalCombinerBlock(name: String,
                                        entityIn: Entity?, mysteryboolean: Boolean) {
 
         addCollisionBoxToList(pos, entityBox, collidingBoxes, boundingBox)
+    }
+
+    override fun onBlockPlacedBy(world: World?, pos: BlockPos?, state: IBlockState?, placer: EntityLivingBase?, stack: ItemStack?) {
+        super.onBlockPlacedBy(world, pos, state, placer, stack)
+        val tile = world?.getTileEntity(pos) as? TileChemicalCombiner
+        tile?.owner = placer?.name ?: ""
     }
 }

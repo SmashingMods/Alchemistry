@@ -1,3 +1,15 @@
+1.0.23
+===
+-Fission & Fusion controllers no longer care about what blocks are inside of their empty space around the core.
+ Previously they needed to be completely empty, so mobs could spawn inside
+-Added german translation thanks to Linde0404
+
+
+1.0.22
+===
+-Added Game Stage support for the Chemical Combiner (and 2 associated CT methods)
+-Fixed patchouli fission/fusion visualization being centered 2 blocks under ground
+
 1.0.21
 ===
 -(Smooth) Stone Dissolver recipe is now significantly better

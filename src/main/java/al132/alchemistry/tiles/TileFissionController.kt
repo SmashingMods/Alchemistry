@@ -152,13 +152,13 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
         val coreTop = coreBottom.offsetUp(2)
         val coreMatches = BlockPos.getAllInBox(coreBottom, coreTop).all(::containsCore)
 
-        val insideCorner1 = this.pos.offsetUp().offsetLeft().offsetBack(2)
+        /*val insideCorner1 = this.pos.offsetUp().offsetLeft().offsetBack(2)
         val insideCorner2 = insideCorner1.offsetBack(2).offsetRight(2).offsetUp(2)
         val middleXZ = this.pos.offsetBack(3)
         val emptyInsideMatches = BlockPos.getAllInBox(insideCorner1, insideCorner2)
                 .filterNot { it.x == middleXZ.x && it.z == middleXZ.z }
                 .all(world::isAirBlock)
-
+        */
         //A cube of all blocks surrounding the fission multiblock, checking to ensure no other fission multiblocks are overlapping/sharing
         val outsideCorner1 = this.pos.offsetLeft(3).offsetDown()
         val outsideCorner2 = outsideCorner1.offsetRight(6).offsetUp(6).offsetBack(6)
@@ -182,7 +182,7 @@ class TileFissionController : TileBase(), IGuiTile, ITickable, IItemTile,
             sharedAxes >= 1
         }.all(::containsCasing)
 
-        return casingMatches && coreMatches && emptyInsideMatches && (borderingParts == 0)
+        return casingMatches && coreMatches && /*emptyInsideMatches && */(borderingParts == 0)
     }
 
 

@@ -1,3 +1,14 @@
+1.0.25
+===
+-SIGNIFICANT performance improvements
+
+1.0.24
+===
+-Updated zh_cn.lang thanks to magcicada
+-Fixed combiner recipe clashes for glowstone/glowstone blocks & quartz/quartz blocks
+-Fixed bug where Liquifier would process its input, even if the output tank had a different kind of fluid, under very specific conditions
+-Preemptively patched the Atomizer to prevent a similar issue as above from cropping up
+
 1.0.23
 ===
 -Fission & Fusion controllers no longer care about what blocks are inside of their empty space around the core.

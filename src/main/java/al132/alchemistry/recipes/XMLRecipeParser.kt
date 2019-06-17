@@ -86,7 +86,7 @@ class XMLRecipeParser {
             if (inputFluid != null && outputs.count() > 0) {
                 if (OreDictionary.doesOreNameExist(electrolyteString)) {
                     ModRecipes.electrolyzerRecipes.add(ElectrolyzerRecipe(
-                            inputFluid = FluidStack(inputFluid, inputQuantity),
+                            input = FluidStack(inputFluid, inputQuantity),
                             _electrolyte = Ingredient.fromStacks(*OreDictionary.getOres(electrolyteString).toTypedArray()),
                             electrolyteConsumptionChance = electrolyteConsumptionChance,
                             outputOne = outputs[0],
@@ -95,7 +95,7 @@ class XMLRecipeParser {
 
                 } else if (!electrolyteStack.isEmpty) {
                     ModRecipes.electrolyzerRecipes.add(ElectrolyzerRecipe(
-                            inputFluid = inputFluid.toStack(inputQuantity),
+                            input = inputFluid.toStack(inputQuantity),
                             _electrolyte = Ingredient.fromStacks(electrolyteStack),
                             electrolyteConsumptionChance = electrolyteConsumptionChance,
                             outputOne = outputs[0],
@@ -141,7 +141,7 @@ class XMLRecipeParser {
             val outputXML = element.getFirst("output")?.getFirst("item")
             val output = outputXML.tagToStack()
             Alchemistry.logger.info("Added Combiner recipe: for $inputs")
-            ModRecipes.combinerRecipes.add(CombinerRecipe(_output = output, objsIn = inputs))
+            ModRecipes.combinerRecipes.add(CombinerRecipe(output = output, objsIn = inputs))
         } else if (actionType == "remove") {
             recipeCheck@ for (recipe in ModRecipes.combinerRecipes) {
                 for (i in recipe.inputs.indices) {
@@ -278,7 +278,7 @@ class XMLRecipeParser {
             val outputFluid: Fluid? = FluidRegistry.getFluid(element.getFirst("output")?.textContent ?: "")
             val outputQuantity: Int = element.getFirst("output")?.getAttribute("quantity")?.toIntOrNull() ?: 100
             if (outputFluid != null && !inputStack.isEmpty) {
-                ModRecipes.liquifierRecipes.add(LiquifierRecipe(inputStack = inputStack, outputFluid = FluidStack(outputFluid, outputQuantity)))
+                ModRecipes.liquifierRecipes.add(LiquifierRecipe(input = inputStack, output = FluidStack(outputFluid, outputQuantity)))
             } else {
                 Alchemistry.logger.info("Failed to add Liquifier recipe for: $inputString")
             }

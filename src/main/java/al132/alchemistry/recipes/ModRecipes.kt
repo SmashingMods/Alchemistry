@@ -583,7 +583,7 @@ object ModRecipes {
         listOf(0, 1, 2).forEach {
             dissolverRecipes.add(dissolverRecipe {
                 input = Blocks.QUARTZ_BLOCK.toIngredient(meta = it)
-                reversible = true
+                //reversible = true
                 output {
                     addGroup {
                         addStack { "barium".toStack(8 * 4) }
@@ -1578,7 +1578,7 @@ object ModRecipes {
         dissolverRecipes.add(dissolverRecipe
         {
             input = Blocks.GLOWSTONE.toIngredient()
-            reversible = true
+            //reversible = true
             output {
                 addStack { "phosphorus".toStack(quantity = 16) }
             }
@@ -1802,14 +1802,14 @@ object ModRecipes {
 
     fun initElectrolyzerRecipes() {
         electrolyzerRecipes.add(ElectrolyzerRecipe(
-                inputFluid = FluidRegistry.WATER.toStack(quantity = 125),
+                input = FluidRegistry.WATER.toStack(quantity = 125),
                 _electrolyte = "calcium_carbonate".toStack().toIngredient(),
                 electrolyteConsumptionChance = 20,
                 outputOne = "hydrogen".toStack(4),
                 outputTwo = "oxygen".toStack(2)))
 
         electrolyzerRecipes.add(ElectrolyzerRecipe(
-                inputFluid = FluidRegistry.WATER.toStack(125),
+                input = FluidRegistry.WATER.toStack(125),
                 _electrolyte = "sodium_chloride".toStack().toIngredient(),
                 electrolyteConsumptionChance = 20,
                 outputOne = "hydrogen".toStack(2),
@@ -1859,11 +1859,20 @@ object ModRecipes {
 
 
     fun initCombinerRecipes() {
-        combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(meta = 1),
-                listOf(null, null, "carbon".toStack(8))))
+        combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(meta = 1), listOf(null, null, "carbon".toStack(8))))
 
-        combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(),
-                listOf(null, "carbon".toStack(8))))
+        combinerRecipes.add(CombinerRecipe(Items.COAL.toStack(), listOf(null, "carbon".toStack(8))))
+
+        combinerRecipes.add(CombinerRecipe(Blocks.GLOWSTONE.toStack(), listOf(null, "phosphorus".toStack(16))))
+        listOf(0, 1, 2).forEach {
+            val input = (0 until it).mapTo(ArrayList<ItemStack>()) { ItemStack.EMPTY }.toMutableList()
+            combinerRecipes.add(CombinerRecipe(Blocks.QUARTZ_BLOCK.toStack(meta = it),
+                    input.apply {
+                        add(0, ItemStack.EMPTY);
+                        add("barium".toStack(32));
+                        add("silicon_dioxide".toStack(64))
+                    }))
+        }
 
         metals.forEach { entry ->
             val dustOutput: ItemStack? = firstOre(entry.toDict("dust"))
@@ -2184,7 +2193,7 @@ object ModRecipes {
     fun initLiquifierRecipes() {
 
         atomizerRecipes.filter { it.reversible }.forEach {
-            liquifierRecipes.add(LiquifierRecipe(it.output, it.input))
+            liquifierRecipes.add(LiquifierRecipe(it.output.copy(), it.input.copy()))
         }
 
         ElementRegistry.getAllElements().forEach {

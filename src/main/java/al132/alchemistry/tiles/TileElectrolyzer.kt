@@ -91,7 +91,7 @@ class TileElectrolyzer : TileBase(), IGuiTile, ITickable, IFluidTile, IItemTile,
                 && this.energyStorage.energyStored >= ConfigHandler.electrolyzerEnergyPerTick!!
                 && (0 until 4).all {
             val outputStack = output[it]
-            val recipeStack = currentRecipe!!.outputs[it]
+            val recipeStack = currentRecipe!!.outputs[it].copy()
             (outputStack.isEmpty || ItemStack.areItemsEqual(outputStack, recipeStack))
                     && outputStack.count + recipeStack.count <= recipeStack.maxStackSize
         }

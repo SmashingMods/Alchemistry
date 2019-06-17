@@ -47,8 +47,9 @@ open class CommonProxy {
 
     open fun init(e: FMLInitializationEvent) {
         ModRecipes.initOredict()
-        val files = Reference.configDir.listFiles(FileFilter { it.extension.toLowerCase() == "xml" })
-        files.forEach { XMLRecipeParser().init(it.name) }
+        Reference.configDir
+                .listFiles(FileFilter { it.extension.toLowerCase() == "xml" })
+                .forEach { XMLRecipeParser().init(it.name) }
         NetworkRegistry.INSTANCE.registerGuiHandler(Alchemistry, GuiHandler())
         MinecraftForge.EVENT_BUS.register(EventHandler())
     }

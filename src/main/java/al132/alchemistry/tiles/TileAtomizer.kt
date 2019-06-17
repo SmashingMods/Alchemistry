@@ -43,7 +43,8 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
     }
 
     fun updateRecipe() {
-        if (inputTank.fluid != null && currentRecipe == null) {
+        if (inputTank.fluid != null &&
+                (currentRecipe == null || !ItemStack.areItemStacksEqual(currentRecipe!!.output, output.getStackInSlot(0)))) {
             currentRecipe = ModRecipes.atomizerRecipes.firstOrNull { it.input.fluid == inputTank.fluid?.fluid }
         }
         if (inputTank.fluid == null) currentRecipe = null
@@ -79,11 +80,13 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
         get() = FluidHandlerConcatenate(inputTank)
 
     fun canProcess(): Boolean {
-        return currentRecipe != null
-                && energyStorage.energyStored >= ConfigHandler.atomizerEnergyPerTick!!
-                && inputTank.fluidAmount >= currentRecipe!!.input.amount
-                && (ItemStack.areItemsEqual(output[0], currentRecipe!!.output) || output[0].isEmpty)
-                && output[0].count + currentRecipe!!.output.count <= currentRecipe!!.output.maxStackSize
+        if (currentRecipe != null) {
+            val recipeOutput = currentRecipe!!.output
+            return energyStorage.energyStored >= ConfigHandler.atomizerEnergyPerTick!!
+                    && inputTank.fluidAmount >= currentRecipe!!.input.amount
+                    && (ItemStack.areItemsEqual(output[0], recipeOutput) || output[0].isEmpty)
+                    && output[0].count + recipeOutput.count <= recipeOutput.maxStackSize
+        } else return false;
     }
 
     fun process() {
@@ -91,7 +94,7 @@ class TileAtomizer : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
             progressTicks++
         } else {
             progressTicks = 0
-            output.setOrIncrement(0, currentRecipe!!.output)
+            output.setOrIncrement(0, currentRecipe!!.output.copy())
             inputTank.drainInternal(currentRecipe!!.input.amount, true)
         }
         this.energyStorage.extractEnergy(ConfigHandler.atomizerEnergyPerTick!!, false)

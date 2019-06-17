@@ -45,7 +45,7 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
 
     override fun update() {
         if (!world.isRemote) {
-            if(inputTank.fluidAmount > 0) {
+            if (inputTank.fluidAmount > 0) {
                 this.currentRecipe = ModRecipes.evaporatorRecipes.firstOrNull {
                     inputTank.fluid?.containsFluid(it.input) ?: false
                 }
@@ -74,13 +74,15 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
         get() = FluidHandlerConcatenate(inputTank)
 
     fun canProcess(): Boolean {
-        return currentRecipe != null
-                && inputTank.fluidAmount >= currentRecipe!!.input.amount
-                && output[0].count + currentRecipe!!.outputs[0].count <= currentRecipe!!.outputs[0].maxStackSize
+        if (currentRecipe != null) {
+            val recipeOutput = currentRecipe!!.output
+            return inputTank.fluidAmount >= currentRecipe!!.input.amount
+                    && output[0].count + recipeOutput.count <= recipeOutput.maxStackSize
+        } else return false;
     }
 
     fun calculateProcessingTime(): Int { //TODO more elaborate calculation?
-        var temp =ConfigHandler.evaporatorProcessingTicks!!
+        var temp = ConfigHandler.evaporatorProcessingTicks!!
         if (!BiomeDictionary.hasType(world.getBiomeForCoordsBody(this.pos), BiomeDictionary.Type.DRY)) {// != BiomeDesert::class.java) {
             temp += (ConfigHandler.evaporatorProcessingTicks!! * .5).toInt()
         }
@@ -94,7 +96,7 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
         else {
             progressTicks = 0
             inputTank.drainInternal(currentRecipe!!.input.amount, true)
-            output.setOrIncrement(0, currentRecipe!!.outputs[0])
+            output.setOrIncrement(0, currentRecipe!!.output.copy())
         }
     }
 }

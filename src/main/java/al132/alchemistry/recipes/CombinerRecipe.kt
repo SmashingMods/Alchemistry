@@ -4,7 +4,6 @@ import al132.alchemistry.items.ModItems
 import al132.alib.tiles.ALTileStackHandler
 import al132.alib.utils.Utils.areItemsEqualIgnoreMeta
 import al132.alib.utils.extensions.areItemStacksEqual
-import al132.alib.utils.extensions.copy
 import al132.alib.utils.extensions.get
 import al132.alib.utils.extensions.toStackList
 import net.minecraft.block.Block
@@ -18,15 +17,9 @@ import java.util.*
  * Created by al132 on 1/22/2017.
  */
 
-data class CombinerRecipe(private val _output: ItemStack, private val objsIn: List<Any?>, var gamestage: String = "") {
+data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>, var gamestage: String = "") {
 
-    val inputs: List<ItemStack>
-        get() = inputsInternal.toList().copy()
-
-    val output: ItemStack
-        get() = _output.copy()
-
-    private val inputsInternal = ArrayList<ItemStack>()
+    val inputs = ArrayList<ItemStack>()
 
     init {
         val tempInputs = objsIn
@@ -34,12 +27,12 @@ data class CombinerRecipe(private val _output: ItemStack, private val objsIn: Li
             val tempInput = tempInputs.getOrNull(index)
 
             when (tempInput) {
-                is ItemStack -> inputsInternal.add(tempInput)
-                is Item      -> inputsInternal.add(ItemStack(tempInput))
-                is Block     -> inputsInternal.add(ItemStack(tempInput))
+                is ItemStack -> inputs.add(tempInput)
+                is Item      -> inputs.add(ItemStack(tempInput))
+                is Block     -> inputs.add(ItemStack(tempInput))
                 is String    -> {
                 } //TODO oredict input
-                else         -> inputsInternal.add(ItemStack.EMPTY)
+                else         -> inputs.add(ItemStack.EMPTY)
             }
         }
     }
@@ -69,7 +62,7 @@ data class CombinerRecipe(private val _output: ItemStack, private val objsIn: Li
             return matchInputs(handler.toStackList())
         }
 
-        fun matchInputs(inputStacks: List<ItemStack>): CombinerRecipe? {
+        private fun matchInputs(inputStacks: List<ItemStack>): CombinerRecipe? {
             for (recipe in ModRecipes.combinerRecipes) {
                 var matchingStacks = 0
                 for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
@@ -83,13 +76,13 @@ data class CombinerRecipe(private val _output: ItemStack, private val objsIn: Li
                         matchingStacks++
                     }
                 }
-                if (matchingStacks == INPUT_COUNT) return recipe.copy()
+                if (matchingStacks == INPUT_COUNT) return recipe//.copy()
             }
             return null
         }
 
         fun matchOutput(stack: ItemStack): CombinerRecipe? {
-            return ModRecipes.combinerRecipes.firstOrNull { it.output.areItemStacksEqual(stack) }?.copy()
+            return ModRecipes.combinerRecipes.firstOrNull { it.output.areItemStacksEqual(stack) }
         }
     }
 }

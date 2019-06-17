@@ -9,6 +9,6 @@ class EvaporatorRecipeWrapper(recipe: EvaporatorRecipe) : AlchemistryRecipeWrapp
 
     override fun getIngredients(ingredients: IIngredients) {
         ingredients.setInput(VanillaTypes.FLUID, recipe.input)
-        ingredients.setOutputs(VanillaTypes.ITEM, recipe.outputs)
+        ingredients.setOutputs(VanillaTypes.ITEM, listOf(recipe.output))
     }
 }

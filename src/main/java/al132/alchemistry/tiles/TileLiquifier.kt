@@ -37,6 +37,7 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
             override fun onContentsChanged() {
                 super.onContentsChanged()
                 markDirtyGUI()
+                updateRecipe()
             }
         }
         outputTank.setTileEntity(this)
@@ -61,7 +62,7 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
 
     fun updateRecipe() {
         val inputStack = this.input.getStackInSlot(0)
-        if (!inputStack.isEmpty && currentRecipe == null) {
+        if (!inputStack.isEmpty && (currentRecipe == null || !ItemStack.areItemStacksEqual(currentRecipe!!.input, inputStack))) {
             this.currentRecipe = ModRecipes.liquifierRecipes.firstOrNull { it.input.areItemsEqual(inputStack) }
         }
         if (inputStack.isEmpty) currentRecipe = null
@@ -94,11 +95,13 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
     }
 
     fun canProcess(): Boolean {
-        return currentRecipe != null
-                && outputTank.capacity >= outputTank.fluidAmount + currentRecipe!!.output.amount
-                && this.energyStorage.energyStored >= ConfigHandler.liquifierEnergyPerTick!!
-                && input[0].count >= currentRecipe!!.input.count
-                && ((outputTank.fluid?.fluid == currentRecipe!!.output.fluid ?: false) || outputTank.fluid == null)
+        if(currentRecipe != null) {
+            val recipeOutput = currentRecipe!!.output
+            return outputTank.capacity >= outputTank.fluidAmount + recipeOutput.amount
+                    && this.energyStorage.energyStored >= ConfigHandler.liquifierEnergyPerTick!!
+                    && input[0].count >= currentRecipe!!.input.count
+                    && ((outputTank.fluid?.fluid == recipeOutput.fluid ?: false) || outputTank.fluid == null)
+        }else return false;
     }
 
     fun process() {
@@ -106,7 +109,7 @@ class TileLiquifier : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile,
             progressTicks++
         } else {
             progressTicks = 0
-            outputTank.fillInternal(currentRecipe!!.output, true)//; .setOrIncrement(0, currentRecipe!!.output)
+            outputTank.fillInternal(currentRecipe!!.output.copy(), true)//; .setOrIncrement(0, currentRecipe!!.output)
             input[0].shrink(currentRecipe!!.input.count)
         }
         this.energyStorage.extractEnergy(ConfigHandler.liquifierEnergyPerTick!!, false)

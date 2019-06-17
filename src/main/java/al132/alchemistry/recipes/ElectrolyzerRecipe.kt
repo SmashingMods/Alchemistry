@@ -9,7 +9,7 @@ import java.util.*
 /**
  * Created by al132 on 1/20/2017.
  */
-data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
+data class ElectrolyzerRecipe(val input: FluidStack,
                               private val _electrolyte: Ingredient,
                               val electrolyteConsumptionChance: Int,
                               private val outputOne: ItemStack,
@@ -19,14 +19,12 @@ data class ElectrolyzerRecipe(private val inputFluid: FluidStack,
                               private val outputFour: ItemStack = ItemStack.EMPTY,
                               val output4Probability: Int = 50) {
 
-    val input: FluidStack
-        get() = this.inputFluid.copy()
 
     val electrolytes: List<ItemStack>
         get() = _electrolyte.matchingStacks.toList()
 
     val outputs: List<ItemStack>
-        get():List<ItemStack> = arrayListOf(outputOne.copy(), outputTwo.copy(), outputThree.copy(), outputFour.copy())
+        get():List<ItemStack> = arrayListOf(outputOne, outputTwo, outputThree, outputFour)
 
     fun calculatedInSlot(index: Int): ItemStack {
         val random = Random()

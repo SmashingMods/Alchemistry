@@ -9,14 +9,8 @@ import net.minecraftforge.fluids.FluidStack
  */
 
 
-data class AtomizerRecipe(val reversible: Boolean = false, private val inputFluid: FluidStack, private val outputOne: ItemStack) {
+data class AtomizerRecipe(val reversible: Boolean = false, val input: FluidStack, val output: ItemStack) {
 
     constructor(reversible: Boolean = false, fluid: Fluid, fluidQuantity: Int, output: ItemStack)
             : this(reversible, FluidStack(fluid, fluidQuantity), output)
-
-    val input: FluidStack
-        get() = this.inputFluid.copy()
-
-    val output: ItemStack
-        get():ItemStack = outputOne.copy()
 }

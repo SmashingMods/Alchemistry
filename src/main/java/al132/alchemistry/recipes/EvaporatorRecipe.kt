@@ -9,13 +9,8 @@ import net.minecraftforge.fluids.FluidStack
  */
 
 
-data class EvaporatorRecipe(private val inputFluid: FluidStack, private val outputOne: ItemStack) {
+data class EvaporatorRecipe(val input: FluidStack, val output: ItemStack) {
 
     constructor(fluid: Fluid, fluidQuantity: Int, output: ItemStack) : this(FluidStack(fluid, fluidQuantity), output)
 
-    val input: FluidStack
-        get() = this.inputFluid.copy()
-
-    val outputs: List<ItemStack>
-        get():List<ItemStack> = arrayListOf(outputOne.copy())
 }

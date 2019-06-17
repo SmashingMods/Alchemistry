@@ -43,7 +43,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
                 if (!recipeIsLocked) return super.insertItem(slot, stack, simulate)
-                else if (recipeIsLocked && (currentRecipe?.inputs?.get(slot)?.areItemsEqual(stack) ?: false)) {
+                else if (recipeIsLocked && (currentRecipe?.inputs?.get(slot)?.areItemsEqual(stack) == true)) {
                     return super.insertItem(slot, stack, simulate)
                 } else return stack
             }
@@ -60,7 +60,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
 
     override fun update() {
         if (!getWorld().isRemote) {
-            if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY)
+            if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output?.copy()) ?: ItemStack.EMPTY)
             if (!this.paused && canProcess()) process()
             this.markDirtyGUIEvery(5)
         }
@@ -117,7 +117,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
             }
             val recipeTarget = ItemStack(compound.getCompoundTag("RecipeTarget"))
             this.currentRecipe = CombinerRecipe.matchOutput(recipeTarget)
-            clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output) ?: ItemStack.EMPTY!!)
+            clientRecipeTarget.setStackInSlot(0, (currentRecipe?.output?.copy()) ?: ItemStack.EMPTY!!)
         } else {
             this.updateRecipe()
             clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY)
@@ -133,7 +133,7 @@ class TileChemicalCombiner : TileBase(), IGuiTile, ITickable, IItemTile,
             val recipeInputs = NBTTagList()
             for (i in this.currentRecipe!!.inputs.indices) {
                 val recipeInputEntry = NBTTagCompound()
-                val tempStack = this.currentRecipe!!.inputs[i]
+                val tempStack = this.currentRecipe!!.inputs[i].copy()
                 tempStack.writeToNBT(recipeInputEntry)
                 recipeInputs.appendTag(recipeInputEntry)
             }

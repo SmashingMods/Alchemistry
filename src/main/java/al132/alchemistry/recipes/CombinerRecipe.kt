@@ -25,13 +25,10 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>,
         val tempInputs = objsIn
         (0 until INPUT_COUNT).forEach { index ->
             val tempInput = tempInputs.getOrNull(index)
-
             when (tempInput) {
                 is ItemStack -> inputs.add(tempInput)
                 is Item      -> inputs.add(ItemStack(tempInput))
                 is Block     -> inputs.add(ItemStack(tempInput))
-                is String    -> {
-                } //TODO oredict input
                 else         -> inputs.add(ItemStack.EMPTY)
             }
         }
@@ -63,26 +60,29 @@ data class CombinerRecipe(val output: ItemStack, private val objsIn: List<Any?>,
         }
 
         private fun matchInputs(inputStacks: List<ItemStack>): CombinerRecipe? {
-            for (recipe in ModRecipes.combinerRecipes) {
+            outer@ for (recipe in ModRecipes.combinerRecipes) {
                 var matchingStacks = 0
-                for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
+                inner@ for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
                     val inputStack: ItemStack = inputStacks[index]
-
-                    if ((inputStack.item == ModItems.slotFiller || inputStack.isEmpty) && recipeStack.isEmpty) matchingStacks++
-                    else if (inputStack.isEmpty || recipeStack.isEmpty) continue
-                    else if (areItemsEqualIgnoreMeta(inputStack, recipeStack)
-                            && inputStack.count >= recipeStack.count
-                            && (inputStack.itemDamage == recipeStack.itemDamage || recipeStack.itemDamage == OreDictionary.WILDCARD_VALUE)) {
-                        matchingStacks++
+                    if ((inputStack.item == ModItems.slotFiller || inputStack.isEmpty) && recipeStack.isEmpty) {
+                        continue@inner
+                    } else if (!(areItemsEqualIgnoreMeta(inputStack, recipeStack)
+                                    && inputStack.count >= recipeStack.count
+                                    && (inputStack.itemDamage == recipeStack.itemDamage || recipeStack.itemDamage == OreDictionary.WILDCARD_VALUE))) {
+                        continue@outer;
+                    } else if (inputStack.isEmpty || recipeStack.isEmpty) {
+                        continue@outer
                     }
                 }
-                if (matchingStacks == INPUT_COUNT) return recipe//.copy()
+                return recipe//.copy()
             }
             return null
         }
 
         fun matchOutput(stack: ItemStack): CombinerRecipe? {
-            return ModRecipes.combinerRecipes.firstOrNull { it.output.areItemStacksEqual(stack) }
+            return ModRecipes.combinerRecipes
+                    .filter { it.output.item == stack.item }
+                    .firstOrNull { it.output.areItemStacksEqual(stack) }
         }
     }
 }

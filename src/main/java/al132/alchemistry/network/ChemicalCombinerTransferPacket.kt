@@ -48,9 +48,9 @@ class ChemicalCombinerTransferPacket() : IMessage {
             if (tile is TileChemicalCombiner) {
                 val output: ItemStack = message.outputStack!!
                 if (!output.isEmpty) {
-                    tile.clientRecipeTarget.setStackInSlot(0, output)
+                    tile.clientRecipeTarget.setStackInSlot(0, output.copy())
                     tile.recipeIsLocked = true
-                    tile.currentRecipe = CombinerRecipe.matchOutput(output)
+                    tile.currentRecipe = CombinerRecipe.matchOutput(output.copy())
                 }
             }
         }

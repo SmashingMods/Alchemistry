@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "HHH",
+    "HPH",
+    "HHH"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "H": {
+      "item": "alchemistry:element",
+      "data": 1
+    }
+  },
+  "result": {
+    "item": "alchemistry:periodic_diagram"
+ }
+}

@@ -25,6 +25,7 @@ item.alchemistry:fertilizer.name=Fertilizer
 item.alchemistry:obsidian_breaker.name=Obsidian Breaker
 item.alchemistry:milk.name=MILK
 item.alchemistry:slot_filler.name=Slot Filler
+item.alchemistry:periodic_diagram.name=Periodic Diagram
 
 item.alchemistry:element_hydrogen.name=Hydrogen
 item.alchemistry:element_helium.name=Helium
@@ -235,6 +236,7 @@ itemGroup.alchemistry=Alchemistry
 item.alchemistry:fertilizer.tooltip=Can be used like bonemeal
 item.alchemistry:obsidian_breaker.tooltip=Right-click an obsidian block while holding this item to instantly harvest the obsidian. This item will be consumed.
 item.alchemistry:milk.tooltip=All I do is milk
+item.alchemistry:periodic_diagram.tooltip=Right-click to bring up a full-screen periodic table
 
 tile.electrolyzer.tooltip=Requires
 tile.chemical_dissolver.tooltip=Requires

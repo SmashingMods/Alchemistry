@@ -235,6 +235,25 @@ object ModRecipes {
             }
         }
 
+        dissolverRecipes.add(dissolverRecipe {
+            input = Items.DYE.toIngredient(meta = 3)
+            output {
+                relativeProbability = false
+                addGroup { addStack { "cellulose".toStack(1) }; probability = 50.0; }
+                addGroup { addStack { "caffeine".toStack(1) }; probability = 100.0 }
+            }
+        })
+
+        dissolverRecipes.add(dissolverRecipe {
+            input = Items.APPLE.toIngredient()
+            output {
+                addGroup {
+                    addStack { "cellulose".toStack() }
+                    addStack { "sucrose".toStack() }
+                }
+            }
+        })
+
         listOf("dustSaltpeter", "nitrate", "nitre").forEach {
             if (oreNotEmpty(it)) {
                 dissolverRecipes.add(dissolverRecipe {

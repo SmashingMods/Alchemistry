@@ -1,3 +1,10 @@
+1.0.28
+===
+-Fixed bug where electrolyzer gui would not update energy if it had no fluid
+-Added dissolver recipe for apples & cocoa beans
+-Added a new item, the "Periodic Diagram" that displays a fullscreen periodic table when used
+
+
 1.0.25
 ===
 -SIGNIFICANT performance improvements

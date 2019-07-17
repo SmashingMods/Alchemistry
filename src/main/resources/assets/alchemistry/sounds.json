@@ -1,0 +1,7 @@
+{
+  "block.soaryn_boom": {
+    "category": "block",
+    "subtitle": "block.soaryn_boom",
+    "sounds": [ { "name": "alchemistry:block/soaryn_boom", "stream": false } ]
+  }
+}

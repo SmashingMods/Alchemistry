@@ -38,6 +38,7 @@ open class CommonProxy {
             }
         }
         registerCapabilities()
+        SoundHandler.init()
         ElementRegistry.init()
         CompoundRegistry.init()
         PacketHandler.registerMessages(Reference.MODID)

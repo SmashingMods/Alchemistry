@@ -5,15 +5,14 @@ import al132.alchemistry.capability.CapabilityDrugInfo
 import al132.alchemistry.items.DankMolecule
 import al132.alchemistry.items.ItemCompound
 import al132.alchemistry.items.ModItems
+import al132.alchemistry.network.BoomPacket
+import al132.alchemistry.network.PacketHandler
 import al132.alib.utils.extensions.toStack
-import net.minecraft.client.Minecraft
 import net.minecraft.entity.Entity
 import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
-import net.minecraft.util.EnumParticleTypes
 import net.minecraft.util.ResourceLocation
-import net.minecraft.util.SoundCategory
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -63,19 +62,12 @@ class EventHandler {
                             && it.isInWater
                             && listOf(3, 11, 19, 37, 55, 87).contains(it.item.metadata)
                 } as List<EntityItem>
-        worldElements.forEach {
-            if (it.item.item == ModItems.elements) {
-                val x = it.posX
-                val y = it.posY
-                val z = it.posZ
-                val world = Minecraft.getMinecraft().world
-                world.playSound(x, y, z, SoundHandler.soaryn_boom, SoundCategory.BLOCKS,
-                        0.75f, 1.0f, false)
-                world.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, x, y, z, 0.0, 0.1, 0.0)
-                world.spawnParticle(EnumParticleTypes.FLAME, x, y, z, 0.0, 0.2, 0.0)
 
-            } else {
+        worldElements.forEach {
+            if (it.item.item == ModItems.ingots) {
                 e.world.createExplosion(null, it.posX, it.posY + 1, it.posZ, 2.0f, true)
+            } else {
+                PacketHandler.INSTANCE!!.sendToDimension(BoomPacket(listOf(it.position)), it.dimension)
             }
             it.setDead()
         }

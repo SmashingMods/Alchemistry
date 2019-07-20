@@ -1,3 +1,7 @@
+1.0.30
+===
+-Hotfix for alkali booms crashing on servers (elements, not ingots)
+
 1.0.29
 ===
 -Alkali Metals (Lithium, Sodium, Potassium, Rubidium, Cesium, and Francium) will now all react when tossed in water (in-world).

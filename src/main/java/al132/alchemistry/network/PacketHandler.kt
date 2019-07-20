@@ -20,5 +20,7 @@ object PacketHandler {
                 ChemicalCombinerPacket.Handler::class.java, ChemicalCombinerPacket::class.java, nextID(), Side.SERVER)
         INSTANCE!!.registerMessage(
                 ChemicalCombinerTransferPacket.Handler::class.java, ChemicalCombinerTransferPacket::class.java, nextID(), Side.SERVER)
+        INSTANCE!!.registerMessage(
+                BoomPacket.Handler::class.java,BoomPacket::class.java,nextID(),Side.CLIENT)
     }
 }

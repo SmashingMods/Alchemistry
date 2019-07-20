@@ -1,3 +1,7 @@
+1.0.31
+===
+-Improved the periodic diagram, both when held and when used (thank you to ShadowDoctor for the graphic)
+
 1.0.30
 ===
 -Hotfix for alkali booms crashing on servers (elements, not ingots)

@@ -15,10 +15,11 @@ class GuiPeriodicTable : GuiScreen() {
     val textureLocation = ResourceLocation(Reference.MODID, "textures/images/periodic_table.png")
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.drawScreen(mouseX, mouseY, partialTicks)
+        this.drawDefaultBackground()
         this.mc.textureManager.bindTexture(this.textureLocation)
         val scaledRes = ScaledResolution(Minecraft.getMinecraft())
-        val w = Math.min(scaledRes.scaledWidth, 1304)
-        val h = Math.min(scaledRes.scaledHeight, 624)
+        val w = Math.min(scaledRes.scaledWidth, 2000)
+        val h = Math.min(scaledRes.scaledHeight, 1016)
         //drawModalRectWithCustomSizedTexture(0, 0, 0f, 0f,w,h,w.toFloat(),h.toFloat())
         drawScaledCustomSizeModalRect(0, 0, 0f, 0f, w, h, w, h, w.toFloat(), h.toFloat())
     }

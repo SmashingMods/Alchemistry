@@ -28,7 +28,6 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
 
 
     override fun onItemUseFinish(stack: ItemStack, worldIn: World, entity: EntityLivingBase): ItemStack {
-        println(entity)
         if (entity is EntityPlayer) {
             val molecule = dankMolecules.firstOrNull { it.meta == stack.metadata }
             molecule?.let {
@@ -54,7 +53,6 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
         val stack = playerIn.getHeldItem(handIn)
         if (metaHasDankMolecule(stack.metadata)) return ActionResult(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn))
         else return ActionResult(EnumActionResult.PASS, stack)
-
     }
 
     @SideOnly(Side.CLIENT)

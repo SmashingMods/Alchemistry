@@ -5,11 +5,8 @@ import al132.alchemistry.capability.CapabilityDrugInfo
 import al132.alchemistry.items.DankMolecule
 import al132.alchemistry.items.ItemCompound
 import al132.alchemistry.items.ModItems
-import al132.alchemistry.network.BoomPacket
-import al132.alchemistry.network.PacketHandler
 import al132.alib.utils.extensions.toStack
 import net.minecraft.entity.Entity
-import net.minecraft.entity.item.EntityItem
 import net.minecraft.entity.player.EntityPlayer
 import net.minecraft.init.Blocks
 import net.minecraft.util.ResourceLocation
@@ -17,7 +14,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent
-import net.minecraftforge.fml.common.gameevent.TickEvent
 
 
 class EventHandler {
@@ -53,6 +49,7 @@ class EventHandler {
         }
     }
 
+    /*
     @SubscribeEvent
     fun fluidBooming(e: TickEvent.WorldTickEvent) {
         val worldElements = e.world.loadedEntityList
@@ -71,5 +68,5 @@ class EventHandler {
             }
             it.setDead()
         }
-    }
+    }*/
 }

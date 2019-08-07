@@ -65,6 +65,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
             }
             val isActive = !this.input[0].isEmpty && !this.input[1].isEmpty
             val state = this.world.getBlockState(this.pos)
+            if(state.block != ModBlocks.fusionController) return;
             val currentStatus = state.getValue(STATUS)
             if (this.isValidMultiblock) {
                 if (isActive) {

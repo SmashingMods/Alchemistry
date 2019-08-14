@@ -1,5 +1,5 @@
 {
-  "name": "Alchemistry Guidebook",
-  "landing_text": "Welcome to the Alchemistry Guidebook. This book will introduce you to some of the basics of the mod :)",
+  "name": "guide.alchemistry.title",
+  "landing_text": "guide.alchemistry.landing",
   "version": 1
 }

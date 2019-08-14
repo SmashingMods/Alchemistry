@@ -2,7 +2,7 @@ package al132.alchemistry.blocks
 
 import al132.alchemistry.ConfigHandler
 import al132.alchemistry.items.TooltipItemBlock
-import al132.alib.utils.extensions.translate
+import al132.alib.utils.Translator
 import net.minecraft.block.state.IBlockState
 import net.minecraft.entity.Entity
 import net.minecraft.item.Item
@@ -21,7 +21,8 @@ class ChemicalDissolverBlock(name: String,
 
     override fun registerItemBlock(event: RegistryEvent.Register<Item>){
         event.registry.register(TooltipItemBlock(this,
-                "tile.chemical_dissolver.tooltip".translate() + " " + ConfigHandler.dissolverEnergyPerTick + " FE/t")
+                Translator.translateToLocalFormatted("tooltip.alchemistry.energy_requirement",
+                        ConfigHandler.dissolverEnergyPerTick ?: "?"))
                 .setRegistryName(this.registryName))
     }
 

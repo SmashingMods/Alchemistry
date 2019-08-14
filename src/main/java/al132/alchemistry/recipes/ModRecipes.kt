@@ -2214,14 +2214,14 @@ object ModRecipes {
         atomizerRecipes.filter { it.reversible }.forEach {
             liquifierRecipes.add(LiquifierRecipe(it.output.copy(), it.input.copy()))
         }
-
+    /*
         ElementRegistry.getAllElements().forEach {
             if (fluidExists(it.name)) {
                 liquifierRecipes.add(LiquifierRecipe(
                         it.name.toStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
                 ))
             }
-        }
+        }*/
     }
 
     fun initFissionRecipes() {

@@ -2,6 +2,7 @@ package al132.alchemistry.blocks
 
 import al132.alchemistry.ConfigHandler
 import al132.alchemistry.items.TooltipItemBlock
+import al132.alib.utils.Translator
 import al132.alib.utils.extensions.translate
 import net.minecraft.block.properties.IProperty
 import net.minecraft.block.properties.PropertyDirection
@@ -30,7 +31,8 @@ class FissionControllerBlock(name: String,
 
     override fun registerItemBlock(event: RegistryEvent.Register<Item>) {
         event.registry.register(TooltipItemBlock(this,
-                "tile.fission_controller.tooltip".translate() + " " + ConfigHandler.fissionEnergyPerTick + " FE/t")
+                Translator.translateToLocalFormatted("tooltip.alchemistry.energy_requirement",
+                        ConfigHandler.fissionEnergyPerTick ?: "?"))
                 .setRegistryName(this.registryName))
     }
 

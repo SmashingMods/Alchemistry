@@ -1,7 +1,6 @@
 package al132.alchemistry.items
 
 import al132.alchemistry.chemistry.ElementRegistry
-import al132.alib.utils.extensions.toStack
 import al132.alib.utils.extensions.translate
 import net.minecraft.client.renderer.block.model.ModelResourceLocation
 import net.minecraft.creativetab.CreativeTabs
@@ -30,12 +29,12 @@ class ItemElementIngot(name: String) : ItemMetaBase(name) {
                 .forEach { items.add(ItemStack(this, 1, it)) }
     }
 
+
     override fun getItemStackDisplayName(stack: ItemStack): String {
         var i = stack.metadata
         if (!ElementRegistry.keys().contains(i)) i = 1
-        val elementName = ModItems.elements.toStack(meta = i)
-        //I assume that other languages use Iron ingot rather than ingot iron, i probably shouldn't
-        return (elementName.translationKey + ".name").translate() + " " + "element_ingot.name".translate()
+        // val elementName = ModItems.elements.toStack(meta = i)
+        return "item.alchemistry:ingot_${ElementRegistry[i]!!.name}.name".translate()
     }
 
     companion object {

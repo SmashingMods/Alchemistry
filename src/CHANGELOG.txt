@@ -1,3 +1,18 @@
+1.0.34
+===
+-Updated ru_ru.lang (thanks to Kellixon)
+-Added uk_ua.lang (thanks to tigerxp)
+
+1.0.33
+===
+-Fixed some localization bits for better compatibility with non-english languages
+-Removed all of the duplicate liquifier recipes
+
+1.0.32
+===
+-Disabled water +alkali "explosions" for now, unsure how to prevent it from crashing
+-Added safeguards for a rare crash (probably related to tiquality)
+
 1.0.31
 ===
 -Improved the periodic diagram, both when held and when used (thank you to ShadowDoctor for the graphic)

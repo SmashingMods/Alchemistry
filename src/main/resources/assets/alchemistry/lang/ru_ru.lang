@@ -17,11 +17,15 @@ tile.xenon_light.name=Ксеноновый свет
 tile.helium_light.name=Гелиевый свет
 tile.argon_light.name=Аргонный свет
 
+tile.wet_sand.name=Мокрый песок
+
 
 item.alchemistry:mineral_salt.name=Минеральная соль
 item.alchemistry:fertilizer.name=Удобрение
 item.alchemistry:obsidian_breaker.name=Обсидиановый разрушитель
 item.alchemistry:milk.name=МОЛОКО
+item.alchemistry:slot_filler.name=Слот наполнитель
+item.alchemistry:periodic_diagram.name=Периодическая диаграмма
 
 item.alchemistry:element_hydrogen.name=Водород
 item.alchemistry:element_helium.name=Гелий
@@ -31,7 +35,6 @@ item.alchemistry:element_boron.name=Бор
 item.alchemistry:element_carbon.name=Углерод
 item.alchemistry:element_nitrogen.name=Азот
 item.alchemistry:element_oxygen.name=Кислород
-
 item.alchemistry:element_fluorine.name=Фтор
 item.alchemistry:element_neon.name=Неон
 item.alchemistry:element_sodium.name=Натрий
@@ -143,6 +146,108 @@ item.alchemistry:element_livermorium.name=Ливерморий
 item.alchemistry:element_tennessine.name=Теннессин
 item.alchemistry:element_oganesson.name=Оганесон
 
+item.alchemistry:ingot_lithium.name=Слиток лития
+item.alchemistry:ingot_beryllium.name=Слиток бериллия
+item.alchemistry:ingot_boron.name=Слиток бора
+item.alchemistry:ingot_sodium.name=Слиток натрия
+item.alchemistry:ingot_magnesium.name=Слиток магния
+item.alchemistry:ingot_aluminum.name=Слиток алюминия
+item.alchemistry:ingot_silicon.name=Слиток кремния
+item.alchemistry:ingot_potassium.name=Слиток калия
+item.alchemistry:ingot_calcium.name=Слиток кальция
+item.alchemistry:ingot_scandium.name=Слиток скандия
+item.alchemistry:ingot_titanium.name=Слиток титана
+item.alchemistry:ingot_vanadium.name=Слиток ванадия
+item.alchemistry:ingot_chromium.name=Слиток хрома
+item.alchemistry:ingot_manganese.name=Слиток марганца
+item.alchemistry:ingot_cobalt.name=Слиток кобальта
+item.alchemistry:ingot_nickel.name=Слиток никеля
+item.alchemistry:ingot_copper.name=Слиток меди
+item.alchemistry:ingot_zinc.name=Слиток цинка
+item.alchemistry:ingot_gallium.name=Слиток галия
+item.alchemistry:ingot_germanium.name=Слиток германия
+item.alchemistry:ingot_arsenic.name=Слиток мышьяка
+item.alchemistry:ingot_selenium.name=Слиток селена
+item.alchemistry:ingot_rubidium.name=Слиток рубидия
+item.alchemistry:ingot_strontium.name=Слиток стронция
+item.alchemistry:ingot_yttrium.name=Слиток иттрия
+item.alchemistry:ingot_zirconium.name=Слиток циркония
+item.alchemistry:ingot_niobium.name=Слиток ниобия
+item.alchemistry:ingot_molybdenum.name=Слиток молибдена
+item.alchemistry:ingot_technetium.name=Слиток технеция
+item.alchemistry:ingot_ruthenium.name=Слиток рутения
+item.alchemistry:ingot_rhodium.name=Слиток родия
+item.alchemistry:ingot_palladium.name=Слиток палладиума
+item.alchemistry:ingot_silver.name=Слиток серебра
+item.alchemistry:ingot_cadmium.name=Слиток кадмия
+item.alchemistry:ingot_indium.name=Слиток индия
+item.alchemistry:ingot_tin.name=Слиток олова
+item.alchemistry:ingot_antimony.name=Слиток сурьмы
+item.alchemistry:ingot_tellurium.name=Слиток теллура
+item.alchemistry:ingot_cesium.name=Слиток цезия
+item.alchemistry:ingot_barium.name=Слиток бария
+item.alchemistry:ingot_lanthanum.name=Слиток лантана
+item.alchemistry:ingot_cerium.name=Слиток церия
+item.alchemistry:ingot_praseodymium.name=Слиток празеодима
+item.alchemistry:ingot_neodymium.name=Слиток неодима
+item.alchemistry:ingot_promethium.name=Слиток прометия
+item.alchemistry:ingot_samarium.name=Слиток самария
+item.alchemistry:ingot_europium.name=Слиток европия
+item.alchemistry:ingot_gadolinium.name=Слиток гадолиния
+item.alchemistry:ingot_terbium.name=Слиток тербия
+item.alchemistry:ingot_dysprosium.name=Слиток диспрозия
+item.alchemistry:ingot_holmium.name=Слиток гольмия
+item.alchemistry:ingot_erbium.name=Слиток эрбия
+item.alchemistry:ingot_thulium.name=Слиток тулия
+item.alchemistry:ingot_ytterbium.name=Слиток иттербия
+item.alchemistry:ingot_lutetium.name=Слиток лютеция
+item.alchemistry:ingot_hafnium.name=Слиток гафния
+item.alchemistry:ingot_tantalum.name=Слиток тантала
+item.alchemistry:ingot_tungsten.name=Слиток вольфрама
+item.alchemistry:ingot_rhenium.name=Слиток рения
+item.alchemistry:ingot_osmium.name=Слиток осмия
+item.alchemistry:ingot_iridium.name=Слиток иридия
+item.alchemistry:ingot_platinum.name=Слиток платины
+item.alchemistry:ingot_thallium.name=Слиток таллия
+item.alchemistry:ingot_lead.name=Слиток свинца
+item.alchemistry:ingot_bismuth.name=Слиток висмута
+item.alchemistry:ingot_polonium.name=Слиток полония
+item.alchemistry:ingot_astatine.name=Слиток астата
+item.alchemistry:ingot_francium.name=Слиток франция
+item.alchemistry:ingot_radium.name=Слиток радия
+item.alchemistry:ingot_actinium.name=Слиток актиния
+item.alchemistry:ingot_thorium.name=Слиток тория
+item.alchemistry:ingot_protactinium.name=Слиток протактиния
+item.alchemistry:ingot_uranium.name=Слиток урана
+item.alchemistry:ingot_neptunium.name=Слиток нептуния
+item.alchemistry:ingot_plutonium.name=Слиток плутония
+item.alchemistry:ingot_americium.name=Слиток америция
+item.alchemistry:ingot_curium.name=Слиток кюрия
+item.alchemistry:ingot_berkelium.name=Слиток берклия
+item.alchemistry:ingot_californium.name=Слиток калифорния
+item.alchemistry:ingot_einsteinium.name=Слиток эйнштейния
+item.alchemistry:ingot_fermium.name=Слиток фермия
+item.alchemistry:ingot_mendelevium.name=Слиток менделевия
+item.alchemistry:ingot_nobelium.name=Слиток нобелия
+item.alchemistry:ingot_lawrencium.name=Слиток лоуренсия
+item.alchemistry:ingot_rutherfordium.name=Слиток резерфордия
+item.alchemistry:ingot_dubnium.name=Слиток дубния
+item.alchemistry:ingot_seaborgium.name=Слиток сиборгия
+item.alchemistry:ingot_bohrium.name=Слиток бория
+item.alchemistry:ingot_hassium.name=Слиток хассия
+item.alchemistry:ingot_meitnerium.name=Слиток мейтнерия
+item.alchemistry:ingot_darmstadtium.name=Слиток дармштадтия
+item.alchemistry:ingot_roentgenium.name=Слиток рентгения
+item.alchemistry:ingot_copernicium.name=Слиток коперниция
+item.alchemistry:ingot_nihonium.name=Слиток нихония
+item.alchemistry:ingot_flerovium.name=Слиток флеровия
+item.alchemistry:ingot_moscovium.name=Слиток московия
+item.alchemistry:ingot_livermorium.name=Слиток ливермория
+item.alchemistry:ingot_tennessine.name=Слиток теннессина
+item.alchemistry:ingot_oganesson.name=Слиток оганесона
+
+
+
 
 item.alchemistry:compound_cellulose.name=Целлюлоза
 item.alchemistry:compound_aluminum_oxide.name=Оксид алюминия
@@ -206,9 +311,16 @@ item.alchemistry:compound_cocaine.name=Кокаин
 item.alchemistry:compound_penicillin.name=Пенициллин
 item.alchemistry:compound_acetylsalicylic_acid.name=Ацетилсалициловая кислота
 item.alchemistry:compound_caffeine.name=Кофеин
+item.alchemistry:compound_mercury_sulfide.name=Ртутный сульфид
+
+item.alchemistry:compound_cocaine_family.name=Универсальная кола
+item.alchemistry:compound_psilocybin_family.name=Псиллиум
+item.alchemistry:compound_mescaline_family.name=Мескит
 
 generic_potion_compound.tooltip=Имеет эффект при употреблении
-spiked_food.tooltip=Пронзённая с
+spiked_food.tooltip=Пронзённый с
+
+element_ingot.name=Слиток
 
 
 
@@ -225,16 +337,12 @@ itemGroup.alchemistry=Alchemistry
 item.alchemistry:fertilizer.tooltip=Может использоваться как костная мука
 item.alchemistry:obsidian_breaker.tooltip=ПКМ на блоке обсидиана, удерживая этот предмет, чтобы мгновенно собрать обсидиан. Этот предмет будет израсходован.
 item.alchemistry:milk.tooltip=Все что я делаю это молоко
+item.alchemistry:periodic_diagram.tooltip=ПКМ, чтобы открыть полноэкранную периодическую таблицу
 
-tile.electrolyzer.tooltip=Требует
-tile.chemical_dissolver.tooltip=Требует
-tile.chemical_combiner.tooltip=Требует
-tile.atomizer.tooltip=Требует
-tile.liquifier.tooltip=Требует
-tile.fission_controller.tooltip=Требует
-tile.fusion_controller.tooltip=Требует
+tooltip.alchemistry.energy_requirement=Требуется %d FE/тик
 
 tile.evaporator.tooltip=Работает на 50% медленнее в несухих биомах
+tile.wet_sand.tooltip=Возможность выращивать сахарный тростник без соседних блоков воды
 
 tile.combiner.unlock_recipe=Разблок. рецепт
 tile.combiner.lock_recipe=Заблок. рецепт
@@ -251,3 +359,7 @@ jei.dissolver.absolute=Абсолютно
 jei.dissolver.type=Тип
 jei.dissolver.rolls=Проходов
 jei.elements.description=Все элементы (кроме водорода) могут быть созданы с помощью мультиблока слияния.\nМультиблок принимает 2 элемента в качестве входных данных и объединяет их вместе, чтобы создать новый элемент, равный сумме их атомных номеров.
+
+guide.alchemistry.title=Руководство по алхимии
+guide.alchemistry.landing=Добро пожаловать в руководство по алхимии. Эта книга познакомит вас с некоторыми основами мода :)
+

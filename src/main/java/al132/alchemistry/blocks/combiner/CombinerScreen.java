@@ -1,0 +1,72 @@
+package al132.alchemistry.blocks.combiner;
+
+import al132.alchemistry.Alchemistry;
+import al132.alchemistry.network.CombinerButtonPkt;
+import al132.alchemistry.network.NetworkHandler;
+import al132.alib.client.ABaseScreen;
+import al132.alib.client.CapabilityEnergyDisplayWrapper;
+import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+
+public class CombinerScreen extends ABaseScreen<CombinerContainer> {
+
+    private Button toggleRecipeLock;// GuiButton
+    private Button pauseButton;//: GuiButton
+    private CombinerTile tile;
+    private CombinerContainer container;
+
+    public CombinerScreen(CombinerContainer screenContainer, PlayerInventory inv, ITextComponent name) {
+        super(Alchemistry.data, screenContainer, inv, name, "textures/gui/combiner_gui.png");
+        this.tile = (CombinerTile) screenContainer.tile;
+        this.container = screenContainer;
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(8, 8, 16, 60, screenContainer::getEnergy));
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+        toggleRecipeLock = new Button(this.guiLeft + 30, this.guiTop + 75, 80, 20, "Test",
+                press -> NetworkHandler.sendToServer(new CombinerButtonPkt(this.tile.getPos(), true, false)));
+        this.addButton(toggleRecipeLock);
+        pauseButton = new Button(this.guiLeft + 30, this.guiTop + 100, 80, 20, "Test",
+                press -> NetworkHandler.sendToServer(new CombinerButtonPkt(this.tile.getPos(), false, true)));
+        this.addButton(pauseButton);
+    }
+
+    public void updateButtonStrings() {
+        if (tile.recipeIsLocked) toggleRecipeLock.setMessage(I18n.format("block.combiner.unlock_recipe"));
+        else toggleRecipeLock.setMessage(I18n.format("block.combiner.lock_recipe"));
+
+        if (tile.paused) pauseButton.setMessage(I18n.format("block.combiner.resume"));
+        else pauseButton.setMessage(I18n.format("block.combiner.pause"));
+    }
+
+    @Override
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        updateButtonStrings();
+        // toggleRecipeLock.renderButton(mouseX, mouseY, 0.0f);
+        // pauseButton.renderButton(mouseX, mouseY, 0.0f);
+
+        if (!tile.clientRecipeTarget.getStackInSlot(0).isEmpty()) {
+            this.drawItemStack(tile.clientRecipeTarget.getStackInSlot(0), 140, 5, I18n.format("block.combiner.target"));
+        }
+    }
+
+    public void drawItemStack(ItemStack stack, int x, int y, String text) {
+        RenderHelper.enableGUIStandardItemLighting();
+        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        GlStateManager.translatef(0.0f, 0.0f, 32.0f);
+        this.blitOffset = 200;
+        this.itemRenderer.zLevel = 200.0f;
+        this.itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
+        this.itemRenderer.renderItemOverlayIntoGUI(this.font, stack, x, y + 5, text);
+        this.blitOffset = 0;
+        this.itemRenderer.zLevel = 0.0f;
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ECE",
+    "GBE",
+    "ECE"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "E": {
+      "item": "chemlib:ingot_beryllium"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "alchemistry:fission_casing"
+    }
+  },
+  "result": {
+    "item": "alchemistry:fission_controller"
+  }
+}

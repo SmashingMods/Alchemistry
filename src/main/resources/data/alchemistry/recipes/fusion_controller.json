@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "GPS",
+    "SCS"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:ender_pearl"
+    },
+    "S": {
+      "item": "chemlib:ingot_selenium"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "alchemistry:fusion_casing"
+    }
+  },
+  "result": {
+    "item": "alchemistry:fusion_controller"
+  }
+}

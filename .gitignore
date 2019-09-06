@@ -19,7 +19,7 @@ build
 
 # other
 OLD
-libs
+#libs
 eclipse
 run
 classes

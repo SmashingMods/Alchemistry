@@ -60,7 +60,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
 
     public boolean canProcess() {
         return currentRecipe != null
-                //&& (currentRecipe.gamestage == "" || hasCurrentRecipeStage())
+                //&& (currentRecipe.gamestage == "" || hasCurrentRecipeStage()) TODO
                 && energy.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()//ConfigHandler.combinerEnergyPerTick!! //has enough energy
                 && (currentRecipe.output.getCount() + getOutput().getStackInSlot(0).getCount() <= currentRecipe.output.getMaxStackSize()) //output quantities can stack
                 && (ItemStack.areItemsEqual(getOutput().getStackInSlot(0), currentRecipe.output) || getOutput().getStackInSlot(0).isEmpty()) //output item types can stack
@@ -107,7 +107,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         compound.putBoolean("recipeIsLocked", recipeIsLocked);
         compound.putInt("progressTicks", progressTicks);
         compound.putBoolean("paused", paused);
-        compound.put("recipeTarget", clientRecipeTarget.serializeNBT());//.getStackInSlot(0).serializeNBT());
+        compound.put("recipeTarget", clientRecipeTarget.serializeNBT());
         return super.write(compound);
     }
 

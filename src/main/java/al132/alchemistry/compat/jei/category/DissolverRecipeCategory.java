@@ -62,7 +62,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
     @Override
     public void setIngredients(DissolverRecipe recipe, IIngredients ingredients) {
         ingredients.setInputs(VanillaTypes.ITEM, recipe.inputs);
-        ingredients.setOutputs(VanillaTypes.ITEM, recipe.outputs.toStackList());
+        ingredients.setOutputs(VanillaTypes.ITEM, recipe.outputs.filterNonEmpty());
     }
 
     @Override
@@ -81,7 +81,9 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         for (ProbabilityGroup component : outputSet) {
             for (ItemStack stack : component.getOutputs()) {
                 guiItemStacks.init(outputSlotIndex, false, x, y);
-                guiItemStacks.set(outputSlotIndex, stack);
+                if(!stack.isEmpty()) {
+                    guiItemStacks.set(outputSlotIndex, stack);
+                }
                 x += 18;
                 outputSlotIndex++;
             }

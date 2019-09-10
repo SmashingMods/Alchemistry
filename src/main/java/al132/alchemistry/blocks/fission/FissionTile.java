@@ -197,11 +197,9 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public CustomStackHandler initInput() {
         return new CustomStackHandler(this, 1) {
-            @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if (stack.getItem() instanceof ElementItem) return super.insertItem(slot, stack, simulate);
-                else return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return stack.getItem() instanceof ElementItem;
             }
 
             @Override
@@ -215,10 +213,9 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public CustomStackHandler initOutput() {
         return new CustomStackHandler(this, 2) {
-            @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
             }
         };
     }

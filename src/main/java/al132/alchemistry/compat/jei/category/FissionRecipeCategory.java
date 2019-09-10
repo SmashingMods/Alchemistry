@@ -69,13 +69,15 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
 
         x = 121 - u;
         List<ItemStack> output1 = ingredients.getOutputs(VanillaTypes.ITEM).get(0);
-        List<ItemStack> output2 = ingredients.getOutputs(VanillaTypes.ITEM).get(1);
         guiItemStacks.init(1, false, x, y);
         guiItemStacks.set(1, output1);
         x += 18;
-        if(!output2.get(0).isEmpty()) {
-            guiItemStacks.init(2, false, x, y);
-            guiItemStacks.set(2, output2);
+        if (ingredients.getOutputs(VanillaTypes.ITEM).size() > 1) {
+            List<ItemStack> output2 = ingredients.getOutputs(VanillaTypes.ITEM).get(1);
+            if (!output2.get(0).isEmpty()) {
+                guiItemStacks.init(2, false, x, y);
+                guiItemStacks.set(2, output2);
+            }
         }
     }
 }

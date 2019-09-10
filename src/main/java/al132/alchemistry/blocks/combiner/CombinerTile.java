@@ -31,8 +31,8 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         super(Ref.combinerTile);
         clientRecipeTarget = new CustomStackHandler(this, 1) {
             @Override
-            public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-                return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
             }
 
             @Override
@@ -49,13 +49,13 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public void tick() {
         if (world.isRemote) return;
-       // this.energy.receiveEnergy(50, false);
+        // this.energy.receiveEnergy(50, false);
         ItemStack displayStack = ItemStack.EMPTY;
         if (currentRecipe != null && currentRecipe.output != null)
             displayStack = currentRecipe.output.getStack().copy();
         if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, displayStack);
         if (!this.paused && canProcess()) process();
-        this.markDirtyGUI();
+        this.markDirtyClient();
     }
 
     public boolean canProcess() {
@@ -77,14 +77,16 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
             if (currentRecipe != null) {
                 getOutput().setOrIncrement(0, currentRecipe.output.copy());
             }
-            if (currentRecipe != null && currentRecipe.inputs != null && currentRecipe.inputs.size() == 9) {
+            if (currentRecipe != null && currentRecipe.inputs.size() == 9) {
                 for (int index = 0; index < 9; index++) {
-                    ItemStack stack = currentRecipe.inputs.get(index);
-                    if (!stack.isEmpty()) {
-                        getInput().decrementSlot(index, stack.getCount());
-                    }
-                    if (getInput().getStackInSlot(index).getItem() == Ref.slotFiller) {
-                        getInput().decrementSlot(index, 1);
+                    if (currentRecipe != null) {
+                        ItemStack stack = currentRecipe.inputs.get(index);
+                        if (stack != null && !stack.isEmpty()) {
+                            getInput().decrementSlot(index, stack.getCount());
+                        }
+                        if (getInput().getStackInSlot(index).getItem() == Ref.slotFiller) {
+                            getInput().decrementSlot(index, 1);
+                        }
                     }
                 }
             }
@@ -97,9 +99,16 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         this.recipeIsLocked = compound.getBoolean("recipeIsLocked");
         this.progressTicks = compound.getInt("progressTicks");
         this.paused = compound.getBoolean("paused");
-        clientRecipeTarget.deserializeNBT(compound.getCompound("recipeTarget"));
-        //this.clientRecipeTarget.setOrIncrement(0, new ItemStack(compound.get("recipeTarget")));
-        this.updateRecipe();
+       // clientRecipeTarget.deserializeNBT(compound.getCompound("recipeTarget"));
+        if(recipeIsLocked){
+            this.currentRecipe = CombinerRecipe.matchOutput(ItemStack.read(compound.getCompound("recipeTarget")));
+            ItemStack temp = ItemStack.EMPTY;
+            if(currentRecipe != null) temp = currentRecipe.output.copy();
+            clientRecipeTarget.setStackInSlot(0, temp);
+        } else {
+            this.updateRecipe();
+            clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
+        }
     }
 
     @Override
@@ -107,7 +116,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         compound.putBoolean("recipeIsLocked", recipeIsLocked);
         compound.putInt("progressTicks", progressTicks);
         compound.putBoolean("paused", paused);
-        compound.put("recipeTarget", clientRecipeTarget.serializeNBT());
+        compound.put("recipeTarget", clientRecipeTarget.getStackInSlot(0).serializeNBT());
         return super.write(compound);
     }
 
@@ -120,20 +129,22 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public CustomStackHandler initInput() {
         return new CustomStackHandler(this, 9) {
+
             @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if (!recipeIsLocked) return super.insertItem(slot, stack, simulate);
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                if (!recipeIsLocked) return super.isItemValid(slot, stack);
                 else if (recipeIsLocked
                         && currentRecipe != null
-                        && currentRecipe.inputs != null
+                        && !currentRecipe.inputs.isEmpty()
                         && (ItemStack.areItemsEqual(stack, currentRecipe.inputs.get(slot)))) {
-                    return super.insertItem(slot, stack, simulate);
-                } else return stack;
+                    return super.isItemValid(slot, stack);
+                } else return false;
             }
 
             @Override
             public void onContentsChanged(int slot) {
+                super.onContentsChanged(slot);
                 if (!recipeIsLocked) updateRecipe();
             }
         };
@@ -142,10 +153,9 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public CustomStackHandler initOutput() {
         return new CustomStackHandler(this, 1) {
-            @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
             }
         };
     }

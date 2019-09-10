@@ -101,10 +101,9 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
     @Override
     public CustomStackHandler initOutput() {
         return new CustomStackHandler(this, 1){
-            @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
             }
         };
     }

@@ -186,7 +186,12 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public CustomStackHandler initInput() {
-        return new CustomStackHandler(this, 2);
+        return new CustomStackHandler(this, 2){
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return stack.getItem() instanceof ElementItem;
+            }
+        };
     }
 
     @Override
@@ -194,8 +199,8 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
         return new CustomStackHandler(this, 1) {
             @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
             }
         };
     }

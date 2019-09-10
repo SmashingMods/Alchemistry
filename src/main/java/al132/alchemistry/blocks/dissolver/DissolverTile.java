@@ -100,10 +100,10 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         return new CustomStackHandler(this, 1) {
             @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if (!this.getStackInSlot(slot).isEmpty()) return super.insertItem(slot, stack, simulate);
-                else if (DissolverRecipe.match(stack, false) != null) return super.insertItem(slot, stack, simulate);
-                else return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                if (!this.getStackInSlot(slot).isEmpty()) return super.isItemValid(slot, stack);
+                else if (DissolverRecipe.match(stack, false) != null) return super.isItemValid(slot, stack);
+                else return false;
             }
 
             @Override
@@ -120,13 +120,11 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         return new CustomStackHandler(this, 10) {
             @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return stack;
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
             }
         };
     }
-
-
 
 
     public void updateRecipe() {

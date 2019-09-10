@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, FluidTile {
@@ -94,7 +95,14 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     @Override
     public CustomStackHandler initInput() {
-        return new CustomStackHandler(this, 1);
+        return new CustomStackHandler(this, 1) {
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                if (ModRecipes.liquifierRecipes.stream().anyMatch(it -> ItemStack.areItemsEqual(it.input, stack))) {
+                    return super.isItemValid(slot, stack);
+                } else return false;
+            }
+        };
     }
 
     @Override

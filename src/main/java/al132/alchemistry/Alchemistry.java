@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
@@ -60,6 +61,13 @@ public class Alchemistry {
     private void doClientStuff(final FMLClientSetupEvent event) {
     }
 
+    @SubscribeEvent
+    public void serverStarting(final FMLServerStartingEvent e){
+        ModRecipes.init();
+    }
+
+
+
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
@@ -91,8 +99,7 @@ public class Alchemistry {
 
         @SubscribeEvent
         public static void onRecipeRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> e){
-            ModRecipes.init();
-
+            //ModRecipes.init();
         }
     }
 }

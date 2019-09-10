@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0'
+version = mod_version
 group = 'al132.alchemistry' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'alchemistry'
 
@@ -106,7 +106,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.14.4-28.0.92'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.0.100'
 
    // runtimeOnly fg.deobf(files("libs/chemlib-1.0.0.jar"))
 
@@ -115,7 +115,7 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
-    compile fg.deobf(files("libs/chemlib-1.14.4-1.1.0-dev.jar"))
+    compile fg.deobf(files("libs/chemlib-1.14.4-1.1.1-dev.jar"))
     compile fg.deobf(files("libs/alib-1.14.4-1.0.0-dev.jar"))
 
 

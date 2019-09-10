@@ -44,6 +44,7 @@ public class CombinerTransferPkt {
                     tile.currentRecipe = CombinerRecipe.matchOutput(output.copy());
                 }
                 //System.out.println("Handling packet: {" + message.outputStack + "}");
+                tile.markDirtyClient();
             });
             ctx.get().setPacketHandled(true);
         }

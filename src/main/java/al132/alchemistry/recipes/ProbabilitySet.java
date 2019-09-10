@@ -3,10 +3,12 @@ package al132.alchemistry.recipes;
 import al132.alchemistry.utils.ListUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -29,7 +31,7 @@ public class ProbabilitySet {
         this.rolls = rolls;
     }
 
-    public List<ProbabilityGroup> getSet(){
+    public List<ProbabilityGroup> getSet() {
         return set;
     }
 
@@ -39,6 +41,10 @@ public class ProbabilitySet {
         return builder.build().stream()
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
+    }
+
+    public List<ItemStack> filterNonEmpty() {
+        return toStackList().stream().filter(x -> !x.isEmpty()).collect(Collectors.toList());
     }
 
     public double probabilityAtIndex(int index) {
@@ -90,6 +96,8 @@ public class ProbabilitySet {
 
     public static class Builder {
         private List<ProbabilityGroup> groups = new ArrayList<>();
+        private boolean relativeProbability = true;
+        private int rolls = 1;
 
         public Builder() {
         }
@@ -100,13 +108,27 @@ public class ProbabilitySet {
             return this;
         }
 
+        public Builder rolls(int rolls) {
+            this.rolls = rolls;
+            return this;
+        }
+
+        public Builder relative(boolean relativeProbability) {
+            this.relativeProbability = relativeProbability;
+            return this;
+        }
+
         public Builder addGroup(double probability, ItemStack... stacks) {
             groups.add(new ProbabilityGroup(Lists.newArrayList(stacks), probability));
             return this;
         }
 
+        public Builder addGroup(double probability, Item... items) {
+            return addGroup(probability, Arrays.stream(items).map(ItemStack::new).toArray(ItemStack[]::new));
+        }
+
         public ProbabilitySet build() {
-            return new ProbabilitySet(this.groups);
+            return new ProbabilitySet(this.groups, relativeProbability, rolls);
         }
     }
 }

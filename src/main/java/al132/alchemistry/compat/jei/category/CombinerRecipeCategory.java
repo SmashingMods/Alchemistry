@@ -77,9 +77,9 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
 
         for (int i = 0; i < 9; i++) {
-            if (!recipe.inputs.get(i).isEmpty()
-                    && !recipe.inputs.get(i).isEmpty()) {
-                guiItemStacks.set(i, recipe.inputs.get(i));//ingredients.getInputs(VanillaTypes.ITEM).get(i));
+            ItemStack temp = recipe.inputs.get(i);
+            if (!temp.isEmpty()) {
+                guiItemStacks.set(i, temp);//ingredients.getInputs(VanillaTypes.ITEM).get(i));
             }
         }
 

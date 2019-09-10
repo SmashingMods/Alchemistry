@@ -2,6 +2,7 @@ package al132.alchemistry.network;
 
 import al132.alchemistry.blocks.combiner.CombinerTile;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -43,6 +44,8 @@ public class CombinerButtonPkt {
                 } else if (message.pause) {
                     tile.paused = !(tile.paused);
                 }
+                if (!tile.recipeIsLocked) tile.clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
+                tile.markDirtyClient();
             });
             ctx.get().setPacketHandled(true);
         }

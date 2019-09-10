@@ -17,6 +17,7 @@ import al132.alchemistry.blocks.fusion.*;
 import al132.alchemistry.blocks.liquifier.LiquifierBlock;
 import al132.alchemistry.blocks.liquifier.LiquifierContainer;
 import al132.alchemistry.blocks.liquifier.LiquifierTile;
+import al132.alchemistry.items.CondensedMilkItem;
 import al132.alchemistry.items.MineralSaltItem;
 import al132.alchemistry.items.SlotFillerItem;
 import net.minecraft.inventory.container.ContainerType;
@@ -42,6 +43,7 @@ public class Ref {
 
     public static SlotFillerItem slotFiller;
     public static MineralSaltItem mineralSalt;
+    public static CondensedMilkItem condensedMilk;
 
     public static ContainerType<CombinerContainer> combinerContainer;
     public static ContainerType<DissolverContainer> dissolverContainer;
@@ -76,5 +78,6 @@ public class Ref {
     public static void initItems() {
         slotFiller = new SlotFillerItem();
         mineralSalt = new MineralSaltItem();
+        condensedMilk = new CondensedMilkItem();
     }
 }

@@ -4,6 +4,7 @@ import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
 import al132.alchemistry.blocks.PowerStatus;
+import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
 import al132.chemlib.chemistry.ElementRegistry;
@@ -20,6 +21,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -65,7 +67,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     public boolean canProcess() {
         ItemStack input0 = getInput().getStackInSlot(0);
         ItemStack input1 = getInput().getStackInSlot(1);
-        ItemStack output0 = getInput().getStackInSlot(0);
+        ItemStack output0 = getOutput().getStackInSlot(0);
         return this.isValidMultiblock
                 && !input0.isEmpty()
                 && !input1.isEmpty()
@@ -90,14 +92,13 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     public void refreshRecipe() {
         Item item0 = getInput().getStackInSlot(0).getItem();
         Item item1 = getInput().getStackInSlot(1).getItem();
-        if(item0 instanceof ElementItem && item1 instanceof ElementItem) {
+        if (item0 instanceof ElementItem && item1 instanceof ElementItem) {
             int meta0 = ElementRegistry.elements.inverse().get(item0);
             int meta1 = ElementRegistry.elements.inverse().get(item1);//this.getInput().getStackInSlot(1).metadata;
             ElementItem outputElement = ElementRegistry.elements.get(meta0 + meta1);
             if (outputElement != null) recipeOutput = new ItemStack(outputElement);//outputElement.toItemStack(1);
             else recipeOutput = ItemStack.EMPTY;
-        }
-        else recipeOutput = ItemStack.EMPTY;
+        } else recipeOutput = ItemStack.EMPTY;
     }
 
 
@@ -133,8 +134,9 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     public boolean validateMultiblock() {
-        Direction multiblockDirection = world.getBlockState(this.pos).get(FusionControllerBlock.FACING).getOpposite();
-        if (multiblockDirection == null) return false;
+        Direction temp = world.getBlockState(this.pos).get(FusionControllerBlock.FACING);//.getOpposite();
+        if (temp == null) return false;
+        Direction multiblockDirection = temp.getOpposite();
         BiFunction<BlockPos, Integer, BlockPos> offsetUp = (BlockPos pos, Integer amt) -> pos.offset(Direction.UP, amt);
         BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> pos.offset(multiblockDirection.rotateY(), amt);
         BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> pos.offset(multiblockDirection.rotateY(), -1 * amt);
@@ -186,10 +188,16 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public CustomStackHandler initInput() {
-        return new CustomStackHandler(this, 2){
+        return new CustomStackHandler(this, 2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return stack.getItem() instanceof ElementItem;
+            }
+
+            @Override
+            public void onContentsChanged(int slot) {
+                ((FusionTile) tile).refreshRecipe();
+                super.onContentsChanged(slot);
             }
         };
     }
@@ -219,7 +227,12 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public int getTileMaxEnergy() {
-        return Config.FUSION_ENERGY_CAPACITY.get();
+    public IEnergyStorage initEnergy() {
+        return new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
+    }
+
+    @Override
+    public IEnergyStorage getEnergy() {
+        return energy;
     }
 }

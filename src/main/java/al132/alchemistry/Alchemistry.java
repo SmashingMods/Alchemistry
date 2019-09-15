@@ -46,7 +46,6 @@ public class Alchemistry {
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        //Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("theoneprobe-client.toml"));
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
     }
 

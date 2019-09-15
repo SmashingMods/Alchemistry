@@ -5,6 +5,7 @@ import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
 import al132.alchemistry.recipes.LiquifierRecipe;
 import al132.alchemistry.recipes.ModRecipes;
+import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
 import al132.alib.tiles.FluidTile;
@@ -14,6 +15,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -117,8 +119,13 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
     }
 
     @Override
-    public int getTileMaxEnergy() {
-        return Config.LIQUIFIER_ENERGY_CAPACITY.get();
+    public IEnergyStorage initEnergy() {
+        return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
+    }
+
+    @Override
+    public IEnergyStorage getEnergy() {
+        return energy;
     }
 
     @Override

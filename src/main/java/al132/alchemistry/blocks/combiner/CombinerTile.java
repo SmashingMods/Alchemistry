@@ -4,6 +4,7 @@ import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
 import al132.alchemistry.recipes.CombinerRecipe;
+import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,6 +13,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -99,11 +101,11 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         this.recipeIsLocked = compound.getBoolean("recipeIsLocked");
         this.progressTicks = compound.getInt("progressTicks");
         this.paused = compound.getBoolean("paused");
-       // clientRecipeTarget.deserializeNBT(compound.getCompound("recipeTarget"));
-        if(recipeIsLocked){
+        // clientRecipeTarget.deserializeNBT(compound.getCompound("recipeTarget"));
+        if (recipeIsLocked) {
             this.currentRecipe = CombinerRecipe.matchOutput(ItemStack.read(compound.getCompound("recipeTarget")));
             ItemStack temp = ItemStack.EMPTY;
-            if(currentRecipe != null) temp = currentRecipe.output.copy();
+            if (currentRecipe != null) temp = currentRecipe.output.copy();
             clientRecipeTarget.setStackInSlot(0, temp);
         } else {
             this.updateRecipe();
@@ -161,7 +163,12 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public int getTileMaxEnergy() {
-        return Config.COMBINER_ENERGY_CAPACITY.get();
+    public IEnergyStorage initEnergy() {
+        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
+    }
+
+    @Override
+    public IEnergyStorage getEnergy() {
+        return energy;
     }
 }

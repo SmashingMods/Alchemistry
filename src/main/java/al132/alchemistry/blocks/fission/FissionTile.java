@@ -4,6 +4,7 @@ import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
 import al132.alchemistry.blocks.PowerStatus;
+import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
 import al132.chemlib.chemistry.ElementRegistry;
@@ -19,6 +20,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.IEnergyStorage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -234,7 +236,12 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public int getTileMaxEnergy() {
-        return Config.FISSION_ENERGY_CAPACITY.get();
+    public IEnergyStorage initEnergy() {
+        return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
+    }
+
+    @Override
+    public IEnergyStorage getEnergy() {
+        return energy;
     }
 }

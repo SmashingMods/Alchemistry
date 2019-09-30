@@ -112,8 +112,8 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
-    compile fg.deobf(files("libs/chemlib-1.14.4-1.1.1-dev.jar"))
-    compile fg.deobf(files("libs/alib-" + alib_version + ".jar"))//1.14.4-3-dev.jar"))
+    compile fg.deobf(files("libs/chemlib-" + chemlib_version + "-dev.jar"))
+    compile fg.deobf(files("libs/alib-" + alib_version + "-dev.jar"))//1.14.4-3-dev.jar"))
 
 
 }

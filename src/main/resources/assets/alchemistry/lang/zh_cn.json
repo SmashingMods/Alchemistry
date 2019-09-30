@@ -1,0 +1,62 @@
+{
+  "tooltip.alchemistry.evaporator": "在非干燥的生物群系中工作速度减缓 %d ",
+  "tooltip.alchemistry.energy_requirement":"需要 %d FE/t",
+
+  "block.alchemistry.chemical_dissolver": "化学溶解机",
+  "block.alchemistry.chemical_combiner": "化学化合机",
+  "block.alchemistry.evaporator": "蒸发皿",
+  "block.alchemistry.atomizer": "雾化器",
+  "block.alchemistry.liquifier": "液化器",
+  "block.alchemistry.fission_controller": "裂变反应堆控制器",
+  "block.alchemistry.fission_core": "裂变反应堆核心",
+  "block.alchemistry.fission_casing": "裂变反应堆外壳",
+  "block.alchemistry.fusion_controller": "聚变反应堆控制器",
+  "block.alchemistry.fusion_core": "聚变反应堆核心",
+  "block.alchemistry.fusion_casing": "聚变反应堆外壳",
+
+  "item.alchemistry.mineral_salt": "岩盐",
+  "item.alchemistry.fertilizer": "肥料",
+  "item.alchemistry.obsidian_breaker": "黑曜石粉碎者",
+  "item.alchemistry.milk": "MILK",
+  "item.alchemistry.condensed_milk": "炼乳",
+  "item.alchemistry.slot_filler": "占位板",
+
+  "alchemistry.jei.combiner": "化学化合机",
+  "alchemistry.jei.dissolver": "化学溶解机",
+  "alchemistry.jei.electrolyzer": "电解机",
+  "alchemistry.jei.evaporator": "蒸发皿",
+  "alchemistry.jei.atomizer": "雾化器",
+  "alchemistry.jei.liquifier": "液化器",
+  "alchemistry.jei.fission": "裂变反应堆多方块结构",
+
+  "itemGroup.alchemistry": "Alchemistry",
+
+  "item.alchemistry.fertilizer.tooltip": "它可以当作骨粉一样用",
+  "item.alchemistry.obsidian_breaker.tooltip": "拿着这个物品右键一个黑曜石方块可以迅速挖掘黑曜石，这个物品将会被消耗。",
+  "item.alchemistry.milk.tooltip": "我做的这一切只为了牛奶",
+
+  "block.electrolyzer.tooltip": "需要",
+  "block.chemical_dissolver.tooltip": "需要",
+  "block.chemical_combiner.tooltip": "需要",
+  "block.atomizer.tooltip": "需要",
+  "block.liquifier.tooltip": "需要",
+  "block.fission_controller.tooltip": "需要",
+  "block.fusion_controller.tooltip": "需要",
+
+
+  "block.combiner.unlock_recipe": "解锁配方",
+  "block.combiner.lock_recipe": "锁定配方",
+  "block.combiner.pause": "暂停",
+  "block.combiner.resume": "继续",
+  "block.combiner.target": "目标产物",
+  "alchemistry.fission.invalid_multiblock": "错误的裂变反应堆多方块结构",
+  "alchemistry.fusion.invalid_multiblock": "错误的聚变反应堆多方块结构",
+
+  "alchemistry.jei.electrolyzer.electrolyte": "电解",
+  "alchemistry.jei.electrolyzer.consumption_probability": "耗损率",
+  "alchemistry.jei.dissolver.relative": "大概率成功",
+  "alchemistry.jei.dissolver.absolute": "可能成功",
+  "alchemistry.jei.dissolver.type": "配方种类",
+  "alchemistry.jei.dissolver.rolls": "最低需求",
+  "alchemistry.jei.elements.description": "可以使用聚变仓制作所有元素（除氢气外）。\\n聚变反应堆可以通过加入两种元素以创建一种等于其前两种元素原子序数总和的新元素。\""
+}

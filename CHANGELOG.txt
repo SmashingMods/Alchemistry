@@ -1,0 +1,4 @@
+1.14.4-4
+===
+-Re-implemented progress bar for the Atomizer
+-Added zh_cn.json

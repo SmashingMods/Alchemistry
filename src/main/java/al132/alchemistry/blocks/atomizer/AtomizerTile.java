@@ -28,7 +28,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
     protected FluidTank inputTank;
     protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> inputTank);
     private AtomizerRecipe currentRecipe = null;
-    private int progressTicks = 0;
+    protected int progressTicks = 0;
 
     public AtomizerTile() {
         super(Ref.atomizerTile);

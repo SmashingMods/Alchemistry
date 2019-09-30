@@ -79,7 +79,6 @@ public class JEIIntegration implements IModPlugin {
         reg.addRecipeTransferHandler(DissolverContainer.class, DISSOLVER_RESOURCE, 0, 1, 11, 36);
         reg.addRecipeTransferHandler(FissionContainer.class, FISSION_RESOURCE, 0, 1, 3, 36);
         reg.addRecipeTransferHandler(LiquifierContainer.class, LIQUIFIER_RESOURCE, 0, 1, 1, 36);
-
     }
 
     @Override

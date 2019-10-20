@@ -30,10 +30,10 @@ public class CombinerScreen extends ABaseScreen<CombinerContainer> {
     @Override
     protected void init() {
         super.init();
-        toggleRecipeLock = new Button(this.guiLeft + 30, this.guiTop + 75, 80, 20, "[Loading]",
+        toggleRecipeLock = new Button(this.guiLeft + 30, this.guiTop + 75, 80, 20, "",
                 press -> NetworkHandler.sendToServer(new CombinerButtonPkt(this.tile.getPos(), true, false)));
         this.addButton(toggleRecipeLock);
-        pauseButton = new Button(this.guiLeft + 30, this.guiTop + 100, 80, 20, "[Loading]",
+        pauseButton = new Button(this.guiLeft + 30, this.guiTop + 100, 80, 20, "",
                 press -> NetworkHandler.sendToServer(new CombinerButtonPkt(this.tile.getPos(), false, true)));
         this.addButton(pauseButton);
     }

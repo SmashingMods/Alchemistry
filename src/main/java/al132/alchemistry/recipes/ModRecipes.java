@@ -323,6 +323,7 @@ public class ModRecipes {
                         .addGroup(1, toStack("carbon", 4 * (64 * 8))).build())
                 .build();
 
+
         dissolver().input(ItemTags.WOOL)
                 .outputs(set()
                         .addGroup(1, toStack("protein"), toStack("triglyceride")).build())

@@ -81,7 +81,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         for (ProbabilityGroup component : outputSet) {
             for (ItemStack stack : component.getOutputs()) {
                 guiItemStacks.init(outputSlotIndex, false, x, y);
-                if(!stack.isEmpty()) {
+                if (!stack.isEmpty()) {
                     guiItemStacks.set(outputSlotIndex, stack);
                 }
                 x += 18;

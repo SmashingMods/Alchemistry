@@ -19,6 +19,11 @@ public class DissolverRecipe {
     public ProbabilitySet outputs;
     public NonNullList<ItemStack> inputs;
 
+    public DissolverRecipe(Builder builder) {
+        this(builder.input,builder.outputs);
+        this.reversible = builder.reversible;
+    }
+
     public DissolverRecipe(Ingredient input, ProbabilitySet outputs) {
         this.input = input;
         this.outputs = outputs;
@@ -26,8 +31,8 @@ public class DissolverRecipe {
         if (input != null) inputs.addAll(Lists.newArrayList(input.getMatchingStacks().clone()));
     }
 
-    public void setReversible() {
-        this.reversible = true;
+    public void setReversible(boolean reversible) {
+        this.reversible = reversible;
     }
 
     public DissolverRecipe copy() {
@@ -100,9 +105,11 @@ public class DissolverRecipe {
         }
 
         public void build() {
+            String ins = input == null ? "null" : input.toString();
+            String outs = outputs == null ? "null" : outputs.toString();
             if (this.input != null && this.outputs != null) {
-                ModRecipes.dissolverRecipes.add(new DissolverRecipe(this.input, this.outputs));
-            } else Alchemistry.LOGGER.warn("Invalid dissolver recipe");
+                ModRecipes.dissolverRecipes.add(new DissolverRecipe(this));
+            } else Alchemistry.LOGGER.warn("Invalid dissolver recipe - input[" + ins + "], outputs[" + outs + "]");
         }
     }
 }

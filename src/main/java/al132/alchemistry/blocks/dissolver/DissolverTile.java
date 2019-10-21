@@ -39,7 +39,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         if (!getInput().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
             if (canProcess()) process();
         }
-        this.markDirtyGUI();
+        //this.markDirtyGUI();
     }
 
     public boolean canProcess() {
@@ -52,7 +52,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         //if no output buffer, set the buffer to recipe outputs
         if (outputBuffer.isEmpty()) {
             outputBuffer = currentRecipe.outputs.calculateOutput();
-            getInput().decrementSlot(0, currentRecipe.inputs.get(0).getCount());
+            getInput().decrementSlot(0, currentRecipe.input.getMatchingStacks()[0].getCount());
         }
 
         //If output didn't happen or didn't fail last tick, queue up next output single stack
@@ -152,7 +152,14 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get()){
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
+
+
     }
 
     @Override

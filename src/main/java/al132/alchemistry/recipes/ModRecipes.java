@@ -4,19 +4,21 @@ import al132.alchemistry.Ref;
 import al132.chemlib.chemistry.CompoundRegistry;
 import al132.chemlib.chemistry.ElementRegistry;
 import al132.chemlib.items.CompoundItem;
+import com.google.common.collect.Sets;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static al132.alchemistry.utils.StringUtils.toStack;
@@ -35,9 +37,16 @@ public class ModRecipes {
     public static List<String> metals = new ArrayList<>();
     public static final String heathenSpelling = "aluminium";
 
+    public static void filterEmptyDissolverRecipes() {
+        dissolverRecipes.removeIf(current -> current.input.getMatchingStacks()[0].getItem() == Items.BARRIER);
+    }
+
     public static void init() {
-        metals.add(heathenSpelling);
-        metals.addAll(ElementRegistry.elements.values().stream().map(it -> it.internalName).collect(Collectors.toList()));
+        //metals.add(heathenSpelling);
+        Set<Integer> nonMetals = Sets.newHashSet(1, 2, 6, 7, 8, 9, 10, 15, 16, 17, 18, 35, 36, 53, 54, 80, 86);
+        metals.addAll(ElementRegistry.elements.values().stream()
+                .filter(it -> !nonMetals.contains(it.atomicNumber))
+                .map(it -> it.internalName).collect(Collectors.toList()));
 
         metalTagData.add(new DissolverTagData("ingots", 16, metals));
         metalTagData.add(new DissolverTagData("ores", 32, metals));
@@ -62,21 +71,21 @@ public class ModRecipes {
 
     private static void initDissolverRecipes() {
 
-        dissolver().input(ItemTags.LOGS)
+        dissolver().input("minecraft:logs")
                 .outputs(set()
                         .addGroup(1.0, toStack("cellulose"))
                         .build())
                 .build();
 
-        dissolver().input(ItemTags.PLANKS)
+        dissolver().input("minecraft:planks")
                 .outputs(set().relative(false).addGroup(25.0, toStack("cellulose")).build())
                 .build();
 
-        dissolver().input(ItemTags.LEAVES)
+        dissolver().input("minecraft:leaves")
                 .outputs(set().relative(false).addGroup(5, toStack("cellulose")).build())
                 .build();
 
-        dissolver().input(Tags.Items.COBBLESTONE)
+        dissolver().input("forge:cobblestone")
                 .outputs(set()
                         .addGroup(700, ItemStack.EMPTY)
                         .addGroup(2, toStack("aluminum"))
@@ -164,7 +173,7 @@ public class ModRecipes {
                         .build())
                 .build();
 
-        dissolver().input(Tags.Items.CHESTS_WOODEN)
+        dissolver().input("forge:chests/wooden")
                 .outputs(set().addGroup(1.0, toStack("cellulose", 2)).build())
                 .build();
 
@@ -229,13 +238,13 @@ public class ModRecipes {
                 .outputs(set().addGroup(1.0, toStack("carbon", 8)).build())
                 .build();
 
-        dissolver().input(ItemTags.WOODEN_SLABS)
+        dissolver().input("minecraft:wooden_slabs")
                 .outputs(set()
                         .relative(false)
                         .addGroup(12.0, toStack("cellulose")).build())
                 .build();
 
-        dissolver().input(Tags.Items.SLIMEBALLS)
+        dissolver().input("forge:slimeballs")
                 .outputs(set().addGroup(1,
                         toStack("protein", 2),
                         toStack("sucrose", 2))
@@ -324,12 +333,12 @@ public class ModRecipes {
                 .build();
 
 
-        dissolver().input(ItemTags.WOOL)
+        dissolver().input("minecraft:wool")
                 .outputs(set()
                         .addGroup(1, toStack("protein"), toStack("triglyceride")).build())
                 .build();
 
-        dissolver().input(ItemTags.CARPETS)
+        dissolver().input("minecraft:carpets")
                 .outputs(set()
                         .relative(false)
                         .addGroup((2.0 / 3.0) * 100, toStack("protein"), toStack("triglyceride")).build())
@@ -393,7 +402,7 @@ public class ModRecipes {
                     .build();
         }
 
-        dissolver().input(ItemTags.MUSIC_DISCS)
+        dissolver().input("minecraft:music_discs")
                 .outputs(set().addGroup(1,
                         toStack("polyvinyl_chloride", 64),
                         toStack("lead", 16),
@@ -408,7 +417,7 @@ public class ModRecipes {
                         .build())
                 .build();
 
-        dissolver().input(Tags.Blocks.DIRT)
+        dissolver().input(Items.DIRT)
                 .outputs(set()
                         .addGroup(30, toStack("water"))
                         .addGroup(50, toStack("silicon_dioxide"))
@@ -426,12 +435,12 @@ public class ModRecipes {
                         .build())
                 .build();
 
-        dissolver().input(Tags.Blocks.GLASS)
+        dissolver().input("forge:glass")
                 .outputs(set()
                         .addGroup(1, toStack("silicon_dioxide", 4)).build())
                 .build();
 
-        dissolver().input(ItemTags.SAPLINGS)
+        dissolver().input("minecraft:saplings")
                 .outputs(set()
                         .relative(false)
                         .addGroup(25, toStack("cellulose", 1)).build())
@@ -470,7 +479,7 @@ public class ModRecipes {
                         .build())
                 .build();
 
-        dissolver().input(Tags.Blocks.STORAGE_BLOCKS_QUARTZ)
+        dissolver().input("forge:storage_blocks/quartz")
                 .outputs(set().addGroup(1,
                         toStack("barium", 16 * 4),
                         toStack("silicon_dioxide", 32 * 4))
@@ -575,7 +584,7 @@ public class ModRecipes {
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Items.GLOWSTONE_DUST)
+        dissolver().input(Items.GLOWSTONE)
                 .outputs(set().addGroup(1, toStack("phosphorus", 16)).build())
                 .build();
 
@@ -771,22 +780,22 @@ public class ModRecipes {
                         .addGroup(20, toStack("beta_carotene")).build())
                 .build();
 
-        dissolver().input(Tags.Items.DYES_RED)
+        dissolver().input("forge:dyes/red")
                 .outputs(set().addGroup(1, toStack("mercury_sulfide", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_PINK)
+        dissolver().input("forge:dyes/pink")
                 .outputs(set().addGroup(1, toStack("arsenic_sulfide", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_GREEN)
+        dissolver().input("forge:dyes/green")
                 .outputs(set().addGroup(1, toStack("nickel_chloride", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_LIME)
+        dissolver().input("forge:dyes/lime")
                 .outputs(set().addGroup(1,
                         toStack("cadmium_sulfide", 2),
                         toStack("chromium_oxide", 2))
@@ -794,37 +803,37 @@ public class ModRecipes {
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_PURPLE)
+        dissolver().input("forge:dyes/purple")
                 .outputs(set().addGroup(1, toStack("potassium_permanganate", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_YELLOW)
+        dissolver().input("forge:dyes/yellow")
                 .outputs(set().addGroup(1, toStack("lead_iodide", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_ORANGE)
+        dissolver().input("forge:dyes/orange")
                 .outputs(set().addGroup(1, toStack("potassium_dichromate", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_BLACK)
+        dissolver().input("forge:dyes/black")
                 .outputs(set().addGroup(1, toStack("titanium_oxide", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_GRAY)
+        dissolver().input("forge:dyes/gray")
                 .outputs(set().addGroup(1, toStack("barium_sulfate", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_MAGENTA)
+        dissolver().input("forge:dyes/magenta")
                 .outputs(set().addGroup(1, toStack("han_purple", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_LIGHT_BLUE)
+        dissolver().input("forge:dyes/light_blue")
                 .outputs(set().addGroup(1,
                         toStack("cobalt_aluminate", 2),
                         toStack("antimony_trioxide", 2))
@@ -832,12 +841,12 @@ public class ModRecipes {
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_LIGHT_GRAY)
+        dissolver().input("forge:dyes/light_gray")
                 .outputs(set().addGroup(1, toStack("magnesium_sulfate", 4)).build())
                 .setReversible(true)
                 .build();
 
-        dissolver().input(Tags.Items.DYES_CYAN)
+        dissolver().input("forge:dyes/cyan")
                 .outputs(set().addGroup(1, toStack("copper_chloride", 4)).build())
                 .setReversible(true)
                 .build();
@@ -902,12 +911,12 @@ public class ModRecipes {
 
         for (DissolverTagData data : metalTagData) {
             for (String element : metals) {
-                Tag<Item> tag = tag(data.prefix + "/" + element);
-                if (!tag.getAllElements().isEmpty()) {
-                    dissolver().input(tag)
-                            .outputs(set().addGroup(1, toStack(element, data.quantity)).build())
-                            .build();
-                }
+                String resource = "forge:" + data.prefix + "/" + element;
+                //if (!tag.getAllElements().isEmpty()) {
+                dissolver().input(resource)
+                        .outputs(set().addGroup(1, toStack(element, data.quantity)).build())
+                        .build();
+                //}
             }
         }
     }
@@ -1015,7 +1024,7 @@ public class ModRecipes {
         for (DissolverRecipe recipe : dissolverRecipes) {
             if (recipe.reversible) {
                 List<Object> outputs = recipe.outputs.toStackList().stream().map(ItemStack::copy).collect(Collectors.toList());
-                combinerRecipes.add(new CombinerRecipe(recipe.input.getMatchingStacks()[0].copy(), outputs));
+                combinerRecipes.add(new CombinerRecipe(recipe.input, outputs));
             }
         }
         for (CompoundItem compound : CompoundRegistry.compounds) {
@@ -1026,15 +1035,16 @@ public class ModRecipes {
             for (ItemStack component : compound.getComponentStacks()) {
                 inputs.add(component.copy());
             }
-            combinerRecipes.add(new CombinerRecipe(new ItemStack(compound), inputs));
+            combinerRecipes.add(new CombinerRecipe(Ingredient.fromStacks(new ItemStack(compound)), inputs));
         }
 
         for (String metal : metals) {
             Tag<Item> tag = tag("ingots/" + metal);
-            if (!tag.getAllElements().isEmpty()) {
-                combinerRecipes.add(new CombinerRecipe(new ItemStack(tag.getAllElements().iterator().next()),
-                        newArrayList(toStack(metal, 16))));
-            }
+            //if (!tag.getAllElements().isEmpty()) {
+            combinerRecipes.add(new CombinerRecipe(Ingredient.fromTag(tag), newArrayList(toStack(metal, 16))));
+            //combinerRecipes.add(new CombinerRecipe(new ItemStack(tag.getAllElements().iterator().next()),
+            //        newArrayList(toStack(metal, 16))));
+            //}
         }
     }
 
@@ -1067,7 +1077,7 @@ public class ModRecipes {
     }
 
     public static void combiner(Item output, int quantity, List<Object> inputs) {
-        combinerRecipes.add(new CombinerRecipe(new ItemStack(output, quantity), inputs));
+        combinerRecipes.add(new CombinerRecipe(Ingredient.fromStacks(new ItemStack(output, quantity)), inputs));
     }
 
     public static ProbabilitySet.Builder set() {

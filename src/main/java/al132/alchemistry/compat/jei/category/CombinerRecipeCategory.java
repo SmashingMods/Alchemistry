@@ -55,7 +55,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
     @Override
     public void setIngredients(CombinerRecipe recipe, IIngredients ingredients) {
         ingredients.setInputs(VanillaTypes.ITEM, recipe.getEmptyStrippedInputs());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.output);
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
     }
 
     @Override
@@ -88,6 +88,6 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
         guiItemStacks.init(OUTPUT_SLOT, false, x, y);
         //guiItemStacks.set(OUTPUT_SLOT, ingredients.getOutputs(ItemStack::class.java)[0])
-        guiItemStacks.set(OUTPUT_SLOT, recipe.output);
+        guiItemStacks.set(OUTPUT_SLOT, recipe.getOutput());
     }
 }

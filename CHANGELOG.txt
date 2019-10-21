@@ -1,3 +1,10 @@
+v7
+===
+-Tweaked Combiner & Dissolver bounding boxes so they no longer clip against partial blocks like stairs
+-Performance improvements
+-Fixed a bunch of weirdness with the combiner/dissolver recipes where either they would register multiple times or not at all
+
+
 v6
 ===
 -Updated to Forge 28.1.61

@@ -62,6 +62,7 @@ public class JEIIntegration implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration reg) {
+        ModRecipes.filterEmptyDissolverRecipes();
         reg.addRecipes(ModRecipes.atomizerRecipes, ATOMIZER_RESOURCE);
         reg.addRecipes(ModRecipes.combinerRecipes, COMBINER_RESOURCE);
         reg.addRecipes(ModRecipes.dissolverRecipes, DISSOLVER_RESOURCE);

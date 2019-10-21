@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,7 +21,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +45,7 @@ public class Alchemistry {
         MinecraftForge.EVENT_BUS.register(this);
 
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
+
     }
 
 
@@ -55,17 +54,11 @@ public class Alchemistry {
         DeferredWorkQueue.runLater(() -> {
             NetworkHandler.register();
         });
+        ModRecipes.init();
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
     }
-
-    @SubscribeEvent
-    public void serverStarting(final FMLServerStartingEvent e){
-        ModRecipes.init();
-    }
-
-
 
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -93,12 +86,6 @@ public class Alchemistry {
             data.ITEMS.forEach(e.getRegistry()::register);
             data.BLOCKS.forEach(x -> e.getRegistry()
                     .register(new BlockItem(x, new Item.Properties().group(data.itemGroup)).setRegistryName(x.getRegistryName())));
-            //ModRecipes.init();
-        }
-
-        @SubscribeEvent
-        public static void onRecipeRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> e){
-            //ModRecipes.init();
         }
     }
 }

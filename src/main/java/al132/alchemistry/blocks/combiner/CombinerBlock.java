@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.IBlockReader;
@@ -19,7 +20,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class CombinerBlock extends BaseTileBlock {
-    public static final VoxelShape BOX = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 14.0, 16.0);
+    public static final VoxelShape A = Block.makeCuboidShape(0.0, 0.0, 0.0, 16.0, 1, 16.0);
+    public static final VoxelShape B = Block.makeCuboidShape(2.0, 1.0, 2.0, 14, 11.0, 14);
+    public static final VoxelShape C = Block.makeCuboidShape(0.0, 11.0, 0.0, 16.0, 14.0, 16.0);
+
+    public static final VoxelShape BOX = VoxelShapes.or(A, B, C);
 
     public CombinerBlock() {
         super("chemical_combiner", CombinerTile::new, Block.Properties.create(Material.IRON));

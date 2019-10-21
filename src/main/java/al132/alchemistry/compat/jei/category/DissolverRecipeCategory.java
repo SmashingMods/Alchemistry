@@ -5,6 +5,7 @@ import al132.alchemistry.Ref;
 import al132.alchemistry.compat.jei.JEIIntegration;
 import al132.alchemistry.recipes.DissolverRecipe;
 import al132.alchemistry.recipes.ProbabilityGroup;
+import com.google.common.collect.Lists;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -15,9 +16,11 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -61,19 +64,20 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public void setIngredients(DissolverRecipe recipe, IIngredients ingredients) {
-        ingredients.setInputs(VanillaTypes.ITEM, recipe.inputs);
+        List<Ingredient> inputs = Lists.newArrayList(recipe.input);
+        ingredients.setInputIngredients(inputs);
         ingredients.setOutputs(VanillaTypes.ITEM, recipe.outputs.filterNonEmpty());
     }
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, DissolverRecipe recipe, IIngredients ingredients) {
         IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-        List<ItemStack> inputStack = recipe.inputs;//ingredients.getInputs(VanillaTypes.ITEM)[0]
+        //List<ItemStack> inputStack = recipe.getInputs();//ingredients.getInputs(VanillaTypes.ITEM)[0]
         List<ProbabilityGroup> outputSet = recipe.outputs.getSet();
         int x = 95 - u;
         int y = 7 - v;
         guiItemStacks.init(INPUT_ONE, true, x, y);
-        guiItemStacks.set(INPUT_ONE, inputStack);
+        guiItemStacks.set(INPUT_ONE, Arrays.asList(recipe.input.getMatchingStacks()));
         x = 50 - u;
         y = 50 - v;
 

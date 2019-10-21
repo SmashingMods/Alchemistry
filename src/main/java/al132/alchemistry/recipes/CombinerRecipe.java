@@ -7,6 +7,7 @@ import al132.alib.tiles.CustomStackHandler;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
@@ -16,13 +17,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CombinerRecipe {
-    public final ItemStack output;
+    private final Ingredient output;
     public final List<ItemStack> inputs = new ArrayList<>();
     public final Set<Integer> nonEmptyIndices = new HashSet<>();
 
     //String gamestage;
 
-    public CombinerRecipe(ItemStack output, List<Object> inObjs) {
+    public CombinerRecipe(Ingredient output, List<Object> inObjs) {
         this.output = output;
         for (int i = 0; i < 9; i++) {
             Object temp;
@@ -40,6 +41,10 @@ public class CombinerRecipe {
             if (!inputs.get(i).isEmpty()) nonEmptyIndices.add(i);
         }
         assert inputs.size() == 9;
+    }
+
+    public ItemStack getOutput() {
+        return output.getMatchingStacks()[0];
     }
 
     public List<ItemStack> getEmptyStrippedInputs() {
@@ -95,8 +100,8 @@ public class CombinerRecipe {
 
     public static CombinerRecipe matchOutput(ItemStack stack) {
         return ModRecipes.combinerRecipes.stream()
-                .filter(it -> it.output.getItem() == stack.getItem())
-                .filter(it -> ItemStack.areItemStacksEqual(it.output, stack))
+                .filter(it -> it.getOutput().getItem() == stack.getItem())
+                .filter(it -> ItemStack.areItemStacksEqual(it.getOutput(), stack))
                 .findFirst()
                 .orElse(null);
     }

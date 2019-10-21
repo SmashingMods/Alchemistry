@@ -53,8 +53,8 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         if (world.isRemote) return;
         // this.energy.receiveEnergy(50, false);
         ItemStack displayStack = ItemStack.EMPTY;
-        if (currentRecipe != null && currentRecipe.output != null)
-            displayStack = currentRecipe.output.getStack().copy();
+        if (currentRecipe != null && currentRecipe.getOutput() != null)
+            displayStack = currentRecipe.getOutput().getStack().copy();
         if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, displayStack);
         if (!this.paused && canProcess()) process();
         this.markDirtyClient();
@@ -64,10 +64,10 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         return currentRecipe != null
                 //&& (currentRecipe.gamestage == "" || hasCurrentRecipeStage()) TODO
                 && energy.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()//ConfigHandler.combinerEnergyPerTick!! //has enough energy
-                && (currentRecipe.output.getCount() + getOutput().getStackInSlot(0).getCount() <= currentRecipe.output.getMaxStackSize()) //output quantities can stack
-                && (ItemStack.areItemsEqual(getOutput().getStackInSlot(0), currentRecipe.output) || getOutput().getStackInSlot(0).isEmpty()) //output item types can stack
+                && (currentRecipe.getOutput().getCount() + getOutput().getStackInSlot(0).getCount() <= currentRecipe.getOutput().getMaxStackSize()) //output quantities can stack
+                && (ItemStack.areItemsEqual(getOutput().getStackInSlot(0), currentRecipe.getOutput()) || getOutput().getStackInSlot(0).isEmpty()) //output item types can stack
                 && currentRecipe.matchesHandlerStacks(this.getInput())
-                && (!recipeIsLocked || ItemStack.areItemStacksEqual(CombinerRecipe.matchInputs(getInput()).output, currentRecipe.output));
+                && (!recipeIsLocked || ItemStack.areItemStacksEqual(CombinerRecipe.matchInputs(getInput()).getOutput(), currentRecipe.getOutput()));
     }
 
     public void process() {
@@ -77,7 +77,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         else {
             progressTicks = 0;
             if (currentRecipe != null) {
-                getOutput().setOrIncrement(0, currentRecipe.output.copy());
+                getOutput().setOrIncrement(0, currentRecipe.getOutput().copy());
             }
             if (currentRecipe != null && currentRecipe.inputs.size() == 9) {
                 for (int index = 0; index < 9; index++) {
@@ -105,7 +105,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         if (recipeIsLocked) {
             this.currentRecipe = CombinerRecipe.matchOutput(ItemStack.read(compound.getCompound("recipeTarget")));
             ItemStack temp = ItemStack.EMPTY;
-            if (currentRecipe != null) temp = currentRecipe.output.copy();
+            if (currentRecipe != null) temp = currentRecipe.getOutput().copy();
             clientRecipeTarget.setStackInSlot(0, temp);
         } else {
             this.updateRecipe();

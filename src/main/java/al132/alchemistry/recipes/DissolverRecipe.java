@@ -1,13 +1,11 @@
 package al132.alchemistry.recipes;
 
 import al132.alchemistry.Alchemistry;
-import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.NonNullList;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
@@ -17,33 +15,36 @@ public class DissolverRecipe {
     public Ingredient input;
     public boolean reversible = false;
     public ProbabilitySet outputs;
-    public NonNullList<ItemStack> inputs;
+    //private NonNullList<ItemStack> inputs = null;
 
     public DissolverRecipe(Builder builder) {
-        this(builder.input,builder.outputs);
+        this(builder.input, builder.outputs);
         this.reversible = builder.reversible;
     }
 
     public DissolverRecipe(Ingredient input, ProbabilitySet outputs) {
         this.input = input;
         this.outputs = outputs;
-        inputs = NonNullList.create();
-        if (input != null) inputs.addAll(Lists.newArrayList(input.getMatchingStacks().clone()));
-    }
-
-    public void setReversible(boolean reversible) {
-        this.reversible = reversible;
     }
 
     public DissolverRecipe copy() {
         return new DissolverRecipe(this.input, this.outputs);
     }
+/*
+    private void initInputs() {
+        inputs = NonNullList.create();
+        if (input != null) inputs.addAll(Lists.newArrayList(input.getMatchingStacks().clone()));
+    }
 
+    public NonNullList<ItemStack> getInputs() {
+        if(this.inputs == null) initInputs();
+        return this.inputs;
+    }*/
 
     @Nullable
     public static DissolverRecipe match(ItemStack input, boolean quantitySensitive) {
         for (DissolverRecipe recipe : ModRecipes.dissolverRecipes) {
-            for (ItemStack recipeStack : recipe.inputs) {
+            for (ItemStack recipeStack : recipe.input.getMatchingStacks().clone()) {
                 if (ItemStack.areItemsEqual(recipeStack, input)) {
                     // && (input.itemDamage == recipeStack.itemDamage
                     //|| recipeStack.itemDamage == OreDictionary.WILDCARD_VALUE)) {
@@ -84,6 +85,11 @@ public class DissolverRecipe {
             return this;
         }
 
+        public Builder input(String tagLocation) {
+            this.input = Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(tagLocation)));
+            return this;
+        }
+/*
         public <T> Builder input(Tag<T> tag) {
             Object[] temp = tag.getAllElements().toArray();
             if (temp.length > 0) {
@@ -98,6 +104,7 @@ public class DissolverRecipe {
 
             } else throw new RuntimeException("Invalid tag[" + tag.getId() + "] for dissolver recipe input");
         }
+ */
 
         public Builder input(Ingredient input) {
             this.input = input;

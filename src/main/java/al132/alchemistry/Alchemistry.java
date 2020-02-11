@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -87,5 +88,13 @@ public class Alchemistry {
             data.BLOCKS.forEach(x -> e.getRegistry()
                     .register(new BlockItem(x, new Item.Properties().group(data.itemGroup)).setRegistryName(x.getRegistryName())));
         }
+
+        @SubscribeEvent
+        public static void onSerializerRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> e){
+            //e.getRegistry().register(ATOMIZER_SERIALIZER.setRegistryName(new ResourceLocation("alchemistry","atomizer")));
+        }
+
+
+
     }
 }

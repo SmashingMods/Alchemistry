@@ -1,0 +1,15 @@
+{
+  "name": "Обзор разжижителя",
+  "icon": "alchemistry:liquifier",
+  "category": "liquifier_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "Разжижитель - это механическая машина, которая может использоваться для преобразования элементов и соединений алхимии в их жидкие эквиваленты"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:liquifier"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Fusion Overview",
+  "icon": "alchemistry:fusion_controller",
+  "category": "fusion_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Fusion Multiblock allows you to fuse two elements together to create new elements. The output will be decided by the sum of the atomic number of the two inputs. Example: Iron (26) + Dysprosium (66) -> Uranium (92)"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fusion_controller",
+      "recipe2": "alchemistry:fusion_core"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fusion_casing"
+    }
+  ]
+}

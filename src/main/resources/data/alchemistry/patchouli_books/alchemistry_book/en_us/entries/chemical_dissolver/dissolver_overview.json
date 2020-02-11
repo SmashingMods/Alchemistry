@@ -1,0 +1,23 @@
+{
+  "name": "Chemical Dissolver",
+  "icon": "alchemistry:chemical_dissolver",
+  "category": "chemical_dissolver_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Chemical Dissolver is a powered machine, and it, along with the Chemical Combiner are the most essential machines in Alchemistry. The Chemical Dissolver takes inputs and breaks them down into different chemical elements and compounds."
+    },
+    {
+      "type": "text",
+      "text": "There are two main types of Chemical Dissolver recipes which are denoted in each JEI recipe. First, there are recipes with $(thing)relative probability$() where all possible output groups add up to 100% and one output group will always be chosen for each $(thing)roll$(). Some recipes may have empty groups, however, resulting in a chance of no output."
+    },
+    {
+      "type": "text",
+      "text":  "There are also recipes with $(thing)absolute probability$(). With absolute probability each group is rolled independently with its own chance of being outputted ignoring the results of other rolls."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:chemical_dissolver"
+    }
+  ]
+}

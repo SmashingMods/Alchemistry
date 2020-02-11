@@ -594,8 +594,10 @@ public class ModRecipes {
 
         for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK, Items.LAPIS_ORE)) {
             int multiplier = 1;
+            boolean reversible = false;
             if (item == Items.LAPIS_BLOCK) multiplier = 9;
             else if (item == Items.LAPIS_ORE) multiplier = 4;
+            else reversible = true;
             dissolver().input(item)
                     .outputs(set()
                             .addGroup(1,
@@ -606,7 +608,7 @@ public class ModRecipes {
                                     toStack("oxygen", 24 * multiplier),
                                     toStack("sulfur", 2 * multiplier))
                             .build())
-                    .setReversible(true)
+                    .setReversible(reversible)
                     .build();
         }
 

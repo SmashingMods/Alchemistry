@@ -1,0 +1,17 @@
+{
+  "name": "Spiking Food",
+  "icon": "minecraft:bread",
+  "category": "compounds_category",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Spiking Food",
+      "text": "Any standard food can be spiked with an active compound by simply crafting one of each together. When the food is consumed, the player will be inflicted with the effects of the compound the food is spiked with."
+    },
+    {
+      "type": "text",
+      "title": "Masking Flavor",
+      "text": "In a /hypothetical/ scenario: let's suppose you want to trick your friend into taking potassium cyanide. You can mask the flavor (hide the `Spiked with [x]` tooltip) by crafting the food with 8 sodium chloride compound items"
+    }
+  ]
+}

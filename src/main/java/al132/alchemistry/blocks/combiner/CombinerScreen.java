@@ -5,7 +5,7 @@ import al132.alchemistry.network.CombinerButtonPkt;
 import al132.alchemistry.network.NetworkHandler;
 import al132.alib.client.ABaseScreen;
 import al132.alib.client.CapabilityEnergyDisplayWrapper;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
@@ -59,14 +59,14 @@ public class CombinerScreen extends ABaseScreen<CombinerContainer> {
     }
 
     public void drawItemStack(ItemStack stack, int x, int y, String text) {
-        RenderHelper.enableGUIStandardItemLighting();
-        GlStateManager.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.translatef(0.0f, 0.0f, 32.0f);
-        this.blitOffset = 200;
+        RenderHelper.func_227780_a_();//.enableGUIStandardItemLighting();
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.translatef(0.0f, 0.0f, 32.0f);
+        this.setBlitOffset(200);// = 200;
         this.itemRenderer.zLevel = 200.0f;
         this.itemRenderer.renderItemAndEffectIntoGUI(stack, x, y);
         this.itemRenderer.renderItemOverlayIntoGUI(this.font, stack, x, y + 5, text);
-        this.blitOffset = 0;
+        this.setBlitOffset(0);// = 0;
         this.itemRenderer.zLevel = 0.0f;
     }
 }

@@ -1,0 +1,15 @@
+{
+  "name": "Atomizer Overview",
+  "icon": "alchemistry:atomizer",
+  "category": "atomizer_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Atomizer is a powered machine that can be used convert fluids into their equivalent Alchemistry elements or compounds"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:atomizer"
+    }
+  ]
+}

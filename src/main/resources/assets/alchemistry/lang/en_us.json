@@ -49,6 +49,9 @@
   "block.combiner.pause": "Pause",
   "block.combiner.resume": "Resume",
   "block.combiner.target": "Target",
+
+  "guide.alchemistry.landing": "Welcome to the Alchemistry Guidebook. This book will introduce you to some of the basics of the mod :)",
+  "guide.alchemistry.title": "Alchemistry Guidebook",
   "alchemistry.fission.invalid_multiblock": "Invalid Fission Multiblock",
   "alchemistry.fusion.invalid_multiblock": "Invalid Fusion Multiblock",
 

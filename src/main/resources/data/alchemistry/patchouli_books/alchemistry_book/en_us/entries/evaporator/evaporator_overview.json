@@ -1,0 +1,15 @@
+{
+  "name": "Evaporator Overview",
+  "icon": "alchemistry:evaporator",
+  "category": "evaporator_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Evaporator is an un-powered machine that evaporates fluids to create item outputs. By default, this will be most commonly used to create $(item)Mineral Salt$()."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:atomizer"
+    }
+  ]
+}

@@ -6,7 +6,6 @@ import al132.alchemistry.blocks.combiner.CombinerScreen;
 import al132.alchemistry.blocks.dissolver.DissolverScreen;
 import al132.alchemistry.blocks.evaporator.EvaporatorScreen;
 import al132.alchemistry.blocks.evaporator.EvaporatorTESR;
-import al132.alchemistry.blocks.evaporator.EvaporatorTile;
 import al132.alchemistry.blocks.fission.FissionScreen;
 import al132.alchemistry.blocks.fusion.FusionScreen;
 import al132.alchemistry.blocks.liquifier.LiquifierScreen;
@@ -26,7 +25,7 @@ public class ClientProxy implements IProxy {
         ScreenManager.registerFactory(Ref.liquifierContainer, LiquifierScreen::new);
         ScreenManager.registerFactory(Ref.fissionContainer, FissionScreen::new);
         ScreenManager.registerFactory(Ref.fusionContainer, FusionScreen::new);
-        ClientRegistry.bindTileEntitySpecialRenderer(EvaporatorTile.class, new EvaporatorTESR());
+        ClientRegistry.bindTileEntityRenderer(Ref.evaporatorTile, EvaporatorTESR::new);
     }
 
     @Override

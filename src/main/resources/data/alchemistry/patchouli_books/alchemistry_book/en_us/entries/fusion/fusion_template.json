@@ -1,0 +1,30 @@
+{
+  "name": "Fusion Multiblock Template",
+  "icon": "minecraft:writable_book",
+  "category": "fusion_category",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Fusion Multiblock",
+      "multiblock": {
+        "pattern": [
+          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC", "     "],
+          ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "C   C", "C R C", "C   C", "CCCCC", "     "],
+          ["CCCCC", "CCCCC", "CC0CC", "CCCCC", "CCCCC", "  T  "]
+        ],
+        "mapping": {
+          "C": "alchemistry:fusion_casing",
+          "T": "alchemistry:fusion_controller",
+          "R": "alchemistry:fusion_core",
+          "0": "alchemistry:fusion_casing"
+        }
+      }
+    },
+    {
+      "type": "text",
+      "text": "98x Fusion Casing $(br) 3x Fusion Core $(br) 1x Fusion Controller"
+    }
+  ]
+}

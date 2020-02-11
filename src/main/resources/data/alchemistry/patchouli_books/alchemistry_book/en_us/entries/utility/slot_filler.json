@@ -1,0 +1,11 @@
+{
+  "name": "Slot Filler",
+  "icon": "alchemistry:slot_filler",
+  "category": "utility_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "To create AE2/RS/etc crafting patterns for the Chemical Combiner you can fill empty slots in the pattern with the Slot Filler item so that it will transfer all of the items in the correct slot. The slot filler will be ignored by the machine recipe, then consumed with the other inputs"
+    }
+  ]
+}

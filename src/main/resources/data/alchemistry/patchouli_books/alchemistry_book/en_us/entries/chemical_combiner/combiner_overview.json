@@ -1,0 +1,30 @@
+{
+  "name": "Chemical Combiner",
+  "icon": "alchemistry:chemical_combiner",
+  "category": "chemical_combiner_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Chemical Combiner is a powered machine, perhaps the most important machine of all in Alchemistry. The Chemical Combiner allows you to combine elements, compounds, and occasionally other items to form new items. It contains 9 slots like a standard crafting grid, but unlike a crafting grid it allows each input slot to contain more than one item per craft."
+    },
+    {
+      "type": "text",
+      "text": "The most effective way to use the Combiner is to choose a recipe target by opening JEI once you have the Cheimcal Combiner GUI open and using the JEI recipe transfer button (see next page). Doing this will lock the machine slots, not allowing items into empty slots and only allowing the correct items into the correct slots for that recipe. Using this functionality is not absolutely required, as placing items with no recipe target will still work"
+    },
+    {
+      "type": "image",
+      "images": [
+        "alchemistry:textures/images/jei_example.png"
+      ],
+      "title": "JEI"
+    },
+    {
+      "type": "text",
+      "text": "The GUI contains 2 buttons. First is the 'Lock Recipe' button. This button is mostly obsolete in current versions of the mod, but toggling it allows you to clear the $(thing)target recipe$(), which unlocks all the slots. Second is the 'Pause' button which allows you to pause machine processing, however the machine will still accept energy and items"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:chemical_combiner"
+    }
+  ]
+}

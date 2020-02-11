@@ -51,7 +51,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public void tick() {
         if (world.isRemote) return;
-        // this.energy.receiveEnergy(50, false);
+        //this.energy.receiveEnergy(50, false);
         ItemStack displayStack = ItemStack.EMPTY;
         if (currentRecipe != null && currentRecipe.getOutput() != null)
             displayStack = currentRecipe.getOutput().getStack().copy();
@@ -80,16 +80,17 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
                 getOutput().setOrIncrement(0, currentRecipe.getOutput().copy());
             }
             if (currentRecipe != null && currentRecipe.inputs.size() == 9) {
+                CombinerRecipe thisRecipe = currentRecipe;
                 for (int index = 0; index < 9; index++) {
-                    if (currentRecipe != null) {
-                        ItemStack stack = currentRecipe.inputs.get(index);
+                    //if (currentRecipe != null) {
+                        ItemStack stack = thisRecipe.inputs.get(index);
                         if (stack != null && !stack.isEmpty()) {
                             getInput().decrementSlot(index, stack.getCount());
                         }
                         if (getInput().getStackInSlot(index).getItem() == Ref.slotFiller) {
                             getInput().decrementSlot(index, 1);
                         }
-                    }
+                    //}
                 }
             }
         }

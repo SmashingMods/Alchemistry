@@ -1,0 +1,15 @@
+{
+  "name": "Liquifier Overview",
+  "icon": "alchemistry:liquifier",
+  "category": "liquifier_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Liquifier is a powered machine that can be used convert alchemistry elements and compounds into their fluid equivalents"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:liquifier"
+    }
+  ]
+}

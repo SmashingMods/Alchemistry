@@ -1,0 +1,20 @@
+{
+  "name": "Fission Overview",
+  "icon": "alchemistry:fission_controller",
+  "category": "fission_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Fission Multiblock allows you to split apart the very fabric that holds elements together to form new elements. All elements except for Hydrogen can be split with the fission multiblock. See JEI for recipes"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fission_controller",
+      "recipe2": "alchemistry:fission_core"
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fission_casing"
+    }
+  ]
+}

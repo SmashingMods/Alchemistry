@@ -87,7 +87,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
 
     public int calculateProcessingTime() { //TODO more elaborate calculation?
         int temp = Config.EVAPORATOR_TICKS_PER_OPERATION.get();//ConfigHandler.evaporatorProcessingTicks!!
-        if (!BiomeDictionary.hasType(world.getBiome(this.pos), BiomeDictionary.Type.DRY)) {
+        if (!BiomeDictionary.hasType(world.func_226691_t_(this.pos), BiomeDictionary.Type.DRY)) {
             temp += (Config.EVAPORATOR_TICKS_PER_OPERATION.get() * .5);
         }
         return temp;

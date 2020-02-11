@@ -35,12 +35,22 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
 
             override fun onContentsChanged() {
                 super.onContentsChanged()
+                updateRecipe()
                 markDirtyClient()
             }
         }
         inputTank.setTileEntity(this)
         inputTank.setCanFill(true)
         inputTank.setCanDrain(false)
+    }
+
+
+    fun updateRecipe() {
+        val inputStack = this.inputTank.fluid
+        if ((inputStack != null) && (currentRecipe == null || currentRecipe!!.input.fluid == inputStack.fluid)){
+            this.currentRecipe = ModRecipes.evaporatorRecipes.firstOrNull { it.input.fluid == inputStack.fluid }
+        }
+        if (inputStack == null) currentRecipe = null
     }
 
     override fun update() {
@@ -68,6 +78,7 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
         super.readFromNBT(compound)
         this.inputTank.readFromNBT(compound.getCompoundTag("InputTankNBT"))
         this.progressTicks = compound.getInteger("ProgressTicks")
+        updateRecipe()
     }
 
     override val fluidTanks: FluidHandlerConcatenate?
@@ -77,6 +88,8 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
         if (currentRecipe != null) {
             val recipeOutput = currentRecipe!!.output
             return inputTank.fluidAmount >= currentRecipe!!.input.amount
+                    && (inputTank.fluid == null || inputTank.fluid!!.fluid == currentRecipe!!.input.fluid)
+                    && (output[0].isEmpty || output[0].item == currentRecipe!!.output.item)
                     && output[0].count + recipeOutput.count <= recipeOutput.maxStackSize
         } else return false;
     }
@@ -95,8 +108,8 @@ class TileEvaporator : TileBase(), IGuiTile, ITickable, IItemTile, IFluidTile {
         if (progressTicks < calculatedProcessingTime) progressTicks++
         else {
             progressTicks = 0
-            inputTank.drainInternal(currentRecipe!!.input.amount, true)
             output.setOrIncrement(0, currentRecipe!!.output.copy())
+            inputTank.drainInternal(currentRecipe!!.input.amount, true)
         }
     }
 }

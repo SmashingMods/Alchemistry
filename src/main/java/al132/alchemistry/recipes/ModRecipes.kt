@@ -32,6 +32,7 @@ import java.util.*
  */
 
 val heathenSpelling = "aluminium"
+val heathenSpelling2 = "caesium"
 
 data class DissolverOreData(val prefix: String, val quantity: Int, val strs: List<String>) {
     fun toDictName(index: Int) = prefix + strs[index].first().toUpperCase() + strs[index].substring(1)
@@ -48,7 +49,7 @@ object ModRecipes {
     val liquifierRecipes = ArrayList<LiquifierRecipe>()
     val fissionRecipes = ArrayList<FissionRecipe>()
 
-    val metals: List<String> = mutableListOf(heathenSpelling)
+    val metals: List<String> = mutableListOf(heathenSpelling, heathenSpelling2)
             .apply { addAll(ElementRegistry.getAllElements().map { it.name }) }.toImmutable()
 
     val metalOreData: List<DissolverOreData> = listOf(
@@ -1562,7 +1563,11 @@ object ModRecipes {
             (0 until data.size).forEach { index ->
                 val elementName = data.strs[index]
                 val oreName = data.toDictName(index)
-                val meta: Int = if (elementName == heathenSpelling) ElementRegistry.getMeta("aluminum") else ElementRegistry.getMeta(elementName)
+                val meta: Int = when (elementName) {
+                    heathenSpelling  -> ElementRegistry.getMeta("aluminum")
+                    heathenSpelling2 -> ElementRegistry.getMeta("caesium")
+                    else             -> ElementRegistry.getMeta(elementName)
+                }
                 if (OreDictionary.doesOreNameExist(oreName) && OreDictionary.getOres(oreName).isNotEmpty()) {
                     dissolverRecipes.add(dissolverRecipe {
                         input = oreName.toOre()
@@ -1897,13 +1902,22 @@ object ModRecipes {
             val dustOutput: ItemStack? = firstOre(entry.toDict("dust"))
             if (dustOutput != null && !dustOutput.isEmpty) {
                 combinerRecipes.add(CombinerRecipe(dustOutput,
-                        listOf(ItemStack.EMPTY, if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toStack(16))))
+                        listOf(ItemStack.EMPTY,
+                                when (entry) {
+                                    heathenSpelling  -> "aluminum".toStack(16)
+                                    heathenSpelling2 -> "cesium".toStack(16)
+                                    else             -> entry.toStack(16)
+                                })))
             }
 
             val ingotOutput: ItemStack? = firstOre(entry.toDict("ingot"))
             if (ingotOutput != null && !ingotOutput.isEmpty) {
                 combinerRecipes.add(CombinerRecipe(ingotOutput,
-                        listOf(if (entry == heathenSpelling) "aluminum".toStack(16) else entry.toStack(16))))
+                        listOf(when (entry) {
+                            heathenSpelling  -> "aluminum".toStack(16)
+                            heathenSpelling2 -> "cesium".toStack(16)
+                            else             -> entry.toStack(16)
+                        })))
             }
         }
 
@@ -2214,14 +2228,14 @@ object ModRecipes {
         atomizerRecipes.filter { it.reversible }.forEach {
             liquifierRecipes.add(LiquifierRecipe(it.output.copy(), it.input.copy()))
         }
-    /*
-        ElementRegistry.getAllElements().forEach {
-            if (fluidExists(it.name)) {
-                liquifierRecipes.add(LiquifierRecipe(
-                        it.name.toStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
-                ))
-            }
-        }*/
+        /*
+            ElementRegistry.getAllElements().forEach {
+                if (fluidExists(it.name)) {
+                    liquifierRecipes.add(LiquifierRecipe(
+                            it.name.toStack(16), FluidRegistry.getFluidStack(it.name, 144)!!
+                    ))
+                }
+            }*/
     }
 
     fun initFissionRecipes() {

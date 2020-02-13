@@ -4,8 +4,8 @@
     "particle": "alchemistry:blocks/dark_block",
     "down": "alchemistry:blocks/fusion_controller",
     "up": "alchemistry:blocks/fusion_controller",
-    "east": "alchemistry:blocks/fusion_controller",
-    "west": "alchemistry:blocks/fusion_controller",
+    "east": "alchemistry:blocks/fusion_controller_side",
+    "west": "alchemistry:blocks/fusion_controller_side",
     "south": "alchemistry:blocks/fusion_controller",
     "north": "#front"
   }

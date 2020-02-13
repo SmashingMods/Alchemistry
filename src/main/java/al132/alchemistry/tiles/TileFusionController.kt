@@ -8,6 +8,7 @@ import al132.alchemistry.blocks.PropertyPowerStatus
 import al132.alchemistry.chemistry.ChemicalElement
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
+import al132.alib.Reference.ITEM_CAP
 import al132.alib.tiles.*
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
@@ -16,6 +17,8 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.wrapper.RangedWrapper
 
 /**
  * Created by al132 on 4/29/2017.
@@ -27,6 +30,8 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     var recipeOutput: ItemStack = ItemStack.EMPTY
     var isValidMultiblock: Boolean = false
     var checkMultiblockTicks: Int = 0
+    lateinit var inputLeft: IItemHandler
+    lateinit var inputRight: IItemHandler
 
     init {
         initInventoryCapability(2, 1)
@@ -45,6 +50,8 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
                 super.onContentsChanged(slot)
             }
         }
+        inputLeft = RangedWrapper(input, 0, 1)
+        inputRight = RangedWrapper(input, 1, 2)
     }
 
     fun refreshRecipe() {
@@ -65,7 +72,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
             }
             val isActive = !this.input[0].isEmpty && !this.input[1].isEmpty
             val state = this.world.getBlockState(this.pos)
-            if(state.block != ModBlocks.fusionController) return;
+            if (state.block != ModBlocks.fusionController) return;
             val currentStatus = state.getValue(STATUS)
             if (this.isValidMultiblock) {
                 if (isActive) {
@@ -129,7 +136,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
 
     fun validateMultiblock(): Boolean {
         val multiblockDirection: EnumFacing? = world?.getBlockState(this.pos)?.getValue(FusionControllerBlock.FACING)?.opposite
-        if(multiblockDirection == null) return false
+        if (multiblockDirection == null) return false
         fun BlockPos.offsetUp(amt: Int = 1) = this.offset(EnumFacing.UP, amt)
         fun BlockPos.offsetLeft(amt: Int = 1) = this.offset(multiblockDirection.rotateY(), amt)
         fun BlockPos.offsetRight(amt: Int = 1) = this.offset(multiblockDirection.rotateY(), -1 * amt)
@@ -178,7 +185,17 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     }
 
     override fun <T : Any> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        if (this.isValidMultiblock) return super.getCapability(capability, facing)
-        else return null
+        if (this.isValidMultiblock) {
+            if (capability == ITEM_CAP) {
+                val blockFacing = world?.getBlockState(this.pos)?.getValue(FusionControllerBlock.FACING) ?: return null
+                when (facing) {
+                    EnumFacing.DOWN                           -> return ITEM_CAP.cast(output)
+                    EnumFacing.UP                             -> return ITEM_CAP.cast(output)
+                    blockFacing.rotateY().rotateY().rotateY() -> return ITEM_CAP.cast(inputRight)
+                    blockFacing.rotateY()                     -> return ITEM_CAP.cast(inputLeft)
+                    else                                      -> return ITEM_CAP.cast(output)
+                }
+            } else return super.getCapability(capability, facing)
+        } else return null
     }
 }

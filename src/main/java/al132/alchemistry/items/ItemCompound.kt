@@ -106,7 +106,6 @@ class ItemCompound(name: String) : ItemMetaBase(name) {
                     listOf("wither".toPotion(), "poison".toPotion(), "nausea".toPotion(),
                             "slowness".toPotion(), "hunger".toPotion()))
             { e ->
-                e.foodStats.setFoodSaturationLevel(0.0f)
                 e.foodStats.foodLevel = 0
                 e.attackEntityFrom(DamageSource.STARVE, 12.0f)
             })

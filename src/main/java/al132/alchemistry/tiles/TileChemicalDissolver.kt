@@ -38,7 +38,6 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IItemTile,
 
             override fun onContentsChanged(slot: Int) {
                 updateRecipe()
-                markDirtyGUI()
             }
         }
     }
@@ -116,7 +115,6 @@ class TileChemicalDissolver : TileBase(), IGuiTile, ITickable, IItemTile,
             outputBuffer.add(ItemStack(outputBufferList.getCompoundTagAt(i)))
         }
         updateRecipe()
-        markDirtyGUI()
     }
 
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {

@@ -1,3 +1,12 @@
+1.12.2-40
+===
+-Fixed Chemical Dissolver excessively updating chunks
+
+1.12.2-39
+===
+-Modified the versioning scheme to be consistent with the 1.14+ versions
+-The Fusion multiblock now uses sided inputs to give fine-grained control, especially when both inputs are the same element
+
 1.0.34
 ===
 -Updated ru_ru.lang (thanks to Kellixon)

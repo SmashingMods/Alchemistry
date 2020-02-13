@@ -22,6 +22,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.RangedWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +40,9 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     private int checkMultiblockTicks = 0;
 
     protected int progressTicks = 0;
+
+    IItemHandler leftInput;
+    IItemHandler rightInput;
 
     public FusionTile() {
         super(Ref.fusionTile);
@@ -188,7 +194,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public CustomStackHandler initInput() {
-        return new CustomStackHandler(this, 2) {
+        CustomStackHandler input = new CustomStackHandler(this, 2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return stack.getItem() instanceof ElementItem;
@@ -200,6 +206,10 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
                 super.onContentsChanged(slot);
             }
         };
+
+        leftInput = new RangedWrapper(input, 0, 1);
+        rightInput = new RangedWrapper(input, 1, 2);
+        return input;
     }
 
     @Override
@@ -222,8 +232,19 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (this.isValidMultiblock) return super.getCapability(cap, side);
-        else return LazyOptional.empty();
+        if (this.isValidMultiblock) {
+            if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+                if (world != null) {
+                    Direction blockSide = world.getBlockState(this.pos).get(FusionControllerBlock.FACING);
+                    if (side == Direction.UP || side == Direction.DOWN) return LazyOptional.of(this::getOutput).cast();
+                    else if (side == blockSide.rotateY()) return LazyOptional.of(() -> leftInput).cast();
+                    else if (side == blockSide.rotateY().rotateY().rotateY())
+                        return LazyOptional.of(() -> rightInput).cast();
+                    else return LazyOptional.of(this::getOutput).cast();
+                }
+            }
+            return super.getCapability(cap, side);
+        } else return LazyOptional.empty();
     }
 
     @Override

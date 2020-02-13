@@ -1,20 +1,4 @@
-v7
-===
--Tweaked Combiner & Dissolver bounding boxes so they no longer clip against partial blocks like stairs
--Performance improvements
--Fixed a bunch of weirdness with the combiner/dissolver recipes where either they would register multiple times or not at all
-
-
-v6
-===
--Updated to Forge 28.1.61
--Restored a few missing combiner recipes (emeralds, nether quartz, ender pearl, mushrooms, soul sand, etc)
-
 v5
 ===
--Update to newest chemlib
-
-1.14.4-4
-===
--Re-implemented progress bar for the Atomizer
--Added zh_cn.json
+-Added recipe for Patchouli Guide
+-Fusion Controller now uses sided inputs (Left & Right), so you can control which slot items go into

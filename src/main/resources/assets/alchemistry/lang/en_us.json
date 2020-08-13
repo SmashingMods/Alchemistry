@@ -1,6 +1,6 @@
 {
-  "tooltip.alchemistry.evaporator": "Operates %d slower in non-dry biomes",
-  "tooltip.alchemistry.energy_requirement":"Requires %d FE/t",
+  "tooltip.alchemistry.evaporator": "Operates %d slower in non-dry biomes.",
+  "tooltip.alchemistry.energy_requirement":"Requires %d FE/t.",
 
   "block.alchemistry.chemical_dissolver": "Chemical Dissolver",
   "block.alchemistry.chemical_combiner": "Chemical Combiner",
@@ -8,11 +8,11 @@
   "block.alchemistry.atomizer": "Atomizer",
   "block.alchemistry.liquifier": "Liquifier",
   "block.alchemistry.fission_controller": "Fission Controller",
-  "block.alchemistry.fission_core": "Fission Core",
-  "block.alchemistry.fission_casing": "Fission Casing",
-  "block.alchemistry.fusion_controller": "Fusion Controller",
-  "block.alchemistry.fusion_core": "Fusion Core",
-  "block.alchemistry.fusion_casing": "Fusion Casing",
+  "block.alchemistry.fission_core": "Fission Chamber Core",
+  "block.alchemistry.fission_casing": "Fission Chamber Casing",
+  "block.alchemistry.fusion_controller": "Fusion Chamber Controller",
+  "block.alchemistry.fusion_core": "Fusion Chamber Core",
+  "block.alchemistry.fusion_casing": "Fusion Chamber Casing",
 
   "item.alchemistry.mineral_salt": "Mineral Salt",
   "item.alchemistry.fertilizer": "Fertilizer",
@@ -26,14 +26,15 @@
   "alchemistry.jei.electrolyzer": "Electrolyzer",
   "alchemistry.jei.evaporator": "Evaporator",
   "alchemistry.jei.atomizer": "Atomizer",
-  "alchemistry.jei.liquifier": "Liqufier",
-  "alchemistry.jei.fission": "Fission Multiblock",
+  "alchemistry.jei.liquifier": "Liquifier",
+  "alchemistry.jei.fission": "Fission Chamber Multiblock",
+  "alchemistry.jei.fusion": "Fusion Chamber Multiblock",
 
   "itemGroup.alchemistry": "Alchemistry",
 
-  "item.alchemistry.fertilizer.tooltip": "Can be used like bonemeal",
+  "item.alchemistry.fertilizer.tooltip": "Can be used like bonemeal.",
   "item.alchemistry.obsidian_breaker.tooltip": "Right-click an obsidian block while holding this item to instantly harvest the obsidian. This item will be consumed.",
-  "item.alchemistry.milk.tooltip": "All I do is milk",
+  "item.alchemistry.milk.tooltip": "All I do is milk.",
 
   "block.electrolyzer.tooltip": "Requires",
   "block.chemical_dissolver.tooltip": "Requires",
@@ -52,8 +53,8 @@
 
   "guide.alchemistry.landing": "Welcome to the Alchemistry Guidebook. This book will introduce you to some of the basics of the mod :)",
   "guide.alchemistry.title": "Alchemistry Guidebook",
-  "alchemistry.fission.invalid_multiblock": "Invalid Fission Multiblock",
-  "alchemistry.fusion.invalid_multiblock": "Invalid Fusion Multiblock",
+  "alchemistry.fission.invalid_multiblock": "Invalid Fission Chamber Multiblock",
+  "alchemistry.fusion.invalid_multiblock": "Invalid Fusion Chamber Multiblock",
 
   "alchemistry.jei.electrolyzer.electrolyte": "Electrolyte",
   "alchemistry.jei.electrolyzer.consumption_probability": "Consumption Probability",

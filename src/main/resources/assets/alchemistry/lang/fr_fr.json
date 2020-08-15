@@ -1,5 +1,5 @@
 {
-  "tooltip.alchemistry.evaporator": "Fonctionne %d plus lentement dans les biomes humides.",
+  "tooltip.alchemistry.evaporator": "Fonctionne %d%% plus lentement dans les biomes humides.",
   "tooltip.alchemistry.energy_requirement":"Requiert %d FE/t.",
 
   "block.alchemistry.chemical_dissolver": "Dissolveur chimique",
@@ -27,8 +27,8 @@
   "alchemistry.jei.evaporator": "Évaporateur",
   "alchemistry.jei.atomizer": "Atomiseur",
   "alchemistry.jei.liquifier": "Liquéfacteur",
-  "alchemistry.jei.fission": "Chambre à fission (multiblock)",
-  "alchemistry.jei.fusion": "Chambre à fusion (multiblock)",
+  "alchemistry.jei.fission": "Chambre à fission",
+  "alchemistry.jei.fusion": "Chambre à fusion",
 
   "itemGroup.alchemistry": "Alchemistry",
 
@@ -45,16 +45,16 @@
   "block.fusion_controller.tooltip": "Requiert",
 
 
-  "block.combiner.unlock_recipe": "Vérouiller recette",
-  "block.combiner.lock_recipe": "Déverouiller recette",
+  "block.combiner.unlock_recipe": "Bloquer",
+  "block.combiner.lock_recipe": "Débloquer",
   "block.combiner.pause": "Pause",
   "block.combiner.resume": "Reprendre",
   "block.combiner.target": "Cibler",
 
   "guide.alchemistry.landing": "Bienvenue dans le guide d'Alchemistry ! Ce livre vous présentera les bases de ce mod. :)",
   "guide.alchemistry.title": "Guide d'Alchemistry",
-  "alchemistry.fission.invalid_multiblock": "Multiblock de la chambre à fission invalide.",
-  "alchemistry.fusion.invalid_multiblock": "Multiblock de la chambre à fusion invalide.",
+  "alchemistry.fission.invalid_multiblock": "Multiblock ch. à fission invalide",
+  "alchemistry.fusion.invalid_multiblock": "Multiblock ch. à fusion invalide",
 
   "alchemistry.jei.electrolyzer.electrolyte": "Électrolyte",
   "alchemistry.jei.electrolyzer.consumption_probability": "Probabilité de consommation",

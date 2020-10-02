@@ -3,12 +3,11 @@ package al132.alchemistry.recipes;
 import al132.alchemistry.utils.ListUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ public class ProbabilitySet {
 
     public List<ItemStack> toStackList() {
         ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-        set.forEach(it -> builder.add(ImmutableList.copyOf(it.getOutputs())));
+        set.forEach(it -> builder.add(ImmutableList.copyOf(it.getOutputs())));//.stream().map(x->x.orElse(null)).collect(Collectors.toList()))));
         return builder.build().stream()
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
@@ -123,10 +122,11 @@ public class ProbabilitySet {
             return this;
         }
 
-        public Builder addGroup(double probability, Item... items) {
-            return addGroup(probability, Arrays.stream(items).map(ItemStack::new).toArray(ItemStack[]::new));
+        /*
+        public Builder addGroup(double probability, LazyOptional<Item>... items) {
+            return addGroup(probability, Arrays.stream(items).map(x->x.orElse(null)).map(ItemStack::new).toArray(ItemStack[]::new));
         }
-
+*/
         public ProbabilitySet build() {
             return new ProbabilitySet(this.groups, relativeProbability, rolls);
         }

@@ -21,7 +21,7 @@ public class EvaporatorTESR extends TileEntityRenderer<EvaporatorTile> {
     }
 
     @Override
-    public void func_225616_a_(EvaporatorTile tile, float p_225616_2_, MatrixStack matrix, IRenderTypeBuffer p_225616_4_, int p_225616_5_, int p_225616_6_) {
+    public void render(EvaporatorTile tile, float p_225616_2_, MatrixStack matrix, IRenderTypeBuffer p_225616_4_, int p_225616_5_, int p_225616_6_) {
         FluidStack fluidStack = tile.fluidTank.getFluidInTank(0);
         /*
         if(!fluidStack.isEmpty()) {
@@ -41,7 +41,7 @@ public class EvaporatorTESR extends TileEntityRenderer<EvaporatorTile> {
     private void renderFluid(Tessellator tess, Fluid fluid, EvaporatorTile tile) {
         BufferBuilder buffer = tess.getBuffer();
         FluidStack inputFluid = tile.fluidTank.getFluidInTank(0);
-        TextureAtlasSprite sprite = Minecraft.getInstance().func_228015_a_(AtlasTexture.LOCATION_BLOCKS_TEXTURE)
+        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE)
                 .apply(fluid.getAttributes().getStillTexture(inputFluid));//.toString());
         double capacity = tile.fluidTank.getTankCapacity(0);
         double amount = inputFluid.getAmount();
@@ -58,10 +58,10 @@ public class EvaporatorTESR extends TileEntityRenderer<EvaporatorTile> {
 
         //Render in inner 12 bits, trim off 2 bits on each side
         double margin = 2.0 / 16.0;
-        buffer.func_225582_a_(margin, scale + offset, margin).func_225583_a_(u1, v1).func_227885_a_(255, 255, 255, 128).endVertex();
-        buffer.func_225582_a_(margin, scale + offset, 1.0 - margin).func_225583_a_(u1, v2).func_227885_a_(255, 255, 255, 128).endVertex();
-        buffer.func_225582_a_(1.0 - margin, scale + offset, 1.0 - margin).func_225583_a_(u2, v2).func_227885_a_(255, 255, 255, 128).endVertex();
-        buffer.func_225582_a_(1.0 - margin, scale + offset, margin).func_225583_a_(u2, v1).func_227885_a_(255, 255, 255, 128).endVertex();
+        buffer.pos(margin, scale + offset, margin).tex(u1, v1).color(255, 255, 255, 128).endVertex();
+        buffer.pos(margin, scale + offset, 1.0 - margin).tex(u1, v2).color(255, 255, 255, 128).endVertex();
+        buffer.pos(1.0 - margin, scale + offset, 1.0 - margin).tex(u2, v2).color(255, 255, 255, 128).endVertex();
+        buffer.pos(1.0 - margin, scale + offset, margin).tex(u2, v1).color(255, 255, 255, 128).endVertex();
         tess.draw();
     }
 

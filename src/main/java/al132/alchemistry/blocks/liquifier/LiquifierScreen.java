@@ -5,6 +5,7 @@ import al132.alchemistry.Config;
 import al132.alib.client.ABaseScreen;
 import al132.alib.client.CapabilityEnergyDisplayWrapper;
 import al132.alib.client.CapabilityFluidDisplayWrapper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -22,14 +23,14 @@ public class LiquifierScreen extends ABaseScreen<LiquifierContainer> {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+    protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
+        super.drawGuiContainerBackgroundLayer(ms, partialTicks, mouseX, mouseY);
         this.minecraft.textureManager.bindTexture(this.texture);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         if (tile.progressTicks > 0) {
             int k = this.getBarScaled(28, tile.progressTicks, Config.LIQUIFIER_TICKS_PER_OPERATION.get());
-            this.blit(i + 79, j + 63, 175, 0, k, 9);
+            this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
         }
     }
 }

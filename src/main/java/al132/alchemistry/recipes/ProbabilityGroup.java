@@ -1,6 +1,7 @@
 package al132.alchemistry.recipes;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.util.LazyOptional;
 
 import java.util.List;
 

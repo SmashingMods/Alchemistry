@@ -42,6 +42,6 @@ public class EvaporatorBlock extends BaseTileBlock {
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent(I18n.format("tooltip.alchemistry.evaporator",50)));
+        //tooltip.add(new StringTextComponent(I18n.format("tooltip.alchemistry.evaporator",50)));
     }
 }

@@ -6,8 +6,10 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[31,)" #mandatory (26 is current forge version)
+loaderVersion="[33,)" #mandatory (26 is current forge version)
 # A URL to refer people to when problems occur with this mod
+license="All Rights Reserved"
+
 issueTrackerURL="https://github.com/al132mc/alchemistry/issues"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
@@ -42,7 +44,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[31.0.0,)" #mandatory
+    versionRange="[33.0.0,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -51,20 +53,20 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
 [[dependencies.alchemistry]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2,)"
+    versionRange="[1.16.2,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.alchemistry]]
     modId="chemlib"
     mandatory=true
-    versionRange="[1.15.2,)"
+    versionRange="[1.16.2,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.alchemistry]]
     modId="alib"
     mandatory=true
-    versionRange="[1.15.2,)"
+    versionRange="[1.16.2,)"
     ordering="NONE"
     side="BOTH"

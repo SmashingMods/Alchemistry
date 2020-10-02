@@ -109,8 +109,8 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.refreshRecipe();
         this.updateMultiblock();

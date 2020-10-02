@@ -9,6 +9,7 @@ import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
 import al132.alib.tiles.FluidTile;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -86,8 +87,8 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         inputTank.readFromNBT(compound.getCompound("inputTank"));
         updateRecipe();
@@ -107,7 +108,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
 
     @Override
     public CustomStackHandler initOutput() {
-        return new CustomStackHandler(this, 1){
+        return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;

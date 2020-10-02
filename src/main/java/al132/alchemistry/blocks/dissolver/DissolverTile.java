@@ -7,6 +7,7 @@ import al132.alchemistry.recipes.DissolverRecipe;
 import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -52,7 +53,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         //if no output buffer, set the buffer to recipe outputs
         if (outputBuffer.isEmpty()) {
             outputBuffer = currentRecipe.outputs.calculateOutput();
-            getInput().decrementSlot(0, currentRecipe.input.getMatchingStacks()[0].getCount());
+            getInput().decrementSlot(0, currentRecipe.getInput().getMatchingStacks()[0].getCount());
         }
 
         //If output didn't happen or didn't fail last tick, queue up next output single stack
@@ -134,8 +135,8 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         this.outputSuccessful = compound.getBoolean("OutputSuccessful");
         ItemStackHelper.loadAllItems(compound.getCompound("OutputBuffer"), outputBuffer);
         updateRecipe();

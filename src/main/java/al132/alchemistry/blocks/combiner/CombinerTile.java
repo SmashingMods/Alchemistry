@@ -7,6 +7,7 @@ import al132.alchemistry.recipes.CombinerRecipe;
 import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -97,8 +98,8 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         this.recipeIsLocked = compound.getBoolean("recipeIsLocked");
         this.progressTicks = compound.getInt("progressTicks");
         this.paused = compound.getBoolean("paused");

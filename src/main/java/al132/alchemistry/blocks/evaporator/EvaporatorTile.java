@@ -7,12 +7,12 @@ import al132.alchemistry.recipes.EvaporatorRecipe;
 import al132.alchemistry.recipes.ModRecipes;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.FluidTile;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -72,8 +72,8 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void read(BlockState state, CompoundNBT compound) {
+        super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.fluidTank.readFromNBT(compound.getCompound("fluidTank"));
     }
@@ -87,9 +87,9 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
 
     public int calculateProcessingTime() { //TODO more elaborate calculation?
         int temp = Config.EVAPORATOR_TICKS_PER_OPERATION.get();//ConfigHandler.evaporatorProcessingTicks!!
-        if (!BiomeDictionary.hasType(world.func_226691_t_(this.pos), BiomeDictionary.Type.DRY)) {
-            temp += (Config.EVAPORATOR_TICKS_PER_OPERATION.get() * .5);
-        }
+        //if (!BiomeDictionary.hasType(world.func_226691_t_(this.pos), BiomeDictionary.Type.DRY)) {
+        //    temp += (Config.EVAPORATOR_TICKS_PER_OPERATION.get() * .5);
+        //}
         return temp;
     }
 

@@ -4,6 +4,7 @@ import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Config;
 import al132.alib.client.ABaseScreen;
 import al132.alib.client.CapabilityEnergyDisplayWrapper;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -26,16 +27,17 @@ public class FissionScreen extends ABaseScreen<FissionContainer> {
 
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+    protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float f, int mouseX, int mouseY) {
+        super.drawGuiContainerBackgroundLayer(ms, f, mouseX, mouseY);
         this.getMinecraft().textureManager.bindTexture(texture);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         if (tile.progressTicks > 0) {
             int k = this.getBarScaled(28, tile.progressTicks, Config.FISSION_TICKS_PER_OPERATION.get());
-            this.blit(i + 79, j + 63, 175, 0, k, 9);
+            this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
         }
     }
+
 
     public void updateStatus() {
         if (tile.isValidMultiblock) statusText = "";
@@ -44,9 +46,10 @@ public class FissionScreen extends ABaseScreen<FissionContainer> {
 
 
     @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+    protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
+        super.drawGuiContainerForegroundLayer(ms, mouseX, mouseY);
+        //super.func_230450_a_(ms, f, mouseX, mouseY);
         updateStatus();
-        this.font.drawStringWithShadow(statusText, 30.0f, 100.0f, Color.WHITE.getRGB());
+        this.font.drawStringWithShadow(ms, statusText, 30.0f, 100.0f, Color.WHITE.getRGB());
     }
 }

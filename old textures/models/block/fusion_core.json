@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "alchemistry:blocks/dark_block",
+    "down": "alchemistry:blocks/fusion_core",
+    "up": "alchemistry:blocks/fusion_core",
+    "east": "alchemistry:blocks/fusion_core_side",
+    "west": "alchemistry:blocks/fusion_core_side",
+    "south": "alchemistry:blocks/fusion_core_side",
+    "north": "alchemistry:blocks/fusion_core_side"
+  }
+}

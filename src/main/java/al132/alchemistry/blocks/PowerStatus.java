@@ -13,11 +13,9 @@ public enum PowerStatus implements IStringSerializable {
         this.name = name;
     }
 
-
+    
     @Override
-    public String getName() {
+    public String getString() {
         return this.name;
     }
-
-
 }

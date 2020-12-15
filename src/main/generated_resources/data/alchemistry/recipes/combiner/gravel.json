@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:compound_silicon_dioxide"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gravel"
+  }
+}

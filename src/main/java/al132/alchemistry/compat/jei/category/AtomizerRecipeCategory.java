@@ -3,7 +3,7 @@ package al132.alchemistry.compat.jei.category;
 import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Ref;
 import al132.alchemistry.compat.jei.JEIIntegration;
-import al132.alchemistry.recipes.AtomizerRecipe;
+import al132.alchemistry.blocks.atomizer.AtomizerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;

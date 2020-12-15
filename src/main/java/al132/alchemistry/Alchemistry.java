@@ -1,15 +1,22 @@
 package al132.alchemistry;
 
 import al132.alchemistry.network.NetworkHandler;
-import al132.alchemistry.recipes.ModRecipes;
 import al132.alchemistry.setup.ClientProxy;
 import al132.alchemistry.setup.IProxy;
 import al132.alchemistry.setup.ServerProxy;
+import al132.alchemistry.utils.IngredientStack;
 import al132.alib.ModData;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.PooledByteBufAllocator;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -19,7 +26,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -36,6 +42,9 @@ public class Alchemistry {
 
     public static ModData data = new AlchemistryData();
 
+    public static final String MODID = "alchemistry";
+
+
     public Alchemistry() {
         //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
@@ -45,7 +54,6 @@ public class Alchemistry {
         MinecraftForge.EVENT_BUS.register(this);
 
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
-
     }
 
 
@@ -55,12 +63,6 @@ public class Alchemistry {
             NetworkHandler.register();
         });
         //ModRecipes.init();
-    }
-
-    @SubscribeEvent
-    public void serverStart(FMLServerAboutToStartEvent e) {
-        ModRecipes.init();
-
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -88,6 +90,16 @@ public class Alchemistry {
             data.ITEMS.forEach(e.getRegistry()::register);
             data.BLOCKS.forEach(x -> e.getRegistry()
                     .register(new BlockItem(x, new Item.Properties().group(data.itemGroup)).setRegistryName(x.getRegistryName())));
+        }
+
+        @SubscribeEvent
+        public static void onRecipeSerializerRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> e) {
+            e.getRegistry().register(Ref.ATOMIZER_SERIALIZER.setRegistryName(MODID, "atomizer"));
+            e.getRegistry().register(Ref.COMBINER_SERIALIZER.setRegistryName(MODID, "combiner"));
+            e.getRegistry().register(Ref.DISSOLVER_SERIALIZER.setRegistryName(MODID, "dissolver"));
+            e.getRegistry().register(Ref.EVAPORATOR_SERIALIZER.setRegistryName(MODID, "evaporator"));
+            e.getRegistry().register(Ref.FISSION_SERIALIZER.setRegistryName(MODID, "fission"));
+            e.getRegistry().register(Ref.LIQUIFIER_SERIALIZER.setRegistryName(MODID, "liquifier"));
         }
     }
 }

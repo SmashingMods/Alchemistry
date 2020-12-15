@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:element_zinc"
+    },
+    {
+      "item": "chemlib:compound_hydroxide",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_zinc_hydroxide"
+  }
+}

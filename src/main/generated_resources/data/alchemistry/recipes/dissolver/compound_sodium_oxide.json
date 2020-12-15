@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_sodium_oxide"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_sodium",
+            "count": 2
+          },
+          {
+            "item": "chemlib:element_oxygen"
+          }
+        ]
+      }
+    ]
+  }
+}

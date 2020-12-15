@@ -3,8 +3,6 @@ package al132.alchemistry.blocks.liquifier;
 import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
-import al132.alchemistry.recipes.LiquifierRecipe;
-import al132.alchemistry.recipes.ModRecipes;
 import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
@@ -39,9 +37,11 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     private void updateRecipe() {
         ItemStack inputStack = this.getInput().getStackInSlot(0);
-        if (!inputStack.isEmpty() && (currentRecipe == null || !ItemStack.areItemStacksEqual(currentRecipe.input, inputStack))) {
-            this.currentRecipe = ModRecipes.liquifierRecipes.stream()
-                    .filter(it -> ItemStack.areItemsEqual(it.input, inputStack))
+        if (!inputStack.isEmpty() && (currentRecipe == null || currentRecipe.input.toStacks().stream().anyMatch(x -> ItemStack.areItemsEqual(x, inputStack)))) {
+            //!ItemStack.areItemStacksEqual(currentRecipe.input, inputStack))) {
+
+            this.currentRecipe = LiquifierRegistry.getRecipes(world).stream()
+                    .filter(it -> it.input.toStacks().stream().anyMatch(stack -> ItemStack.areItemsEqual(stack, inputStack)))// ItemStack.areItemsEqual(it.input, inputStack))
                     .findFirst().orElse(null);
         }
         if (inputStack.isEmpty()) currentRecipe = null;
@@ -65,7 +65,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
             FluidStack recipeOutput = currentRecipe.output;
             return outputTank.getCapacity() >= outputTank.getFluidAmount() + recipeOutput.getAmount()
                     && this.energy.getEnergyStored() >= Config.LIQUIFIER_ENERGY_PER_TICK.get()
-                    && getInput().getStackInSlot(0).getCount() >= currentRecipe.input.getCount()
+                    && getInput().getStackInSlot(0).getCount() >= currentRecipe.input.count
                     && ((outputTank.getFluid().getFluid() == recipeOutput.getFluid()) || outputTank.getFluid().isEmpty());
         } else return false;
     }
@@ -76,7 +76,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
         } else {
             progressTicks = 0;
             outputTank.fill(currentRecipe.output.copy(), FluidAction.EXECUTE);//; .setOrIncrement(0, currentRecipe!!.output)
-            getInput().getStackInSlot(0).shrink(currentRecipe.input.getCount());
+            getInput().getStackInSlot(0).shrink(currentRecipe.input.count);
         }
         this.energy.extractEnergy(Config.LIQUIFIER_ENERGY_PER_TICK.get(), false);
     }
@@ -101,7 +101,10 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                if (ModRecipes.liquifierRecipes.stream().anyMatch(it -> ItemStack.areItemsEqual(it.input, stack))) {
+
+                if (LiquifierRegistry.getRecipes(world).stream().anyMatch(it -> it.input.toStacks().stream()
+                        .anyMatch(ingStack -> ItemStack.areItemsEqual(ingStack, stack)))) {
+                    //ItemStack.areItemsEqual(it.input, stack))) {
                     return super.isItemValid(slot, stack);
                 } else return false;
             }

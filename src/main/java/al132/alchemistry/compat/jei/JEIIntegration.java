@@ -2,25 +2,32 @@ package al132.alchemistry.compat.jei;
 
 import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Ref;
+import al132.alchemistry.blocks.atomizer.AtomizerRegistry;
 import al132.alchemistry.blocks.atomizer.AtomizerScreen;
+import al132.alchemistry.blocks.combiner.CombinerRegistry;
 import al132.alchemistry.blocks.combiner.CombinerScreen;
 import al132.alchemistry.blocks.dissolver.DissolverContainer;
+import al132.alchemistry.blocks.dissolver.DissolverRegistry;
 import al132.alchemistry.blocks.dissolver.DissolverScreen;
+import al132.alchemistry.blocks.evaporator.EvaporatorRegistry;
 import al132.alchemistry.blocks.evaporator.EvaporatorScreen;
 import al132.alchemistry.blocks.fission.FissionContainer;
+import al132.alchemistry.blocks.fission.FissionRegistry;
 import al132.alchemistry.blocks.fission.FissionScreen;
 import al132.alchemistry.blocks.liquifier.LiquifierContainer;
+import al132.alchemistry.blocks.liquifier.LiquifierRegistry;
 import al132.alchemistry.blocks.liquifier.LiquifierScreen;
 import al132.alchemistry.compat.jei.category.*;
-import al132.alchemistry.recipes.ModRecipes;
 import al132.chemlib.chemistry.ElementRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.registration.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 @JeiPlugin
 public class JEIIntegration implements IModPlugin {
@@ -62,19 +69,21 @@ public class JEIIntegration implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration reg) {
+        World world = Minecraft.getInstance().world;
+
         //ModRecipes.filterEmptyDissolverRecipes();
-        ModRecipes.initEvaporatorRecipes();
-        ModRecipes.initDissolverRecipes();//before combiner recipes, so combiner can use reversible recipes
-        ModRecipes.initCombinerRecipes();
-        ModRecipes.initAtomizerRecipes(); //before liquifier recipes, for reversible recipes
-        ModRecipes.initLiquifierRecipes();
-        ModRecipes.initFissionRecipes();
-        reg.addRecipes(ModRecipes.atomizerRecipes, ATOMIZER_RESOURCE);
-        reg.addRecipes(ModRecipes.combinerRecipes, COMBINER_RESOURCE);
-        reg.addRecipes(ModRecipes.dissolverRecipes, DISSOLVER_RESOURCE);
-        reg.addRecipes(ModRecipes.evaporatorRecipes, EVAPORATOR_RESOURCE);
-        reg.addRecipes(ModRecipes.fissionRecipes, FISSION_RESOURCE);
-        reg.addRecipes(ModRecipes.liquifierRecipes, LIQUIFIER_RESOURCE);
+        //ModRecipes.initEvaporatorRecipes();
+        //ModRecipes.initDissolverRecipes();//before combiner recipes, so combiner can use reversible recipes
+        //ModRecipes.initCombinerRecipes();
+        //ModRecipes.initAtomizerRecipes(); //before liquifier recipes, for reversible recipes
+        //ModRecipes.initLiquifierRecipes();
+        //ModRecipes.initFissionRecipes();
+        reg.addRecipes(AtomizerRegistry.getRecipes(world), ATOMIZER_RESOURCE);
+        reg.addRecipes(CombinerRegistry.getRecipes(world), COMBINER_RESOURCE);
+        reg.addRecipes(DissolverRegistry.getRecipes(world), DISSOLVER_RESOURCE);
+        reg.addRecipes(EvaporatorRegistry.getRecipes(world), EVAPORATOR_RESOURCE);
+        reg.addRecipes(FissionRegistry.getRecipes(world), FISSION_RESOURCE);
+        reg.addRecipes(LiquifierRegistry.getRecipes(world), LIQUIFIER_RESOURCE);
 
         ElementRegistry.elements.forEach((key, value) -> reg.addIngredientInfo(
                 new ItemStack(value), VanillaTypes.ITEM, "alchemistry.jei.elements.description"));

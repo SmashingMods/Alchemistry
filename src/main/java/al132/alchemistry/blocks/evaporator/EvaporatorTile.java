@@ -3,8 +3,6 @@ package al132.alchemistry.blocks.evaporator;
 import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
-import al132.alchemistry.recipes.EvaporatorRecipe;
-import al132.alchemistry.recipes.ModRecipes;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.FluidTile;
 import net.minecraft.block.BlockState;
@@ -44,7 +42,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
     public void tick() {
         if (world.isRemote) return;
         if (fluidTank.getFluidAmount() > 0) {
-            this.currentRecipe = ModRecipes.evaporatorRecipes.stream()
+            this.currentRecipe = EvaporatorRegistry.getRecipes(world).stream()
                     .filter(recipe -> fluidTank.getFluid().containsFluid(recipe.input)).findFirst().orElse(null);
         }
         if (canProcess()) process();

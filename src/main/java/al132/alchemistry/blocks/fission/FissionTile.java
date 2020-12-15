@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -43,6 +44,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     public ItemStack getInputStack() {
         return this.getInput().getStackInSlot(0);
     }
+
 
     private void refreshRecipe() {
         if (!this.getInputStack().isEmpty() && (this.getInputStack().getItem() instanceof ElementItem)) {

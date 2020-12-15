@@ -3,7 +3,8 @@ package al132.alchemistry.compat.jei.category;
 import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Ref;
 import al132.alchemistry.compat.jei.JEIIntegration;
-import al132.alchemistry.recipes.LiquifierRecipe;
+import al132.alchemistry.blocks.liquifier.LiquifierRecipe;
+import com.google.common.collect.Lists;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -54,7 +55,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public void setIngredients(LiquifierRecipe recipe, IIngredients ingredients) {
-        ingredients.setInput(VanillaTypes.ITEM, recipe.input);
+        ingredients.setInputs(VanillaTypes.ITEM, recipe.input.toStacks());
         ingredients.setOutput(VanillaTypes.FLUID, recipe.output);
     }
 

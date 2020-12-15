@@ -3,7 +3,6 @@ package al132.alchemistry.blocks.dissolver;
 import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
-import al132.alchemistry.recipes.DissolverRecipe;
 import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
@@ -53,7 +52,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         //if no output buffer, set the buffer to recipe outputs
         if (outputBuffer.isEmpty()) {
             outputBuffer = currentRecipe.outputs.calculateOutput();
-            getInput().decrementSlot(0, currentRecipe.getInput().getMatchingStacks()[0].getCount());
+            getInput().decrementSlot(0, currentRecipe.inputIngredient.ingredient.getMatchingStacks()[0].getCount());
         }
 
         //If output didn't happen or didn't fail last tick, queue up next output single stack
@@ -105,7 +104,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 if (!this.getStackInSlot(slot).isEmpty()) return super.isItemValid(slot, stack);
-                else if (DissolverRecipe.match(stack, false) != null) return super.isItemValid(slot, stack);
+                else if (DissolverRegistry.match(world, stack, false) != null) return super.isItemValid(slot, stack);
                 else return false;
             }
 
@@ -131,7 +130,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
 
 
     public void updateRecipe() {
-        this.currentRecipe = DissolverRecipe.match(getInput().getStackInSlot(0), true);
+        this.currentRecipe = DissolverRegistry.match(world, getInput().getStackInSlot(0), true);
     }
 
     @Override
@@ -153,7 +152,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get()){
+        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get()) {
             @Override
             public void onEnergyChanged() {
                 markDirtyGUI();

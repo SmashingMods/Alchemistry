@@ -19,6 +19,10 @@ archivesBaseName = 'alchemistry'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
+sourceSets{
+    main.resources.srcDirs += 'src/main/generated_resources'
+}
+
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   Snapshot are built nightly.
@@ -74,7 +78,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'alchemistry', '--all', '--output', file('src/generated/resources/')
+            args '--mod', 'alchemistry', '--all', '--output', file('src/main/generated_resources/')
 
             mods {
                 alchemistry {

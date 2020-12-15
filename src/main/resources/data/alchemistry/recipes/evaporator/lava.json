@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:evaporator",
+  "group": "minecraft:misc",
+  "input": {
+    "fluid": "minecraft:lava",
+    "amount": 1000
+  },
+  "result": {
+    "item": "minecraft:magma_block"
+  }
+}

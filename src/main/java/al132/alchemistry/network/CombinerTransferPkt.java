@@ -1,8 +1,9 @@
 package al132.alchemistry.network;
 
 
+import al132.alchemistry.blocks.combiner.CombinerRegistry;
 import al132.alchemistry.blocks.combiner.CombinerTile;
-import al132.alchemistry.recipes.CombinerRecipe;
+import al132.alchemistry.blocks.combiner.CombinerRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -36,12 +37,13 @@ public class CombinerTransferPkt {
         public static void handle(final CombinerTransferPkt message, Supplier<NetworkEvent.Context> ctx) {
             ctx.get().enqueueWork(() -> {
                 PlayerEntity playerEntity = ctx.get().getSender();//.player
+
                 CombinerTile tile = (CombinerTile) playerEntity.world.getTileEntity(message.pos);
                 ItemStack output = message.outputStack;
                 if (!output.isEmpty()) {
                     tile.clientRecipeTarget.setStackInSlot(0, output.copy());
                     tile.recipeIsLocked = true;
-                    tile.currentRecipe = CombinerRecipe.matchOutput(output.copy());
+                    tile.currentRecipe = CombinerRegistry.matchOutput(playerEntity.world, output.copy());
                 }
                 //System.out.println("Handling packet: {" + message.outputStack + "}");
                 tile.markDirtyClient();

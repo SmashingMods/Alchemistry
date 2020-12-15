@@ -1,0 +1,28 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_calcium_sulfate"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_calcium"
+          },
+          {
+            "item": "chemlib:element_sulfur"
+          },
+          {
+            "item": "chemlib:element_oxygen",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

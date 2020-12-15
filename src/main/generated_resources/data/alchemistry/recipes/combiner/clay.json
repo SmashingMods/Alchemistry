@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:compound_kaolinite",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:clay"
+  }
+}

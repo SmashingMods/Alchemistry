@@ -1,0 +1,31 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 16
+    },
+    {
+      "item": "chemlib:element_hydrogen",
+      "count": 18
+    },
+    {
+      "item": "chemlib:element_nitrogen",
+      "count": 2
+    },
+    {
+      "item": "chemlib:element_oxygen",
+      "count": 5
+    },
+    {
+      "item": "chemlib:element_sulfur"
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_penicillin"
+  }
+}

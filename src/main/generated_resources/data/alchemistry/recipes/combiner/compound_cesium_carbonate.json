@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:element_cesium",
+      "count": 2
+    },
+    {
+      "item": "chemlib:compound_carbonate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_cesium_carbonate"
+  }
+}

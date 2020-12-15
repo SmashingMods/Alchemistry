@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:compound_magnesium_sulfate",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:light_gray_dye"
+  }
+}

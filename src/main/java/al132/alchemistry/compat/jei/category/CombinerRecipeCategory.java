@@ -3,7 +3,7 @@ package al132.alchemistry.compat.jei.category;
 import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Ref;
 import al132.alchemistry.compat.jei.JEIIntegration;
-import al132.alchemistry.recipes.CombinerRecipe;
+import al132.alchemistry.blocks.combiner.CombinerRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -55,7 +55,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
     @Override
     public void setIngredients(CombinerRecipe recipe, IIngredients ingredients) {
         ingredients.setInputs(VanillaTypes.ITEM, recipe.getEmptyStrippedInputs());
-        ingredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
+        ingredients.setOutput(VanillaTypes.ITEM, recipe.output);
     }
 
     @Override
@@ -88,6 +88,6 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
         guiItemStacks.init(OUTPUT_SLOT, false, x, y);
         //guiItemStacks.set(OUTPUT_SLOT, ingredients.getOutputs(ItemStack::class.java)[0])
-        guiItemStacks.set(OUTPUT_SLOT, recipe.getOutput());
+        guiItemStacks.set(OUTPUT_SLOT, recipe.output);
     }
 }

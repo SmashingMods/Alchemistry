@@ -1,0 +1,7 @@
+{
+  "type": "alchemistry:fission",
+  "group": "minecraft:misc",
+  "input": 64,
+  "output": 32,
+  "output2": 32
+}

@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_han_purple"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_barium"
+          },
+          {
+            "item": "chemlib:element_copper"
+          },
+          {
+            "item": "chemlib:element_silicon",
+            "count": 2
+          },
+          {
+            "item": "chemlib:element_oxygen",
+            "count": 6
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,22 +1,12 @@
 package al132.alchemistry;
 
-import al132.alchemistry.blocks.atomizer.AtomizerBlock;
-import al132.alchemistry.blocks.atomizer.AtomizerContainer;
-import al132.alchemistry.blocks.atomizer.AtomizerTile;
-import al132.alchemistry.blocks.combiner.CombinerBlock;
-import al132.alchemistry.blocks.combiner.CombinerContainer;
-import al132.alchemistry.blocks.combiner.CombinerTile;
-import al132.alchemistry.blocks.dissolver.DissolverBlock;
-import al132.alchemistry.blocks.dissolver.DissolverContainer;
-import al132.alchemistry.blocks.dissolver.DissolverTile;
-import al132.alchemistry.blocks.evaporator.EvaporatorBlock;
-import al132.alchemistry.blocks.evaporator.EvaporatorContainer;
-import al132.alchemistry.blocks.evaporator.EvaporatorTile;
+import al132.alchemistry.blocks.atomizer.*;
+import al132.alchemistry.blocks.combiner.*;
+import al132.alchemistry.blocks.dissolver.*;
+import al132.alchemistry.blocks.evaporator.*;
 import al132.alchemistry.blocks.fission.*;
 import al132.alchemistry.blocks.fusion.*;
-import al132.alchemistry.blocks.liquifier.LiquifierBlock;
-import al132.alchemistry.blocks.liquifier.LiquifierContainer;
-import al132.alchemistry.blocks.liquifier.LiquifierTile;
+import al132.alchemistry.blocks.liquifier.*;
 import al132.alchemistry.items.CondensedMilkItem;
 import al132.alchemistry.items.MineralSaltItem;
 import al132.alchemistry.items.SlotFillerItem;
@@ -25,7 +15,7 @@ import net.minecraft.tileentity.TileEntityType;
 
 import java.text.DecimalFormat;
 
-public class Ref {
+public class  Ref {
 
     public static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
 
@@ -60,6 +50,13 @@ public class Ref {
     public static TileEntityType<LiquifierTile> liquifierTile;
     public static TileEntityType<FissionTile> fissionTile;
     public static TileEntityType<FusionTile> fusionTile;
+
+    public static AtomizerRecipeSerializer<AtomizerRecipe> ATOMIZER_SERIALIZER = new AtomizerRecipeSerializer<>(AtomizerRecipe::new);
+    public static CombinerRecipeSerializer<CombinerRecipe> COMBINER_SERIALIZER = new CombinerRecipeSerializer<>(CombinerRecipe::new);
+    public static DissolverRecipeSerializer<DissolverRecipe> DISSOLVER_SERIALIZER = new DissolverRecipeSerializer<>(DissolverRecipe::new);
+    public static EvaporatorRecipeSerializer<EvaporatorRecipe> EVAPORATOR_SERIALIZER = new EvaporatorRecipeSerializer<>(EvaporatorRecipe::new);
+    public static FissionRecipeSerializer<FissionRecipe> FISSION_SERIALIZER = new FissionRecipeSerializer<>(FissionRecipe::new);
+    public static LiquifierRecipeSerializer<LiquifierRecipe> LIQUIFIER_SERIALIZER = new LiquifierRecipeSerializer<>(LiquifierRecipe::new);
 
     public static void initBlocks() {
         combiner = new CombinerBlock();

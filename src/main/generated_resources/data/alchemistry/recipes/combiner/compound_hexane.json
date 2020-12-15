@@ -1,0 +1,35 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 6
+    },
+    {
+      "item": "chemlib:element_hydrogen",
+      "count": 14
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_hexane"
+  }
+}

@@ -3,8 +3,6 @@ package al132.alchemistry.blocks.atomizer;
 import al132.alchemistry.Config;
 import al132.alchemistry.Ref;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
-import al132.alchemistry.recipes.AtomizerRecipe;
-import al132.alchemistry.recipes.ModRecipes;
 import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
@@ -46,7 +44,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
     public void updateRecipe() {
         if (!inputTank.isEmpty()
                 && (currentRecipe == null || !ItemStack.areItemStacksEqual(currentRecipe.output, getOutput().getStackInSlot(0)))) {
-            currentRecipe = ModRecipes.atomizerRecipes.stream()
+            currentRecipe = AtomizerRegistry.getRecipes(world).stream()
                     .filter(it -> it.input.getFluid() == inputTank.getFluid().getFluid()).findFirst().orElse(null);
         }
         if (inputTank.isEmpty()) currentRecipe = null;

@@ -3,8 +3,8 @@ package al132.alchemistry.compat.jei.category;
 import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Ref;
 import al132.alchemistry.compat.jei.JEIIntegration;
-import al132.alchemistry.recipes.DissolverRecipe;
-import al132.alchemistry.recipes.ProbabilityGroup;
+import al132.alchemistry.blocks.dissolver.DissolverRecipe;
+import al132.alchemistry.misc.ProbabilityGroup;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
@@ -19,7 +19,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.LazyOptional;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -66,7 +65,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public void setIngredients(DissolverRecipe recipe, IIngredients ingredients) {
-        List<Ingredient> inputs = Lists.newArrayList(recipe.getInput());
+        List<Ingredient> inputs = Lists.newArrayList(recipe.inputIngredient.ingredient);
         ingredients.setInputIngredients(inputs);
         ingredients.setOutputs(VanillaTypes.ITEM, recipe.outputs.filterNonEmpty());
     }
@@ -79,7 +78,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         int x = 95 - u;
         int y = 7 - v;
         guiItemStacks.init(INPUT_ONE, true, x, y);
-        guiItemStacks.set(INPUT_ONE, Arrays.asList(recipe.getInput().getMatchingStacks()));
+        guiItemStacks.set(INPUT_ONE, Arrays.asList(recipe.inputIngredient.ingredient.getMatchingStacks()));
         x = 50 - u;
         y = 50 - v;
 

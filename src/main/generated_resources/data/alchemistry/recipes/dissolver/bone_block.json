@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:bone_block"
+  },
+  "output": {
+    "rolls": 9,
+    "relativeProbability": false,
+    "groups": [
+      {
+        "probability": 50.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_hydroxylapatite"
+          }
+        ]
+      }
+    ]
+  }
+}

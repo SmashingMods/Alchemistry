@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "minecraft:misc",
+  "input": {
+    "fluid": "minecraft:water",
+    "amount": 500
+  },
+  "result": {
+    "item": "chemlib:compound_water",
+    "count": 8
+  }
+}

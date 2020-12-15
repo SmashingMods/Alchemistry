@@ -1,17 +1,30 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
+  "type": "forge:conditional",
+  "recipes": [
     {
-      "item": "minecraft:book"
-    },
-    {
-      "item": "minecraft:stone_pressure_plate"
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "patchouli"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "minecraft:book"
+          },
+          {
+            "item": "minecraft:stone_pressure_plate"
+          }
+        ],
+        "result": {
+          "item": "patchouli:guide_book",
+          "nbt": {
+            "patchouli:book": "alchemistry:alchemistry_book"
+          }
+        }
+      }
     }
-  ],
-  "result": {
-    "item": "patchouli:guide_book",
-    "nbt": {
-      "patchouli:book": "alchemistry:alchemistry_book"
-    }
-  }
+  ]
 }

@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:compound_cellulose"
+    },
+    {
+      "item": "chemlib:compound_sucrose"
+    }
+  ],
+  "result": {
+    "item": "minecraft:sugar_cane"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "minecraft:misc",
+  "ingredient": {
+    "item": "chemlib:compound_water"
+  },
+  "inputCount": 8,
+  "result": {
+    "fluid": "minecraft:water",
+    "amount": 500
+  }
+}

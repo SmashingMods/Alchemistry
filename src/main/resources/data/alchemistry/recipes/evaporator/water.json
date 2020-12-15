@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:evaporator",
+  "group": "minecraft:misc",
+  "input": {
+    "fluid": "minecraft:water",
+    "amount": 125
+  },
+  "result": {
+    "item": "alchemistry:mineral_salt"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 64
+    }
+  ],
+  "result": {
+    "item": "minecraft:diamond"
+  }
+}

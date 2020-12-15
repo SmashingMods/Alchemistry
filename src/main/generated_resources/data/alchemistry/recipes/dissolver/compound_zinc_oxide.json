@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_zinc_oxide"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_zinc"
+          },
+          {
+            "item": "chemlib:element_oxygen"
+          }
+        ]
+      }
+    ]
+  }
+}

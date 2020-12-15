@@ -1,0 +1,37 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 8
+    },
+    {
+      "item": "chemlib:element_hydrogen",
+      "count": 10
+    },
+    {
+      "item": "chemlib:element_nitrogen",
+      "count": 4
+    },
+    {
+      "item": "chemlib:element_oxygen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_caffeine"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "tooltip.alchemistry.evaporator": "Fonctionne %d%% plus lentement dans les biomes humides.",
+  "tooltip.alchemistry.energy_requirement":"Requiert %d FE/t.",
+
+  "block.alchemistry.chemical_dissolver": "Dissolveur chimique",
+  "block.alchemistry.chemical_combiner": "Mélangeur chimique",
+  "block.alchemistry.evaporator": "Évaporateur",
+  "block.alchemistry.atomizer": "Atomiseur",
+  "block.alchemistry.liquifier": "Liquéfacteur",
+  "block.alchemistry.fission_controller": "Contrôleur de chambre à fission",
+  "block.alchemistry.fission_core": "Cœur de chambre à fission",
+  "block.alchemistry.fission_casing": "Coffrage de chambre à fission",
+  "block.alchemistry.fusion_controller": "Contrôleur de chambre à fusion",
+  "block.alchemistry.fusion_core": "Cœur de chambre à fusion",
+  "block.alchemistry.fusion_casing": "Coffrage de chambre à fusion",
+
+  "item.alchemistry.mineral_salt": "Sel minéral",
+  "item.alchemistry.fertilizer": "Engrais",
+  "item.alchemistry.obsidian_breaker": "Brise-obsidienne",
+  "item.alchemistry.milk": "LAIT",
+  "item.alchemistry.condensed_milk": "Lait condensé",
+  "item.alchemistry.slot_filler": "Bouche-trou",
+
+  "alchemistry.jei.combiner": "Mélangeur chimique",
+  "alchemistry.jei.dissolver": "Dissolveur chimique",
+  "alchemistry.jei.electrolyzer": "Électrolyseur",
+  "alchemistry.jei.evaporator": "Évaporateur",
+  "alchemistry.jei.atomizer": "Atomiseur",
+  "alchemistry.jei.liquifier": "Liquéfacteur",
+  "alchemistry.jei.fission": "Chambre à fission",
+  "alchemistry.jei.fusion": "Chambre à fusion",
+
+  "itemGroup.alchemistry": "Alchemistry",
+
+  "item.alchemistry.fertilizer.tooltip": "Peut être utilisé comme de la poudre d'os.",
+  "item.alchemistry.obsidian_breaker.tooltip": "Cliquez droit sur un bloc d'obsidienne pour la récolter immédiatement. Cet objet est à usage unique.",
+  "item.alchemistry.milk.tooltip": "All I do is milk.",
+
+  "block.electrolyzer.tooltip": "Requiert",
+  "block.chemical_dissolver.tooltip": "Requiert",
+  "block.chemical_combiner.tooltip": "Requiert",
+  "block.atomizer.tooltip": "Requiert",
+  "block.liquifier.tooltip": "Requiert",
+  "block.fission_controller.tooltip": "Requiert",
+  "block.fusion_controller.tooltip": "Requiert",
+
+
+  "block.combiner.unlock_recipe": "Bloquer",
+  "block.combiner.lock_recipe": "Débloquer",
+  "block.combiner.pause": "Pause",
+  "block.combiner.resume": "Reprendre",
+  "block.combiner.target": "Cibler",
+
+  "guide.alchemistry.landing": "Bienvenue dans le guide d'Alchemistry ! Ce livre vous présentera les bases de ce mod. :)",
+  "guide.alchemistry.title": "Guide d'Alchemistry",
+  "alchemistry.fission.invalid_multiblock": "Multiblock ch. à fission invalide",
+  "alchemistry.fusion.invalid_multiblock": "Multiblock ch. à fusion invalide",
+
+  "alchemistry.jei.dissolver.relative": "Relatif",
+  "alchemistry.jei.dissolver.absolute": "Absolu",
+  "alchemistry.jei.dissolver.type": "Type",
+  "alchemistry.jei.dissolver.rolls": "Tirages",
+  "alchemistry.jei.elements.description": "Tous les éléments (hormis l'hydrogène) peuvent être créés grâce à la chambre à fusion.\\nCe multiblock prend deux éléments en entrée et les fusionne en un nouvel élément dont le numéro atomique est égal à la somme de ceux des éléments fusionnés.\""
+}

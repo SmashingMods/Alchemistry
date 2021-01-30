@@ -72,7 +72,9 @@ public class EvaporatorRecipeCategory implements IRecipeCategory<EvaporatorRecip
         x = 48 - u;
         y = 69 - u;
         FluidStack inputStack = ingredients.getInputs(VanillaTypes.FLUID).get(0).get(0);
-        guiFluidStacks.init(1, true, x, y, 16, 60, inputStack.getAmount(), false, null);
-        guiFluidStacks.set(1, inputStack);
+        if (inputStack.getAmount() > 0) {
+            guiFluidStacks.init(1, true, x, y, 16, 60, inputStack.getAmount(), false, null);
+            guiFluidStacks.set(1, inputStack);
+        }
     }
 }

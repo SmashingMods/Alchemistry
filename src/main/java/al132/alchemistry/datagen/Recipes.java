@@ -1,21 +1,16 @@
 package al132.alchemistry.datagen;
 
 import al132.alchemistry.Ref;
-import al132.alchemistry.blocks.combiner.CombinerRecipe;
-import al132.alchemistry.blocks.dissolver.DissolverRecipe;
-import al132.alchemistry.blocks.dissolver.DissolverRegistry;
 import al132.alchemistry.blocks.dissolver.DissolverTagData;
 import al132.alchemistry.datagen.recipe.CombinerRecipeBuilder;
 import al132.alchemistry.datagen.recipe.DissolverRecipeBuilder;
 import al132.alchemistry.datagen.recipe.FissionRecipeBuilder;
 import al132.alchemistry.misc.ProbabilityGroup;
 import al132.alchemistry.misc.ProbabilitySet;
-import al132.alchemistry.utils.TagUtils;
 import al132.chemlib.chemistry.CompoundRegistry;
 import al132.chemlib.chemistry.ElementRegistry;
 import al132.chemlib.items.CompoundItem;
 import al132.chemlib.items.ElementItem;
-import al132.chemlib.items.ModItems;
 import com.google.common.collect.Sets;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -24,13 +19,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeTagHandler;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -261,6 +255,13 @@ public class Recipes extends RecipeProvider {
                 set().addGroup(1,
                         toStack("protein", 2 * 9),
                         toStack("sucrose", 2 * 9))
+                        .build());
+
+        dissolver(Ref.condensedMilk,
+                set().addGroup(1,
+                        toStack("calcium", 4),
+                        toStack("protein", 2),
+                        toStack("sucrose"))
                         .build());
 
         dissolver(Items.STICK,
@@ -539,12 +540,15 @@ public class Recipes extends RecipeProvider {
                 set().relative(false)
                         .addGroup(50, toStack("protein")).build());
 
+        /*
         dissolver(Ref.condensedMilk,
                 set().relative(false)
                         .addGroup(40, toStack("calcium", 4))
                         .addGroup(20, toStack("protein"))
                         .addGroup(20, toStack("sucrose"))
                         .build());
+
+         */
 
         for (Item item : newArrayList(Items.WHEAT, Items.HAY_BLOCK)) {
             int rolls = 1;
@@ -768,10 +772,14 @@ public class Recipes extends RecipeProvider {
 
 
         for (ElementItem element : ElementRegistry.elements.values()) {
-            Item ingot = ForgeRegistries.ITEMS.getValue
-                    (new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
+            //Item ingot = ForgeRegistries.ITEMS.getValue
+            //        (new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
+
+            Item ingot = ForgeRegistries.ITEMS.getValue(
+                    new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
             if (ingot != Items.AIR) {
-                dissolver(ingot, set().addGroup(1, new ItemStack(element, 16)).build());
+                dissolver("forge:ingots/" + element.getChemicalName(), set().addGroup(1, new ItemStack(element, 16)).build());
+
             }
         }
         dissolver(Items.IRON_INGOT, set().addGroup(1, toStack("iron", 16)).build());
@@ -810,7 +818,10 @@ public class Recipes extends RecipeProvider {
     private void registerCombinerRecipes() {
 
         combiner(Items.SLIME_BALL, newArrayList(toStack("protein", 2), toStack("sucrose", 2)));
-
+        combiner(Items.NETHER_WART, newArrayList(
+                toStack("cellulose"),
+                toStack("germanium", 4),
+                toStack("selenium", 4)));
         combiner(Items.RED_DYE, newArrayList(toStack("mercury_sulfide", 4)));
         combiner(Items.PINK_DYE, newArrayList(toStack("arsenic_sulfide", 4)));
         combiner(Items.GREEN_DYE, newArrayList(toStack("nickel_chloride", 4)));
@@ -829,6 +840,8 @@ public class Recipes extends RecipeProvider {
         combiner(Items.COAL, newArrayList(null, toStack("carbon", 8)));
 
         combiner(Items.GLOWSTONE, newArrayList(null, toStack("phosphorus", 16)));
+        combiner(Items.GLOWSTONE_DUST, newArrayList(toStack("phosphorus", 4)));
+
         combiner(Items.DIAMOND,
                 newArrayList(
                         toStack("carbon", 64), toStack("carbon", 64), toStack("carbon", 64),
@@ -850,11 +863,12 @@ public class Recipes extends RecipeProvider {
         combiner(Items.WATER_BUCKET, newArrayList(null, null, null,
                 null, toStack("water", 16), null,
                 null, toStack(Items.BUCKET), null));
-        combiner(Items.MILK_BUCKET, newArrayList(null, null, null,
+        combiner(Items.MILK_BUCKET, newArrayList(null, toStack("calcium", 4), null,
                 toStack("protein", 2), toStack("water", 16), toStack("sucrose"),
                 null, toStack(Items.BUCKET), null));
         combiner(Items.REDSTONE_BLOCK, newArrayList(null, null, null,
                 toStack("iron_oxide", 9), toStack("strontium_carbonate", 9)));
+        combiner(Items.REDSTONE, newArrayList(toStack("iron_oxide"), toStack("strontium_carbonate")));
         combiner(Items.STRING, 4, newArrayList(null, toStack("protein", 2)));
         combiner(Items.WHITE_WOOL, newArrayList(null, null, null,
                 null, null, null,
@@ -863,6 +877,8 @@ public class Recipes extends RecipeProvider {
                 toStack("cellulose"), toStack("beta_carotene")));
         combiner(Items.SUGAR_CANE, newArrayList(null, null, null,
                 toStack("cellulose"), toStack("sucrose")));
+        combiner(Items.SUGAR, newArrayList(toStack("sucrose")));
+        combiner(Items.EGG, newArrayList(toStack("calcium_carbonate", 8), toStack("protein", 2)));
         combiner(Items.GRANITE, newArrayList(null, null, null, toStack("silicon_dioxide")));
         combiner(Items.DIORITE, newArrayList(null, null, null, null, toStack("silicon_dioxide")));
         combiner(Items.ANDESITE, newArrayList(null, null, null, null, null, toStack("silicon_dioxide")));

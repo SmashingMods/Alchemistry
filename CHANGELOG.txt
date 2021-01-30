@@ -1,4 +1,8 @@
-v5
+v1.16.4-1
 ===
--Added recipe for Patchouli Guide
--Fusion Controller now uses sided inputs (Left & Right), so you can control which slot items go into
+-Updated to Forge 1.16.4-35.1.36
+-Added ko_kr.json translation (Thank you mindy15963)
+-Added fr_fr.json translation (Thank you DracoNocte)
+-Updated some names in en_us.json
+-Added Slot Filler recipe
+-Added combiner recipes for egg, sugar, redstone (dust), glowstone (dust), nether wart

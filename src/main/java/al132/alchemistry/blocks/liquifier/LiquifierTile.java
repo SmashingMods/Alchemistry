@@ -27,6 +27,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     public FluidTank outputTank;
     private LiquifierRecipe currentRecipe = null;
+    protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> outputTank);
 
     public int progressTicks = 0;
 
@@ -134,6 +135,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     @Override
     public LazyOptional<IFluidHandler> getFluidHandler() {
-        return LazyOptional.empty();
+        return fluidHolder;
     }
+
 }

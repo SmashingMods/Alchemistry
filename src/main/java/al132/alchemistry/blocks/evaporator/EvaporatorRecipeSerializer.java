@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -30,7 +31,11 @@ public class EvaporatorRecipeSerializer<T extends EvaporatorRecipe>
 
         ResourceLocation fluidLocation = new ResourceLocation(inputObject.get("fluid").getAsString());
         int fluidAmount = inputObject.get("amount").getAsInt();
-        FluidStack inputStack = new FluidStack(ForgeRegistries.FLUIDS.getValue(fluidLocation), fluidAmount);
+
+        FluidStack inputStack = FluidStack.EMPTY;
+        if(ForgeRegistries.FLUIDS.containsKey(fluidLocation)) {
+            inputStack = new FluidStack(ForgeRegistries.FLUIDS.getValue(fluidLocation), fluidAmount);
+        }
         if (!json.has("result"))
             throw new JsonSyntaxException("Missing result, expected to find a string or object");
         ItemStack output;

@@ -6,28 +6,19 @@
   },
   "output": {
     "rolls": 1,
-    "relativeProbability": false,
+    "relativeProbability": true,
     "groups": [
       {
-        "probability": 40.0,
+        "probability": 1.0,
         "stacks": [
           {
             "item": "chemlib:element_calcium",
             "count": 4
-          }
-        ]
-      },
-      {
-        "probability": 20.0,
-        "stacks": [
+          },
           {
-            "item": "chemlib:compound_protein"
-          }
-        ]
-      },
-      {
-        "probability": 20.0,
-        "stacks": [
+            "item": "chemlib:compound_protein",
+            "count": 2
+          },
           {
             "item": "chemlib:compound_sucrose"
           }

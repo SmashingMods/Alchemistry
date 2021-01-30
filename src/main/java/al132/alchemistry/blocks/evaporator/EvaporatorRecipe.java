@@ -6,6 +6,7 @@ import al132.alchemistry.misc.ProcessingRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -14,6 +15,7 @@ public class EvaporatorRecipe extends ProcessingRecipe {
 
     public FluidStack input;
     public ItemStack output;
+    FluidTags n;
 
     public EvaporatorRecipe(ResourceLocation id, String group, FluidStack input, ItemStack output) {
         super(RecipeTypes.EVAPORATOR,id,group, Ingredient.EMPTY,output);

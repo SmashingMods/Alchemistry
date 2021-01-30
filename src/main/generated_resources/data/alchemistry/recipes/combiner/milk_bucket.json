@@ -6,7 +6,8 @@
       "item": "minecraft:air"
     },
     {
-      "item": "minecraft:air"
+      "item": "chemlib:element_calcium",
+      "count": 4
     },
     {
       "item": "minecraft:air"

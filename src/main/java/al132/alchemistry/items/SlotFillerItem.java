@@ -6,6 +6,6 @@ import al132.alib.items.ABaseItem;
 public class SlotFillerItem extends ABaseItem {
 
     public SlotFillerItem() {
-        super(Alchemistry.data, "slot_filler");
+        super(Alchemistry.data, "slot_filler", new Properties().maxStackSize(1));
     }
 }

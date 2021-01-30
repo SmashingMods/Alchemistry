@@ -4,6 +4,7 @@ import al132.alchemistry.chemistry.CompoundRegistry
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ItemElementIngot
 import al132.alchemistry.items.ModItems
+import al132.alchemistry.utils.areStacksEqualIgnoreQuantity
 import al132.alchemistry.utils.extensions.toOre
 import al132.alchemistry.utils.extensions.toStack
 import al132.alib.utils.Utils.firstOre
@@ -1921,18 +1922,26 @@ object ModRecipes {
             }
         }
 
+        val saltOutputs = ArrayList<ItemStack>()
         listOf("lumpSalt", "materialSalt", "salt", "itemSalt", "dustSalt", "foodSalt")
                 .filter { oreNotEmpty(it) }
                 .forEachIndexed { i, name ->
                     val input = (0 until i).mapTo(ArrayList<ItemStack>()) { ItemStack.EMPTY }.toMutableList()
-                    combinerRecipes.add(CombinerRecipe(firstOre(name), input.apply { add("sodium_chloride".toStack(8)) }))
+                    if (saltOutputs.none { it.areStacksEqualIgnoreQuantity(firstOre(name)) }) {
+                        combinerRecipes.add(CombinerRecipe(firstOre(name), input.apply { add("sodium_chloride".toStack(8)) }))
+                        saltOutputs.add(firstOre(name))
+                    }
                 }
 
+        val saltpeterOutputs = ArrayList<ItemStack>()
         listOf("dustSaltpeter", "nitrate", "nitre")
                 .filter { oreNotEmpty(it) }
                 .forEachIndexed { i, name ->
                     val input = (0 until i).mapTo(ArrayList<ItemStack>()) { ItemStack.EMPTY }.toMutableList()
-                    combinerRecipes.add(CombinerRecipe(firstOre(name), input.apply { add("potassium_nitrate".toStack(8)) }))
+                    if(saltpeterOutputs.none { it.areStacksEqualIgnoreQuantity(firstOre(name)) }) {
+                        combinerRecipes.add(CombinerRecipe(firstOre(name), input.apply { add("potassium_nitrate".toStack(8)) }))
+                        saltpeterOutputs.add(firstOre(name))
+                    }
                 }
 
         combinerRecipes.add(CombinerRecipe("triglyceride".toStack(),

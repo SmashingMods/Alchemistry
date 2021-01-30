@@ -1,3 +1,10 @@
+1.12.2-41
+===
+-Reverted the Fusion multiblock sided-input changes introduced in v39, now instead there is a button to toggle between 'single mode' and 'regular mode'.
+ In 'single mode' only one item is allowed in each slot at a time, this allows for easier automation with AE2 and the like
+-Tweaked the ingot texture, the old ones had weird 'bright' spots on the longer side face
+-Improved error handling for custom elements
+
 1.12.2-40
 ===
 -Fixed Chemical Dissolver excessively updating chunks

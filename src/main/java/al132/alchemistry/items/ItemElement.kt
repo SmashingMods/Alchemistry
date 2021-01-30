@@ -51,6 +51,10 @@ class ItemElement(name: String) : ItemMetaBase(name) {
     override fun getTranslationKey(stack: ItemStack?): String {
         var i = stack!!.itemDamage
         if (!ElementRegistry.keys().contains(i)) i = 1
-        return super.getTranslationKey() + "_" + ElementRegistry[i]!!.name.toLowerCase()
+        try {
+            return super.getTranslationKey() + "_" + ElementRegistry[i]!!.name.toLowerCase()
+        } catch (e: NullPointerException) {
+            throw NullPointerException("Unable to find translation key for element #[$i]")
+        }
     }
 }

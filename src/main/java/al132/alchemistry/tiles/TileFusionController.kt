@@ -8,7 +8,6 @@ import al132.alchemistry.blocks.PropertyPowerStatus
 import al132.alchemistry.chemistry.ChemicalElement
 import al132.alchemistry.chemistry.ElementRegistry
 import al132.alchemistry.items.ModItems
-import al132.alib.Reference.ITEM_CAP
 import al132.alib.tiles.*
 import al132.alib.utils.extensions.get
 import net.minecraft.item.ItemStack
@@ -17,8 +16,6 @@ import net.minecraft.util.EnumFacing
 import net.minecraft.util.ITickable
 import net.minecraft.util.math.BlockPos
 import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.items.IItemHandler
-import net.minecraftforge.items.wrapper.RangedWrapper
 
 /**
  * Created by al132 on 4/29/2017.
@@ -30,8 +27,9 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     var recipeOutput: ItemStack = ItemStack.EMPTY
     var isValidMultiblock: Boolean = false
     var checkMultiblockTicks: Int = 0
-    lateinit var inputLeft: IItemHandler
-    lateinit var inputRight: IItemHandler
+    var singleMode: Boolean = false
+    //lateinit var inputLeft: IItemHandler
+    //lateinit var inputRight: IItemHandler
 
     init {
         initInventoryCapability(2, 1)
@@ -40,6 +38,10 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     override fun initInventoryInputCapability() {
         input = object : ALTileStackHandler(inputSlots, this) {
             override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
+                if (singleMode) {
+                    if (this.getStackInSlot(slot).isEmpty) return super.insertItem(slot, stack, simulate)
+                    else return stack
+                }
                 if (stack.item == ModItems.elements) {
                     return super.insertItem(slot, stack, simulate)
                 } else return stack
@@ -50,8 +52,8 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
                 super.onContentsChanged(slot)
             }
         }
-        inputLeft = RangedWrapper(input, 0, 1)
-        inputRight = RangedWrapper(input, 1, 2)
+        //inputLeft = RangedWrapper(input, 0, 1)
+        //inputRight = RangedWrapper(input, 1, 2)
     }
 
     fun refreshRecipe() {
@@ -113,12 +115,14 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     override fun writeToNBT(compound: NBTTagCompound): NBTTagCompound {
         super.writeToNBT(compound)
         compound.setInteger("ProgressTicks", progressTicks)
+        compound.setBoolean("singleMode", singleMode)
         return compound
     }
 
     override fun readFromNBT(compound: NBTTagCompound) {
         super.readFromNBT(compound)
         this.progressTicks = compound.getInteger("ProgressTicks")
+        this.singleMode = compound.getBoolean("singleMode")
         this.refreshRecipe()
         this.updateMultiblock()
     }
@@ -185,17 +189,7 @@ class TileFusionController : TileBase(), IGuiTile, ITickable, IItemTile,
     }
 
     override fun <T : Any> getCapability(capability: Capability<T>, facing: EnumFacing?): T? {
-        if (this.isValidMultiblock) {
-            if (capability == ITEM_CAP) {
-                val blockFacing = world?.getBlockState(this.pos)?.getValue(FusionControllerBlock.FACING) ?: return null
-                when (facing) {
-                    EnumFacing.DOWN                           -> return ITEM_CAP.cast(output)
-                    EnumFacing.UP                             -> return ITEM_CAP.cast(output)
-                    blockFacing.rotateY().rotateY().rotateY() -> return ITEM_CAP.cast(inputRight)
-                    blockFacing.rotateY()                     -> return ITEM_CAP.cast(inputLeft)
-                    else                                      -> return ITEM_CAP.cast(output)
-                }
-            } else return super.getCapability(capability, facing)
-        } else return null
+        if (this.isValidMultiblock) return super.getCapability(capability, facing)
+        else return null
     }
 }

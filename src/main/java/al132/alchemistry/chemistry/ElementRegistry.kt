@@ -6,7 +6,7 @@ import java.util.*
 /**
  * Created by al132 on 1/22/2017.
  */
-object ElementRegistry {
+object  ElementRegistry {
 
     private val elements = HashMap<Int,ChemicalElement>()
 

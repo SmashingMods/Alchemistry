@@ -1,3 +1,12 @@
+v1.16.4-3
+===
+-Fixed the liquifier not handling fluids properly
+
+v1.16.4-2
+===
+-Slot fillers now have a max stack size of 1 and are confirmed to work with AE2 as they did in 1.12.2
+
+
 v1.16.4-1
 ===
 -Updated to Forge 1.16.4-35.1.36

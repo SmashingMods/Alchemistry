@@ -27,6 +27,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     int progressTicks = 0;
     public boolean paused = false;
     public CustomStackHandler clientRecipeTarget;
+    public CompoundNBT recipeTargetNBT = null;
 
 
     public CombinerTile() {
@@ -47,9 +48,20 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
     public void updateRecipe() {
         currentRecipe = CombinerRegistry.matchInputs(world, this.getInput());
     }
+    public void updateRecipe(ItemStack output) {
+        this.currentRecipe = CombinerRegistry.matchOutput(world, output);
+        ItemStack temp = ItemStack.EMPTY;
+        if (currentRecipe != null) temp = currentRecipe.output.copy();
+        clientRecipeTarget.setStackInSlot(0, temp);
+    }
 
     @Override
     public void tick() {
+        if (recipeTargetNBT != null) {
+            this.updateRecipe(ItemStack.read(recipeTargetNBT));
+            recipeTargetNBT = null;
+        }
+
         if (world.isRemote) return;
         //this.energy.receiveEnergy(50, false);
         ItemStack displayStack = ItemStack.EMPTY;
@@ -103,14 +115,16 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         this.progressTicks = compound.getInt("progressTicks");
         this.paused = compound.getBoolean("paused");
         // clientRecipeTarget.deserializeNBT(compound.getCompound("recipeTarget"));
-        if (recipeIsLocked) {
-            this.currentRecipe = CombinerRegistry.matchOutput(world, ItemStack.read(compound.getCompound("recipeTarget")));
-            ItemStack temp = ItemStack.EMPTY;
-            if (currentRecipe != null) temp = currentRecipe.output.copy();
-            clientRecipeTarget.setStackInSlot(0, temp);
-        } else {
-            this.updateRecipe();
-            clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
+        try {
+            if (recipeIsLocked) {
+                this.updateRecipe(ItemStack.read(compound.getCompound("recipeTarget")));
+            } else {
+                this.updateRecipe();
+                clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
+            }
+        } catch (NullPointerException npe) {
+            this.recipeTargetNBT = compound.getCompound("recipeTarget");
+            clientRecipeTarget.setStackInSlot(0, ItemStack.read(compound.getCompound("recipeTarget")));
         }
     }
 

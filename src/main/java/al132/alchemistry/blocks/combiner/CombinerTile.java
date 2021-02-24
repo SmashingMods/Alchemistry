@@ -167,7 +167,12 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

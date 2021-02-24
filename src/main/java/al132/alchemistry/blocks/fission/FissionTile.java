@@ -241,7 +241,12 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

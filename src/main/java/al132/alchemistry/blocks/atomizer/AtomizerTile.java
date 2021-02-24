@@ -129,7 +129,12 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

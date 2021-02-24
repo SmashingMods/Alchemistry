@@ -127,7 +127,12 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

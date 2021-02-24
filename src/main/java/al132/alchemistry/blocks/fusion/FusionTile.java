@@ -251,7 +251,12 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

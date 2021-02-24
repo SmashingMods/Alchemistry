@@ -56,8 +56,10 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         if (currentRecipe != null && currentRecipe.output != null)
             displayStack = currentRecipe.output.getStack().copy();
         if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, displayStack);
-        if (!this.paused && canProcess()) process();
-        this.markDirtyClient();
+        if (!this.paused && canProcess()) {
+            process();
+            this.markDirtyClient();
+        }
     }
 
     public boolean canProcess() {

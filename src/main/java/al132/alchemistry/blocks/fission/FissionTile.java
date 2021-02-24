@@ -86,8 +86,10 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
                 } else if (currentStatus != STANDBY) world.setBlockState(pos, state.with(STATUS, STANDBY));
             } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
 
-            if (canProcess()) process();
-            this.markDirtyClient();
+            if (canProcess()) {
+                process();
+                this.markDirtyClient();
+            }
         }
     }
 

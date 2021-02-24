@@ -45,8 +45,10 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
             this.currentRecipe = EvaporatorRegistry.getRecipes(world).stream()
                     .filter(recipe -> fluidTank.getFluid().containsFluid(recipe.input)).findFirst().orElse(null);
         }
-        if (canProcess()) process();
-        markDirtyClient();//(5);
+        if (canProcess()) {
+            process();
+            markDirtyClient();//(5);
+        }
     }
 
 

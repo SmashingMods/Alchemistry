@@ -55,9 +55,11 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
             //this.energy.receiveEnergy(50, false);
             if (!this.getInput().getStackInSlot(0).isEmpty()) {
                 updateRecipe();
-                if (canProcess()) process();
+                if (canProcess()) {
+                    process();
+                    this.markDirtyGUI();
+                }
             }
-            this.markDirtyGUIEvery(5);
         }
     }
 

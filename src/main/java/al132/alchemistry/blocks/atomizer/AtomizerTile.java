@@ -36,7 +36,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
             protected void onContentsChanged() {
                 super.onContentsChanged();
                 updateRecipe();
-                markDirtyGUI();
+                notifyGUIEvery(5);
             }
         };
     }
@@ -59,7 +59,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
             updateRecipe();
             if (canProcess()) {
                 process();
-                markDirtyGUI();//(5);
+                notifyGUIEvery(5);
             }
         }
     }
@@ -131,7 +131,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
         return new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get()) {
             @Override
             public void onEnergyChanged() {
-                markDirtyGUI();
+                notifyGUIEvery(5);
             }
         };
     }

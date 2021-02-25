@@ -57,7 +57,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
                 updateRecipe();
                 if (canProcess()) {
                     process();
-                    this.markDirtyGUI();
+                    this.notifyGUIEvery(5);
                 }
             }
         }
@@ -129,7 +129,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
         return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get()) {
             @Override
             public void onEnergyChanged() {
-                markDirtyGUI();
+                notifyGUIEvery(5);
             }
         };
     }

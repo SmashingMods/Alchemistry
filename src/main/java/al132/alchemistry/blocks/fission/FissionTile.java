@@ -96,7 +96,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
 
         if (canProcess()) {
             process();
-            this.markDirtyGUI();
+            this.notifyGUIEvery(5);
         }
     }
 
@@ -251,7 +251,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get()) {
             @Override
             public void onEnergyChanged() {
-                markDirtyGUI();
+                notifyGUIEvery(5);
             }
         };
     }

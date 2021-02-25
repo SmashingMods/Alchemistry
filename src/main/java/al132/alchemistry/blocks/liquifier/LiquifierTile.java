@@ -89,7 +89,6 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
         super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.outputTank.readFromNBT(compound.getCompound("outputTank"));
-        updateRecipe();
     }
 
     @Override

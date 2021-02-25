@@ -70,7 +70,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, displayStack);
         if (!this.paused && canProcess()) {
             process();
-            this.markDirtyClient();
+            this.markDirtyGUI();
         }
     }
 
@@ -116,18 +116,8 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         this.recipeIsLocked = compound.getBoolean("recipeIsLocked");
         this.progressTicks = compound.getInt("progressTicks");
         this.paused = compound.getBoolean("paused");
-        // clientRecipeTarget.deserializeNBT(compound.getCompound("recipeTarget"));
-        try {
-            if (recipeIsLocked) {
-                this.updateRecipe(ItemStack.read(compound.getCompound("recipeTarget")));
-            } else {
-                this.updateRecipe();
-                clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
-            }
-        } catch (NullPointerException npe) {
-            this.recipeTargetNBT = compound.getCompound("recipeTarget");
-            clientRecipeTarget.setStackInSlot(0, ItemStack.read(compound.getCompound("recipeTarget")));
-        }
+        this.recipeTargetNBT = compound.getCompound("recipeTarget");
+        clientRecipeTarget.setStackInSlot(0, ItemStack.read(compound.getCompound("recipeTarget")));
     }
 
     @Override

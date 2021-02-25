@@ -40,6 +40,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     ItemStack recipeOutput2 = ItemStack.EMPTY;
     boolean isValidMultiblock = false;
     int checkMultiblockTicks = 0;
+    boolean firstTick = true;
 
     public ItemStack getInputStack() {
         return this.getInput().getStackInSlot(0);
@@ -49,16 +50,17 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     private void refreshRecipe() {
         if (!this.getInputStack().isEmpty() && (this.getInputStack().getItem() instanceof ElementItem)) {
             int atomicNumber = ((ElementItem) this.getInputStack().getItem()).atomicNumber;
+            int halfAtomNum = atomicNumber / 2;
             if (atomicNumber != 0) {
                 if (atomicNumber % 2 == 0) {
-                    if (ElementRegistry.elements.containsKey(atomicNumber / 2) && ElementRegistry.elements.get(atomicNumber / 2) != null) {
-                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get(atomicNumber / 2), 2);//(quantity = 2, meta = meta / 2);
+                    if (ElementRegistry.elements.containsKey(halfAtomNum) && ElementRegistry.elements.get(halfAtomNum) != null) {
+                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get(halfAtomNum), 2);//(quantity = 2, meta = meta / 2);
                         recipeOutput2 = ItemStack.EMPTY;
                     }
                 } else {
-                    if (ElementRegistry.elements.containsKey(atomicNumber / 2) && ElementRegistry.elements.containsKey((atomicNumber / 2) + 1)) {
-                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get((atomicNumber / 2) + 1));//.elements.toStack(meta = (meta / 2) + 1).
-                        recipeOutput2 = new ItemStack(ElementRegistry.elements.get(atomicNumber / 2));
+                    if (ElementRegistry.elements.containsKey(halfAtomNum) && ElementRegistry.elements.containsKey((halfAtomNum) + 1)) {
+                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get((halfAtomNum) + 1));//.elements.toStack(meta = (meta / 2) + 1).
+                        recipeOutput2 = new ItemStack(ElementRegistry.elements.get(halfAtomNum));
                     }
                 }
             }
@@ -70,26 +72,31 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public void tick() {
-        if (!world.isRemote) {
-            boolean isActive = !this.getInputStack().isEmpty();
-            checkMultiblockTicks++;
-            if (checkMultiblockTicks >= 20) {
-                updateMultiblock();
-                checkMultiblockTicks = 0;
-            }
-            BlockState state = this.world.getBlockState(this.pos);
-            if (state.getBlock() != Ref.fissionController) return;
-            PowerStatus currentStatus = state.get(STATUS);
-            if (this.isValidMultiblock) {
-                if (isActive) {
-                    if (currentStatus != ON) this.world.setBlockState(this.pos, state.with(STATUS, ON));
-                } else if (currentStatus != STANDBY) world.setBlockState(pos, state.with(STATUS, STANDBY));
-            } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
+        if (world.isRemote) return;
 
-            if (canProcess()) {
-                process();
-                this.markDirtyClient();
-            }
+        if (firstTick) {
+            refreshRecipe();
+            firstTick = false;
+        }
+
+        boolean isActive = !this.getInputStack().isEmpty();
+        checkMultiblockTicks++;
+        if (checkMultiblockTicks >= 20) {
+            updateMultiblock();
+            checkMultiblockTicks = 0;
+        }
+        BlockState state = this.world.getBlockState(this.pos);
+        if (state.getBlock() != Ref.fissionController) return;
+        PowerStatus currentStatus = state.get(STATUS);
+        if (this.isValidMultiblock) {
+            if (isActive) {
+                if (currentStatus != ON) this.world.setBlockState(this.pos, state.with(STATUS, ON));
+            } else if (currentStatus != STANDBY) world.setBlockState(pos, state.with(STATUS, STANDBY));
+        } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
+
+        if (canProcess()) {
+            process();
+            this.markDirtyGUI();
         }
     }
 
@@ -121,13 +128,13 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
-        this.refreshRecipe();
-        this.updateMultiblock();
+        this.isValidMultiblock = compound.getBoolean("isValidMultiblock");
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.putInt("progressTicks", progressTicks);
+        compound.putBoolean("isValidMultiblock", isValidMultiblock);
         return super.write(compound);
     }
 

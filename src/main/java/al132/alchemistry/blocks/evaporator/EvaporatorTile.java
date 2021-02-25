@@ -33,7 +33,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
             @Override
             protected void onContentsChanged() {
                 super.onContentsChanged();
-                markDirtyClient();
+                markDirtyGUI();
             }
         };
     }
@@ -47,7 +47,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
         }
         if (canProcess()) {
             process();
-            markDirtyClient();//(5);
+            markDirtyGUI();//(5);
         }
     }
 

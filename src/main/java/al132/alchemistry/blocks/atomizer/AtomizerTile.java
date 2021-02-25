@@ -91,7 +91,6 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
         super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         inputTank.readFromNBT(compound.getCompound("inputTank"));
-        updateRecipe();
     }
 
     @Override

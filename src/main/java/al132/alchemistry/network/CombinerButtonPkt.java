@@ -45,7 +45,7 @@ public class CombinerButtonPkt {
                     tile.paused = !(tile.paused);
                 }
                 if (!tile.recipeIsLocked) tile.clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
-                tile.markDirtyClient();
+                //tile.markDirtyClient();
             });
             ctx.get().setPacketHandled(true);
         }

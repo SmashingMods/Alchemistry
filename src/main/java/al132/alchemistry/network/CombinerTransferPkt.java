@@ -46,7 +46,7 @@ public class CombinerTransferPkt {
                     tile.currentRecipe = CombinerRegistry.matchOutput(playerEntity.world, output.copy());
                 }
                 //System.out.println("Handling packet: {" + message.outputStack + "}");
-                tile.markDirtyClient();
+                //tile.markDirtyClient();
             });
             ctx.get().setPacketHandled(true);
         }

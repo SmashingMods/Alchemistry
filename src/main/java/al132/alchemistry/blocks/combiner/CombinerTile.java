@@ -68,8 +68,10 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         if (currentRecipe != null && currentRecipe.output != null)
             displayStack = currentRecipe.output.getStack().copy();
         if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, displayStack);
-        if (!this.paused && canProcess()) process();
-        this.markDirtyClient();
+        if (!this.paused && canProcess()) {
+            process();
+            this.markDirtyClient();
+        }
     }
 
     public boolean canProcess() {
@@ -179,7 +181,12 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

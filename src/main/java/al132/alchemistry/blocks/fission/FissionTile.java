@@ -86,8 +86,10 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
                 } else if (currentStatus != STANDBY) world.setBlockState(pos, state.with(STATUS, STANDBY));
             } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
 
-            if (canProcess()) process();
-            this.markDirtyClient();
+            if (canProcess()) {
+                process();
+                this.markDirtyClient();
+            }
         }
     }
 
@@ -239,7 +241,12 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

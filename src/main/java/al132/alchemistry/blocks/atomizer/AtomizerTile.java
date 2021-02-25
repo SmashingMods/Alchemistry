@@ -57,9 +57,11 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
         //this.energy.receiveEnergy(50, false);
         if (inputTank.getFluidAmount() > 0) {
             updateRecipe();
-            if (canProcess()) process();
+            if (canProcess()) {
+                process();
+                markDirtyGUI();//(5);
+            }
         }
-        markDirtyGUI();//(5);
     }
 
     public boolean canProcess() {
@@ -127,7 +129,12 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

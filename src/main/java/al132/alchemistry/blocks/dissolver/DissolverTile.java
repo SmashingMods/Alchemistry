@@ -37,9 +37,11 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         if (world.isRemote) return;
         //this.energy.receiveEnergy(50, false);
         if (!getInput().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
-            if (canProcess()) process();
+            if (canProcess()) {
+                process();
+                this.markDirtyGUI();
+            }
         }
-        //this.markDirtyGUI();
     }
 
     public boolean canProcess() {

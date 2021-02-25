@@ -55,9 +55,11 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
             //this.energy.receiveEnergy(50, false);
             if (!this.getInput().getStackInSlot(0).isEmpty()) {
                 updateRecipe();
-                if (canProcess()) process();
+                if (canProcess()) {
+                    process();
+                    this.markDirtyGUI();
+                }
             }
-            this.markDirtyGUIEvery(5);
         }
     }
 
@@ -125,7 +127,12 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
+        return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get()) {
+            @Override
+            public void onEnergyChanged() {
+                markDirtyGUI();
+            }
+        };
     }
 
     @Override

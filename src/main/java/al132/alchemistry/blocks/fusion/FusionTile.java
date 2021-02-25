@@ -75,8 +75,8 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
         } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
         if (canProcess()) {
             process();
-            this.notifyGUIEvery(5);
         }
+        this.notifyGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -258,12 +258,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get()) {
-            @Override
-            public void onEnergyChanged() {
-                notifyGUIEvery(5);
-            }
-        };
+        return new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
     }
 
     @Override

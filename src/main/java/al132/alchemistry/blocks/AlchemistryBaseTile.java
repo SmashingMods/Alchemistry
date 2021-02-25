@@ -31,7 +31,7 @@ abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements 
         if (this.notifyTicks >= ticks) {
             if (this.world != null) {
                 BlockState state = this.world.getBlockState(this.getPos());
-                this.world.notifyBlockUpdate(this.pos, state, state, 6);
+                this.world.notifyBlockUpdate(this.pos, state, state, 22);
             }
             this.notifyTicks = 0;
         }

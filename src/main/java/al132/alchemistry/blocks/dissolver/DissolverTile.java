@@ -35,14 +35,13 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public void tick() {
         if (world.isRemote) return;
-        //this.energy.receiveEnergy(50, false);
         if (currentRecipe == null) updateRecipe();
         if (!getInput().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
             if (canProcess()) {
                 process();
-                this.notifyGUIEvery(5);
             }
         }
+        this.notifyGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -115,7 +114,6 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
                 updateRecipe();
-                notifyGUIEvery(5);
             }
         };
     }
@@ -153,14 +151,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
 
     @Override
     public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get()) {
-            @Override
-            public void onEnergyChanged() {
-                notifyGUIEvery(5);
-            }
-        };
-
-
+        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
     }
 
     @Override

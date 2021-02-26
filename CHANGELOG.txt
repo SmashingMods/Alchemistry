@@ -1,3 +1,12 @@
+v1.16.4-5
+===
+-Re-added Cactus, Lapis, and emerald combiner recipes
+
+v1.16.4-4
+===
+-Added bamboo combiner/dissolver recipe
+-Fixed combiner recipe clashes with CO, CO2, CO3, cellulose, cucurbitacin, and triglyceride
+
 v1.16.4-3
 ===
 -Fixed the liquifier not handling fluids properly

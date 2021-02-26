@@ -1,6 +1,10 @@
 package al132.alchemistry.datagen;
 
 import al132.alchemistry.Ref;
+import al132.alchemistry.blocks.combiner.CombinerRecipe;
+import al132.alchemistry.blocks.combiner.CombinerRegistry;
+import al132.alchemistry.blocks.dissolver.DissolverRecipe;
+import al132.alchemistry.blocks.dissolver.DissolverRegistry;
 import al132.alchemistry.blocks.dissolver.DissolverTagData;
 import al132.alchemistry.datagen.recipe.CombinerRecipeBuilder;
 import al132.alchemistry.datagen.recipe.DissolverRecipeBuilder;
@@ -11,6 +15,8 @@ import al132.chemlib.chemistry.CompoundRegistry;
 import al132.chemlib.chemistry.ElementRegistry;
 import al132.chemlib.items.CompoundItem;
 import al132.chemlib.items.ElementItem;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
@@ -24,9 +30,7 @@ import net.minecraftforge.common.ForgeTagHandler;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -568,9 +572,7 @@ public class Recipes extends RecipeProvider {
                         .build());
 
         dissolver(Items.CACTUS,
-                set().relative(false)
-                        .addGroup(100, toStack("cellulose"))
-                        .addGroup(50, toStack("mescaline"))
+                set().addGroup(1, toStack("cellulose"), toStack("mescaline"))
                         .build(), true);
 
         //TODO terracotta
@@ -760,6 +762,8 @@ public class Recipes extends RecipeProvider {
                         toStack("silicon_dioxide", 24))
                         .build(), true);
 
+        dissolver(Items.BAMBOO, set().addGroup(1, toStack("cellulose")).build());
+
 
         for (CompoundItem compound : CompoundRegistry.compounds) {
             List<ItemStack> stacks = new ArrayList<>();
@@ -772,9 +776,6 @@ public class Recipes extends RecipeProvider {
 
 
         for (ElementItem element : ElementRegistry.elements.values()) {
-            //Item ingot = ForgeRegistries.ITEMS.getValue
-            //        (new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
-
             Item ingot = ForgeRegistries.ITEMS.getValue(
                     new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
             if (ingot != Items.AIR) {
@@ -784,20 +785,6 @@ public class Recipes extends RecipeProvider {
         }
         dissolver(Items.IRON_INGOT, set().addGroup(1, toStack("iron", 16)).build());
         dissolver(Items.GOLD_INGOT, set().addGroup(1, toStack("gold", 16)).build());
-
-        //TODO
-        /*
-        for (DissolverTagData data : metalTagData) {
-            for (String element : metals) {
-                String resource = "forge:" + data.prefix + "/" + element;
-                if (TagUtils.tag(resource) != null && (!(TagUtils.tag(resource).getAllElements().isEmpty()))) {
-                    dissolver(resource,
-                            set().addGroup(1, toStack(element, data.quantity)).build());
-                }
-            }
-        }
-
-         */
     }
 
     private void initMetals() {
@@ -816,6 +803,18 @@ public class Recipes extends RecipeProvider {
     }
 
     private void registerCombinerRecipes() {
+        combiner(Items.EMERALD, newArrayList(
+                toStack("beryl", 8),
+                toStack("chromium", 8),
+                toStack("vanadium", 4)));
+        combiner(Items.LAPIS_LAZULI, newArrayList(
+                toStack("beryl", 8),
+                toStack("chromium", 8),
+                toStack("vanadium", 4)));
+        combiner(Items.BAMBOO, newArrayList(
+                null, null, null,
+                null, null, null,
+                null, null, toStack("cellulose")));
 
         combiner(Items.SLIME_BALL, newArrayList(toStack("protein", 2), toStack("sucrose", 2)));
         combiner(Items.NETHER_WART, newArrayList(
@@ -934,22 +933,55 @@ public class Recipes extends RecipeProvider {
         combiner(Items.NETHER_STAR, newArrayList(toStack("lutetium", 64), toStack("hydrogen", 64), toStack("titanium", 64),
                 toStack("hydrogen", 64), toStack("hydrogen", 64), toStack("hydrogen", 64),
                 toStack("dysprosium", 64), toStack("hydrogen", 64), toStack("mendelevium", 64)));
+        combiner(Items.CACTUS, newArrayList(toStack("cellulose"), toStack("mescaline")));
 
-        /* TODO
+        /*
         for (DissolverRecipe recipe : DissolverRegistry.getRecipes(world)) {
             if (recipe.reversible) {
-                List<Object> outputs = recipe.outputs.toStackList().stream().map(ItemStack::copy).collect(Collectors.toList());
-                combinerRecipes.add(new CombinerRecipe(recipe.getInput(), outputs));
+                List<ItemStack> outputs = recipe.outputs.toStackList().stream().map(ItemStack::copy).collect(Collectors.toList());
+                combiner(recipe.getIngredients().get(0).getMatchingStacks()[0].getItem(), outputs);//.add(new CombinerRecipe(recipe.getInput(), outputs));
             }
-        }
-         */
+        }*/
+
+        Map<CompoundItem, List<ItemStack>> overrides = new HashMap<>();
+        overrides.put(CompoundRegistry.getByName("triglyceride").get(),
+                newArrayList(null, null, toStack("oxygen", 2),
+                        null, toStack("hydrogen", 32), null,
+                        toStack("carbon", 18)));
+        overrides.put(CompoundRegistry.getByName("cucurbitacin").get(),
+                newArrayList(null, null, null,
+                        null, toStack("hydrogen", 44), null,
+                        toStack("carbon", 32), null, toStack("oxygen", 8)));
+        overrides.put(CompoundRegistry.getByName("acetic_acid").get(),
+                newArrayList(toStack("carbon", 2), null, toStack("hydrogen", 4),
+                        null, null, toStack("oxygen", 2)));
+        overrides.put(CompoundRegistry.getByName("carbon_monoxide").get(),
+                newArrayList(null, toStack("oxygen"), null,
+                        null, null, null,
+                        toStack("carbon")));
+        overrides.put(CompoundRegistry.getByName("carbon_dioxide").get(),
+                newArrayList(null, toStack("oxygen", 2), null,
+                        null, null, null,
+                        null, toStack("carbon")));
+        overrides.put(CompoundRegistry.getByName("carbonate").get(),
+                newArrayList(null, toStack("oxygen", 3), null,
+                        null, null, null,
+                        null, null, toStack("carbon")));
         for (CompoundItem compound : CompoundRegistry.compounds) {
             List<ItemStack> inputs = new ArrayList<>();
-            for (int i = 0; i < compound.shiftedSlots; i++) {
-                inputs.add(ItemStack.EMPTY);
-            }
-            for (ItemStack component : compound.getComponentStacks()) {
-                inputs.add(component.copy());
+
+            if (overrides.containsKey(compound)) {
+                inputs = overrides.get(compound).stream().map(x -> {
+                    if (x == null) return ItemStack.EMPTY;
+                    else return x;
+                }).collect(Collectors.toList());
+            } else {
+                for (int i = 0; i < compound.shiftedSlots; i++) {
+                    inputs.add(ItemStack.EMPTY);
+                }
+                for (ItemStack component : compound.getComponentStacks()) {
+                    inputs.add(component.copy());
+                }
             }
             combiner(compound, inputs);
             //combinerRecipes.add(new CombinerRecipe(Ingredient.fromStacks(new ItemStack(compound)), inputs));

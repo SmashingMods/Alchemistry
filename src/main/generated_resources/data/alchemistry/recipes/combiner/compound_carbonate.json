@@ -3,11 +3,32 @@
   "group": "minecraft:misc",
   "input": [
     {
-      "item": "chemlib:element_carbon"
+      "item": "minecraft:air"
     },
     {
       "item": "chemlib:element_oxygen",
       "count": 3
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon"
     }
   ],
   "result": {

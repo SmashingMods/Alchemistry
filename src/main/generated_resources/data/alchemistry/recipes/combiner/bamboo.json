@@ -6,10 +6,6 @@
       "item": "minecraft:air"
     },
     {
-      "item": "chemlib:element_oxygen",
-      "count": 2
-    },
-    {
       "item": "minecraft:air"
     },
     {
@@ -25,10 +21,16 @@
       "item": "minecraft:air"
     },
     {
-      "item": "chemlib:element_carbon"
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:compound_cellulose"
     }
   ],
   "result": {
-    "item": "chemlib:compound_carbon_dioxide"
+    "item": "minecraft:bamboo"
   }
 }

@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "minecraft:misc",
   "input": {
-    "item": "minecraft:cactus"
+    "item": "minecraft:bamboo"
   },
   "output": {
     "rolls": 1,
@@ -13,9 +13,6 @@
         "stacks": [
           {
             "item": "chemlib:compound_cellulose"
-          },
-          {
-            "item": "chemlib:compound_mescaline"
           }
         ]
       }

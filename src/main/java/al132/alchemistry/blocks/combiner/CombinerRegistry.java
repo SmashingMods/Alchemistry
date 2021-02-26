@@ -8,12 +8,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CombinerRegistry {
 
     private static List<CombinerRecipe> recipes = null;
+    private static HashMap<List<ItemStack>, CombinerRecipe> inputCache = new HashMap<>();
+    private static HashMap<ItemStack, CombinerRecipe> outputCache = new HashMap<>();
 
     public static List<CombinerRecipe> getRecipes(World world) {
         if (recipes == null) {
@@ -26,11 +29,16 @@ public class CombinerRegistry {
     }
 
     public static CombinerRecipe matchOutput(World world, ItemStack stack) {
-        return getRecipes(world).stream()
+        CombinerRecipe cacheResult = outputCache.getOrDefault(stack, null);
+        if (cacheResult != null) return  cacheResult;
+
+        CombinerRecipe recipe = getRecipes(world).stream()
                 .filter(it -> it.output.getItem() == stack.getItem())
                 .filter(it -> ItemStack.areItemStacksEqual(it.output, stack))
                 .findFirst()
                 .orElse(null);
+        outputCache.put(stack, recipe);
+        return recipe;
     }
 
 
@@ -39,6 +47,9 @@ public class CombinerRegistry {
     }
 
     private static CombinerRecipe matchInputs(World world, List<ItemStack> inputStacks) {
+        CombinerRecipe cacheResult = inputCache.getOrDefault(inputStacks, null);
+        if (cacheResult != null) return cacheResult;
+
         outer:
         for (CombinerRecipe recipe : CombinerRegistry.getRecipes(world)) {
             int matchingStacks = 0;
@@ -57,6 +68,7 @@ public class CombinerRegistry {
                     continue outer;
                 }
             }
+            inputCache.put(inputStacks, recipe);
             return recipe;//.copy()
         }
         return null;

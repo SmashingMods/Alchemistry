@@ -44,6 +44,8 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     IItemHandler leftInput;
     IItemHandler rightInput;
 
+    boolean firstTick = true;
+
     public FusionTile() {
         super(Ref.fusionTile);
     }
@@ -52,6 +54,11 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public void tick() {
         if (world.isRemote) return;
+        if (firstTick) {
+            refreshRecipe();
+            firstTick = false;
+        }
+
         checkMultiblockTicks++;
         if (checkMultiblockTicks >= 20) {
             updateMultiblock();
@@ -66,8 +73,10 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
                 if (currentStatus != ON) this.world.setBlockState(this.pos, state.with(STATUS, ON));
             } else if (currentStatus != STANDBY) world.setBlockState(pos, state.with(STATUS, STANDBY));
         } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
-        if (canProcess()) process();
-        this.markDirtyClient();
+        if (canProcess()) {
+            process();
+        }
+        this.notifyGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -112,13 +121,13 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
-        this.refreshRecipe();
-        this.updateMultiblock();
+        this.isValidMultiblock = compound.getBoolean("isValidMultiblock");
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.putInt("progressTicks", progressTicks);
+        compound.putBoolean("isValidMultiblock", isValidMultiblock);
         return super.write(compound);
     }
 

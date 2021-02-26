@@ -51,14 +51,14 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
 
     @Override
     public void tick() {
-        if (!world.isRemote) {
-            //this.energy.receiveEnergy(50, false);
-            if (!this.getInput().getStackInSlot(0).isEmpty()) {
-                updateRecipe();
-                if (canProcess()) process();
+        if (world.isRemote) return;
+        if (!this.getInput().getStackInSlot(0).isEmpty()) {
+            updateRecipe();
+            if (canProcess()) {
+                process();
             }
-            this.markDirtyGUIEvery(5);
         }
+        this.notifyGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -87,7 +87,6 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
         super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.outputTank.readFromNBT(compound.getCompound("outputTank"));
-        updateRecipe();
     }
 
     @Override

@@ -36,7 +36,6 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
             protected void onContentsChanged() {
                 super.onContentsChanged();
                 updateRecipe();
-                markDirtyGUI();
             }
         };
     }
@@ -54,12 +53,13 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
     @Override
     public void tick() {
         if (world.isRemote) return;
-        //this.energy.receiveEnergy(50, false);
         if (inputTank.getFluidAmount() > 0) {
             updateRecipe();
-            if (canProcess()) process();
+            if (canProcess()) {
+                process();
+            }
         }
-        markDirtyGUI();//(5);
+        notifyGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -89,7 +89,6 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
         super.read(state, compound);
         this.progressTicks = compound.getInt("progressTicks");
         inputTank.readFromNBT(compound.getCompound("inputTank"));
-        updateRecipe();
     }
 
     @Override

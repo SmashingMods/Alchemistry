@@ -3,6 +3,7 @@ package al132.alchemistry.blocks;
 import al132.alib.tiles.ABaseInventoryTile;
 import al132.alib.tiles.AutomationStackHandler;
 import al132.alib.tiles.GuiTile;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -11,6 +12,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements ITickableTileEntity, GuiTile {
 
     private int dirtyTicks = 0;
+    private int notifyTicks = 0;
 
     public AlchemistryBaseTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -21,6 +23,17 @@ abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements 
         if (this.dirtyTicks >= ticks) {
             this.markDirtyGUI();
             this.dirtyTicks = 0;
+        }
+    }
+
+    public void notifyGUIEvery(int ticks) {
+        this.notifyTicks++;
+        if (this.notifyTicks >= ticks) {
+            if (this.world != null) {
+                BlockState state = this.world.getBlockState(this.getPos());
+                this.world.notifyBlockUpdate(this.pos, state, state, 22);
+            }
+            this.notifyTicks = 0;
         }
     }
 

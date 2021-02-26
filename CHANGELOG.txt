@@ -1,3 +1,8 @@
+v1.16.4-6
+==
+-Tile entity optimizations & cleanup (Thank you wchen1990)
+-Fix combiner recipe erroring on servers (Thank you wchen1990)
+
 v1.16.4-5
 ===
 -Re-added Cactus, Lapis, and emerald combiner recipes

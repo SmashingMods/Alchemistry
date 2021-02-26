@@ -49,18 +49,18 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
 
     private void refreshRecipe() {
         if (!this.getInputStack().isEmpty() && (this.getInputStack().getItem() instanceof ElementItem)) {
-            int atomicNumber = ((ElementItem) this.getInputStack().getItem()).atomicNumber;
-            int halfAtomNum = atomicNumber / 2;
-            if (atomicNumber != 0) {
-                if (atomicNumber % 2 == 0) {
-                    if (ElementRegistry.elements.containsKey(halfAtomNum) && ElementRegistry.elements.get(halfAtomNum) != null) {
-                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get(halfAtomNum), 2);//(quantity = 2, meta = meta / 2);
+            int inputAtomNumber = ((ElementItem) this.getInputStack().getItem()).atomicNumber;
+            int outputAtomNumber = inputAtomNumber / 2;
+            if (inputAtomNumber != 0) {
+                if (inputAtomNumber % 2 == 0) {
+                    if (ElementRegistry.elements.containsKey(outputAtomNumber) && ElementRegistry.elements.get(outputAtomNumber) != null) {
+                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get(outputAtomNumber), 2);//(quantity = 2, meta = meta / 2);
                         recipeOutput2 = ItemStack.EMPTY;
                     }
                 } else {
-                    if (ElementRegistry.elements.containsKey(halfAtomNum) && ElementRegistry.elements.containsKey((halfAtomNum) + 1)) {
-                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get((halfAtomNum) + 1));//.elements.toStack(meta = (meta / 2) + 1).
-                        recipeOutput2 = new ItemStack(ElementRegistry.elements.get(halfAtomNum));
+                    if (ElementRegistry.elements.containsKey(outputAtomNumber) && ElementRegistry.elements.containsKey((outputAtomNumber) + 1)) {
+                        recipeOutput1 = new ItemStack(ElementRegistry.elements.get((outputAtomNumber) + 1));//.elements.toStack(meta = (meta / 2) + 1).
+                        recipeOutput2 = new ItemStack(ElementRegistry.elements.get(outputAtomNumber));
                     }
                 }
             }

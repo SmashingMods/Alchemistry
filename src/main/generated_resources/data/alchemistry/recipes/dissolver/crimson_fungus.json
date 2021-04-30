@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:crimson_fungus"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_psilocybin"
+          },
+          {
+            "item": "chemlib:compound_cellulose"
+          },
+          {
+            "item": "chemlib:element_selenium"
+          }
+        ]
+      }
+    ]
+  }
+}

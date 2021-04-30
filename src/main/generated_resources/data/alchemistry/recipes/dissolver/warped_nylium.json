@@ -1,0 +1,85 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:warped_nylium"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 10.0,
+        "stacks": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 4.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_zinc_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_gold"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_phosphorus"
+          }
+        ]
+      },
+      {
+        "probability": 3.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_sulfur"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_mercury"
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_silicon"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_neodymium"
+          }
+        ]
+      }
+    ]
+  }
+}

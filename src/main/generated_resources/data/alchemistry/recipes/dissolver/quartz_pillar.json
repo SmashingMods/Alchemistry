@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:quartz_pillar"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_barium",
+            "count": 64
+          },
+          {
+            "item": "chemlib:compound_silicon_dioxide",
+            "count": 128
+          }
+        ]
+      }
+    ]
+  }
+}

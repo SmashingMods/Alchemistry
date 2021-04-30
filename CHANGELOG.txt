@@ -1,3 +1,59 @@
+1.16.5-1
+===
+Added Dissolver recipes for:
+-Coarse Dirt
+-Crimson Nylium
+-Warped Nylium
+-Gold ore and block (oops)
+-Iron ore and block (oops)
+-Nether gold ore
+-Sandstone and variants
+-Quartz block and slab variants
+-Smooth Stone
+-Brick/s
+-Mossy Cobblestone
+-Carved Pumpkin
+-Soul Soil
+-Basalt, polished basalt, blackstone & variants
+-Seagrass, dead bush
+-Stone bricks & variants
+-Mycelium
+-Nether brick variants
+-Terracotta
+-Packed Ice
+-Blue Ice
+-Prismarine, prismarine shard, prismarine crystal, prismarine brick, dark prismarine
+-Warped Wart Block
+-Red Nether Bricks
+-Concrete Powder & Concrete
+-Coral & variants
+-Kelp & dried kelp
+-Sea Pickle
+-Blue dye
+-Crimson/Warped fungus
+-Crimson/Warped roots
+-Nether Sprouts
+-Weeping/Twisting vines
+-Skull
+-Bell
+-Shroomlight
+-Honey/Honey block/Honeycomb/honeycomb block
+-Turtle egg
+-Scute
+-Netherite scrap/ancient debris
+-Golden Apple
+-Snow/Snowball
+-Ink Sac
+-Rabbit foot/hide
+-Shulker shell
+-Dragon Breath
+-Ghast Tear
+-Nautilus Shell
+-Phantom Membrane
+-Sweet Berries
+
+Combiner recipes:
+-Fixed grass block recipe
 
 v1.16.4-5
 ===

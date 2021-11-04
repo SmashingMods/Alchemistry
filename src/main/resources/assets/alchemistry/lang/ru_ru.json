@@ -1,0 +1,64 @@
+{
+  "tooltip.alchemistry.evaporator": "Работает на %d%% медленнее во влажных биомах.",
+  "tooltip.alchemistry.energy_requirement":"Потребляет %d FE/тик.",
+
+  "block.alchemistry.chemical_dissolver": "Химический Растворитель",
+  "block.alchemistry.chemical_combiner": "Химический Комбайнер",
+  "block.alchemistry.evaporator": "Испаритель",
+  "block.alchemistry.atomizer": "Распылитель",
+  "block.alchemistry.liquifier": "Разжижитель",
+  "block.alchemistry.fission_controller": "Контроллер Камеры Деления",
+  "block.alchemistry.fission_core": "Ядро Камеры Деления",
+  "block.alchemistry.fission_casing": "Корпус Камеры Деления",
+  "block.alchemistry.fusion_controller": "Контроллер Камеры Слияния",
+  "block.alchemistry.fusion_core": "Ядро Камеры Слияния",
+  "block.alchemistry.fusion_casing": "Корпус Камеры Слияния",
+
+  "item.alchemistry.mineral_salt": "Минеральная Соль",
+  "item.alchemistry.fertilizer": "Удобрение",
+  "item.alchemistry.obsidian_breaker": "Обсидиановый Разрушитель",
+  "item.alchemistry.milk": "МОЛОКО",
+  "item.alchemistry.condensed_milk": "Сгущённое молоко",
+  "item.alchemistry.slot_filler": "Слот Наполнитель",
+
+  "alchemistry.jei.combiner": "Химический Комбайнер",
+  "alchemistry.jei.dissolver": "Химический Растворитель",
+  "alchemistry.jei.electrolyzer": "Electrolyzer",
+  "alchemistry.jei.evaporator": "Испаритель",
+  "alchemistry.jei.atomizer": "Распылитель",
+  "alchemistry.jei.liquifier": "Разжижитель",
+  "alchemistry.jei.fission": "Мультиблок Камеры Деления",
+  "alchemistry.jei.fusion": "Мультиблок Камеры Слияния",
+
+  "itemGroup.alchemistry": "Alchemistry",
+
+  "item.alchemistry.fertilizer.tooltip": "Может использоваться как костная мука.",
+  "item.alchemistry.obsidian_breaker.tooltip": "ПКМ на блоке обсидиана, удерживая этот предмет, чтобы мгновенно собрать обсидиан. Этот предмет будет израсходован.",
+  "item.alchemistry.milk.tooltip": "Всё что я делаю это молоко.",
+
+  "block.electrolyzer.tooltip": "Требует",
+  "block.chemical_dissolver.tooltip": "Требует",
+  "block.chemical_combiner.tooltip": "Требует",
+  "block.atomizer.tooltip": "Требует",
+  "block.liquifier.tooltip": "Требует",
+  "block.fission_controller.tooltip": "Требует",
+  "block.fusion_controller.tooltip": "Требует",
+
+
+  "block.combiner.unlock_recipe": "Разблокировать Рецепт",
+  "block.combiner.lock_recipe": "Заблокировать Рецепт",
+  "block.combiner.pause": "Пауза",
+  "block.combiner.resume": "Продолжить",
+  "block.combiner.target": "Цель",
+
+  "guide.alchemistry.landing": "Добро пожаловать в Руководство по Алхимии. Эта книга познакомит вас с некоторыми основами мода :)",
+  "guide.alchemistry.title": "Руководство по Алхимии",
+  "alchemistry.fission.invalid_multiblock": "Недопустимый Мультиблок Деления",
+  "alchemistry.fusion.invalid_multiblock": "Недопустимый Мультиблок Слияния",
+
+  "alchemistry.jei.dissolver.relative": "Относительно",
+  "alchemistry.jei.dissolver.absolute": "Абсолютно",
+  "alchemistry.jei.dissolver.type": "Тип",
+  "alchemistry.jei.dissolver.rolls": "Проходов",
+  "alchemistry.jei.elements.description": "Все элементы (кроме Водорода) can be created with the Fusion Chamber multiblock.\\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers.\""
+}

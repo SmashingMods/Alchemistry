@@ -60,5 +60,5 @@
   "alchemistry.jei.dissolver.absolute": "Абсолютно",
   "alchemistry.jei.dissolver.type": "Тип",
   "alchemistry.jei.dissolver.rolls": "Проходов",
-  "alchemistry.jei.elements.description": "Все элементы (кроме Водорода) can be created with the Fusion Chamber multiblock.\\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers.\""
+  "alchemistry.jei.elements.description": "Все элементы (кроме Водорода)  могут быть созданы с помощью мультиблока слияния.\\nМультиблок принимает 2 элемента в качестве входных данных и объединяет их вместе, чтобы создать новый элемент, равный сумме их атомных номеров.\""
 }

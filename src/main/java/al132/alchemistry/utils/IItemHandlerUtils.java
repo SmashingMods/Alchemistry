@@ -1,10 +1,11 @@
 package al132.alchemistry.utils;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class IItemHandlerUtils {
     public static boolean tryInsertInto(IItemHandler self, IItemHandler other) {
@@ -23,7 +24,7 @@ public class IItemHandlerUtils {
     }
 
     public static List<ItemStack> toStackList(IItemHandler handler) {
-        List<ItemStack> temp = new ArrayList<ItemStack>();
+        List<ItemStack> temp = new ArrayList<>();
         for (int i = 0; i < handler.getSlots(); i++) {
             ItemStack stack = handler.getStackInSlot(i);
             if (!stack.isEmpty()) temp.add(stack);

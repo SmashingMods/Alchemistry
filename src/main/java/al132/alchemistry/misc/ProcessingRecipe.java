@@ -1,23 +1,24 @@
 package al132.alchemistry.misc;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
-public abstract class ProcessingRecipe implements IRecipe<IInventory> {
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
-    protected final IRecipeType<?> type;
-    //private final IRecipeSerializer<?> serializer;
+public abstract class ProcessingRecipe implements Recipe<Inventory> {
+
+    protected final RecipeType<?> type;
+    //private final RecipeSerializer<?> serializer;
     protected final String group;
     protected final ItemStack output1;
     protected final Ingredient input1;
     public final ResourceLocation id;
 
-    public ProcessingRecipe(IRecipeType<?> recipeType, ResourceLocation id, String group, Ingredient input, ItemStack output) {
+    public ProcessingRecipe(RecipeType<?> recipeType, ResourceLocation id, String group, Ingredient input, ItemStack output) {
         this.type = recipeType;
         this.id = id;
         this.group = group;
@@ -26,7 +27,7 @@ public abstract class ProcessingRecipe implements IRecipe<IInventory> {
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
@@ -36,7 +37,7 @@ public abstract class ProcessingRecipe implements IRecipe<IInventory> {
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public RecipeType<?> getType() {
         return this.type;
     }
 
@@ -46,18 +47,19 @@ public abstract class ProcessingRecipe implements IRecipe<IInventory> {
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         return this.output1;
     }
 
 
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
+    public ItemStack assemble(Inventory inv) {
         return this.output1.copy();
     }
 
+
     @Override
-    public boolean matches(IInventory inv, World worldIn) {
-        return this.input1.test(inv.getStackInSlot(0));
+    public boolean matches(Inventory inv, Level worldIn) {
+        return this.input1.test(inv.getItem(0));
     }
 }

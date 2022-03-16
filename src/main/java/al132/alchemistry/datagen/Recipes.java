@@ -1,10 +1,6 @@
 package al132.alchemistry.datagen;
 
-import al132.alchemistry.Ref;
-import al132.alchemistry.blocks.combiner.CombinerRecipe;
-import al132.alchemistry.blocks.combiner.CombinerRegistry;
-import al132.alchemistry.blocks.dissolver.DissolverRecipe;
-import al132.alchemistry.blocks.dissolver.DissolverRegistry;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.dissolver.DissolverTagData;
 import al132.alchemistry.datagen.recipe.CombinerRecipeBuilder;
 import al132.alchemistry.datagen.recipe.DissolverRecipeBuilder;
@@ -15,21 +11,17 @@ import al132.chemlib.chemistry.CompoundRegistry;
 import al132.chemlib.chemistry.ElementRegistry;
 import al132.chemlib.items.CompoundItem;
 import al132.chemlib.items.ElementItem;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.ForgeTagHandler;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
@@ -44,15 +36,15 @@ public class Recipes extends RecipeProvider {
     public static List<DissolverTagData> metalTagData = new ArrayList<>();
     public static List<String> metals = new ArrayList<>();
     public static final String heathenSpelling = "aluminium";
-    private Consumer<IFinishedRecipe> consumer;
+    private Consumer<FinishedRecipe> consumer;
 
 
     public Recipes(DataGenerator generatorIn) {
         super(generatorIn);
     }
 
-    @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+    // @Override
+    protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
         this.consumer = consumer;
         initMetals();
         registerFissionRecipes();
@@ -78,8 +70,9 @@ public class Recipes extends RecipeProvider {
     }
 
     public void dissolver(String tag, ProbabilitySet set) {
-        dissolver(Ingredient.fromTag(ForgeTagHandler.createOptionalTag(ForgeRegistries.ITEMS, new ResourceLocation(tag))),
-                set, tag.replace(":", "."));
+        Ingredient i = Ingredient.m_204132_(TagKey.m_203882_(Registry.ITEM_REGISTRY, new ResourceLocation(tag)));
+        //dissolver(Ingredient.fromTag(ForgeTagHandler.createOptionalTag(ForgeRegistries.ITEMS, new ResourceLocation(tag))),
+        dissolver(i, set, tag.replace(":", "."));
     }
 
     public void dissolver(Ingredient input, ProbabilitySet set, String name) {
@@ -89,25 +82,25 @@ public class Recipes extends RecipeProvider {
     public void dissolver(Ingredient input, ProbabilitySet set, String name, boolean reversible) {
         DissolverRecipeBuilder.recipe(input, set, name).build(consumer);
         if (reversible) {
-            CombinerRecipeBuilder.recipe(input.getMatchingStacks()[0], set.getSet().get(0).getOutputs());
+            CombinerRecipeBuilder.recipe(input.getItems()[0], set.getSet().get(0).getOutputs());
         }
     }
 
     public void dissolver(Item input, ProbabilitySet set) {
-        dissolver(Ingredient.fromItems(input), set, input.getRegistryName().getPath(), false);
+        dissolver(Ingredient.of(input), set, input.getRegistryName().getPath(), false);
     }
 
     public void dissolver(Item input, ProbabilitySet set, boolean reversible) {
-        dissolver(Ingredient.fromItems(input), set, input.getRegistryName().getPath(), reversible);
+        dissolver(Ingredient.of(input), set, input.getRegistryName().getPath(), reversible);
     }
 
 
     public void dissolver(ItemStack input, ProbabilitySet set) {
-        dissolver(Ingredient.fromStacks(input), set, input.getItem().getRegistryName().getPath(), false);
+        dissolver(Ingredient.of(input), set, input.getItem().getRegistryName().getPath(), false);
     }
 
     public void dissolver(ItemStack input, ProbabilitySet set, boolean reversible) {
-        dissolver(Ingredient.fromStacks(input), set, input.getItem().getRegistryName().getPath(), reversible);
+        dissolver(Ingredient.of(input), set, input.getItem().getRegistryName().getPath(), reversible);
     }
 
     private void registerFissionRecipes() {
@@ -287,7 +280,7 @@ public class Recipes extends RecipeProvider {
                         toStack("sucrose", 2 * 9))
                         .build());
 
-        dissolver(Ref.condensedMilk,
+        dissolver(Registration.CONDENSED_MILK_ITEM.get(),
                 set().addGroup(1,
                         toStack("calcium", 4),
                         toStack("protein", 2),
@@ -932,7 +925,7 @@ public class Recipes extends RecipeProvider {
                         toStack("protein", 2))
                         .build(), true);
 
-        dissolver(Ref.mineralSalt,
+        dissolver(Registration.MINERAL_SALT_ITEM.get(),
                 set()
                         .addGroup(60, toStack("sodium_chloride"))
                         .addGroup(5, toStack("lithium"))
@@ -1363,7 +1356,7 @@ public class Recipes extends RecipeProvider {
             Item ingot = ForgeRegistries.ITEMS.getValue
                     (new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
             if (ingot != Items.AIR) {
-                combiner(ingot, newArrayList(toStack(element.getItem(), 16)));
+                combiner(ingot, newArrayList(toStack(element, 16)));
             }
         }
         combiner(Items.IRON_INGOT, newArrayList(toStack("iron", 16)));

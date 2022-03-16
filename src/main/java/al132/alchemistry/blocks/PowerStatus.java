@@ -1,8 +1,8 @@
 package al132.alchemistry.blocks;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum PowerStatus implements IStringSerializable {
+public enum PowerStatus implements StringRepresentable {
     OFF("off"),
     STANDBY("standby"),
     ON("on");
@@ -15,7 +15,7 @@ public enum PowerStatus implements IStringSerializable {
 
     
     @Override
-    public String getString() {
+    public String getSerializedName() {
         return this.name;
     }
 }

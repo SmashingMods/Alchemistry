@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "alchemistry:chemical_dissolver"
+          "name": "alchemistry:dissolver"
         }
       ],
       "conditions": [

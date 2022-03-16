@@ -1,9 +1,9 @@
 package al132.alchemistry.compat.jei.category;
 
 import al132.alchemistry.Alchemistry;
-import al132.alchemistry.Ref;
-import al132.alchemistry.compat.jei.JEIIntegration;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.atomizer.AtomizerRecipe;
+import al132.alchemistry.compat.jei.JEIIntegration;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -12,9 +12,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
@@ -28,7 +30,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(Alchemistry.data.MODID, JEIIntegration.ATOMIZER_CATEGORY);
+        return new ResourceLocation(Alchemistry.MODID, JEIIntegration.ATOMIZER_CATEGORY);
     }
 
     @Override
@@ -37,19 +39,19 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
     }
 
     @Override
-    public String getTitle() {
-        return I18n.format("alchemistry.jei.atomizer");
+    public Component getTitle() {
+        return new TextComponent(I18n.get("alchemistry.jei.atomizer"));
     }
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.data.MODID, "textures/gui/atomizer_gui.png"),
+        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png"),
                 u, v, 100, 125);
     }
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(new ItemStack(Ref.atomizer));
+        return guiHelper.createDrawableIngredient(new ItemStack(Registration.ATOMIZER_BLOCK.get()));
     }
 
     @Override

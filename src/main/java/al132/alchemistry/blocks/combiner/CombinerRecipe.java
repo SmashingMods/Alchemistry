@@ -1,17 +1,15 @@
 package al132.alchemistry.blocks.combiner;
 
-import al132.alchemistry.RecipeTypes;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.misc.ProcessingRecipe;
-import al132.alchemistry.utils.StackUtils;
 import al132.alib.tiles.CustomStackHandler;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,7 +25,7 @@ public class CombinerRecipe extends ProcessingRecipe {
     //String gamestage;
 
     public CombinerRecipe(ResourceLocation id, String group, List<ItemStack> input, ItemStack output) {
-        super(RecipeTypes.COMBINER, id, group, Ingredient.EMPTY, ItemStack.EMPTY);
+        super(Registration.COMBINER_TYPE, id, group, Ingredient.EMPTY, ItemStack.EMPTY);
         this.output = output;
         for (int i = 0; i < 9; i++) {
             Object temp;
@@ -67,10 +65,10 @@ public class CombinerRecipe extends ProcessingRecipe {
         for (int index = 0; index < this.inputs.size(); index++) {
             ItemStack recipeStack = this.inputs.get(index);
             ItemStack handlerStack = handler.getStackInSlot(index);
-            if ((handlerStack.getItem() == Ref.slotFiller || handlerStack.isEmpty()) && recipeStack.isEmpty()) {
+            if ((handlerStack.getItem() == Registration.SLOT_FILLER_ITEM.get() || handlerStack.isEmpty()) && recipeStack.isEmpty()) {
                 matchingStacks++;
             } else if (handlerStack.isEmpty() || recipeStack.isEmpty()) continue;
-            else if (StackUtils.areStacksEqualIgnoreQuantity(handlerStack, recipeStack)
+            else if (ItemStack.isSameItemSameTags(handlerStack, recipeStack)
                     && handlerStack.getCount() >= recipeStack.getCount()) {
                 //&& (handlerStack.itemDamage == recipeStack.itemDamage || recipeStack.itemDamage == OreDictionary.WILDCARD_VALUE)) {
                 matchingStacks++;
@@ -81,7 +79,7 @@ public class CombinerRecipe extends ProcessingRecipe {
 
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return Ref.COMBINER_SERIALIZER;
+    public RecipeSerializer<?> getSerializer() {
+        return Registration.COMBINER_SERIALIZER.get();
     }
 }

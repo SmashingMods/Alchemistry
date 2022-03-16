@@ -1,8 +1,9 @@
 package al132.alchemistry.utils;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
+
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,19 +24,19 @@ public class IngredientStack {
         this(ingredient, 1);
     }
 
-    public void write(PacketBuffer buf) {
-        ingredient.write(buf);
+    public void write(FriendlyByteBuf buf) {
+        ingredient.toNetwork(buf);
         buf.writeInt(count);
     }
 
-    public static IngredientStack read(PacketBuffer buf) {
-        Ingredient ing = Ingredient.read(buf);
+    public static IngredientStack read(FriendlyByteBuf buf) {
+        Ingredient ing = Ingredient.fromNetwork(buf);
         int count = buf.readInt();
         return new IngredientStack(ing, count);
     }
 
     public List<ItemStack> toStacks() {
-        return Arrays.stream(ingredient.getMatchingStacks())
+        return Arrays.stream(ingredient.getItems())
                 .map(x -> {
                     x.setCount(this.count);
                     return x;

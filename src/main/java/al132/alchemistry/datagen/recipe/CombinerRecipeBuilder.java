@@ -1,17 +1,17 @@
 package al132.alchemistry.datagen.recipe;
 
 import al132.alchemistry.Alchemistry;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.datagen.DatagenUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +22,7 @@ public class CombinerRecipeBuilder extends BaseRecipeBuilder {
     private final String group = "minecraft:misc";
     private final List<ItemStack> input;
     private final ItemStack output;
-    private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
+    private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
     public CombinerRecipeBuilder(List<ItemStack> input, ItemStack output) {
         this.input = input;
@@ -38,21 +38,21 @@ public class CombinerRecipeBuilder extends BaseRecipeBuilder {
     }
 
 
-    public void build(Consumer<IFinishedRecipe> consumerIn) {
+    public void build(Consumer<FinishedRecipe> consumerIn) {
         String name = this.output.getItem().getRegistryName().getPath();
         this.build(consumerIn, new ResourceLocation(Alchemistry.MODID, "combiner/" + name));
     }
 
     @Override
-    public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
         this.validate(id);
-        this.advancementBuilder.withParentId(new ResourceLocation("recipes/root"))
-                .withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id))
-                .withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
+        this.advancementBuilder.parent(new ResourceLocation("recipes/root"))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+                .rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
         consumerIn.accept(new CombinerRecipeBuilder.Result
                 (id, this.group == null ? "" : this.group, this.input, this.output,
                         this.advancementBuilder, new ResourceLocation(id.getNamespace(),
-                        "recipes/" + this.output.getItem().getGroup().getPath() + "/" + id.getPath())));
+                        "recipes/" + this.output.getItem().getItemCategory().getRecipeFolderName() + "/" + id.getPath())));
 
 
     }
@@ -62,7 +62,7 @@ public class CombinerRecipeBuilder extends BaseRecipeBuilder {
 
     }
 
-    public static class Result implements IFinishedRecipe {
+    public static class Result implements FinishedRecipe {
         private final String group;
         private final ResourceLocation id;
         private final Advancement.Builder advancementBuilder;
@@ -81,29 +81,29 @@ public class CombinerRecipeBuilder extends BaseRecipeBuilder {
         }
 
         @Override
-        public void serialize(JsonObject json) {
+        public void serializeRecipeData(JsonObject json) {
             if (!this.group.isEmpty()) json.addProperty("group", this.group);
             DatagenUtils.addStackListToJson(json, "input", input);
             DatagenUtils.addStackToJson(json, "result", output);
         }
 
         @Override
-        public ResourceLocation getID() {
+        public ResourceLocation getId() {
             return this.id;
         }
 
         @Override
-        public IRecipeSerializer<?> getSerializer() {
-            return Ref.COMBINER_SERIALIZER;
+        public RecipeSerializer<?> getType() {
+            return Registration.COMBINER_SERIALIZER.get();
         }
 
         @Override
-        public JsonObject getAdvancementJson() {
-            return this.advancementBuilder.serialize();
+        public JsonObject serializeAdvancement() {
+            return this.advancementBuilder.serializeToJson();
         }
 
         @Override
-        public ResourceLocation getAdvancementID() {
+        public ResourceLocation getAdvancementId() {
             return this.advancementID;
         }
     }

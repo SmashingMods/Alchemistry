@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "alchemistry:chemical_combiner"
+          "name": "alchemistry:combiner"
         }
       ],
       "conditions": [

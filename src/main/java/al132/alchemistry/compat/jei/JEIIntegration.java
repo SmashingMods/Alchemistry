@@ -1,7 +1,7 @@
 package al132.alchemistry.compat.jei;
 
 import al132.alchemistry.Alchemistry;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.atomizer.AtomizerRegistry;
 import al132.alchemistry.blocks.atomizer.AtomizerScreen;
 import al132.alchemistry.blocks.combiner.CombinerRegistry;
@@ -25,9 +25,11 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+
 
 @JeiPlugin
 public class JEIIntegration implements IModPlugin {
@@ -39,12 +41,12 @@ public class JEIIntegration implements IModPlugin {
     public static final String FISSION_CATEGORY = "fission_recipe";
     public static final String LIQUIFIER_CATEGORY = "liquifier_recipe";
 
-    public static final ResourceLocation ATOMIZER_RESOURCE = new ResourceLocation(Alchemistry.data.MODID, ATOMIZER_CATEGORY);
-    public static final ResourceLocation COMBINER_RESOURCE = new ResourceLocation(Alchemistry.data.MODID, COMBINER_CATEGORY);
-    public static final ResourceLocation DISSOLVER_RESOURCE = new ResourceLocation(Alchemistry.data.MODID, DISSOLVER_CATEGORY);
-    public static final ResourceLocation EVAPORATOR_RESOURCE = new ResourceLocation(Alchemistry.data.MODID, EVAPORATOR_CATEGORY);
-    public static final ResourceLocation FISSION_RESOURCE = new ResourceLocation(Alchemistry.data.MODID, FISSION_CATEGORY);
-    public static final ResourceLocation LIQUIFIER_RESOURCE = new ResourceLocation(Alchemistry.data.MODID, LIQUIFIER_CATEGORY);
+    public static final ResourceLocation ATOMIZER_RESOURCE = new ResourceLocation(Alchemistry.MODID, ATOMIZER_CATEGORY);
+    public static final ResourceLocation COMBINER_RESOURCE = new ResourceLocation(Alchemistry.MODID, COMBINER_CATEGORY);
+    public static final ResourceLocation DISSOLVER_RESOURCE = new ResourceLocation(Alchemistry.MODID, DISSOLVER_CATEGORY);
+    public static final ResourceLocation EVAPORATOR_RESOURCE = new ResourceLocation(Alchemistry.MODID, EVAPORATOR_CATEGORY);
+    public static final ResourceLocation FISSION_RESOURCE = new ResourceLocation(Alchemistry.MODID, FISSION_CATEGORY);
+    public static final ResourceLocation LIQUIFIER_RESOURCE = new ResourceLocation(Alchemistry.MODID, LIQUIFIER_CATEGORY);
 
 
     public JEIIntegration() {
@@ -52,7 +54,7 @@ public class JEIIntegration implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Alchemistry.data.MODID, "alchemistry");
+        return new ResourceLocation(Alchemistry.MODID, "alchemistry");
     }
 
     @Override
@@ -69,7 +71,7 @@ public class JEIIntegration implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration reg) {
-        World world = Minecraft.getInstance().world;
+        Level world = Minecraft.getInstance().level;
 
         //ModRecipes.filterEmptyDissolverRecipes();
         //ModRecipes.initEvaporatorRecipes();
@@ -86,7 +88,7 @@ public class JEIIntegration implements IModPlugin {
         reg.addRecipes(LiquifierRegistry.getRecipes(world), LIQUIFIER_RESOURCE);
 
         ElementRegistry.elements.forEach((key, value) -> reg.addIngredientInfo(
-                new ItemStack(value), VanillaTypes.ITEM, "alchemistry.jei.elements.description"));
+                new ItemStack(value), VanillaTypes.ITEM, new TextComponent("alchemistry.jei.elements.description")));
     }
 
     @Override
@@ -99,12 +101,12 @@ public class JEIIntegration implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
-        reg.addRecipeCatalyst(new ItemStack(Ref.atomizer), ATOMIZER_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Ref.combiner), COMBINER_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Ref.dissolver), DISSOLVER_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Ref.evaporator), EVAPORATOR_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Ref.fissionController), FISSION_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Ref.liquifier), LIQUIFIER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registration.ATOMIZER_BLOCK.get()), ATOMIZER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registration.COMBINER_BLOCK.get()), COMBINER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registration.DISSOLVER_BLOCK.get()), DISSOLVER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registration.EVAPORATOR_BLOCK.get()), EVAPORATOR_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registration.FISSION_CONTROLLER_BLOCK.get()), FISSION_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registration.LIQUIFIER_BLOCK.get()), LIQUIFIER_RESOURCE);
     }
 
     @Override

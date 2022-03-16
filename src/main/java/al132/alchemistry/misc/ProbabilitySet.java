@@ -7,16 +7,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
-import static al132.alchemistry.utils.StackUtils.areStacksEqualIgnoreQuantity;
 
 public class ProbabilitySet {
 
@@ -46,7 +44,7 @@ public class ProbabilitySet {
         return temp;
     }
 
-    public void write(PacketBuffer buf) {
+    public void write(FriendlyByteBuf buf) {
         buf.writeInt(set.size());
         for (ProbabilityGroup group : set) {
             group.write(buf);
@@ -55,7 +53,7 @@ public class ProbabilitySet {
         buf.writeInt(rolls);
     }
 
-    public static ProbabilitySet read(PacketBuffer buf) {
+    public static ProbabilitySet read(FriendlyByteBuf buf) {
         List<ProbabilityGroup> set = Lists.newArrayList();
         int size = buf.readInt();
         for (int i = 0; i < size; i++) {
@@ -106,7 +104,7 @@ public class ProbabilitySet {
                     if (trackingProbability >= targetProbability) {
                         component.getOutputs().stream().filter(x -> !x.isEmpty()).forEach(x -> {
                             ItemStack stack = x.copy();
-                            int index = ListUtils.indexOfFirst(temp, it -> areStacksEqualIgnoreQuantity(stack, it));
+                            int index = ListUtils.indexOfFirst(temp, it -> ItemStack.isSameItemSameTags(stack, it));
                             if (index != -1) temp.get(index).grow(stack.getCount());//stack.count)
                             else temp.add(stack);
                         });
@@ -118,7 +116,7 @@ public class ProbabilitySet {
                     if (component.getProbability() >= rando.nextInt(101)) {
                         component.getOutputs().stream().filter(x -> !x.isEmpty()).forEach(x -> {
                             ItemStack stack = x.copy();
-                            int index = ListUtils.indexOfFirst(temp, it -> areStacksEqualIgnoreQuantity(stack, it));
+                            int index = ListUtils.indexOfFirst(temp, it -> ItemStack.isSameItemSameTags(stack, it));
                             if (index != -1) temp.get(index).grow(stack.getCount());
                             else temp.add(stack);
                         });

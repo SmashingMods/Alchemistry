@@ -1,14 +1,13 @@
 package al132.alchemistry.blocks.evaporator;
 
-import al132.alchemistry.RecipeTypes;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.misc.ProcessingRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
 
 public class EvaporatorRecipe extends ProcessingRecipe {
@@ -18,14 +17,14 @@ public class EvaporatorRecipe extends ProcessingRecipe {
     FluidTags n;
 
     public EvaporatorRecipe(ResourceLocation id, String group, FluidStack input, ItemStack output) {
-        super(RecipeTypes.EVAPORATOR,id,group, Ingredient.EMPTY,output);
+        super(Registration.EVAPORATOR_TYPE,id,group, Ingredient.EMPTY,output);
         this.input = input;
         this.output = output;
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return Ref.EVAPORATOR_SERIALIZER;
+    public RecipeSerializer<?> getSerializer() {
+        return Registration.EVAPORATOR_SERIALIZER.get();
     }
 
     @Override

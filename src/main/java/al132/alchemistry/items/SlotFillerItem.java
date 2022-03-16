@@ -1,11 +1,12 @@
 package al132.alchemistry.items;
 
-import al132.alchemistry.Alchemistry;
+import al132.alchemistry.setup.ModSetup;
 import al132.alib.items.ABaseItem;
+import net.minecraft.world.item.Item;
 
 public class SlotFillerItem extends ABaseItem {
 
     public SlotFillerItem() {
-        super(Alchemistry.data, "slot_filler", new Properties().maxStackSize(1));
+        super(ModSetup.ITEM_GROUP, new Item.Properties());//"condensed_milk");
     }
 }

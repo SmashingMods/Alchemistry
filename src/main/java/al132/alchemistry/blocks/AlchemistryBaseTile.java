@@ -3,25 +3,25 @@ package al132.alchemistry.blocks;
 import al132.alib.tiles.ABaseInventoryTile;
 import al132.alib.tiles.AutomationStackHandler;
 import al132.alib.tiles.GuiTile;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements ITickableTileEntity, GuiTile {
+abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements GuiTile {
 
     private int dirtyTicks = 0;
     private int notifyTicks = 0;
 
-    public AlchemistryBaseTile(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public AlchemistryBaseTile(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
+        super(tileEntityTypeIn, pos, state);
     }
 
     public void markDirtyGUIEvery(int ticks) {
         this.dirtyTicks++;
         if (this.dirtyTicks >= ticks) {
-            this.markDirtyGUI();
+            this.setChanged();
             this.dirtyTicks = 0;
         }
     }
@@ -29,9 +29,9 @@ abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements 
     public void notifyGUIEvery(int ticks) {
         this.notifyTicks++;
         if (this.notifyTicks >= ticks) {
-            if (this.world != null) {
-                BlockState state = this.world.getBlockState(this.getPos());
-                this.world.notifyBlockUpdate(this.pos, state, state, 22);
+            if (this.level != null) {
+                BlockState state = this.getBlockState();
+                this.level.sendBlockUpdated(getBlockPos(), state, state, 22);
             }
             this.notifyTicks = 0;
         }

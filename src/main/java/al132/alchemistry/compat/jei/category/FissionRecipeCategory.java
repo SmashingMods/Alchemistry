@@ -1,9 +1,9 @@
 package al132.alchemistry.compat.jei.category;
 
 import al132.alchemistry.Alchemistry;
-import al132.alchemistry.Ref;
-import al132.alchemistry.compat.jei.JEIIntegration;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.fission.FissionRecipe;
+import al132.alchemistry.compat.jei.JEIIntegration;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -11,9 +11,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(Alchemistry.data.MODID, JEIIntegration.FISSION_CATEGORY);
+        return new ResourceLocation(Alchemistry.MODID, JEIIntegration.FISSION_CATEGORY);
     }
 
     @Override
@@ -37,19 +39,19 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
     }
 
     @Override
-    public String getTitle() {
-        return I18n.format("alchemistry.jei.fission");
+    public Component getTitle() {
+        return new TextComponent(I18n.get("alchemistry.jei.fission"));
     }
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.data.MODID, "textures/gui/fission_gui.png"),
+        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/fission_gui.png"),
                 u, v, 120, 50);
     }
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(new ItemStack(Ref.fissionController));
+        return guiHelper.createDrawableIngredient(new ItemStack(Registration.FISSION_CONTROLLER_BLOCK.get()));
     }
 
     @Override

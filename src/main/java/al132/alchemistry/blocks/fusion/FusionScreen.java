@@ -4,32 +4,33 @@ import al132.alchemistry.Alchemistry;
 import al132.alchemistry.Config;
 import al132.alib.client.ABaseScreen;
 import al132.alib.client.CapabilityEnergyDisplayWrapper;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 
 import java.awt.*;
+
 
 public class FusionScreen extends ABaseScreen<FusionContainer> {
     private FusionTile tile;
     private String statusText = "";
     private static String path = "textures/gui/fusion_gui.png";
-    public static ResourceLocation texture = new ResourceLocation(Alchemistry.data.MODID, path);
+    public static ResourceLocation texture = new ResourceLocation(Alchemistry.MODID, path);
 
-    public FusionScreen(FusionContainer screenContainer, PlayerInventory inv, ITextComponent name) {
-        super(Alchemistry.data, screenContainer, inv, name, "textures/gui/fusion_gui.png");
+    public FusionScreen(FusionContainer screenContainer, Inventory inv, Component name) {
+        super(Alchemistry.MODID, screenContainer, inv, name, "textures/gui/fusion_gui.png");
         this.tile = (FusionTile) screenContainer.tile;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, screenContainer::getEnergy));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, getMenu()));
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float f, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(ms, f, mouseX, mouseY);
-        this.getMinecraft().textureManager.bindTexture(texture);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
+    protected void renderBg(PoseStack ms, float f, int mouseX, int mouseY) {
+        super.renderBg(ms, f, mouseX, mouseY);
+        this.getMinecraft().textureManager.bindForSetup(texture);
+        int i = (this.width - this.getXSize()) / 2;
+        int j = (this.height - this.getYSize()) / 2;
         if (tile.progressTicks > 0) {
             int k = this.getBarScaled(28, tile.progressTicks, Config.FUSION_TICKS_PER_OPERATION.get());
             this.blit(ms, i + 90, j + 82, 175, 0, k, 9);
@@ -39,14 +40,14 @@ public class FusionScreen extends ABaseScreen<FusionContainer> {
 
     public void updateStatus() {
         if (tile.isValidMultiblock) statusText = "";
-        else statusText = I18n.format("alchemistry.fusion.invalid_multiblock");
+        else statusText = I18n.get("alchemistry.fusion.invalid_multiblock");
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(ms, mouseX, mouseY);
+    protected void renderLabels(PoseStack ms, int mouseX, int mouseY) {
+        super.renderLabels(ms, mouseX, mouseY);
         //super.func_230450_a_(ms,f,mouseX, mouseY);
         updateStatus();
-        this.font.drawStringWithShadow(ms, statusText, 30.0f, 110.0f, Color.WHITE.getRGB());
+        this.font.drawShadow(ms, statusText, 30.0f, 110.0f, Color.WHITE.getRGB());
     }
 }

@@ -8,21 +8,20 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.realmsclient.util.JsonUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
+import com.google.gson.JsonSyntaxException;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
 
 public class DissolverRecipeSerializer<T extends DissolverRecipe>
-        extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
+        extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private IFactory<T> factory;
 
@@ -31,27 +30,31 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe>
     }
 
     @Override
-    public T read(ResourceLocation recipeId, JsonObject json) {
-        String group = JSONUtils.getString(json, "group", "");
-        JsonElement jsonelement = (JsonElement) (JSONUtils.isJsonArray(json, "input")
-                ? JSONUtils.getJsonArray(json, "input")
-                : JSONUtils.getJsonObject(json, "input"));
-        Ingredient input = Ingredient.deserialize(jsonelement);
-        int inputCount = JSONUtils.hasField(json, "inputCount") ? JSONUtils.getInt(json, "inputCount") : 1;
+    public T fromJson(ResourceLocation recipeId, JsonObject json) {
+        String group = json.get("group").getAsString();//.getString(json, "group", "");
+        JsonElement jsonelement = (JsonElement) (json.get("input").isJsonArray()//.isJsonArray(json, "input")
+                ? json.getAsJsonArray("input")//.getJsonArray(json, "input")
+                : json.getAsJsonObject("input"));//.getJsonObject(json, "input"));
+        Ingredient input = Ingredient.fromJson(jsonelement);
+        int inputCount = json.has("inputCount") ? json.get("inputCount").getAsInt() : 1;
 
-        JsonObject outputJson = JSONUtils.getJsonObject(json, "output");
-        int rolls = JSONUtils.getInt(outputJson, "rolls");
-        boolean relativeProbability = JSONUtils.getBoolean(outputJson, "relativeProbability");
-        
+        JsonObject outputJson = json.getAsJsonObject("output");//.getJsonObject(json, "output");
+        int rolls = outputJson.get("rolls").getAsInt();//JSONUtils.getInt(outputJson, "rolls");
+        boolean relativeProbability = outputJson.get("relativeProbability").getAsBoolean();//JSONUtils.getBoolean(outputJson, "relativeProbability");
+
         List<ProbabilityGroup> groups = Lists.newArrayList();
-        JsonArray groupJSON = JSONUtils.getJsonArray(outputJson,"groups");
+        JsonArray groupJSON = outputJson.getAsJsonArray("groups");//JSONUtils.getJsonArray(outputJson,"groups");
         for (JsonElement e : groupJSON) {
             List<ItemStack> outputs = Lists.newArrayList();
             JsonObject temp = e.getAsJsonObject();
             for (JsonElement stack : temp.getAsJsonArray("stacks")) {
-                outputs.add(ShapedRecipe.deserializeItem(stack.getAsJsonObject()));
+                try {
+                    outputs.add(ShapedRecipe.itemStackFromJson(stack.getAsJsonObject()));
+                } catch (JsonSyntaxException jse) {
+                    outputs.add(new ItemStack(Items.AIR));
+                }
             }
-            double probability = JSONUtils.getFloat(temp, "probability");
+            double probability = temp.get("probability").getAsFloat();//JSONUtils.getFloat(temp, "probability");
             groups.add(new ProbabilityGroup(outputs, probability));
         }
         ProbabilitySet output = new ProbabilitySet(groups, relativeProbability, rolls);
@@ -60,16 +63,16 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe>
     }
 
     @Override
-    public T read(ResourceLocation recipeId, PacketBuffer buffer) {
-        String group = buffer.readString(32767);
+    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        String group = buffer.readUtf(32767);
         IngredientStack input = IngredientStack.read(buffer);
         ProbabilitySet output = ProbabilitySet.read(buffer);
         return this.factory.create(recipeId, group, input, output);
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
-        buffer.writeString(recipe.getGroup());
+    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
+        buffer.writeUtf(recipe.getGroup());
         recipe.inputIngredient.write(buffer);
         recipe.outputs.write(buffer);
     }

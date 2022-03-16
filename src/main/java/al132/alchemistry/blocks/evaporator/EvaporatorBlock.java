@@ -1,47 +1,57 @@
 package al132.alchemistry.blocks.evaporator;
 
-import al132.alchemistry.blocks.BaseTileBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IBlockReader;
+import al132.alib.blocks.ABaseTileBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EvaporatorBlock extends BaseTileBlock {
+public class EvaporatorBlock extends ABaseTileBlock {
     public EvaporatorBlock() {
-        super("evaporator", EvaporatorTile::new, Block.Properties.create(Material.IRON));
+        super(Block.Properties.of(Material.METAL).strength(2.0f), EvaporatorTile.class, EvaporatorContainer.class);
     }
 
 
-    public static final VoxelShape boundingBox = Block.makeCuboidShape(1, 1, 1, 15, 12, 15);
-    public static final VoxelShape boundingBox2 = Block.makeCuboidShape(4, 0.0, 4, 12, 1, 12);
-    public static final VoxelShape BOX = VoxelShapes.or(boundingBox, boundingBox2);
+    public static final VoxelShape boundingBox = Block.box(1, 1, 1, 15, 12, 15);
+    public static final VoxelShape boundingBox2 = Block.box(4, 0.0, 4, 12, 1, 12);
+    public static final VoxelShape BOX = Shapes.or(boundingBox, boundingBox2);
+
 
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getOcclusionShape(BlockState state, BlockGetter reader, BlockPos pos) {
         return BOX;
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return BOX;
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> tooltips, TooltipFlag flag) {
+        super.appendHoverText(stack, getter, tooltips, flag);
+        //tooltip.add(new TextComponent(I18n.get("tooltip.alchemistry.evaporator",50)));
     }
 
+    @Nullable
     @Override
-    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        //tooltip.add(new StringTextComponent(I18n.format("tooltip.alchemistry.evaporator",50)));
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof EvaporatorTile) {
+                ((EvaporatorTile) t).tickServer();
+            }
+        };
     }
 }

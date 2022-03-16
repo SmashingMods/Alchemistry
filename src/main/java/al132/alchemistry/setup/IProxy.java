@@ -1,11 +1,11 @@
 package al132.alchemistry.setup;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 public interface IProxy {
 
     void init();
-    World getClientWorld();
-    PlayerEntity getClientPlayer();
+    Level getClientWorld();
+    Player getClientPlayer();
 }

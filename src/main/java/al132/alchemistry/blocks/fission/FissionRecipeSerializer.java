@@ -2,14 +2,14 @@ package al132.alchemistry.blocks.fission;
 
 import al132.alchemistry.misc.ProcessingRecipe;
 import com.google.gson.JsonObject;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+
 public class FissionRecipeSerializer<T extends FissionRecipe>
-        extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
+        extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private IFactory<T> factory;
 
@@ -18,19 +18,19 @@ public class FissionRecipeSerializer<T extends FissionRecipe>
     }
 
     @Override
-    public T read(ResourceLocation recipeId, JsonObject json) {
-        String s = JSONUtils.getString(json, "group", "");
-        int input = JSONUtils.getInt(json,"input");
-        int output= JSONUtils.getInt(json,"output");
-        int output2 = JSONUtils.getInt(json,"output2");
+    public T fromJson(ResourceLocation recipeId, JsonObject json) {
+        String s = json.get("group").getAsString();//"group", "");
+        int input = json.get("input").getAsInt();//.getInt(json,"input");
+        int output= json.get("output").getAsInt();//JSONUtils.getInt(json,"output");
+        int output2 = json.get("output2").getAsInt();//.readNBT(json,"output2");
 
         return this.factory.create(recipeId, s, input, output, output2);
 
     }
 
     @Override
-    public T read(ResourceLocation recipeId, PacketBuffer buffer) {
-        String group = buffer.readString(32767);
+    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        String group = buffer.readUtf(32767);
         int input = buffer.readInt();
         int output = buffer.readInt();
         int output2 = buffer.readInt();
@@ -38,8 +38,8 @@ public class FissionRecipeSerializer<T extends FissionRecipe>
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
-        buffer.writeString(recipe.getGroup());
+    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
+        buffer.writeUtf(recipe.getGroup());
         buffer.writeInt(recipe.input);
         buffer.writeInt(recipe.output1);
         buffer.writeInt(recipe.output2);

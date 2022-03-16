@@ -1,8 +1,8 @@
 package al132.alchemistry.blocks.dissolver;
 
-import al132.alchemistry.RecipeTypes;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import al132.alchemistry.Registration;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -14,10 +14,10 @@ public class DissolverRegistry {
     private static List<DissolverRecipe> recipes = null;
     private static HashMap<ItemStack, DissolverRecipe> cache = new HashMap<>();
 
-    public static List<DissolverRecipe> getRecipes(World world) {
+    public static List<DissolverRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == RecipeTypes.DISSOLVER)
+                    .filter(x -> x.getType() == Registration.DISSOLVER_TYPE)
                     .map(x -> (DissolverRecipe) x)
                     .collect(Collectors.toList());
         }
@@ -25,14 +25,14 @@ public class DissolverRegistry {
     }
 
     @Nullable
-    public static DissolverRecipe match(World world,ItemStack input, boolean quantitySensitive) {
+    public static DissolverRecipe match(Level world,ItemStack input, boolean quantitySensitive) {
         DissolverRecipe cachedRecipe = cache.getOrDefault(input, null);
         if (cachedRecipe != null) return cachedRecipe;
 
         for (DissolverRecipe recipe : getRecipes(world)) {
             if (recipe.inputIngredient != null) {
-                for (ItemStack recipeStack : recipe.inputIngredient.ingredient.getMatchingStacks().clone()) {
-                    if (ItemStack.areItemsEqual(recipeStack, input)) {
+                for (ItemStack recipeStack : recipe.inputIngredient.ingredient.getItems().clone()) {
+                    if (ItemStack.isSame(recipeStack, input)) {
                         // && (input.itemDamage == recipeStack.itemDamage
                         //|| recipeStack.itemDamage == OreDictionary.WILDCARD_VALUE)) {
                         if (quantitySensitive && input.getCount() >= recipeStack.getCount() || !quantitySensitive) {

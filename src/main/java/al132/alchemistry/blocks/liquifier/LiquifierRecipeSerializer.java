@@ -4,17 +4,16 @@ import al132.alchemistry.misc.ProcessingRecipe;
 import al132.alchemistry.utils.IngredientStack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class LiquifierRecipeSerializer<T extends LiquifierRecipe>
-        extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T> {
+        extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private IFactory<T> factory;
 
@@ -23,13 +22,14 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe>
     }
 
     @Override
-    public T read(ResourceLocation recipeId, JsonObject json) {
-        String group = JSONUtils.getString(json, "group", "");
+    public T fromJson(ResourceLocation recipeId, JsonObject json) {
+        String group = json.get("group").getAsString();//JSONUtils.getString(json, "group", "");
 
-        JsonElement jsonelement = (JsonElement) (JSONUtils.isJsonArray(json, "ingredient") ? JSONUtils.getJsonArray(json, "ingredient") : JSONUtils.getJsonObject(json, "ingredient"));
-        Ingredient input = Ingredient.deserialize(jsonelement);
-        JsonObject inputObject = JSONUtils.getJsonObject(json, "result");
-        int inputCount = JSONUtils.hasField(json, "inputCount") ? JSONUtils.getInt(json, "inputCount") : 1;
+        JsonElement jsonelement = json.get("ingredient").isJsonArray()
+                ? json.getAsJsonArray("ingredient"): json.getAsJsonObject("ingredient");// JSONUtils.getJsonArray(json, "ingredient") : JSONUtils.getJsonObject(json, "ingredient"));
+        Ingredient input = Ingredient.fromJson(jsonelement);
+        JsonObject inputObject = json.getAsJsonObject("result");//JSONUtils.getJsonObject(json, "result");
+        int inputCount = json.has("inputCount") ? json.get("inputCount").getAsInt() : 1;
 
         ResourceLocation fluidLocation = new ResourceLocation(inputObject.get("fluid").getAsString());
         int fluidAmount = inputObject.get("amount").getAsInt();
@@ -38,16 +38,16 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe>
     }
 
     @Override
-    public T read(ResourceLocation recipeId, PacketBuffer buffer) {
-        String group = buffer.readString(32767);
+    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        String group = buffer.readUtf(32767);
         IngredientStack input = IngredientStack.read(buffer);
         FluidStack output = buffer.readFluidStack();
         return this.factory.create(recipeId, group, input, output);
     }
 
     @Override
-    public void write(PacketBuffer buffer, T recipe) {
-        buffer.writeString(recipe.getGroup());
+    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
+        buffer.writeUtf(recipe.getGroup());
         recipe.input.write(buffer);
         buffer.writeFluidStack(recipe.output);
     }

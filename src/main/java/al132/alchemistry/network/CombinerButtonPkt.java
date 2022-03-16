@@ -1,13 +1,14 @@
 package al132.alchemistry.network;
 
 import al132.alchemistry.blocks.combiner.CombinerTile;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
+
 
 public class CombinerButtonPkt {
 
@@ -21,33 +22,36 @@ public class CombinerButtonPkt {
         this.pause = pause;
     }
 
-    public static void encode(CombinerButtonPkt pkt, PacketBuffer buf) {
+    public CombinerButtonPkt(FriendlyByteBuf buf) {
+        this.pos = buf.readBlockPos();
+        this.lock = buf.readBoolean();
+        this.pause = buf.readBoolean();
+    }
+
+    public static void toBytes(CombinerButtonPkt pkt, FriendlyByteBuf buf) {
         buf.writeBlockPos(pkt.pos);
         buf.writeBoolean(pkt.lock);
         buf.writeBoolean(pkt.pause);
     }
 
-    public static CombinerButtonPkt decode(PacketBuffer buf) {
+    public static CombinerButtonPkt decode(FriendlyByteBuf buf) {
         return new CombinerButtonPkt(buf.readBlockPos(), buf.readBoolean(), buf.readBoolean());
     }
 
-    public static class Handler {
+    public static void handle(final CombinerButtonPkt message, Supplier<NetworkEvent.Context> ctx) {
+        ctx.get().enqueueWork(() -> {
+            Player Player = ctx.get().getSender();
+            CombinerTile tile = (CombinerTile) Player.level.getBlockEntity(message.pos);
 
-        public static void handle(final CombinerButtonPkt message, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() -> {
-                PlayerEntity playerEntity = ctx.get().getSender();
-                CombinerTile tile = (CombinerTile) playerEntity.world.getTileEntity(message.pos);
-
-                if (message.lock) {
-                    tile.recipeIsLocked = !(tile.recipeIsLocked);
-                    if (!tile.recipeIsLocked) tile.currentRecipe = null;
-                } else if (message.pause) {
-                    tile.paused = !(tile.paused);
-                }
-                if (!tile.recipeIsLocked) tile.clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
-                //tile.markDirtyClient();
-            });
-            ctx.get().setPacketHandled(true);
-        }
+            if (message.lock) {
+                tile.recipeIsLocked = !(tile.recipeIsLocked);
+                if (!tile.recipeIsLocked) tile.currentRecipe = null;
+            } else if (message.pause) {
+                tile.paused = !(tile.paused);
+            }
+            if (!tile.recipeIsLocked) tile.clientRecipeTarget.setStackInSlot(0, ItemStack.EMPTY);
+            //tile.markDirtyClient();
+        });
+        ctx.get().setPacketHandled(true);
     }
 }

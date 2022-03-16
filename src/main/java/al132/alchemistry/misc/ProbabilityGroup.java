@@ -5,10 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.datafix.fixes.ItemStackDataFlattening;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -44,19 +42,19 @@ public class ProbabilityGroup {
         return output;
     }
 
-    public void write(PacketBuffer buf) {
+    public void write(FriendlyByteBuf buf) {
         buf.writeInt(outputs.size());
         for (ItemStack stack : outputs) {
-            buf.writeItemStack(stack);
+            buf.writeItemStack(stack, false);
         }
         buf.writeDouble(probability);
     }
 
-    public static ProbabilityGroup read(PacketBuffer buf) {
+    public static ProbabilityGroup read(FriendlyByteBuf buf) {
         List<ItemStack> stacks = Lists.newArrayList();
         int size = buf.readInt();
         for (int i = 0; i < size; i++) {
-            stacks.add(buf.readItemStack());
+            stacks.add(buf.readItem());
         }
         double probability = buf.readDouble();
         return new ProbabilityGroup(stacks, probability);

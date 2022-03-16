@@ -1,10 +1,9 @@
 package al132.alchemistry.compat.jei.category;
 
 import al132.alchemistry.Alchemistry;
-import al132.alchemistry.Ref;
-import al132.alchemistry.compat.jei.JEIIntegration;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.liquifier.LiquifierRecipe;
-import com.google.common.collect.Lists;
+import al132.alchemistry.compat.jei.JEIIntegration;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -13,9 +12,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe> {
@@ -29,7 +30,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(Alchemistry.data.MODID, JEIIntegration.LIQUIFIER_CATEGORY);
+        return new ResourceLocation(Alchemistry.MODID, JEIIntegration.LIQUIFIER_CATEGORY);
     }
 
     @Override
@@ -38,19 +39,19 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
     }
 
     @Override
-    public String getTitle() {
-        return I18n.format("alchemistry.jei.liquifier");
+    public Component getTitle() {
+        return new TextComponent(I18n.get("alchemistry.jei.liquifier"));
     }
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.data.MODID, "textures/gui/liquifier_gui.png"),
+        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/liquifier_gui.png"),
                 u, v, 100, 125);
     }
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(new ItemStack(Ref.liquifier));
+        return guiHelper.createDrawableIngredient(new ItemStack(Registration.LIQUIFIER_BLOCK.get()));//.liquifier));
     }
 
     @Override

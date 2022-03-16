@@ -1,22 +1,22 @@
 package al132.alchemistry.blocks.evaporator;
 
 import al132.alchemistry.Config;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
+import al132.alib.tiles.CustomFluidTank;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.FluidTile;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
 
@@ -27,9 +27,9 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
     protected FluidTank fluidTank;
     protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> fluidTank);
 
-    public EvaporatorTile() {
-        super(Ref.evaporatorTile);
-        fluidTank = new FluidTank(10000, (stack) -> true) {
+    public EvaporatorTile(BlockPos pos, BlockState state) {
+        super(Registration.EVAPORATOR_BE.get(), pos, state);
+        fluidTank = new CustomFluidTank(10000, FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
                 super.onContentsChanged();
@@ -37,11 +37,10 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
         };
     }
 
-    @Override
-    public void tick() {
-        if (world.isRemote) return;
+    public void tickServer() {
+        if (level.isClientSide) return;
         if (fluidTank.getFluidAmount() > 0) {
-            this.currentRecipe = EvaporatorRegistry.getRecipes(world).stream()
+            this.currentRecipe = EvaporatorRegistry.getRecipes(level).stream()
                     .filter(recipe -> fluidTank.getFluid().containsFluid(recipe.input)).findFirst().orElse(null);
         }
         if (canProcess()) {
@@ -67,21 +66,23 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
             progressTicks = 0;
             fluidTank.drain(currentRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
             getOutput().setOrIncrement(0, currentRecipe.output.copy());
+
         }
+        this.setChanged();
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.fluidTank.readFromNBT(compound.getCompound("fluidTank"));
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public void saveAdditional(CompoundTag compound) {
+        super.saveAdditional(compound);
         compound.putInt("progressTicks", this.progressTicks);
-        compound.put("fluidTank", fluidTank.writeToNBT(new CompoundNBT()));
-        return super.write(compound);
+        compound.put("fluidTank", fluidTank.writeToNBT(new CompoundTag()));
     }
 
     public int calculateProcessingTime() { //TODO more elaborate calculation?
@@ -99,7 +100,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
 
     @Override
     public CustomStackHandler initOutput() {
-        return new CustomStackHandler(this, 1){
+        return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;
@@ -107,15 +108,13 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
         };
     }
 
-    @Nullable
-    @Override
-    public Container createMenu(int i, PlayerInventory playerInv, PlayerEntity player) {
-        return new EvaporatorContainer(i, world, pos, playerInv, player);
-    }
-
     @Override
     public LazyOptional<IFluidHandler> getFluidHandler() {
         return fluidHolder;
     }
 
+    @Override
+    public Component getName() {
+        return null;
+    }
 }

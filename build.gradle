@@ -4,7 +4,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 
@@ -17,7 +17,7 @@ version = mc_version + '-'+ mod_version
 group = 'al132.alchemistry' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'alchemistry'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets{
     main.resources.srcDirs += 'src/main/generated_resources'
@@ -29,7 +29,9 @@ minecraft {
     // stable_#            Stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
-    mappings channel: 'snapshot', version: snapshot_version
+    //mappings channel: 'snapshot', version: snapshot_version
+    mappings channel: 'official', version: '1.18'
+    //mappings channel: 'parchment', version: "2022.03.13-1.18.2"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -112,13 +114,13 @@ dependencies {
     // runtimeOnly fg.deobf(files("libs/chemlib-1.0.0.jar"))
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+    //implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${jei_version}")
 
-    compile fg.deobf(files("libs/chemlib-" + chemlib_version + "-dev.jar"))
-    compile fg.deobf(files("libs/alib-" + alib_version + "-dev.jar"))//1.14.4-3-dev.jar"))
-    compile fg.deobf(files("libs/quirkygenerators-" + quirky_version + "-dev.jar"))
+    implementation fg.deobf(files("libs/chemlib-" + chemlib_version + "-dev.jar"))
+    implementation fg.deobf(files("libs/alib-" + alib_version + "-dev.jar"))//1.14.4-3-dev.jar"))
+    implementation fg.deobf(files("libs/quirkygenerators-" + quirky_version + "-dev.jar"))
     //compile fg.deobf(files("libs/CraftTweaker-${ct_version}-deobf.jar"))
     //compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") // 1.14
 

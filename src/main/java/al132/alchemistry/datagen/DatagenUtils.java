@@ -2,10 +2,11 @@ package al132.alchemistry.datagen;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
+
 
 public class DatagenUtils {
 

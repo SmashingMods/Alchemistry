@@ -1,12 +1,13 @@
 package al132.alchemistry.blocks.fusion;
 
 import al132.alchemistry.blocks.BaseBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Material;
+
 
 public class FusionCoreBlock extends BaseBlock {
 
     public FusionCoreBlock() {
-        super("fusion_core", Block.Properties.create(Material.IRON));
+        super( Block.Properties.of(Material.METAL));
     }
 }

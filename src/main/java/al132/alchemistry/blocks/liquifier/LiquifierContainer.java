@@ -1,29 +1,38 @@
 package al132.alchemistry.blocks.liquifier;
 
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alib.container.ABaseContainer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class LiquifierContainer extends ABaseContainer {
-    public LiquifierContainer(int id, World world, BlockPos pos, PlayerInventory playerInv, PlayerEntity player) {
-        super(Ref.liquifierContainer, id, world, pos, playerInv, player, 1);
-        LiquifierTile liquifier = (LiquifierTile) world.getTileEntity(pos);
-        this.addSlot(new SlotItemHandler(liquifier.getInput(), 0, 49, 58));
+    public LiquifierContainer(int id, Level world, BlockPos pos, Inventory playerInv) {
+        super(Registration.LIQUIFIER_CONTAINER.get(), id, world, pos, playerInv, 1);
+        LiquifierTile tile = (LiquifierTile) world.getBlockEntity(pos);
+        this.addSlot(new SlotItemHandler(tile.getInput(), 0, 49, 58));
         addPlayerSlots();
+        trackInt(new DataSlot() {
+            @Override
+            public int get() {
+                return tile.progressTicks;
+            }
+            @Override
+            public void set(int value) {
+                tile.progressTicks = value;
+            }
+        });
     }
 
-    public IEnergyStorage getEnergy() {
-        return ((LiquifierTile) this.tile).energy;
+    public int getProgressTicks() {
+        return ((LiquifierTile) tile).progressTicks;
     }
 
-    public IFluidHandler getTank() {
-        return ((LiquifierTile) this.tile).outputTank;
+    @Override
+    public boolean stillValid(Player p_38874_) {
+        return true;
     }
-
 }

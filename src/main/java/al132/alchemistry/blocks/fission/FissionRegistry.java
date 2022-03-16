@@ -1,8 +1,7 @@
 package al132.alchemistry.blocks.fission;
 
-import al132.alchemistry.RecipeTypes;
-import al132.alchemistry.blocks.fission.FissionRecipe;
-import net.minecraft.world.World;
+import al132.alchemistry.Registration;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,10 +10,10 @@ public class FissionRegistry {
 
     private static List<FissionRecipe> recipes = null;
 
-    public static List<FissionRecipe> getRecipes(World world) {
+    public static List<FissionRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == RecipeTypes.FISSION)
+                    .filter(x -> x.getType() == Registration.FISSION_TYPE)
                     .map(x -> (FissionRecipe) x)
                     .collect(Collectors.toList());
         }

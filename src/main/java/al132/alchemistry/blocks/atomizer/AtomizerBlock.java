@@ -1,48 +1,59 @@
 package al132.alchemistry.blocks.atomizer;
 
 import al132.alchemistry.Config;
-import al132.alchemistry.blocks.BaseTileBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IBlockReader;
+import al132.alib.blocks.ABaseTileBlock;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AtomizerBlock extends BaseTileBlock {
+public class AtomizerBlock extends ABaseTileBlock {
     public AtomizerBlock() {
-        super("atomizer", AtomizerTile::new, Properties.create(Material.IRON));
+        super(Block.Properties.of(Material.METAL).strength(2.0f), AtomizerTile.class, AtomizerContainer.class);
     }
 
-    public static final VoxelShape base = Block.makeCuboidShape(0, 0, 0, 16, 1, 16);
-    public static final VoxelShape rest = Block.makeCuboidShape(2, 1, 2, 14, 16, 14);
-    public static final VoxelShape BOX = VoxelShapes.or(base, rest);
+    public static final VoxelShape base = Block.box(0, 0, 0, 16, 1, 16);
+    public static final VoxelShape rest = Block.box(2, 1, 2, 14, 16, 14);
+    public static final VoxelShape BOX = Shapes.or(base, rest);
 
 
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return BOX;
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getOcclusionShape(BlockState state, BlockGetter reader, BlockPos pos) {
         return BOX;
     }
 
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent(I18n.format("tooltip.alchemistry.energy_requirement", Config.ATOMIZER_ENERGY_PER_TICK.get())));
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> tooltips, TooltipFlag flag) {
+        super.appendHoverText(stack, getter, tooltips, flag);
+        tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.ATOMIZER_ENERGY_PER_TICK.get())));
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        if (level.isClientSide()) {
+            return null;
+        }
+        return (lvl, pos, blockState, t) -> {
+            if (t instanceof AtomizerTile) {
+                ((AtomizerTile) t).tickServer();
+            }
+        };
     }
 }

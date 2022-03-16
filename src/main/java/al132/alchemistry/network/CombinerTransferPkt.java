@@ -3,12 +3,11 @@ package al132.alchemistry.network;
 
 import al132.alchemistry.blocks.combiner.CombinerRegistry;
 import al132.alchemistry.blocks.combiner.CombinerTile;
-import al132.alchemistry.blocks.combiner.CombinerRecipe;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -22,34 +21,35 @@ public class CombinerTransferPkt {
         this.pos = pos;
     }
 
-    public static void encode(CombinerTransferPkt pkt, PacketBuffer buf) {
-        buf.writeItemStack(pkt.outputStack);
+    public CombinerTransferPkt(FriendlyByteBuf buf) {
+        this.outputStack = buf.readItem();
+        this.pos = buf.readBlockPos();
+    }
+
+    public static void toBytes(CombinerTransferPkt pkt, FriendlyByteBuf buf) {
+        buf.writeItem(pkt.outputStack);
         buf.writeBlockPos(pkt.pos);
     }
 
-    public static CombinerTransferPkt decode(PacketBuffer buf) {
-        return new CombinerTransferPkt(buf.readItemStack(), buf.readBlockPos());
+    public static CombinerTransferPkt decode(FriendlyByteBuf buf) {
+        return new CombinerTransferPkt(buf.readItem(), buf.readBlockPos());
     }
 
+    public static void handle(final CombinerTransferPkt message, Supplier<NetworkEvent.Context> ctx) {
+        ctx.get().enqueueWork(() -> {
+            Player Player = ctx.get().getSender();//.player
 
-    public static class Handler {
-
-        public static void handle(final CombinerTransferPkt message, Supplier<NetworkEvent.Context> ctx) {
-            ctx.get().enqueueWork(() -> {
-                PlayerEntity playerEntity = ctx.get().getSender();//.player
-
-                CombinerTile tile = (CombinerTile) playerEntity.world.getTileEntity(message.pos);
-                ItemStack output = message.outputStack;
-                if (!output.isEmpty()) {
-                    tile.clientRecipeTarget.setStackInSlot(0, output.copy());
-                    tile.recipeIsLocked = true;
-                    tile.currentRecipe = CombinerRegistry.matchOutput(playerEntity.world, output.copy());
-                }
-                //System.out.println("Handling packet: {" + message.outputStack + "}");
-                //tile.markDirtyClient();
-            });
-            ctx.get().setPacketHandled(true);
-        }
-
+            CombinerTile tile = (CombinerTile) Player.level.getBlockEntity(message.pos);
+            ItemStack output = message.outputStack;
+            if (!output.isEmpty()) {
+                tile.clientRecipeTarget.setStackInSlot(0, output.copy());
+                tile.recipeIsLocked = true;
+                tile.currentRecipe = CombinerRegistry.matchOutput(Player.level, output.copy());
+            }
+            tile.setChanged();
+            //System.out.println("Handling packet: {" + message.outputStack + "}");
+            //tile.markDirtyClient();
+        });
+        ctx.get().setPacketHandled(true);
     }
 }

@@ -1,11 +1,9 @@
 package al132.alchemistry.blocks.combiner;
 
-import al132.alchemistry.RecipeTypes;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.utils.IItemHandlerUtils;
-import al132.alchemistry.utils.StackUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.HashMap;
@@ -18,23 +16,23 @@ public class CombinerRegistry {
     private static HashMap<List<ItemStack>, CombinerRecipe> inputCache = new HashMap<>();
     private static HashMap<ItemStack, CombinerRecipe> outputCache = new HashMap<>();
 
-    public static List<CombinerRecipe> getRecipes(World world) {
+    public static List<CombinerRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == RecipeTypes.COMBINER)
+                    .filter(x -> x.getType() == Registration.COMBINER_TYPE)
                     .map(x -> (CombinerRecipe) x)
                     .collect(Collectors.toList());
         }
         return recipes;
     }
 
-    public static CombinerRecipe matchOutput(World world, ItemStack stack) {
+    public static CombinerRecipe matchOutput(Level world, ItemStack stack) {
         CombinerRecipe cacheResult = outputCache.getOrDefault(stack, null);
-        if (cacheResult != null) return  cacheResult;
+        if (cacheResult != null) return cacheResult;
 
         CombinerRecipe recipe = getRecipes(world).stream()
                 .filter(it -> it.output.getItem() == stack.getItem())
-                .filter(it -> ItemStack.areItemStacksEqual(it.output, stack))
+                .filter(it -> ItemStack.isSame(it.output, stack))
                 .findFirst()
                 .orElse(null);
         outputCache.put(stack, recipe);
@@ -42,11 +40,11 @@ public class CombinerRegistry {
     }
 
 
-    public static CombinerRecipe matchInputs(World world, IItemHandler handler) {
+    public static CombinerRecipe matchInputs(Level world, IItemHandler handler) {
         return matchInputs(world, IItemHandlerUtils.toStackList(handler));//.toStackList())
     }
 
-    private static CombinerRecipe matchInputs(World world, List<ItemStack> inputStacks) {
+    private static CombinerRecipe matchInputs(Level world, List<ItemStack> inputStacks) {
         CombinerRecipe cacheResult = inputCache.getOrDefault(inputStacks, null);
         if (cacheResult != null) return cacheResult;
 
@@ -58,9 +56,9 @@ public class CombinerRegistry {
                 //inner: for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
                 ItemStack recipeStack = recipe.inputs.get(index);
                 ItemStack inputStack = inputStacks.get(index);
-                if ((inputStack.getItem() == Ref.slotFiller || inputStack.isEmpty()) && recipeStack.isEmpty()) {
+                if ((inputStack.getItem() == Registration.SLOT_FILLER_ITEM.get() || inputStack.isEmpty()) && recipeStack.isEmpty()) {
                     continue inner;
-                } else if (!(StackUtils.areStacksEqualIgnoreQuantity(inputStack, recipeStack)
+                } else if (!(ItemStack.isSameItemSameTags(inputStack, recipeStack)
                         && inputStack.getCount() >= recipeStack.getCount())) {
                     // && (inputStack.get == recipeStack.itemDamage || recipeStack.itemDamage == OreDictionary.WILDCARD_VALUE))) {
                     continue outer;
@@ -69,6 +67,7 @@ public class CombinerRegistry {
                 }
             }
             inputCache.put(inputStacks, recipe);
+            System.out.println("recipe: " + recipe.output);
             return recipe;//.copy()
         }
         return null;

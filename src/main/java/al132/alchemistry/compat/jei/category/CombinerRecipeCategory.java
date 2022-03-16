@@ -1,9 +1,9 @@
 package al132.alchemistry.compat.jei.category;
 
 import al132.alchemistry.Alchemistry;
-import al132.alchemistry.Ref;
-import al132.alchemistry.compat.jei.JEIIntegration;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.combiner.CombinerRecipe;
+import al132.alchemistry.compat.jei.JEIIntegration;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -11,9 +11,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
     private IGuiHelper guiHelper;
@@ -28,7 +30,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(Alchemistry.data.MODID, JEIIntegration.COMBINER_CATEGORY);
+        return new ResourceLocation(Alchemistry.MODID, JEIIntegration.COMBINER_CATEGORY);
     }
 
     @Override
@@ -37,19 +39,19 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
     }
 
     @Override
-    public String getTitle() {
-        return I18n.format("alchemistry.jei.combiner");
+    public Component getTitle() {
+        return new TextComponent(I18n.get("alchemistry.jei.combiner"));
     }
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.data.MODID, "textures/gui/combiner_gui.png"),
+        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_gui.png"),
                 u, v, 159 - u, 85 - v);
     }
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(new ItemStack(Ref.combiner));
+        return guiHelper.createDrawableIngredient(new ItemStack(Registration.COMBINER_BLOCK.get()));
     }
 
     @Override

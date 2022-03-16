@@ -1,7 +1,7 @@
 package al132.alchemistry.blocks.fission;
 
 import al132.alchemistry.Config;
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
 import al132.alchemistry.blocks.PowerStatus;
 import al132.alib.tiles.CustomEnergyStorage;
@@ -9,16 +9,14 @@ import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
 import al132.chemlib.chemistry.ElementRegistry;
 import al132.chemlib.items.ElementItem;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -27,12 +25,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.BiFunction;
 
+import static al132.alchemistry.Registration.*;
 import static al132.alchemistry.blocks.PowerStatus.*;
 import static al132.alchemistry.blocks.fission.FissionControllerBlock.STATUS;
 
 public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
-    public FissionTile() {
-        super(Ref.fissionTile);
+    public FissionTile(BlockPos pos, BlockState state) {
+        super(Registration.FISSION_CONTOLLER_BE.get(), pos, state);
     }
 
     int progressTicks = 0;
@@ -70,9 +69,8 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         }
     }
 
-    @Override
-    public void tick() {
-        if (world.isRemote) return;
+    public void tickServer() {
+        if (level.isClientSide) return;
 
         if (firstTick) {
             refreshRecipe();
@@ -85,14 +83,15 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
             updateMultiblock();
             checkMultiblockTicks = 0;
         }
-        BlockState state = this.world.getBlockState(this.pos);
-        if (state.getBlock() != Ref.fissionController) return;
-        PowerStatus currentStatus = state.get(STATUS);
+        BlockState state = this.level.getBlockState(this.getBlockPos());
+        if (state.getBlock() != FISSION_CONTROLLER_BLOCK.get()) return;
+        PowerStatus currentStatus = state.getValue(STATUS);
         if (this.isValidMultiblock) {
             if (isActive) {
-                if (currentStatus != ON) this.world.setBlockState(this.pos, state.with(STATUS, ON));
-            } else if (currentStatus != STANDBY) world.setBlockState(pos, state.with(STATUS, STANDBY));
-        } else if (currentStatus != OFF) world.setBlockState(pos, state.with(STATUS, OFF));
+                if (currentStatus != ON) this.level.setBlockAndUpdate(this.getBlockPos(), state.setValue(STATUS, ON));
+            } else if (currentStatus != STANDBY)
+                level.setBlockAndUpdate(this.getBlockPos(), state.setValue(STATUS, STANDBY));
+        } else if (currentStatus != OFF) level.setBlockAndUpdate(this.getBlockPos(), state.setValue(STATUS, OFF));
 
         if (canProcess()) {
             process();
@@ -105,8 +104,8 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         ItemStack output1 = getOutput().getStackInSlot(1);
         return this.isValidMultiblock
                 && !recipeOutput1.isEmpty()
-                && (ItemStack.areItemsEqual(output0, recipeOutput1) || output0.isEmpty())
-                && (ItemStack.areItemsEqual(output1, recipeOutput2) || output1.isEmpty())
+                && (ItemStack.isSame(output0, recipeOutput1) || output0.isEmpty())
+                && (ItemStack.isSame(output1, recipeOutput2) || output1.isEmpty())
                 && output0.getCount() + recipeOutput1.getCount() <= recipeOutput1.getMaxStackSize()
                 && output1.getCount() + recipeOutput2.getCount() <= recipeOutput2.getMaxStackSize()
                 && energy.getEnergyStored() >= Config.FISSION_ENERGY_PER_TICK.get();
@@ -122,20 +121,21 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
             getInput().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
         this.energy.extractEnergy(Config.FISSION_ENERGY_PER_TICK.get(), false);//ConfigHandler.fissionEnergyPerTick!!, false)
+        setChanged();
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void load(CompoundTag compound) {
+        super.load(compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.isValidMultiblock = compound.getBoolean("isValidMultiblock");
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    public void saveAdditional(CompoundTag compound) {
+        super.saveAdditional(compound);
         compound.putInt("progressTicks", progressTicks);
         compound.putBoolean("isValidMultiblock", isValidMultiblock);
-        return super.write(compound);
     }
 
     public void updateMultiblock() {
@@ -143,52 +143,54 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     private boolean containsCasing(BlockPos pos) {
-        return this.world.getBlockState(pos).getBlock() == Ref.fissionCasing;
+        return this.level.getBlockState(pos).getBlock() == FISSION_CASING_BLOCK.get();
     }
 
     private boolean containsCore(BlockPos pos) {
-        return this.world.getBlockState(pos).getBlock() == Ref.fissionCore;
+        return this.level.getBlockState(pos).getBlock() == FISSION_CORE_BLOCK.get();
     }
 
     private boolean containsFissionPart(BlockPos pos) {
-        Block block = this.world.getBlockState(pos).getBlock();
-        return block == Ref.fissionCasing || block == Ref.fissionCore || block == Ref.fissionController;
+        Block block = this.level.getBlockState(pos).getBlock();
+        return block == FISSION_CASING_BLOCK.get()
+                || block == FISSION_CORE_BLOCK.get()
+                || block == FISSION_CONTROLLER_BLOCK.get();
     }
 
     public boolean validateMultiblock() {
-        Direction multiblockDirection = world.getBlockState(this.pos).get(FissionControllerBlock.FACING).getOpposite();
+        Direction multiblockDirection = level.getBlockState(this.getBlockPos()).getValue(FissionControllerBlock.FACING).getOpposite();
         if (multiblockDirection == null) return false;
-        BiFunction<BlockPos, Integer, BlockPos> offsetUp = (BlockPos pos, Integer amt) -> pos.offset(Direction.UP, amt);
-        BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> pos.offset(multiblockDirection.rotateY(), amt);
-        BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> pos.offset(multiblockDirection.rotateY(), -1 * amt);
-        BiFunction<BlockPos, Integer, BlockPos> offsetBack = (BlockPos pos, Integer amt) -> pos.offset(multiblockDirection, amt);
-        BiFunction<BlockPos, Integer, BlockPos> offsetDown = (BlockPos pos, Integer amt) -> pos.offset(Direction.DOWN, amt);
+        BiFunction<BlockPos, Integer, BlockPos> offsetUp = (BlockPos pos, Integer amt) -> pos.relative(Direction.UP, amt);
+        BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection, amt).rotate(Rotation.CLOCKWISE_90));
+        BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection, -1 * amt).rotate(Rotation.CLOCKWISE_90));
+        BiFunction<BlockPos, Integer, BlockPos> offsetBack = (BlockPos pos, Integer amt) -> pos.relative(multiblockDirection, amt);
+        BiFunction<BlockPos, Integer, BlockPos> offsetDown = (BlockPos pos, Integer amt) -> pos.relative(Direction.DOWN, amt);
 
-        net.minecraft.util.math.BlockPos coreBottom = offsetBack.apply(this.pos, 3);
+        BlockPos coreBottom = offsetBack.apply(this.getBlockPos(), 3);
         coreBottom = offsetUp.apply(coreBottom, 1);
         BlockPos coreTop = offsetUp.apply(coreBottom, 2);
-        boolean coreMatches = BlockPos.getAllInBox(coreBottom, coreTop).allMatch(this::containsCore);
+        boolean coreMatches = BlockPos.betweenClosedStream(coreBottom, coreTop).allMatch(this::containsCore);
 
 
         //A cube of all blocks surrounding the fission multiblock, checking to ensure no other fission multiblocks are overlapping/sharing
-        BlockPos outsideCorner1 = offsetLeft.apply(this.pos, 3);
+        BlockPos outsideCorner1 = offsetLeft.apply(this.getBlockPos(), 3);
         outsideCorner1 = offsetDown.apply(outsideCorner1, 1);
         final BlockPos outsideCorner1Final = outsideCorner1; //java doesn't like non-final fields in the lambda below..
         BlockPos outsideCorner2 = offsetRight.apply(outsideCorner1, 6);
         outsideCorner2 = offsetUp.apply(outsideCorner2, 6);
         outsideCorner2 = offsetBack.apply(outsideCorner2, 6);
 
-        long borderingParts = BlockPos.getAllInBox(outsideCorner1, outsideCorner2).filter(it -> {
+        long borderingParts = BlockPos.betweenClosedStream(outsideCorner1, outsideCorner2).filter(it -> {
             int sharedAxes = 0;
             if (it.getX() == outsideCorner1Final.getX() || it.getX() == outsideCorner1Final.getX()) sharedAxes++;
             if (it.getY() == outsideCorner1Final.getY() || it.getY() == outsideCorner1Final.getY()) sharedAxes++;
             if (it.getZ() == outsideCorner1Final.getZ() || it.getZ() == outsideCorner1Final.getZ()) sharedAxes++;
             return sharedAxes >= 1;
-        }).filter(it -> !it.equals(this.pos)).filter(this::containsFissionPart).count();
+        }).filter(it -> !it.equals(this.getBlockPos())).filter(this::containsFissionPart).count();
         //.count(this::containsFissionPart);
 
 
-        BlockPos casingCorner1 = offsetLeft.apply(this.pos, 2);
+        BlockPos casingCorner1 = offsetLeft.apply(this.getBlockPos(), 2);
         casingCorner1 = offsetBack.apply(casingCorner1, 1);
         final BlockPos casingCorner1Final = casingCorner1;
         BlockPos casingCorner2 = offsetRight.apply(casingCorner1, 4);
@@ -196,7 +198,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         casingCorner2 = offsetUp.apply(casingCorner2, 4);
         final BlockPos casingCorner2Final = casingCorner2;
 
-        boolean casingMatches = BlockPos.getAllInBox(casingCorner1, casingCorner2).filter(it -> {
+        boolean casingMatches = BlockPos.betweenClosedStream(casingCorner1, casingCorner2).filter(it -> {
             int sharedAxes = 0;
             if (it.getX() == casingCorner1Final.getX() || it.getX() == casingCorner2Final.getX()) sharedAxes++;
             if (it.getY() == casingCorner1Final.getY() || it.getY() == casingCorner2Final.getY()) sharedAxes++;
@@ -233,12 +235,6 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         };
     }
 
-    @Nullable
-    @Override
-    public Container createMenu(int i, PlayerInventory playerInv, PlayerEntity player) {
-        return new FissionContainer(i, world, pos, playerInv, player);
-    }
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
@@ -254,5 +250,10 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     @Override
     public IEnergyStorage getEnergy() {
         return energy;
+    }
+
+    @Override
+    public Component getName() {
+        return null;
     }
 }

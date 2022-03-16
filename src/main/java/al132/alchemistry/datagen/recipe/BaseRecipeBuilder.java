@@ -1,13 +1,14 @@
 package al132.alchemistry.datagen.recipe;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.function.Consumer;
 
+
 public abstract class BaseRecipeBuilder {
 
-    public abstract void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id);
+    public abstract void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id);
 
     abstract void validate(ResourceLocation id);
 }

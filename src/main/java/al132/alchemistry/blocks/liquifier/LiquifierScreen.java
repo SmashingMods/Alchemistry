@@ -5,31 +5,31 @@ import al132.alchemistry.Config;
 import al132.alib.client.ABaseScreen;
 import al132.alib.client.CapabilityEnergyDisplayWrapper;
 import al132.alib.client.CapabilityFluidDisplayWrapper;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 
 public class LiquifierScreen extends ABaseScreen<LiquifierContainer> {
     private LiquifierTile tile;
     private static String path = "textures/gui/liquifier_gui.png";
-    private static ResourceLocation texture = new ResourceLocation(Alchemistry.data.MODID, path);
+    private static ResourceLocation texture = new ResourceLocation(Alchemistry.MODID, path);
 
-    public LiquifierScreen(LiquifierContainer container, PlayerInventory inv, ITextComponent name) {
-        super(Alchemistry.data, container, inv, name, path);
+    public LiquifierScreen(LiquifierContainer container, Inventory inv, Component name) {
+        super(Alchemistry.MODID, container, inv, name, path);
         this.tile = (LiquifierTile) container.tile;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, container::getEnergy));
-        this.displayData.add(new CapabilityFluidDisplayWrapper(122, 40, 16, 60, container::getTank));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityFluidDisplayWrapper(122, 40, 16, 60, getMenu()));
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
-        super.drawGuiContainerBackgroundLayer(ms, partialTicks, mouseX, mouseY);
-        this.minecraft.textureManager.bindTexture(this.texture);
-        int i = (this.width - this.xSize) / 2;
-        int j = (this.height - this.ySize) / 2;
-        if (tile.progressTicks > 0) {
-            int k = this.getBarScaled(28, tile.progressTicks, Config.LIQUIFIER_TICKS_PER_OPERATION.get());
+    protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
+        super.renderBg(ms, partialTicks, mouseX, mouseY);
+        this.minecraft.textureManager.bindForSetup(this.texture);
+        int i = (this.width - this.getXSize()) / 2;
+        int j = (this.height - this.getYSize()) / 2;
+        if (getMenu().getProgressTicks() > 0) {
+            int k = this.getBarScaled(28, getMenu().getProgressTicks(), Config.LIQUIFIER_TICKS_PER_OPERATION.get());
             this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
         }
     }

@@ -1,26 +1,27 @@
 package al132.alchemistry.blocks.dissolver;
 
-import al132.alchemistry.Ref;
+import al132.alchemistry.Registration;
 import al132.alib.container.ABaseContainer;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class DissolverContainer extends ABaseContainer {
 
-    public DissolverContainer(int id, World world, BlockPos pos, PlayerInventory playerInv, PlayerEntity player) {
-        super(Ref.dissolverContainer, id, world, pos, playerInv, player, 11);
-        DissolverTile tile = (DissolverTile) world.getTileEntity(pos);
+    public DissolverContainer(int id, Level world, BlockPos pos, Inventory playerInv) {
+        super(Registration.DISSOLVER_CONTAINER.get(), id, world, pos, playerInv,11);
+        DissolverTile tile = (DissolverTile) world.getBlockEntity(pos);
         addSlot(new SlotItemHandler(tile.getInput(), 0, 83, 14));
         addSlotArray(0, 48, 85, 2, 5, tile.getOutput());
         addPlayerSlots();
     }
 
 
-    public IEnergyStorage getEnergy() {
-        return ((DissolverTile) tile).energy;
+
+    @Override
+    public boolean stillValid(Player p_38874_) {
+        return true;
     }
 }

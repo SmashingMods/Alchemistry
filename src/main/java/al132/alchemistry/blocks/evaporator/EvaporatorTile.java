@@ -46,7 +46,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
         if (canProcess()) {
             process();
         }
-        notifyGUIEvery(5);
+        updateGUIEvery(5);
     }
 
 

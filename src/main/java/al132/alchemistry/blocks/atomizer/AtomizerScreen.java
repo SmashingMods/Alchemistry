@@ -18,20 +18,20 @@ public class AtomizerScreen extends ABaseScreen<AtomizerContainer> {
     public AtomizerScreen(AtomizerContainer screenContainer, Inventory inv, Component name) {
         super(Alchemistry.MODID, screenContainer, inv, name, path);
         this.tile = (AtomizerTile) getMenu().tile;
-        displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, getMenu()));
-        displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, getMenu()));
+        displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile));
+        displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, tile));
     }
 
     @Override
-    protected void renderBg(PoseStack ms, float f, int mouseX, int mouseY) {
-        super.renderBg(ms, f, mouseX, mouseY);
+    public void render(PoseStack ps, int mouseX, int mouseY, float partialTicks) {
+        super.render(ps, mouseX, mouseY, partialTicks);
         this.minecraft.textureManager.bindForSetup(this.texture);
-
         int i = (this.width - this.getXSize()) / 2;
         int j = (this.height - this.getYSize()) / 2;
-        if (menu.getProgressTicks() > 0) {
-            int k = this.getBarScaled(28, menu.getProgressTicks(), Config.ATOMIZER_TICKS_PER_OPERATION.get());
-            this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
+        if (tile.progressTicks > 0) {//.getProgressTicks() > 0) {
+            int k = this.getBarScaled(28, tile.progressTicks, Config.ATOMIZER_TICKS_PER_OPERATION.get());
+            //this.blit(ps, i + 79, j + 63, 175, 0, k, 9);
+            this.drawRightArrow(ps, i + 79, j + 63, k);
         }
     }
 }

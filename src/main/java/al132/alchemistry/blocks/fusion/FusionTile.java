@@ -16,7 +16,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -76,7 +75,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
         if (canProcess()) {
             process();
         }
-        this.notifyGUIEvery(5);
+        this.updateGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -154,8 +153,8 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
         if (temp == null) return false;
         Direction multiblockDirection = temp.getOpposite();
         BiFunction<BlockPos, Integer, BlockPos> offsetUp = (BlockPos pos, Integer amt) -> pos.relative(Direction.UP, amt);
-        BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection, amt).rotate(Rotation.CLOCKWISE_90));
-        BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection, -1 * amt).rotate(Rotation.CLOCKWISE_90));
+        BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection.getClockWise(), amt));//.rotate(Rotation.CLOCKWISE_90));
+        BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection.getCounterClockWise(), /*-1 **/ amt));//.rotate(Rotation.CLOCKWISE_90));
         BiFunction<BlockPos, Integer, BlockPos> offsetBack = (BlockPos pos, Integer amt) -> pos.relative(multiblockDirection, amt);
         BiFunction<BlockPos, Integer, BlockPos> offsetDown = (BlockPos pos, Integer amt) -> pos.relative(Direction.DOWN, amt);
 

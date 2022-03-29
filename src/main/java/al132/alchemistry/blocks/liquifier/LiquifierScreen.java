@@ -18,8 +18,8 @@ public class LiquifierScreen extends ABaseScreen<LiquifierContainer> {
     public LiquifierScreen(LiquifierContainer container, Inventory inv, Component name) {
         super(Alchemistry.MODID, container, inv, name, path);
         this.tile = (LiquifierTile) container.tile;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, getMenu()));
-        this.displayData.add(new CapabilityFluidDisplayWrapper(122, 40, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile));
+        this.displayData.add(new CapabilityFluidDisplayWrapper(122, 40, 16, 60, tile));
     }
 
     @Override
@@ -28,9 +28,10 @@ public class LiquifierScreen extends ABaseScreen<LiquifierContainer> {
         this.minecraft.textureManager.bindForSetup(this.texture);
         int i = (this.width - this.getXSize()) / 2;
         int j = (this.height - this.getYSize()) / 2;
-        if (getMenu().getProgressTicks() > 0) {
-            int k = this.getBarScaled(28, getMenu().getProgressTicks(), Config.LIQUIFIER_TICKS_PER_OPERATION.get());
-            this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
+        if (tile.progressTicks > 0) {
+            int k = this.getBarScaled(28, tile.progressTicks, Config.LIQUIFIER_TICKS_PER_OPERATION.get());
+            this.drawRightArrow(ms, i + 79, j + 63, k);
+            //this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
         }
     }
 }

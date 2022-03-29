@@ -5,7 +5,6 @@ import al132.alib.container.ABaseContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -16,7 +15,7 @@ public class AtomizerContainer extends ABaseContainer {
         AtomizerTile tile = (AtomizerTile) world.getBlockEntity(pos);
         this.addSlot(new SlotItemHandler(tile.getOutput(), 0, 122, 52));
         addPlayerSlots();
-        trackInt(new DataSlot() {
+     /*   trackInt(new DataSlot() {
             @Override
             public int get() {
                 return tile.progressTicks;
@@ -31,6 +30,7 @@ public class AtomizerContainer extends ABaseContainer {
 
     public int getProgressTicks() {
         return ((AtomizerTile) tile).progressTicks;
+    }*/
     }
 
     //public IEnergyStorage getEnergy() {
@@ -38,7 +38,7 @@ public class AtomizerContainer extends ABaseContainer {
     //}
 
     @Override
-    public boolean stillValid(Player p_38874_) {
+    public boolean stillValid(Player player) {
         return true;
     }
 }

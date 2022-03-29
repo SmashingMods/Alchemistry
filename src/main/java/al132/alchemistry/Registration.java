@@ -37,11 +37,11 @@ public class Registration {
     private static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
 
     public static RecipeType<AtomizerRecipe> ATOMIZER_TYPE;// = register(MODID + ":atomizer");
-    public static  RecipeType<CombinerRecipe> COMBINER_TYPE;// = register(MODID + ":combiner");
-    public static  RecipeType<DissolverRecipe> DISSOLVER_TYPE;// = register(MODID + ":dissolver");
-    public static  RecipeType<EvaporatorRecipe> EVAPORATOR_TYPE;// = register(MODID + ":evaporator");
-    public static  RecipeType<FissionRecipe> FISSION_TYPE;// = register(MODID + ":fission");
-    public static  RecipeType<LiquifierRecipe> LIQUIFIER_TYPE;// = register(MODID + ":liquifier");
+    public static RecipeType<CombinerRecipe> COMBINER_TYPE;// = register(MODID + ":combiner");
+    public static RecipeType<DissolverRecipe> DISSOLVER_TYPE;// = register(MODID + ":dissolver");
+    public static RecipeType<EvaporatorRecipe> EVAPORATOR_TYPE;// = register(MODID + ":evaporator");
+    public static RecipeType<FissionRecipe> FISSION_TYPE;// = register(MODID + ":fission");
+    public static RecipeType<LiquifierRecipe> LIQUIFIER_TYPE;// = register(MODID + ":liquifier");
 
 
     public static void init() {
@@ -141,7 +141,6 @@ public class Registration {
             = RECIPE_SERIALIZERS.register("fission", () -> new FissionRecipeSerializer<>(FissionRecipe::new));
     public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = RECIPE_SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
-
 
 
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {

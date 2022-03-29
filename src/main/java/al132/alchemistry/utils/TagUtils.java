@@ -10,7 +10,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 public class TagUtils {
 
     public static TagKey<Item> tag(String tagName) {
-        return TagKey.m_203882_(Registry.ITEM_REGISTRY, new ResourceLocation(tagName));
+        return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(tagName));
 
         //return null; //TODO DUMBASS! return ItemTags.getAllTags().getTag(new ResourceLocation(tagName));
         //return ForgeTagHandler.createOptionalTag(ForgeRegistries.ITEMS,new ResourceLocation(tagName));
@@ -18,7 +18,7 @@ public class TagUtils {
     }
 
     public static Ingredient tagIngredient(String tagName) {
-        return Ingredient.m_204132_(tag(tagName));
+        return Ingredient.of(tag(tagName));
         //return null; //TODO DUMBASS! return Ingredient.of(tag(tagName));
     }
 }

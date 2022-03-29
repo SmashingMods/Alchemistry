@@ -20,16 +20,16 @@ public class CombinerScreen extends ABaseScreen<CombinerContainer> {
     private Button pauseButton;//: GuiButton
     private CombinerTile tile;
     private CombinerContainer container;
-    private boolean paused;
-    private boolean recipeLocked;
+    //private boolean paused;
+    //private boolean recipeLocked;
 
     public CombinerScreen(CombinerContainer screenContainer, Inventory inv, Component name) {
         super(Alchemistry.MODID, screenContainer, inv, name, "textures/gui/combiner_gui.png");
         this.tile = (CombinerTile) screenContainer.tile;
-        this.paused = tile.paused;
-        this.recipeLocked = tile.recipeIsLocked;
+        //this.paused = tile.paused;
+        //this.recipeLocked = tile.recipeIsLocked;
         this.container = screenContainer;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(8, 8, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(8, 8, 16, 60, tile));
     }
 
     @Override
@@ -38,23 +38,23 @@ public class CombinerScreen extends ABaseScreen<CombinerContainer> {
         toggleRecipeLock = new Button(this.getGuiLeft() + 30, this.getGuiTop() + 75, 80, 20, new TextComponent(""),
                 press -> {
                     Messages.sendToServer(new CombinerButtonPkt(this.tile.getBlockPos(), true, false));
-                    this.recipeLocked = !this.recipeLocked;
+                    //this.recipeLocked = !this.recipeLocked;
                 });
         this.addWidget(toggleRecipeLock);
         pauseButton = new Button(this.getGuiLeft() + 30, this.getGuiTop() + 100, 80, 20, new TextComponent(""),
                 press -> {
-                    this.paused = !this.paused;
+                   // this.paused = !this.paused;
                     Messages.sendToServer(new CombinerButtonPkt(this.tile.getBlockPos(), false, true));
                 });
         this.addWidget(pauseButton);
     }
 
     public void updateButtonStrings() {
-        if (this.recipeLocked)
+        if (this.tile.recipeIsLocked)
             toggleRecipeLock.setMessage(new TextComponent(I18n.get("block.combiner.unlock_recipe")));
         else toggleRecipeLock.setMessage(new TextComponent(I18n.get("block.combiner.lock_recipe")));
 
-        if (this.paused) pauseButton.setMessage(new TextComponent(I18n.get("block.combiner.resume")));
+        if (this.tile.paused) pauseButton.setMessage(new TextComponent(I18n.get("block.combiner.resume")));
         else pauseButton.setMessage(new TextComponent(I18n.get("block.combiner.pause")));
     }
 
@@ -72,7 +72,6 @@ public class CombinerScreen extends ABaseScreen<CombinerContainer> {
 
 
     public void drawItemStack(PoseStack ps, ItemStack stack, int x, int y, String text) {
-        System.out.println("Draw: " + stack.getItem().getRegistryName());
         //RenderHelper.enableStandardItemLighting();//.enableGUIStandardItemLighting();
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         ps.translate(0.0f, 0.0f, 32.0f);

@@ -51,7 +51,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public Component getTitle() {
-        return new TextComponent(I18n.get("alchemistry.jei.atomizer"));
+        return new TextComponent(I18n.get("alchemistry.jei.dissolver"));
     }
 
     @Override

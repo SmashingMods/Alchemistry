@@ -60,9 +60,7 @@ public class FusionControllerBlock extends ABaseTileBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide()) {
-            return null;
-        }
+        if (level.isClientSide()) return null;
         return (lvl, pos, blockState, t) -> {
             if (t instanceof FusionTile) {
                 ((FusionTile) t).tickServer();

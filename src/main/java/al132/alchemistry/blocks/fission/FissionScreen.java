@@ -22,7 +22,7 @@ public class FissionScreen extends ABaseScreen<FissionContainer> {
 
     public FissionScreen(FissionContainer screenContainer, Inventory inv, Component name) {
         super(Alchemistry.MODID, screenContainer, inv, name, path);
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile));
         tile = (FissionTile) screenContainer.tile;
     }
 
@@ -34,8 +34,8 @@ public class FissionScreen extends ABaseScreen<FissionContainer> {
         int i = (this.width - this.getXSize()) / 2;
         int j = (this.height - this.getYSize()) / 2;
         if (tile.progressTicks > 0) {
-            int k = this.getBarScaled(28, tile.progressTicks, Config.FISSION_TICKS_PER_OPERATION.get());
-            this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
+            int k = this.getBarScaled(28, tile.progressTicks , Config.FISSION_TICKS_PER_OPERATION.get());
+            this.drawRightArrow(ms, i + 79, j + 63, k);
         }
     }
 

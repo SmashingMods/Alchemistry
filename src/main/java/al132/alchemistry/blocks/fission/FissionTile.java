@@ -15,7 +15,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -96,7 +95,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         if (canProcess()) {
             process();
         }
-        this.notifyGUIEvery(5);
+        this.updateGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -161,8 +160,8 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
         Direction multiblockDirection = level.getBlockState(this.getBlockPos()).getValue(FissionControllerBlock.FACING).getOpposite();
         if (multiblockDirection == null) return false;
         BiFunction<BlockPos, Integer, BlockPos> offsetUp = (BlockPos pos, Integer amt) -> pos.relative(Direction.UP, amt);
-        BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection, amt).rotate(Rotation.CLOCKWISE_90));
-        BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection, -1 * amt).rotate(Rotation.CLOCKWISE_90));
+        BiFunction<BlockPos, Integer, BlockPos> offsetLeft = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection.getClockWise(), amt));//.rotate(Rotation.CLOCKWISE_90));
+        BiFunction<BlockPos, Integer, BlockPos> offsetRight = (BlockPos pos, Integer amt) -> new BlockPos(pos.relative(multiblockDirection.getCounterClockWise(), /*-1 **/ amt));//.rotate(Rotation.CLOCKWISE_90));
         BiFunction<BlockPos, Integer, BlockPos> offsetBack = (BlockPos pos, Integer amt) -> pos.relative(multiblockDirection, amt);
         BiFunction<BlockPos, Integer, BlockPos> offsetDown = (BlockPos pos, Integer amt) -> pos.relative(Direction.DOWN, amt);
 
@@ -203,6 +202,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
             if (it.getX() == casingCorner1Final.getX() || it.getX() == casingCorner2Final.getX()) sharedAxes++;
             if (it.getY() == casingCorner1Final.getY() || it.getY() == casingCorner2Final.getY()) sharedAxes++;
             if (it.getZ() == casingCorner1Final.getZ() || it.getZ() == casingCorner2Final.getZ()) sharedAxes++;
+
             return sharedAxes >= 1;
         }).allMatch(this::containsCasing);
 

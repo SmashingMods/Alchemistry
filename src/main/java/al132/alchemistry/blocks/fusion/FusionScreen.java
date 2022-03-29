@@ -22,7 +22,7 @@ public class FusionScreen extends ABaseScreen<FusionContainer> {
     public FusionScreen(FusionContainer screenContainer, Inventory inv, Component name) {
         super(Alchemistry.MODID, screenContainer, inv, name, "textures/gui/fusion_gui.png");
         this.tile = (FusionTile) screenContainer.tile;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, tile));
     }
 
     @Override
@@ -33,7 +33,9 @@ public class FusionScreen extends ABaseScreen<FusionContainer> {
         int j = (this.height - this.getYSize()) / 2;
         if (tile.progressTicks > 0) {
             int k = this.getBarScaled(28, tile.progressTicks, Config.FUSION_TICKS_PER_OPERATION.get());
-            this.blit(ms, i + 90, j + 82, 175, 0, k, 9);
+            //this.blit(ms, i + 90, j + 82, 175, 0, k, 9);
+            this.drawRightArrow(ms, i + 90, j + 82, k);
+
         }
     }
 

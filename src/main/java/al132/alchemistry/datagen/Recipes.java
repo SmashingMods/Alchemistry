@@ -70,7 +70,7 @@ public class Recipes extends RecipeProvider {
     }
 
     public void dissolver(String tag, ProbabilitySet set) {
-        Ingredient i = Ingredient.m_204132_(TagKey.m_203882_(Registry.ITEM_REGISTRY, new ResourceLocation(tag)));
+        Ingredient i = Ingredient.of(TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(tag)));
         //dissolver(Ingredient.fromTag(ForgeTagHandler.createOptionalTag(ForgeRegistries.ITEMS, new ResourceLocation(tag))),
         dissolver(i, set, tag.replace(":", "."));
     }

@@ -12,7 +12,6 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements GuiTile {
 
     private int dirtyTicks = 0;
-    private int notifyTicks = 0;
 
     public AlchemistryBaseTile(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state) {
         super(tileEntityTypeIn, pos, state);
@@ -23,17 +22,6 @@ abstract public class AlchemistryBaseTile extends ABaseInventoryTile implements 
         if (this.dirtyTicks >= ticks) {
             this.setChanged();
             this.dirtyTicks = 0;
-        }
-    }
-
-    public void notifyGUIEvery(int ticks) {
-        this.notifyTicks++;
-        if (this.notifyTicks >= ticks) {
-            if (this.level != null) {
-                BlockState state = this.getBlockState();
-                this.level.sendBlockUpdated(getBlockPos(), state, state, 22);
-            }
-            this.notifyTicks = 0;
         }
     }
 

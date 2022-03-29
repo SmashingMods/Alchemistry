@@ -3,8 +3,6 @@ package al132.alchemistry.blocks.combiner;
 import al132.alchemistry.Config;
 import al132.alchemistry.Registration;
 import al132.alchemistry.blocks.AlchemistryBaseTile;
-import al132.alchemistry.network.BlockEntityPacket;
-import al132.alchemistry.network.Messages;
 import al132.alib.tiles.CustomEnergyStorage;
 import al132.alib.tiles.CustomStackHandler;
 import al132.alib.tiles.EnergyTile;
@@ -52,6 +50,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
 
     public void updateRecipe() {
         currentRecipe = CombinerRegistry.matchInputs(level, this.getInput());
+        if(currentRecipe != null) clientRecipeTarget.setStackInSlot(0, currentRecipe.output.copy());
         setChanged();
     }
 
@@ -68,25 +67,18 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
             this.updateRecipe(ItemStack.of(recipeTargetNBT));
             recipeTargetNBT = null;
         }
-
-        if (level.isClientSide) return;
         ItemStack displayStack = ItemStack.EMPTY;
         if (currentRecipe != null && currentRecipe.output != null)
-            displayStack = currentRecipe.output.getContainerItem().copy();
+            displayStack = currentRecipe.output.copy();
         if (recipeIsLocked) clientRecipeTarget.setStackInSlot(0, displayStack);
         if (!this.paused && canProcess()) {
             process();
         }
-        this.notifyGUIEvery(5);
-
-        Messages.sendToTracking(new BlockEntityPacket(this.getBlockPos(), this.getUpdateTag()), this.level, this.getBlockPos());
+        this.updateGUIEvery(5);
+        //Messages.sendToTracking(new BlockEntityPacket(this.getBlockPos(), this.getUpdateTag()), this.level, this.getBlockPos());
     }
 
     public boolean canProcess() {
-        //System.out.println("Target: " + clientRecipeTarget.getStackInSlot(0).getItem());
-        if (this.currentRecipe != null) {
-
-        }
         return currentRecipe != null
                 //&& (currentRecipe.gamestage == "" || hasCurrentRecipeStage()) TODO
                 && energy.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()//ConfigHandler.combinerEnergyPerTick!! //has enough energy
@@ -130,7 +122,7 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         this.progressTicks = compound.getInt("progressTicks");
         this.paused = compound.getBoolean("paused");
         this.recipeTargetNBT = compound.getCompound("recipeTarget");
-        clientRecipeTarget.setStackInSlot(0, ItemStack.of(compound.getCompound("recipeTarget")));
+        clientRecipeTarget.setStackInSlot(0, ItemStack.of(recipeTargetNBT));
     }
 
     @Override
@@ -140,7 +132,6 @@ public class CombinerTile extends AlchemistryBaseTile implements EnergyTile {
         compound.putInt("progressTicks", progressTicks);
         compound.putBoolean("paused", paused);
         compound.put("recipeTarget", clientRecipeTarget.getStackInSlot(0).serializeNBT());
-        //return super.write(compound);
     }
 
     @Override

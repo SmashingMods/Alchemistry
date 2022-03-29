@@ -38,10 +38,13 @@ public class BlockEntityPacket {
     public static void handle(final BlockEntityPacket message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ClientLevel world = Minecraft.getInstance().level;
-            BlockEntity e = world.getBlockEntity(message.pos);
-            System.out.println(message.tag.get("recipeTarget"));
-            e.load(message.tag);
-            e.setChanged();
+            BlockEntity entity = world.getBlockEntity(message.pos);
+            //System.out.println("Before: " + entity.getUpdateTag());
+            entity.load(message.tag);
+            //System.out.println("Data: " + message.tag);
+            //System.out.println("After: " + entity.getUpdateTag());
+            //System.out.println("Target: " + ((CombinerTile)entity).clientRecipeTarget.getStackInSlot(0));
+
         });
         ctx.get().setPacketHandled(true);
     }

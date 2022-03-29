@@ -38,7 +38,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
                 process();
             }
         }
-        this.notifyGUIEvery(5);
+        this.updateGUIEvery(5);
     }
 
     public boolean canProcess() {

@@ -32,9 +32,9 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe>
     @Override
     public T fromJson(ResourceLocation recipeId, JsonObject json) {
         String group = json.get("group").getAsString();//.getString(json, "group", "");
-        JsonElement jsonelement = (JsonElement) (json.get("input").isJsonArray()//.isJsonArray(json, "input")
-                ? json.getAsJsonArray("input")//.getJsonArray(json, "input")
-                : json.getAsJsonObject("input"));//.getJsonObject(json, "input"));
+        JsonElement jsonelement = (JsonElement) (json.get("input").isJsonArray()
+                ? json.getAsJsonArray("input")
+                : json.getAsJsonObject("input"));
         Ingredient input = Ingredient.fromJson(jsonelement);
         int inputCount = json.has("inputCount") ? json.get("inputCount").getAsInt() : 1;
 

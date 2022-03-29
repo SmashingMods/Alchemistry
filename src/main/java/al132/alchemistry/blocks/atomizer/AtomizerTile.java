@@ -31,6 +31,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
             protected void onContentsChanged() {
                 super.onContentsChanged();
                 updateRecipe();
+                setChanged();
             }
         };
     }
@@ -42,6 +43,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
                     .filter(it -> it.input.getFluid() == inputTank.getFluid().getFluid()).findFirst().orElse(null);
         }
         if (inputTank.isEmpty()) currentRecipe = null;
+        setChanged();
     }
 
     public void tickServer() {
@@ -52,7 +54,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
                 process();
             }
         }
-        notifyGUIEvery(5);
+        updateGUIEvery(5);
     }
 
     public boolean canProcess() {
@@ -87,6 +89,7 @@ public class AtomizerTile extends AlchemistryBaseTile implements EnergyTile, Flu
 
     @Override
     public void saveAdditional(CompoundTag compound) {
+        super.saveAdditional(compound);
         compound.putInt("progressTicks", progressTicks);
         compound.put("inputTank", inputTank.writeToNBT(new CompoundTag()));
     }

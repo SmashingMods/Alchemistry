@@ -30,7 +30,6 @@ public class EvaporatorBlock extends ABaseTileBlock {
     public static final VoxelShape BOX = Shapes.or(boundingBox, boundingBox2);
 
 
-
     @Override
     public VoxelShape getOcclusionShape(BlockState state, BlockGetter reader, BlockPos pos) {
         return BOX;
@@ -45,9 +44,7 @@ public class EvaporatorBlock extends ABaseTileBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        if (level.isClientSide()) {
-            return null;
-        }
+        if (level.isClientSide()) return null;
         return (lvl, pos, blockState, t) -> {
             if (t instanceof EvaporatorTile) {
                 ((EvaporatorTile) t).tickServer();

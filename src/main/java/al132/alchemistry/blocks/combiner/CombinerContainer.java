@@ -5,7 +5,6 @@ import al132.alib.container.ABaseContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -18,17 +17,9 @@ public class CombinerContainer extends ABaseContainer {
         this.addSlot(new SlotItemHandler(tile.getOutput(), 0, 140, 33));
         addPlayerSlots();
     }
-/*
-    public IEnergyStorage getEnergy() {
-        return ((CombinerTile) tile).energy;
-    }
-*/
-    public boolean isLocked(){
-        return ((CombinerTile)tile).recipeIsLocked;
-    }
 
     @Override
-    public boolean stillValid(Player p_38874_) {
+    public boolean stillValid(Player player) {
         return true;
     }
 }

@@ -67,7 +67,6 @@ public class CombinerRegistry {
                 }
             }
             inputCache.put(inputStacks, recipe);
-            System.out.println("recipe: " + recipe.output);
             return recipe;//.copy()
         }
         return null;

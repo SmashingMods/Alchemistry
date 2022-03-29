@@ -12,6 +12,6 @@ public class DissolverScreen extends ABaseScreen<DissolverContainer> {
 
     public DissolverScreen(DissolverContainer screenContainer, Inventory inv, Component name) {
         super(Alchemistry.MODID, screenContainer, inv, name, "textures/gui/dissolver_gui.png");
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(13, 31, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(13, 31, 16, 60, screenContainer.tile));
     }
 }

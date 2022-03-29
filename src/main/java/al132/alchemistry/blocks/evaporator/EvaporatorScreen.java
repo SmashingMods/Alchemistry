@@ -17,7 +17,7 @@ public class EvaporatorScreen extends ABaseScreen<EvaporatorContainer> {
     public EvaporatorScreen(EvaporatorContainer screenContainer, Inventory inv, Component name) {
         super(Alchemistry.MODID, screenContainer, inv, name, "textures/gui/evaporator_gui.png");
         this.tile = (EvaporatorTile) screenContainer.tile;
-        this.displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, getMenu()));
+        this.displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, tile));
     }
 
 
@@ -28,9 +28,10 @@ public class EvaporatorScreen extends ABaseScreen<EvaporatorContainer> {
         this.getMinecraft().textureManager.bindForSetup(path);
         int i = (this.width - this.getXSize()) / 2;
         int j = (this.height - this.getYSize()) / 2;
-        if (getMenu().getProgressTicks() > 0) {
-            int k = this.getBarScaled(28, getMenu().getProgressTicks(), tile.calculateProcessingTime());
-            this.blit(ms, i + 79, j + 63, 175, 0, k, 9);
+
+        if (tile.progressTicks > 0) {
+            int k = this.getBarScaled(28, tile.progressTicks, tile.calculateProcessingTime());
+            this.drawRightArrow(ms, i + 79, j + 63, k);
         }
     }
 }

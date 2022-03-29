@@ -52,7 +52,7 @@ public class LiquifierTile extends AlchemistryBaseTile implements EnergyTile, Fl
                 process();
             }
         }
-        this.notifyGUIEvery(5);
+        this.updateGUIEvery(5);
     }
 
     public boolean canProcess() {

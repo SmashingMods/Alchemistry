@@ -1,5 +1,8 @@
 package al132.alchemistry.blocks.dissolver;
 
+import al132.alchemistry.utils.StackUtils;
+import net.minecraft.world.item.ItemStack;
+
 import java.util.List;
 
 public class DissolverTagData {
@@ -14,7 +17,12 @@ public class DissolverTagData {
         this.strs = strs;
     }
 
-    public String toOreData(int index) {
-        return prefix + strs.get(index).substring(0, 1).toUpperCase() + strs.get(index).substring(1);
+    public ItemStack getStack(int index) {
+        return StackUtils.toStack(strs.get(index), quantity);
+    }
+
+    public String toForgeTag(int index) {
+        return "forge:" + prefix + "/" + strs.get(index);
+        //prefix + strs.get(index).substring(0, 1).toUpperCase() + strs.get(index).substring(1);
     }
 }

@@ -43,8 +43,8 @@ public class Recipes extends RecipeProvider {
         super(generatorIn);
     }
 
-    // @Override
-    protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
+    @Override
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         this.consumer = consumer;
         initMetals();
         registerFissionRecipes();
@@ -245,14 +245,19 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.APPLE,
                 set().addGroup(1.0,
-                        toStack("sucrose"),
-                        toStack("cellulose"))
+                                toStack("sucrose"),
+                                toStack("cellulose"))
                         .build());
 
         dissolver(Items.COAL_ORE,
                 set().addGroup(1.0,
-                        toStack("carbon", 32),
-                        toStack("sulfur", 8))
+                                toStack("carbon", 32),
+                                toStack("sulfur", 8))
+                        .build());
+        dissolver(Items.DEEPSLATE_COAL_ORE,
+                set().addGroup(1.0,
+                                toStack("carbon", 32),
+                                toStack("sulfur", 8))
                         .build());
 
         dissolver(Items.COAL_BLOCK,
@@ -270,21 +275,21 @@ public class Recipes extends RecipeProvider {
 
         dissolver("forge:slimeballs",
                 set().addGroup(1,
-                        toStack("protein", 2),
-                        toStack("sucrose", 2))
+                                toStack("protein", 2),
+                                toStack("sucrose", 2))
                         .build());
 
         dissolver(Items.SLIME_BLOCK,
                 set().addGroup(1,
-                        toStack("protein", 2 * 9),
-                        toStack("sucrose", 2 * 9))
+                                toStack("protein", 2 * 9),
+                                toStack("sucrose", 2 * 9))
                         .build());
 
         dissolver(Registration.CONDENSED_MILK_ITEM.get(),
                 set().addGroup(1,
-                        toStack("calcium", 4),
-                        toStack("protein", 2),
-                        toStack("sucrose"))
+                                toStack("calcium", 4),
+                                toStack("protein", 2),
+                                toStack("sucrose"))
                         .build());
 
         dissolver(Items.STICK,
@@ -292,9 +297,9 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.ENDER_PEARL,
                 set().addGroup(1,
-                        toStack("silicon", 16),
-                        toStack("mercury", 16),
-                        toStack("neodymium", 16))
+                                toStack("silicon", 16),
+                                toStack("mercury", 16),
+                                toStack("neodymium", 16))
                         .build(), true);
 
 
@@ -355,8 +360,8 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.SPIDER_EYE,
                 set().addGroup(1,
-                        toStack("beta_carotene", 2),
-                        toStack("protein", 2))
+                                toStack("beta_carotene", 2),
+                                toStack("protein", 2))
                         .build());
 
         dissolver(Items.IRON_HORSE_ARMOR,
@@ -385,11 +390,11 @@ public class Recipes extends RecipeProvider {
         dissolver(Items.IRON_TRAPDOOR,
                 set().addGroup(1, toStack("iron", 64)).build());
 
-        for (Item item : newArrayList(Items.EMERALD, Items.EMERALD_ORE, Items.EMERALD_BLOCK)) {
+        for (Item item : newArrayList(Items.EMERALD, Items.DEEPSLATE_EMERALD_ORE, Items.EMERALD_ORE, Items.EMERALD_BLOCK)) {
             int multiplier = 1;
             boolean reversible = false;
             if (item == Items.EMERALD) reversible = true;
-            else if (item == Items.EMERALD_ORE) multiplier = 2;
+            else if (item == Items.EMERALD_ORE || item == Items.DEEPSLATE_EMERALD_ORE) multiplier = 2;
             else if (item == Items.EMERALD_BLOCK) multiplier = 9;
             dissolver(item,
                     set().addGroup(1,
@@ -399,9 +404,9 @@ public class Recipes extends RecipeProvider {
                     ).build(), reversible);
         }
 
-        for (Item item : newArrayList(Items.DIAMOND, Items.DIAMOND_ORE, Items.DIAMOND_BLOCK)) {
+        for (Item item : newArrayList(Items.DIAMOND, Items.DEEPSLATE_DIAMOND_ORE, Items.DIAMOND_ORE, Items.DIAMOND_BLOCK)) {
             int multiplier = 1;
-            if (item == Items.DIAMOND_ORE) multiplier = 2;
+            if (item == Items.DIAMOND_ORE || item == Items.DEEPSLATE_DIAMOND_ORE) multiplier = 2;
             else if (item == Items.DIAMOND_BLOCK) multiplier = 9;
             dissolver(item,
                     set().addGroup(1, toStack("carbon", 64 * 8 * multiplier)).build());
@@ -450,15 +455,15 @@ public class Recipes extends RecipeProvider {
 
         dissolver("minecraft:music_discs",
                 set().addGroup(1,
-                        toStack("polyvinyl_chloride", 64),
-                        toStack("lead", 16),
-                        toStack("cadmium", 16))
+                                toStack("polyvinyl_chloride", 64),
+                                toStack("lead", 16),
+                                toStack("cadmium", 16))
                         .build());
 
         dissolver(Items.JUKEBOX,
                 set().addGroup(1,
-                        toStack("carbon", 64 * 8),
-                        toStack("cellulose", 2))
+                                toStack("carbon", 64 * 8),
+                                toStack("cellulose", 2))
                         .build());
 
         for (Item item : newArrayList(Items.DIRT, Items.COARSE_DIRT, Items.PODZOL)) {
@@ -510,94 +515,94 @@ public class Recipes extends RecipeProvider {
         }
         dissolver(Items.QUARTZ,
                 set().addGroup(1,
-                        toStack("barium", 16),
-                        toStack("silicon_dioxide", 32))
+                                toStack("barium", 16),
+                                toStack("silicon_dioxide", 32))
                         .build(), true);
 
         for (Item item : newArrayList(Items.NETHER_QUARTZ_ORE, Items.QUARTZ_SLAB, Items.SMOOTH_QUARTZ_SLAB)) {
             dissolver(item,
                     set().addGroup(1,
-                            toStack("barium", 16 * 2),
-                            toStack("silicon_dioxide", 32 * 2))
+                                    toStack("barium", 16 * 2),
+                                    toStack("silicon_dioxide", 32 * 2))
                             .build());
         }
         dissolver("forge:storage_blocks/quartz",
                 set().addGroup(1,
-                        toStack("barium", 16 * 4),
-                        toStack("silicon_dioxide", 32 * 4))
+                                toStack("barium", 16 * 4),
+                                toStack("silicon_dioxide", 32 * 4))
                         .build());
 
         for (Item item : newArrayList(Items.CHISELED_QUARTZ_BLOCK, Items.SMOOTH_QUARTZ, Items.QUARTZ_PILLAR, Items.QUARTZ_BRICKS)) {
             dissolver(item,
                     set().addGroup(1,
-                            toStack("barium", 16 * 4),
-                            toStack("silicon_dioxide", 32 * 4))
+                                    toStack("barium", 16 * 4),
+                                    toStack("silicon_dioxide", 32 * 4))
                             .build());
         }
 
         dissolver(Items.BROWN_MUSHROOM,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("psilocybin"))
+                                toStack("cellulose"),
+                                toStack("psilocybin"))
                         .build(), true);
 
         dissolver(Items.RED_MUSHROOM,
                 set().addGroup(1,
-                        toStack("psilocybin"),
-                        toStack("cellulose"))
+                                toStack("psilocybin"),
+                                toStack("cellulose"))
                         .build(), true);
 
         dissolver(Items.CRIMSON_FUNGUS,
                 set().addGroup(1,
-                        toStack("psilocybin"),
-                        toStack("cellulose"),
-                        toStack("selenium"))
+                                toStack("psilocybin"),
+                                toStack("cellulose"),
+                                toStack("selenium"))
                         .build(), true);
 
 
         dissolver(Items.WARPED_FUNGUS,
                 set().addGroup(1,
-                        toStack("psilocybin"),
-                        toStack("cellulose"),
-                        toStack("mercury"))
+                                toStack("psilocybin"),
+                                toStack("cellulose"),
+                                toStack("mercury"))
                         .build(), true);
 
         dissolver(Items.CRIMSON_ROOTS,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("mercury_sulfide"))
+                                toStack("cellulose"),
+                                toStack("mercury_sulfide"))
                         .build(), true);
 
         dissolver(Items.WARPED_ROOTS,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("copper_chloride"))
+                                toStack("cellulose"),
+                                toStack("copper_chloride"))
                         .build(), true);
 
         dissolver(Items.NETHER_SPROUTS,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("copper_chloride"))
+                                toStack("cellulose"),
+                                toStack("copper_chloride"))
                         .build(), true);
 
         dissolver(Items.TWISTING_VINES,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("copper_chloride"))
+                                toStack("cellulose"),
+                                toStack("copper_chloride"))
                         .build(), true);
 
         dissolver(Items.WEEPING_VINES,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("mercury_sulfide"))
+                                toStack("cellulose"),
+                                toStack("mercury_sulfide"))
                         .build(), true);
 
 
         for (Item item : newArrayList(Items.SOUL_SAND, Items.SOUL_SOIL)) {
             dissolver(item,
                     set().addGroup(1,
-                            toStack("thulium"),
-                            toStack("silicon_dioxide", 4))
+                                    toStack("thulium"),
+                                    toStack("silicon_dioxide", 4))
                             .build(), true);
         }
 
@@ -639,37 +644,37 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.GUNPOWDER,
                 set().addGroup(1,
-                        toStack("potassium_nitrate", 2),
-                        toStack("sulfur", 8),
-                        toStack("carbon", 8))
+                                toStack("potassium_nitrate", 2),
+                                toStack("sulfur", 8),
+                                toStack("carbon", 8))
                         .build(), true);
 
         dissolver(Items.BLAZE_POWDER,
                 set().addGroup(1,
-                        toStack("germanium", 8),
-                        toStack("carbon", 8),
-                        toStack("sulfur", 8))
+                                toStack("germanium", 8),
+                                toStack("carbon", 8),
+                                toStack("sulfur", 8))
                         .build(), true);
 
         dissolver(Items.NETHER_WART,
                 set().addGroup(1,
-                        toStack("cellulose"),
-                        toStack("germanium", 4),
-                        toStack("selenium", 4))
+                                toStack("cellulose"),
+                                toStack("germanium", 4),
+                                toStack("selenium", 4))
                         .build(), true);
 
         dissolver(Items.NETHER_WART_BLOCK,
                 set().addGroup(1,
-                        toStack("cellulose", 9),
-                        toStack("germanium", 4 * 9),
-                        toStack("selenium", 4 * 9))
+                                toStack("cellulose", 9),
+                                toStack("germanium", 4 * 9),
+                                toStack("selenium", 4 * 9))
                         .build());
 
         dissolver(Items.WARPED_WART_BLOCK,
                 set().addGroup(1,
-                        toStack("cellulose", 9),
-                        toStack("neodymium", 4),
-                        toStack("mercury", 4))
+                                toStack("cellulose", 9),
+                                toStack("neodymium", 4),
+                                toStack("mercury", 4))
                         .build());
 
 
@@ -708,20 +713,20 @@ public class Recipes extends RecipeProvider {
                         .addGroup(10, toStack("magnesium_oxide"))
                         .build());
 
-        for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK, Items.LAPIS_ORE)) {
+        for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK, Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE)) {
             int multiplier = 1;
             boolean reversible = false;
             if (item == Items.LAPIS_BLOCK) multiplier = 9;
-            else if (item == Items.LAPIS_ORE) multiplier = 4;
+            else if (item == Items.LAPIS_ORE || item == Items.DEEPSLATE_LAPIS_ORE) multiplier = 4;
             else reversible = true;
             dissolver(item,
                     set().addGroup(1,
-                            toStack("sodium", 6 * multiplier),
-                            toStack("calcium", 2 * multiplier),
-                            toStack("aluminum", 6 * multiplier),
-                            toStack("silicon", 6 * multiplier),
-                            toStack("oxygen", 24 * multiplier),
-                            toStack("sulfur", 2 * multiplier))
+                                    toStack("sodium", 6 * multiplier),
+                                    toStack("calcium", 2 * multiplier),
+                                    toStack("aluminum", 6 * multiplier),
+                                    toStack("silicon", 6 * multiplier),
+                                    toStack("oxygen", 24 * multiplier),
+                                    toStack("sulfur", 2 * multiplier))
                             .build(), reversible);
         }
 
@@ -854,20 +859,25 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.REDSTONE,
                 set().addGroup(1,
-                        toStack("iron_oxide"),
-                        toStack("strontium_carbonate"))
+                                toStack("iron_oxide"),
+                                toStack("strontium_carbonate"))
                         .build(), true);
 
         dissolver(Items.REDSTONE_ORE,
                 set().addGroup(1,
-                        toStack("iron_oxide", 4),
-                        toStack("strontium_carbonate", 4))
+                                toStack("iron_oxide", 4),
+                                toStack("strontium_carbonate", 4))
+                        .build());
+        dissolver(Items.DEEPSLATE_REDSTONE_ORE,
+                set().addGroup(1,
+                                toStack("iron_oxide", 4),
+                                toStack("strontium_carbonate", 4))
                         .build());
 
         dissolver(Items.REDSTONE_BLOCK,
                 set().addGroup(1,
-                        toStack("iron_oxide", 9),
-                        toStack("strontium_carbonate", 9))
+                                toStack("iron_oxide", 9),
+                                toStack("strontium_carbonate", 9))
                         .build());
 
         for (Item item : newArrayList(Items.BEEF, Items.PORKCHOP, Items.MUTTON, Items.COOKED_PORKCHOP,
@@ -879,29 +889,29 @@ public class Recipes extends RecipeProvider {
         for (Item item : newArrayList(Items.COD, Items.COOKED_COD, Items.TROPICAL_FISH)) {
             dissolver(item,
                     set().addGroup(1,
-                            toStack("protein", 4),
-                            toStack("selenium", 2))
+                                    toStack("protein", 4),
+                                    toStack("selenium", 2))
                             .build());
         }
 
         for (Item item : newArrayList(Items.SALMON, Items.COOKED_SALMON)) {
             dissolver(item,
                     set().addGroup(1,
-                            toStack("protein", 4),
-                            toStack("selenium", 4))
+                                    toStack("protein", 4),
+                                    toStack("selenium", 4))
                             .build());
         }
 
         dissolver(Items.PUFFERFISH,
                 set().addGroup(1,
-                        toStack("protein", 4),
-                        toStack("potassium_cyanide", 4))
+                                toStack("protein", 4),
+                                toStack("potassium_cyanide", 4))
                         .build());
 
         dissolver(Items.SPONGE,
                 set().addGroup(1,
-                        toStack("kaolinite", 8),
-                        toStack("calcium_carbonate", 8))
+                                toStack("kaolinite", 8),
+                                toStack("calcium_carbonate", 8))
                         .build(), true);
 
         dissolver(Items.LEATHER,
@@ -921,8 +931,8 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.EGG,
                 set().addGroup(1,
-                        toStack("calcium_carbonate", 8),
-                        toStack("protein", 2))
+                                toStack("calcium_carbonate", 8),
+                                toStack("protein", 2))
                         .build(), true);
 
         dissolver(Registration.MINERAL_SALT_ITEM.get(),
@@ -953,8 +963,8 @@ public class Recipes extends RecipeProvider {
 
         dissolver("forge:dyes/lime",
                 set().addGroup(1,
-                        toStack("cadmium_sulfide", 2),
-                        toStack("chromium_oxide", 2))
+                                toStack("cadmium_sulfide", 2),
+                                toStack("chromium_oxide", 2))
                         .build());
 
         dissolver("forge:dyes/purple",
@@ -977,8 +987,8 @@ public class Recipes extends RecipeProvider {
 
         dissolver("forge:dyes/light_blue",
                 set().addGroup(1,
-                        toStack("cobalt_aluminate", 2),
-                        toStack("antimony_trioxide", 2))
+                                toStack("cobalt_aluminate", 2),
+                                toStack("antimony_trioxide", 2))
                         .build());
 
         dissolver("forge:dyes/blue",
@@ -993,8 +1003,8 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.WITHER_SKELETON_SKULL,
                 set().addGroup(1,
-                        toStack("hydroxylapatite", 8),
-                        toStack("mendelevium", 32))
+                                toStack("hydroxylapatite", 8),
+                                toStack("mendelevium", 32))
                         .build());
 
         dissolver(Items.SKELETON_SKULL,
@@ -1089,10 +1099,10 @@ public class Recipes extends RecipeProvider {
 
         dissolver(Items.OBSIDIAN,
                 set().addGroup(1,
-                        toStack("magnesium_oxide", 8),
-                        toStack("potassium_chloride", 8),
-                        toStack("aluminum_oxide", 8),
-                        toStack("silicon_dioxide", 24))
+                                toStack("magnesium_oxide", 8),
+                                toStack("potassium_chloride", 8),
+                                toStack("aluminum_oxide", 8),
+                                toStack("silicon_dioxide", 24))
                         .build(), true);
 
         dissolver(Items.BAMBOO, set().addGroup(1, toStack("cellulose")).build());
@@ -1139,17 +1149,25 @@ public class Recipes extends RecipeProvider {
         dissolver(Items.IRON_NUGGET, set().addGroup(1, toStack("iron", 1)).build());
         dissolver(Items.IRON_BLOCK, set().addGroup(1, toStack("iron", 16 * 9)).build());
         dissolver(Items.IRON_ORE, set().addGroup(1, toStack("iron", 32)).build());
+        dissolver(Items.DEEPSLATE_IRON_ORE, set().addGroup(1, toStack("iron", 32)).build());
+
         dissolver(Items.CHAIN, set().addGroup(1, toStack("iron", 18)).build());
 
         dissolver(Items.GOLD_INGOT, set().addGroup(1, toStack("gold", 16)).build());
         dissolver(Items.GOLD_NUGGET, set().addGroup(1, toStack("gold", 1)).build());
         dissolver(Items.GOLD_BLOCK, set().addGroup(1, toStack("gold", 16 * 9)).build());
         dissolver(Items.GOLD_ORE, set().addGroup(1, toStack("gold", 32)).build());
+        dissolver(Items.DEEPSLATE_GOLD_ORE, set().addGroup(1, toStack("gold", 32)).build());
         dissolver(Items.NETHER_GOLD_ORE, set().addGroup(1, toStack("gold", 32)).build());
 
         dissolver(Items.INK_SAC, set().addGroup(1, toStack("titanium_oxide", 4)).build());
 
 
+        for (DissolverTagData data : metalTagData) {
+            for (int i = 0; i < data.strs.size(); i++) {
+                dissolver(data.toForgeTag(i), set().addGroup(1, data.getStack(i)).build());
+            }
+        }
     }
 
     private void initMetals() {
@@ -1159,7 +1177,7 @@ public class Recipes extends RecipeProvider {
                 .filter(it -> !nonMetals.contains(it.atomicNumber))
                 .map(it -> it.internalName).collect(Collectors.toList()));
 
-        metalTagData.add(new DissolverTagData("ingots", 16, metals));
+        //metalTagData.add(new DissolverTagData("ingots", 16, metals));
         metalTagData.add(new DissolverTagData("ores", 32, metals));
         metalTagData.add(new DissolverTagData("dusts", 16, metals));
         metalTagData.add(new DissolverTagData("storage_blocks", 144, metals));
@@ -1173,9 +1191,12 @@ public class Recipes extends RecipeProvider {
                 toStack("chromium", 8),
                 toStack("vanadium", 4)));
         combiner(Items.LAPIS_LAZULI, newArrayList(
-                toStack("beryl", 8),
-                toStack("chromium", 8),
-                toStack("vanadium", 4)));
+                toStack("sodium", 6),
+                toStack("calcium", 2),
+                toStack("aluminum", 6),
+                toStack("silicon", 6),
+                toStack("oxygen", 24),
+                toStack("sulfur", 2)));
         combiner(Items.BAMBOO, newArrayList(
                 null, null, null,
                 null, null, null,
@@ -1362,22 +1383,5 @@ public class Recipes extends RecipeProvider {
         combiner(Items.IRON_INGOT, newArrayList(toStack("iron", 16)));
         combiner(Items.GOLD_INGOT, newArrayList(toStack("gold", 16)));
 
-
-    /*
-        for (String metal : metals) {
-            String tag = "forge:ingots/" + metal;
-            //if (!tag.getAllElements().isEmpty()) {
-
-            Ingredient ing = TagUtils.tagIngredient(tag);// Ingredient.fromTag(ItemTags.createOptional(new ResourceLocation(tag)));
-            //Arrays.stream(ing.getMatchingStacks()).forEach(System.out::println);
-            combiner(toStack("chemlib:ingot_" + metal).getItem(), newArrayList(toStack(metal, 16)));
-            //combiner(ing.getMatchingStacks()[0].getItem(), newArrayList(toStack(metal, 16)));
-            //combinerRecipes.add(new CombinerRecipe(ing, newArrayList(toStack(metal, 16))));
-            //combinerRecipes.add(new CombinerRecipe(new ItemStack(tag.getAllElements().iterator().next()),
-            //        newArrayList(toStack(metal, 16))));
-            //}
-        }
-*/
     }
-
 }

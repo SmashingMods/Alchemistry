@@ -25,3 +25,7 @@ run
 classes
 gradle
 modelfiles
+
+# Project
+.cache
+/secrets.properties

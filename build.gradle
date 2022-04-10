@@ -2,7 +2,6 @@ buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
         maven { url = 'https://maven.parchmentmc.org' }
-        mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
@@ -10,38 +9,31 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'java'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = mc_version + '-'+ mod_version
-group = 'al132.alchemistry' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "$minecraft_version-$mod_version"
+group = 'com.smashingmods'
 archivesBaseName = 'alchemistry'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets{
-    main.resources.srcDirs += 'src/main/generated_resources'
+    main.resources.srcDirs += 'src/generated/resources'
 }
 
 minecraft {
-    //mappings channel: 'official', version: '1.18'
-    mappings channel: 'parchment', version: "2022.03.13-1.18.2"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
-    // Default run configurations.
-    // These can be tweaked, removed, or duplicated as needed.
+    mappings channel: 'parchment', version: "$parchment_version"
     runs {
         client {
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
@@ -53,11 +45,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
@@ -69,14 +57,10 @@ minecraft {
 
         data {
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'alchemistry', '--all', '--output', file('src/main/generated_resources/')
+            args '--mod', 'alchemistry', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
 
             mods {
                 alchemistry {
@@ -88,73 +72,73 @@ minecraft {
 }
 
 repositories {
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
-    }
+    maven { url "https://dvs1.progwml6.com/files/maven/" }
+    maven { url "https://www.cursemaven.com" }
+    mavenLocal()
 }
 
-
 dependencies {
-    // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
-    // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
-    // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // compile against the JEI API but do not include it at runtime
     //implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     // at runtime, use the full JEI jar
     implementation fg.deobf("mezz.jei:jei-${jei_version}")
 
-    implementation fg.deobf(files("libs/chemlib-" + chemlib_version + "-dev.jar"))
-    implementation fg.deobf(files("libs/alib-" + alib_version + "-dev.jar"))//1.14.4-3-dev.jar"))
-    implementation fg.deobf(files("libs/quirkygenerators-" + quirky_version + "-dev.jar"))
-    //compile fg.deobf(files("libs/CraftTweaker-${ct_version}-deobf.jar"))
-    //compile fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}") // 1.14
-
+    implementation fg.deobf("com.smashingmods:AlchemyLib:$alchemylib_version")
+    implementation fg.deobf("com.smashingmods:ChemLib:$chemlib_version")
 }
 
-// Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
         attributes([
                 "Specification-Title"     : "alchemistry",
-                "Specification-Vendor"    : "al132",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Vendor"    : "SmashingMods",
+                "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
-                "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "al132",
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : "SmashingMods",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
 }
 
-task deobfJar(type: Jar) {
-    from(sourceSets.main.output)
-    archiveName = "${baseName} ${version}-deobf.${extension}"
-}
+jar.finalizedBy('reobfJar')
 
-task devJar(type: Jar) {
-    from sourceSets.main.output
-    from sourceSets.main.allJava
-    classifier = 'dev'
-    manifest {
-        attributes(["Specification-Title"     : "alchemistry",
-                    "Specification-Vendor"    : "al132",
-                    "Specification-Version"   : "1", // We are version 1 of the modlauncher specification
-                    "Implementation-Title"    : project.name,
-                    "Implementation-Version"  : "${version}",
-                    "Implementation-Vendor"   : "al132",
-                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
     }
 }
 
-artifacts {
-    archives devJar
+def secrets = new Properties()
+file('secrets.properties').withInputStream {
+    stream -> secrets.load(stream)
+}
+
+fileTree("secrets").matching {
+    include "**/*.properties"
+}.each {
+    File file ->
+        file.withInputStream {
+            stream -> secrets.load(stream)
+        }
+}
+
+curseforge {
+    apiKey = secrets.getProperty("apiKey")
+    project {
+        id = '293425'
+        releaseType = 'release'
+        changelogType = 'markdown'
+        changelog = file("changelog.md")
+        addGameVersion 'Forge'
+        addGameVersion 'Java 18'
+        addGameVersion '1.18.2'
+        mainArtifact(jar) {
+            displayName = "Alchemistry $project.version"
+        }
+    }
 }

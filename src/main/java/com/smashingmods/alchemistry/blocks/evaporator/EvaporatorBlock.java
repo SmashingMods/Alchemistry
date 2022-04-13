@@ -15,14 +15,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EvaporatorBlock extends BaseEntityBlock<EvaporatorContainer> {
+public class EvaporatorBlock extends BaseEntityBlock {
     public EvaporatorBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), EvaporatorContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), EvaporatorBlockEntity::new, EvaporatorContainer::new);
     }
 
 
@@ -44,15 +45,10 @@ public class EvaporatorBlock extends BaseEntityBlock<EvaporatorContainer> {
         //tooltip.add(new TextComponent(I18n.get("tooltip.alchemistry.evaporator",50)));
     }
 
-    @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
-        return new EvaporatorBlockEntity(pPos, pState);
-    }
-
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
-        if (level.isClientSide()) return null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) return null;
         return (lvl, pos, blockState, t) -> {
             if (t instanceof EvaporatorBlockEntity) {
                 ((EvaporatorBlockEntity) t).tickServer();

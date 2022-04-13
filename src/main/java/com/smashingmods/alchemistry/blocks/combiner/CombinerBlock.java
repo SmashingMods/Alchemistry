@@ -18,12 +18,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class CombinerBlock extends BaseEntityBlock<CombinerContainer> {
+public class CombinerBlock extends BaseEntityBlock {
     public static final VoxelShape A = Block.box(0.0, 0.0, 0.0, 16.0, 1, 16.0);
     public static final VoxelShape B = Block.box(2.0, 1.0, 2.0, 14, 11.0, 14);
     public static final VoxelShape C = Block.box(0.0, 11.0, 0.0, 16.0, 14.0, 16.0);
@@ -31,7 +32,7 @@ public class CombinerBlock extends BaseEntityBlock<CombinerContainer> {
     public static final VoxelShape BOX = Shapes.or(A, B, C);
 
     public CombinerBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), CombinerContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), CombinerBlockEntity::new, CombinerContainer::new);
     }
 
     @Override
@@ -47,15 +48,10 @@ public class CombinerBlock extends BaseEntityBlock<CombinerContainer> {
         tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.COMBINER_ENERGY_PER_TICK.get())));
     }
 
-    @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
-        return new CombinerBlockEntity(pPos, pState);
-    }
-
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
-        if (level.isClientSide()) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
             return null;
         }
         return (lvl, pos, blockState, t) -> {

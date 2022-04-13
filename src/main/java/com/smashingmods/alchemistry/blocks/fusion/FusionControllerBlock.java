@@ -23,17 +23,18 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Material;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FusionControllerBlock extends BaseEntityBlock<FusionContainer> {
+public class FusionControllerBlock extends BaseEntityBlock {
     public static final EnumProperty<PowerStatus> STATUS = EnumProperty.create("status", PowerStatus.class, PowerStatus.values());
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public FusionControllerBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), FusionContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), FusionBlockEntity::new, FusionContainer::new);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(STATUS, PowerStatus.OFF)
                 .setValue(FACING, Direction.NORTH));
@@ -58,15 +59,10 @@ public class FusionControllerBlock extends BaseEntityBlock<FusionContainer> {
         tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.FUSION_ENERGY_PER_TICK.get())));
     }
 
-    @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
-        return new FusionBlockEntity(pPos, pState);
-    }
-
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
-        if (level.isClientSide()) return null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) return null;
         return (lvl, pos, blockState, t) -> {
             if (t instanceof FusionBlockEntity) {
                 ((FusionBlockEntity) t).tickServer();

@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
+import com.mojang.datafixers.util.Function3;
 import com.smashingmods.alchemistry.api.container.BaseContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -26,16 +27,18 @@ import net.minecraftforge.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.function.BiFunction;
 
-public abstract class BaseEntityBlock<T extends BaseContainer> extends Block implements EntityBlock {
+public abstract class BaseEntityBlock extends Block implements EntityBlock {
 
-    Class<T> container;
+    BiFunction<BlockPos, BlockState, BlockEntity> blockEntity;
+    Function3<Integer, BlockPos, Inventory, BaseContainer> containerFunction;
 
-    public BaseEntityBlock(Block.Properties properties, Class<T> container) {
+    public BaseEntityBlock(Block.Properties properties, BiFunction<BlockPos, BlockState, BlockEntity> blockEntity, Function3<Integer, BlockPos, Inventory, BaseContainer> containerFunction) {
         super(properties);
-        this.container = container;
+        this.blockEntity = blockEntity;
+        this.containerFunction = containerFunction;
     }
 
     @Override
@@ -73,6 +76,11 @@ public abstract class BaseEntityBlock<T extends BaseContainer> extends Block imp
     }
 
     @Override
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
+        return blockEntity.apply(pPos, pState);
+    }
+
+    @Override
     @Nonnull
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, @Nonnull InteractionHand pHand, @Nonnull BlockHitResult pBlockHitResult) {
@@ -92,12 +100,7 @@ public abstract class BaseEntityBlock<T extends BaseContainer> extends Block imp
 
                 @Override
                 public AbstractContainerMenu createMenu(int pContainerId, @Nonnull Inventory pInventory, @Nonnull Player pPlayer) {
-                    try {
-                        return container.getConstructor(int.class, BlockPos.class, Inventory.class).newInstance(pContainerId, pPos, pInventory);
-                    } catch (InvocationTargetException | InstantiationException | IllegalAccessException | NoSuchMethodException e) {
-                        e.printStackTrace();
-                    }
-                    return null;
+                    return containerFunction.apply(pContainerId, pPos, pInventory);
                 }
             };
 

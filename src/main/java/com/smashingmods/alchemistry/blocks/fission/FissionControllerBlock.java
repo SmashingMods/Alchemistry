@@ -23,18 +23,19 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Material;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FissionControllerBlock extends BaseEntityBlock<FissionContainer> {
+public class FissionControllerBlock extends BaseEntityBlock {
     public static final EnumProperty<PowerStatus> STATUS = EnumProperty.create("status", PowerStatus.class, PowerStatus.values());
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
 
     public FissionControllerBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), FissionContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), FissionBlockEntity::new, FissionContainer::new);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(STATUS, PowerStatus.OFF)
                 .setValue(FACING, Direction.NORTH));
@@ -59,15 +60,10 @@ public class FissionControllerBlock extends BaseEntityBlock<FissionContainer> {
         tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.FISSION_ENERGY_PER_TICK.get())));
     }
 
-    @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
-        return new FissionBlockEntity(pPos, pState);
-    }
-
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
-        if (level.isClientSide()) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
+        if (pLevel.isClientSide()) {
             return null;
         }
         return (lvl, pos, blockState, t) -> {

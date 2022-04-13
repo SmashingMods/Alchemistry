@@ -18,15 +18,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AtomizerBlock extends BaseEntityBlock<AtomizerContainer> {
+public class AtomizerBlock extends BaseEntityBlock {
 
     public AtomizerBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), AtomizerContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), AtomizerBlockEntity::new, AtomizerContainer::new);
     }
 
     public static final VoxelShape base = Block.box(0, 0, 0, 16, 1, 16);
@@ -46,18 +47,13 @@ public class AtomizerBlock extends BaseEntityBlock<AtomizerContainer> {
         tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.ATOMIZER_ENERGY_PER_TICK.get())));
     }
 
-    @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
-        return new AtomizerBlockEntity(pPos, pState);
-    }
-
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
         if (pLevel.isClientSide()) return null;
-        return (lvl, pos, blockState, t) -> {
-            if (t instanceof AtomizerBlockEntity) {
-                ((AtomizerBlockEntity) t).tickServer();
+        return (level, pos, blockState, blockEntity) -> {
+            if (blockEntity instanceof AtomizerBlockEntity) {
+                ((AtomizerBlockEntity) blockEntity).tickServer();
             }
         };
     }

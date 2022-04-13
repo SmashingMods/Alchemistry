@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.compat.jei.category;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.blocks.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.compat.jei.JEIIntegration;
 import mezz.jei.api.constants.VanillaTypes;
@@ -51,7 +51,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(new ItemStack(Registration.ATOMIZER_BLOCK.get()));
+        return guiHelper.createDrawableIngredient(new ItemStack(Registry.ATOMIZER_BLOCK.get()));
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.smashingmods.alchemistry.blocks;
 
 import net.minecraft.util.StringRepresentable;
 
+import javax.annotation.Nonnull;
+
 public enum PowerStatus implements StringRepresentable {
     OFF("off"),
     STANDBY("standby"),
@@ -13,8 +15,8 @@ public enum PowerStatus implements StringRepresentable {
         this.name = name;
     }
 
-    
     @Override
+    @Nonnull
     public String getSerializedName() {
         return this.name;
     }

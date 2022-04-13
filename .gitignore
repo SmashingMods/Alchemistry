@@ -28,4 +28,4 @@ modelfiles
 
 # Project
 .cache
-/secrets.properties
+secrets.properties

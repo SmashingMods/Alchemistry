@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.blocks.dissolver;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseTile;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
+import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
 import com.smashingmods.alchemistry.utils.StackUtils;
-import com.smashingmods.alchemylib.tiles.CustomEnergyStorage;
-import com.smashingmods.alchemylib.tiles.CustomStackHandler;
-import com.smashingmods.alchemylib.tiles.EnergyTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -14,26 +14,27 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
 import static com.smashingmods.alchemistry.utils.StackUtils.canStacksMerge;
 
-public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
+public class DissolverBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
 
     private boolean outputSuccessful = true;
     private ItemStack outputThisTick = ItemStack.EMPTY;
     private DissolverRecipe currentRecipe = null;
     private NonNullList<ItemStack> outputBuffer = NonNullList.create();
 
-    public DissolverTile(BlockPos pos, BlockState state) {
-        super(Registration.DISSOLVER_BE.get(), pos, state);
+    public DissolverBlockEntity(BlockPos pos, BlockState state) {
+        super(Registry.DISSOLVER_BE.get(), pos, state);
     }
 
     public void tickServer() {
         if (level.isClientSide) return;
         if (currentRecipe == null) updateRecipe();
-        if (!getInput().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
+        if (!getInputHandler().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
             if (canProcess()) {
                 process();
             }
@@ -51,7 +52,7 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         //if no output buffer, set the buffer to recipe outputs
         if (outputBuffer.isEmpty()) {
             outputBuffer = currentRecipe.outputs.calculateOutput();
-            getInput().decrementSlot(0, currentRecipe.inputIngredient.ingredient.getItems()[0].getCount());
+            getInputHandler().decrementSlot(0, currentRecipe.inputIngredient.ingredient.getItems()[0].getCount());
         }
 
         //If output didn't happen or didn't fail last tick, queue up next output single stack
@@ -64,18 +65,18 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
         }
 
         //Try to stack output with existing stacks in output, if possible
-        for (int i = 0; i < getOutput().getSlots(); i++) {
-            if (canStacksMerge(outputThisTick, getOutput().getStackInSlot(i), false)) {
-                getOutput().setOrIncrement(i, outputThisTick);
+        for (int i = 0; i < getOutputHandler().getSlots(); i++) {
+            if (canStacksMerge(outputThisTick, getOutputHandler().getStackInSlot(i), false)) {
+                getOutputHandler().setOrIncrement(i, outputThisTick);
                 outputSuccessful = true;
                 break;
             }
         }
         //Otherwise try the empty stacks
         if (!outputSuccessful) {
-            for (int i = 0; i < getOutput().getSlots(); i++) {
-                if (canStacksMerge(outputThisTick, getOutput().getStackInSlot(i), true)) {
-                    getOutput().setOrIncrement(i, outputThisTick);
+            for (int i = 0; i < getOutputHandler().getSlots(); i++) {
+                if (canStacksMerge(outputThisTick, getOutputHandler().getStackInSlot(i), true)) {
+                    getOutputHandler().setOrIncrement(i, outputThisTick);
                     outputSuccessful = true;
                     break;
                 }
@@ -91,9 +92,8 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public CustomStackHandler initInput() {
+    public CustomStackHandler initInputHandler() {
         return new CustomStackHandler(this, 1) {
-            @Nonnull
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 if (!this.getStackInSlot(slot).isEmpty()) return super.isItemValid(slot, stack);
@@ -110,9 +110,8 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public CustomStackHandler initOutput() {
+    public CustomStackHandler initOutputHandler() {
         return new CustomStackHandler(this, 10) {
-            @Nonnull
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;
@@ -122,18 +121,18 @@ public class DissolverTile extends AlchemistryBaseTile implements EnergyTile {
 
 
     public void updateRecipe() {
-        this.currentRecipe = DissolverRegistry.match(level, getInput().getStackInSlot(0), true);
+        this.currentRecipe = DissolverRegistry.match(level, getInputHandler().getStackInSlot(0), true);
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
         super.load(compound);
         this.outputSuccessful = compound.getBoolean("OutputSuccessful");
         StackUtils.loadAllItems(compound.getCompound("OutputBuffer"), outputBuffer);
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
         compound.putBoolean("OutputSuccessful", this.outputSuccessful);
         compound.put("OutputBuffer", StackUtils.saveAllItems(new CompoundTag(), outputBuffer));

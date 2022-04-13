@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.network;
 
 
 import com.smashingmods.alchemistry.blocks.combiner.CombinerRegistry;
-import com.smashingmods.alchemistry.blocks.combiner.CombinerTile;
+import com.smashingmods.alchemistry.blocks.combiner.CombinerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -39,7 +39,7 @@ public class CombinerTransferPkt {
         ctx.get().enqueueWork(() -> {
             Player Player = ctx.get().getSender();//.player
 
-            CombinerTile tile = (CombinerTile) Player.level.getBlockEntity(message.pos);
+            CombinerBlockEntity tile = (CombinerBlockEntity) Player.level.getBlockEntity(message.pos);
             ItemStack output = message.outputStack;
             if (!output.isEmpty()) {
                 tile.clientRecipeTarget.setStackInSlot(0, output.copy());

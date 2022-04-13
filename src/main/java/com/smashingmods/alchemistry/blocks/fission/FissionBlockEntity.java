@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.blocks.fission;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseTile;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
+import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
 import com.smashingmods.alchemistry.blocks.PowerStatus;
-import com.smashingmods.alchemylib.tiles.CustomEnergyStorage;
-import com.smashingmods.alchemylib.tiles.CustomStackHandler;
-import com.smashingmods.alchemylib.tiles.EnergyTile;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.smashingmods.chemlib.items.ElementItem;
 import net.minecraft.core.BlockPos;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,9 +27,9 @@ import java.util.function.BiFunction;
 
 import static com.smashingmods.alchemistry.blocks.PowerStatus.*;
 
-public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
-    public FissionTile(BlockPos pos, BlockState state) {
-        super(Registration.FISSION_CONTOLLER_BE.get(), pos, state);
+public class FissionBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
+    public FissionBlockEntity(BlockPos pos, BlockState state) {
+        super(Registry.FISSION_CONTOLLER_BE.get(), pos, state);
     }
 
     int progressTicks = 0;
@@ -39,7 +40,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     boolean firstTick = true;
 
     public ItemStack getInputStack() {
-        return this.getInput().getStackInSlot(0);
+        return this.getInputHandler().getStackInSlot(0);
     }
 
 
@@ -81,7 +82,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
             checkMultiblockTicks = 0;
         }
         BlockState state = this.level.getBlockState(this.getBlockPos());
-        if (state.getBlock() != Registration.FISSION_CONTROLLER_BLOCK.get()) return;
+        if (state.getBlock() != Registry.FISSION_CONTROLLER_BLOCK.get()) return;
         PowerStatus currentStatus = state.getValue(FissionControllerBlock.STATUS);
         if (this.isValidMultiblock) {
             if (isActive) {
@@ -97,8 +98,8 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     public boolean canProcess() {
-        ItemStack output0 = getOutput().getStackInSlot(0);
-        ItemStack output1 = getOutput().getStackInSlot(1);
+        ItemStack output0 = getOutputHandler().getStackInSlot(0);
+        ItemStack output1 = getOutputHandler().getStackInSlot(1);
         return this.isValidMultiblock
                 && !recipeOutput1.isEmpty()
                 && (ItemStack.isSame(output0, recipeOutput1) || output0.isEmpty())
@@ -113,23 +114,23 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
             progressTicks++;
         } else {
             progressTicks = 0;
-            getOutput().setOrIncrement(0, recipeOutput1.copy());
-            if (!recipeOutput2.isEmpty()) getOutput().setOrIncrement(1, recipeOutput2.copy());
-            getInput().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
+            getOutputHandler().setOrIncrement(0, recipeOutput1.copy());
+            if (!recipeOutput2.isEmpty()) getOutputHandler().setOrIncrement(1, recipeOutput2.copy());
+            getInputHandler().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
         this.energy.extractEnergy(Config.FISSION_ENERGY_PER_TICK.get(), false);//ConfigHandler.fissionEnergyPerTick!!, false)
         setChanged();
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
         super.load(compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.isValidMultiblock = compound.getBoolean("isValidMultiblock");
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
         compound.putInt("progressTicks", progressTicks);
         compound.putBoolean("isValidMultiblock", isValidMultiblock);
@@ -140,18 +141,18 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     private boolean containsCasing(BlockPos pos) {
-        return this.level.getBlockState(pos).getBlock() == Registration.FISSION_CASING_BLOCK.get();
+        return this.level.getBlockState(pos).getBlock() == Registry.FISSION_CASING_BLOCK.get();
     }
 
     private boolean containsCore(BlockPos pos) {
-        return this.level.getBlockState(pos).getBlock() == Registration.FISSION_CORE_BLOCK.get();
+        return this.level.getBlockState(pos).getBlock() == Registry.FISSION_CORE_BLOCK.get();
     }
 
     private boolean containsFissionPart(BlockPos pos) {
         Block block = this.level.getBlockState(pos).getBlock();
-        return block == Registration.FISSION_CASING_BLOCK.get()
-                || block == Registration.FISSION_CORE_BLOCK.get()
-                || block == Registration.FISSION_CONTROLLER_BLOCK.get();
+        return block == Registry.FISSION_CASING_BLOCK.get()
+                || block == Registry.FISSION_CORE_BLOCK.get()
+                || block == Registry.FISSION_CONTROLLER_BLOCK.get();
     }
 
     public boolean validateMultiblock() {
@@ -208,7 +209,7 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public CustomStackHandler initInput() {
+    public CustomStackHandler initInputHandler() {
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -217,14 +218,14 @@ public class FissionTile extends AlchemistryBaseTile implements EnergyTile {
 
             @Override
             public void onContentsChanged(int slot) {
-                ((FissionTile) this.tile).refreshRecipe();
+                ((FissionBlockEntity) this.baseBlockEntity).refreshRecipe();
                 super.onContentsChanged(slot);
             }
         };
     }
 
     @Override
-    public CustomStackHandler initOutput() {
+    public CustomStackHandler initOutputHandler() {
         return new CustomStackHandler(this, 2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {

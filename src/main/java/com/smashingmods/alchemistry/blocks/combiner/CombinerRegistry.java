@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.combiner;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.utils.IItemHandlerUtils;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -19,7 +19,7 @@ public class CombinerRegistry {
     public static List<CombinerRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == Registration.COMBINER_TYPE)
+                    .filter(x -> x.getType() == Registry.COMBINER_TYPE)
                     .map(x -> (CombinerRecipe) x)
                     .collect(Collectors.toList());
         }
@@ -56,7 +56,7 @@ public class CombinerRegistry {
                 //inner: for ((index: Int, recipeStack: ItemStack) in recipe.inputs.withIndex()) {
                 ItemStack recipeStack = recipe.inputs.get(index);
                 ItemStack inputStack = inputStacks.get(index);
-                if ((inputStack.getItem() == Registration.SLOT_FILLER_ITEM.get() || inputStack.isEmpty()) && recipeStack.isEmpty()) {
+                if ((inputStack.getItem() == Registry.SLOT_FILLER_ITEM.get() || inputStack.isEmpty()) && recipeStack.isEmpty()) {
                     continue inner;
                 } else if (!(ItemStack.isSameItemSameTags(inputStack, recipeStack)
                         && inputStack.getCount() >= recipeStack.getCount())) {

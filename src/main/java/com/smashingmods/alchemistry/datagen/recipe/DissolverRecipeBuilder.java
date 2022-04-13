@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.misc.ProbabilitySet;
 import com.smashingmods.alchemistry.utils.IngredientStack;
 import com.google.gson.JsonObject;
@@ -98,7 +98,7 @@ public class DissolverRecipeBuilder extends BaseRecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return Registration.DISSOLVER_SERIALIZER.get();
+            return Registry.DISSOLVER_SERIALIZER.get();
         }
 
         @Override

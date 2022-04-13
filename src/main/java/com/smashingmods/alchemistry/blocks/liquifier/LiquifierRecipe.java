@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.liquifier;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.misc.ProcessingRecipe;
 import com.smashingmods.alchemistry.utils.IngredientStack;
 import net.minecraft.core.NonNullList;
@@ -16,14 +16,14 @@ public class LiquifierRecipe extends ProcessingRecipe {
     public FluidStack output;
 
     public LiquifierRecipe(ResourceLocation id, String group, IngredientStack input, FluidStack output) {
-        super(Registration.LIQUIFIER_TYPE, id, group, input.ingredient, ItemStack.EMPTY);
+        super(Registry.LIQUIFIER_TYPE, id, group, input.ingredient, ItemStack.EMPTY);
         this.input = input;
         this.output = output;
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Registration.LIQUIFIER_SERIALIZER.get();
+        return Registry.LIQUIFIER_SERIALIZER.get();
     }
 
     @Override

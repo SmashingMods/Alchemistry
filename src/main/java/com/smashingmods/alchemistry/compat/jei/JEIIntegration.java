@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.compat.jei;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.blocks.atomizer.AtomizerRegistry;
 import com.smashingmods.alchemistry.blocks.atomizer.AtomizerScreen;
 import com.smashingmods.alchemistry.blocks.combiner.CombinerRegistry;
@@ -19,7 +19,6 @@ import com.smashingmods.alchemistry.blocks.liquifier.LiquifierRegistry;
 import com.smashingmods.alchemistry.blocks.liquifier.LiquifierScreen;
 import com.smashingmods.alchemistry.compat.jei.category.*;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
-import com.smashingmods.alchemistry.compat.jei.category.*;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
@@ -101,12 +100,12 @@ public class JEIIntegration implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
-        reg.addRecipeCatalyst(new ItemStack(Registration.ATOMIZER_BLOCK.get()), ATOMIZER_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Registration.COMBINER_BLOCK.get()), COMBINER_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Registration.DISSOLVER_BLOCK.get()), DISSOLVER_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Registration.EVAPORATOR_BLOCK.get()), EVAPORATOR_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Registration.FISSION_CONTROLLER_BLOCK.get()), FISSION_RESOURCE);
-        reg.addRecipeCatalyst(new ItemStack(Registration.LIQUIFIER_BLOCK.get()), LIQUIFIER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registry.ATOMIZER_BLOCK.get()), ATOMIZER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registry.COMBINER_BLOCK.get()), COMBINER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registry.DISSOLVER_BLOCK.get()), DISSOLVER_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registry.EVAPORATOR_BLOCK.get()), EVAPORATOR_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registry.FISSION_CONTROLLER_BLOCK.get()), FISSION_RESOURCE);
+        reg.addRecipeCatalyst(new ItemStack(Registry.LIQUIFIER_BLOCK.get()), LIQUIFIER_RESOURCE);
     }
 
     @Override

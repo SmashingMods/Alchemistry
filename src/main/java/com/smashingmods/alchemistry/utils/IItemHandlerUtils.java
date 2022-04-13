@@ -6,7 +6,6 @@ import net.minecraftforge.items.IItemHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class IItemHandlerUtils {
     public static boolean tryInsertInto(IItemHandler self, IItemHandler other) {
         for (int i = 0; i < other.getSlots(); i++) {

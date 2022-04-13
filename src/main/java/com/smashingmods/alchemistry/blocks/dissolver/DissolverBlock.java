@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.blocks.dissolver;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemylib.blocks.BaseEntityBlock;
+import com.smashingmods.alchemistry.api.blockentity.BaseEntityBlock;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -19,38 +19,46 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class DissolverBlock extends BaseEntityBlock {
+public class DissolverBlock extends BaseEntityBlock<DissolverContainer> {
     public static final VoxelShape A = Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0);
     public static final VoxelShape B = Block.box(2.0, 4.0, 2.0, 14, 14.0, 14);
     public static final VoxelShape BOX = Shapes.or(A,B);
     public DissolverBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), DissolverTile.class, DissolverContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), DissolverContainer.class);
     }
 
 
     @Override
-    public VoxelShape getOcclusionShape(BlockState state, BlockGetter reader, BlockPos pos) {
+    @Nonnull
+    @SuppressWarnings("deprecation")
+    public VoxelShape getOcclusionShape(@Nonnull BlockState state, @Nonnull BlockGetter reader, @Nonnull BlockPos pos) {
         return BOX;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> tooltips, TooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable BlockGetter getter, @Nonnull List<Component> tooltips, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, getter, tooltips, flag);
         tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.DISSOLVER_ENERGY_PER_TICK.get())));
     }
 
+    @Override
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
+        return new DissolverBlockEntity(pPos, pState);
+    }
+
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
         if (level.isClientSide()) {
             return null;
         }
         return (lvl, pos, blockState, t) -> {
-            if (t instanceof DissolverTile) {
-                ((DissolverTile) t).tickServer();
+            if (t instanceof DissolverBlockEntity) {
+                ((DissolverBlockEntity) t).tickServer();
             }
         };
     }

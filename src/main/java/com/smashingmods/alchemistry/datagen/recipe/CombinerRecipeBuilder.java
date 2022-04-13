@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.datagen.DatagenUtils;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
@@ -94,7 +94,7 @@ public class CombinerRecipeBuilder extends BaseRecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return Registration.COMBINER_SERIALIZER.get();
+            return Registry.COMBINER_SERIALIZER.get();
         }
 
         @Override

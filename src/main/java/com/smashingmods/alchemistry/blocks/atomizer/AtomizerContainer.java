@@ -1,19 +1,22 @@
 package com.smashingmods.alchemistry.blocks.atomizer;
 
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemylib.container.BaseContainer;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.container.BaseContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class AtomizerContainer extends BaseContainer {
 
-    public AtomizerContainer(int id, Level world, BlockPos pos, Inventory playerInv) {
-        super(Registration.ATOMIZER_CONTAINER.get(), id, world, pos, playerInv, 1);
-        AtomizerTile tile = (AtomizerTile) world.getBlockEntity(pos);
-        this.addSlot(new SlotItemHandler(tile.getOutput(), 0, 122, 52));
+    public AtomizerContainer(int pContainerId, BlockPos pBlockPos, Inventory pInventory) {
+        super(Registry.ATOMIZER_CONTAINER.get(), pContainerId, pBlockPos, pInventory, 1);
+        Level level = pInventory.player.getLevel();
+        AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) level.getBlockEntity(pBlockPos);
+        this.addSlot(new SlotItemHandler(blockEntity.getOutputHandler(), 0, 122, 52));
         addPlayerSlots();
      /*   trackInt(new DataSlot() {
             @Override
@@ -38,7 +41,7 @@ public class AtomizerContainer extends BaseContainer {
     //}
 
     @Override
-    public boolean stillValid(Player player) {
+    public boolean stillValid(@Nonnull Player pPlayer) {
         return true;
     }
 }

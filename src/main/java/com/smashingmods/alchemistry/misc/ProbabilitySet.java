@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.misc;
 
-import com.smashingmods.alchemistry.utils.ListUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ProbabilitySet {
 
@@ -104,8 +104,12 @@ public class ProbabilitySet {
                     if (trackingProbability >= targetProbability) {
                         component.getOutputs().stream().filter(x -> !x.isEmpty()).forEach(x -> {
                             ItemStack stack = x.copy();
-                            int index = ListUtils.indexOfFirst(temp, it -> ItemStack.isSameItemSameTags(stack, it));
-                            if (index != -1) temp.get(index).grow(stack.getCount());//stack.count)
+
+                            int index = IntStream.range(0, temp.size())
+                                    .filter(it -> ItemStack.isSameItemSameTags(stack, temp.get(it)))
+                                    .findFirst().orElse(-1);
+
+                            if (index != -1) temp.get(index).grow(stack.getCount());
                             else temp.add(stack);
                         });
                         break;
@@ -116,7 +120,11 @@ public class ProbabilitySet {
                     if (component.getProbability() >= rando.nextInt(101)) {
                         component.getOutputs().stream().filter(x -> !x.isEmpty()).forEach(x -> {
                             ItemStack stack = x.copy();
-                            int index = ListUtils.indexOfFirst(temp, it -> ItemStack.isSameItemSameTags(stack, it));
+
+                            int index = IntStream.range(0, temp.size())
+                                    .filter(it -> ItemStack.isSameItemSameTags(stack, temp.get(it)))
+                                    .findFirst().orElse(-1);
+
                             if (index != -1) temp.get(index).grow(stack.getCount());
                             else temp.add(stack);
                         });

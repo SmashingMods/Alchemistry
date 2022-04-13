@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.liquifier;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class LiquifierRegistry {
     public static List<LiquifierRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == Registration.LIQUIFIER_TYPE)
+                    .filter(x -> x.getType() == Registry.LIQUIFIER_TYPE)
                     .map(x -> (LiquifierRecipe) x)
                     .collect(Collectors.toList());
         }

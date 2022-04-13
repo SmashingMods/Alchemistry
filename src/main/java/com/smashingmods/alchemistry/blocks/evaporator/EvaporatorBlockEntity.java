@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.blocks.evaporator;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseTile;
-import com.smashingmods.alchemylib.tiles.CustomFluidTank;
-import com.smashingmods.alchemylib.tiles.CustomStackHandler;
-import com.smashingmods.alchemylib.tiles.FluidTile;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.blockentity.CustomFluidStorage;
+import com.smashingmods.alchemistry.api.blockentity.FluidBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,10 +15,11 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
+public class EvaporatorBlockEntity extends AlchemistryBaseBlockEntity implements FluidBlockEntity {
 
     public int progressTicks = 0;
     private int calculatedProcessingTime = 0;
@@ -27,9 +28,9 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
     protected FluidTank fluidTank;
     protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> fluidTank);
 
-    public EvaporatorTile(BlockPos pos, BlockState state) {
-        super(Registration.EVAPORATOR_BE.get(), pos, state);
-        fluidTank = new CustomFluidTank(10000, FluidStack.EMPTY) {
+    public EvaporatorBlockEntity(BlockPos pos, BlockState state) {
+        super(Registry.EVAPORATOR_BE.get(), pos, state);
+        fluidTank = new CustomFluidStorage(10000, FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
                 super.onContentsChanged();
@@ -54,7 +55,7 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
         if (currentRecipe != null) {
             ItemStack recipeOutput = currentRecipe.output;
             return fluidTank.getFluidAmount() >= currentRecipe.input.getAmount()
-                    && getOutput().getStackInSlot(0).getCount() + recipeOutput.getCount() <= recipeOutput.getMaxStackSize();
+                    && getOutputHandler().getStackInSlot(0).getCount() + recipeOutput.getCount() <= recipeOutput.getMaxStackSize();
         } else return false;
     }
 
@@ -65,21 +66,21 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
         else {
             progressTicks = 0;
             fluidTank.drain(currentRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
-            getOutput().setOrIncrement(0, currentRecipe.output.copy());
+            getOutputHandler().setOrIncrement(0, currentRecipe.output.copy());
 
         }
         this.setChanged();
     }
 
     @Override
-    public void load(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
         super.load(compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.fluidTank.readFromNBT(compound.getCompound("fluidTank"));
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
         compound.putInt("progressTicks", this.progressTicks);
         compound.put("fluidTank", fluidTank.writeToNBT(new CompoundTag()));
@@ -94,12 +95,12 @@ public class EvaporatorTile extends AlchemistryBaseTile implements FluidTile {
     }
 
     @Override
-    public CustomStackHandler initInput() {
+    public CustomStackHandler initInputHandler() {
         return new CustomStackHandler(this, 0);
     }
 
     @Override
-    public CustomStackHandler initOutput() {
+    public CustomStackHandler initOutputHandler() {
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {

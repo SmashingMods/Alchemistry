@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.blocks.combiner;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.misc.ProcessingRecipe;
-import com.smashingmods.alchemylib.tiles.CustomStackHandler;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -25,7 +25,7 @@ public class CombinerRecipe extends ProcessingRecipe {
     //String gamestage;
 
     public CombinerRecipe(ResourceLocation id, String group, List<ItemStack> input, ItemStack output) {
-        super(Registration.COMBINER_TYPE, id, group, Ingredient.EMPTY, ItemStack.EMPTY);
+        super(Registry.COMBINER_TYPE, id, group, Ingredient.EMPTY, ItemStack.EMPTY);
         this.output = output;
         for (int i = 0; i < 9; i++) {
             Object temp;
@@ -65,7 +65,7 @@ public class CombinerRecipe extends ProcessingRecipe {
         for (int index = 0; index < this.inputs.size(); index++) {
             ItemStack recipeStack = this.inputs.get(index);
             ItemStack handlerStack = handler.getStackInSlot(index);
-            if ((handlerStack.getItem() == Registration.SLOT_FILLER_ITEM.get() || handlerStack.isEmpty()) && recipeStack.isEmpty()) {
+            if ((handlerStack.getItem() == Registry.SLOT_FILLER_ITEM.get() || handlerStack.isEmpty()) && recipeStack.isEmpty()) {
                 matchingStacks++;
             } else if (handlerStack.isEmpty() || recipeStack.isEmpty()) continue;
             else if (ItemStack.isSameItemSameTags(handlerStack, recipeStack)
@@ -80,6 +80,6 @@ public class CombinerRecipe extends ProcessingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Registration.COMBINER_SERIALIZER.get();
+        return Registry.COMBINER_SERIALIZER.get();
     }
 }

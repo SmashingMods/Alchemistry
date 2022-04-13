@@ -1,9 +1,10 @@
 package com.smashingmods.alchemistry.blocks.fission;
 
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.BaseEntityBlock;
 import com.smashingmods.alchemistry.blocks.PowerStatus;
-import com.smashingmods.alchemylib.blocks.BaseEntityBlock;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -23,16 +24,17 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Material;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class FissionControllerBlock extends BaseEntityBlock {
+public class FissionControllerBlock extends BaseEntityBlock<FissionContainer> {
     public static final EnumProperty<PowerStatus> STATUS = EnumProperty.create("status", PowerStatus.class, PowerStatus.values());
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
 
     public FissionControllerBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), FissionTile.class, FissionContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), FissionContainer.class);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(STATUS, PowerStatus.OFF)
                 .setValue(FACING, Direction.NORTH));
@@ -52,20 +54,25 @@ public class FissionControllerBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> tooltips, TooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable BlockGetter getter, @Nonnull List<Component> tooltips, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, getter, tooltips, flag);
         tooltips.add(new TextComponent(I18n.get("tooltip.alchemistry.energy_requirement", Config.FISSION_ENERGY_PER_TICK.get())));
     }
 
+    @Override
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
+        return new FissionBlockEntity(pPos, pState);
+    }
+
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
         if (level.isClientSide()) {
             return null;
         }
         return (lvl, pos, blockState, t) -> {
-            if (t instanceof FissionTile) {
-                ((FissionTile) t).tickServer();
+            if (t instanceof FissionBlockEntity) {
+                ((FissionBlockEntity) t).tickServer();
             }
         };
     }

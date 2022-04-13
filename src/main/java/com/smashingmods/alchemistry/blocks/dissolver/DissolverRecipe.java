@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.dissolver;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.misc.ProbabilitySet;
 import com.smashingmods.alchemistry.misc.ProcessingRecipe;
 import com.smashingmods.alchemistry.utils.IngredientStack;
@@ -54,7 +54,7 @@ public class DissolverRecipe extends ProcessingRecipe {
 */
 
     public DissolverRecipe(ResourceLocation id, String group, IngredientStack input, ProbabilitySet outputs) {
-        super(Registration.DISSOLVER_TYPE, id, group, input.ingredient, ItemStack.EMPTY);
+        super(Registry.DISSOLVER_TYPE, id, group, input.ingredient, ItemStack.EMPTY);
         this.inputIngredient = input;
         this.outputs = outputs;
     }
@@ -76,7 +76,7 @@ public class DissolverRecipe extends ProcessingRecipe {
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Registration.DISSOLVER_SERIALIZER.get();
+        return Registry.DISSOLVER_SERIALIZER.get();
     }
 
     /*

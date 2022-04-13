@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.fission;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class FissionRegistry {
     public static List<FissionRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == Registration.FISSION_TYPE)
+                    .filter(x -> x.getType() == Registry.FISSION_TYPE)
                     .map(x -> (FissionRecipe) x)
                     .collect(Collectors.toList());
         }

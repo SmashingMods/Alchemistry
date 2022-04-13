@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.atomizer;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -10,11 +10,11 @@ public class AtomizerRegistry {
 
     private static List<AtomizerRecipe> recipes = null;
 
-    public static List<AtomizerRecipe> getRecipes(Level world) {
+    public static List<AtomizerRecipe> getRecipes(Level pLevel) {
         if (recipes == null) {
-            recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == Registration.ATOMIZER_TYPE)
-                    .map(x -> (AtomizerRecipe) x)
+            recipes = pLevel.getRecipeManager().getRecipes().stream()
+                    .filter(recipe -> recipe.getType() == Registry.ATOMIZER_TYPE)
+                    .map(recipe -> (AtomizerRecipe) recipe)
                     .collect(Collectors.toList());
         }
         return recipes;

@@ -3,7 +3,6 @@ package com.smashingmods.alchemistry.blocks.atomizer;
 import com.smashingmods.alchemistry.misc.ProcessingRecipe;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -13,52 +12,58 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
+
 public class AtomizerRecipeSerializer<T extends AtomizerRecipe>
         extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
-    private IFactory<T> factory;
+    private final IFactory<T> factory;
 
-    public AtomizerRecipeSerializer(AtomizerRecipeSerializer.IFactory<T> factory) {
-        this.factory = factory;
+    public AtomizerRecipeSerializer(AtomizerRecipeSerializer.IFactory<T> pFactory) {
+        this.factory = pFactory;
     }
 
     @Override
-    public T fromJson(ResourceLocation recipeId, JsonObject json) {
-        String group = json.get("group").getAsString();//.getString(json, "group", "");
-        JsonObject inputObject = json.getAsJsonObject("input");//JSONUtils.getJsonObject(json, "input");
+    @Nonnull
+    public T fromJson(@Nonnull ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 
-        ResourceLocation fluidLocation = new ResourceLocation(inputObject.get("fluid").getAsString());
+        JsonObject inputObject = pSerializedRecipe.getAsJsonObject("input");
+        ItemStack outputStack;
+        String recipeGroup = pSerializedRecipe.get("group").getAsString();
+
+        ResourceLocation fluidResourceLocation = new ResourceLocation(inputObject.get("fluid").getAsString());
         int fluidAmount = inputObject.get("amount").getAsInt();
-        FluidStack inputStack = new FluidStack(ForgeRegistries.FLUIDS.getValue(fluidLocation), fluidAmount);
-        if (!json.has("result"))
+        FluidStack inputFluidStack = new FluidStack(Objects.requireNonNull(ForgeRegistries.FLUIDS.getValue(fluidResourceLocation)), fluidAmount);
+
+        if (!pSerializedRecipe.has("result")) {
             throw new JsonSyntaxException("Missing result, expected to find a string or object");
-        ItemStack output;
-        if (json.get("result").isJsonObject())
-            output = ShapedRecipe.itemStackFromJson(json.getAsJsonObject("result"));//JSONUtils.getJsonObject(json, "result"));
-        else {
-            String s1 = json.get("result").getAsString();//.getString(json, "result");
-            ResourceLocation resourcelocation = new ResourceLocation(s1);
-
-            output = new ItemStack(Registry.ITEM.get(resourcelocation));
         }
-        return this.factory.create(recipeId, group, inputStack, output);
+
+        if (pSerializedRecipe.get("result").isJsonObject())
+            outputStack = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
+        else {
+            String recipeResult = pSerializedRecipe.get("result").getAsString();
+            ResourceLocation resourcelocation = new ResourceLocation(recipeResult);
+            outputStack = new ItemStack(ForgeRegistries.ITEMS.getValue(resourcelocation));
+        }
+        return this.factory.create(pRecipeId, recipeGroup, inputFluidStack, outputStack);
     }
 
     @Override
-    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-        String group = buffer.readUtf(32767);
-        FluidStack input = buffer.readFluidStack();
-        ItemStack output = buffer.readItem();
-        return this.factory.create(recipeId, group, input, output);
+    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        String recipeGroup = pBuffer.readUtf(Short.MAX_VALUE);
+        FluidStack inputFluidStack = pBuffer.readFluidStack();
+        ItemStack outputStack = pBuffer.readItem();
+        return this.factory.create(pRecipeId, recipeGroup, inputFluidStack, outputStack);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
-        buffer.writeUtf(recipe.getGroup());
-        buffer.writeFluidStack(recipe.input);
-        buffer.writeItemStack(recipe.output, true);
+    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
+        pBuffer.writeUtf(pRecipe.getGroup());
+        pBuffer.writeFluidStack(pRecipe.input);
+        pBuffer.writeItemStack(pRecipe.output, true);
     }
-
 
     public interface IFactory<T extends ProcessingRecipe> {
         T create(ResourceLocation resource, String group, FluidStack input, ItemStack output);

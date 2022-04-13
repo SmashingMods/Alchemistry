@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.network;
 
-import com.smashingmods.alchemistry.blocks.combiner.CombinerTile;
+import com.smashingmods.alchemistry.blocks.combiner.CombinerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +41,7 @@ public class CombinerButtonPkt {
     public static void handle(final CombinerButtonPkt message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             Player Player = ctx.get().getSender();
-            CombinerTile tile = (CombinerTile) Player.level.getBlockEntity(message.pos);
+            CombinerBlockEntity tile = (CombinerBlockEntity) Player.level.getBlockEntity(message.pos);
 
             if (message.lock) {
                 tile.recipeIsLocked = !(tile.recipeIsLocked);

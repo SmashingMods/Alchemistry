@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.blocks.fusion;
 
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemylib.container.BaseContainer;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.container.BaseContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -10,48 +10,51 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 import org.apache.commons.lang3.BooleanUtils;
 
+import java.util.Objects;
+
 public class FusionContainer extends BaseContainer {
-    public FusionContainer(int id, Level world, BlockPos pos, Inventory playerInv) {
-        super(Registration.FUSION_CONTAINER.get(), id, world, pos, playerInv, 3);
-        FusionTile tile = (FusionTile) world.getBlockEntity(pos);
-        this.addSlotArray(0, 44, 79, 1, 2, tile.getInput());
-        this.addSlot(new SlotItemHandler(tile.getOutput(), 0, 132, 79));
+    public FusionContainer(int pId, BlockPos pBlockPos, Inventory pInventory) {
+        super(Registry.FUSION_CONTAINER.get(), pId, pBlockPos, pInventory, 3);
+        Level level = pInventory.player.getLevel();
+        FusionBlockEntity blockEntity = (FusionBlockEntity) level.getBlockEntity(pBlockPos);
+        this.addSlotArray(0, 44, 79, 1, 2, Objects.requireNonNull(blockEntity).getInputHandler());
+        this.addSlot(new SlotItemHandler(blockEntity.getOutputHandler(), 0, 132, 79));
         addPlayerSlots();
         trackInt(new DataSlot() {
             @Override
             public int get() {
-                return tile.progressTicks;
+                return blockEntity.progressTicks;
             }
 
             @Override
             public void set(int value) {
-                tile.progressTicks = value;
+                blockEntity.progressTicks = value;
             }
         });
         trackInt(new DataSlot() {
             @Override
             public int get() {
-                return BooleanUtils.toInteger(tile.isValidMultiblock);
+                return BooleanUtils.toInteger(blockEntity.isValidMultiblock);
             }
 
             @Override
             public void set(int value) {
-                tile.isValidMultiblock = (value == 1);
+                blockEntity.isValidMultiblock = (value == 1);
             }
         });
     }
 
     public int getProgressTicks() {
-        return ((FusionTile) tile).progressTicks;
+        return ((FusionBlockEntity) baseBlockEntity).progressTicks;
     }
 
 
     @Override
-    public boolean stillValid(Player p_38874_) {
+    public boolean stillValid(Player pPlayer) {
         return true;
     }
 
     public boolean isValidMultiblock() {
-        return ((FusionTile) tile).isValidMultiblock;
+        return ((FusionBlockEntity) baseBlockEntity).isValidMultiblock;
     }
 }

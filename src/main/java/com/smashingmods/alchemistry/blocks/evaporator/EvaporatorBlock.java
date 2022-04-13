@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.evaporator;
 
-import com.smashingmods.alchemylib.blocks.BaseEntityBlock;
+import com.smashingmods.alchemistry.api.blockentity.BaseEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -16,12 +16,13 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EvaporatorBlock extends BaseEntityBlock {
+public class EvaporatorBlock extends BaseEntityBlock<EvaporatorContainer> {
     public EvaporatorBlock() {
-        super(Block.Properties.of(Material.METAL).strength(2.0f), EvaporatorTile.class, EvaporatorContainer.class);
+        super(Block.Properties.of(Material.METAL).strength(2.0f), EvaporatorContainer.class);
     }
 
 
@@ -31,23 +32,30 @@ public class EvaporatorBlock extends BaseEntityBlock {
 
 
     @Override
-    public VoxelShape getOcclusionShape(BlockState state, BlockGetter reader, BlockPos pos) {
+    @Nonnull
+    @SuppressWarnings("deprecation")
+    public VoxelShape getOcclusionShape(@Nonnull BlockState state, @Nonnull BlockGetter reader, @Nonnull BlockPos pos) {
         return BOX;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter getter, List<Component> tooltips, TooltipFlag flag) {
+    public void appendHoverText(@Nonnull ItemStack stack, @Nullable BlockGetter getter, @Nonnull List<Component> tooltips, @Nonnull TooltipFlag flag) {
         super.appendHoverText(stack, getter, tooltips, flag);
         //tooltip.add(new TextComponent(I18n.get("tooltip.alchemistry.evaporator",50)));
     }
 
+    @Override
+    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
+        return new EvaporatorBlockEntity(pPos, pState);
+    }
+
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, @Nonnull BlockState state, @Nonnull BlockEntityType<T> type) {
         if (level.isClientSide()) return null;
         return (lvl, pos, blockState, t) -> {
-            if (t instanceof EvaporatorTile) {
-                ((EvaporatorTile) t).tickServer();
+            if (t instanceof EvaporatorBlockEntity) {
+                ((EvaporatorBlockEntity) t).tickServer();
             }
         };
     }

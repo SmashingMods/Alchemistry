@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.blocks.liquifier;
 
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemylib.container.BaseContainer;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.container.BaseContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -10,10 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class LiquifierContainer extends BaseContainer {
-    public LiquifierContainer(int id, Level world, BlockPos pos, Inventory playerInv) {
-        super(Registration.LIQUIFIER_CONTAINER.get(), id, world, pos, playerInv, 1);
-        LiquifierTile tile = (LiquifierTile) world.getBlockEntity(pos);
-        this.addSlot(new SlotItemHandler(tile.getInput(), 0, 49, 58));
+    public LiquifierContainer(int pId, BlockPos pBlockPos, Inventory pInventory) {
+        super(Registry.LIQUIFIER_CONTAINER.get(), pId, pBlockPos, pInventory, 1);
+        Level level = pInventory.player.getLevel();
+        LiquifierBlockEntity tile = (LiquifierBlockEntity) level.getBlockEntity(pBlockPos);
+        this.addSlot(new SlotItemHandler(tile.getInputHandler(), 0, 49, 58));
         addPlayerSlots();
         trackInt(new DataSlot() {
             @Override
@@ -28,7 +29,7 @@ public class LiquifierContainer extends BaseContainer {
     }
 
     public int getProgressTicks() {
-        return ((LiquifierTile) tile).progressTicks;
+        return ((LiquifierBlockEntity) baseBlockEntity).progressTicks;
     }
 
     @Override

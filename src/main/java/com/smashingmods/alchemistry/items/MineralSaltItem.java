@@ -1,11 +1,10 @@
 package com.smashingmods.alchemistry.items;
 
-import com.smashingmods.alchemistry.setup.ModSetup;
-import com.smashingmods.alchemylib.items.BaseItem;
+import com.smashingmods.alchemistry.Registry;
 import net.minecraft.world.item.Item;
 
-public class MineralSaltItem extends BaseItem {
+public class MineralSaltItem extends Item {
     public MineralSaltItem() {
-        super(ModSetup.ITEM_GROUP, new Item.Properties());//"condensed_milk");
+        super(new Item.Properties().tab(Registry.ITEM_GROUP));
     }
 }

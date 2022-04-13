@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.blocks.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.Registration;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseTile;
+import com.smashingmods.alchemistry.Registry;
+import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
+import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
 import com.smashingmods.alchemistry.blocks.PowerStatus;
-import com.smashingmods.alchemylib.tiles.CustomEnergyStorage;
-import com.smashingmods.alchemylib.tiles.CustomStackHandler;
-import com.smashingmods.alchemylib.tiles.EnergyTile;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.smashingmods.chemlib.items.ElementItem;
 import net.minecraft.core.BlockPos;
@@ -23,6 +23,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.RangedWrapper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +31,7 @@ import java.util.function.BiFunction;
 
 import static com.smashingmods.alchemistry.blocks.PowerStatus.*;
 
-public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
+public class FusionBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
 
     boolean isValidMultiblock = false;
     ItemStack recipeOutput = ItemStack.EMPTY;
@@ -43,10 +44,9 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
     boolean firstTick = true;
 
-    public FusionTile(BlockPos pos, BlockState state) {
-        super(Registration.FUSION_CONTROLLER_BE.get(), pos, state);
+    public FusionBlockEntity(BlockPos pos, BlockState state) {
+        super(Registry.FUSION_CONTROLLER_BE.get(), pos, state);
     }
-
 
     public void tickServer() {
         if (level.isClientSide) return;
@@ -60,9 +60,9 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
             updateMultiblock();
             checkMultiblockTicks = 0;
         }
-        boolean isActive = !this.getInput().getStackInSlot(0).isEmpty() && !this.getInput().getStackInSlot(1).isEmpty();
+        boolean isActive = !this.getInputHandler().getStackInSlot(0).isEmpty() && !this.getInputHandler().getStackInSlot(1).isEmpty();
         BlockState state = this.level.getBlockState(this.getBlockPos());
-        if (state.getBlock() != Registration.FUSION_CONTROLLER_BLOCK.get()) return;
+        if (state.getBlock() != Registry.FUSION_CONTROLLER_BLOCK.get()) return;
         PowerStatus currentStatus = state.getValue(FusionControllerBlock.STATUS);
         if (this.isValidMultiblock) {
             if (isActive) {
@@ -77,9 +77,9 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     public boolean canProcess() {
-        ItemStack input0 = getInput().getStackInSlot(0);
-        ItemStack input1 = getInput().getStackInSlot(1);
-        ItemStack output0 = getOutput().getStackInSlot(0);
+        ItemStack input0 = getInputHandler().getStackInSlot(0);
+        ItemStack input1 = getInputHandler().getStackInSlot(1);
+        ItemStack output0 = getOutputHandler().getStackInSlot(0);
         return this.isValidMultiblock
                 && !input0.isEmpty()
                 && !input1.isEmpty()
@@ -94,17 +94,17 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
             progressTicks++;
         } else {
             progressTicks = 0;
-            getOutput().setOrIncrement(0, recipeOutput.copy());
-            getInput().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
-            getInput().decrementSlot(1, 1);//Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
+            getOutputHandler().setOrIncrement(0, recipeOutput.copy());
+            getInputHandler().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
+            getInputHandler().decrementSlot(1, 1);//Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
         this.energy.extractEnergy(Config.FUSION_ENERGY_PER_TICK.get(), false);
         setChanged();
     }
 
     public void refreshRecipe() {
-        Item item0 = getInput().getStackInSlot(0).getItem();
-        Item item1 = getInput().getStackInSlot(1).getItem();
+        Item item0 = getInputHandler().getStackInSlot(0).getItem();
+        Item item1 = getInputHandler().getStackInSlot(1).getItem();
         if (item0 instanceof ElementItem && item1 instanceof ElementItem) {
             int meta0 = ElementRegistry.elements.inverse().get(item0);
             int meta1 = ElementRegistry.elements.inverse().get(item1);//this.getInput().getStackInSlot(1).metadata;
@@ -116,14 +116,14 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
 
     @Override
-    public void load(CompoundTag compound) {
+    public void load(@NotNull CompoundTag compound) {
         super.load(compound);
         this.progressTicks = compound.getInt("progressTicks");
         this.isValidMultiblock = compound.getBoolean("isValidMultiblock");
     }
 
     @Override
-    public void saveAdditional(CompoundTag compound) {
+    public void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
         compound.putInt("progressTicks", progressTicks);
         compound.putBoolean("isValidMultiblock", isValidMultiblock);
@@ -134,16 +134,16 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     private boolean containsCasing(BlockPos pos) {
-        return this.level.getBlockState(pos).getBlock() == Registration.FUSION_CASING_BLOCK.get();
+        return this.level.getBlockState(pos).getBlock() == Registry.FUSION_CASING_BLOCK.get();
     }
 
     private boolean containsCore(BlockPos pos) {
-        return this.level.getBlockState(pos).getBlock() == Registration.FUSION_CORE_BLOCK.get();
+        return this.level.getBlockState(pos).getBlock() == Registry.FUSION_CORE_BLOCK.get();
     }
 
     private boolean containsFusionPart(BlockPos pos) {
         Block block = this.level.getBlockState(pos).getBlock();
-        return block == Registration.FUSION_CASING_BLOCK.get() || block == Registration.FUSION_CORE_BLOCK.get() || block == Registration.FUSION_CONTROLLER_BLOCK.get();
+        return block == Registry.FUSION_CASING_BLOCK.get() || block == Registry.FUSION_CORE_BLOCK.get() || block == Registry.FUSION_CONTROLLER_BLOCK.get();
     }
 
     public boolean validateMultiblock() {
@@ -200,7 +200,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
 
     @Override
-    public CustomStackHandler initInput() {
+    public CustomStackHandler initInputHandler() {
         CustomStackHandler input = new CustomStackHandler(this, 2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -209,7 +209,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
 
             @Override
             public void onContentsChanged(int slot) {
-                ((FusionTile) tile).refreshRecipe();
+                ((FusionBlockEntity) baseBlockEntity).refreshRecipe();
                 super.onContentsChanged(slot);
             }
         };
@@ -220,7 +220,7 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
     }
 
     @Override
-    public CustomStackHandler initOutput() {
+    public CustomStackHandler initOutputHandler() {
         return new CustomStackHandler(this, 1) {
             @Nonnull
             @Override
@@ -237,11 +237,11 @@ public class FusionTile extends AlchemistryBaseTile implements EnergyTile {
             if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 if (level != null) {
                     Direction blockSide = level.getBlockState(this.getBlockPos()).getValue(FusionControllerBlock.FACING);
-                    if (side == Direction.UP || side == Direction.DOWN) return LazyOptional.of(this::getOutput).cast();
+                    if (side == Direction.UP || side == Direction.DOWN) return LazyOptional.of(this::getOutputHandler).cast();
                     else if (side == blockSide.getClockWise()) return LazyOptional.of(() -> leftInput).cast();
                     else if (side == blockSide.getClockWise().getClockWise().getClockWise())
                         return LazyOptional.of(() -> rightInput).cast();
-                    else return LazyOptional.of(this::getOutput).cast();
+                    else return LazyOptional.of(this::getOutputHandler).cast();
                 }
             }
             return super.getCapability(cap, side);

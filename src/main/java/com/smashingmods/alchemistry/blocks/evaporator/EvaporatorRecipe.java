@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.blocks.evaporator;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.misc.ProcessingRecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -17,14 +17,14 @@ public class EvaporatorRecipe extends ProcessingRecipe {
     FluidTags n;
 
     public EvaporatorRecipe(ResourceLocation id, String group, FluidStack input, ItemStack output) {
-        super(Registration.EVAPORATOR_TYPE,id,group, Ingredient.EMPTY,output);
+        super(Registry.EVAPORATOR_TYPE,id,group, Ingredient.EMPTY,output);
         this.input = input;
         this.output = output;
     }
 
     @Override
     public RecipeSerializer<?> getSerializer() {
-        return Registration.EVAPORATOR_SERIALIZER.get();
+        return Registry.EVAPORATOR_SERIALIZER.get();
     }
 
     @Override

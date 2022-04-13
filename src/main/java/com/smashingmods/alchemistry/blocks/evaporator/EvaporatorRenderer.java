@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.blocks.evaporator;
 
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,14 +13,14 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public class EvaporatorRenderer implements BlockEntityRenderer<EvaporatorTile> {
+public class EvaporatorRenderer implements BlockEntityRenderer<EvaporatorBlockEntity> {
 
     public EvaporatorRenderer(BlockEntityRendererProvider.Context c) {
 
     }
 
     @Override
-    public void render(EvaporatorTile tile, float p_225616_2_, PoseStack matrix, MultiBufferSource p_225616_4_, int p_225616_5_, int p_225616_6_) {
+    public void render(EvaporatorBlockEntity tile, float p_225616_2_, PoseStack matrix, MultiBufferSource p_225616_4_, int p_225616_5_, int p_225616_6_) {
         FluidStack fluidStack = tile.fluidTank.getFluidInTank(0);
         /*
         if(!fluidStack.isEmpty()) {
@@ -37,7 +37,7 @@ public class EvaporatorRenderer implements BlockEntityRenderer<EvaporatorTile> {
         }*/
     }
 
-    private void renderFluid(Tesselator tess, Fluid fluid, EvaporatorTile tile) {
+    private void renderFluid(Tesselator tess, Fluid fluid, EvaporatorBlockEntity tile) {
         BufferBuilder buffer = tess.getBuilder();
         FluidStack inputFluid = tile.fluidTank.getFluidInTank(0);
         TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
@@ -65,7 +65,7 @@ public class EvaporatorRenderer implements BlockEntityRenderer<EvaporatorTile> {
     }
 
     public static void register() {
-        BlockEntityRenderers.register(Registration.EVAPORATOR_BE.get(), EvaporatorRenderer::new);
+        BlockEntityRenderers.register(Registry.EVAPORATOR_BE.get(), EvaporatorRenderer::new);
     }
 
 }

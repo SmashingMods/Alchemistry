@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.Alchemistry;
 import net.minecraft.advancements.Advancement;
@@ -88,7 +88,7 @@ public class FissionRecipeBuilder extends BaseRecipeBuilder {
 
         @Override
         public RecipeSerializer<?> getType() {
-            return Registration.FISSION_SERIALIZER.get();
+            return Registry.FISSION_SERIALIZER.get();
         }
 
         @Override

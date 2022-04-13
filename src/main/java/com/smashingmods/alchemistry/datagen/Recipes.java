@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.datagen;
 
-import com.smashingmods.alchemistry.Registration;
+import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.blocks.dissolver.DissolverTagData;
 import com.smashingmods.alchemistry.datagen.recipe.CombinerRecipeBuilder;
 import com.smashingmods.alchemistry.datagen.recipe.DissolverRecipeBuilder;
@@ -12,7 +12,6 @@ import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.smashingmods.chemlib.items.CompoundItem;
 import com.smashingmods.chemlib.items.ElementItem;
 import com.google.common.collect.Sets;
-import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -70,7 +69,7 @@ public class Recipes extends RecipeProvider {
     }
 
     public void dissolver(String tag, ProbabilitySet set) {
-        Ingredient i = Ingredient.of(TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(tag)));
+        Ingredient i = Ingredient.of(TagKey.create(net.minecraft.core.Registry.ITEM_REGISTRY, new ResourceLocation(tag)));
         //dissolver(Ingredient.fromTag(ForgeTagHandler.createOptionalTag(ForgeRegistries.ITEMS, new ResourceLocation(tag))),
         dissolver(i, set, tag.replace(":", "."));
     }
@@ -285,7 +284,7 @@ public class Recipes extends RecipeProvider {
                                 toStack("sucrose", 2 * 9))
                         .build());
 
-        dissolver(Registration.CONDENSED_MILK_ITEM.get(),
+        dissolver(Registry.CONDENSED_MILK_ITEM.get(),
                 set().addGroup(1,
                                 toStack("calcium", 4),
                                 toStack("protein", 2),
@@ -935,7 +934,7 @@ public class Recipes extends RecipeProvider {
                                 toStack("protein", 2))
                         .build(), true);
 
-        dissolver(Registration.MINERAL_SALT_ITEM.get(),
+        dissolver(Registry.MINERAL_SALT_ITEM.get(),
                 set()
                         .addGroup(60, toStack("sodium_chloride"))
                         .addGroup(5, toStack("lithium"))

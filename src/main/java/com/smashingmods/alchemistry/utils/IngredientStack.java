@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.utils;
 
-
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class IngredientStack {
-
 
     public final Ingredient ingredient;
     public final int count;

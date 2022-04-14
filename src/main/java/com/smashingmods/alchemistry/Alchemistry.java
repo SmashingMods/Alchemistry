@@ -1,13 +1,13 @@
 package com.smashingmods.alchemistry;
 
-import com.smashingmods.alchemistry.blocks.atomizer.AtomizerScreen;
-import com.smashingmods.alchemistry.blocks.combiner.CombinerScreen;
-import com.smashingmods.alchemistry.blocks.dissolver.DissolverScreen;
-import com.smashingmods.alchemistry.blocks.evaporator.EvaporatorRenderer;
-import com.smashingmods.alchemistry.blocks.evaporator.EvaporatorScreen;
-import com.smashingmods.alchemistry.blocks.fission.FissionScreen;
-import com.smashingmods.alchemistry.blocks.fusion.FusionScreen;
-import com.smashingmods.alchemistry.blocks.liquifier.LiquifierScreen;
+import com.smashingmods.alchemistry.block.atomizer.AtomizerScreen;
+import com.smashingmods.alchemistry.block.combiner.CombinerScreen;
+import com.smashingmods.alchemistry.block.dissolver.DissolverScreen;
+import com.smashingmods.alchemistry.block.evaporator.EvaporatorRenderer;
+import com.smashingmods.alchemistry.block.evaporator.EvaporatorScreen;
+import com.smashingmods.alchemistry.block.fission.FissionScreen;
+import com.smashingmods.alchemistry.block.fusion.FusionScreen;
+import com.smashingmods.alchemistry.block.liquifier.LiquifierScreen;
 import com.smashingmods.alchemistry.network.Messages;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.crafting.RecipeType;

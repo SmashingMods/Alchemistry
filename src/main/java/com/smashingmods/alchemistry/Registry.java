@@ -1,16 +1,16 @@
 package com.smashingmods.alchemistry;
 
 
-import com.smashingmods.alchemistry.blocks.atomizer.*;
-import com.smashingmods.alchemistry.blocks.combiner.*;
-import com.smashingmods.alchemistry.blocks.dissolver.*;
-import com.smashingmods.alchemistry.blocks.evaporator.*;
-import com.smashingmods.alchemistry.blocks.fission.*;
-import com.smashingmods.alchemistry.blocks.fusion.*;
-import com.smashingmods.alchemistry.blocks.liquifier.*;
-import com.smashingmods.alchemistry.items.CondensedMilkItem;
-import com.smashingmods.alchemistry.items.MineralSaltItem;
-import com.smashingmods.alchemistry.items.SlotFillerItem;
+import com.smashingmods.alchemistry.block.atomizer.*;
+import com.smashingmods.alchemistry.block.combiner.*;
+import com.smashingmods.alchemistry.block.dissolver.*;
+import com.smashingmods.alchemistry.block.evaporator.*;
+import com.smashingmods.alchemistry.block.fission.*;
+import com.smashingmods.alchemistry.block.fusion.*;
+import com.smashingmods.alchemistry.block.liquifier.*;
+import com.smashingmods.alchemistry.item.CondensedMilkItem;
+import com.smashingmods.alchemistry.item.MineralSaltItem;
+import com.smashingmods.alchemistry.item.SlotFillerItem;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;

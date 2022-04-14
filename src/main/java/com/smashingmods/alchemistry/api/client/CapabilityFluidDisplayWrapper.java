@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.api.client;
 
 import com.smashingmods.alchemistry.api.container.BaseContainer;
-import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;

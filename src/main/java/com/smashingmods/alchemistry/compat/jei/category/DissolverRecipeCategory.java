@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.compat.jei.category;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.blocks.dissolver.DissolverRecipe;
+import com.smashingmods.alchemistry.block.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.compat.jei.JEIIntegration;
 import com.smashingmods.alchemistry.misc.ProbabilityGroup;
 import com.mojang.blaze3d.vertex.PoseStack;

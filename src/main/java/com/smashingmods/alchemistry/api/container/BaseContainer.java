@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.api.container;
 
 import com.smashingmods.alchemistry.api.blockentity.GuiBlockEntity;
-import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

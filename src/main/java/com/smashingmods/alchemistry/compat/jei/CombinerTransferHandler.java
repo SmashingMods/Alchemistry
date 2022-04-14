@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.compat.jei;
 
-import com.smashingmods.alchemistry.blocks.combiner.CombinerContainer;
-import com.smashingmods.alchemistry.blocks.combiner.CombinerRecipe;
+import com.smashingmods.alchemistry.block.combiner.CombinerContainer;
+import com.smashingmods.alchemistry.block.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.network.CombinerTransferPkt;
 import com.smashingmods.alchemistry.network.Messages;
 import mezz.jei.api.gui.IRecipeLayout;

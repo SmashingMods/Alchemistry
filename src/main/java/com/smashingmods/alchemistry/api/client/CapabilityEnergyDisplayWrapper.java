@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.api.client;
 
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.container.BaseContainer;
-import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
 
 import java.text.NumberFormat;
 import java.util.Locale;

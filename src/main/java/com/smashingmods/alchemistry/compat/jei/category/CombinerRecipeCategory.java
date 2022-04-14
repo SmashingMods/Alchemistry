@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.compat.jei.category;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.blocks.combiner.CombinerRecipe;
+import com.smashingmods.alchemistry.block.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.compat.jei.JEIIntegration;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;

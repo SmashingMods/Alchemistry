@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.network;
 
 
-import com.smashingmods.alchemistry.blocks.combiner.CombinerRegistry;
-import com.smashingmods.alchemistry.blocks.combiner.CombinerBlockEntity;
+import com.smashingmods.alchemistry.block.combiner.CombinerRegistry;
+import com.smashingmods.alchemistry.block.combiner.CombinerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;

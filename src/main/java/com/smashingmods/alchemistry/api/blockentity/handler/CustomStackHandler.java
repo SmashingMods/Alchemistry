@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.api.blockentity.handler;
 
-import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
 import com.smashingmods.alchemistry.utils.IItemHandlerUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -16,17 +16,17 @@ import static net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABI
 
 public class CustomStackHandler extends ItemStackHandler {
 
-    public AlchemistryBlockEntity baseBlockEntity;
+    public AlchemistryBlockEntity blockEntity;
 
-    public CustomStackHandler(AlchemistryBlockEntity pBaseBlockEntity, int pSize) {
+    public CustomStackHandler(AlchemistryBlockEntity pBlockEntity, int pSize) {
         super(pSize);
-        this.baseBlockEntity = pBaseBlockEntity;
+        this.blockEntity = pBlockEntity;
     }
 
     @Override
     public void onContentsChanged(int pSlot) {
         super.onContentsChanged(pSlot);
-        this.baseBlockEntity.setChanged();
+        this.blockEntity.setChanged();
     }
 
     @SuppressWarnings("unused")
@@ -80,8 +80,8 @@ public class CustomStackHandler extends ItemStackHandler {
     @SuppressWarnings("unused")
     public boolean eject(Direction direction) {
 
-        BlockEntity targetBlockEntity = Objects.requireNonNull(baseBlockEntity.getLevel()).getBlockEntity(baseBlockEntity.getBlockPos().offset(direction.getNormal()));
-        LazyOptional<IItemHandler> originHandler = this.baseBlockEntity.getCapability(ITEM_HANDLER_CAPABILITY, direction);
+        BlockEntity targetBlockEntity = Objects.requireNonNull(blockEntity.getLevel()).getBlockEntity(blockEntity.getBlockPos().offset(direction.getNormal()));
+        LazyOptional<IItemHandler> originHandler = this.blockEntity.getCapability(ITEM_HANDLER_CAPABILITY, direction);
         LazyOptional<IItemHandler> targetHandler = Objects.requireNonNull(targetBlockEntity).getCapability(ITEM_HANDLER_CAPABILITY, direction.getOpposite());
 
         if (originHandler.isPresent() && targetHandler.isPresent()) {

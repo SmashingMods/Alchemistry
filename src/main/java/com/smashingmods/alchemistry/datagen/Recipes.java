@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen;
 
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.blocks.dissolver.DissolverTagData;
+import com.smashingmods.alchemistry.block.dissolver.DissolverTagData;
 import com.smashingmods.alchemistry.datagen.recipe.CombinerRecipeBuilder;
 import com.smashingmods.alchemistry.datagen.recipe.DissolverRecipeBuilder;
 import com.smashingmods.alchemistry.datagen.recipe.FissionRecipeBuilder;

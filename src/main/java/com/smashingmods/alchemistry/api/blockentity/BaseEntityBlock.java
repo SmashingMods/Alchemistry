@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.api.blockentity;
 
 import com.mojang.datafixers.util.Function3;
 import com.smashingmods.alchemistry.api.container.BaseContainer;
-import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

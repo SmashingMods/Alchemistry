@@ -247,12 +247,10 @@ public class FissionBlockEntity extends AlchemistryBlockEntity implements Energy
     }
 
     @Override
-    public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
-    }
-
-    @Override
     public IEnergyStorage getEnergy() {
+        if (energy == null) {
+            energy = new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
+        }
         return energy;
     }
 }

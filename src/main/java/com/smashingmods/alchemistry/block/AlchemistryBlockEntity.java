@@ -48,7 +48,6 @@ public abstract class AlchemistryBlockEntity extends BlockEntity implements Name
     protected CustomStackHandler outputHandler;
 
     public IEnergyStorage energy;
-    public LazyOptional<IEnergyStorage> energyHolder;
 
     private CombinedInvWrapper combinedInvWrapper;
     protected LazyOptional<IItemHandler> itemHandler = LazyOptional.of(() -> combinedInvWrapper);
@@ -62,8 +61,7 @@ public abstract class AlchemistryBlockEntity extends BlockEntity implements Name
         combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
 
         if (this instanceof EnergyBlockEntity) {
-            energy = ((EnergyBlockEntity) this).initEnergy();
-            energyHolder = LazyOptional.of(() -> energy);
+            energy = ((EnergyBlockEntity) this).getEnergy();
         }
     }
 
@@ -97,7 +95,7 @@ public abstract class AlchemistryBlockEntity extends BlockEntity implements Name
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityEnergy.ENERGY && this instanceof EnergyBlockEntity) {
-            return this.energyHolder.cast();
+            return LazyOptional.of(() -> energy).cast();
         } else if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return ((InventoryBlockEntity) this).getExternalInventory().cast();
         } else if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this instanceof FluidBlockEntity) {

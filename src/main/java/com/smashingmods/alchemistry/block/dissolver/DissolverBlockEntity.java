@@ -147,12 +147,10 @@ public class DissolverBlockEntity extends AlchemistryBlockEntity implements Ener
     }
 
     @Override
-    public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
-    }
-
-    @Override
     public IEnergyStorage getEnergy() {
+        if (energy == null) {
+            energy = new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
+        }
         return energy;
     }
 }

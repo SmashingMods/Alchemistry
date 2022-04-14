@@ -174,12 +174,10 @@ public class CombinerBlockEntity extends AlchemistryBlockEntity implements Energ
     }
 
     @Override
-    public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
-    }
-
-    @Override
     public IEnergyStorage getEnergy() {
+        if (energy == null) {
+            energy = new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
+        }
         return energy;
     }
 }

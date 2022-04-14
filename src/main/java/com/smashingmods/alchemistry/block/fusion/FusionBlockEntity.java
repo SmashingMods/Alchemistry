@@ -255,12 +255,10 @@ public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyB
     }
 
     @Override
-    public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
-    }
-
-    @Override
     public IEnergyStorage getEnergy() {
+        if (energy == null) {
+            energy = new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
+        }
         return energy;
     }
 }

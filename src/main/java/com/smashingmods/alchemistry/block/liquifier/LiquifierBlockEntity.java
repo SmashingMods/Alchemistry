@@ -127,12 +127,10 @@ public class LiquifierBlockEntity extends AlchemistryBlockEntity implements Ener
     }
 
     @Override
-    public IEnergyStorage initEnergy() {
-        return new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
-    }
-
-    @Override
     public IEnergyStorage getEnergy() {
+        if (energy == null) {
+            energy = new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
+        }
         return energy;
     }
 

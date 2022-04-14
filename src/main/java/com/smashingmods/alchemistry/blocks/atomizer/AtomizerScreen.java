@@ -14,12 +14,13 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class AtomizerScreen extends BaseScreen<AtomizerContainer> {
+
     private final AtomizerBlockEntity atomizerBlockEntity;
     private static final ResourceLocation textureResourceLocation = new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png");
 
     public AtomizerScreen(AtomizerContainer screenContainer, Inventory pInventory, Component pName) {
         super(screenContainer, pInventory, pName, textureResourceLocation);
-        this.atomizerBlockEntity = (AtomizerBlockEntity) getMenu().baseBlockEntity;
+        this.atomizerBlockEntity = (AtomizerBlockEntity) getMenu().blockEntity;
         displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, atomizerBlockEntity));
         displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, screenContainer, atomizerBlockEntity));
     }

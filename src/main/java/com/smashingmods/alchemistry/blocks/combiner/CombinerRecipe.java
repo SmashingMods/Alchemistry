@@ -22,8 +22,6 @@ public class CombinerRecipe extends ProcessingRecipe {
     public final List<ItemStack> inputs = new ArrayList<>();
     public final Set<Integer> nonEmptyIndices = new HashSet<>();
 
-    //String gamestage;
-
     public CombinerRecipe(ResourceLocation id, String group, List<ItemStack> input, ItemStack output) {
         super(Registry.COMBINER_TYPE, id, group, Ingredient.EMPTY, ItemStack.EMPTY);
         this.output = output;

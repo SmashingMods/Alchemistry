@@ -10,6 +10,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
+
 public class LiquifierRecipe extends ProcessingRecipe {
 
     public IngredientStack input;
@@ -22,13 +24,15 @@ public class LiquifierRecipe extends ProcessingRecipe {
     }
 
     @Override
+    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return Registry.LIQUIFIER_SERIALIZER.get();
     }
 
     @Override
+    @Nonnull
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList temp = NonNullList.create();
+        NonNullList<Ingredient> temp = NonNullList.create();
         temp.add(input.ingredient);
         return temp;
     }

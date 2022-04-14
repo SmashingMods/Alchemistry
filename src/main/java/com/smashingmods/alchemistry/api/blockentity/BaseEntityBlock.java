@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.api.blockentity;
 
 import com.mojang.datafixers.util.Function3;
 import com.smashingmods.alchemistry.api.container.BaseContainer;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -64,7 +65,7 @@ public abstract class BaseEntityBlock extends Block implements EntityBlock {
         super.setPlacedBy(pLevel, pPos, pState, pPlacer, pStack);
         BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
 
-        if (blockEntity instanceof BaseBlockEntity && pStack.hasTag()) {
+        if (blockEntity instanceof AlchemistryBlockEntity && pStack.hasTag()) {
 
             CompoundTag tag = pStack.getOrCreateTag();
             tag.putInt("x", pPos.getX());
@@ -87,8 +88,8 @@ public abstract class BaseEntityBlock extends Block implements EntityBlock {
         if (!pLevel.isClientSide) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             boolean interactionSuccessful = true;
-            if (blockEntity instanceof BaseBlockEntity) {
-                interactionSuccessful = ((BaseBlockEntity) blockEntity).onBlockActivated(pState, pLevel, pPos, pPlayer, pHand, pBlockHitResult);
+            if (blockEntity instanceof AlchemistryBlockEntity) {
+                interactionSuccessful = ((AlchemistryBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
             }
 
             MenuProvider provider = new MenuProvider() {

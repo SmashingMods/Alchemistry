@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import javax.annotation.Nonnull;
 import java.util.List;
-
 
 public class FissionRecipe extends ProcessingRecipe {
 
@@ -33,8 +33,9 @@ public class FissionRecipe extends ProcessingRecipe {
     }
 
     @Override
+    @Nonnull
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList temp = NonNullList.create();
+        NonNullList<Ingredient> temp = NonNullList.create();
         temp.add(Ingredient.of(getInput()));
         return temp;
     }
@@ -49,6 +50,7 @@ public class FissionRecipe extends ProcessingRecipe {
     }
 
     @Override
+    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return Registry.FISSION_SERIALIZER.get();
     }

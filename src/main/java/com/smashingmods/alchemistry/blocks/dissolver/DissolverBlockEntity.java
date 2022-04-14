@@ -5,12 +5,11 @@ import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import com.smashingmods.alchemistry.utils.StackUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -20,7 +19,7 @@ import javax.annotation.Nonnull;
 
 import static com.smashingmods.alchemistry.utils.StackUtils.canStacksMerge;
 
-public class DissolverBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
+public class DissolverBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
 
     private boolean outputSuccessful = true;
     private ItemStack outputThisTick = ItemStack.EMPTY;
@@ -92,7 +91,7 @@ public class DissolverBlockEntity extends AlchemistryBaseBlockEntity implements 
     }
 
     @Override
-    public CustomStackHandler initInputHandler() {
+    public CustomStackHandler getInputHandler() {
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -110,7 +109,7 @@ public class DissolverBlockEntity extends AlchemistryBaseBlockEntity implements 
     }
 
     @Override
-    public CustomStackHandler initOutputHandler() {
+    public CustomStackHandler getOutputHandler() {
         return new CustomStackHandler(this, 10) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -147,10 +146,5 @@ public class DissolverBlockEntity extends AlchemistryBaseBlockEntity implements 
     @Override
     public IEnergyStorage getEnergy() {
         return energy;
-    }
-
-    @Override
-    public Component getName() {
-        return null;
     }
 }

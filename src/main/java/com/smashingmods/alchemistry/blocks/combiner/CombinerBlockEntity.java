@@ -5,10 +5,9 @@ import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class CombinerBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
+public class CombinerBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
 
     public static BlockEntityType<CombinerBlockEntity> type;
 
@@ -136,7 +135,7 @@ public class CombinerBlockEntity extends AlchemistryBaseBlockEntity implements E
     }
 
     @Override
-    public CustomStackHandler initInputHandler() {
+    public CustomStackHandler getInputHandler() {
         return new CustomStackHandler(this, 9) {
 
             @Nonnull
@@ -160,7 +159,7 @@ public class CombinerBlockEntity extends AlchemistryBaseBlockEntity implements E
     }
 
     @Override
-    public CustomStackHandler initOutputHandler() {
+    public CustomStackHandler getOutputHandler() {
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -177,10 +176,5 @@ public class CombinerBlockEntity extends AlchemistryBaseBlockEntity implements E
     @Override
     public IEnergyStorage getEnergy() {
         return energy;
-    }
-
-    @Override
-    public Component getName() {
-        return null;
     }
 }

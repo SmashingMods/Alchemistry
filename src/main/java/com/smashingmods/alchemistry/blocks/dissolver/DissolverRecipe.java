@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import javax.annotation.Nonnull;
+
 public class DissolverRecipe extends ProcessingRecipe {
 
     public IngredientStack inputIngredient;
@@ -17,6 +19,7 @@ public class DissolverRecipe extends ProcessingRecipe {
     public ProbabilitySet outputs;
 
     @Override
+    @Nonnull
     public NonNullList<Ingredient> getIngredients() {
         return NonNullList.create();
     }
@@ -75,6 +78,7 @@ public class DissolverRecipe extends ProcessingRecipe {
 
 
     @Override
+    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return Registry.DISSOLVER_SERIALIZER.get();
     }

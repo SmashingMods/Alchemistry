@@ -31,7 +31,7 @@ public class CombinerTransferHandler implements IRecipeTransferHandler<CombinerC
         ItemStack output = recipeLayout.getItemStacks().getGuiIngredients().get(size - 1).getDisplayedIngredient();//last().value.displayedIngredient;
 
         if (output != null && doTransfer) {
-            Messages.sendToServer(new CombinerTransferPkt(output, container.baseBlockEntity.getBlockPos()));
+            Messages.sendToServer(new CombinerTransferPkt(output, container.blockEntity.getBlockPos()));
         }
         return null;
     }

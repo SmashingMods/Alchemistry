@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.api.client;
 
-import com.smashingmods.alchemistry.api.blockentity.BaseBlockEntity;
 import com.smashingmods.alchemistry.api.container.BaseContainer;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -15,24 +15,24 @@ public class CapabilityFluidDisplayWrapper extends CapabilityDisplayWrapper {
 
     public static NumberFormat numFormat = NumberFormat.getInstance(Locale.US);
     private final BaseContainer baseContainer;
-    private BaseBlockEntity baseBlockEntity;
+    private AlchemistryBlockEntity blockEntity;
 
     public CapabilityFluidDisplayWrapper(int pX, int pY, int pWidth, int pHeight, BaseContainer pBaseContainer) {
         super(pX, pY, pWidth, pHeight);
         this.baseContainer = pBaseContainer;
     }
 
-    public CapabilityFluidDisplayWrapper(int pX, int pY, int pWidth, int pHeight, BaseContainer pBaseContainer, BaseBlockEntity pBaseBlockEntity) {
+    public CapabilityFluidDisplayWrapper(int pX, int pY, int pWidth, int pHeight, BaseContainer pBaseContainer, AlchemistryBlockEntity pBlockEntity) {
         super(pX, pY, pWidth, pHeight);
         this.baseContainer = pBaseContainer;
-        this.baseBlockEntity = pBaseBlockEntity;
+        this.blockEntity = pBlockEntity;
     }
 
     public IFluidHandler getHandler() {
 
-        BaseBlockEntity containerBlockEntity = baseContainer.baseBlockEntity;
+        AlchemistryBlockEntity containerBlockEntity = baseContainer.blockEntity;
         LazyOptional<IFluidHandler> containerBlockEntityHandler = containerBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
-        LazyOptional<IFluidHandler> blockEntityHandler = baseBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+        LazyOptional<IFluidHandler> blockEntityHandler = blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
 
         if (baseContainer != null) {
             return containerBlockEntityHandler.orElseThrow(NullPointerException::new);

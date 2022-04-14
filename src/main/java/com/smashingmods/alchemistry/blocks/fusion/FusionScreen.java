@@ -20,7 +20,7 @@ public class FusionScreen extends BaseScreen<FusionContainer> {
 
     public FusionScreen(FusionContainer screenContainer, Inventory inv, Component name) {
         super(screenContainer, inv, name, textureResourceLocation);
-        this.fusionBlockEntity = (FusionBlockEntity) screenContainer.baseBlockEntity;
+        this.fusionBlockEntity = (FusionBlockEntity) screenContainer.blockEntity;
         this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, fusionBlockEntity));
     }
 
@@ -41,7 +41,7 @@ public class FusionScreen extends BaseScreen<FusionContainer> {
 
     public void updateStatus() {
         if (fusionBlockEntity.isValidMultiblock) statusText = "";
-        else statusText = I18n.get("alchemistry.fusion.invalid_multiblock");
+        else statusText = I18n.get("alchemistry.container.fusion_controller.invalid_multiblock");
     }
 
     @Override

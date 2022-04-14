@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.api.client;
 
-import com.smashingmods.alchemistry.api.blockentity.BaseBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.container.BaseContainer;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -13,25 +13,25 @@ public class CapabilityEnergyDisplayWrapper extends CapabilityDisplayWrapper {
 
     //public Supplier<IEnergyStorage> energy;
     private BaseContainer container = null;
-    private BaseBlockEntity tile = null;
+    private AlchemistryBlockEntity blockEntity = null;
 
     @SuppressWarnings("unused")
-    public CapabilityEnergyDisplayWrapper(int x, int y, int width, int height, BaseContainer container) {
-        super(x, y, width, height);
-        this.container = container;
+    public CapabilityEnergyDisplayWrapper(int pX, int pY, int pWidth, int pHeight, BaseContainer pContainer) {
+        super(pX, pY, pWidth, pHeight);
+        this.container = pContainer;
     }
 
     @SuppressWarnings("unused")
-    public CapabilityEnergyDisplayWrapper(int x, int y, int width, int height, BaseBlockEntity tile) {
-        super(x, y, width, height);
-        this.tile = tile;
+    public CapabilityEnergyDisplayWrapper(int pX, int pY, int pWidth, int pHeight, AlchemistryBlockEntity pBlockEntity) {
+        super(pX, pY, pWidth, pHeight);
+        this.blockEntity = pBlockEntity;
 
     }
 
     @Override
     public int getStored() {
         if (container != null) return container.getEnergy();//energy.get().getEnergyStored();
-        else if (tile != null) return ((EnergyBlockEntity) tile).getEnergy().getEnergyStored();
+        else if (blockEntity != null) return ((EnergyBlockEntity) blockEntity).getEnergy().getEnergyStored();
         else return -1;
         // else return -1;
     }
@@ -41,7 +41,7 @@ public class CapabilityEnergyDisplayWrapper extends CapabilityDisplayWrapper {
     @Override
     public int getCapacity() {
         if (container != null) return container.getEnergyCapacity();
-        else if (tile != null) return ((EnergyBlockEntity) tile).getEnergy().getMaxEnergyStored();
+        else if (blockEntity != null) return ((EnergyBlockEntity) blockEntity).getEnergy().getMaxEnergyStored();
         else return -1;
 
         //energy.get().getMaxEnergyStored();

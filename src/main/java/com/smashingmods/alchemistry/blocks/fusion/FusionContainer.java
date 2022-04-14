@@ -45,7 +45,7 @@ public class FusionContainer extends BaseContainer {
     }
 
     public int getProgressTicks() {
-        return ((FusionBlockEntity) baseBlockEntity).progressTicks;
+        return ((FusionBlockEntity) blockEntity).progressTicks;
     }
 
 
@@ -55,6 +55,6 @@ public class FusionContainer extends BaseContainer {
     }
 
     public boolean isValidMultiblock() {
-        return ((FusionBlockEntity) baseBlockEntity).isValidMultiblock;
+        return ((FusionBlockEntity) blockEntity).isValidMultiblock;
     }
 }

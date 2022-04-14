@@ -22,7 +22,7 @@ public class FissionScreen extends BaseScreen<FissionContainer> {
     public FissionScreen(FissionContainer screenContainer, Inventory inv, Component name) {
         super(screenContainer, inv, name, textureResourceLocation);
         this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, fissionBlockEntity));
-        fissionBlockEntity = (FissionBlockEntity) screenContainer.baseBlockEntity;
+        fissionBlockEntity = (FissionBlockEntity) screenContainer.blockEntity;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class FissionScreen extends BaseScreen<FissionContainer> {
 
     public void updateStatus() {
         if (fissionBlockEntity.isValidMultiblock) statusText = "";
-        else statusText = I18n.get("alchemistry.fission.invalid_multiblock");
+        else statusText = I18n.get("alchemistry.container.fission_controller.invalid_multiblock");
     }
 
 

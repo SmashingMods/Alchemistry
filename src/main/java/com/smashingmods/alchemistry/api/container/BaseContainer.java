@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.api.container;
 
-import com.smashingmods.alchemistry.api.blockentity.BaseBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.GuiBlockEntity;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +18,7 @@ import static net.minecraftforge.energy.CapabilityEnergy.ENERGY;
 
 public abstract class BaseContainer extends AbstractContainerMenu {
 
-    public BaseBlockEntity baseBlockEntity;
+    public AlchemistryBlockEntity blockEntity;
     private final Inventory inventory;
     public final int SLOT_COUNT;
 
@@ -26,7 +26,7 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         //MenuType<?> p_39229_, int p_39230_, Inventory p_39231_, Container p_39232_, int p_39233_
         super(pMenuType, pID);
 
-        this.baseBlockEntity = (BaseBlockEntity) pInventory.player.getLevel().getBlockEntity(pBlockPos);
+        this.blockEntity = (AlchemistryBlockEntity) pInventory.player.getLevel().getBlockEntity(pBlockPos);
         //this.player = player;
         this.inventory = pInventory;
         this.SLOT_COUNT = pSlotCount;
@@ -111,21 +111,21 @@ public abstract class BaseContainer extends AbstractContainerMenu {
     }
 
     public int getEnergy() {
-        return baseBlockEntity.getCapability(ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
+        return blockEntity.getCapability(ENERGY).map(IEnergyStorage::getEnergyStored).orElse(0);
     }
 
     public int getFluid() {
-        return baseBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
                 .map(handler -> handler.getFluidInTank(0).getAmount()).orElse(0);
     }
 
     public int getFluidCapacity() {
-        return baseBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+        return blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
                 .map(handler -> handler.getTankCapacity(0)).orElse(0);
     }
 
     public int getEnergyCapacity() {
-        return baseBlockEntity.getCapability(ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
+        return blockEntity.getCapability(ENERGY).map(IEnergyStorage::getMaxEnergyStored).orElse(0);
     }
 
     public void addSlotArray(int pStartIndex, int pX, int pY, int pRows, int pColumns, IItemHandler pItemhandler) {
@@ -148,14 +148,14 @@ public abstract class BaseContainer extends AbstractContainerMenu {
         for (int row = 0; row <= 2; row++) {
             for (int col = 0; col <= 8; col++) {
                 int x = 8 + col * 18;
-                int y = row * 18 + ((GuiBlockEntity) baseBlockEntity).getHeight() - 82;
+                int y = row * 18 + ((GuiBlockEntity) blockEntity).getHeight() - 82;
                 this.addSlot(new Slot(inventory, col + row * 9 + 9, x, y));
             }
         }
 
         for (int row = 0; row <= 8; row++) {
             int x = 8 + row * 18;
-            int y = ((GuiBlockEntity) baseBlockEntity).getHeight() - 24;
+            int y = ((GuiBlockEntity) blockEntity).getHeight() - 24;
             this.addSlot(new Slot(inventory, row, x, y));
         }
     }

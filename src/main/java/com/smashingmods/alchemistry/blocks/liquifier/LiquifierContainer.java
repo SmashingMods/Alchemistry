@@ -29,7 +29,7 @@ public class LiquifierContainer extends BaseContainer {
     }
 
     public int getProgressTicks() {
-        return ((LiquifierBlockEntity) baseBlockEntity).progressTicks;
+        return ((LiquifierBlockEntity) blockEntity).progressTicks;
     }
 
     @Override

@@ -5,10 +5,9 @@ import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.api.blockentity.CustomFluidStorage;
 import com.smashingmods.alchemistry.api.blockentity.FluidBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
-public class EvaporatorBlockEntity extends AlchemistryBaseBlockEntity implements FluidBlockEntity {
+public class EvaporatorBlockEntity extends AlchemistryBlockEntity implements FluidBlockEntity {
 
     public int progressTicks = 0;
     private int calculatedProcessingTime = 0;
@@ -95,12 +94,12 @@ public class EvaporatorBlockEntity extends AlchemistryBaseBlockEntity implements
     }
 
     @Override
-    public CustomStackHandler initInputHandler() {
+    public CustomStackHandler getInputHandler() {
         return new CustomStackHandler(this, 0);
     }
 
     @Override
-    public CustomStackHandler initOutputHandler() {
+    public CustomStackHandler getOutputHandler() {
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -112,10 +111,5 @@ public class EvaporatorBlockEntity extends AlchemistryBaseBlockEntity implements
     @Override
     public LazyOptional<IFluidHandler> getFluidHandler() {
         return fluidHolder;
-    }
-
-    @Override
-    public Component getName() {
-        return null;
     }
 }

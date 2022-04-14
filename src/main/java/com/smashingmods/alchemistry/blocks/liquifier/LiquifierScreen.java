@@ -19,7 +19,7 @@ public class LiquifierScreen extends BaseScreen<LiquifierContainer> {
 
     public LiquifierScreen(LiquifierContainer container, Inventory inv, Component name) {
         super(container, inv, name, textureResourceLocation);
-        this.liquifierBlockEntity = (LiquifierBlockEntity) container.baseBlockEntity;
+        this.liquifierBlockEntity = (LiquifierBlockEntity) container.blockEntity;
         this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, liquifierBlockEntity));
         this.displayData.add(new CapabilityFluidDisplayWrapper(122, 40, 16, 60, container, liquifierBlockEntity));
     }

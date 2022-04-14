@@ -28,7 +28,7 @@ public class CombinerScreen extends BaseScreen<CombinerContainer> {
 
     public CombinerScreen(CombinerContainer screenContainer, Inventory inv, Component name) {
         super(screenContainer, inv, name, textureResourceLocation);
-        this.combinerTile = (CombinerBlockEntity) screenContainer.baseBlockEntity;
+        this.combinerTile = (CombinerBlockEntity) screenContainer.blockEntity;
         //this.paused = tile.paused;
         //this.recipeLocked = tile.recipeIsLocked;
         this.container = screenContainer;
@@ -54,11 +54,11 @@ public class CombinerScreen extends BaseScreen<CombinerContainer> {
 
     public void updateButtonStrings() {
         if (this.combinerTile.recipeIsLocked)
-            toggleRecipeLock.setMessage(new TextComponent(I18n.get("block.combiner.unlock_recipe")));
-        else toggleRecipeLock.setMessage(new TextComponent(I18n.get("block.combiner.lock_recipe")));
+            toggleRecipeLock.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.unlock_recipe")));
+        else toggleRecipeLock.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.lock_recipe")));
 
-        if (this.combinerTile.paused) pauseButton.setMessage(new TextComponent(I18n.get("block.combiner.resume")));
-        else pauseButton.setMessage(new TextComponent(I18n.get("block.combiner.pause")));
+        if (this.combinerTile.paused) pauseButton.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.resume")));
+        else pauseButton.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.pause")));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class CombinerScreen extends BaseScreen<CombinerContainer> {
         pauseButton.renderButton(ps, mouseX, mouseY, 0.0f);
 
         if (!combinerTile.clientRecipeTarget.getStackInSlot(0).isEmpty()) {
-            this.drawItemStack(ps, combinerTile.clientRecipeTarget.getStackInSlot(0), getGuiLeft() + 140, getGuiTop() + 5, I18n.get("block.combiner.target"));
+            this.drawItemStack(ps, combinerTile.clientRecipeTarget.getStackInSlot(0), getGuiLeft() + 140, getGuiTop() + 5, I18n.get("alchemistry.container.combiner.target"));
         }
     }
 

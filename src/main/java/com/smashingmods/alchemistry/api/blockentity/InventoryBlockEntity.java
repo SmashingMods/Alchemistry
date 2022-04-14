@@ -9,19 +9,13 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 public interface InventoryBlockEntity {
 
-    CustomStackHandler initInputHandler();
-
-    CustomStackHandler initOutputHandler();
-
-    AutomationStackHandler initAutomationInputHandler(IItemHandlerModifiable inv);
-
-    AutomationStackHandler initAutomationOutputHandler(IItemHandlerModifiable inv);
-
-    @SuppressWarnings("unused")
     CustomStackHandler getInputHandler();
 
-    @SuppressWarnings("unused")
     CustomStackHandler getOutputHandler();
+
+    AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable inv);
+
+    AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable inv);
 
     LazyOptional<IItemHandler> getExternalInventory();
 

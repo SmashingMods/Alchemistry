@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -32,8 +33,8 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         super(pScreenContainer, pInventory, pName);
         this.powerBarTexture = new ResourceLocation(Alchemistry.MODID, "textures/gui/template.png");
         this.screenContainer = pScreenContainer;
-        this.imageWidth = ((GuiBlockEntity) pScreenContainer.baseBlockEntity).getWidth();
-        this.imageHeight = ((GuiBlockEntity) pScreenContainer.baseBlockEntity).getHeight();
+        this.imageWidth = ((GuiBlockEntity) pScreenContainer.blockEntity).getWidth();
+        this.imageHeight = ((GuiBlockEntity) pScreenContainer.blockEntity).getHeight();
         this.GUI = pResourceLocation;
     }
 
@@ -50,13 +51,10 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
 
     }
 
-    //drawGuiContainerForegroundLayer->func_230451b
     @Override
     protected void renderLabels(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        //super.renderLabels(ps, mouseX, mouseY);
-        String displayName = this.screenContainer.baseBlockEntity.getDisplayName().getString();
-        drawString(pPoseStack, this.font, displayName,
-                this.imageWidth / 2 - this.font.width(displayName) / 2, -10, Color.WHITE.getRGB());
+        String displayName = I18n.get(screenContainer.blockEntity.getDisplayName().getString());
+        drawString(pPoseStack, this.font, displayName,this.imageWidth / 2 - this.font.width(displayName) / 2, -10, Color.WHITE.getRGB());
     }
 
     @Override

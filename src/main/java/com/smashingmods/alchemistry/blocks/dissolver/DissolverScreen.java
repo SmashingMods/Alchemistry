@@ -13,6 +13,6 @@ public class DissolverScreen extends BaseScreen<DissolverContainer> {
 
     public DissolverScreen(DissolverContainer screenContainer, Inventory inv, Component name) {
         super(screenContainer, inv, name, textureResourceLocation);
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(13, 31, 16, 60, screenContainer.baseBlockEntity));
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(13, 31, 16, 60, screenContainer.blockEntity));
     }
 }

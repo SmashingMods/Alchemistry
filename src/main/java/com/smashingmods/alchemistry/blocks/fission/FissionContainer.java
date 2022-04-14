@@ -45,7 +45,7 @@ public class FissionContainer extends BaseContainer {
     }
 
     public int getProgressTicks() {
-        return ((FissionBlockEntity) baseBlockEntity).progressTicks;
+        return ((FissionBlockEntity) blockEntity).progressTicks;
     }
 
     //public IEnergyStorage getEnergy() {
@@ -58,6 +58,6 @@ public class FissionContainer extends BaseContainer {
     }
 
     public boolean isValidMultiblock() {
-        return ((FissionBlockEntity) baseBlockEntity).isValidMultiblock;
+        return ((FissionBlockEntity) blockEntity).isValidMultiblock;
     }
 }

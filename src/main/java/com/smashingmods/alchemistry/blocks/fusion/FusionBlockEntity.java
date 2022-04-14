@@ -5,14 +5,13 @@ import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import com.smashingmods.alchemistry.blocks.PowerStatus;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.smashingmods.chemlib.items.ElementItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -31,7 +30,7 @@ import java.util.function.BiFunction;
 
 import static com.smashingmods.alchemistry.blocks.PowerStatus.*;
 
-public class FusionBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
+public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
 
     boolean isValidMultiblock = false;
     ItemStack recipeOutput = ItemStack.EMPTY;
@@ -200,7 +199,7 @@ public class FusionBlockEntity extends AlchemistryBaseBlockEntity implements Ene
 
 
     @Override
-    public CustomStackHandler initInputHandler() {
+    public CustomStackHandler getInputHandler() {
         CustomStackHandler input = new CustomStackHandler(this, 2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -220,7 +219,7 @@ public class FusionBlockEntity extends AlchemistryBaseBlockEntity implements Ene
     }
 
     @Override
-    public CustomStackHandler initOutputHandler() {
+    public CustomStackHandler getOutputHandler() {
         return new CustomStackHandler(this, 1) {
             @Nonnull
             @Override
@@ -256,10 +255,5 @@ public class FusionBlockEntity extends AlchemistryBaseBlockEntity implements Ene
     @Override
     public IEnergyStorage getEnergy() {
         return energy;
-    }
-
-    @Override
-    public Component getName() {
-        return null;
     }
 }

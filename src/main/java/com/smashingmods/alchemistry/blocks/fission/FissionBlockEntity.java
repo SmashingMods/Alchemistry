@@ -5,14 +5,13 @@ import com.smashingmods.alchemistry.Registry;
 import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import com.smashingmods.alchemistry.blocks.AlchemistryBaseBlockEntity;
+import com.smashingmods.alchemistry.blocks.AlchemistryBlockEntity;
 import com.smashingmods.alchemistry.blocks.PowerStatus;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.smashingmods.chemlib.items.ElementItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -27,7 +26,7 @@ import java.util.function.BiFunction;
 
 import static com.smashingmods.alchemistry.blocks.PowerStatus.*;
 
-public class FissionBlockEntity extends AlchemistryBaseBlockEntity implements EnergyBlockEntity {
+public class FissionBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
     public FissionBlockEntity(BlockPos pos, BlockState state) {
         super(Registry.FISSION_CONTOLLER_BE.get(), pos, state);
     }
@@ -209,7 +208,7 @@ public class FissionBlockEntity extends AlchemistryBaseBlockEntity implements En
     }
 
     @Override
-    public CustomStackHandler initInputHandler() {
+    public CustomStackHandler getInputHandler() {
         return new CustomStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -225,7 +224,7 @@ public class FissionBlockEntity extends AlchemistryBaseBlockEntity implements En
     }
 
     @Override
-    public CustomStackHandler initOutputHandler() {
+    public CustomStackHandler getOutputHandler() {
         return new CustomStackHandler(this, 2) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
@@ -249,10 +248,5 @@ public class FissionBlockEntity extends AlchemistryBaseBlockEntity implements En
     @Override
     public IEnergyStorage getEnergy() {
         return energy;
-    }
-
-    @Override
-    public Component getName() {
-        return null;
     }
 }

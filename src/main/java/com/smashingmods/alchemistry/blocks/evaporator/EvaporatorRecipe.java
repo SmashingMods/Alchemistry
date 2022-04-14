@@ -10,6 +10,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
+
 public class EvaporatorRecipe extends ProcessingRecipe {
 
     public FluidStack input;
@@ -23,6 +25,7 @@ public class EvaporatorRecipe extends ProcessingRecipe {
     }
 
     @Override
+    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return Registry.EVAPORATOR_SERIALIZER.get();
     }

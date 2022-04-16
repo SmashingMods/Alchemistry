@@ -8,7 +8,7 @@ import com.smashingmods.alchemistry.block.evaporator.EvaporatorScreen;
 import com.smashingmods.alchemistry.block.fission.FissionScreen;
 import com.smashingmods.alchemistry.block.fusion.FusionScreen;
 import com.smashingmods.alchemistry.block.liquifier.LiquifierScreen;
-import com.smashingmods.alchemistry.network.Messages;
+import com.smashingmods.alchemistry.network.Packets;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.api.distmarker.Dist;
@@ -61,7 +61,7 @@ public class Alchemistry {
     }
 
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
-        Messages.register();
+        Packets.register();
         Registry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
         Registry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
         Registry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");

@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.block.atomizer;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.CustomFluidStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.FluidBlockEntity;
@@ -13,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -22,14 +22,17 @@ import javax.annotation.Nonnull;
 
 public class AtomizerBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity, FluidBlockEntity {
 
-    protected CustomFluidStorage inputTank;
-    protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> inputTank);
+    protected CustomFluidStorage fluidStorage;
+    protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> fluidStorage);
+    protected IEnergyStorage energyStorage;
+    protected LazyOptional<IEnergyStorage> energyHolder = LazyOptional.of(() -> energyStorage);
+
     private AtomizerRecipe currentRecipe = null;
     protected int progressTicks = 0;
 
     public AtomizerBlockEntity(BlockPos pos, BlockState state) {
         super(Registry.ATOMIZER_BE.get(), pos, state);
-        inputTank = new CustomFluidStorage(10000, FluidStack.EMPTY) {
+        fluidStorage = new CustomFluidStorage(10000, FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
                 super.onContentsChanged();
@@ -37,21 +40,22 @@ public class AtomizerBlockEntity extends AlchemistryBlockEntity implements Energ
                 setChanged();
             }
         };
+        this.energyStorage = new EnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get());
     }
 
     public void updateRecipe() {
-        if (!inputTank.isEmpty()
+        if (!fluidStorage.isEmpty()
                 && (currentRecipe == null || !ItemStack.matches(currentRecipe.output, getOutputHandler().getStackInSlot(0)))) {
             currentRecipe = AtomizerRegistry.getRecipes(level).stream()
-                    .filter(it -> it.input.getFluid() == inputTank.getFluid().getFluid()).findFirst().orElse(null);
+                    .filter(it -> it.input.getFluid() == fluidStorage.getFluid().getFluid()).findFirst().orElse(null);
         }
-        if (inputTank.isEmpty()) currentRecipe = null;
+        if (fluidStorage.isEmpty()) currentRecipe = null;
         setChanged();
     }
 
     public void tickServer() {
         if (level.isClientSide) return;
-        if (inputTank.getFluidAmount() > 0) {
+        if (fluidStorage.getFluidAmount() > 0) {
             updateRecipe();
             if (canProcess()) {
                 process();
@@ -64,8 +68,8 @@ public class AtomizerBlockEntity extends AlchemistryBlockEntity implements Energ
         if (currentRecipe != null) {
             ItemStack recipeOutput = currentRecipe.output;
             ItemStack output0 = getOutputHandler().getStackInSlot(0);
-            return energy.getEnergyStored() >= Config.LIQUIFIER_ENERGY_PER_TICK.get()
-                    && inputTank.getFluidAmount() >= currentRecipe.input.getAmount()
+            return energyStorage.getEnergyStored() >= Config.LIQUIFIER_ENERGY_PER_TICK.get()
+                    && fluidStorage.getFluidAmount() >= currentRecipe.input.getAmount()
                     && (ItemStack.matches(output0, recipeOutput) || output0.isEmpty())
                     && output0.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxStackSize();
         } else return false;
@@ -77,9 +81,9 @@ public class AtomizerBlockEntity extends AlchemistryBlockEntity implements Energ
         } else {
             progressTicks = 0;
             getOutputHandler().setOrIncrement(0, currentRecipe.output.copy());
-            inputTank.drain(currentRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
+            fluidStorage.drain(currentRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
         }
-        this.energy.extractEnergy(Config.LIQUIFIER_ENERGY_PER_TICK.get(), false);
+        this.energyStorage.extractEnergy(Config.LIQUIFIER_ENERGY_PER_TICK.get(), false);
         this.setChanged();
     }
 
@@ -87,14 +91,14 @@ public class AtomizerBlockEntity extends AlchemistryBlockEntity implements Energ
     public void load(@NotNull CompoundTag compound) {
         super.load(compound);
         this.progressTicks = compound.getInt("progressTicks");
-        inputTank.readFromNBT(compound.getCompound("inputTank"));
+        fluidStorage.readFromNBT(compound.getCompound("inputTank"));
     }
 
     @Override
     public void saveAdditional(@NotNull CompoundTag compound) {
         super.saveAdditional(compound);
         compound.putInt("progressTicks", progressTicks);
-        compound.put("inputTank", inputTank.writeToNBT(new CompoundTag()));
+        compound.put("inputTank", fluidStorage.writeToNBT(new CompoundTag()));
     }
 
     @Override
@@ -124,10 +128,7 @@ public class AtomizerBlockEntity extends AlchemistryBlockEntity implements Energ
     }
 
     @Override
-    public IEnergyStorage getEnergy() {
-        if (energy == null) {
-            energy = new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get());
-        }
-        return energy;
+    public LazyOptional<IEnergyStorage> getEnergy() {
+        return this.energyHolder;
     }
 }

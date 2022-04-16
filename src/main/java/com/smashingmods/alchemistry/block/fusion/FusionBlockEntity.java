@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -43,8 +43,12 @@ public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyB
 
     boolean firstTick = true;
 
+    protected IEnergyStorage energyStorage;
+    protected LazyOptional<IEnergyStorage> energyHolder = LazyOptional.of(() -> energyStorage);
+
     public FusionBlockEntity(BlockPos pos, BlockState state) {
         super(Registry.FUSION_CONTROLLER_BE.get(), pos, state);
+        this.energyStorage = new EnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
     }
 
     public void tickServer() {
@@ -85,7 +89,7 @@ public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyB
                 && !recipeOutput.isEmpty()
                 && (ItemStack.isSame(output0, recipeOutput) || output0.isEmpty())
                 && output0.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxStackSize()
-                && energy.getEnergyStored() >= Config.FUSION_ENERGY_PER_TICK.get();
+                && energyStorage.getEnergyStored() >= Config.FUSION_ENERGY_PER_TICK.get();
     }
 
     public void process() {
@@ -97,7 +101,7 @@ public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyB
             getInputHandler().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
             getInputHandler().decrementSlot(1, 1);//Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
-        this.energy.extractEnergy(Config.FUSION_ENERGY_PER_TICK.get(), false);
+        this.energyStorage.extractEnergy(Config.FUSION_ENERGY_PER_TICK.get(), false);
         setChanged();
     }
 
@@ -255,10 +259,7 @@ public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyB
     }
 
     @Override
-    public IEnergyStorage getEnergy() {
-        if (energy == null) {
-            energy = new CustomEnergyStorage(Config.FUSION_ENERGY_CAPACITY.get());
-        }
-        return energy;
+    public LazyOptional<IEnergyStorage> getEnergy() {
+        return energyHolder;
     }
 }

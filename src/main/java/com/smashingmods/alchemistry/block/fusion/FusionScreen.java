@@ -2,8 +2,8 @@ package com.smashingmods.alchemistry.block.fusion;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.client.BaseScreen;
-import com.smashingmods.alchemistry.api.client.CapabilityEnergyDisplayWrapper;
+import com.smashingmods.alchemistry.api.container.BaseScreen;
+import com.smashingmods.alchemistry.api.container.CapabilityEnergyDisplayWrapper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -18,10 +18,10 @@ public class FusionScreen extends BaseScreen<FusionContainer> {
     private String statusText = "";
     public static ResourceLocation textureResourceLocation = new ResourceLocation(Alchemistry.MODID, "textures/gui/fusion_gui.png");
 
-    public FusionScreen(FusionContainer screenContainer, Inventory inv, Component name) {
-        super(screenContainer, inv, name, textureResourceLocation);
-        this.fusionBlockEntity = (FusionBlockEntity) screenContainer.blockEntity;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, fusionBlockEntity));
+    public FusionScreen(FusionContainer pContainer, Inventory pInventory, Component pName) {
+        super(pContainer, pInventory, pName, textureResourceLocation);
+        this.fusionBlockEntity = (FusionBlockEntity) getMenu().blockEntity;
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, pContainer));
     }
 
     @Override

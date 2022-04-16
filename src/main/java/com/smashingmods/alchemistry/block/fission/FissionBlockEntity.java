@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.block.fission;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
@@ -17,6 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,9 +27,9 @@ import java.util.function.BiFunction;
 import static com.smashingmods.alchemistry.block.PowerStatus.*;
 
 public class FissionBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
-    public FissionBlockEntity(BlockPos pos, BlockState state) {
-        super(Registry.FISSION_CONTOLLER_BE.get(), pos, state);
-    }
+
+    protected IEnergyStorage energyStorage;
+    protected LazyOptional<IEnergyStorage> energyHolder = LazyOptional.of(() -> energyStorage);
 
     int progressTicks = 0;
     ItemStack recipeOutput1 = ItemStack.EMPTY;
@@ -38,10 +38,14 @@ public class FissionBlockEntity extends AlchemistryBlockEntity implements Energy
     int checkMultiblockTicks = 0;
     boolean firstTick = true;
 
+    public FissionBlockEntity(BlockPos pos, BlockState state) {
+        super(Registry.FISSION_CONTOLLER_BE.get(), pos, state);
+        this.energyStorage = new EnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
+    }
+
     public ItemStack getInputStack() {
         return this.getInputHandler().getStackInSlot(0);
     }
-
 
     private void refreshRecipe() {
         if (!this.getInputStack().isEmpty() && (this.getInputStack().getItem() instanceof ElementItem)) {
@@ -105,7 +109,7 @@ public class FissionBlockEntity extends AlchemistryBlockEntity implements Energy
                 && (ItemStack.isSame(output1, recipeOutput2) || output1.isEmpty())
                 && output0.getCount() + recipeOutput1.getCount() <= recipeOutput1.getMaxStackSize()
                 && output1.getCount() + recipeOutput2.getCount() <= recipeOutput2.getMaxStackSize()
-                && energy.getEnergyStored() >= Config.FISSION_ENERGY_PER_TICK.get();
+                && energyStorage.getEnergyStored() >= Config.FISSION_ENERGY_PER_TICK.get();
     }
 
     public void process() {
@@ -117,7 +121,7 @@ public class FissionBlockEntity extends AlchemistryBlockEntity implements Energy
             if (!recipeOutput2.isEmpty()) getOutputHandler().setOrIncrement(1, recipeOutput2.copy());
             getInputHandler().decrementSlot(0, 1); //Will refresh the recipe, clearing the recipeOutputs if only 1 stack is left
         }
-        this.energy.extractEnergy(Config.FISSION_ENERGY_PER_TICK.get(), false);//ConfigHandler.fissionEnergyPerTick!!, false)
+        this.energyStorage.extractEnergy(Config.FISSION_ENERGY_PER_TICK.get(), false);//ConfigHandler.fissionEnergyPerTick!!, false)
         setChanged();
     }
 
@@ -247,10 +251,7 @@ public class FissionBlockEntity extends AlchemistryBlockEntity implements Energy
     }
 
     @Override
-    public IEnergyStorage getEnergy() {
-        if (energy == null) {
-            energy = new CustomEnergyStorage(Config.FISSION_ENERGY_CAPACITY.get());
-        }
-        return energy;
+    public LazyOptional<IEnergyStorage> getEnergy() {
+        return this.energyHolder;
     }
 }

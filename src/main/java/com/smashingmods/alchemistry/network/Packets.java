@@ -10,8 +10,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-
-public class Messages {
+public class Packets {
     private static SimpleChannel INSTANCE;
     private static int packetId = 0;
 
@@ -29,15 +28,15 @@ public class Messages {
 
         INSTANCE = net;
 
-        net.messageBuilder(CombinerButtonPkt.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(CombinerButtonPkt::new)
-                .encoder(CombinerButtonPkt::toBytes)
-                .consumer(CombinerButtonPkt::handle)
+        net.messageBuilder(CombinerButtonPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CombinerButtonPacket::new)
+                .encoder(CombinerButtonPacket::toBytes)
+                .consumer(CombinerButtonPacket::handle)
                 .add();
-        net.messageBuilder(CombinerTransferPkt.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(CombinerTransferPkt::new)
-                .encoder(CombinerTransferPkt::toBytes)
-                .consumer(CombinerTransferPkt::handle)
+        net.messageBuilder(CombinerTransferPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CombinerTransferPacket::new)
+                .encoder(CombinerTransferPacket::toBytes)
+                .consumer(CombinerTransferPacket::handle)
                 .add();
         net.messageBuilder(BlockEntityPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(BlockEntityPacket::new)

@@ -30,7 +30,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-@JeiPlugin
+//@JeiPlugin
 public class JEIIntegration implements IModPlugin {
 
     public static final String ATOMIZER_CATEGORY = "atomizer_recipe";

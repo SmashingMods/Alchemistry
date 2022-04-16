@@ -20,6 +20,7 @@ public class FissionContainer extends BaseContainer {
         this.addSlot(new SlotItemHandler(Objects.requireNonNull(blockEntity).getInputHandler(), 0, 49, 60));
         this.addSlotArray(0, 122, 60, 1, 2, blockEntity.getOutputHandler());
         addPlayerSlots();
+
         trackInt(new DataSlot() {
             @Override
             public int get() {
@@ -31,6 +32,7 @@ public class FissionContainer extends BaseContainer {
                 blockEntity.progressTicks = value;
             }
         });
+
         trackInt(new DataSlot() {
             @Override
             public int get() {

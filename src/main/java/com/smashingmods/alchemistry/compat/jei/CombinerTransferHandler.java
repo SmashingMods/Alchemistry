@@ -2,8 +2,8 @@ package com.smashingmods.alchemistry.compat.jei;
 
 import com.smashingmods.alchemistry.block.combiner.CombinerContainer;
 import com.smashingmods.alchemistry.block.combiner.CombinerRecipe;
-import com.smashingmods.alchemistry.network.CombinerTransferPkt;
-import com.smashingmods.alchemistry.network.Messages;
+import com.smashingmods.alchemistry.network.CombinerTransferPacket;
+import com.smashingmods.alchemistry.network.Packets;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -31,7 +31,7 @@ public class CombinerTransferHandler implements IRecipeTransferHandler<CombinerC
         ItemStack output = recipeLayout.getItemStacks().getGuiIngredients().get(size - 1).getDisplayedIngredient();//last().value.displayedIngredient;
 
         if (output != null && doTransfer) {
-            Messages.sendToServer(new CombinerTransferPkt(output, container.blockEntity.getBlockPos()));
+            Packets.sendToServer(new CombinerTransferPacket(output, container.blockEntity.getBlockPos()));
         }
         return null;
     }

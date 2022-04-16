@@ -1,9 +1,8 @@
-package com.smashingmods.alchemistry.api.client;
+package com.smashingmods.alchemistry.api.container;
 
 import com.mojang.blaze3d.vertex.*;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.GuiBlockEntity;
-import com.smashingmods.alchemistry.api.container.BaseContainer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -25,16 +24,16 @@ import java.util.List;
 public abstract class BaseScreen<T extends BaseContainer> extends AbstractContainerScreen<T> {
 
     protected ResourceLocation GUI;
-    private final T screenContainer;
+    private final T container;
     protected final List<CapabilityDisplayWrapper> displayData = new ArrayList<>();
     private final ResourceLocation powerBarTexture;
 
-    public BaseScreen(T pScreenContainer, Inventory pInventory, Component pName, ResourceLocation pResourceLocation) {
-        super(pScreenContainer, pInventory, pName);
+    public BaseScreen(T pContainer, Inventory pInventory, Component pName, ResourceLocation pResourceLocation) {
+        super(pContainer, pInventory, pName);
         this.powerBarTexture = new ResourceLocation(Alchemistry.MODID, "textures/gui/template.png");
-        this.screenContainer = pScreenContainer;
-        this.imageWidth = ((GuiBlockEntity) pScreenContainer.blockEntity).getWidth();
-        this.imageHeight = ((GuiBlockEntity) pScreenContainer.blockEntity).getHeight();
+        this.container = pContainer;
+        this.imageWidth = ((GuiBlockEntity) pContainer.blockEntity).getWidth();
+        this.imageHeight = ((GuiBlockEntity) pContainer.blockEntity).getHeight();
         this.GUI = pResourceLocation;
     }
 
@@ -47,13 +46,11 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         int relX = (this.width - this.imageWidth) / 2;
         int relY = (this.height - this.imageHeight) / 2;
         this.blit(pPoseStack, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
-
-
     }
 
     @Override
     protected void renderLabels(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        String displayName = I18n.get(screenContainer.blockEntity.getDisplayName().getString());
+        String displayName = I18n.get(container.blockEntity.getDisplayName().getString());
         drawString(pPoseStack, this.font, displayName,this.imageWidth / 2 - this.font.width(displayName) / 2, -10, Color.WHITE.getRGB());
     }
 
@@ -91,13 +88,14 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
     }
 
     public void drawPowerBar(PoseStack pPoseStack, CapabilityEnergyDisplayWrapper pWrapper, ResourceLocation pResourceLocation, int pTextureX, int pTextureY) {
+
         if (pWrapper.getStored() > 0) {
-            int i = pWrapper.x + ((this.width - this.imageWidth) / 2);
-            int j = pWrapper.y + ((this.height - this.imageHeight) / 2);
-            int k = this.getBarScaled(pWrapper.height, pWrapper.getStored(), pWrapper.getCapacity());
+            int x = pWrapper.x + ((this.width - this.imageWidth) / 2);
+            int y = pWrapper.y + ((this.height - this.imageHeight) / 2);
+            int vHeight = this.getBarScaled(pWrapper.height, pWrapper.getStored(), pWrapper.getMaxStored());
             RenderSystem.setShaderTexture(0, pResourceLocation);
             //this.getMinecraft().textureManager.bindForSetup(texture);
-            this.blit(pPoseStack, i, j + pWrapper.height - k, pTextureX, pTextureY, pWrapper.width, k);
+            this.blit(pPoseStack, x, y + pWrapper.height - vHeight, pTextureX, pTextureY, pWrapper.width, vHeight);
             //this.getMinecraft().textureManager.bindForSetup(this.GUI);
             RenderSystem.setShaderTexture(0, this.GUI);
         }
@@ -111,7 +109,7 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         if (pWrapper.getStored() > 5) {
             bindBlockTexture();
             renderGuiTank(pWrapper.getHandler().getFluidInTank(0),
-                    pWrapper.getCapacity(),
+                    pWrapper.getMaxStored(),
                     pWrapper.getStored(),
                     pPosX, pPosY,
                     getBlitOffset(),
@@ -166,7 +164,7 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
         int posY = (int) (pY + pHeight - renderAmount);
 
         //RenderUtils.bindBlockTexture();
-        int color = pFluidStack.getFluid().getAttributes().getColor(pFluidStack);
+        int color = pFluidStack.getFluid().getAttributes().getColor();
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
         setGLColorFromInt(color);//GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
 
@@ -207,10 +205,11 @@ public abstract class BaseScreen<T extends BaseContainer> extends AbstractContai
     }
 
     private static void setGLColorFromInt(int pColor) {
-        float red = (pColor >> 16 & 0xFF) / 255.0F;
-        float green = (pColor >> 8 & 0xFF) / 255.0F;
-        float blue = (pColor & 0xFF) / 255.0F;
+        Color color = new Color(pColor);
+        int red = color.getRed();
+        int green = color.getGreen();
+        int blue = color.getBlue();
 
-        RenderSystem.setShaderColor(red, green, blue, 1.0F);
+//        RenderSystem.setShaderColor(red, green, blue, 1.0F);
     }
 }

@@ -1,10 +1,11 @@
 package com.smashingmods.alchemistry.block.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.client.BaseScreen;
-import com.smashingmods.alchemistry.api.client.CapabilityEnergyDisplayWrapper;
-import com.smashingmods.alchemistry.network.CombinerButtonPkt;
-import com.smashingmods.alchemistry.network.Messages;
+import com.smashingmods.alchemistry.api.container.BaseScreen;
+import com.smashingmods.alchemistry.api.container.CapabilityEnergyDisplayWrapper;
+import com.smashingmods.alchemistry.block.atomizer.AtomizerBlockEntity;
+import com.smashingmods.alchemistry.network.CombinerButtonPacket;
+import com.smashingmods.alchemistry.network.Packets;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
@@ -20,19 +21,19 @@ public class CombinerScreen extends BaseScreen<CombinerContainer> {
 
     private Button toggleRecipeLock;// GuiButton
     private Button pauseButton;//: GuiButton
-    private CombinerBlockEntity combinerTile;
+    private final CombinerBlockEntity blockEntity;
     private CombinerContainer container;
     private static final ResourceLocation textureResourceLocation = new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_gui.png");
     //private boolean paused;
     //private boolean recipeLocked;
 
-    public CombinerScreen(CombinerContainer screenContainer, Inventory inv, Component name) {
-        super(screenContainer, inv, name, textureResourceLocation);
-        this.combinerTile = (CombinerBlockEntity) screenContainer.blockEntity;
+    public CombinerScreen(CombinerContainer pContainer, Inventory pInventory, Component pName) {
+        super(pContainer, pInventory, pName, textureResourceLocation);
+        this.blockEntity = (CombinerBlockEntity) getMenu().blockEntity;
         //this.paused = tile.paused;
         //this.recipeLocked = tile.recipeIsLocked;
-        this.container = screenContainer;
-        this.displayData.add(new CapabilityEnergyDisplayWrapper(8, 8, 16, 60, combinerTile));
+        this.container = pContainer;
+        this.displayData.add(new CapabilityEnergyDisplayWrapper(8, 8, 16, 60, container));
     }
 
     @Override
@@ -40,24 +41,24 @@ public class CombinerScreen extends BaseScreen<CombinerContainer> {
         super.init();
         toggleRecipeLock = new Button(this.getGuiLeft() + 30, this.getGuiTop() + 75, 80, 20, new TextComponent(""),
                 press -> {
-                    Messages.sendToServer(new CombinerButtonPkt(this.combinerTile.getBlockPos(), true, false));
+                    Packets.sendToServer(new CombinerButtonPacket(this.blockEntity.getBlockPos(), true, false));
                     //this.recipeLocked = !this.recipeLocked;
                 });
         this.addWidget(toggleRecipeLock);
         pauseButton = new Button(this.getGuiLeft() + 30, this.getGuiTop() + 100, 80, 20, new TextComponent(""),
                 press -> {
                    // this.paused = !this.paused;
-                    Messages.sendToServer(new CombinerButtonPkt(this.combinerTile.getBlockPos(), false, true));
+                    Packets.sendToServer(new CombinerButtonPacket(this.blockEntity.getBlockPos(), false, true));
                 });
         this.addWidget(pauseButton);
     }
 
     public void updateButtonStrings() {
-        if (this.combinerTile.recipeIsLocked)
+        if (this.blockEntity.recipeIsLocked)
             toggleRecipeLock.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.unlock_recipe")));
         else toggleRecipeLock.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.lock_recipe")));
 
-        if (this.combinerTile.paused) pauseButton.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.resume")));
+        if (this.blockEntity.paused) pauseButton.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.resume")));
         else pauseButton.setMessage(new TextComponent(I18n.get("alchemistry.container.combiner.pause")));
     }
 
@@ -68,11 +69,10 @@ public class CombinerScreen extends BaseScreen<CombinerContainer> {
         toggleRecipeLock.renderButton(ps, mouseX, mouseY, 0.0f);
         pauseButton.renderButton(ps, mouseX, mouseY, 0.0f);
 
-        if (!combinerTile.clientRecipeTarget.getStackInSlot(0).isEmpty()) {
-            this.drawItemStack(ps, combinerTile.clientRecipeTarget.getStackInSlot(0), getGuiLeft() + 140, getGuiTop() + 5, I18n.get("alchemistry.container.combiner.target"));
+        if (!blockEntity.clientRecipeTarget.getStackInSlot(0).isEmpty()) {
+            this.drawItemStack(ps, blockEntity.clientRecipeTarget.getStackInSlot(0), getGuiLeft() + 140, getGuiTop() + 5, I18n.get("alchemistry.container.combiner.target"));
         }
     }
-
 
     public void drawItemStack(PoseStack ps, ItemStack stack, int x, int y, String text) {
         //RenderHelper.enableStandardItemLighting();//.enableGUIStandardItemLighting();

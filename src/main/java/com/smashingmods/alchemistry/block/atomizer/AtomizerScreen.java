@@ -3,9 +3,9 @@ package com.smashingmods.alchemistry.block.atomizer;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.smashingmods.alchemistry.api.client.BaseScreen;
-import com.smashingmods.alchemistry.api.client.CapabilityEnergyDisplayWrapper;
-import com.smashingmods.alchemistry.api.client.CapabilityFluidDisplayWrapper;
+import com.smashingmods.alchemistry.api.container.BaseScreen;
+import com.smashingmods.alchemistry.api.container.CapabilityEnergyDisplayWrapper;
+import com.smashingmods.alchemistry.api.container.CapabilityFluidDisplayWrapper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,11 +18,11 @@ public class AtomizerScreen extends BaseScreen<AtomizerContainer> {
     private final AtomizerBlockEntity atomizerBlockEntity;
     private static final ResourceLocation textureResourceLocation = new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png");
 
-    public AtomizerScreen(AtomizerContainer screenContainer, Inventory pInventory, Component pName) {
-        super(screenContainer, pInventory, pName, textureResourceLocation);
+    public AtomizerScreen(AtomizerContainer pContainer, Inventory pInventory, Component pName) {
+        super(pContainer, pInventory, pName, textureResourceLocation);
         this.atomizerBlockEntity = (AtomizerBlockEntity) getMenu().blockEntity;
-        displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, atomizerBlockEntity));
-        displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, screenContainer, atomizerBlockEntity));
+        displayData.add(new CapabilityEnergyDisplayWrapper(7, 10, 16, 60, pContainer));
+        displayData.add(new CapabilityFluidDisplayWrapper(48, 40, 16, 60, pContainer));
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.block.combiner;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
@@ -11,6 +10,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +20,9 @@ import javax.annotation.Nonnull;
 public class CombinerBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
 
     public static BlockEntityType<CombinerBlockEntity> type;
+
+    protected IEnergyStorage energyStorage;
+    protected LazyOptional<IEnergyStorage> energyHolder = LazyOptional.of(() -> energyStorage);
 
     public CombinerRecipe currentRecipe = null;
     public boolean recipeIsLocked = false;
@@ -29,7 +33,7 @@ public class CombinerBlockEntity extends AlchemistryBlockEntity implements Energ
 
     public CombinerBlockEntity(BlockPos pos, BlockState state) {
         super(Registry.COMBINER_BE.get(), pos, state);
-        clientRecipeTarget = new CustomStackHandler(this, 1) {
+        this.clientRecipeTarget = new CustomStackHandler(this, 1) {
             @Override
             public void onContentsChanged(int slot) {
                 super.onContentsChanged(slot);
@@ -46,6 +50,7 @@ public class CombinerBlockEntity extends AlchemistryBlockEntity implements Energ
                 return ItemStack.EMPTY;
             }
         };
+        this.energyStorage = new EnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
     }
 
     public void updateRecipe() {
@@ -81,7 +86,7 @@ public class CombinerBlockEntity extends AlchemistryBlockEntity implements Energ
     public boolean canProcess() {
         return currentRecipe != null
                 //&& (currentRecipe.gamestage == "" || hasCurrentRecipeStage()) TODO
-                && energy.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()//ConfigHandler.combinerEnergyPerTick!! //has enough energy
+                && energyStorage.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()//ConfigHandler.combinerEnergyPerTick!! //has enough energy
                 && (currentRecipe.output.getCount() + getOutputHandler().getStackInSlot(0).getCount() <= currentRecipe.output.getMaxStackSize()) //output quantities can stack
                 && (ItemStack.isSame(getOutputHandler().getStackInSlot(0), currentRecipe.output) || getOutputHandler().getStackInSlot(0).isEmpty()) //output item types can stack
                 && currentRecipe.matchesHandlerStacks(this.getInputHandler())
@@ -89,7 +94,7 @@ public class CombinerBlockEntity extends AlchemistryBlockEntity implements Energ
     }
 
     public void process() {
-        this.energy.extractEnergy(Config.COMBINER_ENERGY_PER_TICK.get(), false);
+        this.energyStorage.extractEnergy(Config.COMBINER_ENERGY_PER_TICK.get(), false);
         this.setChanged();
 
         if (progressTicks < Config.COMBINER_TICKS_PER_OPERATION.get()) progressTicks++;
@@ -174,10 +179,7 @@ public class CombinerBlockEntity extends AlchemistryBlockEntity implements Energ
     }
 
     @Override
-    public IEnergyStorage getEnergy() {
-        if (energy == null) {
-            energy = new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get());
-        }
-        return energy;
+    public LazyOptional<IEnergyStorage> getEnergy() {
+        return this.energyHolder;
     }
 }

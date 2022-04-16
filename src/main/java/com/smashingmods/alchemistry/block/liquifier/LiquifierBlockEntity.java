@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.block.liquifier;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.CustomFluidStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.FluidBlockEntity;
@@ -13,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -28,11 +28,15 @@ public class LiquifierBlockEntity extends AlchemistryBlockEntity implements Ener
     private LiquifierRecipe currentRecipe = null;
     protected LazyOptional<IFluidHandler> fluidHolder = LazyOptional.of(() -> outputTank);
 
+    protected IEnergyStorage energyStorage;
+    protected LazyOptional<IEnergyStorage> energyHolder = LazyOptional.of(() -> energyStorage);
+
     public int progressTicks = 0;
 
     public LiquifierBlockEntity(BlockPos pos, BlockState state) {
         super(Registry.LIQUIFIER_BE.get(), pos, state);
         outputTank = new CustomFluidStorage(10000, FluidStack.EMPTY);
+        this.energyStorage = new EnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
     }
 
     private void updateRecipe() {
@@ -63,7 +67,7 @@ public class LiquifierBlockEntity extends AlchemistryBlockEntity implements Ener
         if (currentRecipe != null) {
             FluidStack recipeOutput = currentRecipe.output;
             return outputTank.getCapacity() >= outputTank.getFluidAmount() + recipeOutput.getAmount()
-                    && this.energy.getEnergyStored() >= Config.LIQUIFIER_ENERGY_PER_TICK.get()
+                    && this.energyStorage.getEnergyStored() >= Config.LIQUIFIER_ENERGY_PER_TICK.get()
                     && getInputHandler().getStackInSlot(0).getCount() >= currentRecipe.input.count
                     && ((outputTank.getFluid().getFluid() == recipeOutput.getFluid()) || outputTank.getFluid().isEmpty());
         } else return false;
@@ -77,7 +81,7 @@ public class LiquifierBlockEntity extends AlchemistryBlockEntity implements Ener
             outputTank.fill(currentRecipe.output.copy(), FluidAction.EXECUTE);//; .setOrIncrement(0, currentRecipe!!.output)
             getInputHandler().getStackInSlot(0).shrink(currentRecipe.input.count);
         }
-        this.energy.extractEnergy(Config.LIQUIFIER_ENERGY_PER_TICK.get(), false);
+        this.energyStorage.extractEnergy(Config.LIQUIFIER_ENERGY_PER_TICK.get(), false);
         setChanged();
     }
 
@@ -127,11 +131,8 @@ public class LiquifierBlockEntity extends AlchemistryBlockEntity implements Ener
     }
 
     @Override
-    public IEnergyStorage getEnergy() {
-        if (energy == null) {
-            energy = new CustomEnergyStorage(Config.LIQUIFIER_ENERGY_CAPACITY.get());
-        }
-        return energy;
+    public LazyOptional<IEnergyStorage> getEnergy() {
+        return energyHolder;
     }
 
     @Override

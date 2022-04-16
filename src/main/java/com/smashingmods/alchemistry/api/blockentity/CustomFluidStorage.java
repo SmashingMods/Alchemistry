@@ -3,7 +3,6 @@ package com.smashingmods.alchemistry.api.blockentity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 
-@SuppressWarnings("unused")
 public class CustomFluidStorage extends FluidTank {
 
     public CustomFluidStorage(int pCapacity, FluidStack pFluidStack) {

@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.block.dissolver;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.Registry;
-import com.smashingmods.alchemistry.api.blockentity.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
@@ -13,14 +12,20 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+import java.util.Objects;
+
 import static com.smashingmods.alchemistry.utils.StackUtils.canStacksMerge;
 
 public class DissolverBlockEntity extends AlchemistryBlockEntity implements EnergyBlockEntity {
+
+    protected IEnergyStorage energyStorage;
+    protected LazyOptional<IEnergyStorage> energyHolder = LazyOptional.of(() -> energyStorage);
 
     private boolean outputSuccessful = true;
     private ItemStack outputThisTick = ItemStack.EMPTY;
@@ -29,21 +34,25 @@ public class DissolverBlockEntity extends AlchemistryBlockEntity implements Ener
 
     public DissolverBlockEntity(BlockPos pos, BlockState state) {
         super(Registry.DISSOLVER_BE.get(), pos, state);
+        this.energyStorage = new EnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
     }
 
     public void tickServer() {
-        if (level.isClientSide) return;
-        if (currentRecipe == null) updateRecipe();
-        if (!getInputHandler().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
-            if (canProcess()) {
-                process();
+        if (!Objects.requireNonNull(level).isClientSide) {
+            if (currentRecipe == null) {
+                updateRecipe();
             }
+            if (!getInputHandler().getStackInSlot(0).isEmpty() || !outputBuffer.isEmpty()) {
+                if (canProcess()) {
+                    process();
+                }
+            }
+            this.updateGUIEvery(5);
         }
-        this.updateGUIEvery(5);
     }
 
     public boolean canProcess() {
-        return energy.getEnergyStored() >= Config.DISSOLVER_ENERGY_PER_TICK.get()
+        return energyStorage.getEnergyStored() >= Config.DISSOLVER_ENERGY_PER_TICK.get()
                 && (currentRecipe != null || !outputBuffer.isEmpty());
     }
 
@@ -85,7 +94,7 @@ public class DissolverBlockEntity extends AlchemistryBlockEntity implements Ener
 
         //consume energy and single stack if successful, won't be designated as such until there's a "hit" above
         if (outputSuccessful) {
-            this.energy.extractEnergy(Config.DISSOLVER_ENERGY_PER_TICK.get(), false);
+            this.energyStorage.extractEnergy(Config.DISSOLVER_ENERGY_PER_TICK.get(), false);
             this.setChanged();
             outputThisTick = ItemStack.EMPTY;
         }
@@ -126,7 +135,6 @@ public class DissolverBlockEntity extends AlchemistryBlockEntity implements Ener
         return outputHandler;
     }
 
-
     public void updateRecipe() {
         this.currentRecipe = DissolverRegistry.match(level, getInputHandler().getStackInSlot(0), true);
     }
@@ -147,10 +155,7 @@ public class DissolverBlockEntity extends AlchemistryBlockEntity implements Ener
     }
 
     @Override
-    public IEnergyStorage getEnergy() {
-        if (energy == null) {
-            energy = new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
-        }
-        return energy;
+    public LazyOptional<IEnergyStorage> getEnergy() {
+        return this.energyHolder;
     }
 }

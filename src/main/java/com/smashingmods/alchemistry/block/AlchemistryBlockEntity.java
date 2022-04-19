@@ -82,7 +82,7 @@ public abstract class AlchemistryBlockEntity extends BlockEntity implements Name
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityEnergy.ENERGY && this instanceof EnergyBlockEntity) {
-            return ((EnergyBlockEntity) this).getEnergy().cast();
+            return ((EnergyBlockEntity) this).getEnergyHandler().cast();
         } else if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return ((InventoryBlockEntity) this).getExternalInventory().cast();
         } else if (cap == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY && this instanceof FluidBlockEntity) {

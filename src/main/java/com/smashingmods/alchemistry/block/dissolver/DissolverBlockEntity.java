@@ -155,7 +155,7 @@ public class DissolverBlockEntity extends AlchemistryBlockEntity implements Ener
     }
 
     @Override
-    public LazyOptional<IEnergyStorage> getEnergy() {
+    public LazyOptional<IEnergyStorage> getEnergyHandler() {
         return this.energyHolder;
     }
 }

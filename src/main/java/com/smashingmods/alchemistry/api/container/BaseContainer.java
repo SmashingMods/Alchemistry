@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.api.container;
 
-import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.block.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
@@ -8,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.IItemHandler;

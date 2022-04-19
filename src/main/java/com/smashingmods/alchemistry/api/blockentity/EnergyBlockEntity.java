@@ -4,5 +4,5 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public interface EnergyBlockEntity {
-    LazyOptional<IEnergyStorage> getEnergy();
+    LazyOptional<IEnergyStorage> getEnergyHandler();
 }

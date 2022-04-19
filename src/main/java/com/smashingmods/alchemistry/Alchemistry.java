@@ -7,9 +7,13 @@ import com.smashingmods.alchemistry.block.evaporator.EvaporatorRenderer;
 import com.smashingmods.alchemistry.block.evaporator.EvaporatorScreen;
 import com.smashingmods.alchemistry.block.fission.FissionScreen;
 import com.smashingmods.alchemistry.block.fusion.FusionScreen;
+import com.smashingmods.alchemistry.block.gemcuttingstation.GemCuttingStationScreen;
 import com.smashingmods.alchemistry.block.liquifier.LiquifierScreen;
+import com.smashingmods.alchemistry.block.newblocks.NewAtomizerScreen;
 import com.smashingmods.alchemistry.network.Packets;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,6 +61,15 @@ public class Alchemistry {
             MenuScreens.register(Registry.FISSION_CONTAINER.get(), FissionScreen::new);
             MenuScreens.register(Registry.FUSION_CONTAINER.get(), FusionScreen::new);
             EvaporatorRenderer.register();
+
+
+            ItemBlockRenderTypes.setRenderLayer(Registry.GEM_CUTTING_STATION.get(), RenderType.translucent());
+            MenuScreens.register(Registry.GEM_CUTTING_STATION_MENU.get(), GemCuttingStationScreen::new);
+
+
+            ItemBlockRenderTypes.setRenderLayer(Registry.NEW_ATOMIZER.get(), RenderType.translucent());
+            MenuScreens.register(Registry.NEW_ATOMIZER_MENU.get(), NewAtomizerScreen::new);
+
         });
     }
 

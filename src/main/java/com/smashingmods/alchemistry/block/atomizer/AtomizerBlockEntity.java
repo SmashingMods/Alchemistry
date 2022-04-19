@@ -128,7 +128,7 @@ public class AtomizerBlockEntity extends AlchemistryBlockEntity implements Energ
     }
 
     @Override
-    public LazyOptional<IEnergyStorage> getEnergy() {
+    public LazyOptional<IEnergyStorage> getEnergyHandler() {
         return this.energyHolder;
     }
 }

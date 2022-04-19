@@ -1,16 +1,24 @@
 package com.smashingmods.alchemistry;
 
 
+import com.smashingmods.alchemistry.block.gemcuttingstation.GemCuttingStationBlock;
+import com.smashingmods.alchemistry.block.gemcuttingstation.GemCuttingStationBlockEntity;
 import com.smashingmods.alchemistry.block.atomizer.*;
 import com.smashingmods.alchemistry.block.combiner.*;
 import com.smashingmods.alchemistry.block.dissolver.*;
 import com.smashingmods.alchemistry.block.evaporator.*;
 import com.smashingmods.alchemistry.block.fission.*;
 import com.smashingmods.alchemistry.block.fusion.*;
+import com.smashingmods.alchemistry.block.gemcuttingstation.GemCuttingStationMenu;
+import com.smashingmods.alchemistry.block.gemcuttingstation.GemCuttingStationRecipe;
 import com.smashingmods.alchemistry.block.liquifier.*;
+import com.smashingmods.alchemistry.block.newblocks.NewAtomizerBlock;
+import com.smashingmods.alchemistry.block.newblocks.NewAtomizerBlockEntity;
+import com.smashingmods.alchemistry.block.newblocks.NewAtomizerMenu;
 import com.smashingmods.alchemistry.item.CondensedMilkItem;
 import com.smashingmods.alchemistry.item.MineralSaltItem;
 import com.smashingmods.alchemistry.item.SlotFillerItem;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -19,10 +27,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -154,4 +165,32 @@ public class Registry {
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {
         return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_PROPERTIES));
     }
+
+
+
+    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
+        return CONTAINERS.register(name, () -> IForgeMenuType.create(factory));
+    }
+
+
+
+    public static final RegistryObject<Block> NEW_ATOMIZER = BLOCKS.register("new_atomizer", NewAtomizerBlock::new);
+    public static final RegistryObject<BlockEntityType<NewAtomizerBlockEntity>> NEW_ATOMIZER_BLOCK_ENTITY = BLOCK_ENTITIES.register("new_atomizer_block_entity",
+            () -> BlockEntityType.Builder.of(NewAtomizerBlockEntity::new, NEW_ATOMIZER.get()).build(null));
+
+    public static final RegistryObject<Item> NEW_ATOMIZER_ITEM = fromBlock(NEW_ATOMIZER);
+    public static final RegistryObject<MenuType<NewAtomizerMenu>> NEW_ATOMIZER_MENU = registerMenuType(NewAtomizerMenu::new, "new_atomizer_menu");
+
+
+
+    public static final RegistryObject<MenuType<GemCuttingStationMenu>> GEM_CUTTING_STATION_MENU = registerMenuType(GemCuttingStationMenu::new, "gem_cutting_station_menu");
+    public static final RegistryObject<RecipeSerializer<GemCuttingStationRecipe>> GEM_CUTTING_SERIALIZER = RECIPE_SERIALIZERS.register("gem_cutting", () -> GemCuttingStationRecipe.Serializer.INSTANCE);
+    public static final RegistryObject<Item> GEM_CUTTER_TOOL = ITEMS.register("gem_cutter_tool", () -> new Item(new Item.Properties().tab(CreativeModeTab.TAB_MISC).durability(32)));
+    public static final RegistryObject<Block> GEM_CUTTING_STATION = BLOCKS.register("gem_cutting_station", () -> new GemCuttingStationBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
+    public static final RegistryObject<Item> GEM_CUTTING_STATION_ITEM = fromBlock(GEM_CUTTING_STATION);
+    public static final RegistryObject<BlockEntityType<GemCuttingStationBlockEntity>> GEM_CUTTING_STATION_BLOCK_ENTITY = BLOCK_ENTITIES.register("gem_cutting_station_block_entity", () ->
+            BlockEntityType.Builder.of(GemCuttingStationBlockEntity::new, GEM_CUTTING_STATION.get()).build(null));
+
+
+
 }

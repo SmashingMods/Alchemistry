@@ -251,7 +251,7 @@ public class FissionBlockEntity extends AlchemistryBlockEntity implements Energy
     }
 
     @Override
-    public LazyOptional<IEnergyStorage> getEnergy() {
+    public LazyOptional<IEnergyStorage> getEnergyHandler() {
         return this.energyHolder;
     }
 }

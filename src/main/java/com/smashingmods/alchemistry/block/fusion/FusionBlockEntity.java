@@ -259,7 +259,7 @@ public class FusionBlockEntity extends AlchemistryBlockEntity implements EnergyB
     }
 
     @Override
-    public LazyOptional<IEnergyStorage> getEnergy() {
+    public LazyOptional<IEnergyStorage> getEnergyHandler() {
         return energyHolder;
     }
 }

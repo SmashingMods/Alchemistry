@@ -26,7 +26,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     }
 
     protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData);
+        super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
         this.containerData = pContainerData;
 
         checkContainerSize(pInventory, 1);

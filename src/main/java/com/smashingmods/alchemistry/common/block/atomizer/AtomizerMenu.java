@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -21,10 +22,12 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
     }
 
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData);
-        checkContainerSize(pInventory, 1);
+        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 3);
+        checkContainerSize(pInventory, 3);
         AbstractAlchemistryBlockEntity blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
         this.addSlot(new SlotItemHandler(((InventoryBlockEntity) blockEntity).getOutputHandler(), 0, 116, 35));
+        this.addSlot(new SlotItemHandler(new ItemStackHandler(), 0, 8, 21));
+        this.addSlot(new SlotItemHandler(new ItemStackHandler(), 0, 8, 51));
     }
 
     @Override

@@ -17,12 +17,13 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
     private final AbstractAlchemistryBlockEntity blockEntity;
     private final Level level;
     private final ContainerData containerData;
-    private static final int BlockEntitySlots = 1;
+    private final int blockEntitySlots;
 
-    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
+    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData, int pSlots) {
         super(pMenuType, pContainerId);
 
         this.containerData = pContainerData;
+        this.blockEntitySlots = pSlots;
         blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
         level = pInventory.player.level;
 
@@ -53,10 +54,10 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         ItemStack copyStack = sourceStack.copy();
 
         if (pIndex < 36) {
-            if (!moveItemStackTo(sourceStack, 36, 36 + BlockEntitySlots, false)) {
+            if (!moveItemStackTo(sourceStack, 36, 36 + blockEntitySlots, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (pIndex < 36 + BlockEntitySlots) {
+        } else if (pIndex < 36 + blockEntitySlots) {
             if (!moveItemStackTo(sourceStack, 0, 36, false))  {
                 return ItemStack.EMPTY;
             }
@@ -74,6 +75,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
     }
 
     private void addPlayerInventory(Inventory pInventory) {
+        // main inventory
         for (int row = 0; row < 3; row++) {
             for (int column = 0; column < 9; column++) {
 
@@ -85,6 +87,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
             }
         }
 
+        // hotbar inventory
         for (int column = 0; column < 9; column++) {
             this.addSlot(new Slot(pInventory, column, 8 + column * 18, 144));
         }

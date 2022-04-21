@@ -15,6 +15,7 @@ import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -27,6 +28,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -145,7 +147,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     @Override
     public CustomStackHandler initializeInputHandler() {
-        return new CustomStackHandler(this, 0);
+        return new CustomStackHandler(this);
     }
 
     @Override
@@ -215,6 +217,10 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
                 setChanged();
             }
         };
+    }
+
+    public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
+        return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 
     @NotNull

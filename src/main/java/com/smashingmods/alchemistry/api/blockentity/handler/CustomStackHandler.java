@@ -22,6 +22,11 @@ public class CustomStackHandler extends ItemStackHandler {
         super();
     }
 
+    public CustomStackHandler(AbstractAlchemistryBlockEntity pBlockEntity) {
+        super(1);
+        this.blockEntity = pBlockEntity;
+    }
+
     public CustomStackHandler(AbstractAlchemistryBlockEntity pBlockEntity, int pSize) {
         super(pSize);
         this.blockEntity = pBlockEntity;

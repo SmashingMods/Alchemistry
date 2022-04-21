@@ -27,7 +27,7 @@ public class EvaporatorMenu extends AbstractAlchemistryMenu {
     }
 
     protected EvaporatorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData);
+        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
         this.containerData = pContainerData;
 
         checkContainerSize(pInventory, 1);

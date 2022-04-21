@@ -24,7 +24,7 @@ public class AtomizerScreen extends AbstractAlchemistryScreen<AtomizerMenu> {
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
-        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 8, 21, 16, 46));
+        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 152, 21, 16, 46));
         displayData.add(new FluidDisplayData(pMenu.getBlockEntity(), pMenu.getContainerData(), 44, 21, 16, 46));
     }
 
@@ -56,21 +56,21 @@ public class AtomizerScreen extends AbstractAlchemistryScreen<AtomizerMenu> {
         int drawX = (this.width - this.imageWidth) / 2;
         int drawY = (this.height - this.imageHeight) / 2;
 
-        displayData.forEach(data -> {
-            if (data instanceof EnergyDisplayData) {
-                this.drawEnergyBar(pPoseStack, (EnergyDisplayData) data, 0, 0);
-            }
-            if (data instanceof FluidDisplayData) {
-                this.drawFluidTank((FluidDisplayData) data, drawX + data.getX(), drawY + data.getY());
-            }
-        });
-
-        int progress = this.getMenu().getContainerData().get(0);
+        int progress = this.getMenu().getContainerData().get(0) / 2;
         int maxProgress = this.getMenu().getContainerData().get(1);
         if (progress > 0) {
-            int barScaled = this.getBarScaled(60, progress, maxProgress);
-            this.drawRightArrow(pPoseStack, drawX + 74, drawY + 39, barScaled);
+            int barScaled = getBarScaled(60, progress, maxProgress);
+            drawArrowUp(pPoseStack, drawX + 74, drawY + 39, barScaled);
         }
+
+        displayData.forEach(data -> {
+            if (data instanceof EnergyDisplayData) {
+                drawEnergyBar(pPoseStack, (EnergyDisplayData) data, 0, 40);
+            }
+            if (data instanceof FluidDisplayData) {
+                drawFluidTank((FluidDisplayData) data, drawX + data.getX(), drawY + data.getY());
+            }
+        });
 
         displayData.stream().filter(data ->
                 pMouseX >= data.getX() + drawX &&

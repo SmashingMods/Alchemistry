@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;

@@ -15,8 +15,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,10 +66,7 @@ public abstract class AbstractAlchemistryBlockEntity extends BlockEntity impleme
     }
 
     public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
-        if (this instanceof FluidBlockEntity) {
-            return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
-        }
-        else return false;
+        return false;
     }
 
     public void getDrops() {

@@ -2,8 +2,6 @@ package com.smashingmods.alchemistry.api.blockentity;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
@@ -13,12 +11,15 @@ public interface InventoryBlockEntity {
 
     CustomStackHandler getOutputHandler();
 
-    AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable inv);
+    AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable input);
 
-    AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable inv);
+    AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable output);
 
-    LazyOptional<IItemHandler> getExternalInventory();
-
-    @SuppressWarnings("unused")
     CombinedInvWrapper getAutomationInventory();
+
+    CustomStackHandler initializeInputHandler();
+
+    CustomStackHandler initializeOutputHandler();
+
+    void getDrops();
 }

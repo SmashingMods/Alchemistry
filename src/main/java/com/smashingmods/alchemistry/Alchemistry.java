@@ -1,16 +1,17 @@
 package com.smashingmods.alchemistry;
 
-import com.smashingmods.alchemistry.block.atomizer.AtomizerScreen;
-import com.smashingmods.alchemistry.block.combiner.CombinerScreen;
-import com.smashingmods.alchemistry.block.dissolver.DissolverScreen;
-import com.smashingmods.alchemistry.block.evaporator.EvaporatorRenderer;
-import com.smashingmods.alchemistry.block.evaporator.EvaporatorScreen;
-import com.smashingmods.alchemistry.block.fission.FissionScreen;
-import com.smashingmods.alchemistry.block.fusion.FusionScreen;
-import com.smashingmods.alchemistry.block.gemcuttingstation.GemCuttingStationScreen;
-import com.smashingmods.alchemistry.block.liquifier.LiquifierScreen;
-import com.smashingmods.alchemistry.block.newblocks.NewAtomizerScreen;
-import com.smashingmods.alchemistry.network.Packets;
+import com.smashingmods.alchemistry.common.block.atomizer.AtomizerScreen;
+import com.smashingmods.alchemistry.common.block.combiner.CombinerScreen;
+import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
+import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorScreen;
+import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
+import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
+import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
+import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
+import com.smashingmods.alchemistry.registry.Registry;
+import com.smashingmods.alchemistry.registry.SerializerRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -53,33 +54,31 @@ public class Alchemistry {
 
     public void clientSetupEvent(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            MenuScreens.register(Registry.ATOMIZER_CONTAINER.get(), AtomizerScreen::new);
-            MenuScreens.register(Registry.COMBINER_CONTAINER.get(), CombinerScreen::new);
-            MenuScreens.register(Registry.DISSOLVER_CONTAINER.get(), DissolverScreen::new);
-            MenuScreens.register(Registry.EVAPORATOR_CONTAINER.get(), EvaporatorScreen::new);
-            MenuScreens.register(Registry.LIQUIFIER_CONTAINER.get(), LiquifierScreen::new);
-            MenuScreens.register(Registry.FISSION_CONTAINER.get(), FissionScreen::new);
-            MenuScreens.register(Registry.FUSION_CONTAINER.get(), FusionScreen::new);
-            EvaporatorRenderer.register();
+            MenuScreens.register(MenuRegistry.ATOMIZER_MENU.get(), AtomizerScreen::new);
+            MenuScreens.register(MenuRegistry.COMBINER_MENU.get(), CombinerScreen::new);
+            MenuScreens.register(MenuRegistry.DISSOLVER_MENU.get(), DissolverScreen::new);
+            MenuScreens.register(MenuRegistry.EVAPORATOR_MENU.get(), EvaporatorScreen::new);
+            MenuScreens.register(MenuRegistry.LIQUIFIER_MENU.get(), LiquifierScreen::new);
+            MenuScreens.register(MenuRegistry.FISSION_CONTROLLER_MENU.get(), FissionControllerScreen::new);
+            MenuScreens.register(MenuRegistry.FUSION_CONTROLLER_MENU.get(), FusionControllerScreen::new);
 
-
-            ItemBlockRenderTypes.setRenderLayer(Registry.GEM_CUTTING_STATION.get(), RenderType.translucent());
-            MenuScreens.register(Registry.GEM_CUTTING_STATION_MENU.get(), GemCuttingStationScreen::new);
-
-
-            ItemBlockRenderTypes.setRenderLayer(Registry.NEW_ATOMIZER.get(), RenderType.translucent());
-            MenuScreens.register(Registry.NEW_ATOMIZER_MENU.get(), NewAtomizerScreen::new);
-
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ATOMIZER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.COMBINER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.DISSOLVER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.EVAPORTOR.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LIQUIFIER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FISSION_CONTROLLER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FUSION_CONTROLLER.get(), RenderType.translucent());
         });
     }
 
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
-        Packets.register();
-        Registry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
-        Registry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
-        Registry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
-        Registry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");
-        Registry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
-        Registry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");
+        AlchemistryPacketHandler.register();
+        SerializerRegistry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
+        SerializerRegistry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
+        SerializerRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
+        SerializerRegistry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");
+        SerializerRegistry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
+        SerializerRegistry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");
     }
 }

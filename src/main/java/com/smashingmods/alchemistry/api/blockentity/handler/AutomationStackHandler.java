@@ -7,27 +7,27 @@ import javax.annotation.Nonnull;
 
 public class AutomationStackHandler implements IItemHandlerModifiable {
 
-    private final IItemHandlerModifiable HANDLER;
+    private final IItemHandlerModifiable handler;
 
     public AutomationStackHandler(IItemHandlerModifiable pHandler) {
-        this.HANDLER = pHandler;
+        this.handler = pHandler;
     }
 
     public int getSlots() {
-        return HANDLER.getSlots();
+        return handler.getSlots();
     }
 
     @Nonnull
     public ItemStack getStackInSlot(int pSlot) {
-        return HANDLER.getStackInSlot(pSlot);
+        return handler.getStackInSlot(pSlot);
     }
 
     public void setStackInSlot(int pSlot, @Nonnull ItemStack pItemStack) {
-        HANDLER.setStackInSlot(pSlot, pItemStack);
+        handler.setStackInSlot(pSlot, pItemStack);
     }
 
     public int getSlotLimit(int pSlot) {
-        return HANDLER.getSlotLimit(pSlot);
+        return handler.getSlotLimit(pSlot);
     }
 
     @Override
@@ -37,11 +37,11 @@ public class AutomationStackHandler implements IItemHandlerModifiable {
 
     @Nonnull
     public ItemStack insertItem(int pSlot, @Nonnull ItemStack pItemStack, boolean pSimulate) {
-        return HANDLER.insertItem(pSlot, pItemStack, pSimulate);
+        return handler.insertItem(pSlot, pItemStack, pSimulate);
     }
 
     @Nonnull
     public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
-        return HANDLER.extractItem(pSlot, pAmount, pSimulate);
+        return handler.extractItem(pSlot, pAmount, pSimulate);
     }
 }

@@ -10,11 +10,15 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 public class DataGenerators {
 
     @SubscribeEvent
-    public static void gatherData(GatherDataEvent e) {
-        DataGenerator gen = e.getGenerator();
+    public static void gatherData(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
 
-        if (e.includeServer()) {
-            gen.addProvider(new Recipes(gen));
+        if (event.includeServer()) {
+            //TODO: re-implement recipes
+            generator.addProvider(new CustomRecipeProvider(generator));
+            generator.addProvider(new BlockStateGenerator(generator, event.getExistingFileHelper()));
+            generator.addProvider(new CustomLootTableProvider(generator));
+            generator.addProvider(new TagProvider(generator, event.getExistingFileHelper()));
         }
         /*
         ByteBufAllocator alloc = PooledByteBufAllocator.DEFAULT;

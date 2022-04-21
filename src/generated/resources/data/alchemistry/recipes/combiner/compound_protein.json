@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:element_carbon",
+      "count": 3
+    },
+    {
+      "item": "chemlib:element_hydrogen",
+      "count": 7
+    },
+    {
+      "item": "chemlib:element_nitrogen"
+    },
+    {
+      "item": "chemlib:element_oxygen",
+      "count": 2
+    },
+    {
+      "item": "chemlib:element_sulfur"
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_protein"
+  }
+}

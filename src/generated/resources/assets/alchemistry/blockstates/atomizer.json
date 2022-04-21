@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "alchemistry:block/atomizer"
+    },
+    "facing=south": {
+      "model": "alchemistry:block/atomizer"
+    },
+    "facing=west": {
+      "model": "alchemistry:block/atomizer"
+    },
+    "facing=east": {
+      "model": "alchemistry:block/atomizer"
+    }
+  }
+}

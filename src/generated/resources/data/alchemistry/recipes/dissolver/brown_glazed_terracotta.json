@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:brown_glazed_terracotta"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_kaolinite",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

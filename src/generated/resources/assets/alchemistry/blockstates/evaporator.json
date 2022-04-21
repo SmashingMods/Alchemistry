@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "alchemistry:block/evaporator"
+    },
+    "facing=south": {
+      "model": "alchemistry:block/evaporator"
+    },
+    "facing=west": {
+      "model": "alchemistry:block/evaporator"
+    },
+    "facing=east": {
+      "model": "alchemistry:block/evaporator"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:compound_iron_oxide",
+      "count": 9
+    },
+    {
+      "item": "chemlib:compound_strontium_carbonate",
+      "count": 9
+    }
+  ],
+  "result": {
+    "item": "minecraft:redstone_block"
+  }
+}

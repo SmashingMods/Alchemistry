@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:bubble_coral_fan"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_calcium_carbonate",
+            "count": 4
+          },
+          {
+            "item": "chemlib:compound_han_purple",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  }
+}

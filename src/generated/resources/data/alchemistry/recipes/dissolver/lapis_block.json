@@ -1,0 +1,42 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:lapis_block"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_sodium",
+            "count": 54
+          },
+          {
+            "item": "chemlib:element_calcium",
+            "count": 18
+          },
+          {
+            "item": "chemlib:element_aluminum",
+            "count": 54
+          },
+          {
+            "item": "chemlib:element_silicon",
+            "count": 54
+          },
+          {
+            "item": "chemlib:element_oxygen",
+            "count": 216
+          },
+          {
+            "item": "chemlib:element_sulfur",
+            "count": 18
+          }
+        ]
+      }
+    ]
+  }
+}

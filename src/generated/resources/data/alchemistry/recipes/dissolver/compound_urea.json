@@ -1,0 +1,28 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_urea"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_carbon"
+          },
+          {
+            "item": "chemlib:element_oxygen"
+          },
+          {
+            "item": "chemlib:compound_amide",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "alchemistry:block/liquifier"
+    },
+    "facing=south": {
+      "model": "alchemistry:block/liquifier"
+    },
+    "facing=west": {
+      "model": "alchemistry:block/liquifier"
+    },
+    "facing=east": {
+      "model": "alchemistry:block/liquifier"
+    }
+  }
+}

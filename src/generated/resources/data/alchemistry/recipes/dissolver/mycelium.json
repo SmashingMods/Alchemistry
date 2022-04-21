@@ -1,0 +1,53 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:mycelium"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 30.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_water"
+          }
+        ]
+      },
+      {
+        "probability": 50.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_kaolinite"
+          }
+        ]
+      },
+      {
+        "probability": 30.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_psilocybin"
+          }
+        ]
+      }
+    ]
+  }
+}

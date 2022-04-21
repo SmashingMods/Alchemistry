@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_cucurbitacin"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_carbon",
+            "count": 32
+          },
+          {
+            "item": "chemlib:element_hydrogen",
+            "count": 44
+          },
+          {
+            "item": "chemlib:element_oxygen",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  }
+}

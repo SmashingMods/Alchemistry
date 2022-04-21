@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "tag": "minecraft:music_discs"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_polyvinyl_chloride",
+            "count": 64
+          },
+          {
+            "item": "chemlib:element_lead",
+            "count": 16
+          },
+          {
+            "item": "chemlib:element_cadmium",
+            "count": 16
+          }
+        ]
+      }
+    ]
+  }
+}

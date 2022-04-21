@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 5
+    },
+    {
+      "item": "chemlib:element_hydrogen",
+      "count": 12
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_pentane"
+  }
+}

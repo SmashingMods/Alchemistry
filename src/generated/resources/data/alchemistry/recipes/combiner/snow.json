@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:compound_water",
+      "count": 16
+    }
+  ],
+  "result": {
+    "item": "minecraft:snow"
+  }
+}

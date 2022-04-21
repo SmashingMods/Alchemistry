@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:compound_starch"
+    },
+    {
+      "item": "chemlib:element_potassium",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:potato"
+  }
+}

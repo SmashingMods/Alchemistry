@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:compound_nickel_chloride",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:green_dye"
+  }
+}

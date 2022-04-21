@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_ethanol"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_carbon",
+            "count": 2
+          },
+          {
+            "item": "chemlib:element_hydrogen",
+            "count": 5
+          },
+          {
+            "item": "chemlib:compound_hydroxide"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:prismarine_shard"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_beryl",
+            "count": 4
+          },
+          {
+            "item": "chemlib:element_niobium",
+            "count": 3
+          },
+          {
+            "item": "chemlib:element_selenium"
+          }
+        ]
+      }
+    ]
+  }
+}

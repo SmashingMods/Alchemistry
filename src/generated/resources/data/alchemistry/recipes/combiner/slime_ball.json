@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "chemlib:compound_protein",
+      "count": 2
+    },
+    {
+      "item": "chemlib:compound_sucrose",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "minecraft:slime_ball"
+  }
+}

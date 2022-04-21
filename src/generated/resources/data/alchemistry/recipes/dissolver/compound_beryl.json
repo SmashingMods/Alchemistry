@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "chemlib:compound_beryl"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_beryllium",
+            "count": 3
+          },
+          {
+            "item": "chemlib:element_aluminum",
+            "count": 2
+          },
+          {
+            "item": "chemlib:element_silicon",
+            "count": 6
+          },
+          {
+            "item": "chemlib:element_oxygen",
+            "count": 18
+          }
+        ]
+      }
+    ]
+  }
+}

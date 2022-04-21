@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_oxygen"
+    },
+    {
+      "item": "chemlib:compound_cellulose",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "minecraft:acacia_sapling"
+  }
+}

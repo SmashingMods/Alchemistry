@@ -1,0 +1,28 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "item": "minecraft:shroomlight"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_phosphorus",
+            "count": 16
+          },
+          {
+            "item": "chemlib:compound_psilocybin"
+          },
+          {
+            "item": "chemlib:compound_cellulose"
+          }
+        ]
+      }
+    ]
+  }
+}

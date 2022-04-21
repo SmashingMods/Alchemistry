@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "minecraft:misc",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:element_carbon",
+      "count": 12
+    },
+    {
+      "item": "chemlib:element_hydrogen",
+      "count": 22
+    },
+    {
+      "item": "chemlib:element_oxygen",
+      "count": 11
+    }
+  ],
+  "result": {
+    "item": "chemlib:compound_sucrose"
+  }
+}

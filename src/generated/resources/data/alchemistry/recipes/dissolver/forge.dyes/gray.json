@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "tag": "forge:dyes/gray"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:compound_barium_sulfate",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "tag": "forge:storage_blocks/plutonium"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_plutonium",
+            "count": 144
+          }
+        ]
+      }
+    ]
+  }
+}

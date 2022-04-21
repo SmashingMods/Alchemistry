@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "minecraft:misc",
+  "input": {
+    "tag": "forge:ores/technetium"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 1.0,
+        "stacks": [
+          {
+            "item": "chemlib:element_technetium",
+            "count": 32
+          }
+        ]
+      }
+    ]
+  }
+}

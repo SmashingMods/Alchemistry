@@ -55,7 +55,8 @@ public abstract class AbstractAlchemistryBlockEntity extends BlockEntity impleme
 
     @Override
     public void onDataPacket(Connection pConnection, ClientboundBlockEntityDataPacket pPacket) {
-        this.load(Objects.requireNonNull(pPacket.getTag()));
+        Objects.requireNonNull(pPacket.getTag());
+        this.load(pPacket.getTag());
         super.onDataPacket(pConnection, pPacket);
     }
 

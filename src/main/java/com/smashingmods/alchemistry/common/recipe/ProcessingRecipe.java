@@ -13,58 +13,58 @@ import javax.annotation.Nonnull;
 
 public abstract class ProcessingRecipe implements Recipe<Inventory> {
 
-    protected final RecipeType<?> type;
+    protected final RecipeType<?> recipeType;
     //private final RecipeSerializer<?> serializer;
     protected final String group;
-    protected final ItemStack output1;
-    protected final Ingredient input1;
+    protected final ItemStack output;
+    protected final Ingredient input;
     public final ResourceLocation id;
 
-    public ProcessingRecipe(RecipeType<?> recipeType, ResourceLocation id, String group, Ingredient input, ItemStack output) {
-        this.type = recipeType;
-        this.id = id;
-        this.group = group;
-        this.output1 = output;
-        this.input1 = input;
+    public ProcessingRecipe(RecipeType<?> pRecipeType, ResourceLocation pId, String pGroup, Ingredient pInput, ItemStack pOutput) {
+        this.recipeType = pRecipeType;
+        this.id = pId;
+        this.group = pGroup;
+        this.output = pOutput;
+        this.input = pInput;
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
     }
 
     @Override
     @Nonnull
     public ResourceLocation getId() {
-        return this.id;
+        return id;
     }
 
     @Override
     @Nonnull
     public RecipeType<?> getType() {
-        return this.type;
+        return recipeType;
     }
 
     @Override
     @Nonnull
     public String getGroup() {
-        return this.group;
+        return group;
     }
 
     @Override
     @Nonnull
     public ItemStack getResultItem() {
-        return this.output1;
+        return output;
     }
 
     @Override
     @Nonnull
-    public ItemStack assemble(@Nonnull Inventory inv) {
-        return this.output1.copy();
+    public ItemStack assemble(@Nonnull Inventory pContainer) {
+        return output.copy();
     }
 
     @Override
-    public boolean matches(Inventory inv, @Nonnull Level worldIn) {
-        return this.input1.test(inv.getItem(0));
+    public boolean matches(Inventory pContainer, @Nonnull Level pLevel) {
+        return input.test(pContainer.getItem(0));
     }
 }

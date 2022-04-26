@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen;
 
 import com.smashingmods.alchemistry.common.block.oldblocks.dissolver.DissolverTagData;
+import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.fission.FissionRecipeProvider;
@@ -27,14 +28,19 @@ public class CustomRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> pConsumer) {
+
+        AtomizerRecipeProvider atomizerRecipeProvider = new AtomizerRecipeProvider(pConsumer);
+        atomizerRecipeProvider.register();
+
         initMetals();
+
         CombinerRecipeProvider combinerRecipeProvider = new CombinerRecipeProvider(pConsumer);
         DissolverRecipeProvider dissolverRecipeProvider = new DissolverRecipeProvider(pConsumer);
         FissionRecipeProvider fissionRecipeProvider = new FissionRecipeProvider(pConsumer);
 
-        combinerRecipeProvider.register(pConsumer);
-        dissolverRecipeProvider.register(pConsumer);
-        fissionRecipeProvider.register(pConsumer);
+        combinerRecipeProvider.register();
+        dissolverRecipeProvider.register();
+        fissionRecipeProvider.register();
     }
 
     public static ProbabilitySet.Builder set() {

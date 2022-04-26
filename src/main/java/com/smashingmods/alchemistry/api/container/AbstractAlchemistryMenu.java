@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.api.container;
 
+import com.mojang.datafixers.util.Function4;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
@@ -27,7 +28,11 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
         level = pInventory.player.level;
 
-        addPlayerInventory(pInventory);
+        // player main inventory
+        addSlots(Slot::new, pInventory, 3, 9, 9,8, 86);
+        // player hotbar
+        addSlots(Slot::new, pInventory, 1, 9, 0,8, 144);
+//        addPlayerInventory(pInventory);
         addDataSlots(pContainerData);
     }
 
@@ -74,22 +79,16 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         return copyStack;
     }
 
-    private void addPlayerInventory(Inventory pInventory) {
-        // main inventory
-        for (int row = 0; row < 3; row++) {
-            for (int column = 0; column < 9; column++) {
+    protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pRows, int pColumns, int pIndexStart, int pXOrigin, int pYOrigin) {
 
-                int index = column + row * 9 + 9;
-                int x = 8 + column * 18;
-                int y = 86 + row * 18;
+        for (int row = 0; row < pRows; row++) {
+            for (int column = 0; column < pColumns; column++) {
+                int slotIndex = column + row * pColumns + pIndexStart;
+                int x = pXOrigin + column * 18;
+                int y = pYOrigin + row * 18;
 
-                this.addSlot(new Slot(pInventory, index, x, y));
+                this.addSlot(pSlotType.apply(pContainer, slotIndex, x, y));
             }
-        }
-
-        // hotbar inventory
-        for (int column = 0; column < 9; column++) {
-            this.addSlot(new Slot(pInventory, column, 8 + column * 18, 144));
         }
     }
 

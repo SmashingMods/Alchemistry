@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.block.oldblocks.blockentity;
 
 import com.mojang.datafixers.util.Function3;
 import com.smashingmods.alchemistry.common.block.oldblocks.container.BaseContainer;
-import com.smashingmods.alchemistry.common.block.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.common.block.oldblocks.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

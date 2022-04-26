@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.serializer;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.smashingmods.alchemistry.common.recipe.AtomizerRecipe;
+import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

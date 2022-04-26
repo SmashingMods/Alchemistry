@@ -3,13 +3,13 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -22,16 +22,14 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
     }
 
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 3);
-        checkContainerSize(pInventory, 3);
+        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
         AbstractAlchemistryBlockEntity blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
-        this.addSlot(new SlotItemHandler(((InventoryBlockEntity) blockEntity).getOutputHandler(), 0, 116, 35));
-        this.addSlot(new SlotItemHandler(new ItemStackHandler(), 0, 8, 21));
-        this.addSlot(new SlotItemHandler(new ItemStackHandler(), 0, 8, 51));
+        addSlots(SlotItemHandler::new, ((InventoryBlockEntity) blockEntity).getOutputHandler(), 1, 1, 0, 98, 35);
     }
 
     @Override
     public boolean stillValid(@Nonnull Player pPlayer) {
-        return true;
+        Objects.requireNonNull(this.getBlockEntity().getLevel());
+        return stillValid(ContainerLevelAccess.create(this.getBlockEntity().getLevel(), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.ATOMIZER.get());
     }
 }

@@ -41,7 +41,7 @@ public class Alchemistry {
 
         modEventBus.addListener(this::clientSetupEvent);
         modEventBus.addListener(this::commonSetupEvent);
-        Registry.init();
+        Registry.register();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
@@ -49,7 +49,6 @@ public class Alchemistry {
 
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::clientSetupEvent));
-
     }
 
     public void clientSetupEvent(final FMLClientSetupEvent event) {

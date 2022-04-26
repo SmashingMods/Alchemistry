@@ -1,7 +1,7 @@
 //package com.smashingmods.alchemistry.common.block.oldblocks.evaporator;
 //
 //import com.smashingmods.alchemistry.Config;
-//import com.smashingmods.alchemistry.common.block.AlchemistryBlockEntity;
+//import com.smashingmods.alchemistry.common.block.oldblocks.AlchemistryBlockEntity;
 //import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
 //import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 //import com.smashingmods.alchemistry.registry.BlockEntityRegistry;

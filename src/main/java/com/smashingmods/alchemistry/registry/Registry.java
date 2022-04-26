@@ -5,7 +5,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 public class Registry {
 
-    public static void init() {
+    public static void register() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BlockRegistry.register(modEventBus);
         ItemRegistry.register(modEventBus);

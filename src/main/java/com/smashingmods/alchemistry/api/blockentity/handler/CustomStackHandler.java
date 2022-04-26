@@ -9,6 +9,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
@@ -17,15 +19,6 @@ import static net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABI
 public class CustomStackHandler extends ItemStackHandler {
 
     public AbstractAlchemistryBlockEntity blockEntity;
-
-    public CustomStackHandler() {
-        super();
-    }
-
-    public CustomStackHandler(AbstractAlchemistryBlockEntity pBlockEntity) {
-        super(1);
-        this.blockEntity = pBlockEntity;
-    }
 
     public CustomStackHandler(AbstractAlchemistryBlockEntity pBlockEntity, int pSize) {
         super(pSize);
@@ -98,5 +91,13 @@ public class CustomStackHandler extends ItemStackHandler {
         } else {
             return false;
         }
+    }
+
+    public List<ItemStack> getSlotsAsList() {
+        List<ItemStack> toReturn = new ArrayList<>();
+        for (int index = 0; index < getSlots(); index++) {
+            toReturn.add(getStackInSlot(index));
+        }
+        return toReturn;
     }
 }

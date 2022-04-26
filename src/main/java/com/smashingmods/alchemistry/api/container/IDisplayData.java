@@ -11,9 +11,9 @@ public interface IDisplayData {
 
     int getHeight();
 
-    int getStored();
+    int getValue();
 
-    int getMaxStored();
+    int getMaxValue();
 
     Component toTextComponent();
 }

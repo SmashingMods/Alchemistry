@@ -48,7 +48,7 @@ public class DissolverRecipeProvider {
     public void dissolver(Ingredient input, ProbabilitySet set, String name, boolean reversible) {
         DissolverRecipeBuilder.recipe(input, set, name).build(consumer);
         if (reversible) {
-            CombinerRecipeBuilder.recipe(input.getItems()[0], set.getProbabilityGroups().get(0).getOutputs());
+            CombinerRecipeBuilder.createRecipe(input.getItems()[0], set.getProbabilityGroups().get(0).getOutputs());
         }
     }
 
@@ -69,8 +69,7 @@ public class DissolverRecipeProvider {
         dissolver(Ingredient.of(input), set, input.getItem().getRegistryName().getPath(), reversible);
     }
 
-    public void register(Consumer<FinishedRecipe> pConsumer) {
-        this.consumer = pConsumer;
+    public void register() {
 
         dissolver("minecraft:logs",
                 set().addGroup(1.0, toStack("cellulose")).build());

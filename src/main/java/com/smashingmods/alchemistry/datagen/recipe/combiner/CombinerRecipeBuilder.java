@@ -1,113 +1,87 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.datagen.recipe.RecipeBuilder;
-import com.smashingmods.alchemistry.datagen.DatagenUtils;
-import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CombinerRecipeBuilder implements RecipeBuilder {
 
-    private final String group = "minecraft:misc";
+    private String group;
     private final List<ItemStack> input;
-    private final ItemStack output;
+    private final ItemStack result;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public CombinerRecipeBuilder(List<ItemStack> input, ItemStack output) {
-        this.input = input;
-        this.output = output;
+    public CombinerRecipeBuilder(ItemStack pOutput, List<ItemStack> pInput) {
+        this.result = pOutput;
+        this.input = pInput;
     }
 
-    public static CombinerRecipeBuilder recipe(ItemStack output, ItemStack... input) {
-        return recipe(output, Arrays.asList(input));
-    }
-
-    public static CombinerRecipeBuilder recipe(ItemStack output, List<ItemStack> input) {
-        return new CombinerRecipeBuilder(input, output);
-    }
-
-
-    public void build(Consumer<FinishedRecipe> consumerIn) {
-        String name = Objects.requireNonNull(this.output.getItem().getRegistryName()).getPath();
-        this.build(consumerIn, new ResourceLocation(Alchemistry.MODID, "combiner/" + name));
+    public static CombinerRecipeBuilder createRecipe(ItemStack pResult, List<ItemStack> pInput) {
+        return new CombinerRecipeBuilder(pResult, pInput);
     }
 
     @Override
-    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        this.validate(id);
-        this.advancementBuilder.parent(new ResourceLocation("recipes/root"))
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-                .rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
-        consumerIn.accept(new CombinerRecipeBuilder.Result
-                (id, this.group, this.input, this.output,
-                        this.advancementBuilder, new ResourceLocation(id.getNamespace(),
-                        "recipes/" + Objects.requireNonNull(this.output.getItem().getItemCategory()).getRecipeFolderName() + "/" + id.getPath())));
+    @Nonnull
+    public RecipeBuilder unlockedBy(@Nonnull String pCriterionName, @Nonnull CriterionTriggerInstance pCriterionTrigger) {
+        Objects.requireNonNull(result.getItem().getRegistryName());
+
+        this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, result.getItem().getRegistryName().getPath())))
+                .requirements(RequirementsStrategy.OR);
+        return this;
     }
 
     @Override
-    public void validate(ResourceLocation id) {
-
+    @Nonnull
+    public RecipeBuilder group(@Nullable String pGroupName) {
+        this.group = pGroupName;
+        return this;
     }
 
-    public static class Result implements FinishedRecipe {
-        private final String group;
-        private final ResourceLocation id;
-        private final Advancement.Builder advancementBuilder;
-        private final ResourceLocation advancementID;
-        private final List<ItemStack> input;
-        private final ItemStack output;
+    @Override
+    @Nonnull
+    public Item getResult() {
+        return result.getItem();
+    }
 
-        public Result(ResourceLocation id, String group, List<ItemStack> input, ItemStack output,
-                      Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
-            this.id = id;
-            this.group = group;
-            this.input = input;
-            this.output = output;
-            this.advancementBuilder = advancementBuilder;
-            this.advancementID = advancementId;
-        }
+    @Override
+    public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @Nonnull ResourceLocation pRecipeId) {
 
-        @Override
-        public void serializeRecipeData(@Nonnull JsonObject json) {
-            if (!this.group.isEmpty()) json.addProperty("group", this.group);
-            DatagenUtils.addStackListToJson(json, "input", input);
-            DatagenUtils.addStackToJson(json, "result", output);
-        }
+        ensureValid(pRecipeId);
 
-        @Override
-        @Nonnull
-        public ResourceLocation getId() {
-            return this.id;
-        }
+        Objects.requireNonNull(result.getItem().getItemCategory());
 
-        @Override
-        @Nonnull
-        public RecipeSerializer<?> getType() {
-            return SerializerRegistry.COMBINER_SERIALIZER.get();
-        }
+        String advancementPath = String.format("recipes/%s/%s",
+                result.getItem().getItemCategory().getRecipeFolderName(),
+                pRecipeId.getPath());
 
-        @Override
-        public JsonObject serializeAdvancement() {
-            return this.advancementBuilder.serializeToJson();
-        }
+        ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.getPath()));
+        ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);
 
-        @Override
-        public ResourceLocation getAdvancementId() {
-            return this.advancementID;
-        }
+        pFinishedRecipeConsumer.accept(new CombinerRecipeResult(
+                group,
+                advancementBuilder,
+                recipeLocation,
+                advancementLocation,
+                input,
+                result
+        ));
+    }
+
+    public void ensureValid(ResourceLocation id) {
+
     }
 }

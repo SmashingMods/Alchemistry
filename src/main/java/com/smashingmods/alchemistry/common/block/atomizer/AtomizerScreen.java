@@ -1,12 +1,9 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryScreen;
-import com.smashingmods.alchemistry.api.container.DisplayData;
-import com.smashingmods.alchemistry.api.container.EnergyDisplayData;
-import com.smashingmods.alchemistry.api.container.FluidDisplayData;
+import com.smashingmods.alchemistry.api.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -24,61 +21,36 @@ public class AtomizerScreen extends AbstractAlchemistryScreen<AtomizerMenu> {
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
-        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 152, 21, 16, 46));
-        displayData.add(new FluidDisplayData(pMenu.getBlockEntity(), pMenu.getContainerData(), 44, 21, 16, 46));
+        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 58, 39, 60, 9));
+        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 134, 21, 16, 46));
+        displayData.add(new FluidDisplayData(pMenu.getBlockEntity(), pMenu.getContainerData(), 26, 21, 16, 46));
+    }
+
+    @Override
+    public void render(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+        int relX = (width - imageWidth) / 2;
+        int relY = (height - imageHeight) / 2;
+        this.renderBackground(pPoseStack);
+        this.renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
+        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
+        this.renderDisplayData(displayData, pPoseStack, relX, relY);
+        this.renderDisplayTooltip(displayData, pPoseStack, relX, relY, pMouseX, pMouseY);
+        this.renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override
     protected void renderBg(@Nonnull PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
-        ResourceLocation bgTexture = new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png");
+        int relX = (width - imageWidth) / 2;
+        int relY = (height - imageHeight) / 2;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, bgTexture);
-
-        int x = (width - imageWidth) / 2;
-        int y = (height - imageHeight) / 2;
-
-        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight);
+        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png"));
+        this.blit(pPoseStack, relX, relY, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component displayname = new TranslatableComponent("alchemistry.container.atomizer");
-        drawString(pPoseStack, this.font, displayname, this.imageWidth / 2 - this.font.width(displayname) / 2, -10, Color.WHITE.getRGB());
-    }
-
-    @Override
-    public void render(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pDelta) {
-        this.renderBackground(pPoseStack);
-        this.renderBg(pPoseStack, pDelta, pMouseX, pMouseY);
-        super.render(pPoseStack, pMouseX, pMouseY, pDelta);
-
-        int drawX = (this.width - this.imageWidth) / 2;
-        int drawY = (this.height - this.imageHeight) / 2;
-
-        int progress = this.getMenu().getContainerData().get(0) / 2;
-        int maxProgress = this.getMenu().getContainerData().get(1);
-        if (progress > 0) {
-            int barScaled = getBarScaled(60, progress, maxProgress);
-            drawArrowUp(pPoseStack, drawX + 74, drawY + 39, barScaled);
-        }
-
-        displayData.forEach(data -> {
-            if (data instanceof EnergyDisplayData) {
-                drawEnergyBar(pPoseStack, (EnergyDisplayData) data, 0, 40);
-            }
-            if (data instanceof FluidDisplayData) {
-                drawFluidTank((FluidDisplayData) data, drawX + data.getX(), drawY + data.getY());
-            }
-        });
-
-        displayData.stream().filter(data ->
-                pMouseX >= data.getX() + drawX &&
-                        pMouseX <= data.getX() + drawX + data.getWidth() &&
-                        pMouseY >= data.getY() + drawY &&
-                        pMouseY <= data.getY() + drawY + data.getHeight()
-        ).forEach(displayWrapper -> renderTooltip(pPoseStack, displayWrapper.toTextComponent(), pMouseX, pMouseY));
-
-        renderTooltip(pPoseStack, pMouseX, pMouseY);
+        Component title = new TranslatableComponent("alchemistry.container.atomizer");
+        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, Color.WHITE.getRGB());
     }
 }

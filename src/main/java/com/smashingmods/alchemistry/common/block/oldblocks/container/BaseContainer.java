@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.oldblocks.container;
 
-import com.smashingmods.alchemistry.common.block.AlchemistryBlockEntity;
+import com.smashingmods.alchemistry.common.block.oldblocks.AlchemistryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

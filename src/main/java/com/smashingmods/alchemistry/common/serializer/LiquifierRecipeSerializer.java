@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.common.serializer;
 
-import com.smashingmods.alchemistry.common.recipe.LiquifierRecipe;
+import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
-import com.smashingmods.alchemistry.utils.IngredientStack;
+import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;

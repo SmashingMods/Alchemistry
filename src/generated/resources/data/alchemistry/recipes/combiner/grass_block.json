@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:combiner",
-  "group": "minecraft:misc",
+  "group": "alchemistry:combiner",
   "input": [
     {
       "item": "minecraft:air"
@@ -22,7 +22,6 @@
     }
   ],
   "result": {
-    "item": "minecraft:grass_block",
-    "count": 4
+    "item": "minecraft:grass_block"
   }
 }

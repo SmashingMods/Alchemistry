@@ -12,9 +12,9 @@ public class FissionRecipeProvider {
         this.consumer = pConsumer;
     }
 
-    public void register(Consumer<FinishedRecipe> pConsumer) {
+    public void register() {
         for (int i = 2; i <= 118; i++) {
-            FissionRecipeBuilder.recipe(i).build(pConsumer);
+            FissionRecipeBuilder.recipe(i).build(consumer);
         }
     }
 }

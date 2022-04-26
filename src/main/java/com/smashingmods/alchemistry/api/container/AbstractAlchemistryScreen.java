@@ -18,36 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+
     protected final List<DisplayData> displayData = new ArrayList<>();
-    private final int arrowPixels = 9;
-    private final int arrowSmallPixels = 7;
 
     public AbstractAlchemistryScreen(T pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
-    public void bindWidgets() {
-        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/widgets.png"));
-    }
-
-    public static int getBarScaled(int pPixels, int pCount, int pMax) {
-        if (pCount > 0 && pMax > 0) {
-            return pCount * pPixels / pMax;
-        } else {
-            return 0;
-        }
-    }
-
-    public void drawEnergyBar(PoseStack pPoseStack, EnergyDisplayData pData, int pTextureX, int pTextureY) {
-        int x = pData.getX() + (this.width - this.imageWidth) / 2;
-        int y = pData.getY() + (this.height - this.imageHeight) / 2;
-        int vHeight = getBarScaled(pData.getHeight(), pData.getStored(), pData.getMaxStored());
-        bindWidgets();
-        this.blit(pPoseStack, x, y + pData.getHeight() - vHeight, pTextureX, pTextureY, pData.getWidth(), vHeight);
-    }
-
     public void drawFluidTank(FluidDisplayData pData, int pTextureX, int pTextureY) {
-        if (pData.getStored() > 0) {
+        if (pData.getValue() > 0) {
             FluidStack fluidStack = pData.getFluidHandler().getFluidStack();
             setShaderColor(fluidStack.getFluid().getAttributes().getColor());
             TextureAtlasSprite icon = getResourceTexture(fluidStack.getFluid().getAttributes().getStillTexture());
@@ -59,7 +38,7 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
 
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
 
-        int renderAmount = Math.max(Math.min(pData.getHeight(), pData.getStored() * pData.getHeight() / pData.getMaxStored()), 1);
+        int renderAmount = Math.max(Math.min(pData.getHeight(), pData.getValue() * pData.getHeight() / pData.getMaxValue()), 1);
         int posY = pTextureY + pData.getHeight() - renderAmount;
 
         float minU = pSprite.getU0();
@@ -97,8 +76,6 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
             }
             width += 16;
         }
-
-//        RenderSystem.disableTexture();
     }
 
     public static TextureAtlasSprite getResourceTexture(@Nonnull ResourceLocation pResourceLocation) {
@@ -110,54 +87,118 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
         float red = (pColor >> 16 & 255) / 255f;
         float green = (pColor >> 8 & 255) / 255f;
         float blue = (pColor & 255) / 255f;
-        RenderSystem.setShaderColor(red, green, alpha, blue);
+        RenderSystem.setShaderColor(red, green, blue, alpha);
+    }
+
+    public void bindWidgets() {
+        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/widgets.png"));
+    }
+
+    public static int getBarScaled(int pPixels, int pProgress, int pMaxProgress) {
+        if (pProgress > 0 && pMaxProgress > 0) {
+            return pProgress * pPixels / pMaxProgress;
+        } else {
+            return 0;
+        }
+    }
+
+    public void drawEnergyBar(PoseStack pPoseStack, EnergyDisplayData pData, int pTextureX, int pTextureY) {
+        int x = pData.getX() + (this.width - this.imageWidth) / 2;
+        int y = pData.getY() + (this.height - this.imageHeight) / 2;
+        this.directionalBlit(pPoseStack, x, y + pData.getHeight(), pTextureX, pTextureY, pData.getWidth(), pData.getHeight(), pData.getValue(), pData.getMaxValue(), Direction.UP);
+    }
+
+    private enum Direction {
+        LEFT, UP, RIGHT, DOWN
+    }
+
+    private void directionalBlit(PoseStack pPoseStack, int pX, int pY, int pUOffset, int pVOffset, int pU, int pV, int pProgress, int pMaxProgress, Direction pDirection) {
+        bindWidgets();
+
+        switch (pDirection) {
+            case LEFT -> {
+                int scaled = getBarScaled(pV, pProgress, pMaxProgress);
+                blit(pPoseStack, pX - scaled, pY, pUOffset + pU - scaled, pVOffset, scaled, pV);
+            }
+            case UP -> {
+                int scaled = getBarScaled(pV, pProgress, pMaxProgress);
+                blit(pPoseStack, pX, pY - scaled, pUOffset, pVOffset + pV - scaled, pU, scaled);
+            }
+            case RIGHT -> {
+                int scaled = getBarScaled(pV, pProgress, pMaxProgress);
+                blit(pPoseStack, pX, pY, pUOffset, pVOffset, scaled, pU);
+            }
+            case DOWN -> {
+                int scaled = getBarScaled(pV, pProgress, pMaxProgress);
+                blit(pPoseStack, pX, pY, pUOffset, pVOffset, pU, scaled);
+            }
+        }
     }
 
     @SuppressWarnings("unused")
-    public void drawArrowLeft(PoseStack pPoseStack, int pX, int pY, int pWidth) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 120, pWidth, arrowPixels);
+    public void drawArrowLeft(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction.LEFT);
     }
 
     @SuppressWarnings("unused")
-    public void drawArrowRight(PoseStack pPoseStack, int pX, int pY, int pWidth) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 129, pWidth, arrowPixels);
+    public void drawArrowRight(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction.RIGHT);
     }
 
     @SuppressWarnings("unused")
-    public void drawArrowUp(PoseStack pPoseStack, int pX, int pY, int pHeight) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 9, 138, arrowPixels, pHeight);
+    public void drawArrowUp(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction.UP);
     }
 
     @SuppressWarnings("unused")
-    public void drawArrowDown(PoseStack pPoseStack, int pX, int pY, int pHeight) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 138, arrowPixels, pHeight);
+    public void drawArrowDown(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction.DOWN);
     }
 
     @SuppressWarnings("unused")
-    public void drawSmallArrowLeft(PoseStack pPoseStack, int pX, int pY, int pHeight) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 138, arrowSmallPixels, pHeight);
+    public void drawSmallArrowLeft(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 0, 138, 7, 9, pProgress, pMaxProgress, Direction.LEFT);
     }
 
     @SuppressWarnings("unused")
-    public void drawSmallArrowRight(PoseStack pPoseStack, int pX, int pY, int pHeight) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 138, arrowSmallPixels, pHeight);
+    public void drawSmallArrowRight(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 18, 138, 7, 9, pProgress, pMaxProgress, Direction.RIGHT);
     }
 
     @SuppressWarnings("unused")
-    public void drawSmallArrowUp(PoseStack pPoseStack, int pX, int pY, int pWidth) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 138, pWidth, arrowSmallPixels);
+    public void drawSmallArrowUp(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 0, 138, 7, 9, pProgress, pMaxProgress, Direction.UP);
     }
 
     @SuppressWarnings("unused")
-    public void drawSmallArrowDown(PoseStack pPoseStack, int pX, int pY, int pWidth) {
-        bindWidgets();
-        blit(pPoseStack, pX, pY, 0, 138, pWidth, arrowSmallPixels);
+    public void drawSmallArrowDown(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
+        directionalBlit(pPoseStack, pX, pY, 9, 138, 7, 9, pProgress, pMaxProgress, Direction.DOWN);
+    }
+
+    public void renderDisplayData(List<DisplayData> pDisplayData, PoseStack pPoseStack, int pX, int pY) {
+        pDisplayData.forEach(data -> {
+            if (data instanceof ProgressDisplayData) {
+                drawArrowRight(pPoseStack, pX + data.getX(), pY + data.getY(), data.getValue(), data.getMaxValue());
+            }
+            if (data instanceof EnergyDisplayData) {
+                drawEnergyBar(pPoseStack, (EnergyDisplayData) data, 0, 40);
+            }
+            if (data instanceof FluidDisplayData) {
+                drawFluidTank((FluidDisplayData) data, pX + data.getX(), pY + data.getY());
+            }
+        });
+    }
+
+    public void renderDisplayTooltip(List<DisplayData> pDisplayData, PoseStack pPoseStack, int pX, int pY, int pMouseX, int pMouseY) {
+        pDisplayData.stream().filter(data ->
+                pMouseX >= data.getX() + pX &&
+                pMouseX <= data.getX() + pX + data.getWidth() &&
+                pMouseY >= data.getY() + pY &&
+                pMouseY <= data.getY() + pY + data.getHeight()
+        ).forEach(data -> {
+            if (!(data instanceof ProgressDisplayData)) {
+                renderTooltip(pPoseStack, data.toTextComponent(), pMouseX, pMouseY);
+            }
+        });
     }
 }

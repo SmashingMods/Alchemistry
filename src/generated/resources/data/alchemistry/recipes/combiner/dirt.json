@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:combiner",
-  "group": "minecraft:misc",
+  "group": "alchemistry:combiner",
   "input": [
     {
       "item": "chemlib:compound_water"
@@ -13,7 +13,6 @@
     }
   ],
   "result": {
-    "item": "minecraft:dirt",
-    "count": 4
+    "item": "minecraft:dirt"
   }
 }

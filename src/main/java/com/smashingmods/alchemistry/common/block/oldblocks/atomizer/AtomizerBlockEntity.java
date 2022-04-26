@@ -6,7 +6,7 @@
 //import com.smashingmods.alchemistry.common.block.oldblocks.blockentity.EnergyBlockEntity;
 //import com.smashingmods.alchemistry.common.block.oldblocks.blockentity.FluidBlockEntity;
 //import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-//import com.smashingmods.alchemistry.common.block.AlchemistryBlockEntity;
+//import com.smashingmods.alchemistry.common.block.oldblocks.AlchemistryBlockEntity;
 //import net.minecraft.core.BlockPos;
 //import net.minecraft.nbt.CompoundTag;
 //import net.minecraft.world.item.ItemStack;

@@ -1,7 +1,7 @@
 //package com.smashingmods.alchemistry.common.network;
 //
 //
-//import com.smashingmods.alchemistry.common.recipe.CombinerRegistry;
+//import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRegistry;
 //import com.smashingmods.alchemistry.common.block.oldblocks.combiner.CombinerBlockEntity;
 //import net.minecraft.core.BlockPos;
 //import net.minecraft.network.FriendlyByteBuf;

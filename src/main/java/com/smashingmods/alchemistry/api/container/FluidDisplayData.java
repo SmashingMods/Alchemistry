@@ -22,12 +22,12 @@ public class FluidDisplayData extends DisplayData {
     }
 
     @Override
-    public int getStored() {
+    public int getValue() {
         return containerData.get(4);
     }
 
     @Override
-    public int getMaxStored() {
+    public int getMaxValue() {
         return containerData.get(5);
     }
 
@@ -43,8 +43,8 @@ public class FluidDisplayData extends DisplayData {
         boolean emptyFluid = fluidStack.isFluidEqual(FluidStack.EMPTY);
 
         String fluidName = emptyFluid ? "" : String.format(" %s", I18n.get(fluidStack.getTranslationKey()).toLowerCase());
-        String stored = numberFormat.format(getStored());
-        String capacity = numberFormat.format(getMaxStored());
+        String stored = numberFormat.format(getValue());
+        String capacity = numberFormat.format(getMaxValue());
         return String.format("%s/%s mb%s", stored, capacity, fluidName);
     }
 }

@@ -1,15 +1,16 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
+import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
-import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
-import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
-import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class CombinerBlock extends AbstractAlchemistryBlock {
 
@@ -54,21 +56,19 @@ public class CombinerBlock extends AbstractAlchemistryBlock {
     }
 
     @Override
+    public void appendHoverText(@Nonnull ItemStack pStack, @Nullable BlockGetter pLevel, @Nonnull List<Component> pTooltip, @Nonnull TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.COMBINER_ENERGY_PER_TICK.get()));
+    }
+
+    @Override
     @Nonnull
     @SuppressWarnings("deprecation")
     public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, @Nonnull InteractionHand pHand, @Nonnull BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            boolean interactionSuccessful = true;
-
-            if (blockEntity instanceof CombinerBlockEntity) {
-                interactionSuccessful = ((CombinerBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
-            }
-
-            if (!interactionSuccessful) {
-                NetworkHooks.openGui(((ServerPlayer) pPlayer), (CombinerBlockEntity) blockEntity, pPos);
-            }
-            return InteractionResult.CONSUME;
+            NetworkHooks.openGui(((ServerPlayer) pPlayer), (CombinerBlockEntity) blockEntity, pPos);
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
     }
@@ -78,7 +78,7 @@ public class CombinerBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof CombinerBlockEntity) {
-                    CombinerBlockEntity.tick(level, pos, blockState, (CombinerBlockEntity) blockEntity);
+                    ((CombinerBlockEntity) blockEntity).tick(pLevel);
                 }
             };
         }

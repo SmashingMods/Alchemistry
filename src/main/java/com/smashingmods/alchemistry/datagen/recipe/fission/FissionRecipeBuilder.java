@@ -1,33 +1,34 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
 import com.smashingmods.alchemistry.datagen.recipe.RecipeBuilder;
-import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class FissionRecipeBuilder implements RecipeBuilder {
 
-    private int input;
-    private String group = "minecraft:misc";
+    private final int input;
+    private final String group;
 
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public static FissionRecipeBuilder recipe(int input) {
-        return new FissionRecipeBuilder(input);
+    public FissionRecipeBuilder(int pElementNumber) {
+        this(pElementNumber, "minecraft:misc");
     }
 
-    public FissionRecipeBuilder(int inputNumber) {
-        this.input = inputNumber;
+    public FissionRecipeBuilder(int pElementNumber, String pGroup) {
+        this.input = pElementNumber;
+        this.group = pGroup;
+    }
+
+    public static FissionRecipeBuilder recipe(int input) {
+        return new FissionRecipeBuilder(input);
     }
 
     public void build(Consumer<FinishedRecipe> consumerIn) {
@@ -37,73 +38,20 @@ public class FissionRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void build(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
-        this.validate(id);
+    public void build(Consumer<FinishedRecipe> pConsumer, ResourceLocation pId) {
+        String group = this.group == null ? "" : this.group;
+        String path = String.format("recipes/%s/%s", input, pId.getPath());
+        ResourceLocation advancementId = new ResourceLocation(pId.getNamespace(), path);
+        this.validate(pId);
         this.advancementBuilder.parent(new ResourceLocation("recipes/root"))
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-                .rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
-        consumerIn.accept(new FissionRecipeBuilder.Result
-                (id, this.group == null ? "" : this.group, this.input,
-                        this.advancementBuilder, new ResourceLocation(id.getNamespace(),
-                        "recipes/" + this.input + "/" + id.getPath())));
-
-
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
+                .rewards(AdvancementRewards.Builder.recipe(pId)).requirements(RequirementsStrategy.OR);
+        pConsumer.accept(new FissionRecipeResult
+                (group, advancementBuilder, pId, advancementId, input));
     }
 
     @Override
     public void validate(ResourceLocation id) {
 
-    }
-
-    public static class Result implements FinishedRecipe {
-        private final String group;
-        private final ResourceLocation id;
-        private final Advancement.Builder advancementBuilder;
-        private final ResourceLocation advancementID;
-        private final int input;
-
-        public Result(ResourceLocation id, String group, int input, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
-            this.id = id;
-            this.group = group;
-            this.input = input;
-            this.advancementBuilder = advancementBuilder;
-            this.advancementID = advancementId;
-        }
-
-        @Override
-        public void serializeRecipeData(@Nonnull JsonObject json) {
-            if (!this.group.isEmpty()) json.addProperty("group", this.group);
-            json.addProperty("input", input);
-            if (input % 2 == 0) {
-                json.addProperty("output", input / 2);
-                json.addProperty("output2", input / 2);
-            } else {
-                json.addProperty("output", (input / 2) + 1);
-                json.addProperty("output2", input / 2);
-            }
-
-        }
-
-        @Override
-        @Nonnull
-        public ResourceLocation getId() {
-            return this.id;
-        }
-
-        @Override
-        @Nonnull
-        public RecipeSerializer<?> getType() {
-            return SerializerRegistry.FISSION_SERIALIZER.get();
-        }
-
-        @Override
-        public JsonObject serializeAdvancement() {
-            return this.advancementBuilder.serializeToJson();
-        }
-
-        @Override
-        public ResourceLocation getAdvancementId() {
-            return this.advancementID;
-        }
     }
 }

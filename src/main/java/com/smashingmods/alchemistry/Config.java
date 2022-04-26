@@ -55,7 +55,7 @@ public class Config {
         ATOMIZER_ENERGY_PER_TICK = COMMON_BUILDER.comment("Energy consumed per tick when Atomizer is processing").comment("Default: 50")
                 .defineInRange("energyPerTick", 50, 0, Integer.MAX_VALUE);
         ATOMIZER_TICKS_PER_OPERATION = COMMON_BUILDER.comment("Ticks per operation when using the Atomizer").comment("Default: 100")
-                .defineInRange("ticksPerOperation", 100, 1, Integer.MAX_VALUE);
+                .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Chemical Combiner").push(CATEGORY_COMBINER);
@@ -64,7 +64,7 @@ public class Config {
         COMBINER_ENERGY_PER_TICK = COMMON_BUILDER.comment("Energy consumed per tick when Combiner is processing").comment("Default: 200")
                 .defineInRange("energyPerTick", 200, 0, Integer.MAX_VALUE);
         COMBINER_TICKS_PER_OPERATION = COMMON_BUILDER.comment("Ticks per operation when using the Combiner").comment("Default: 5")
-                .defineInRange("ticksPerOperation", 5, 1, Integer.MAX_VALUE);
+                .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Chemical Dissolver").push(CATEGORY_DISSOLVER);

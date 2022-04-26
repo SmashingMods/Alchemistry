@@ -22,14 +22,12 @@ public class IItemHandlerUtils {
         return false;
     }
 
-    public static List<ItemStack> toStackList(IItemHandler handler) {
-        List<ItemStack> temp = new ArrayList<>();
-        for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack stack = handler.getStackInSlot(i);
-            if (!stack.isEmpty()) temp.add(stack);
-            else temp.add(ItemStack.EMPTY);
+    public static List<ItemStack> toStackList(IItemHandler pHandler) {
+        List<ItemStack> itemStackList = new ArrayList<>();
+        for (int i = 0; i < pHandler.getSlots(); i++) {
+            itemStackList.add(pHandler.getStackInSlot(i));
         }
-        return temp;
+        return itemStackList;
     }
 
     public static int countSlot(IItemHandler handler, int index) {

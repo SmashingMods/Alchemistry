@@ -1,0 +1,68 @@
+package com.smashingmods.alchemistry.datagen.recipe.combiner;
+
+import com.google.gson.JsonObject;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
+import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+
+public class CombinerRecipeResult implements FinishedRecipe {
+    private final String group;
+    private final Advancement.Builder advancementBuilder;
+    private final ResourceLocation id;
+    private final ResourceLocation advancementId;
+    private final List<ItemStack> input;
+    private final ItemStack output;
+
+    public CombinerRecipeResult(String pGroup,
+                                Advancement.Builder pBuilder,
+                                ResourceLocation pId,
+                                ResourceLocation advancementId,
+                                List<ItemStack> pInput,
+                                ItemStack pOutput
+                                ) {
+        this.group = pGroup;
+        this.advancementBuilder = pBuilder;
+        this.id = pId;
+        this.advancementId = advancementId;
+        this.input = pInput;
+        this.output = pOutput;
+    }
+
+    @Override
+    public void serializeRecipeData(@Nonnull JsonObject pJson) {
+        if (!group.isEmpty()) {
+            pJson.addProperty("group", group);
+        }
+        DatagenUtil.itemStackListToJson(pJson, "input", input);
+        DatagenUtil.itemStackToJson(pJson, "result", output);
+    }
+
+    @Override
+    @Nonnull
+    public ResourceLocation getId() {
+        return this.id;
+    }
+
+    @Override
+    @Nonnull
+    public RecipeSerializer<?> getType() {
+        return SerializerRegistry.COMBINER_SERIALIZER.get();
+    }
+
+    @Override
+    public JsonObject serializeAdvancement() {
+        return advancementBuilder.serializeToJson();
+    }
+
+    @Override
+    public ResourceLocation getAdvancementId() {
+        return advancementId;
+    }
+}

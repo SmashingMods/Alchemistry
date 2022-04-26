@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:combiner",
-  "group": "minecraft:misc",
+  "group": "alchemistry:combiner",
   "input": [
     {
       "item": "chemlib:element_ytterbium",

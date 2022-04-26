@@ -1,85 +1,71 @@
 package com.smashingmods.alchemistry.common.serializer;
 
-import com.smashingmods.alchemistry.common.recipe.CombinerRecipe;
+import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CombinerRecipeSerializer<T extends CombinerRecipe>
-        extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class CombinerRecipeSerializer<T extends CombinerRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
-    private IFactory<T> factory;
+    private final IFactory<T> factory;
 
     public CombinerRecipeSerializer(CombinerRecipeSerializer.IFactory<T> factory) {
         this.factory = factory;
     }
 
-
     @Override
-    public T fromJson(ResourceLocation recipeId, JsonObject json) {
-        String group = json.get("group").getAsString();//.getString(json, "group", "");
-        List<ItemStack> input = Lists.newArrayList();
-        JsonArray inputJson = json.getAsJsonArray("input");//JSONUtils.getJsonArray(json, "input");
-        inputJson.forEach(entry -> {
-            JsonObject obj = entry.getAsJsonObject();
-            Item item = Items.AIR;
-            try {
-                item = ShapedRecipe.itemFromJson(obj.getAsJsonObject());//json, "item"));// ItemStack.of(JsonUtils.(obj,"item")).getItem();;//.getItem(obj, "item");
-            } catch (JsonSyntaxException e) {
-                //lol
-            }
-            int count = obj.has("count") ? obj.get("count").getAsInt() : 1;
-            input.add(new ItemStack(item, count));
-        });
-        ItemStack output = ItemStack.EMPTY;
-        if (json.get("result").isJsonObject()) {
-            JsonObject obj = json.getAsJsonObject("result");//JSONUtils.getJsonObject(json, "result");
-            Item item = ShapedRecipe.itemFromJson(obj.getAsJsonObject());//ItemStack.of(JsonUtils.readNBT(obj,"item")).getItem();//.getItem(obj, "item");
-            int count = obj.has("count") ? obj.get("count").getAsInt() : 1;
-            output = new ItemStack(item, count);
+    @Nonnull
+    public T fromJson(@Nonnull ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+
+        String group = pSerializedRecipe.get("group").getAsString();
+        JsonArray inputJson = pSerializedRecipe.getAsJsonArray("input");
+        List<ItemStack> input = new ArrayList<>();
+        ItemStack output;
+
+        inputJson.forEach(element -> input.add(ShapedRecipe.itemStackFromJson(element.getAsJsonObject())));
+
+        if (pSerializedRecipe.get("result").isJsonObject()) {
+            output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
         } else {
-
-            Item item = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "item"));//ItemStack.of(JsonUtils.readNBT(json,"result")).getItem();
-            //ResourceLocation resourcelocation = new ResourceLocation(s1);
-            output = new ItemStack(item);//Registry.ITEM.getOrDefault(resourcelocation));
+            output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "item"));
         }
-        return this.factory.create(recipeId, group, input, output);
+
+        return this.factory.create(pRecipeId, group, input, output);
     }
 
     @Override
-    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-        String group = buffer.readUtf(32767);
-        List<ItemStack> input = Lists.newArrayList();
-        for (int i = 0; i < 9; i++) {
-            input.add(buffer.readItem());
+    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        String group = pBuffer.readUtf(Short.MAX_VALUE);
+        List<ItemStack> inputList = Lists.newArrayList();
+        for (int i = 0; i < 4; i++) {
+            inputList.add(pBuffer.readItem());
         }
-        ItemStack output = buffer.readItem();
-        return this.factory.create(recipeId, group, input, output);
+        ItemStack output = pBuffer.readItem();
+        return this.factory.create(pRecipeId, group, inputList, output);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
-        buffer.writeUtf(recipe.getGroup());
-        for (int i = 0; i < 9; i++) {
-            buffer.writeItemStack(recipe.inputs.get(i), true);
+    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
+        pBuffer.writeUtf(pRecipe.getGroup());
+        for (int i = 0; i < 4; i++) {
+            pBuffer.writeItemStack(pRecipe.inputs.get(i), true);
         }
-        buffer.writeItemStack(recipe.output, true);
+        pBuffer.writeItemStack(pRecipe.output, true);
     }
 
     public interface IFactory<T extends ProcessingRecipe> {
-        T create(ResourceLocation id, String group, List<ItemStack> input, ItemStack output);
+        T create(ResourceLocation pId, String pGroup, List<ItemStack> pInput, ItemStack pOutput);
     }
 }

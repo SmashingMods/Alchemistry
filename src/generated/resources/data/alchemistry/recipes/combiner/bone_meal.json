@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:combiner",
-  "group": "minecraft:misc",
+  "group": "alchemistry:combiner",
   "input": [
     {
       "item": "minecraft:air"
@@ -14,7 +14,6 @@
     }
   ],
   "result": {
-    "item": "minecraft:bone_meal",
-    "count": 3
+    "item": "minecraft:bone_meal"
   }
 }

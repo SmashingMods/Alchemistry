@@ -1,10 +1,10 @@
 package com.smashingmods.alchemistry.common.serializer;
 
-import com.smashingmods.alchemistry.common.recipe.DissolverRecipe;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.ProbabilitySet;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
-import com.smashingmods.alchemistry.utils.IngredientStack;
+import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

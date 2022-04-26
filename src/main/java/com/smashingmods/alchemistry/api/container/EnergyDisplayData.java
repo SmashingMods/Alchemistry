@@ -15,20 +15,20 @@ public class EnergyDisplayData extends DisplayData {
     }
 
     @Override
-    public int getStored() {
+    public int getValue() {
         return data.get(2);
     }
 
     @Override
-    public int getMaxStored() {
+    public int getMaxValue() {
         return data.get(3);
     }
 
     @Override
     public String toString() {
         NumberFormat numFormat = NumberFormat.getInstance(Locale.US);
-        String stored = numFormat.format(getStored());
-        String capacity = numFormat.format(getMaxStored());
+        String stored = numFormat.format(getValue());
+        String capacity = numFormat.format(getMaxValue());
         return stored + "/" + capacity + " FE";
     }
 }

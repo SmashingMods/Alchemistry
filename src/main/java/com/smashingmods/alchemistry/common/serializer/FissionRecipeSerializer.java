@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.serializer;
 
-import com.smashingmods.alchemistry.common.recipe.FissionRecipe;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;

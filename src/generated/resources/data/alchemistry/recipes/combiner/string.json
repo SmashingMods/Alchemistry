@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:combiner",
-  "group": "minecraft:misc",
+  "group": "alchemistry:combiner",
   "input": [
     {
       "item": "minecraft:air"
@@ -11,7 +11,6 @@
     }
   ],
   "result": {
-    "item": "minecraft:string",
-    "count": 4
+    "item": "minecraft:string"
   }
 }

@@ -1,27 +1,28 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class CombinerRecipe extends ProcessingRecipe {
+public class CombinerRecipe extends ProcessingRecipe implements Comparable<CombinerRecipe> {
 
     public final ItemStack output;
     public final List<ItemStack> inputs = new ArrayList<>();
     public final Set<Integer> nonEmptyIndices = new HashSet<>();
 
     public CombinerRecipe(ResourceLocation pId, String pGroup, List<ItemStack> pInputList, ItemStack pOutput) {
-        super(SerializerRegistry.COMBINER_TYPE, pId, pGroup, Ingredient.EMPTY, ItemStack.EMPTY);
+        super(RecipeRegistry.COMBINER_TYPE, pId, pGroup, Ingredient.EMPTY, ItemStack.EMPTY);
 
         output = pOutput;
 
@@ -55,26 +56,32 @@ public class CombinerRecipe extends ProcessingRecipe {
 
         int matchingStacks = 0;
 
-        List<ItemStack> itemStacks = pItemStackHandler.getSlotsAsList().subList(0, 4);
+        List<ItemStack> itemStacks = pItemStackHandler.getSlotsAsList().subList(0, 4).stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+        List<ItemStack> inputStacks = inputs.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
 
-        for (int index = 0; index < inputs.size(); index++) {
-
-            ItemStack recipeStack = inputs.get(index);
-            ItemStack handlerStack = itemStacks.get(index);
-
-            if (handlerStack.isEmpty() && recipeStack.isEmpty()) {
-                matchingStacks++;
-            } else if (ItemStack.isSameItemSameTags(recipeStack, handlerStack)
-                    && handlerStack.getCount() >= recipeStack.getCount()) {
-                matchingStacks++;
+        if (inputStacks.size() == itemStacks.size()) {
+            for (ItemStack inputStack : inputStacks) {
+                for (ItemStack itemStack : itemStacks) {
+                    if (ItemStack.isSameItemSameTags(inputStack, itemStack) && itemStack.getCount() >= inputStack.getCount()) {
+                        matchingStacks++;
+                    }
+                }
             }
+            return matchingStacks == inputStacks.size();
         }
-        return matchingStacks == 4;
+        return false;
     }
 
     @Override
     @Nonnull
     public RecipeSerializer<?> getSerializer() {
-        return SerializerRegistry.COMBINER_SERIALIZER.get();
+        return RecipeRegistry.COMBINER_SERIALIZER.get();
+    }
+
+    @Override
+    public int compareTo(@NotNull CombinerRecipe pRecipe) {
+        Objects.requireNonNull(this.output.getItem().getRegistryName());
+        Objects.requireNonNull(pRecipe.output.getItem().getRegistryName());
+        return this.output.getItem().getRegistryName().compareNamespaced(pRecipe.output.getItem().getRegistryName());
     }
 }

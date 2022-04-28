@@ -1090,7 +1090,7 @@ public class DissolverRecipeProvider {
 
         for (CompoundItem compound : CompoundRegistry.compounds) {
             List<ItemStack> stacks = new ArrayList<>();
-            compound.getComponentStacks().forEach(x -> stacks.add(x));
+            compound.getComponentStacks().forEach(itemStack -> stacks.add(itemStack));
             ProbabilityGroup group = new ProbabilityGroup(stacks, 1.0);
             dissolver(compound,
                     set().addGroup(group)//(new ItemStack[0])).build())

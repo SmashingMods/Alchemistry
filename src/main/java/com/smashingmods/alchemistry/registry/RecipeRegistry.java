@@ -16,7 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
-public class SerializerRegistry {
+public class RecipeRegistry {
 
     private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
     public static RecipeType<AtomizerRecipe> ATOMIZER_TYPE;

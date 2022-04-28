@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.evaporator;
 
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -13,7 +13,7 @@ public class EvaporatorRegistry {
     public static List<EvaporatorRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == SerializerRegistry.EVAPORATOR_TYPE)
+                    .filter(x -> x.getType() == RecipeRegistry.EVAPORATOR_TYPE)
                     .map(x -> (EvaporatorRecipe) x)
                     .collect(Collectors.toList());
         }

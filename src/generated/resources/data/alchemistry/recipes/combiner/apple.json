@@ -3,16 +3,7 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:compound_cellulose"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
     },
     {
       "item": "chemlib:compound_sucrose"

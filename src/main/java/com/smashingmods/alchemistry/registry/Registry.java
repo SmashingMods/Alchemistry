@@ -11,6 +11,6 @@ public class Registry {
         ItemRegistry.register(modEventBus);
         BlockEntityRegistry.register(modEventBus);
         MenuRegistry.register(modEventBus);
-        SerializerRegistry.register(modEventBus);
+        RecipeRegistry.register(modEventBus);
     }
 }

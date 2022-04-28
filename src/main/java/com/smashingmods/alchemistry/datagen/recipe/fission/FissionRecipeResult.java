@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -54,7 +54,7 @@ public class FissionRecipeResult implements FinishedRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getType() {
-        return SerializerRegistry.FISSION_SERIALIZER.get();
+        return RecipeRegistry.FISSION_SERIALIZER.get();
     }
 
     @Override

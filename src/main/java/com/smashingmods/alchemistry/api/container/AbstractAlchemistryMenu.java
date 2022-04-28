@@ -27,12 +27,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         this.blockEntitySlots = pSlots;
         blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
         level = pInventory.player.level;
-
-        // player main inventory
-        addSlots(Slot::new, pInventory, 3, 9, 9,8, 86);
-        // player hotbar
-        addSlots(Slot::new, pInventory, 1, 9, 0,8, 144);
-//        addPlayerInventory(pInventory);
+        addPlayerInventorySlots(pInventory);
         addDataSlots(pContainerData);
     }
 
@@ -90,6 +85,13 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
                 this.addSlot(pSlotType.apply(pContainer, slotIndex, x, y));
             }
         }
+    }
+
+    public void addPlayerInventorySlots(Inventory pInventory) {
+        // player main inventory
+        addSlots(Slot::new, pInventory, 3, 9, 9,8, 86);
+        // player hotbar
+        addSlots(Slot::new, pInventory, 1, 9, 0,8, 144);
     }
 
     public AbstractAlchemistryBlockEntity getBlockEntity() {

@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -53,7 +53,7 @@ public class CombinerRecipeResult implements FinishedRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getType() {
-        return SerializerRegistry.COMBINER_SERIALIZER.get();
+        return RecipeRegistry.COMBINER_SERIALIZER.get();
     }
 
     @Override

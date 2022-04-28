@@ -13,8 +13,8 @@ public class FissionRecipeProvider {
     }
 
     public void register() {
-        for (int i = 2; i <= 118; i++) {
-            FissionRecipeBuilder.recipe(i).build(consumer);
-        }
+//        for (int i = 2; i <= 118; i++) {
+//            FissionRecipeBuilder.recipe(i).build(consumer);
+//        }
     }
 }

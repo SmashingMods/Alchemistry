@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -19,8 +19,8 @@ public class CombinerRegistry {
 
     public static List<CombinerRecipe> getRecipes(Level pLevel) {
         if (recipes == null) {
-            recipes = pLevel.getRecipeManager().getRecipes().stream()
-                    .filter(recipe -> recipe.getType() == SerializerRegistry.COMBINER_TYPE)
+            recipes = pLevel.getRecipeManager().getRecipes().stream().sorted()
+                    .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE)
                     .map(recipe -> (CombinerRecipe) recipe)
                     .collect(Collectors.toList());
         }

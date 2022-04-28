@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -17,7 +17,7 @@ public class DissolverRegistry {
     public static List<DissolverRecipe> getRecipes(Level world) {
         if (recipes == null) {
             recipes = world.getRecipeManager().getRecipes().stream()
-                    .filter(x -> x.getType() == SerializerRegistry.DISSOLVER_TYPE)
+                    .filter(x -> x.getType() == RecipeRegistry.DISSOLVER_TYPE)
                     .map(x -> (DissolverRecipe) x)
                     .collect(Collectors.toList());
         }

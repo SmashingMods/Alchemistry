@@ -3,13 +3,7 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:compound_triglyceride"
-    },
-    {
-      "item": "minecraft:air"
     },
     {
       "item": "chemlib:compound_sucrose"

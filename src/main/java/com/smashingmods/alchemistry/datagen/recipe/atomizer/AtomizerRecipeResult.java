@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.datagen.recipe.atomizer;
 
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -54,7 +54,7 @@ public class AtomizerRecipeResult implements FinishedRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getType() {
-        return SerializerRegistry.ATOMIZER_SERIALIZER.get();
+        return RecipeRegistry.ATOMIZER_SERIALIZER.get();
     }
 
     @Nullable

@@ -3,30 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:element_hydrogen",
       "count": 44
     },
     {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:element_carbon",
       "count": 32
-    },
-    {
-      "item": "minecraft:air"
     },
     {
       "item": "chemlib:element_oxygen",

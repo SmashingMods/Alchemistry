@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.common.recipe.ProbabilitySet;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -50,7 +50,7 @@ public class DissolverRecipeResult implements FinishedRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getType() {
-        return SerializerRegistry.DISSOLVER_SERIALIZER.get();
+        return RecipeRegistry.DISSOLVER_SERIALIZER.get();
     }
 
     @Override

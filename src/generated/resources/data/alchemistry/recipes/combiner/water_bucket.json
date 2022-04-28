@@ -3,32 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:compound_water",
       "count": 16
     },
     {
-      "item": "minecraft:air"
-    },
-    {
-      "item": "minecraft:air"
-    },
-    {
       "item": "minecraft:bucket"
-    },
-    {
-      "item": "minecraft:air"
     }
   ],
   "result": {

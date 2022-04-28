@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.atomizer;
 
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -16,7 +16,7 @@ public class AtomizerRecipe extends ProcessingRecipe {
     public ItemStack output;
 
     public AtomizerRecipe(ResourceLocation pResourceLocation, String pGroup, FluidStack pInput, ItemStack pOutput) {
-        super(SerializerRegistry.ATOMIZER_TYPE, pResourceLocation, pGroup, Ingredient.EMPTY, pOutput);
+        super(RecipeRegistry.ATOMIZER_TYPE, pResourceLocation, pGroup, Ingredient.EMPTY, pOutput);
         this.input = pInput;
         this.output = pOutput;
     }
@@ -24,6 +24,6 @@ public class AtomizerRecipe extends ProcessingRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getSerializer() {
-        return SerializerRegistry.ATOMIZER_SERIALIZER.get();
+        return RecipeRegistry.ATOMIZER_SERIALIZER.get();
     }
 }

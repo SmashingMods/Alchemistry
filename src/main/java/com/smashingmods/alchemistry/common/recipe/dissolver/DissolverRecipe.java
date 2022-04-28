@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.recipe.dissolver;
 
 import com.smashingmods.alchemistry.common.recipe.ProbabilitySet;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -57,7 +57,7 @@ public class DissolverRecipe extends ProcessingRecipe {
 */
 
     public DissolverRecipe(ResourceLocation id, String group, IngredientStack input, ProbabilitySet outputs) {
-        super(SerializerRegistry.DISSOLVER_TYPE, id, group, input.ingredient, ItemStack.EMPTY);
+        super(RecipeRegistry.DISSOLVER_TYPE, id, group, input.ingredient, ItemStack.EMPTY);
         this.inputIngredient = input;
         this.outputs = outputs;
     }
@@ -80,7 +80,7 @@ public class DissolverRecipe extends ProcessingRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getSerializer() {
-        return SerializerRegistry.DISSOLVER_SERIALIZER.get();
+        return RecipeRegistry.DISSOLVER_SERIALIZER.get();
     }
 
     /*

@@ -11,7 +11,7 @@ import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.Registry;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -73,11 +73,11 @@ public class Alchemistry {
 
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
         AlchemistryPacketHandler.register();
-        SerializerRegistry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
-        SerializerRegistry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
-        SerializerRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
-        SerializerRegistry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");
-        SerializerRegistry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
-        SerializerRegistry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");
+        RecipeRegistry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
+        RecipeRegistry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
+        RecipeRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
+        RecipeRegistry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");
+        RecipeRegistry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
+        RecipeRegistry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");
     }
 }

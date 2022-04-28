@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.fission;
 
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
-import com.smashingmods.alchemistry.registry.SerializerRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.utils.StackUtils;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.google.common.collect.Lists;
@@ -22,7 +22,7 @@ public class FissionRecipe extends ProcessingRecipe {
     public final int output2;
 
     public FissionRecipe(ResourceLocation id, String group, int input, int output1, int output2) {
-        super(SerializerRegistry.FISSION_TYPE, id, group, Ingredient.of(StackUtils.atomicNumToStack(input)), StackUtils.atomicNumToStack(output1));
+        super(RecipeRegistry.FISSION_TYPE, id, group, Ingredient.of(StackUtils.atomicNumToStack(input)), StackUtils.atomicNumToStack(output1));
         this.input = input;
         this.output1 = output1;
         this.output2 = output2;
@@ -52,6 +52,6 @@ public class FissionRecipe extends ProcessingRecipe {
     @Override
     @Nonnull
     public RecipeSerializer<?> getSerializer() {
-        return SerializerRegistry.FISSION_SERIALIZER.get();
+        return RecipeRegistry.FISSION_SERIALIZER.get();
     }
 }

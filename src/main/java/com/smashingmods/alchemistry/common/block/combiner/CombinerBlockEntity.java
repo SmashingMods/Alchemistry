@@ -9,7 +9,6 @@ import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandl
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
-import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRegistry;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -35,6 +34,8 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
+import java.util.List;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -55,7 +56,10 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private final CustomEnergyStorage energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
 
-    CombinerRecipe currentRecipe;
+    private List<CombinerRecipe> recipes = new ArrayList<>();
+    private CombinerRecipe currentRecipe;
+    private boolean recipeLocked = false;
+    private boolean paused = false;
 
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -104,13 +108,8 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         }
     }
 
-    public void setCurrentRecipe(CombinerRecipe pRecipe) {
-        this.currentRecipe = pRecipe;
-    }
-
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
-            Alchemistry.LOGGER.info(currentRecipe.output);
             ItemStack output = getAutomationInventory().getStackInSlot(5);
             return energyHandler.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()
                     && (currentRecipe.output.getCount() + output.getCount()) <= currentRecipe.output.getMaxStackSize()
@@ -122,7 +121,6 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     public void processRecipe() {
-
         if (progress < maxProgress) {
             progress++;
         } else {
@@ -137,6 +135,35 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             }
         }
         setChanged();
+    }
+
+    public List<CombinerRecipe> getRecipes() {
+        return this.recipes;
+    }
+
+    public void setRecipes(List<CombinerRecipe> pRecipes) {
+        this.recipes = pRecipes;
+    }
+
+    public CombinerRecipe getCurrentRecipe() {
+        return this.currentRecipe;
+    }
+
+    public void setCurrentRecipe(CombinerRecipe pRecipe) {
+        this.currentRecipe = pRecipe;
+    }
+
+    public void toggleRecipeLocked() {
+        Alchemistry.LOGGER.info("TOGGLED LOCK");
+        this.recipeLocked = !this.recipeLocked;
+    }
+
+    public boolean getRecipeLocked() {
+        return this.recipeLocked;
+    }
+
+    public void togglePaused() {
+        this.paused = !this.paused;
     }
 
     @Override

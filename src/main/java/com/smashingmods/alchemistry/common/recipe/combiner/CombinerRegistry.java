@@ -19,7 +19,7 @@ public class CombinerRegistry {
 
     public static List<CombinerRecipe> getRecipes(Level pLevel) {
         if (recipes == null) {
-            recipes = pLevel.getRecipeManager().getRecipes().stream().sorted()
+            recipes = pLevel.getRecipeManager().getRecipes().stream()
                     .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE)
                     .map(recipe -> (CombinerRecipe) recipe)
                     .collect(Collectors.toList());

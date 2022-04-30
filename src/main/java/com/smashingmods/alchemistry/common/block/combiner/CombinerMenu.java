@@ -1,9 +1,10 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
+import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.CombinerRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -28,11 +29,10 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     private final DataSlot selectedRecipeIndex = DataSlot.standalone();
     private final Level level;
     private final CombinerBlockEntity blockEntity;
-    private List<CombinerRecipe> recipes = new ArrayList<>();
-    List<CombinerRecipe> displayedRecipes = new ArrayList<>();
+    private final List<CombinerRecipe> displayedRecipes = new ArrayList<>();
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final CustomStackHandler inputHandler;
+    public final CustomStackHandler inputHandler;
     private final CustomStackHandler outputHandler;
 
     public CombinerMenu(int pContainerId, Inventory pInventory, @Nonnull FriendlyByteBuf pBuffer) {
@@ -50,17 +50,17 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
         setupRecipeList();
 
         // input 2x2 grid
-        addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, 12, 51);
+        addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, 12, 63);
         // catalyst/solvent
-        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 4, 21, 21);
+        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 4, 21, 43);
         // ouput
-        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, 102, 69);
+        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, 102, 81);
     }
 
     @Override
     public void addPlayerInventorySlots(Inventory pInventory) {
-        addSlots(Slot::new, pInventory, 3, 9, 9,12, 94);
-        addSlots(Slot::new, pInventory, 1, 9, 0,12, 152);
+        addSlots(Slot::new, pInventory, 3, 9, 9,12, 106);
+        addSlots(Slot::new, pInventory, 1, 9, 0,12, 164);
     }
 
     @Override
@@ -73,16 +73,18 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<CombinerRecipe> getRecipes() {
-        return this.recipes;
-    }
-
     @Override
     public boolean clickMenuButton(@Nonnull Player pPlayer, int pId) {
-        if (pPlayer.level.isClientSide()) {
+        if(pPlayer.level.isClientSide()) {
             if (this.isValidRecipeIndex(pId)) {
                 this.selectedRecipeIndex.set(pId);
-                this.blockEntity.setCurrentRecipe(this.displayedRecipes.get(this.selectedRecipeIndex.get()));
+                AlchemistryPacketHandler.INSTANCE.sendToServer(
+                        new CombinerRecipePacket(this.getBlockEntity().getBlockPos(),
+                                this.blockEntity.getRecipes().indexOf(
+                                        this.displayedRecipes.get(this.selectedRecipeIndex.get())
+                                )
+                        )
+                );
             }
         }
         return true;
@@ -93,26 +95,34 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     }
 
     private void setupRecipeList() {
-        this.recipes.clear();
-        this.selectedRecipeIndex.set(-1);
+        this.blockEntity.getRecipes().clear();
         this.outputHandler.setStackInSlot(0, ItemStack.EMPTY);
-        this.recipes = level.getRecipeManager().getRecipes().stream()
+        List<CombinerRecipe> recipes = level.getRecipeManager().getRecipes().stream()
                 .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE)
                 .map(recipe -> (CombinerRecipe) recipe).sorted()
                 .collect(Collectors.toList());
-        this.resetDisplayedRecipes();
+
+        if (displayedRecipes.isEmpty()) {
+            this.selectedRecipeIndex.set(-1);
+            this.blockEntity.setRecipes(recipes);
+            this.resetDisplayedRecipes();
+        }
     }
 
     public void resetDisplayedRecipes() {
         this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(recipes);
+        this.displayedRecipes.addAll(this.blockEntity.getRecipes());
+    }
+
+    public List<CombinerRecipe> getDisplayedRecipes() {
+        return displayedRecipes;
     }
 
     public void searchRecipeList(String pKeyword) {
         this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(recipes.stream().filter(recipe -> {
+        this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream().filter(recipe -> {
             Objects.requireNonNull(recipe.output.getItem().getRegistryName());
-            return recipe.output.getItem().getRegistryName().getPath().contains(pKeyword);
+            return recipe.output.getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
         }).collect(Collectors.toList()));
     }
 }

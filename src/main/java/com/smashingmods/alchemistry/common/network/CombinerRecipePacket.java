@@ -6,52 +6,38 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
-public class CombinerButtonPacket {
+public class CombinerRecipePacket {
 
     private final BlockPos blockPos;
-    private final boolean lock;
-    private final boolean pause;
+    private final int recipeIndex;
 
-    public CombinerButtonPacket(BlockPos pBlockPos, boolean pLock, boolean pPause) {
+    public CombinerRecipePacket(BlockPos pBlockPos, int pIndex) {
         this.blockPos = pBlockPos;
-        this.lock = pLock;
-        this.pause = pPause;
+        this.recipeIndex = pIndex;
     }
 
-    public CombinerButtonPacket(FriendlyByteBuf pBuffer) {
+    public CombinerRecipePacket(FriendlyByteBuf pBuffer) {
         this.blockPos = pBuffer.readBlockPos();
-        this.lock = pBuffer.readBoolean();
-        this.pause = pBuffer.readBoolean();
+        this.recipeIndex = pBuffer.readInt();
     }
 
     public void encode(FriendlyByteBuf pBuffer) {
         pBuffer.writeBlockPos(blockPos);
-        pBuffer.writeBoolean(lock);
-        pBuffer.writeBoolean(pause);
+        pBuffer.writeInt(recipeIndex);
     }
 
-    public static void handle(final CombinerButtonPacket pPacket, @Nonnull Supplier<NetworkEvent.Context> pContext) {
+    public static void handle(final CombinerRecipePacket pPacket, Supplier<NetworkEvent.Context> pContext) {
         pContext.get().enqueueWork(() -> {
             Player player = pContext.get().getSender();
             Objects.requireNonNull(player);
-
             CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.level.getBlockEntity(pPacket.blockPos);
-
             Objects.requireNonNull(blockEntity);
-
-            if (pPacket.lock) {
-                blockEntity.toggleRecipeLocked();
-            }
-            if (pPacket.pause) {
-                blockEntity.togglePaused();
-            }
-            blockEntity.setChanged();
+            blockEntity.setCurrentRecipe(blockEntity.getRecipes().get(pPacket.recipeIndex));
         });
         pContext.get().setPacketHandled(true);
     }

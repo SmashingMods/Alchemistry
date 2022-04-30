@@ -270,24 +270,24 @@ public class CombinerRecipeProvider {
         overrides.put(CompoundRegistry.getByName("carbonate").get(),
                 Lists.newArrayList(toStack("oxygen", 3), toStack("carbon")));
 
-        for (CompoundItem compound : CompoundRegistry.compounds) {
-            List<ItemStack> inputs = new ArrayList<>();
-
-            if (overrides.containsKey(compound)) {
-                inputs = overrides.get(compound).stream().map(itemStack -> {
-                    if (itemStack == null) return ItemStack.EMPTY;
-                    else return itemStack;
-                }).collect(Collectors.toList());
-            } else {
-                for (int i = 0; i < compound.shiftedSlots; i++) {
-                    inputs.add(ItemStack.EMPTY);
-                }
-                for (ItemStack component : compound.getComponentStacks()) {
-                    inputs.add(component.copy());
-                }
-            }
-            combiner(new ItemStack(compound), inputs);
-        }
+//        for (CompoundItem compound : CompoundRegistry.compounds) {
+//            List<ItemStack> inputs = new ArrayList<>();
+//
+//            if (overrides.containsKey(compound)) {
+//                inputs = overrides.get(compound).stream().map(itemStack -> {
+//                    if (itemStack == null) return ItemStack.EMPTY;
+//                    else return itemStack;
+//                }).collect(Collectors.toList());
+//            } else {
+//                for (int i = 0; i < compound.shiftedSlots; i++) {
+//                    inputs.add(ItemStack.EMPTY);
+//                }
+//                for (ItemStack component : compound.getComponentStacks()) {
+//                    inputs.add(component.copy());
+//                }
+//            }
+//            combiner(new ItemStack(compound), inputs);
+//        }
 
         for (ElementItem element : ElementRegistry.elements.values()) {
             Item ingot = ForgeRegistries.ITEMS.getValue

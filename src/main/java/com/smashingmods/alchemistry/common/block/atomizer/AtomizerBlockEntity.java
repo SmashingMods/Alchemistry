@@ -97,8 +97,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     public void updateRecipe() {
         if (!fluidHandler.isEmpty() &&
-                (currentRecipe == null || !ItemStack.matches(currentRecipe.output, getOutputHandler().getStackInSlot(0)))
-        ) {
+                (currentRecipe == null || !ItemStack.matches(currentRecipe.output, getOutputHandler().getStackInSlot(0)))) {
             currentRecipe = AtomizerRegistry.getRecipes(level).stream()
                     .filter(recipe -> recipe.input.getFluid() == fluidHandler.getFluidStack().getFluid()).findFirst().orElse(null);
         }

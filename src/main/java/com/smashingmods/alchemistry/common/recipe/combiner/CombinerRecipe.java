@@ -1,11 +1,9 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;

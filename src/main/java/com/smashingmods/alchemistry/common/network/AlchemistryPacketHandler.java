@@ -29,23 +29,25 @@ public class AlchemistryPacketHandler {
                 .consumer(BlockEntityPacket::handle)
                 .add();
 
+        INSTANCE.messageBuilder(CombinerButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CombinerButtonPacket::new)
+                .encoder(CombinerButtonPacket::encode)
+                .consumer(CombinerButtonPacket::handle)
+                .add();
 
-//        INSTANCE.messageBuilder(CombinerButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
-//                .decoder(CombinerButtonPacket::new)
-//                .encoder(CombinerButtonPacket::toBytes)
-//                .consumer(CombinerButtonPacket::handle)
-//                .add();
-//        INSTANCE.messageBuilder(CombinerTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
-//                .decoder(CombinerTransferPacket::new)
-//                .encoder(CombinerTransferPacket::toBytes)
-//                .consumer(CombinerTransferPacket::handle)
-//                .add();
+        INSTANCE.messageBuilder(CombinerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CombinerRecipePacket::new)
+                .encoder(CombinerRecipePacket::encode)
+                .consumer(CombinerRecipePacket::handle)
+                .add();
     }
 
+    @SuppressWarnings("unused")
     public static <MSG> void sendToPlayer(MSG pMessage, ServerPlayer pPlayer) {
         INSTANCE.send(PacketDistributor.PLAYER.with(() -> pPlayer), pMessage);
     }
 
+    @SuppressWarnings("unused")
     public static <MSG> void sendToAll(MSG pMessage) {
         INSTANCE.send(PacketDistributor.ALL.noArg(), pMessage);
     }

@@ -38,6 +38,8 @@
   "alchemistry.container.combiner.resume": "Resume",
   "alchemistry.container.combiner.target": "Target",
 
+  "alchemistry.container.search": "Search...",
+
   "itemGroup.alchemistry": "Alchemistry",
 
   "item.alchemistry.mineral_salt": "Mineral Salt",

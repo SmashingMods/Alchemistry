@@ -4,6 +4,8 @@
 //import com.smashingmods.alchemistry.common.block.oldblocks.AlchemistryBlockEntity;
 //import com.smashingmods.alchemistry.common.block.oldblocks.blockentity.EnergyBlockEntity;
 //import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+//import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
+//import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRegistry;
 //import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 //import com.smashingmods.alchemistry.utils.StackUtils;
 //import net.minecraft.core.BlockPos;
@@ -33,7 +35,7 @@
 //    private NonNullList<ItemStack> outputBuffer = NonNullList.create();
 //
 //    public DissolverBlockEntity(BlockPos pos, BlockState state) {
-//        super(BlockEntityRegistry.DISSOLVER_BE.get(), pos, state);
+//        super(BlockEntityRegistry.DISSOLVER_BLOCK.get(), pos, state);
 //        this.energyStorage = new EnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get());
 //    }
 //
@@ -60,13 +62,13 @@
 //    public void process() {
 //        //if no output buffer, set the buffer to recipe outputs
 //        if (outputBuffer.isEmpty()) {
-//            outputBuffer = currentRecipe.outputs.calculateOutput();
-//            getInputHandler().decrementSlot(0, currentRecipe.inputIngredient.ingredient.getItems()[0].getCount());
+//            outputBuffer = currentRecipe.output.calculateOutput();
+//            getInputHandler().decrementSlot(0, currentRecipe.input.getCount());
 //        }
 //
 //        //If output didn't happen or didn't fail last tick, queue up next output single stack
 //        if (outputSuccessful) {
-//            if (outputBuffer.size() > 0) outputThisTick = outputBuffer.get(0).split(Config.DISSOLVER_SPEED.get());
+//            if (outputBuffer.size() > 0) outputThisTick = outputBuffer.get(0).split(Config.DISSOLVER_TICKS_PER_OPERATION.get());
 //            else outputThisTick = ItemStack.EMPTY;
 //
 //            if (outputBuffer.size() > 0 && outputBuffer.get(0).isEmpty()) outputBuffer.remove(0);

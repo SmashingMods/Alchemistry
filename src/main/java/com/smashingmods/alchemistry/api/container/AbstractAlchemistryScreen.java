@@ -108,10 +108,6 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
         this.directionalBlit(pPoseStack, x, y + pData.getHeight(), pTextureX, pTextureY, pData.getWidth(), pData.getHeight(), pData.getValue(), pData.getMaxValue(), Direction.UP);
     }
 
-    private enum Direction {
-        LEFT, UP, RIGHT, DOWN
-    }
-
     private void directionalBlit(PoseStack pPoseStack, int pX, int pY, int pUOffset, int pVOffset, int pU, int pV, int pProgress, int pMaxProgress, Direction pDirection) {
         bindWidgets();
 
@@ -135,50 +131,27 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
         }
     }
 
-    @SuppressWarnings("unused")
-    public void drawArrowLeft(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction.LEFT);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawArrowRight(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction.RIGHT);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawArrowUp(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction.UP);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawArrowDown(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction.DOWN);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawSmallArrowLeft(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 0, 138, 7, 9, pProgress, pMaxProgress, Direction.LEFT);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawSmallArrowRight(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 18, 138, 7, 9, pProgress, pMaxProgress, Direction.RIGHT);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawSmallArrowUp(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 0, 138, 7, 9, pProgress, pMaxProgress, Direction.UP);
-    }
-
-    @SuppressWarnings("unused")
-    public void drawSmallArrowDown(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress) {
-        directionalBlit(pPoseStack, pX, pY, 9, 138, 7, 9, pProgress, pMaxProgress, Direction.DOWN);
+    public void directionalArrow(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress, Direction pDirection) {
+        switch (pDirection) {
+            case LEFT -> {
+                directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction.LEFT);
+            }
+            case UP -> {
+                directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction.UP);
+            }
+            case RIGHT -> {
+                directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction.RIGHT);
+            }
+            case DOWN -> {
+                directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction.DOWN);
+            }
+        }
     }
 
     public void renderDisplayData(List<DisplayData> pDisplayData, PoseStack pPoseStack, int pX, int pY) {
         pDisplayData.forEach(data -> {
             if (data instanceof ProgressDisplayData) {
-                drawArrowRight(pPoseStack, pX + data.getX(), pY + data.getY(), data.getValue(), data.getMaxValue());
+                directionalArrow(pPoseStack, pX + data.getX(), pY + data.getY(), data.getValue(), data.getMaxValue(), ((ProgressDisplayData) data).getDirection());
             }
             if (data instanceof EnergyDisplayData) {
                 drawEnergyBar(pPoseStack, (EnergyDisplayData) data, 0, 40);

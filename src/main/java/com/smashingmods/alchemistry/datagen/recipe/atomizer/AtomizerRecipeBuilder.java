@@ -65,8 +65,7 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
 
         Objects.requireNonNull(this.result.getItem().getItemCategory());
 
-        String advancementPath = String.format("recipes/%s/%s",
-        result.getItem().getItemCategory().getRecipeFolderName(), pRecipeId.getPath());
+        String advancementPath = String.format("recipes/atomizer/%s", pRecipeId.getPath());
 
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("atomizer/%s", pRecipeId.getPath()));
         ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);

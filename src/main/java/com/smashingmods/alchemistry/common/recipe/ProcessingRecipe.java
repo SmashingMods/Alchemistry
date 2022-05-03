@@ -14,7 +14,6 @@ import javax.annotation.Nonnull;
 public abstract class ProcessingRecipe implements Recipe<Inventory> {
 
     protected final RecipeType<?> recipeType;
-    //private final RecipeSerializer<?> serializer;
     protected final String group;
     protected final ItemStack output;
     protected final Ingredient input;

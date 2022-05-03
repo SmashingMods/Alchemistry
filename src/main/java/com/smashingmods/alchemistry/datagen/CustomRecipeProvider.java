@@ -5,7 +5,6 @@ import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvid
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.fission.FissionRecipeProvider;
-import com.smashingmods.alchemistry.common.recipe.ProbabilitySet;
 import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.data.DataGenerator;
@@ -41,10 +40,6 @@ public class CustomRecipeProvider extends RecipeProvider {
         combinerRecipeProvider.register();
         dissolverRecipeProvider.register();
         fissionRecipeProvider.register();
-    }
-
-    public static ProbabilitySet.Builder set() {
-        return new ProbabilitySet.Builder();
     }
 
     private void initMetals() {

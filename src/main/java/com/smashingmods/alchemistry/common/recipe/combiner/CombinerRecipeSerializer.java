@@ -1,6 +1,5 @@
-package com.smashingmods.alchemistry.common.serializer;
+package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
@@ -21,8 +20,8 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> extends ForgeReg
 
     private final IFactory<T> factory;
 
-    public CombinerRecipeSerializer(CombinerRecipeSerializer.IFactory<T> factory) {
-        this.factory = factory;
+    public CombinerRecipeSerializer(CombinerRecipeSerializer.IFactory<T> pFactory) {
+        this.factory = pFactory;
     }
 
     @Override
@@ -60,7 +59,7 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> extends ForgeReg
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
         for (int i = 0; i < 4; i++) {
-            pBuffer.writeItemStack(pRecipe.inputs.get(i), true);
+            pBuffer.writeItemStack(pRecipe.input.get(i), true);
         }
         pBuffer.writeItemStack(pRecipe.output, true);
     }

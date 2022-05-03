@@ -1,6 +1,5 @@
-package com.smashingmods.alchemistry.common.serializer;
+package com.smashingmods.alchemistry.common.recipe.liquifier;
 
-import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.google.gson.JsonElement;
@@ -41,7 +40,7 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe>
     @Override
     public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
         String group = buffer.readUtf(32767);
-        IngredientStack input = IngredientStack.read(buffer);
+        IngredientStack input = IngredientStack.fromNetwork(buffer);
         FluidStack output = buffer.readFluidStack();
         return this.factory.create(recipeId, group, input, output);
     }
@@ -49,7 +48,7 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe>
     @Override
     public void toNetwork(FriendlyByteBuf buffer, T recipe) {
         buffer.writeUtf(recipe.getGroup());
-        recipe.input.write(buffer);
+        recipe.input.toNetwork(buffer);
         buffer.writeFluidStack(recipe.output);
     }
 

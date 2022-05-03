@@ -16,10 +16,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static com.smashingmods.alchemistry.utils.StackUtils.toStack;
-
 
 public class CombinerRecipeProvider {
 
@@ -30,8 +28,8 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<ItemStack> pInput) {
-        CombinerRecipeBuilder.createRecipe(pOutput, pInput).
-                group(Alchemistry.MODID + ":combiner")
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput)
+                .group(Alchemistry.MODID + ":combiner")
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput)))
                 .save(consumer);
     }

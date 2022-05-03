@@ -23,14 +23,14 @@ public class CombinerRecipeResult implements FinishedRecipe {
     public CombinerRecipeResult(String pGroup,
                                 Advancement.Builder pBuilder,
                                 ResourceLocation pId,
-                                ResourceLocation advancementId,
+                                ResourceLocation pAdvancementId,
                                 List<ItemStack> pInput,
                                 ItemStack pOutput
                                 ) {
         this.group = pGroup;
         this.advancementBuilder = pBuilder;
         this.id = pId;
-        this.advancementId = advancementId;
+        this.advancementId = pAdvancementId;
         this.input = pInput;
         this.output = pOutput;
     }

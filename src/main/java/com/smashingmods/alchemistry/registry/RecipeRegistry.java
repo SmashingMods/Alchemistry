@@ -1,8 +1,13 @@
 package com.smashingmods.alchemistry.registry;
 
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
+import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
-import com.smashingmods.alchemistry.common.serializer.*;
+import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipe;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;

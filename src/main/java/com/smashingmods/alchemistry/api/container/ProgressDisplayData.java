@@ -7,10 +7,12 @@ import net.minecraft.world.inventory.ContainerData;
 public class ProgressDisplayData extends DisplayData {
 
     private final ContainerData data;
+    private final Direction direction;
 
-    public ProgressDisplayData(ContainerData pData, int pX, int pY, int pWidth, int pHeight) {
+    public ProgressDisplayData(ContainerData pData, int pX, int pY, int pWidth, int pHeight, Direction pDirection) {
         super(pX, pY, pWidth, pHeight);
         this.data = pData;
+        this.direction = pDirection;
     }
 
     @Override
@@ -21,6 +23,10 @@ public class ProgressDisplayData extends DisplayData {
     @Override
     public int getMaxValue() {
         return data.get(1);
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 
     @Override

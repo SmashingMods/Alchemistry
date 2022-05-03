@@ -1,6 +1,5 @@
-package com.smashingmods.alchemistry.common.serializer;
+package com.smashingmods.alchemistry.common.recipe.evaporator;
 
-import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipe;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;

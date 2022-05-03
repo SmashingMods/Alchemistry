@@ -51,7 +51,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(inputHandler);
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(outputHandler);
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
-    LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
+    private final LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
 
     private final CustomEnergyStorage energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
@@ -108,32 +108,32 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         }
     }
 
-    public boolean canProcessRecipe() {
+    private boolean canProcessRecipe() {
         if (currentRecipe != null) {
             ItemStack output = getAutomationInventory().getStackInSlot(5);
             return energyHandler.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()
                     && (currentRecipe.output.getCount() + output.getCount()) <= currentRecipe.output.getMaxStackSize()
-                    && (ItemStack.isSame(output, currentRecipe.output) || output.isEmpty())
-                    && currentRecipe.matchesHandlerStacks(getInputHandler());
+                    && (ItemStack.isSameItemSameTags(output, currentRecipe.output) || output.isEmpty())
+                    && currentRecipe.matchInputs(getInputHandler());
         } else {
             return false;
         }
     }
 
-    public void processRecipe() {
+    private void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
             progress = 0;
-            energyHandler.extractEnergy(Config.COMBINER_ENERGY_PER_TICK.get(), false);
             outputHandler.setOrIncrement(0, currentRecipe.output.copy());
-            for (int index = 0; index < currentRecipe.inputs.size(); index++) {
-                ItemStack itemStack = currentRecipe.inputs.get(index);
+            for (int index = 0; index < currentRecipe.input.size(); index++) {
+                ItemStack itemStack = currentRecipe.input.get(index);
                 if (itemStack != null && !itemStack.isEmpty()) {
                     getInputHandler().decrementSlot(index, itemStack.getCount());
                 }
             }
         }
+        energyHandler.extractEnergy(Config.COMBINER_ENERGY_PER_TICK.get(), false);
         setChanged();
     }
 
@@ -202,8 +202,8 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pInput) {
-        return new AutomationStackHandler(pInput) {
+    public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
+        return new AutomationStackHandler(pHandler) {
             @NotNull
             @Override
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
@@ -213,8 +213,8 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pOutput) {
-        return new AutomationStackHandler(pOutput) {
+    public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
+        return new AutomationStackHandler(pHandler) {
             @NotNull
             @Override
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {

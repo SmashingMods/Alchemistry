@@ -133,6 +133,8 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             updateRecipe();
             if (canProcessRecipe()) {
                 processRecipe();
+            } else {
+                progress = 0;
             }
         }
     }
@@ -176,8 +178,8 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         return outputHandler;
     }
 
-    public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pInput) {
-        return new AutomationStackHandler(pInput) {
+    public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
+        return new AutomationStackHandler(pHandler) {
             @Override
             @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
@@ -186,8 +188,8 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pOutput) {
-        return new AutomationStackHandler(pOutput) {
+    public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
+        return new AutomationStackHandler(pHandler) {
             @Override
             @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {

@@ -21,31 +21,28 @@ public class AtomizerScreen extends AbstractAlchemistryScreen<AtomizerMenu> {
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
-        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 58, 39, 60, 9));
+        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 58, 39, 60, 9, Direction.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 134, 21, 16, 46));
         displayData.add(new FluidDisplayData(pMenu.getBlockEntity(), pMenu.getContainerData(), 26, 21, 16, 46));
     }
 
     @Override
     public void render(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        int relX = (width - imageWidth) / 2;
-        int relY = (height - imageHeight) / 2;
         this.renderBackground(pPoseStack);
         this.renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        this.renderDisplayData(displayData, pPoseStack, relX, relY);
-        this.renderDisplayTooltip(displayData, pPoseStack, relX, relY, pMouseX, pMouseY);
+
+        this.renderDisplayData(displayData, pPoseStack, this.leftPos, this.topPos);
+        this.renderDisplayTooltip(displayData, pPoseStack, this.leftPos, this.topPos, pMouseX, pMouseY);
         this.renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override
     protected void renderBg(@Nonnull PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
-        int relX = (width - imageWidth) / 2;
-        int relY = (height - imageHeight) / 2;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png"));
-        this.blit(pPoseStack, relX, relY, 0, 0, imageWidth, imageHeight);
+        this.blit(pPoseStack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

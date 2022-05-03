@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.common.recipe.ProbabilitySet;
+import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import net.minecraft.advancements.Advancement;
@@ -14,29 +14,31 @@ import javax.annotation.Nonnull;
 public class DissolverRecipeResult implements FinishedRecipe {
 
     private final String group;
-    private final ResourceLocation id;
     private final Advancement.Builder advancementBuilder;
-    private final ResourceLocation advancementID;
+    private final ResourceLocation id;
+    private final ResourceLocation advancementId;
     private final IngredientStack input;
     private final ProbabilitySet output;
 
-    public DissolverRecipeResult(ResourceLocation id,
-                                 String group,
-                                 IngredientStack input,
-                                 ProbabilitySet output,
-                                 Advancement.Builder advancementBuilder,
-                                 ResourceLocation advancementId) {
-        this.id = id;
-        this.group = group;
-        this.input = input;
-        this.output = output;
-        this.advancementBuilder = advancementBuilder;
-        this.advancementID = advancementId;
+    public DissolverRecipeResult(String pGroup,
+                                 Advancement.Builder pBuilder,
+                                 ResourceLocation pId,
+                                 ResourceLocation pAdvancementId,
+                                 IngredientStack pInput,
+                                 ProbabilitySet pOutput) {
+        this.group = pGroup;
+        this.advancementBuilder = pBuilder;
+        this.id = pId;
+        this.advancementId = pAdvancementId;
+        this.input = pInput;
+        this.output = pOutput;
     }
 
     @Override
     public void serializeRecipeData(@Nonnull JsonObject json) {
-        if (!this.group.isEmpty()) json.addProperty("group", this.group);
+        if (!group.isEmpty()) {
+            json.addProperty("group", group);
+        }
         json.add("input", input.ingredient.toJson());
         json.add("output", output.serialize());
     }
@@ -60,6 +62,6 @@ public class DissolverRecipeResult implements FinishedRecipe {
 
     @Override
     public ResourceLocation getAdvancementId() {
-        return this.advancementID;
+        return this.advancementId;
     }
 }

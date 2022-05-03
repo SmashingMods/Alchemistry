@@ -23,19 +23,25 @@ public class Config {
     public static IntValue ATOMIZER_ENERGY_CAPACITY;
     public static IntValue ATOMIZER_ENERGY_PER_TICK;
     public static IntValue ATOMIZER_TICKS_PER_OPERATION;
+
     public static IntValue COMBINER_ENERGY_CAPACITY;
     public static IntValue COMBINER_ENERGY_PER_TICK;
     public static IntValue COMBINER_TICKS_PER_OPERATION;
+
     public static IntValue DISSOLVER_ENERGY_CAPACITY;
     public static IntValue DISSOLVER_ENERGY_PER_TICK;
-    public static IntValue DISSOLVER_SPEED;
+    public static IntValue DISSOLVER_TICKS_PER_OPERATION;
+
     public static IntValue EVAPORATOR_TICKS_PER_OPERATION;
+
     public static IntValue LIQUIFIER_ENERGY_CAPACITY;
     public static IntValue LIQUIFIER_ENERGY_PER_TICK;
     public static IntValue LIQUIFIER_TICKS_PER_OPERATION;
+
     public static IntValue FISSION_ENERGY_CAPACITY;
     public static IntValue FISSION_ENERGY_PER_TICK;
     public static IntValue FISSION_TICKS_PER_OPERATION;
+
     public static IntValue FUSION_ENERGY_CAPACITY;
     public static IntValue FUSION_ENERGY_PER_TICK;
     public static IntValue FUSION_TICKS_PER_OPERATION;
@@ -72,8 +78,8 @@ public class Config {
                 .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
         DISSOLVER_ENERGY_PER_TICK = COMMON_BUILDER.comment("Energy consumed per tick when Dissolver is processing").comment("Default: 200")
                 .defineInRange("energyPerTick", 100, 0, Integer.MAX_VALUE);
-        DISSOLVER_SPEED = COMMON_BUILDER.comment("Max output items per tick").comment("Default: 8")
-                .defineInRange("maxOutputPerTick", 8, 1, 64);
+        DISSOLVER_TICKS_PER_OPERATION = COMMON_BUILDER.comment("Max output items per tick").comment("Default: 8")
+                .defineInRange("maxOutputPerTick", 50, 1, Integer.MAX_VALUE);
         COMMON_BUILDER.pop();
 
         COMMON_BUILDER.comment("Evaporator").push(CATEGORY_EVAPORATOR);

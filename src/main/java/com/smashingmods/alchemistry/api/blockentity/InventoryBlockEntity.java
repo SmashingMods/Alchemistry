@@ -11,9 +11,9 @@ public interface InventoryBlockEntity {
 
     CustomStackHandler getOutputHandler();
 
-    AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable input);
+    AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler);
 
-    AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable output);
+    AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler);
 
     CombinedInvWrapper getAutomationInventory();
 

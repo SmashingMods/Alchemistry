@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 public class CombinerRecipe extends ProcessingRecipe implements Comparable<CombinerRecipe> {
 
     public final ItemStack output;
-    public final List<ItemStack> inputs = new ArrayList<>();
+    public final List<ItemStack> input = new ArrayList<>();
     public final Set<Integer> nonEmptyIndices = new HashSet<>();
 
     public CombinerRecipe(ResourceLocation pId, String pGroup, List<ItemStack> pInputList, ItemStack pOutput) {
         super(RecipeRegistry.COMBINER_TYPE, pId, pGroup, Ingredient.EMPTY, ItemStack.EMPTY);
 
-        output = pOutput;
+        this.output = pOutput;
 
         for (int index = 0; index < 4; index++) {
 
@@ -35,37 +35,32 @@ public class CombinerRecipe extends ProcessingRecipe implements Comparable<Combi
             }
 
             if (temp != null) {
-                inputs.add(temp.copy());
+                input.add(temp.copy());
             } else {
-                inputs.add(ItemStack.EMPTY);
+                input.add(ItemStack.EMPTY);
             }
-            if (!inputs.get(index).isEmpty()) {
+            if (!input.get(index).isEmpty()) {
                 nonEmptyIndices.add(index);
             }
         }
     }
 
-    @Override
-    public String toString() {
-        return String.format("input=[%s],output=[%s]", inputs, output);
-    }
-
-    public boolean matchesHandlerStacks(CustomStackHandler pItemStackHandler) {
+    public boolean matchInputs(CustomStackHandler pHandler) {
 
         int matchingStacks = 0;
 
-        List<ItemStack> itemStacks = pItemStackHandler.getSlotsAsList().subList(0, 4).stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
-        List<ItemStack> inputStacks = inputs.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+        List<ItemStack> handlerStacks = pHandler.getSlotsAsList().subList(0, 4).stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+        List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
 
-        if (inputStacks.size() == itemStacks.size()) {
-            for (ItemStack inputStack : inputStacks) {
-                for (ItemStack itemStack : itemStacks) {
-                    if (ItemStack.isSameItemSameTags(inputStack, itemStack) && itemStack.getCount() >= inputStack.getCount()) {
+        if (recipeStacks.size() == handlerStacks.size()) {
+            for (ItemStack recipeStack : recipeStacks) {
+                for (ItemStack handlerStack : handlerStacks) {
+                    if (ItemStack.isSameItemSameTags(recipeStack, handlerStack) && handlerStack.getCount() >= recipeStack.getCount()) {
                         matchingStacks++;
                     }
                 }
             }
-            return matchingStacks == inputStacks.size();
+            return matchingStacks == recipeStacks.size();
         }
         return false;
     }
@@ -81,5 +76,10 @@ public class CombinerRecipe extends ProcessingRecipe implements Comparable<Combi
         Objects.requireNonNull(this.output.getItem().getRegistryName());
         Objects.requireNonNull(pRecipe.output.getItem().getRegistryName());
         return this.output.getItem().getRegistryName().compareNamespaced(pRecipe.output.getItem().getRegistryName());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("input=[%s],output=[%s]", input, output);
     }
 }

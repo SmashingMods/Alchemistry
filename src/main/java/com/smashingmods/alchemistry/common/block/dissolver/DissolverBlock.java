@@ -57,15 +57,7 @@ public class DissolverBlock extends AbstractAlchemistryBlock {
     public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, @Nonnull InteractionHand pHand, @Nonnull BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            boolean interactionSuccessful = true;
-
-            if (blockEntity instanceof DissolverBlockEntity) {
-                interactionSuccessful = ((DissolverBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
-            }
-
-            if (!interactionSuccessful) {
-                NetworkHooks.openGui(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);
-            }
+            NetworkHooks.openGui(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);
             return InteractionResult.CONSUME;
         }
         return InteractionResult.SUCCESS;
@@ -76,7 +68,7 @@ public class DissolverBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof DissolverBlockEntity) {
-                    DissolverBlockEntity.tick(level, pos, blockState, (DissolverBlockEntity) blockEntity);
+                    ((DissolverBlockEntity) blockEntity).tick(pLevel);
                 }
             };
         }

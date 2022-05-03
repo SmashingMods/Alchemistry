@@ -4,10 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryScreen;
-import com.smashingmods.alchemistry.api.container.DisplayData;
-import com.smashingmods.alchemistry.api.container.EnergyDisplayData;
-import com.smashingmods.alchemistry.api.container.ProgressDisplayData;
+import com.smashingmods.alchemistry.api.container.*;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.chemlib.items.CompoundItem;
 import net.minecraft.ChatFormatting;
@@ -48,7 +45,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         this.imageWidth = 184;
         this.imageHeight = 193;
         this.editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
-        this.displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 65, 84, 60, 9));
+        this.displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 65, 84, 60, 9, Direction.RIGHT));
         this.displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 156, 23, 16, 54));
     }
 
@@ -260,7 +257,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             int j = i + 54;
             this.scrollOffset = ((float)pMouseY - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
             this.scrollOffset = Mth.clamp(this.scrollOffset, 0.0F, 1.0F);
-            this.startIndex = (int)((double)(this.scrollOffset * (float)this.getOffscreenRows()) + 0.5D) * 4;
+            this.startIndex = (int)((double)(this.scrollOffset * (float) this.getOffscreenRows()) + 0.5D) * 4;
             return true;
         } else {
             return super.mouseDragged(pMouseX, pMouseY, pButton, pDragX, pDragY);

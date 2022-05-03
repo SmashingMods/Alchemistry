@@ -31,8 +31,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     private final CombinerBlockEntity blockEntity;
     private final List<CombinerRecipe> displayedRecipes = new ArrayList<>();
 
-    @SuppressWarnings("FieldCanBeLocal")
-    public final CustomStackHandler inputHandler;
+    private final CustomStackHandler inputHandler;
     private final CustomStackHandler outputHandler;
 
     public CombinerMenu(int pContainerId, Inventory pInventory, @Nonnull FriendlyByteBuf pBuffer) {
@@ -44,8 +43,8 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
         this.level = pInventory.player.getLevel();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
-        inputHandler = ((InventoryBlockEntity) blockEntity).getInputHandler();
-        outputHandler= ((InventoryBlockEntity) blockEntity).getOutputHandler();
+        this.inputHandler = ((InventoryBlockEntity) blockEntity).getInputHandler();
+        this.outputHandler= ((InventoryBlockEntity) blockEntity).getOutputHandler();
 
         setupRecipeList();
 

@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.common.recipe;
+package com.smashingmods.alchemistry.common.recipe.dissolver;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
@@ -13,16 +13,16 @@ import java.util.Objects;
 
 public class ProbabilityGroup {
 
-    private final List<ItemStack> outputs;
+    private final List<ItemStack> output;
     private final double probability;
 
-    public ProbabilityGroup(List<ItemStack> outputs, double probability) {
-        this.outputs = outputs;
-        this.probability = probability;
+    public ProbabilityGroup(List<ItemStack> pOutput, double pProbability) {
+        this.output = pOutput;
+        this.probability = pProbability;
     }
 
-    public List<ItemStack> getOutputs() {
-        return this.outputs;
+    public List<ItemStack> getOutput() {
+        return this.output;
     }
 
     public double getProbability() {
@@ -32,20 +32,27 @@ public class ProbabilityGroup {
     public JsonElement serialize() {
         JsonObject output = new JsonObject();
         output.add("probability", new JsonPrimitive(probability));
-        JsonArray stacks = new JsonArray();
-        for (ItemStack stack : outputs) {
-            JsonObject temp = new JsonObject();
-            temp.add("item", new JsonPrimitive(Objects.requireNonNull(stack.getItem().getRegistryName()).toString()));
-            if (stack.getCount() > 1) temp.add("count", new JsonPrimitive(stack.getCount()));
-            stacks.add(temp);
+        JsonArray results = new JsonArray();
+
+        for (ItemStack itemStack : this.output) {
+            Objects.requireNonNull(itemStack.getItem().getRegistryName());
+
+            JsonObject jsonObject = new JsonObject();
+
+            jsonObject.add("item", new JsonPrimitive(itemStack.getItem().getRegistryName().toString()));
+
+            if (itemStack.getCount() > 1) {
+                jsonObject.add("count", new JsonPrimitive(itemStack.getCount()));
+            }
+            results.add(jsonObject);
         }
-        output.add("stacks", stacks);
+        output.add("results", results);
         return output;
     }
 
     public void write(FriendlyByteBuf buf) {
-        buf.writeInt(outputs.size());
-        for (ItemStack stack : outputs) {
+        buf.writeInt(output.size());
+        for (ItemStack stack : output) {
             buf.writeItemStack(stack, false);
         }
         buf.writeDouble(probability);

@@ -59,14 +59,9 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @Nonnull ResourceLocation pRecipeId) {
-
-        ensureValid(pRecipeId);
-
         Objects.requireNonNull(result.getItem().getItemCategory());
 
-        String advancementPath = String.format("recipes/%s/%s",
-                result.getItem().getItemCategory().getRecipeFolderName(),
-                pRecipeId.getPath());
+        String advancementPath = String.format("recipes/combiner/%s", pRecipeId.getPath());
 
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.getPath()));
         ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);
@@ -79,9 +74,5 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
                 input,
                 result
         ));
-    }
-
-    public void ensureValid(ResourceLocation id) {
-
     }
 }

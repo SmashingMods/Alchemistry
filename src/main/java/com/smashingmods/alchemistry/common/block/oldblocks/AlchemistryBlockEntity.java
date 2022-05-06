@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.block.oldblocks;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.block.oldblocks.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.common.block.oldblocks.blockentity.FluidBlockEntity;
 import com.smashingmods.alchemistry.common.block.oldblocks.blockentity.GuiBlockEntity;
@@ -43,8 +43,8 @@ public abstract class AlchemistryBlockEntity extends BlockEntity implements Name
 
     private int notifyTicks = 0;
     Component name;
-    protected CustomStackHandler inputHandler;
-    protected CustomStackHandler outputHandler;
+    protected ModItemStackHandler inputHandler;
+    protected ModItemStackHandler outputHandler;
     private CombinedInvWrapper combinedInvWrapper;
     protected LazyOptional<IItemHandler> itemHandler = LazyOptional.of(() -> combinedInvWrapper);
 

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.api.container.*;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.chemlib.items.CompoundItem;
@@ -44,18 +45,25 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = 184;
         this.imageHeight = 193;
-        this.editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
         this.displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 65, 84, 60, 9, Direction.RIGHT));
         this.displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 156, 23, 16, 54));
+
+        this.editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
+        if (!this.getMenu().getEditBoxText().isEmpty()) {
+            this.editBox.setValue(this.getMenu().getEditBoxText());
+            this.menu.searchRecipeList(this.getMenu().getEditBoxText());
+        }
     }
 
     @Override
     protected void containerTick() {
         if (this.editBox.getValue().isEmpty()) {
+            this.menu.setEditBoxText("");
             this.menu.resetDisplayedRecipes();
-            this.editBox.setSuggestion(I18n.get("alchemistry.container.search"));
+            this.editBox.setSuggestion(I18n.get("alchemistry.container.combiner.search"));
         } else {
             this.mouseScrolled(0, 0, 0);
+            this.menu.setEditBoxText(this.editBox.getValue());
             this.menu.searchRecipeList(this.editBox.getValue());
             this.editBox.setSuggestion("");
         }
@@ -76,6 +84,8 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
         this.renderDisplayData(displayData, pPoseStack, leftPos, topPos);
         this.renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
+
+        this.renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
 
         int recipeBoxLeftPos = this.leftPos + 57;
         int recipeBoxTopPos = this.topPos + 21;
@@ -121,7 +131,9 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             int row = pY + rowt * this.RECIPE_BOX_SIZE + 2;
             int vOffset = this.imageHeight;
 
-            if (index == this.menu.getSelectedRecipeIndex()) {
+            int currentRecipeIndex = this.menu.getDisplayedRecipes().indexOf(this.menu.getCurrentRecipe());
+
+            if (index == this.menu.getSelectedRecipeIndex() || index == currentRecipeIndex) {
                 vOffset += this.RECIPE_BOX_SIZE;
             } else if (pMouseX >= col && pMouseY >= row && pMouseX < col + this.RECIPE_BOX_SIZE && pMouseY < row + this.RECIPE_BOX_SIZE) {
                 vOffset += this.RECIPE_BOX_SIZE * 2;
@@ -130,10 +142,45 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         }
     }
 
+    protected void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        CombinerRecipe currentRecipe = this.menu.getCurrentRecipe();
+        ModItemStackHandler handler = ((CombinerBlockEntity) this.menu.getBlockEntity()).getInputHandler();
+
+        if (currentRecipe != null) {
+            ItemStack currentOutput = currentRecipe.output;
+            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(currentOutput, this.leftPos + 21, this.topPos + 15);
+
+            if (pMouseX >= this.leftPos + 20 && pMouseX < this.leftPos + 36 && pMouseY > this.topPos - 14 && pMouseY < this.topPos + 30) {
+                this.renderItemTooltip(pPoseStack, currentOutput, "alchemistry.container.combiner.current_recipe", pMouseX, pMouseY);
+            }
+
+            int xOrigin = this.leftPos + 12;
+            int yOrigin = this.topPos + 63;
+
+            for (int row = 0; row < 2; row++) {
+                for (int column = 0; column < 2; column++) {
+                    int index = column + row * 2;
+                    int x = xOrigin + column * 18;
+                    int y = yOrigin + row * 18;
+
+                    if (index < currentRecipe.input.size()) {
+
+                        ItemStack itemStack = currentRecipe.input.get(index);
+
+                        if (handler.getStackInSlot(index).isEmpty()) {
+                            FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.25F);
+
+                            if (pMouseX >= x - 1 && pMouseX < x + 18 && pMouseY > y - 2 && pMouseY < y + 17) {
+                                this.renderItemTooltip(pPoseStack, itemStack, "alchemistry.container.combiner.required_input", pMouseX, pMouseY);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void renderRecipes(int pLeftPos, int pTopPos, int pRecipeIndexOffsetMax) {
-
-        Objects.requireNonNull(this.minecraft);
-
         List<CombinerRecipe> list = this.menu.getDisplayedRecipes();
 
         for (int index = this.startIndex; index < pRecipeIndexOffsetMax && index < this.menu.getDisplayedRecipes().size(); index++) {
@@ -144,12 +191,11 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             int recipeBoxLeftPos = pLeftPos + firstVisibleIndex % 4 * this.RECIPE_BOX_SIZE + 1;
             int l = firstVisibleIndex / 4;
             int recipeBoxTopPos = pTopPos + l * this.RECIPE_BOX_SIZE + 3;
-            this.minecraft.getItemRenderer().renderGuiItem(output, recipeBoxLeftPos, recipeBoxTopPos);
+            Minecraft.getInstance().getItemRenderer().renderGuiItem(output, recipeBoxLeftPos, recipeBoxTopPos);
         }
     }
 
     private void renderRecipeTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY, int pLeftPos, int pTopPos, int pRecipeIndexOffsetMax) {
-        Objects.requireNonNull(this.minecraft);
 
         List<CombinerRecipe> list = this.menu.getDisplayedRecipes();
 
@@ -163,20 +209,25 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             int recipeBoxTopPos = pTopPos + l * this.RECIPE_BOX_SIZE + 3;
 
             if (pMouseX >= recipeBoxLeftPos - 1 && pMouseX <= recipeBoxLeftPos + this.RECIPE_BOX_SIZE - 2 && pMouseY >= recipeBoxTopPos - 1 && pMouseY <= recipeBoxTopPos + this.RECIPE_BOX_SIZE - 2) {
-                List<Component> components = new ArrayList<>();
-                Objects.requireNonNull(output.getItem().getRegistryName());
-                String namespace = StringUtils.capitalize(output.getItem().getRegistryName().getNamespace());
-
-                components.add(output.getItem().getDescription());
-                if (output.getItem() instanceof CompoundItem) {
-                    String chemicalName = ((CompoundItem) output.getItem()).getAbbreviation();
-                    components.add(new TextComponent(chemicalName));
-                }
-                components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
-
-                this.renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
+                this.renderItemTooltip(pPoseStack, output, "alchemistry.container.combiner.select_recipe", pMouseX, pMouseY);
             }
         }
+    }
+
+    private void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, String pTranslationKey, int pMouseX, int pMouseY) {
+        List<Component> components = new ArrayList<>();
+        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
+        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
+
+        components.add(new TranslatableComponent(pTranslationKey).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
+        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
+        if (pItemStack.getItem() instanceof CompoundItem) {
+            String chemicalName = ((CompoundItem) pItemStack.getItem()).getAbbreviation();
+            components.add(new TextComponent(chemicalName));
+        }
+        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
+
+        this.renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
     }
 
     @Override
@@ -204,9 +255,8 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
 
-        Objects.requireNonNull(minecraft);
-        Objects.requireNonNull(minecraft.player);
-        Objects.requireNonNull(minecraft.gameMode);
+        Objects.requireNonNull(Minecraft.getInstance().player);
+        Objects.requireNonNull(Minecraft.getInstance().gameMode);
 
         int editBoxMinX = leftPos + 57;
         int editBoxMaxX = editBoxMinX + 72;
@@ -230,9 +280,9 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             double boxX = pMouseX - (double)(recipeBoxLeftPos + currentIndex % 4 * this.RECIPE_BOX_SIZE);
             double boxY = pMouseY - (double)(recipeBoxTopPos + currentIndex / 4 * this.RECIPE_BOX_SIZE);
 
-            if (boxX >= 0 && boxY >= 0 && boxX < this.RECIPE_BOX_SIZE && boxY < this.RECIPE_BOX_SIZE && this.menu.clickMenuButton(this.minecraft.player, index)) {
+            if (boxX >= 0 && boxY >= 0 && boxX < this.RECIPE_BOX_SIZE && boxY < this.RECIPE_BOX_SIZE && this.menu.clickMenuButton(Minecraft.getInstance().player, index)) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-                this.minecraft.gameMode.handleInventoryButtonClick((this.menu).containerId, index);
+                Minecraft.getInstance().gameMode.handleInventoryButtonClick((this.menu).containerId, index);
                 return true;
             }
 
@@ -247,7 +297,6 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
                 this.scrolling = true;
             }
         }
-
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 

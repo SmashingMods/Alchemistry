@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -17,35 +17,17 @@ public class CombinerRecipe extends ProcessingRecipe implements Comparable<Combi
 
     public final ItemStack output;
     public final List<ItemStack> input = new ArrayList<>();
-    public final Set<Integer> nonEmptyIndices = new HashSet<>();
 
     public CombinerRecipe(ResourceLocation pId, String pGroup, List<ItemStack> pInputList, ItemStack pOutput) {
         super(RecipeRegistry.COMBINER_TYPE, pId, pGroup, Ingredient.EMPTY, ItemStack.EMPTY);
-
         this.output = pOutput;
 
-        for (int index = 0; index < 4; index++) {
-
-            ItemStack temp;
-
-            if (pInputList.size() > index) {
-                temp = pInputList.get(index);
-            } else {
-                temp = null;
-            }
-
-            if (temp != null) {
-                input.add(temp.copy());
-            } else {
-                input.add(ItemStack.EMPTY);
-            }
-            if (!input.get(index).isEmpty()) {
-                nonEmptyIndices.add(index);
-            }
+        for (ItemStack itemStack : pInputList) {
+            input.add(itemStack.copy());
         }
     }
 
-    public boolean matchInputs(CustomStackHandler pHandler) {
+    public boolean matchInputs(ModItemStackHandler pHandler) {
 
         int matchingStacks = 0;
 

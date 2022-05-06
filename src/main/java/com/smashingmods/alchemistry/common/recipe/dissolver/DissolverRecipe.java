@@ -12,12 +12,11 @@ import javax.annotation.Nonnull;
 public class DissolverRecipe extends ProcessingRecipe {
 
     public final ItemStack input;
-    public boolean reversible = false;
     public ProbabilitySet output;
+    public boolean reversible = false;
 
     public DissolverRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, ProbabilitySet pOutput) {
         super(RecipeRegistry.DISSOLVER_TYPE, pId, pGroup, Ingredient.EMPTY, ItemStack.EMPTY);
-
         this.input = pInput;
         this.output = pOutput;
     }
@@ -30,7 +29,7 @@ public class DissolverRecipe extends ProcessingRecipe {
 
     @Override
     public String toString(){
-        return "input=" + input.toString() + "\treversible=" + reversible + "\toutputs=" + output.toString();
+        return String.format("input=%s, outputs=%s, reversible=%s", input.toString(), output.toString(), reversible);
     }
 
     public DissolverRecipe copy() {

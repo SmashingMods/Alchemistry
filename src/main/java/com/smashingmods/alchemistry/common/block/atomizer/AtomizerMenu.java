@@ -1,8 +1,7 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
-import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,8 +22,9 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
 
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
         super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
-        AbstractAlchemistryBlockEntity blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
-        addSlots(SlotItemHandler::new, ((InventoryBlockEntity) blockEntity).getOutputHandler(), 1, 1, 0, 98, 35);
+        AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
+        ModItemStackHandler output = blockEntity.getOutputHandler();
+        addSlots(SlotItemHandler::new, output, 1, 1, 0, output.getSlots(), 98, 35);
     }
 
     @Override

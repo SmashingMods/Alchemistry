@@ -32,13 +32,15 @@
   "alchemistry.container.fission_controller.invalid_multiblock": "Invalid Fission Multiblock",
   "alchemistry.container.fusion_controller.invalid_multiblock": "Invalid Fusion Multiblock",
 
+  "alchemistry.container.combiner.search": "Search...",
+  "alchemistry.container.combiner.select_recipe": "Select recipe:",
+  "alchemistry.container.combiner.current_recipe": "Current recipe:",
+  "alchemistry.container.combiner.required_input": "Required Input Item:",
   "alchemistry.container.combiner.unlock_recipe": "Unlock Recipe",
   "alchemistry.container.combiner.lock_recipe": "Lock Recipe",
   "alchemistry.container.combiner.pause": "Pause",
   "alchemistry.container.combiner.resume": "Resume",
   "alchemistry.container.combiner.target": "Target",
-
-  "alchemistry.container.search": "Search...",
 
   "itemGroup.alchemistry": "Alchemistry",
 

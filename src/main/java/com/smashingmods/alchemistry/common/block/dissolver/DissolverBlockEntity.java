@@ -1,13 +1,12 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRegistry;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
@@ -46,8 +45,8 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     private int progress = 0;
     private int maxProgress = Config.DISSOLVER_TICKS_PER_OPERATION.get();
 
-    private final CustomStackHandler inputHandler = initializeInputHandler();
-    private final CustomStackHandler outputHandler = initializeOutputHandler();
+    private final ModItemStackHandler inputHandler = initializeInputHandler();
+    private final ModItemStackHandler outputHandler = initializeOutputHandler();
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(inputHandler);
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(outputHandler);
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
@@ -97,7 +96,6 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
 
     public void tick(Level pLevel) {
         if (!pLevel.isClientSide()) {
-            energyHandler.setEnergy(Config.DISSOLVER_ENERGY_CAPACITY.get());
             updateRecipe();
             if (canProcessRecipe()) {
                 processRecipe();
@@ -153,13 +151,13 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public CustomStackHandler initializeInputHandler() {
-        return new CustomStackHandler(this, 1);
+    public ModItemStackHandler initializeInputHandler() {
+        return new ModItemStackHandler(this, 1);
     }
 
     @Override
-    public CustomStackHandler initializeOutputHandler() {
-        return new CustomStackHandler(this, 10) {
+    public ModItemStackHandler initializeOutputHandler() {
+        return new ModItemStackHandler(this, 10) {
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;
@@ -168,12 +166,12 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public CustomStackHandler getInputHandler() {
+    public ModItemStackHandler getInputHandler() {
         return inputHandler;
     }
 
     @Override
-    public CustomStackHandler getOutputHandler() {
+    public ModItemStackHandler getOutputHandler() {
         return outputHandler;
     }
 

@@ -7,7 +7,7 @@ import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -46,18 +46,25 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private int progress = 0;
     private int maxProgress = Config.COMBINER_TICKS_PER_OPERATION.get();
 
-    private final CustomStackHandler inputHandler = initializeInputHandler();
-    private final CustomStackHandler outputHandler = initializeOutputHandler();
+    private final ModItemStackHandler inputHandler = initializeInputHandler();
+    private final ModItemStackHandler outputHandler = initializeOutputHandler();
+
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(inputHandler);
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(outputHandler);
+
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
     private final LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
+
+    private final ModItemStackHandler catalystHandler = initializeCatalystHandler();
+    private final LazyOptional<IItemHandler> lazyCatalystHandler = LazyOptional.of(() -> catalystHandler);
 
     private final CustomEnergyStorage energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
 
     private List<CombinerRecipe> recipes = new ArrayList<>();
     private CombinerRecipe currentRecipe;
+    private int selectedRecipe = -1;
+    private String editBoxText = "";
     private boolean recipeLocked = false;
     private boolean paused = false;
 
@@ -72,6 +79,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
                     case 1 -> maxProgress;
                     case 2 -> energyHandler.getEnergyStored();
                     case 3 -> energyHandler.getMaxEnergyStored();
+                    case 4 -> selectedRecipe;
                     default -> 0;
                 };
             }
@@ -82,12 +90,13 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
                     case 0 -> progress = pValue;
                     case 1 -> maxProgress = pValue;
                     case 2 -> energyHandler.setEnergy(pValue);
+                    case 4 -> selectedRecipe = pValue;
                 }
             }
 
             @Override
             public int getCount() {
-                return 4;
+                return 5;
             }
         };
     }
@@ -110,7 +119,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     private boolean canProcessRecipe() {
         if (currentRecipe != null) {
-            ItemStack output = getAutomationInventory().getStackInSlot(5);
+            ItemStack output = getOutputHandler().getStackInSlot(0);
             return energyHandler.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()
                     && (currentRecipe.output.getCount() + output.getCount()) <= currentRecipe.output.getMaxStackSize()
                     && (ItemStack.isSameItemSameTags(output, currentRecipe.output) || output.isEmpty())
@@ -166,6 +175,14 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         this.paused = !this.paused;
     }
 
+    protected String getEditBoxText() {
+        return this.editBoxText;
+    }
+
+    protected void setEditBoxText(String pText) {
+        this.editBoxText = pText;
+    }
+
     @Override
     public CustomEnergyStorage initializeEnergyStorage() {
         return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get()) {
@@ -177,13 +194,13 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public CustomStackHandler initializeInputHandler() {
-        return new CustomStackHandler(this, 5);
+    public ModItemStackHandler initializeInputHandler() {
+        return new ModItemStackHandler(this, 4);
     }
 
     @Override
-    public CustomStackHandler initializeOutputHandler() {
-        return new CustomStackHandler(this, 1) {
+    public ModItemStackHandler initializeOutputHandler() {
+        return new ModItemStackHandler(this, 1) {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return false;
@@ -191,13 +208,21 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
+    private ModItemStackHandler initializeCatalystHandler() {
+        return new ModItemStackHandler(this, 1);
+    }
+
+    public ModItemStackHandler getCatalystHandler() {
+        return catalystHandler;
+    }
+
     @Override
-    public CustomStackHandler getInputHandler() {
+    public ModItemStackHandler getInputHandler() {
         return inputHandler;
     }
 
     @Override
-    public CustomStackHandler getOutputHandler() {
+    public ModItemStackHandler getOutputHandler() {
         return outputHandler;
     }
 
@@ -235,10 +260,18 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     @Override
     @Nonnull
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return lazyItemHandler.cast();
-        } else if (cap == CapabilityEnergy.ENERGY) {
-            return lazyEnergyHandler.cast();
+        if (pDirection != null) {
+            if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+                return switch (pDirection) {
+                    case DOWN, EAST, WEST, NORTH, SOUTH -> lazyItemHandler.cast();
+                    case UP -> super.getCapability(cap, pDirection);
+                };
+            } else if (cap == CapabilityEnergy.ENERGY) {
+                return switch (pDirection) {
+                    case UP -> lazyEnergyHandler.cast();
+                    case DOWN, NORTH, EAST, SOUTH, WEST -> super.getCapability(cap, pDirection);
+                };
+            }
         }
         return super.getCapability(cap, pDirection);
     }
@@ -247,6 +280,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
+        lazyCatalystHandler.invalidate();
         lazyEnergyHandler.invalidate();
     }
 
@@ -254,8 +288,11 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("progress", progress);
         pTag.put("input", inputHandler.serializeNBT());
+        pTag.put("catalyst", catalystHandler.serializeNBT());
         pTag.put("output", outputHandler.serializeNBT());
         pTag.put("energy", energyHandler.serializeNBT());
+        pTag.putString("editBoxText", editBoxText);
+        pTag.putInt("selectedRecipe", selectedRecipe);
         super.saveAdditional(pTag);
     }
 
@@ -264,7 +301,10 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));
+        catalystHandler.deserializeNBT(pTag.getCompound("catalyst"));
         outputHandler.deserializeNBT(pTag.getCompound("output"));
         energyHandler.deserializeNBT(pTag.get("energy"));
+        editBoxText = pTag.getString("editBoxText");
+        selectedRecipe = pTag.getInt("selectedRecipe");
     }
 }

@@ -74,24 +74,26 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         return copyStack;
     }
 
-    protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pRows, int pColumns, int pIndexStart, int pXOrigin, int pYOrigin) {
+    protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pRows, int pColumns, int pStartIndex, int pTotalSlots, int pXOrigin, int pYOrigin) {
 
         for (int row = 0; row < pRows; row++) {
             for (int column = 0; column < pColumns; column++) {
-                int slotIndex = column + row * pColumns + pIndexStart;
+                int slotIndex = column + row * pColumns + pStartIndex;
                 int x = pXOrigin + column * 18;
                 int y = pYOrigin + row * 18;
 
-                this.addSlot(pSlotType.apply(pContainer, slotIndex, x, y));
+                if (slotIndex < pStartIndex + pTotalSlots) {
+                    this.addSlot(pSlotType.apply(pContainer, slotIndex, x, y));
+                }
             }
         }
     }
 
     public void addPlayerInventorySlots(Inventory pInventory) {
         // player main inventory
-        addSlots(Slot::new, pInventory, 3, 9, 9,8, 86);
+        addSlots(Slot::new, pInventory, 3, 9, 9, 27,8, 86);
         // player hotbar
-        addSlots(Slot::new, pInventory, 1, 9, 0,8, 144);
+        addSlots(Slot::new, pInventory, 1, 9, 0, 9,8, 144);
     }
 
     public AbstractAlchemistryBlockEntity getBlockEntity() {

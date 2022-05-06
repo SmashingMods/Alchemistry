@@ -12,15 +12,14 @@ import net.minecraftforge.items.ItemStackHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 import static net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
 
-public class CustomStackHandler extends ItemStackHandler {
+public class ModItemStackHandler extends ItemStackHandler {
 
     public AbstractAlchemistryBlockEntity blockEntity;
 
-    public CustomStackHandler(AbstractAlchemistryBlockEntity pBlockEntity, int pSize) {
+    public ModItemStackHandler(AbstractAlchemistryBlockEntity pBlockEntity, int pSize) {
         super(pSize);
         this.blockEntity = pBlockEntity;
     }
@@ -28,12 +27,6 @@ public class CustomStackHandler extends ItemStackHandler {
     @Override
     public void onContentsChanged(int pSlot) {
         super.onContentsChanged(pSlot);
-        this.blockEntity.setChanged();
-    }
-
-    @SuppressWarnings("unused")
-    public void clear() {
-        IntStream.range(0, this.getSlots()).forEach(slot -> setStackInSlot(slot, ItemStack.EMPTY));
     }
 
     public void incrementSlot(int pSlot, int pAmount) {
@@ -46,12 +39,6 @@ public class CustomStackHandler extends ItemStackHandler {
         this.setStackInSlot(pSlot, temp);
     }
 
-    @SuppressWarnings("unused")
-    public void incrementSlot(int pSlot) {
-        incrementSlot(pSlot, 1);
-    }
-
-    @SuppressWarnings("unused")
     public void setOrIncrement(int slot, ItemStack stackToSet) {
         if (!stackToSet.isEmpty()) {
             if (this.getStackInSlot(slot).isEmpty()) this.setStackInSlot(slot, stackToSet);
@@ -71,12 +58,6 @@ public class CustomStackHandler extends ItemStackHandler {
         } else {
             this.setStackInSlot(pSlot, temp);
         }
-    }
-
-
-    @SuppressWarnings("unused")
-    public void decrementSlot(int pSlot) {
-        decrementSlot(pSlot, 1);
     }
 
     @SuppressWarnings("unused")

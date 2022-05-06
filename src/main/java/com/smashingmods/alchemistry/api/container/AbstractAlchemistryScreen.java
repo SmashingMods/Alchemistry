@@ -133,18 +133,10 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
 
     public void directionalArrow(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress, Direction pDirection) {
         switch (pDirection) {
-            case LEFT -> {
-                directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction.LEFT);
-            }
-            case UP -> {
-                directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction.UP);
-            }
-            case RIGHT -> {
-                directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction.RIGHT);
-            }
-            case DOWN -> {
-                directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction.DOWN);
-            }
+            case LEFT -> directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction.LEFT);
+            case UP -> directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction.UP);
+            case RIGHT -> directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction.RIGHT);
+            case DOWN -> directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction.DOWN);
         }
     }
 

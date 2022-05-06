@@ -119,11 +119,11 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     private boolean canProcessRecipe() {
         if (currentRecipe != null) {
-            ItemStack output = getOutputHandler().getStackInSlot(0);
+            ItemStack output = outputHandler.getStackInSlot(0);
             return energyHandler.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()
                     && (currentRecipe.output.getCount() + output.getCount()) <= currentRecipe.output.getMaxStackSize()
                     && (ItemStack.isSameItemSameTags(output, currentRecipe.output) || output.isEmpty())
-                    && currentRecipe.matchInputs(getInputHandler());
+                    && currentRecipe.matchInputs(inputHandler);
         } else {
             return false;
         }
@@ -138,7 +138,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             for (int index = 0; index < currentRecipe.input.size(); index++) {
                 ItemStack itemStack = currentRecipe.input.get(index);
                 if (itemStack != null && !itemStack.isEmpty()) {
-                    getInputHandler().decrementSlot(index, itemStack.getCount());
+                    inputHandler.decrementSlot(index, itemStack.getCount());
                 }
             }
         }

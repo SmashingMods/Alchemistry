@@ -16,7 +16,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -42,7 +41,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
         ModItemStackHandler inputHandler = blockEntity.getInputHandler();
         ModItemStackHandler catalystHandler = blockEntity.getCatalystHandler();
-        ItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
         setupRecipeList();
         // input 2x2 grid
@@ -93,7 +92,6 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
     private void setupRecipeList() {
         this.blockEntity.getRecipes().clear();
-        ((InventoryBlockEntity) blockEntity).getOutputHandler().setStackInSlot(0, ItemStack.EMPTY);
         List<CombinerRecipe> recipes = level.getRecipeManager().getRecipes().stream()
                 .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE)
                 .map(recipe -> (CombinerRecipe) recipe).sorted()

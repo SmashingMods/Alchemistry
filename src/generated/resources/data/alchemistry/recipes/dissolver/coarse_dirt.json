@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:dissolver",
-  "group": "minecraft:misc",
+  "group": "alchemistry:dissolver",
   "input": {
     "item": "minecraft:coarse_dirt"
   },
@@ -10,7 +10,7 @@
     "groups": [
       {
         "probability": 30.0,
-        "stacks": [
+        "results": [
           {
             "item": "chemlib:compound_water"
           }
@@ -18,7 +18,7 @@
       },
       {
         "probability": 50.0,
-        "stacks": [
+        "results": [
           {
             "item": "chemlib:compound_silicon_dioxide"
           }
@@ -26,7 +26,7 @@
       },
       {
         "probability": 10.0,
-        "stacks": [
+        "results": [
           {
             "item": "chemlib:compound_cellulose"
           }
@@ -34,7 +34,7 @@
       },
       {
         "probability": 10.0,
-        "stacks": [
+        "results": [
           {
             "item": "chemlib:compound_kaolinite"
           }

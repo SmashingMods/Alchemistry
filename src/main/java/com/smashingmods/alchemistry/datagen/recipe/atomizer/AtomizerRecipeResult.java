@@ -20,7 +20,7 @@ public class AtomizerRecipeResult implements FinishedRecipe {
     private final ResourceLocation id;
     private final ResourceLocation advancementId;
     private final FluidStack input;
-    private final ItemStack output;
+    private final ItemStack result;
 
     public AtomizerRecipeResult(String pGroup,
                                 Advancement.Builder pBuilder,
@@ -33,7 +33,7 @@ public class AtomizerRecipeResult implements FinishedRecipe {
         this.id = pId;
         this.advancementId = pAdvancementId;
         this.input = pInput;
-        this.output = pOutput;
+        this.result = pOutput;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class AtomizerRecipeResult implements FinishedRecipe {
             pJson.addProperty("group", group);
         }
         DatagenUtil.fluidStacktoJson(pJson, "input", input);
-        DatagenUtil.itemStackToJson(pJson, "result", output);
+        DatagenUtil.itemStackToJson(pJson, "result", result);
     }
 
     @Override

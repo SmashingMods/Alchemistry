@@ -12,6 +12,7 @@ public class BlockLootTables extends BlockLoot {
     @Override
     protected void addTables() {
         this.dropSelf(BlockRegistry.ATOMIZER.get());
+        this.dropSelf(BlockRegistry.COMPACTOR.get());
         this.dropSelf(BlockRegistry.COMBINER.get());
         this.dropSelf(BlockRegistry.DISSOLVER.get());
         this.dropSelf(BlockRegistry.EVAPORTOR.get());

@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:sulfur_trioxide"
+  },
+  "result": {
+    "fluid": "chemlib:sulfur_trioxide_source",
+    "amount": "500"
+  }
+}

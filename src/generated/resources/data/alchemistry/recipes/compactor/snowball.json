@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:water",
+    "count": 4
+  },
+  "result": {
+    "item": "minecraft:snowball"
+  }
+}

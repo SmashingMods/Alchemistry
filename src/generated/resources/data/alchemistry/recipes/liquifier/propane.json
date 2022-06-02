@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:propane"
+  },
+  "result": {
+    "fluid": "chemlib:propane_source",
+    "amount": "500"
+  }
+}

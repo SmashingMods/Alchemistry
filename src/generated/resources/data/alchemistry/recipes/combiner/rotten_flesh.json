@@ -3,7 +3,7 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:compound_protein",
+      "item": "chemlib:protein",
       "count": 3
     }
   ],

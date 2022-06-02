@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:hydrogen_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:hydrogen",
+    "count": 8
+  }
+}

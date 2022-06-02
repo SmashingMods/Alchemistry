@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:xenon"
+  },
+  "result": {
+    "fluid": "chemlib:xenon_source",
+    "amount": "500"
+  }
+}

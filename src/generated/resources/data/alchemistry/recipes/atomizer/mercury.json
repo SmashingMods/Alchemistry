@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:mercury_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:mercury",
+    "count": 8
+  }
+}

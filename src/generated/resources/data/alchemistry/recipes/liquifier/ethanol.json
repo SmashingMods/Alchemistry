@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:ethanol"
+  },
+  "result": {
+    "fluid": "chemlib:ethanol_source",
+    "amount": "500"
+  }
+}

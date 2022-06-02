@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.registry;
 
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorBlockEntity;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
@@ -22,6 +23,10 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<AtomizerBlockEntity>> ATOMIZER_BLOCK_ENTITY
             = BLOCK_ENTITIES.register("atomizer_block_entity",
             () -> BlockEntityType.Builder.of(AtomizerBlockEntity::new, BlockRegistry.ATOMIZER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<CompactorBlockEntity>> COMPACTOR_BLOCK_ENTITY
+            = BLOCK_ENTITIES.register("compactor_block_entity",
+            () -> BlockEntityType.Builder.of(CompactorBlockEntity::new, BlockRegistry.COMPACTOR.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<CombinerBlockEntity>> COMBINER_BLOCK_ENTITY
             = BLOCK_ENTITIES.register("combiner_block_entity",

@@ -56,7 +56,7 @@ public class AtomizerBlock extends AbstractAlchemistryBlock {
     @Override
     public void appendHoverText(@Nonnull ItemStack pStack, @Nullable BlockGetter pLevel, @Nonnull List<Component> pTooltip, @Nonnull TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.ATOMIZER_ENERGY_PER_TICK.get()));
+        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.Common.atomizerEnergyPerTick.get()));
     }
 
     @Override
@@ -82,9 +82,9 @@ public class AtomizerBlock extends AbstractAlchemistryBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (!pLevel.isClientSide()) {
-            return (level, pos, blockState, blockEntity) -> {
-                if (blockEntity instanceof AtomizerBlockEntity) {
-                    ((AtomizerBlockEntity) blockEntity).tick(pLevel);
+            return (level, pBlockPos, pBlockState, pBlockEntity) -> {
+                if (pBlockEntity instanceof AtomizerBlockEntity blockEntity) {
+                    blockEntity.tick(pLevel);
                 }
             };
         }

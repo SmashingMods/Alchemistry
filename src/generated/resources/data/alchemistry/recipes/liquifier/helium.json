@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:helium"
+  },
+  "result": {
+    "fluid": "chemlib:helium_source",
+    "amount": "500"
+  }
+}

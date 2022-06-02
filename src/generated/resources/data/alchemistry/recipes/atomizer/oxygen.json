@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:oxygen_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:oxygen",
+    "count": 8
+  }
+}

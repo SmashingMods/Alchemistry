@@ -2,10 +2,11 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.chemlib.chemistry.CompoundRegistry;
-import com.smashingmods.chemlib.chemistry.ElementRegistry;
-import com.smashingmods.chemlib.items.CompoundItem;
-import com.smashingmods.chemlib.items.ElementItem;
+import com.smashingmods.chemlib.api.ChemicalItemType;
+import com.smashingmods.chemlib.common.items.ChemicalItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -55,29 +56,12 @@ public class CombinerRecipeProvider {
         combiner(new ItemStack(Items.BIRCH_SAPLING), Lists.newArrayList(toStack("oxygen"),
                 toStack("cellulose", 2)));
 
-        // logs
-        combiner(new ItemStack(Items.OAK_LOG), Lists.newArrayList(toStack("cellulose")));
-
-        combiner(new ItemStack(Items.SPRUCE_LOG), Lists.newArrayList(toStack("cellulose")));
-
-        combiner(new ItemStack(Items.JUNGLE_LOG), Lists.newArrayList(toStack("cellulose")));
-
-        combiner(new ItemStack(Items.ACACIA_LOG), Lists.newArrayList(toStack("cellulose")));
-
-        combiner(new ItemStack(Items.DARK_OAK_LOG), Lists.newArrayList(toStack("cellulose")));
-
-        combiner(new ItemStack(Items.BIRCH_LOG), Lists.newArrayList(toStack("cellulose")));
-
-        combiner(new ItemStack(Items.CACTUS), Lists.newArrayList(toStack("cellulose"), toStack("mescaline")));
-
         // food
         combiner(new ItemStack(Items.CARROT), Lists.newArrayList(toStack("cellulose"),
                 toStack("beta_carotene")));
 
         combiner(new ItemStack(Items.SUGAR_CANE), Lists.newArrayList(toStack("cellulose"),
                 toStack("sucrose")));
-
-        combiner(new ItemStack(Items.SUGAR), Lists.newArrayList(toStack("sucrose")));
 
         combiner(new ItemStack(Items.EGG), Lists.newArrayList(toStack("calcium_carbonate", 8),
                 toStack("protein", 2)));
@@ -162,36 +146,10 @@ public class CombinerRecipeProvider {
 //                toStack("oxygen", 24),
 //                toStack("sulfur", 2)));
 
-        // dyes
-        combiner(new ItemStack(Items.RED_DYE), Lists.newArrayList(toStack("mercury_sulfide", 4)));
-        combiner(new ItemStack(Items.PINK_DYE), Lists.newArrayList(toStack("arsenic_sulfide", 4)));
-        combiner(new ItemStack(Items.GREEN_DYE), Lists.newArrayList(toStack("nickel_chloride", 4)));
-        combiner(new ItemStack(Items.LIME_DYE), Lists.newArrayList(toStack("cadmium_sulfide", 2), toStack("chromium_oxide", 2)));
-        combiner(new ItemStack(Items.PURPLE_DYE), Lists.newArrayList(toStack("potassium_permanganate", 4)));
-        combiner(new ItemStack(Items.YELLOW_DYE), Lists.newArrayList(toStack("lead_iodide", 4)));
-        combiner(new ItemStack(Items.ORANGE_DYE), Lists.newArrayList(toStack("potassium_dichromate", 4)));
-        combiner(new ItemStack(Items.BLACK_DYE), Lists.newArrayList(toStack("titanium_oxide", 4)));
-        combiner(new ItemStack(Items.GRAY_DYE), Lists.newArrayList(toStack("barium_sulfate", 4)));
-        combiner(new ItemStack(Items.MAGENTA_DYE), Lists.newArrayList(toStack("han_purple", 4)));
-        combiner(new ItemStack(Items.LIGHT_BLUE_DYE), Lists.newArrayList(toStack("cobalt_aluminate", 2), toStack("antimony_trioxide", 2)));
-        combiner(new ItemStack(Items.LIGHT_GRAY_DYE), Lists.newArrayList(toStack("magnesium_sulfate", 4)));
-        combiner(new ItemStack(Items.CYAN_DYE), Lists.newArrayList(toStack("copper_chloride", 4)));
-
-        combiner(new ItemStack(Items.BAMBOO), Lists.newArrayList(
-                toStack("cellulose")));
-
 //        combiner(new ItemStack(Items.NETHER_WART), Lists.newArrayList(
 //                toStack("cellulose"),
 //                toStack("germanium", 4),
 //                toStack("selenium", 4)));
-
-        combiner(new ItemStack(Items.GLOWSTONE), Lists.newArrayList(toStack("phosphorus", 16)));
-
-        combiner(new ItemStack(Items.GLOWSTONE_DUST), Lists.newArrayList(toStack("phosphorus", 4)));
-
-        combiner(new ItemStack(Items.CHARCOAL), Lists.newArrayList(toStack("carbon", 8)));
-
-        combiner(new ItemStack(Items.COAL), Lists.newArrayList(toStack("carbon", 8)));
 
 //        combiner(new ItemStack(Items.DIRT), Lists.newArrayList(toStack("water"),
 //                toStack("cellulose"),
@@ -201,33 +159,10 @@ public class CombinerRecipeProvider {
 //                toStack("cellulose"),
 //                toStack("kaolinite")));
 
-        combiner(new ItemStack(Items.GRAVEL), Lists.newArrayList(toStack("silicon_dioxide")));
-
-        combiner(new ItemStack(Items.SAND), Lists.newArrayList(toStack("silicon_dioxide", 4)));
-        combiner(new ItemStack(Items.CLAY), Lists.newArrayList(toStack("kaolinite", 4)));
-
-        combiner(new ItemStack(Items.FLINT), Lists.newArrayList(toStack("silicon_dioxide", 3)));
-
-        combiner(new ItemStack(Items.COBBLESTONE), Lists.newArrayList(toStack("silicon_dioxide")));
-
-        combiner(new ItemStack(Items.STONE), Lists.newArrayList(toStack("silicon_dioxide")));
-
-        combiner(new ItemStack(Items.GRANITE), Lists.newArrayList(toStack("silicon_dioxide")));
-
-        combiner(new ItemStack(Items.DIORITE), Lists.newArrayList(toStack("silicon_dioxide")));
-
-        combiner(new ItemStack(Items.ANDESITE), Lists.newArrayList(toStack("silicon_dioxide")));
-
 //        combiner(new ItemStack(Items.MYCELIUM), Lists.newArrayList(toStack("psilocybin"),
 //                toStack("water"),
 //                toStack("cellulose"),
 //                toStack("kaolinite")));
-
-        combiner(new ItemStack(Items.SNOWBALL), Lists.newArrayList(toStack("water", 4)));
-
-        combiner(new ItemStack(Items.SNOW), Lists.newArrayList(toStack("water", 16)));
-
-        combiner(new ItemStack(Items.ICE), Lists.newArrayList(toStack("water", 16)));
 
         combiner(new ItemStack(Items.WATER_BUCKET), Lists.newArrayList(toStack("water", 16),
                 new ItemStack(Items.BUCKET)));
@@ -244,31 +179,31 @@ public class CombinerRecipeProvider {
         combiner(new ItemStack(Items.REDSTONE), Lists.newArrayList(toStack("iron_oxide"), toStack("strontium_carbonate")));
 
         Map<CompoundItem, List<ItemStack>> overrides = new HashMap<>();
-        overrides.put(CompoundRegistry.getByName("triglyceride").get(),
+        overrides.put(ItemRegistry.getCompoundByName("triglyceride").get(),
                 Lists.newArrayList(toStack("oxygen", 2),
                                 toStack("hydrogen", 32),
                                 toStack("carbon", 18)));
 
-        overrides.put(CompoundRegistry.getByName("cucurbitacin").get(),
+        overrides.put(ItemRegistry.getCompoundByName("cucurbitacin").get(),
                 Lists.newArrayList(toStack("hydrogen", 44),
                                 toStack("carbon", 32),
                                 toStack("oxygen", 8)));
 
-        overrides.put(CompoundRegistry.getByName("acetic_acid").get(),
+        overrides.put(ItemRegistry.getCompoundByName("acetic_acid").get(),
                 Lists.newArrayList(toStack("carbon", 2),
                         toStack("hydrogen", 4),
                         toStack("oxygen", 2)));
 
-        overrides.put(CompoundRegistry.getByName("carbon_monoxide").get(),
+        overrides.put(ItemRegistry.getCompoundByName("carbon_monoxide").get(),
                 Lists.newArrayList(toStack("oxygen"), toStack("carbon")));
 
-        overrides.put(CompoundRegistry.getByName("carbon_dioxide").get(),
+        overrides.put(ItemRegistry.getCompoundByName("carbon_dioxide").get(),
                 Lists.newArrayList(toStack("oxygen", 2), toStack("carbon")));
 
-        overrides.put(CompoundRegistry.getByName("carbonate").get(),
+        overrides.put(ItemRegistry.getCompoundByName("carbonate").get(),
                 Lists.newArrayList(toStack("oxygen", 3), toStack("carbon")));
 
-//        for (CompoundItem compound : CompoundRegistry.compounds) {
+//        for (CompoundItem compound : ItemRegistry.COMPOUNDS) {
 //            List<ItemStack> inputs = new ArrayList<>();
 //
 //            if (overrides.containsKey(compound)) {
@@ -286,16 +221,6 @@ public class CombinerRecipeProvider {
 //            }
 //            combiner(new ItemStack(compound), inputs);
 //        }
-
-        for (ElementItem element : ElementRegistry.elements.values()) {
-            Item ingot = ForgeRegistries.ITEMS.getValue
-                    (new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
-            if (ingot != Items.AIR) {
-                combiner(new ItemStack(ingot), Lists.newArrayList(new ItemStack(element, 16)));
-            }
-        }
-        combiner(new ItemStack(Items.IRON_INGOT), Lists.newArrayList(toStack("iron", 16)));
-        combiner(new ItemStack(Items.GOLD_INGOT), Lists.newArrayList(toStack("gold", 16)));
     }
 
     private ResourceLocation getLocation(ItemStack itemStack) {

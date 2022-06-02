@@ -2,9 +2,6 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
-import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
-import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -73,9 +70,9 @@ public class LiquifierBlock extends AbstractAlchemistryBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (!pLevel.isClientSide()) {
-            return (level, pos, blockState, blockEntity) -> {
-                if (blockEntity instanceof LiquifierBlockEntity) {
-                    LiquifierBlockEntity.tick(level, pos, blockState, (LiquifierBlockEntity) blockEntity);
+            return (level, pBlockPos, pBlockState, pBlockEntity) -> {
+                if (pBlockEntity instanceof LiquifierBlockEntity blockEntity) {
+                    blockEntity.tick(pLevel);
                 }
             };
         }

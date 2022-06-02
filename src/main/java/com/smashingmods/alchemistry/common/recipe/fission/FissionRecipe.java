@@ -3,8 +3,8 @@ package com.smashingmods.alchemistry.common.recipe.fission;
 import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.utils.StackUtils;
-import com.smashingmods.chemlib.chemistry.ElementRegistry;
 import com.google.common.collect.Lists;
+import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -41,11 +41,11 @@ public class FissionRecipe extends ProcessingRecipe {
     }
 
     public List<ItemStack> getOutputs() {
-        Item firstOutput = ElementRegistry.elements.get(output1);
+        Item firstOutput = ItemRegistry.getElementByAtomicNumber(output1).get();// ElementRegistry.elements.get(output1);
         if (output2 == 0) {
             return Lists.newArrayList(new ItemStack(firstOutput, 2));
         } else {
-            return Lists.newArrayList(new ItemStack(firstOutput), new ItemStack(ElementRegistry.elements.get(output2)));
+            return Lists.newArrayList(new ItemStack(firstOutput), new ItemStack(ItemRegistry.getElementByAtomicNumber(output2).get()));//ElementRegistry.elements.get(output2)));
         }
     }
 

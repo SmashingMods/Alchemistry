@@ -24,11 +24,6 @@ public class ModItemStackHandler extends ItemStackHandler {
         this.blockEntity = pBlockEntity;
     }
 
-    @Override
-    public void onContentsChanged(int pSlot) {
-        super.onContentsChanged(pSlot);
-    }
-
     public void incrementSlot(int pSlot, int pAmount) {
         ItemStack temp = this.getStackInSlot(pSlot);
 

@@ -45,12 +45,8 @@ public class CombinerButtonPacket {
 
             Objects.requireNonNull(blockEntity);
 
-            if (pPacket.lock) {
-                blockEntity.toggleRecipeLocked();
-            }
-            if (pPacket.pause) {
-                blockEntity.togglePaused();
-            }
+            blockEntity.setRecipeLocked(pPacket.lock);
+            blockEntity.setPaused(pPacket.pause);
             blockEntity.setChanged();
         });
         pContext.get().setPacketHandled(true);

@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:osmium",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:osmium_dust"
+  }
+}

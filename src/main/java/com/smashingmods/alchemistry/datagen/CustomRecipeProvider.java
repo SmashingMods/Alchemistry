@@ -3,10 +3,14 @@ package com.smashingmods.alchemistry.datagen;
 import com.smashingmods.alchemistry.common.block.oldblocks.dissolver.DissolverTagData;
 import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeProvider;
+import com.smashingmods.alchemistry.datagen.recipe.compactor.CompactorRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.fission.FissionRecipeProvider;
-import com.smashingmods.chemlib.chemistry.ElementRegistry;
+import com.smashingmods.alchemistry.datagen.recipe.liquifier.LiquifierRecipeProvider;
+import com.smashingmods.chemlib.api.MetalType;
+import com.smashingmods.chemlib.common.items.ElementItem;
 import com.google.common.collect.Sets;
+import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -28,28 +32,29 @@ public class CustomRecipeProvider extends RecipeProvider {
     @Override
     protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> pConsumer) {
 
-        AtomizerRecipeProvider atomizerRecipeProvider = new AtomizerRecipeProvider(pConsumer);
-        atomizerRecipeProvider.register();
-
         initMetals();
 
+        AtomizerRecipeProvider atomizerRecipeProvider = new AtomizerRecipeProvider(pConsumer);
+        CompactorRecipeProvider compactorRecipeProvider = new CompactorRecipeProvider(pConsumer);
         CombinerRecipeProvider combinerRecipeProvider = new CombinerRecipeProvider(pConsumer);
         DissolverRecipeProvider dissolverRecipeProvider = new DissolverRecipeProvider(pConsumer);
+        LiquifierRecipeProvider liquifierRecipeProvider = new LiquifierRecipeProvider(pConsumer);
         FissionRecipeProvider fissionRecipeProvider = new FissionRecipeProvider(pConsumer);
 
+        atomizerRecipeProvider.register();
+        compactorRecipeProvider.register();
         combinerRecipeProvider.register();
         dissolverRecipeProvider.register();
+        liquifierRecipeProvider.register();
         fissionRecipeProvider.register();
     }
 
     private void initMetals() {
-        Set<Integer> nonMetals = Sets.newHashSet(1, 2, 6, 7, 8, 9, 10, 15, 16, 17, 18, 35, 36, 53, 54, 80, 86);
-        //noinspection SimplifyStreamApiCallChains
-        metals.addAll(ElementRegistry.elements.values().stream()
-                .filter(it -> !nonMetals.contains(it.atomicNumber))
-                .map(it -> it.internalName).collect(Collectors.toList()));
+        metals.addAll(ItemRegistry.getElements().stream()
+                .filter(element -> element.getMetalType().equals(MetalType.METAL))
+                .map(ElementItem::getChemicalName).collect(Collectors.toList()));
 
-        //metalTagData.add(new DissolverTagData("ingots", 16, metals));
+        metalTagData.add(new DissolverTagData("ingots", 16, metals));
         metalTagData.add(new DissolverTagData("ores", 32, metals));
         metalTagData.add(new DissolverTagData("dusts", 16, metals));
         metalTagData.add(new DissolverTagData("storage_blocks", 144, metals));

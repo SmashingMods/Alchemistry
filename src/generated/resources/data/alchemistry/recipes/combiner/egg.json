@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:compound_calcium_carbonate",
+      "item": "chemlib:calcium_carbonate",
       "count": 8
     },
     {
-      "item": "chemlib:compound_protein",
+      "item": "chemlib:protein",
       "count": 2
     }
   ],

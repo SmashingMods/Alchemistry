@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:hydrochloric_acid_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:hydrochloric_acid",
+    "count": 8
+  }
+}

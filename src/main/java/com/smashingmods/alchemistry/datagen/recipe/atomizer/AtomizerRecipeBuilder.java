@@ -61,8 +61,6 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @Nonnull ResourceLocation pRecipeId) {
 
-        ensureValid(pRecipeId);
-
         Objects.requireNonNull(this.result.getItem().getItemCategory());
 
         String advancementPath = String.format("recipes/atomizer/%s", pRecipeId.getPath());
@@ -78,9 +76,5 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
                 input,
                 result
         ));
-    }
-
-    private void ensureValid(ResourceLocation pId) {
-
     }
 }

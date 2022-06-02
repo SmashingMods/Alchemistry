@@ -1,0 +1,10 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:silicon_dioxide"
+  },
+  "result": {
+    "item": "minecraft:cobblestone"
+  }
+}

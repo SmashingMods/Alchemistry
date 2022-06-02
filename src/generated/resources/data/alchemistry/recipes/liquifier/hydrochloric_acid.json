@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:hydrochloric_acid"
+  },
+  "result": {
+    "fluid": "chemlib:hydrochloric_acid_source",
+    "amount": "500"
+  }
+}

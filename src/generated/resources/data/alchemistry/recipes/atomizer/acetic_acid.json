@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:acetic_acid_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:acetic_acid",
+    "count": 8
+  }
+}

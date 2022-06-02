@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:nitric_acid"
+  },
+  "result": {
+    "fluid": "chemlib:nitric_acid_source",
+    "amount": "500"
+  }
+}

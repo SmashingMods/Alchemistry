@@ -58,7 +58,7 @@ public class CombinerBlock extends AbstractAlchemistryBlock {
     @Override
     public void appendHoverText(@Nonnull ItemStack pStack, @Nullable BlockGetter pLevel, @Nonnull List<Component> pTooltip, @Nonnull TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.COMBINER_ENERGY_PER_TICK.get()));
+        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.Common.combinerEnergyPerTick.get()));
     }
 
     @Override

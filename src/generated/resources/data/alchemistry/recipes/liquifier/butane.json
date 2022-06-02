@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:butane"
+  },
+  "result": {
+    "fluid": "chemlib:butane_source",
+    "amount": "500"
+  }
+}

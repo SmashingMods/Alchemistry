@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:lead",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:lead_dust"
+  }
+}

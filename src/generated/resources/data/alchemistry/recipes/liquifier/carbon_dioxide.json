@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:carbon_dioxide"
+  },
+  "result": {
+    "fluid": "chemlib:carbon_dioxide_source",
+    "amount": "500"
+  }
+}

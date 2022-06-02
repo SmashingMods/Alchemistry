@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "alchemistry:atomizer",
+    "alchemistry:compactor",
     "alchemistry:combiner",
     "alchemistry:dissolver",
     "alchemistry:evaporator",

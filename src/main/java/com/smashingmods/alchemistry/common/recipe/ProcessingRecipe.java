@@ -15,8 +15,8 @@ public abstract class ProcessingRecipe implements Recipe<Inventory> {
 
     protected final RecipeType<?> recipeType;
     protected final String group;
-    protected final ItemStack output;
     protected final Ingredient input;
+    protected final ItemStack output;
     public final ResourceLocation id;
 
     public ProcessingRecipe(RecipeType<?> pRecipeType, ResourceLocation pId, String pGroup, Ingredient pInput, ItemStack pOutput) {

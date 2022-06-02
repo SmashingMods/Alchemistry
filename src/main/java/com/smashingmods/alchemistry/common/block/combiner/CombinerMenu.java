@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
@@ -13,7 +12,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
@@ -113,14 +111,6 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
         return displayedRecipes;
     }
 
-    protected String getEditBoxText() {
-        return this.blockEntity.getEditBoxText();
-    }
-
-    protected void setEditBoxText(String pText) {
-        this.blockEntity.setEditBoxText(pText);
-    }
-
     public void searchRecipeList(String pKeyword) {
         this.displayedRecipes.clear();
         this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream().filter(recipe -> {
@@ -129,7 +119,8 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
         }).collect(Collectors.toList()));
     }
 
-    protected CombinerRecipe getCurrentRecipe() {
-        return this.blockEntity.getCurrentRecipe();
+    @Override
+    public CombinerBlockEntity getBlockEntity() {
+        return blockEntity;
     }
 }

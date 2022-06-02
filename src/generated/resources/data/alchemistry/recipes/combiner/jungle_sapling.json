@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:element_oxygen"
+      "item": "chemlib:oxygen"
     },
     {
-      "item": "chemlib:compound_cellulose",
+      "item": "chemlib:cellulose",
       "count": 2
     }
   ],

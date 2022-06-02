@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:chlorine"
+  },
+  "result": {
+    "fluid": "chemlib:chlorine_source",
+    "amount": "500"
+  }
+}

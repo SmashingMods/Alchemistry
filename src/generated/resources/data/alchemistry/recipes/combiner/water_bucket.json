@@ -3,7 +3,7 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:compound_water",
+      "item": "chemlib:water",
       "count": 16
     },
     {

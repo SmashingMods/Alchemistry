@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.registry;
 
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlock;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlock;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorBlock;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlock;
 import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorBlock;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlock;
@@ -23,6 +24,7 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
 
     public static final RegistryObject<Block> ATOMIZER = BLOCKS.register("atomizer", AtomizerBlock::new);
+    public static final RegistryObject<Block> COMPACTOR = BLOCKS.register("compactor", CompactorBlock::new);
     public static final RegistryObject<Block> COMBINER = BLOCKS.register("combiner", CombinerBlock::new);
     public static final RegistryObject<Block> DISSOLVER = BLOCKS.register("dissolver", DissolverBlock::new);
     public static final RegistryObject<Block> EVAPORTOR = BLOCKS.register("evaporator", EvaporatorBlock::new);

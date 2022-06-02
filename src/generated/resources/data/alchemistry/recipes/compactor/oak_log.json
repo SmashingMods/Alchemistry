@@ -1,0 +1,10 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:cellulose"
+  },
+  "result": {
+    "item": "minecraft:oak_log"
+  }
+}

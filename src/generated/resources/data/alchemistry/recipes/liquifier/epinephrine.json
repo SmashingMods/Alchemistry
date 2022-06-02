@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:epinephrine"
+  },
+  "result": {
+    "fluid": "chemlib:epinephrine_source",
+    "amount": "500"
+  }
+}

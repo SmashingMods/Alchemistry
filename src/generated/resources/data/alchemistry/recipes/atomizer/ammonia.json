@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:ammonia_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:ammonia",
+    "count": 8
+  }
+}

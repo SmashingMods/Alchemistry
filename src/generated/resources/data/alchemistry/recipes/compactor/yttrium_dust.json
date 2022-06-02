@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:yttrium",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:yttrium_dust"
+  }
+}

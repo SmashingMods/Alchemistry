@@ -4,6 +4,10 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.smashingmods.alchemistry.Alchemistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
@@ -17,11 +21,11 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+public abstract class AbstractAlchemistryScreen<MENU extends AbstractContainerMenu> extends AbstractContainerScreen<MENU> {
 
     protected final List<DisplayData> displayData = new ArrayList<>();
 
-    public AbstractAlchemistryScreen(T pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public AbstractAlchemistryScreen(MENU pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
@@ -90,10 +94,6 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
         RenderSystem.setShaderColor(red, green, blue, alpha);
     }
 
-    public void bindWidgets() {
-        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/widgets.png"));
-    }
-
     public static int getBarScaled(int pPixels, int pProgress, int pMaxProgress) {
         if (pProgress > 0 && pMaxProgress > 0) {
             return pProgress * pPixels / pMaxProgress;
@@ -105,13 +105,13 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
     public void drawEnergyBar(PoseStack pPoseStack, EnergyDisplayData pData, int pTextureX, int pTextureY) {
         int x = pData.getX() + (this.width - this.imageWidth) / 2;
         int y = pData.getY() + (this.height - this.imageHeight) / 2;
-        this.directionalBlit(pPoseStack, x, y + pData.getHeight(), pTextureX, pTextureY, pData.getWidth(), pData.getHeight(), pData.getValue(), pData.getMaxValue(), Direction.UP);
+        this.directionalBlit(pPoseStack, x, y + pData.getHeight(), pTextureX, pTextureY, pData.getWidth(), pData.getHeight(), pData.getValue(), pData.getMaxValue(), Direction2D.UP);
     }
 
-    private void directionalBlit(PoseStack pPoseStack, int pX, int pY, int pUOffset, int pVOffset, int pU, int pV, int pProgress, int pMaxProgress, Direction pDirection) {
-        bindWidgets();
+    private void directionalBlit(PoseStack pPoseStack, int pX, int pY, int pUOffset, int pVOffset, int pU, int pV, int pProgress, int pMaxProgress, Direction2D pDirection2D) {
+        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/widgets.png"));
 
-        switch (pDirection) {
+        switch (pDirection2D) {
             case LEFT -> {
                 int scaled = getBarScaled(pV, pProgress, pMaxProgress);
                 blit(pPoseStack, pX - scaled, pY, pUOffset + pU - scaled, pVOffset, scaled, pV);
@@ -131,12 +131,12 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
         }
     }
 
-    public void directionalArrow(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress, Direction pDirection) {
-        switch (pDirection) {
-            case LEFT -> directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction.LEFT);
-            case UP -> directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction.UP);
-            case RIGHT -> directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction.RIGHT);
-            case DOWN -> directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction.DOWN);
+    public void directionalArrow(PoseStack pPoseStack, int pX, int pY, int pProgress, int pMaxProgress, Direction2D pDirection2D) {
+        switch (pDirection2D) {
+            case LEFT -> directionalBlit(pPoseStack, pX, pY, 0, 120, 9, 30, pProgress, pMaxProgress, Direction2D.LEFT);
+            case UP -> directionalBlit(pPoseStack, pX, pY, 0, 138, 9, 30, pProgress, pMaxProgress, Direction2D.UP);
+            case RIGHT -> directionalBlit(pPoseStack, pX, pY, 0, 129, 9, 30, pProgress, pMaxProgress, Direction2D.RIGHT);
+            case DOWN -> directionalBlit(pPoseStack, pX, pY, 9, 138, 9, 30, pProgress, pMaxProgress, Direction2D.DOWN);
         }
     }
 
@@ -165,5 +165,15 @@ public abstract class AbstractAlchemistryScreen<T extends AbstractContainerMenu>
                 renderTooltip(pPoseStack, data.toTextComponent(), pMouseX, pMouseY);
             }
         });
+    }
+
+    public <WIDGET extends GuiEventListener & Widget & NarratableEntry> void renderWidget(WIDGET pWidget, int pX, int pY) {
+        if (!renderables.contains(pWidget)) {
+            if (pWidget instanceof AbstractWidget widget) {
+                widget.x = pX;
+                widget.y = pY;
+            }
+            addRenderableWidget(pWidget);
+        }
     }
 }

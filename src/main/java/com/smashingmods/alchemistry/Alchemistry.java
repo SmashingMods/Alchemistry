@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry;
 
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerScreen;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerScreen;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorScreen;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
 import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
@@ -43,17 +44,18 @@ public class Alchemistry {
         modEventBus.addListener(this::commonSetupEvent);
         Registry.register();
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
+        Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::clientSetupEvent));
     }
 
     public void clientSetupEvent(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(MenuRegistry.ATOMIZER_MENU.get(), AtomizerScreen::new);
+            MenuScreens.register(MenuRegistry.COMPACTOR_MENU.get(), CompactorScreen::new);
             MenuScreens.register(MenuRegistry.COMBINER_MENU.get(), CombinerScreen::new);
             MenuScreens.register(MenuRegistry.DISSOLVER_MENU.get(), DissolverScreen::new);
             MenuScreens.register(MenuRegistry.EVAPORATOR_MENU.get(), EvaporatorScreen::new);
@@ -74,6 +76,7 @@ public class Alchemistry {
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
         AlchemistryPacketHandler.register();
         RecipeRegistry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
+        RecipeRegistry.COMPACTOR_TYPE = RecipeType.register(Alchemistry.MODID + ":compactor");
         RecipeRegistry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
         RecipeRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
         RecipeRegistry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");

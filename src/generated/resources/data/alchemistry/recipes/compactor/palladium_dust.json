@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:palladium",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:palladium_dust"
+  }
+}

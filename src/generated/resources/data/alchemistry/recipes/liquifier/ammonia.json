@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:ammonia"
+  },
+  "result": {
+    "fluid": "chemlib:ammonia_source",
+    "amount": "500"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:chlorine_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:chlorine",
+    "count": 8
+  }
+}

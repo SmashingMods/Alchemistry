@@ -8,8 +8,8 @@ import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandl
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
-import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRegistry;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,7 +43,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     protected final ContainerData data;
 
     private int progress = 0;
-    private int maxProgress = Config.DISSOLVER_TICKS_PER_OPERATION.get();
+    private int maxProgress = Config.Common.dissolverTicksPerOperation.get();
 
     private final ModItemStackHandler inputHandler = initializeInputHandler();
     private final ModItemStackHandler outputHandler = initializeOutputHandler();
@@ -96,7 +96,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
 
     public void tick(Level pLevel) {
         if (!pLevel.isClientSide()) {
-            updateRecipe();
+            updateRecipe(pLevel);
             if (canProcessRecipe()) {
                 processRecipe();
             } else {
@@ -105,15 +105,15 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
         }
     }
 
-    private void updateRecipe() {
+    private void updateRecipe(Level pLevel) {
         if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.input, getInputHandler().getStackInSlot(0)))) {
-            currentRecipe = DissolverRegistry.getRecipes(level).stream().filter(recipe -> recipe.input.getItem() == inputHandler.getStackInSlot(0).getItem()).findFirst().orElse(null);
+            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, pLevel).stream().filter(recipe -> recipe.input.getItem() == inputHandler.getStackInSlot(0).getItem()).findFirst().orElse(null);
         }
     }
 
     private boolean canProcessRecipe() {
         if (currentRecipe != null) {
-            return energyHandler.getEnergyStored() >= Config.DISSOLVER_ENERGY_PER_TICK.get()
+            return energyHandler.getEnergyStored() >= Config.Common.dissolverEnergyPerTick.get()
                     && ItemStack.isSameItemSameTags(inputHandler.getStackInSlot(0), currentRecipe.input);
 
         } else {
@@ -136,13 +136,13 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
                 getOutputHandler().setOrIncrement(index, itemStack);
             }
         }
-        energyHandler.extractEnergy(Config.DISSOLVER_ENERGY_PER_TICK.get(), false);
+        energyHandler.extractEnergy(Config.Common.dissolverEnergyPerTick.get(), false);
         setChanged();
     }
 
     @Override
     public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.DISSOLVER_ENERGY_CAPACITY.get()) {
+        return new CustomEnergyStorage(Config.Common.dissolverEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();

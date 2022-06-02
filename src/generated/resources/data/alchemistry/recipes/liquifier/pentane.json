@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:pentane"
+  },
+  "result": {
+    "fluid": "chemlib:pentane_source",
+    "amount": "500"
+  }
+}

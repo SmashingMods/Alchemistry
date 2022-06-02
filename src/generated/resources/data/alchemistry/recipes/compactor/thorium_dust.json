@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:thorium",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:thorium_dust"
+  }
+}

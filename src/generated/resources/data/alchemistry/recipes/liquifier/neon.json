@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:neon"
+  },
+  "result": {
+    "fluid": "chemlib:neon_source",
+    "amount": "500"
+  }
+}

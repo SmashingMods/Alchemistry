@@ -1,10 +1,8 @@
 package com.smashingmods.alchemistry.utils;
 
-import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.chemlib.chemistry.CompoundRegistry;
-import com.smashingmods.chemlib.chemistry.ElementRegistry;
-import com.smashingmods.chemlib.items.CompoundItem;
-import com.smashingmods.chemlib.items.ElementItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,10 +10,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Optional;
+
 public class StackUtils {
 
     public static ItemStack atomicNumToStack(int atomicNumber) {
-        return new ItemStack(ElementRegistry.elements.get(atomicNumber));
+        return new ItemStack(ItemRegistry.getElementByAtomicNumber(atomicNumber).get());
     }
 
     public static boolean canStacksMerge(ItemStack origin, ItemStack target, boolean stacksCanbeEmpty) {
@@ -36,31 +36,19 @@ public class StackUtils {
 
         ResourceLocation resourceLocation = new ResourceLocation(pString);
 
-        ElementItem outputElement = ElementRegistry.getByName(pString).orElse(null);
-        CompoundItem outputCompound = CompoundRegistry.getByName(pString.replace(" ", "_")).orElse(null);
+        Optional<ElementItem> optionalElement = ItemRegistry.getElementByName(pString);
+        Optional<CompoundItem> optionalCompound = ItemRegistry.getCompoundByName(pString.replace(" ", "_"));
 
         Item outputItem = ForgeRegistries.ITEMS.getValue(resourceLocation);
         Block outputBlock = ForgeRegistries.BLOCKS.getValue(resourceLocation);
 
-        if (outputElement != null) {
-
-            Alchemistry.LOGGER.info(String.format("output element: %s", outputElement));
-
-            return new ItemStack(outputElement, pCount);
-        } else if (outputCompound != null) {
-
-            Alchemistry.LOGGER.info(String.format("output compound: %s", outputCompound));
-
-            return new ItemStack(outputCompound, pCount);
+        if (optionalElement.isPresent()) {
+            return new ItemStack(optionalElement.get(), pCount);
+        } else if (optionalCompound.isPresent()) {
+            return new ItemStack(optionalCompound.get(), pCount);
         } else if (outputItem != null) {
-
-            Alchemistry.LOGGER.info(String.format("output item: %s", outputItem));
-
             return new ItemStack(outputItem, pCount);
         } else if (outputBlock != null && outputBlock != Blocks.AIR && outputBlock != Blocks.WATER) {
-
-            Alchemistry.LOGGER.info(String.format("output block: %s", outputBlock));
-
             return new ItemStack(outputBlock, pCount);
         } else {
             return ItemStack.EMPTY;

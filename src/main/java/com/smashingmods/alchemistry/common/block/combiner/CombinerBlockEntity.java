@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
@@ -10,6 +9,7 @@ import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,6 +36,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -44,7 +45,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     protected final ContainerData data;
 
     private int progress = 0;
-    private int maxProgress = Config.COMBINER_TICKS_PER_OPERATION.get();
+    private int maxProgress = Config.Common.combinerTicksPerOperation.get();
 
     private final ModItemStackHandler inputHandler = initializeInputHandler();
     private final ModItemStackHandler outputHandler = initializeOutputHandler();
@@ -65,8 +66,8 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private CombinerRecipe currentRecipe;
     private int selectedRecipe = -1;
     private String editBoxText = "";
-    private boolean recipeLocked = false;
-    private boolean paused = false;
+    private boolean recipeLocked;
+    private boolean paused;
 
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -88,7 +89,6 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             public void set(int pIndex, int pValue) {
                 switch (pIndex) {
                     case 0 -> progress = pValue;
-                    case 1 -> maxProgress = pValue;
                     case 2 -> energyHandler.setEnergy(pValue);
                     case 4 -> selectedRecipe = pValue;
                 }
@@ -101,18 +101,14 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new CombinerMenu(pContainerId, pInventory, this, this.data);
-    }
-
     public void tick(Level pLevel) {
         if (!pLevel.isClientSide()) {
-            if (canProcessRecipe()) {
-                processRecipe();
-            } else {
-                progress = 0;
+            if (!paused) {
+                if (canProcessRecipe()) {
+                    processRecipe();
+                } else {
+                    progress = 0;
+                }
             }
         }
     }
@@ -120,13 +116,12 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private boolean canProcessRecipe() {
         if (currentRecipe != null) {
             ItemStack output = outputHandler.getStackInSlot(0);
-            return energyHandler.getEnergyStored() >= Config.COMBINER_ENERGY_PER_TICK.get()
+            return energyHandler.getEnergyStored() >= Config.Common.combinerEnergyPerTick.get()
                     && (currentRecipe.output.getCount() + output.getCount()) <= currentRecipe.output.getMaxStackSize()
                     && (ItemStack.isSameItemSameTags(output, currentRecipe.output) || output.isEmpty())
                     && currentRecipe.matchInputs(inputHandler);
-        } else {
-            return false;
         }
+        return false;
     }
 
     private void processRecipe() {
@@ -142,7 +137,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
                 }
             }
         }
-        energyHandler.extractEnergy(Config.COMBINER_ENERGY_PER_TICK.get(), false);
+        energyHandler.extractEnergy(Config.Common.combinerEnergyPerTick.get(), false);
         setChanged();
     }
 
@@ -162,30 +157,33 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         this.currentRecipe = pRecipe;
     }
 
-    public void toggleRecipeLocked() {
-        Alchemistry.LOGGER.info("TOGGLED LOCK");
-        this.recipeLocked = !this.recipeLocked;
-    }
-
     public boolean getRecipeLocked() {
-        return this.recipeLocked;
+        return recipeLocked;
     }
 
-    public void togglePaused() {
-        this.paused = !this.paused;
+    public void setRecipeLocked(boolean pLock) {
+        recipeLocked = pLock;
+    }
+
+    public boolean getPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean pPause) {
+        paused = pPause;
     }
 
     protected String getEditBoxText() {
-        return this.editBoxText;
+        return editBoxText;
     }
 
     protected void setEditBoxText(String pText) {
-        this.editBoxText = pText;
+        editBoxText = pText;
     }
 
     @Override
     public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.COMBINER_ENERGY_CAPACITY.get()) {
+        return new CustomEnergyStorage(Config.Common.combinerEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();
@@ -195,7 +193,13 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     @Override
     public ModItemStackHandler initializeInputHandler() {
-        return new ModItemStackHandler(this, 4);
+        return new ModItemStackHandler(this, 4) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, this.blockEntity.getLevel()).stream().filter(recipe -> recipe.matchInputs(this)).findFirst();
+                combinerRecipe.ifPresent(recipe -> setCurrentRecipe(recipe));
+            }
+        };
     }
 
     @Override
@@ -293,6 +297,8 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         pTag.put("energy", energyHandler.serializeNBT());
         pTag.putString("editBoxText", editBoxText);
         pTag.putInt("selectedRecipe", selectedRecipe);
+        pTag.putBoolean("locked", recipeLocked);
+        pTag.putBoolean("paused", paused);
         super.saveAdditional(pTag);
     }
 
@@ -306,5 +312,13 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         energyHandler.deserializeNBT(pTag.get("energy"));
         editBoxText = pTag.getString("editBoxText");
         selectedRecipe = pTag.getInt("selectedRecipe");
+        recipeLocked = pTag.getBoolean("locked");
+        paused = pTag.getBoolean("paused");
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+        return new CombinerMenu(pContainerId, pInventory, this, this.data);
     }
 }

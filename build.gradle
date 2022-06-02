@@ -29,7 +29,7 @@ sourceSets{
 }
 
 minecraft {
-    mappings channel: 'parchment', version: "$parchment_version"
+    mappings channel: 'parchment', version: "$parchment_version-$minecraft_version"
     runs {
         client {
             workingDirectory project.file('run')
@@ -60,7 +60,7 @@ minecraft {
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'alchemistry', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+            args '--mod', "$archivesBaseName", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
 
             mods {
                 alchemistry {
@@ -86,13 +86,12 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-${jei_version}")
     implementation fg.deobf("com.smashingmods:ChemLib:$chemlib_version")
     implementation fg.deobf("curse.maven:mekanism-268560:3743835")
-    implementation fg.deobf("curse.maven:mekanism-generators-268566:3743837")
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "alchemistry",
+                "Specification-Title"     : "$archivesBaseName",
                 "Specification-Vendor"    : "SmashingMods",
                 "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,

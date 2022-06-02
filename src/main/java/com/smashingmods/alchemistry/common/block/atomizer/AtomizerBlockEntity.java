@@ -10,8 +10,8 @@ import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
-import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRegistry;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -44,14 +44,16 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     protected final ContainerData data;
 
     private int progress = 0;
-    private int maxProgress = Config.ATOMIZER_TICKS_PER_OPERATION.get();
+    private final int maxProgress = Config.Common.atomizerTicksPerOperation.get();
 
     private final ModItemStackHandler inputHandler = initializeInputHandler();
     private final ModItemStackHandler outputHandler = initializeOutputHandler();
+
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(getInputHandler());
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(getOutputHandler());
+
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
-    LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
+    private final LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
 
     private final CustomEnergyStorage energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
@@ -59,7 +61,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private final CustomFluidStorage fluidHandler = initializeFluidStorage();
     private final LazyOptional<IFluidHandler> lazyFluidHandler = LazyOptional.of(() -> fluidHandler);
 
-    AtomizerRecipe currentRecipe;
+    private AtomizerRecipe currentRecipe;
 
     public AtomizerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.ATOMIZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -82,9 +84,8 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             public void set(int pIndex, int pValue) {
                 switch (pIndex) {
                     case 0 -> progress = pValue;
-                    case 1 -> maxProgress = pValue;
-                    case 2 -> energyHandler.setEnergy(energyHandler.getEnergyStored());
-                    case 3 -> fluidHandler.setAmount(pValue);
+                    case 2 -> energyHandler.setEnergy(pValue);
+                    case 4 -> fluidHandler.setAmount(pValue);
                 }
             }
 
@@ -95,11 +96,23 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    public void updateRecipe() {
-        if (!fluidHandler.isEmpty() &&
-                (currentRecipe == null || !ItemStack.matches(currentRecipe.output, getOutputHandler().getStackInSlot(0)))) {
-            currentRecipe = AtomizerRegistry.getRecipes(level).stream()
+    public void tick(Level pLevel) {
+        if (!pLevel.isClientSide()) {
+            updateRecipe(pLevel);
+            if (canProcessRecipe()) {
+                processRecipe();
+            } else {
+                progress = 0;
+            }
+        }
+    }
+
+    public void updateRecipe(Level pLevel) {
+        if (!fluidHandler.isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.output, getOutputHandler().getStackInSlot(0)))) {
+            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, pLevel).stream()
                     .filter(recipe -> recipe.input.getFluid() == fluidHandler.getFluidStack().getFluid()).findFirst().orElse(null);
+        } else {
+            currentRecipe = null;
         }
     }
 
@@ -107,7 +120,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             if (currentRecipe != null) {
                 ItemStack recipeOutput = currentRecipe.output.copy();
                 ItemStack outputSlot = getOutputHandler().getStackInSlot(0);
-                return energyHandler.getEnergyStored() >= Config.ATOMIZER_ENERGY_PER_TICK.get() &&
+                return energyHandler.getEnergyStored() >= Config.Common.atomizerEnergyPerTick.get() &&
                         fluidHandler.getFluidAmount() >= currentRecipe.input.getAmount() &&
                         ItemStack.matches(outputSlot, recipeOutput) || outputSlot.isEmpty() &&
                         outputSlot.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxStackSize();
@@ -124,32 +137,27 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             outputHandler.setOrIncrement(0, currentRecipe.output.copy());
             fluidHandler.drain(currentRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
         }
-        energyHandler.extractEnergy(Config.ATOMIZER_ENERGY_PER_TICK.get(), false);
+        energyHandler.extractEnergy(Config.Common.atomizerEnergyPerTick.get(), false);
         setChanged();
-    }
-
-    public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-            updateRecipe();
-            if (canProcessRecipe()) {
-                processRecipe();
-            } else {
-                progress = 0;
-            }
-        }
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @Nonnull Inventory pInventory, @Nonnull Player pPlayer) {
-        return new AtomizerMenu(pContainerId, pInventory, this, this.data);
     }
 
     @Override
     public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.ATOMIZER_ENERGY_CAPACITY.get()) {
+        return new CustomEnergyStorage(Config.Common.atomizerEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
+                super.onEnergyChanged();
+                setChanged();
+            }
+        };
+    }
+
+    @Override
+    public CustomFluidStorage initializeFluidStorage() {
+        return new CustomFluidStorage(Config.Common.atomizerFluidCapacity.get(), FluidStack.EMPTY) {
+            @Override
+            protected void onContentsChanged() {
+                super.onContentsChanged();
                 setChanged();
             }
         };
@@ -207,18 +215,6 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         return combinedInvWrapper;
     }
 
-    @Override
-    public CustomFluidStorage initializeFluidStorage() {
-        return new CustomFluidStorage(10000, FluidStack.EMPTY) {
-            @Override
-            protected void onContentsChanged() {
-                super.onContentsChanged();
-                updateRecipe();
-                setChanged();
-            }
-        };
-    }
-
     public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
         return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
@@ -262,5 +258,11 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         outputHandler.deserializeNBT(pTag.getCompound("output"));
         energyHandler.deserializeNBT(pTag.get("energy"));
         fluidHandler.readFromNBT(pTag.getCompound("fluid"));
+    }
+
+    @Nullable
+    @Override
+    public AbstractContainerMenu createMenu(int pContainerId, @Nonnull Inventory pInventory, @Nonnull Player pPlayer) {
+        return new AtomizerMenu(pContainerId, pInventory, this, this.data);
     }
 }

@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:rhodium",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:rhodium_dust"
+  }
+}

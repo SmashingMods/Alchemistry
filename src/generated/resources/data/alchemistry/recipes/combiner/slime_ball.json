@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:compound_protein",
+      "item": "chemlib:protein",
       "count": 2
     },
     {
-      "item": "chemlib:compound_sucrose",
+      "item": "chemlib:sucrose",
       "count": 2
     }
   ],

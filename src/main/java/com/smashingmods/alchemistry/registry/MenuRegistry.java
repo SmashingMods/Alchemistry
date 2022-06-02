@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.registry;
 
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerMenu;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorMenu;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
@@ -22,6 +23,7 @@ public class MenuRegistry {
     private static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
 
     public static final RegistryObject<MenuType<AtomizerMenu>> ATOMIZER_MENU = registerMenuType(AtomizerMenu::new, "atomizer_menu");
+    public static final RegistryObject<MenuType<CompactorMenu>> COMPACTOR_MENU = registerMenuType(CompactorMenu::new, "compactor_menu");
     public static final RegistryObject<MenuType<CombinerMenu>> COMBINER_MENU = registerMenuType(CombinerMenu::new, "combiner_menu");
     public static final RegistryObject<MenuType<DissolverMenu>> DISSOLVER_MENU = registerMenuType(DissolverMenu::new, "dissolver_menu");
     public static final RegistryObject<MenuType<EvaporatorMenu>> EVAPORATOR_MENU = registerMenuType(EvaporatorMenu::new, "evaporator_menu");

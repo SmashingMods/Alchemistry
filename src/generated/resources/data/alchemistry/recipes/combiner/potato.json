@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:compound_starch"
+      "item": "chemlib:starch"
     },
     {
-      "item": "chemlib:element_potassium",
+      "item": "chemlib:potassium",
       "count": 4
     }
   ],

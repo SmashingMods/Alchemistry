@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:hydrogen_sulfide"
+  },
+  "result": {
+    "fluid": "chemlib:hydrogen_sulfide_source",
+    "amount": "500"
+  }
+}

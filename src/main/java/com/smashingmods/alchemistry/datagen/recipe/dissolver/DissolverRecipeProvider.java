@@ -2,15 +2,12 @@ package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.oldblocks.dissolver.DissolverTagData;
+import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
-import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
-import com.smashingmods.alchemistry.registry.ItemRegistry;
-import com.smashingmods.chemlib.chemistry.CompoundRegistry;
-import com.smashingmods.chemlib.chemistry.ElementRegistry;
-import com.smashingmods.chemlib.items.CompoundItem;
-import com.smashingmods.chemlib.items.ElementItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
+import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -21,11 +18,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -238,10 +235,10 @@ public class DissolverRecipeProvider {
 //        dissolver("forge:storage_blocks/quartz", set().addGroup(toStack("barium", 16 * 4), toStack("silicon_dioxide", 32 * 4)) .build());
 //        dissolver("forge:slimeballs", set().addGroup(toStack("protein", 2), toStack("sucrose", 2)).build());
 //
-//        for (ElementItem element : ElementRegistry.elements.values()) {
-//            Item ingot = ForgeRegistries.ITEMS.getValue(new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
+//        for (ElementItem element : ItemRegistry.ELEMENTS) {
+//            Item ingot = ForgeRegistries.ITEMS.getValue(new ResourceLocation("chemlib", "ingot_" + element.getName()));
 //            if (ingot != Items.AIR) {
-//                dissolver("forge:ingots/" + element.getChemicalName(), set().addGroup(1, new ItemStack(element, 16)).build());
+//                dissolver("forge:ingots/" + element.getName(), set().addGroup(1, new ItemStack(element, 16)).build());
 //            }
 //        }
 //
@@ -286,12 +283,6 @@ public class DissolverRecipeProvider {
 //        dissolver(Items.SLIME_BLOCK, set().addGroup(1,
 //                                toStack("protein", 2 * 9),
 //                                toStack("sucrose", 2 * 9))
-//                        .build());
-//
-//        dissolver(ItemRegistry.CONDENSED_MILK_ITEM.get(), set().addGroup(1,
-//                                toStack("calcium", 4),
-//                                toStack("protein", 2),
-//                                toStack("sucrose"))
 //                        .build());
 //
 //        dissolver(Items.STICK, set().relative(false).addGroup(10, toStack("cellulose")).build());
@@ -821,17 +812,6 @@ public class DissolverRecipeProvider {
 //                                toStack("protein", 2))
 //                        .build(), true);
 //
-//        dissolver(ItemRegistry.MINERAL_SALT_ITEM.get(), set()
-//                        .addGroup(60, toStack("sodium_chloride"))
-//                        .addGroup(5, toStack("lithium"))
-//                        .addGroup(10, toStack("potassium_chloride"))
-//                        .addGroup(10, toStack("magnesium"))
-//                        .addGroup(5, toStack("iron"))
-//                        .addGroup(4, toStack("copper"))
-//                        .addGroup(2, toStack("zinc"))
-//                        .build());
-//
-//
 //        dissolver(Items.CARROT, set().relative(false)
 //                        .addGroup(20, toStack("beta_carotene")).build());
 //
@@ -936,13 +916,18 @@ public class DissolverRecipeProvider {
 //
 //        dissolver(Items.SWEET_BERRIES, set().addGroup(1, toStack("cellulose"), toStack("sucrose")).build());
 //
-//        for (CompoundItem compound : CompoundRegistry.compounds) {
-//            List<ItemStack> stacks = new ArrayList<>();
-//            compound.getComponentStacks().forEach(itemStack -> stacks.add(itemStack));
-//            ProbabilityGroup group = new ProbabilityGroup(stacks, 1.0);
-//            dissolver(compound,
-//                    set().addGroup(group)//(new ItemStack[0])).build())
-//                            .build());
+//        for (CompoundItem compound : ItemRegistry.COMPOUNDS) {
+//            List<ItemStack> outputs = new ArrayList<>();
+//
+//            Map<String, Integer> components = compound.getComponents();
+//            for (String name : components.keySet()) {
+//                int count = components.get(name);
+//                ItemRegistry.getElementByName(name).ifPresent(elementItem -> outputs.add(new ItemStack(elementItem, count)));
+//                ItemRegistry.getCompoundByName(name).ifPresent(compoundItem -> outputs.add(new ItemStack(compoundItem, count)));
+//            }
+//
+//            ProbabilityGroup group = new ProbabilityGroup(outputs, 1.0);
+//            dissolver(compound, set().addGroup(group).build());
 //        }
 //
 //        dissolver(Items.IRON_INGOT, set().addGroup(1, toStack("iron", 16)).build());

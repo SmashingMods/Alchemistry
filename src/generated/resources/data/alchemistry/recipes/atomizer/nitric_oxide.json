@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:nitric_oxide_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:nitric_oxide",
+    "count": 8
+  }
+}

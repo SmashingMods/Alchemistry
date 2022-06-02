@@ -12,7 +12,7 @@
         "probability": 30.0,
         "results": [
           {
-            "item": "chemlib:compound_water"
+            "item": "chemlib:water"
           }
         ]
       },
@@ -20,7 +20,7 @@
         "probability": 50.0,
         "results": [
           {
-            "item": "chemlib:compound_silicon_dioxide"
+            "item": "chemlib:silicon_dioxide"
           }
         ]
       },
@@ -28,7 +28,7 @@
         "probability": 10.0,
         "results": [
           {
-            "item": "chemlib:compound_cellulose"
+            "item": "chemlib:cellulose"
           }
         ]
       },
@@ -36,7 +36,7 @@
         "probability": 10.0,
         "results": [
           {
-            "item": "chemlib:compound_kaolinite"
+            "item": "chemlib:kaolinite"
           }
         ]
       }

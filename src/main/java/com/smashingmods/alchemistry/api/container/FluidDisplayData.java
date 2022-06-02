@@ -13,22 +13,26 @@ import java.util.Locale;
 public class FluidDisplayData extends DisplayData {
 
     private final AbstractAlchemistryBlockEntity blockEntity;
-    private final ContainerData containerData;
+    private final ContainerData data;
+    private final int valueSlot;
+    private final int maxValueSlot;
 
-    public FluidDisplayData(AbstractAlchemistryBlockEntity pBlockEntity, ContainerData pData, int pX, int pY, int pWidth, int pHeight) {
+    public FluidDisplayData(AbstractAlchemistryBlockEntity pBlockEntity, ContainerData pData, int pValueSlot, int pMaxValueSlot, int pX, int pY, int pWidth, int pHeight) {
         super(pX, pY, pWidth, pHeight);
         this.blockEntity = pBlockEntity;
-        this.containerData = pData;
+        this.data = pData;
+        this.valueSlot = pValueSlot;
+        this.maxValueSlot = pMaxValueSlot;
     }
 
     @Override
     public int getValue() {
-        return containerData.get(4);
+        return data.get(valueSlot);
     }
 
     @Override
     public int getMaxValue() {
-        return containerData.get(5);
+        return data.get(maxValueSlot);
     }
 
     public CustomFluidStorage getFluidHandler() {

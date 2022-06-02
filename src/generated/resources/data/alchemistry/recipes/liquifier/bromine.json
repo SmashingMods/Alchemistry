@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:bromine"
+  },
+  "result": {
+    "fluid": "chemlib:bromine_source",
+    "amount": "500"
+  }
+}

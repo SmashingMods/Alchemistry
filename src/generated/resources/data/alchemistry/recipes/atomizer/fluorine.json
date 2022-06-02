@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "fluid": "chemlib:fluorine_source",
+    "amount": "500"
+  },
+  "result": {
+    "item": "chemlib:fluorine",
+    "count": 8
+  }
+}

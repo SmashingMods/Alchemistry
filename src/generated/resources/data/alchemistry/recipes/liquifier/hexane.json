@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:hexane"
+  },
+  "result": {
+    "fluid": "chemlib:hexane_source",
+    "amount": "500"
+  }
+}

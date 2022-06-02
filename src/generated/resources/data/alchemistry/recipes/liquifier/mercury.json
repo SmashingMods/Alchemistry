@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:mercury"
+  },
+  "result": {
+    "fluid": "chemlib:mercury_source",
+    "amount": "500"
+  }
+}

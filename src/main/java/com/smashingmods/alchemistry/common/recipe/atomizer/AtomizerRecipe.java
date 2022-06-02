@@ -15,8 +15,8 @@ public class AtomizerRecipe extends ProcessingRecipe {
     public FluidStack input;
     public ItemStack output;
 
-    public AtomizerRecipe(ResourceLocation pResourceLocation, String pGroup, FluidStack pInput, ItemStack pOutput) {
-        super(RecipeRegistry.ATOMIZER_TYPE, pResourceLocation, pGroup, Ingredient.EMPTY, pOutput);
+    public AtomizerRecipe(ResourceLocation pId, String pGroup, FluidStack pInput, ItemStack pOutput) {
+        super(RecipeRegistry.ATOMIZER_TYPE, pId, pGroup, Ingredient.EMPTY, pOutput);
         this.input = pInput;
         this.output = pOutput;
     }

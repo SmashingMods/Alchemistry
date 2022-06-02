@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:phosphorus",
+    "count": 4
+  },
+  "result": {
+    "item": "minecraft:glowstone_dust"
+  }
+}

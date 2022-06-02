@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:carbon_disulfide"
+  },
+  "result": {
+    "fluid": "chemlib:carbon_disulfide_source",
+    "amount": "500"
+  }
+}

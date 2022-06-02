@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:europium",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:europium_dust"
+  }
+}

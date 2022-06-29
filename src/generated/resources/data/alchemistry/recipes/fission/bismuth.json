@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:bismuth"
+  },
+  "output1": {
+    "item": "chemlib:molybdenum"
+  },
+  "output2": {
+    "item": "chemlib:niobium"
+  }
+}

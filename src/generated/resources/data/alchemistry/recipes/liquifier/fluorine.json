@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:fluorine"
+    "item": "chemlib:fluorine",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:fluorine_source",

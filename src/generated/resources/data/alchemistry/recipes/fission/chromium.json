@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:chromium"
+  },
+  "output1": {
+    "item": "chemlib:magnesium"
+  },
+  "output2": {
+    "item": "chemlib:magnesium"
+  }
+}

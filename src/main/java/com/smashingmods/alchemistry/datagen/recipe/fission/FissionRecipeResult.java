@@ -1,10 +1,14 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
 import com.google.gson.JsonObject;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import javax.annotation.Nonnull;
@@ -13,42 +17,42 @@ public class FissionRecipeResult implements FinishedRecipe {
 
     private final String group;
     private final Advancement.Builder advancementBuilder;
-    private final ResourceLocation id;
+    private final ResourceLocation recipeId;
     private final ResourceLocation advancementId;
-    private final int input;
+    private final ElementItem input;
+    private final ItemStack output1;
+    private final ItemStack output2;
 
     public FissionRecipeResult(String pGroup,
                                Advancement.Builder pBuilder,
                                ResourceLocation pId,
                                ResourceLocation pAdvancementId,
-                               int pInput) {
-        this.id = pId;
+                               ElementItem pInput,
+                               ItemStack pOutput1,
+                               ItemStack pOutput2) {
         this.group = pGroup;
-        this.input = pInput;
         this.advancementBuilder = pBuilder;
+        this.recipeId = pId;
         this.advancementId = pAdvancementId;
+        this.input = pInput;
+        this.output1 = pOutput1;
+        this.output2 = pOutput2;
     }
 
     @Override
     public void serializeRecipeData(@Nonnull JsonObject pJson) {
         if (!this.group.isEmpty()) {
-            pJson.addProperty("group", this.group);
+            pJson.addProperty("group", group);
         }
-        pJson.addProperty("input", input);
-
-        if (input % 2 == 0) {
-            pJson.addProperty("output", input / 2);
-            pJson.addProperty("output2", input / 2);
-        } else {
-            pJson.addProperty("output", (input / 2) + 1);
-            pJson.addProperty("output2", input / 2);
-        }
+        DatagenUtil.itemStackToJson(pJson, "input", new ItemStack(input));
+        DatagenUtil.itemStackToJson(pJson, "output1", output1);
+        DatagenUtil.itemStackToJson(pJson, "output2", output2);
     }
 
     @Override
     @Nonnull
     public ResourceLocation getId() {
-        return id;
+        return recipeId;
     }
 
     @Override

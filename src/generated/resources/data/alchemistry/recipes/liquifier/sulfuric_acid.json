@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:sulfuric_acid"
+    "item": "chemlib:sulfuric_acid",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:sulfuric_acid_source",

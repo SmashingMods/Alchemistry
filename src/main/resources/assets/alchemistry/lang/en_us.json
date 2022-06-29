@@ -23,6 +23,7 @@
 
   "alchemistry.container.dissolver": "Chemical Dissolver",
   "alchemistry.container.combiner": "Chemical Combiner",
+  "alchemistry.container.compactor": "Chemical Compactor",
   "alchemistry.container.evaporator": "Evaporator",
   "alchemistry.container.atomizer": "Atomizer",
   "alchemistry.container.liquifier": "Liquifier",

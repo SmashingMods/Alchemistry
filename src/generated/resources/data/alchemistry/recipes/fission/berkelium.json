@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:berkelium"
+  },
+  "output1": {
+    "item": "chemlib:indium"
+  },
+  "output2": {
+    "item": "chemlib:cadmium"
+  }
+}

@@ -34,7 +34,6 @@ import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -107,7 +106,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     @Override
     protected void renderLabels(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.combiner");
-        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, Color.WHITE.getRGB());
+        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
     public void renderWidgets() {

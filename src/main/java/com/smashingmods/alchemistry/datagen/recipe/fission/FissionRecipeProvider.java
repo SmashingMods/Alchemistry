@@ -1,7 +1,13 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import com.smashingmods.chemlib.registry.ItemRegistry;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class FissionRecipeProvider {
@@ -13,8 +19,21 @@ public class FissionRecipeProvider {
     }
 
     public void register() {
-//        for (int i = 2; i <= 118; i++) {
-//            FissionRecipeBuilder.recipe(i).build(consumer);
-//        }
+        for (int index = 2; index <= 118; index++) {
+            //noinspection OptionalGetWithoutIsPresent
+            fission(ItemRegistry.getElementByAtomicNumber(index).get());
+        }
+    }
+
+    private void fission(ElementItem pInput) {
+        FissionRecipeBuilder.createRecipe(pInput)
+                .group("fission")
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pInput)))
+                .save(consumer);
+    }
+
+    private ResourceLocation getLocation(ElementItem pItem) {
+        Objects.requireNonNull(pItem.getRegistryName());
+        return new ResourceLocation(Alchemistry.MODID, String.format("fission/%s", pItem.getRegistryName().getPath()));
     }
 }

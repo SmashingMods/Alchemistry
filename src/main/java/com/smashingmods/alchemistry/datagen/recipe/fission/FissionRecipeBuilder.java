@@ -1,57 +1,85 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
-import com.smashingmods.alchemistry.datagen.recipe.RecipeBuilder;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class FissionRecipeBuilder implements RecipeBuilder {
 
-    private final int input;
-    private final String group;
-
+    private String group;
+    private final ElementItem input;
+    private final ItemStack output1;
+    private final ItemStack output2;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public FissionRecipeBuilder(int pElementNumber) {
-        this(pElementNumber, "minecraft:misc");
+    public FissionRecipeBuilder(ElementItem pInput) {
+        this.input = pInput;
+        int inputAtomicNumber = pInput.getAtomicNumber();
+        if (inputAtomicNumber % 2 == 0) {
+            this.output1 = ItemRegistry.getElementByAtomicNumber(inputAtomicNumber / 2).map(ItemStack::new).orElse(ItemStack.EMPTY);
+        } else {
+            this.output1 = ItemRegistry.getElementByAtomicNumber((inputAtomicNumber / 2) + 1).map(ItemStack::new).orElse(ItemStack.EMPTY);
+        }
+        this.output2 = ItemRegistry.getElementByAtomicNumber(inputAtomicNumber / 2).map(ItemStack::new).orElse(ItemStack.EMPTY);
     }
 
-    public FissionRecipeBuilder(int pElementNumber, String pGroup) {
-        this.input = pElementNumber;
-        this.group = pGroup;
-    }
-
-    public static FissionRecipeBuilder recipe(int input) {
-        return new FissionRecipeBuilder(input);
-    }
-
-    public void build(Consumer<FinishedRecipe> consumerIn) {
-        String name = Integer.toString(input);
-        this.build(consumerIn, new ResourceLocation(Alchemistry.MODID, "fission/" + name));
-
+    public static FissionRecipeBuilder createRecipe(ElementItem pInput) {
+        return new FissionRecipeBuilder(pInput);
     }
 
     @Override
-    public void build(Consumer<FinishedRecipe> pConsumer, ResourceLocation pId) {
-        String group = this.group == null ? "" : this.group;
-        String path = String.format("recipes/%s/%s", input, pId.getPath());
-        ResourceLocation advancementId = new ResourceLocation(pId.getNamespace(), path);
-        this.validate(pId);
-        this.advancementBuilder.parent(new ResourceLocation("recipes/root"))
-                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(pId))
-                .rewards(AdvancementRewards.Builder.recipe(pId)).requirements(RequirementsStrategy.OR);
-        pConsumer.accept(new FissionRecipeResult
-                (group, advancementBuilder, pId, advancementId, input));
+    @Nonnull
+    public RecipeBuilder unlockedBy(@Nonnull String pCriterionName, @Nonnull CriterionTriggerInstance pCriterionTrigger) {
+
+        Objects.requireNonNull(input.getRegistryName());
+
+        this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, input.getRegistryName().getPath())))
+                .requirements(RequirementsStrategy.OR);
+        return this;
     }
 
     @Override
-    public void validate(ResourceLocation id) {
+    @Nonnull
+    public RecipeBuilder group(@Nullable String pGroupName) {
+        this.group = pGroupName;
+        return this;
+    }
 
+    @Override
+    @Nonnull
+    public Item getResult() {
+        return input;
+    }
+
+    @Override
+    public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @Nonnull ResourceLocation pRecipeId) {
+        String advancementPath = String.format("recipes/fission/%s", pRecipeId.getPath());
+        ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fission/%s", pRecipeId.getPath()));
+        ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, advancementPath);
+
+        pFinishedRecipeConsumer.accept(new FissionRecipeResult(
+                group,
+                advancementBuilder,
+                recipeId,
+                advancementId,
+                input,
+                output1,
+                output2
+        ));
     }
 }

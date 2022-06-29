@@ -10,6 +10,8 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
 public class CompactorRecipeSerializer<T extends CompactorRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private final CompactorRecipeSerializer.IFactory<T> factory;
@@ -19,7 +21,8 @@ public class CompactorRecipeSerializer<T extends CompactorRecipe> extends ForgeR
     }
 
     @Override
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+    @Nonnull
+    public T fromJson(@Nonnull ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
         String group = pSerializedRecipe.get("group").getAsString();
         ItemStack input = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input"));
         ItemStack output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
@@ -28,7 +31,7 @@ public class CompactorRecipeSerializer<T extends CompactorRecipe> extends ForgeR
 
     @Nullable
     @Override
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         ItemStack input = pBuffer.readItem();
         ItemStack output = pBuffer.readItem();

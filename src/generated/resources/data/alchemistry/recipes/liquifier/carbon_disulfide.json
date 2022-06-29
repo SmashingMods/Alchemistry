@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:carbon_disulfide"
+    "item": "chemlib:carbon_disulfide",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:carbon_disulfide_source",

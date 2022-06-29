@@ -1,51 +1,53 @@
 package com.smashingmods.alchemistry.common.recipe.fission;
 
-import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
 
-public class FissionRecipeSerializer<T extends FissionRecipe>
-        extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
-    private IFactory<T> factory;
+    private final FissionRecipeSerializer.IFactory<T> factory;
 
-    public FissionRecipeSerializer(FissionRecipeSerializer.IFactory<T> factory) {
-        this.factory = factory;
+    public FissionRecipeSerializer(FissionRecipeSerializer.IFactory<T> pFactory) {
+        this.factory = pFactory;
     }
 
     @Override
-    public T fromJson(ResourceLocation recipeId, JsonObject json) {
-        String s = json.get("group").getAsString();//"group", "");
-        int input = json.get("input").getAsInt();//.getInt(json,"input");
-        int output= json.get("output").getAsInt();//JSONUtils.getInt(json,"output");
-        int output2 = json.get("output2").getAsInt();//.readNBT(json,"output2");
-
-        return this.factory.create(recipeId, s, input, output, output2);
-
+    @Nonnull
+    public T fromJson(@Nonnull ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+        String group = pSerializedRecipe.get("group").getAsString();
+        ItemStack input = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input"));
+        ItemStack output1 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("output1"));
+        ItemStack output2 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("output2"));
+        return this.factory.create(pRecipeId, group, input, output1, output2);
     }
 
     @Override
-    public T fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-        String group = buffer.readUtf(32767);
-        int input = buffer.readInt();
-        int output = buffer.readInt();
-        int output2 = buffer.readInt();
-        return this.factory.create(recipeId, group, input, output, output2);
+    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+        String group = pBuffer.readUtf(Short.MAX_VALUE);
+        ItemStack input = pBuffer.readItem();
+        ItemStack output1 = pBuffer.readItem();
+        ItemStack output2 = pBuffer.readItem();
+        return this.factory.create(pRecipeId, group, input, output1, output2);
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf buffer, T recipe) {
         buffer.writeUtf(recipe.getGroup());
-        buffer.writeInt(recipe.input);
-        buffer.writeInt(recipe.output1);
-        buffer.writeInt(recipe.output2);
+        buffer.writeItem(recipe.getInput());
+        buffer.writeItem(recipe.getOutput().get(0));
+        buffer.writeItem(recipe.getOutput().get(1));
     }
 
-    public interface IFactory<T extends ProcessingRecipe> {
-        T create(ResourceLocation resource, String group, int input1, int output, int output2);
+    public interface IFactory<T extends Recipe<Inventory>> {
+        T create(ResourceLocation pId, String pgroup, ItemStack pInput, ItemStack pOutput1, ItemStack pOutput2);
     }
 }

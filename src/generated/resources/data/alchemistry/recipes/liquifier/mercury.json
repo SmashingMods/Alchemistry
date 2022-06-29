@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:mercury"
+    "item": "chemlib:mercury",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:mercury_source",

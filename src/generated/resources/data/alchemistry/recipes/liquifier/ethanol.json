@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:ethanol"
+    "item": "chemlib:ethanol",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:ethanol_source",

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:dysprosium"
+  },
+  "output1": {
+    "item": "chemlib:arsenic"
+  },
+  "output2": {
+    "item": "chemlib:arsenic"
+  }
+}

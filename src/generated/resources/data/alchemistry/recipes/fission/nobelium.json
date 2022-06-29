@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:nobelium"
+  },
+  "output1": {
+    "item": "chemlib:antimony"
+  },
+  "output2": {
+    "item": "chemlib:antimony"
+  }
+}

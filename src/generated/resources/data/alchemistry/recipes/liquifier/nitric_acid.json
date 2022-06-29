@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:nitric_acid"
+    "item": "chemlib:nitric_acid",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:nitric_acid_source",

@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:argon"
+    "item": "chemlib:argon",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:argon_source",

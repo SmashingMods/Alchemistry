@@ -7,6 +7,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
+import javax.annotation.Nonnull;
+
 public class CompactorRecipe extends ProcessingRecipe {
 
     private final ItemStack input;
@@ -19,6 +21,7 @@ public class CompactorRecipe extends ProcessingRecipe {
     }
 
     @Override
+    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return RecipeRegistry.COMPACTOR_SERIALIZER.get();
     }

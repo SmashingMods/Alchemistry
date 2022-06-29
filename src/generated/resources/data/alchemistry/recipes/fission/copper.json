@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:copper"
+  },
+  "output1": {
+    "item": "chemlib:phosphorus"
+  },
+  "output2": {
+    "item": "chemlib:silicon"
+  }
+}

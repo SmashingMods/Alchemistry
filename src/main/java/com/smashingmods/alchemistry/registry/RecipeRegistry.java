@@ -15,6 +15,8 @@ import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipe;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -62,10 +64,10 @@ public class RecipeRegistry {
     public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
-    private static final Map<RecipeType<? extends ProcessingRecipe>, List<? extends ProcessingRecipe>> recipesMap = new HashMap<>();
+    private static final Map<RecipeType<? extends Recipe<Inventory>>, List<? extends Recipe<Inventory>>> recipesMap = new HashMap<>();
 
     @SuppressWarnings("unchecked")
-    public static <T extends ProcessingRecipe> List<T> getRecipesByType(RecipeType<T> pRecipeType, Level pLevel) {
+    public static <T extends Recipe<Inventory>> List<T> getRecipesByType(RecipeType<T> pRecipeType, Level pLevel) {
         if (recipesMap.get(pRecipeType) == null) {
             List<T> recipes = pLevel.getRecipeManager().getRecipes().stream()
                     .filter(recipe -> recipe.getType().equals(pRecipeType))

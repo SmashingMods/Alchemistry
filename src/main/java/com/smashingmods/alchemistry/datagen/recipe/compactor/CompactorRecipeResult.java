@@ -10,6 +10,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
+
 public class CompactorRecipeResult implements FinishedRecipe {
 
     private final String group;
@@ -34,7 +36,8 @@ public class CompactorRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    public void serializeRecipeData(JsonObject pJson) {
+    @Nonnull
+    public void serializeRecipeData(@Nonnull JsonObject pJson) {
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
@@ -43,23 +46,25 @@ public class CompactorRecipeResult implements FinishedRecipe {
     }
 
     @Override
+    @Nonnull
     public ResourceLocation getId() {
         return recipeId;
     }
 
     @Override
+    @Nonnull
     public RecipeSerializer<?> getType() {
         return RecipeRegistry.COMPACTOR_SERIALIZER.get();
     }
 
-    @Nullable
     @Override
+    @Nullable
     public JsonObject serializeAdvancement() {
         return advancementBuilder.serializeToJson();
     }
 
-    @Nullable
     @Override
+    @Nullable
     public ResourceLocation getAdvancementId() {
         return advancementId;
     }

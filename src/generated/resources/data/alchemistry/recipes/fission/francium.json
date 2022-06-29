@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:francium"
+  },
+  "output1": {
+    "item": "chemlib:ruthenium"
+  },
+  "output2": {
+    "item": "chemlib:technetium"
+  }
+}

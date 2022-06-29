@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:hafnium"
+  },
+  "output1": {
+    "item": "chemlib:krypton"
+  },
+  "output2": {
+    "item": "chemlib:krypton"
+  }
+}

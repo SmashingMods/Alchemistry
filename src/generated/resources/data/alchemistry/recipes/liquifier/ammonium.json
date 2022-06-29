@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:ammonium"
+    "item": "chemlib:ammonium",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:ammonium_source",

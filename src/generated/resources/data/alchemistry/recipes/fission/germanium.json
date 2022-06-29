@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:germanium"
+  },
+  "output1": {
+    "item": "chemlib:sulfur"
+  },
+  "output2": {
+    "item": "chemlib:sulfur"
+  }
+}

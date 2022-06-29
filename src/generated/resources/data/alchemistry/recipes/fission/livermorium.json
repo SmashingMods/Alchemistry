@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:livermorium"
+  },
+  "output1": {
+    "item": "chemlib:cerium"
+  },
+  "output2": {
+    "item": "chemlib:cerium"
+  }
+}

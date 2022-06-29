@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:zirconium"
+  },
+  "output1": {
+    "item": "chemlib:calcium"
+  },
+  "output2": {
+    "item": "chemlib:calcium"
+  }
+}

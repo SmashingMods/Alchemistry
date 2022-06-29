@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:oxygen"
+  },
+  "output1": {
+    "item": "chemlib:beryllium"
+  },
+  "output2": {
+    "item": "chemlib:beryllium"
+  }
+}

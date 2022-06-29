@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:iodine"
+  },
+  "output1": {
+    "item": "chemlib:cobalt"
+  },
+  "output2": {
+    "item": "chemlib:iron"
+  }
+}

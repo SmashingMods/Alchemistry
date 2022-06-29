@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:mendelevium"
+  },
+  "output1": {
+    "item": "chemlib:antimony"
+  },
+  "output2": {
+    "item": "chemlib:tin"
+  }
+}

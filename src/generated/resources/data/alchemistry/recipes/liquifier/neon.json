@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:neon"
+    "item": "chemlib:neon",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:neon_source",

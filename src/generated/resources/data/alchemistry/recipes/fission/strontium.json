@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:strontium"
+  },
+  "output1": {
+    "item": "chemlib:potassium"
+  },
+  "output2": {
+    "item": "chemlib:potassium"
+  }
+}

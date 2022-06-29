@@ -84,7 +84,7 @@ dependencies {
     //implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     // at runtime, use the full JEI jar
     implementation fg.deobf("mezz.jei:jei-${jei_version}")
-    implementation fg.deobf("com.smashingmods:ChemLib:$chemlib_version")
+    implementation fg.deobf("curse.maven:chemlib-${chemlib_pid}:${chemlib_fid}")
     implementation fg.deobf("curse.maven:mekanism-268560:3743835")
 }
 

@@ -1,13 +1,15 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.common.block.oldblocks.dissolver.DissolverTagData;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverTagData;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
+import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
+import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -25,18 +27,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.set;
-import static com.smashingmods.alchemistry.datagen.CustomRecipeProvider.metalTagData;
 import static com.smashingmods.alchemistry.utils.StackUtils.toStack;
 
 public class DissolverRecipeProvider {
 
     private final Consumer<FinishedRecipe> consumer;
+    public static List<DissolverTagData> metalTagData = new ArrayList<>();
+    public static List<String> metals = new ArrayList<>();
 
     public DissolverRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
         this.consumer = pConsumer;
+        initializeMetals();
+    }
+
+    private void initializeMetals() {
+        metals.addAll(ItemRegistry.getElements().stream()
+                .filter(element -> element.getMetalType().equals(MetalType.METAL))
+                .map(ElementItem::getChemicalName).collect(Collectors.toList()));
+
+        metalTagData.add(new DissolverTagData("ingots", 16, metals));
+        metalTagData.add(new DissolverTagData("ores", 32, metals));
+        metalTagData.add(new DissolverTagData("dusts", 16, metals));
+        metalTagData.add(new DissolverTagData("storage_blocks", 144, metals));
+        metalTagData.add(new DissolverTagData("nuggets", 1, metals));
+        metalTagData.add(new DissolverTagData("plates", 16, metals));
     }
 
     private void dissolver(IngredientStack pStack, ProbabilitySet pSet, boolean pReversible) {
@@ -235,10 +253,10 @@ public class DissolverRecipeProvider {
 //        dissolver("forge:storage_blocks/quartz", set().addGroup(toStack("barium", 16 * 4), toStack("silicon_dioxide", 32 * 4)) .build());
 //        dissolver("forge:slimeballs", set().addGroup(toStack("protein", 2), toStack("sucrose", 2)).build());
 //
-//        for (ElementItem element : ItemRegistry.ELEMENTS) {
-//            Item ingot = ForgeRegistries.ITEMS.getValue(new ResourceLocation("chemlib", "ingot_" + element.getName()));
+//        for (ElementItem element : ItemRegistry.getElements()) {
+//            Item ingot = ForgeRegistries.ITEMS.getValue(new ResourceLocation("chemlib", "ingot_" + element.getChemicalName()));
 //            if (ingot != Items.AIR) {
-//                dissolver("forge:ingots/" + element.getName(), set().addGroup(1, new ItemStack(element, 16)).build());
+//                dissolver("forge:ingots/" + element.getChemicalName(), set().addGroup(1, new ItemStack(element, 16)).build());
 //            }
 //        }
 //
@@ -916,7 +934,7 @@ public class DissolverRecipeProvider {
 //
 //        dissolver(Items.SWEET_BERRIES, set().addGroup(1, toStack("cellulose"), toStack("sucrose")).build());
 //
-//        for (CompoundItem compound : ItemRegistry.COMPOUNDS) {
+//        for (CompoundItem compound : ItemRegistry.getCompounds()) {
 //            List<ItemStack> outputs = new ArrayList<>();
 //
 //            Map<String, Integer> components = compound.getComponents();
@@ -948,7 +966,7 @@ public class DissolverRecipeProvider {
 //        dissolver(Items.INK_SAC, set().addGroup(1, toStack("titanium_oxide", 4)).build());
 //
 //        for (DissolverTagData data : metalTagData) {
-//            for (int i = 0; i < data.strs.size(); i++) {
+//            for (int i = 0; i < data.getStrings().size(); i++) {
 //                dissolver(data.toForgeTag(i), set().addGroup(1, data.getStack(i)).build());
 //            }
 //        }

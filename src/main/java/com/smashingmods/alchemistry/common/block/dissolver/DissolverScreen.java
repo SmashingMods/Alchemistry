@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Inventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +50,6 @@ public class DissolverScreen extends AbstractAlchemistryScreen<DissolverMenu> {
     @Override
     protected void renderLabels(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.dissolver");
-        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, Color.WHITE.getRGB());
+        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

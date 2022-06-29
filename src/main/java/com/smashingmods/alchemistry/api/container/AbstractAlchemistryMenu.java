@@ -74,6 +74,14 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         return copyStack;
     }
 
+    protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pXOrigin, int pYOrigin) {
+        addSlots(pSlotType, pContainer, 1, 1, 0, 1, pXOrigin, pYOrigin);
+    }
+
+    protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pStartIndex, int pTotalSlots, int pXOrigin, int pYOrigin) {
+        addSlots(pSlotType, pContainer, 1, 1, pStartIndex, pTotalSlots, pXOrigin, pYOrigin);
+    }
+
     protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pRows, int pColumns, int pStartIndex, int pTotalSlots, int pXOrigin, int pYOrigin) {
 
         for (int row = 0; row < pRows; row++) {

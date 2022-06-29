@@ -28,9 +28,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +48,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(getOutputHandler());
 
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
-    LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
+    private final LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
 
     private final CustomEnergyStorage energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
@@ -153,7 +153,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     public ModItemStackHandler initializeOutputHandler() {
         return new ModItemStackHandler(this, 1) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;
             }
         };
@@ -172,8 +172,8 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
-            @NotNull
             @Override
+            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
             }
@@ -183,8 +183,8 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
-            @NotNull
             @Override
+            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (!getStackInSlot(pSlot).isEmpty()) {
                     return super.extractItem(pSlot, pAmount, pSimulate);
@@ -200,9 +200,9 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
         return combinedInvWrapper;
     }
 
-    @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction pDirection) {
+    @Nonnull
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {
@@ -227,7 +227,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void load(CompoundTag pTag) {
+    public void load(@Nonnull CompoundTag pTag) {
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));
@@ -237,7 +237,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, @Nonnull Inventory pInventory, @Nonnull Player pPlayer) {
         return new CompactorMenu(pContainerId, pInventory, this, this.data);
     }
 }

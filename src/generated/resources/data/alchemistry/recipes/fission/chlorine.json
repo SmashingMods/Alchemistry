@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:chlorine"
+  },
+  "output1": {
+    "item": "chemlib:fluorine"
+  },
+  "output2": {
+    "item": "chemlib:oxygen"
+  }
+}

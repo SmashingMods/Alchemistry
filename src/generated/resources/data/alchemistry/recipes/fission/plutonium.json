@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:plutonium"
+  },
+  "output1": {
+    "item": "chemlib:silver"
+  },
+  "output2": {
+    "item": "chemlib:silver"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:moscovium"
+  },
+  "output1": {
+    "item": "chemlib:cerium"
+  },
+  "output2": {
+    "item": "chemlib:lanthanum"
+  }
+}

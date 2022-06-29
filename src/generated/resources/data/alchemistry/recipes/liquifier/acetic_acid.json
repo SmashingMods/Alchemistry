@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:acetic_acid"
+    "item": "chemlib:acetic_acid",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:acetic_acid_source",

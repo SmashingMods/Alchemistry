@@ -50,6 +50,6 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.compactor");
-        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, ChatFormatting.WHITE.getColor());
+        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

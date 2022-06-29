@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.block.compactor;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
@@ -15,6 +14,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class CompactorMenu extends AbstractAlchemistryMenu {
@@ -30,9 +30,9 @@ public class CompactorMenu extends AbstractAlchemistryMenu {
         ModItemStackHandler inputHandler = blockEntity.getInputHandler();
         ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
-        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 51, 35);
-        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 1, inputHandler.getSlots(), 80, 12);
-        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 111, 35);
+        addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 51, 35);
+        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 80, 12);
+        addSlots(SlotItemHandler::new, outputHandler, 111, 35);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CompactorMenu extends AbstractAlchemistryMenu {
     }
 
     @Override
-    public boolean stillValid(Player pPlayer) {
+    public boolean stillValid(@Nonnull Player pPlayer) {
         Objects.requireNonNull(this.getBlockEntity().getLevel());
         return stillValid(ContainerLevelAccess.create(getBlockEntity().getLevel(), getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.COMPACTOR.get());
     }

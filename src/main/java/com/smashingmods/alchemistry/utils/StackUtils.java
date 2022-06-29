@@ -14,20 +14,6 @@ import java.util.Optional;
 
 public class StackUtils {
 
-    public static ItemStack atomicNumToStack(int atomicNumber) {
-        return new ItemStack(ItemRegistry.getElementByAtomicNumber(atomicNumber).get());
-    }
-
-    public static boolean canStacksMerge(ItemStack origin, ItemStack target, boolean stacksCanbeEmpty) {
-        if (stacksCanbeEmpty && (target.isEmpty() || origin.isEmpty())) return true;
-        else {
-            return origin.getItem() == target.getItem()
-                    && origin.getCount() + target.getCount() <= origin.getMaxStackSize()
-                    && origin.isStackable() && target.isStackable()
-                    && origin.getTag() == target.getTag();
-        }
-    }
-
     public static ItemStack toStack(String pString) {
         return toStack(pString, 1);
     }

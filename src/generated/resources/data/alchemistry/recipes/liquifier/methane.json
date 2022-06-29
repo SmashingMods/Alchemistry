@@ -2,7 +2,8 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:methane"
+    "item": "chemlib:methane",
+    "count": 8
   },
   "result": {
     "fluid": "chemlib:methane_source",

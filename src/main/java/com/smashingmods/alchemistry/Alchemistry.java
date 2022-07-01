@@ -81,6 +81,7 @@ public class Alchemistry {
         RecipeRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
         RecipeRegistry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");
         RecipeRegistry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
+        RecipeRegistry.FUSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fusion");
         RecipeRegistry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");
     }
 }

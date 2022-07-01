@@ -26,15 +26,15 @@ public class FusionControllerMenu extends AbstractAlchemistryMenu {
     }
 
     protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 3);
+        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 3);
         this.containerData = pContainerData;
 
         FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) pBlockEntity;
         ModItemStackHandler inputHandler = blockEntity.getInputHandler();
         ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
-        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 44, 35);
-        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 44, 35);
+        addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 44, 35);
+        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 62, 35);
         addSlots(SlotItemHandler::new, outputHandler, 134, 35);
     }
 

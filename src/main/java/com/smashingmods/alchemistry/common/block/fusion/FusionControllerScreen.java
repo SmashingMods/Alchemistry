@@ -21,7 +21,7 @@ public class FusionControllerScreen extends AbstractAlchemistryScreen<FusionCont
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
 
-        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 74, 39, 60, 9, Direction2D.RIGHT));
+        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 92, 39, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 17, 16, 16, 54));
     }
 

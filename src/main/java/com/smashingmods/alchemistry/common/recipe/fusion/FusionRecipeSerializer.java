@@ -46,7 +46,7 @@ public class FusionRecipeSerializer<T extends FusionRecipe> extends ForgeRegistr
         pBuffer.writeUtf(pRecipe.getGroup());
         pBuffer.writeItem(pRecipe.getInput1());
         pBuffer.writeItem(pRecipe.getInput2());
-        pBuffer.writeItem(pRecipe.getResultItem());
+        pBuffer.writeItem(pRecipe.getOutput());
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {

@@ -11,7 +11,6 @@ import net.minecraft.world.item.Item;
 import java.util.*;
 import java.util.function.Consumer;
 
-
 public class FusionRecipeProvider {
 
     Consumer<FinishedRecipe> consumer;
@@ -21,10 +20,11 @@ public class FusionRecipeProvider {
     }
 
     public void register() {
+        List<ElementItem> elements = ItemRegistry.getElements();
 
-        for (int x = 1; x < 118; x++) {
-            for (int y = 1; y < 118; y++) {
-                if ((x + y) <= 118) {
+        for (int x = 1; x < elements.size(); x++) {
+            for (int y = 1; y < elements.size(); y++) {
+                if ((x + y) < elements.size()) {
                     Optional<ElementItem> input1 = ItemRegistry.getElementByAtomicNumber(x);
                     Optional<ElementItem> input2 = ItemRegistry.getElementByAtomicNumber(y);
                     Optional<ElementItem> output = ItemRegistry.getElementByAtomicNumber(x + y);

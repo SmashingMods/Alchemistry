@@ -4,7 +4,6 @@ import com.smashingmods.alchemistry.common.block.atomizer.AtomizerScreen;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerScreen;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorScreen;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
-import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
@@ -58,7 +57,6 @@ public class Alchemistry {
             MenuScreens.register(MenuRegistry.COMPACTOR_MENU.get(), CompactorScreen::new);
             MenuScreens.register(MenuRegistry.COMBINER_MENU.get(), CombinerScreen::new);
             MenuScreens.register(MenuRegistry.DISSOLVER_MENU.get(), DissolverScreen::new);
-            MenuScreens.register(MenuRegistry.EVAPORATOR_MENU.get(), EvaporatorScreen::new);
             MenuScreens.register(MenuRegistry.LIQUIFIER_MENU.get(), LiquifierScreen::new);
             MenuScreens.register(MenuRegistry.FISSION_CONTROLLER_MENU.get(), FissionControllerScreen::new);
             MenuScreens.register(MenuRegistry.FUSION_CONTROLLER_MENU.get(), FusionControllerScreen::new);
@@ -66,7 +64,6 @@ public class Alchemistry {
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ATOMIZER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.COMBINER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.DISSOLVER.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.EVAPORTOR.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LIQUIFIER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FISSION_CONTROLLER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FUSION_CONTROLLER.get(), RenderType.translucent());
@@ -79,7 +76,6 @@ public class Alchemistry {
         RecipeRegistry.COMPACTOR_TYPE = RecipeType.register(Alchemistry.MODID + ":compactor");
         RecipeRegistry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
         RecipeRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
-        RecipeRegistry.EVAPORATOR_TYPE = RecipeType.register(Alchemistry.MODID + ":evaporator");
         RecipeRegistry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
         RecipeRegistry.FUSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fusion");
         RecipeRegistry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");

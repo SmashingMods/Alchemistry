@@ -4,7 +4,6 @@ import com.smashingmods.alchemistry.common.block.atomizer.AtomizerMenu;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
-import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorMenu;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierMenu;
@@ -26,7 +25,6 @@ public class MenuRegistry {
     public static final RegistryObject<MenuType<CompactorMenu>> COMPACTOR_MENU = registerMenuType(CompactorMenu::new, "compactor_menu");
     public static final RegistryObject<MenuType<CombinerMenu>> COMBINER_MENU = registerMenuType(CombinerMenu::new, "combiner_menu");
     public static final RegistryObject<MenuType<DissolverMenu>> DISSOLVER_MENU = registerMenuType(DissolverMenu::new, "dissolver_menu");
-    public static final RegistryObject<MenuType<EvaporatorMenu>> EVAPORATOR_MENU = registerMenuType(EvaporatorMenu::new, "evaporator_menu");
     public static final RegistryObject<MenuType<LiquifierMenu>> LIQUIFIER_MENU = registerMenuType(LiquifierMenu::new, "liquifier_menu");
     public static final RegistryObject<MenuType<FissionControllerMenu>> FISSION_CONTROLLER_MENU = registerMenuType(FissionControllerMenu::new, "fission_controller_menu");
     public static final RegistryObject<MenuType<FusionControllerMenu>> FUSION_CONTROLLER_MENU = registerMenuType(FusionControllerMenu::new, "fusion_controller_menu");

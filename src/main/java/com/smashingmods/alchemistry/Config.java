@@ -25,7 +25,6 @@ public class Config {
         private static final String categoryCompactor = "compactor";
         private static final String categoryCombiner = "combiner";
         private static final String categoryDissolver = "dissolver";
-        private static final String categoryEvaporator = "evaporator";
         private static final String categoryLiquifier = "liquifier";
         private static final String categoryFission = "fission";
         private static final String categoryFusion = "fusion";
@@ -46,8 +45,6 @@ public class Config {
         public static IntValue dissolverEnergyCapacity;
         public static IntValue dissolverEnergyPerTick;
         public static IntValue dissolverTicksPerOperation;
-
-        public static IntValue evaporatorTicksPerOperation;
 
         public static IntValue liquifierEnergyCapacity;
         public static IntValue liquifierEnergyPerTick;
@@ -126,13 +123,6 @@ public class Config {
                     .comment("Ticks per operation when using the Dissolver.")
                     .comment("Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
-            builder.pop();
-
-            builder.comment("Chemical Evaporator").push(categoryEvaporator);
-            evaporatorTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Evaporator.")
-                    .comment("Default: 160")
-                    .defineInRange("ticksPerOperation", 160, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Chemical Liquifier").push(categoryLiquifier);

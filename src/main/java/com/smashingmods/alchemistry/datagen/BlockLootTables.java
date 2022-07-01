@@ -11,18 +11,7 @@ public class BlockLootTables extends BlockLoot {
 
     @Override
     protected void addTables() {
-        this.dropSelf(BlockRegistry.ATOMIZER.get());
-        this.dropSelf(BlockRegistry.COMPACTOR.get());
-        this.dropSelf(BlockRegistry.COMBINER.get());
-        this.dropSelf(BlockRegistry.DISSOLVER.get());
-        this.dropSelf(BlockRegistry.EVAPORTOR.get());
-        this.dropSelf(BlockRegistry.LIQUIFIER.get());
-        this.dropSelf(BlockRegistry.FISSION_CONTROLLER.get());
-        this.dropSelf(BlockRegistry.REACTOR_CASING.get());
-        this.dropSelf(BlockRegistry.FISSION_CORE.get());
-        this.dropSelf(BlockRegistry.FUSION_CONTROLLER.get());
-        this.dropSelf(BlockRegistry.REACTOR_CASING.get());
-        this.dropSelf(BlockRegistry.FUSION_CORE.get());
+        BlockRegistry.BLOCKS.getEntries().forEach(registryObject -> dropSelf(registryObject.get()));
     }
 
     @Override

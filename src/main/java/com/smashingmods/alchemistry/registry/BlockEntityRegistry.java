@@ -4,7 +4,6 @@ import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
-import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorBlockEntity;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
@@ -35,10 +34,6 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<DissolverBlockEntity>> DISSOLVER_BLOCK_ENTITY
             = BLOCK_ENTITIES.register("dissolver_block_entity",
             () -> BlockEntityType.Builder.of(DissolverBlockEntity::new, BlockRegistry.DISSOLVER.get()).build(null));
-
-    public static final RegistryObject<BlockEntityType<EvaporatorBlockEntity>> EVAPORATOR_BLOCK_ENTITY
-            = BLOCK_ENTITIES.register("evaporator_block_entity",
-            () -> BlockEntityType.Builder.of(EvaporatorBlockEntity::new, BlockRegistry.EVAPORTOR.get()).build(null));
 
     public static final RegistryObject<BlockEntityType<LiquifierBlockEntity>> LIQUIFIER_BLOCK_ENTITY
             = BLOCK_ENTITIES.register("liquifier_block_entity",

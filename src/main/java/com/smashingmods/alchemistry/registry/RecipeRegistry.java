@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.registry;
 
-import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -8,13 +7,11 @@ import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipeSeriali
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipeSerializer;
-import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
-import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipe;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import net.minecraft.world.entity.player.Inventory;
@@ -41,7 +38,6 @@ public class RecipeRegistry {
     public static RecipeType<CompactorRecipe> COMPACTOR_TYPE;
     public static RecipeType<CombinerRecipe> COMBINER_TYPE;
     public static RecipeType<DissolverRecipe> DISSOLVER_TYPE;
-    public static RecipeType<EvaporatorRecipe> EVAPORATOR_TYPE;
     public static RecipeType<FissionRecipe> FISSION_TYPE;
     public static RecipeType<FusionRecipe> FUSION_TYPE;
     public static RecipeType<LiquifierRecipe> LIQUIFIER_TYPE;
@@ -57,9 +53,6 @@ public class RecipeRegistry {
 
     public static final RegistryObject<DissolverRecipeSerializer<DissolverRecipe>> DISSOLVER_SERIALIZER
             = SERIALIZERS.register("dissolver", () -> new DissolverRecipeSerializer<>(DissolverRecipe::new));
-
-    public static final RegistryObject<EvaporatorRecipeSerializer<EvaporatorRecipe>> EVAPORATOR_SERIALIZER
-            = SERIALIZERS.register("evaporator", () -> new EvaporatorRecipeSerializer<>(EvaporatorRecipe::new));
 
     public static final RegistryObject<FissionRecipeSerializer<FissionRecipe>> FISSION_SERIALIZER
             = SERIALIZERS.register("fission", () -> new FissionRecipeSerializer<>(FissionRecipe::new));

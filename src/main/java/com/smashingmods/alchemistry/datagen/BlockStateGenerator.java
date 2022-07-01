@@ -33,13 +33,11 @@ public class BlockStateGenerator extends BlockStateProvider {
         ModelFile atomizerModel = new ModelFile.ExistingModelFile(modLoc("block/atomizer"), models().existingFileHelper);
         ModelFile combinerModel = new ModelFile.ExistingModelFile(modLoc("block/combiner"), models().existingFileHelper);
         ModelFile dissolverModel = new ModelFile.ExistingModelFile(modLoc("block/dissolver"), models().existingFileHelper);
-        ModelFile evaporatorModel = new ModelFile.ExistingModelFile(modLoc("block/evaporator"), models().existingFileHelper);
         ModelFile liquifierModel = new ModelFile.ExistingModelFile(modLoc("block/liquifier"), models().existingFileHelper);
 
         registerMachineModel(BlockRegistry.ATOMIZER, atomizerModel);
         registerMachineModel(BlockRegistry.COMBINER, combinerModel);
         registerMachineModel(BlockRegistry.DISSOLVER, dissolverModel);
-        registerMachineModel(BlockRegistry.EVAPORTOR, evaporatorModel);
         registerMachineModel(BlockRegistry.LIQUIFIER, liquifierModel);
 
         registerAxisBlock(BlockRegistry.FISSION_CORE);

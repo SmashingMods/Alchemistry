@@ -4,7 +4,6 @@ import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlock;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlock;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlock;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlock;
-import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorBlock;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlock;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlock;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlock;
@@ -26,7 +25,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> COMPACTOR = BLOCKS.register("compactor", CompactorBlock::new);
     public static final RegistryObject<Block> COMBINER = BLOCKS.register("combiner", CombinerBlock::new);
     public static final RegistryObject<Block> DISSOLVER = BLOCKS.register("dissolver", DissolverBlock::new);
-    public static final RegistryObject<Block> EVAPORTOR = BLOCKS.register("evaporator", EvaporatorBlock::new);
     public static final RegistryObject<Block> LIQUIFIER = BLOCKS.register("liquifier", LiquifierBlock::new);
     public static final RegistryObject<Block> FISSION_CONTROLLER = BLOCKS.register("fission_controller", FissionControllerBlock::new);
     public static final RegistryObject<Block> FUSION_CONTROLLER = BLOCKS.register("fusion_controller", FusionControllerBlock::new);

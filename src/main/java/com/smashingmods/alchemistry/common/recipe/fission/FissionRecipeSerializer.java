@@ -27,7 +27,7 @@ public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegis
         ItemStack input = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input"));
         ItemStack output1 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("output1"));
         ItemStack output2 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("output2"));
-        return this.factory.create(pRecipeId, group, input, output1, output2);
+        return factory.create(pRecipeId, group, input, output1, output2);
     }
 
     @Override
@@ -36,18 +36,18 @@ public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegis
         ItemStack input = pBuffer.readItem();
         ItemStack output1 = pBuffer.readItem();
         ItemStack output2 = pBuffer.readItem();
-        return this.factory.create(pRecipeId, group, input, output1, output2);
+        return factory.create(pRecipeId, group, input, output1, output2);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf buffer, T recipe) {
-        buffer.writeUtf(recipe.getGroup());
-        buffer.writeItem(recipe.getInput());
-        buffer.writeItem(recipe.getOutput().get(0));
-        buffer.writeItem(recipe.getOutput().get(1));
+    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
+        pBuffer.writeUtf(pRecipe.getGroup());
+        pBuffer.writeItem(pRecipe.getInput());
+        pBuffer.writeItem(pRecipe.getOutput1());
+        pBuffer.writeItem(pRecipe.getOutput2());
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {
-        T create(ResourceLocation pId, String pgroup, ItemStack pInput, ItemStack pOutput1, ItemStack pOutput2);
+        T create(ResourceLocation pId, String pGroup, ItemStack pInput, ItemStack pOutput1, ItemStack pOutput2);
     }
 }

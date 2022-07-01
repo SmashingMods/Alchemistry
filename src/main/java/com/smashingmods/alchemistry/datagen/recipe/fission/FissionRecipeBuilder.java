@@ -47,7 +47,7 @@ public class FissionRecipeBuilder implements RecipeBuilder {
 
         Objects.requireNonNull(input.getRegistryName());
 
-        this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
+        advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, input.getRegistryName().getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
@@ -68,9 +68,8 @@ public class FissionRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @Nonnull ResourceLocation pRecipeId) {
-        String advancementPath = String.format("recipes/fission/%s", pRecipeId.getPath());
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fission/%s", pRecipeId.getPath()));
-        ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, advancementPath);
+        ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fission/%s", pRecipeId.getPath()));
 
         pFinishedRecipeConsumer.accept(new FissionRecipeResult(
                 group,

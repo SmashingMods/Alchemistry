@@ -1,10 +1,9 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
     "textures": {
-        "particle": "alchemistry:blocks/dark_block",
-        "dull_blue": "alchemistry:blocks/dull_blue",
-        "dark_block": "alchemistry:blocks/dark_block",
-        "light_gray": "alchemistry:blocks/light_gray"
+        "particle": "alchemistry:block/dark_block",
+        "dull_blue": "alchemistry:block/dull_blue",
+        "dark_block": "alchemistry:block/dark_block",
+        "light_gray": "alchemistry:block/light_gray"
     },
     "display": {
         "gui": {

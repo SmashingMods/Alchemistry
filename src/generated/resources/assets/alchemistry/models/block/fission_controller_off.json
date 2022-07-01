@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "alchemistry:block/fission_controller_end",
+    "up": "alchemistry:block/fission_controller_end",
+    "north": "alchemistry:block/fission_controller_off",
+    "south": "alchemistry:block/fission_controller_end",
+    "east": "alchemistry:block/fission_controller_side",
+    "west": "alchemistry:block/fission_controller_side"
+  }
+}

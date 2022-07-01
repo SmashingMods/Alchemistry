@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:boron"
+  },
+  "input2": {
+    "item": "chemlib:lanthanum"
+  },
+  "output": {
+    "item": "chemlib:samarium"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:technetium"
+  },
+  "input2": {
+    "item": "chemlib:lutetium"
+  },
+  "output": {
+    "item": "chemlib:flerovium"
+  }
+}

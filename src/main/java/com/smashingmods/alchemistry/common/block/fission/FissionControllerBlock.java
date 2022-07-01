@@ -2,7 +2,8 @@ package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.PowerStatus;
+import com.smashingmods.alchemistry.api.blockentity.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -38,7 +39,7 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
         super(FissionControllerBlockEntity::new);
     }
 
-    public static final EnumProperty<PowerStatus> STATUS = EnumProperty.create("status", PowerStatus.class, PowerStatus.values());
+    public static final EnumProperty<PowerState> STATUS = PowerStateProperty.STATUS;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     @Override
@@ -51,7 +52,7 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState()
                 .setValue(FACING, pContext.getHorizontalDirection().getOpposite())
-                .setValue(STATUS, PowerStatus.OFF);
+                .setValue(STATUS, PowerState.OFF);
     }
 
     @Override

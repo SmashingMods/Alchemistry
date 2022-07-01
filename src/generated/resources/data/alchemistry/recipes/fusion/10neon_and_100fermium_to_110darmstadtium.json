@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:neon"
+  },
+  "input2": {
+    "item": "chemlib:fermium"
+  },
+  "output": {
+    "item": "chemlib:darmstadtium"
+  }
+}

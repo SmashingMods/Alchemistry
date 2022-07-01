@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:fluorine"
+  },
+  "input2": {
+    "item": "chemlib:plutonium"
+  },
+  "output": {
+    "item": "chemlib:lawrencium"
+  }
+}

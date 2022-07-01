@@ -9,9 +9,8 @@
     "alchemistry:liquifier",
     "alchemistry:fission_controller",
     "alchemistry:fusion_controller",
-    "alchemistry:fission_casing",
+    "alchemistry:reactor_casing",
     "alchemistry:fission_core",
-    "alchemistry:fusion_casing",
     "alchemistry:fusion_core"
   ]
 }

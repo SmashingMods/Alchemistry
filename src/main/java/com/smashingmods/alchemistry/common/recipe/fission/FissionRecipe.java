@@ -12,25 +12,21 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.List;
 
 public class FissionRecipe implements Recipe<Inventory> {
 
     private final ResourceLocation recipeId;
     private final String group;
     private final ItemStack input;
-    private final List<ItemStack> output;
+    private final ItemStack output1;
+    private final ItemStack output2;
 
     public FissionRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, ItemStack pOutput1, ItemStack pOutput2) {
-        this(pId, pGroup, pInput, Arrays.asList(pOutput1, pOutput2));
-    }
-
-    private FissionRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, List<ItemStack> pOutput) {
         this.recipeId = pId;
         this.group = pGroup;
         this.input = pInput;
-        this.output = pOutput;
+        this.output1 = pOutput1;
+        this.output2 = pOutput2;
     }
 
     @Override
@@ -65,7 +61,7 @@ public class FissionRecipe implements Recipe<Inventory> {
     @Override
     @Nonnull
     public ItemStack assemble(@Nonnull Inventory pContainer) {
-        return output.get(0).copy();
+        return output1;
     }
 
     @Override
@@ -89,7 +85,11 @@ public class FissionRecipe implements Recipe<Inventory> {
         return input;
     }
 
-    public List<ItemStack> getOutput() {
-        return output;
+    public ItemStack getOutput1() {
+        return output1;
+    }
+
+    public ItemStack getOutput2() {
+        return output2;
     }
 }

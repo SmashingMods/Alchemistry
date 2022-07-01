@@ -8,11 +8,10 @@ import com.smashingmods.alchemistry.common.block.evaporator.EvaporatorBlock;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlock;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlock;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlock;
-import com.smashingmods.alchemistry.common.block.fission.FissionCasingBlock;
-import com.smashingmods.alchemistry.common.block.fission.FissionCoreBlock;
-import com.smashingmods.alchemistry.common.block.fusion.FusionCasingBlock;
-import com.smashingmods.alchemistry.common.block.fusion.FusionCoreBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,11 +30,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> LIQUIFIER = BLOCKS.register("liquifier", LiquifierBlock::new);
     public static final RegistryObject<Block> FISSION_CONTROLLER = BLOCKS.register("fission_controller", FissionControllerBlock::new);
     public static final RegistryObject<Block> FUSION_CONTROLLER = BLOCKS.register("fusion_controller", FusionControllerBlock::new);
-
-    public static final RegistryObject<Block> FISSION_CASING_BLOCK = BLOCKS.register("fission_casing", FissionCasingBlock::new);
-    public static final RegistryObject<Block> FISSION_CORE_BLOCK = BLOCKS.register("fission_core", FissionCoreBlock::new);
-    public static final RegistryObject<Block> FUSION_CASING_BLOCK = BLOCKS.register("fusion_casing", FusionCasingBlock::new);
-    public static final RegistryObject<Block> FUSION_CORE_BLOCK = BLOCKS.register("fusion_core", FusionCoreBlock::new);
+    public static final RegistryObject<Block> REACTOR_CASING = BLOCKS.register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
+    public static final RegistryObject<RotatedPillarBlock> FISSION_CORE = BLOCKS.register("fission_core", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
+    public static final RegistryObject<RotatedPillarBlock> FUSION_CORE = BLOCKS.register("fusion_core", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

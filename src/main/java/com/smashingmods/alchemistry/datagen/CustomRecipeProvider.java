@@ -5,6 +5,7 @@ import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeProvid
 import com.smashingmods.alchemistry.datagen.recipe.compactor.CompactorRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.fission.FissionRecipeProvider;
+import com.smashingmods.alchemistry.datagen.recipe.fusion.FusionRecipeProvider;
 import com.smashingmods.alchemistry.datagen.recipe.liquifier.LiquifierRecipeProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -28,6 +29,7 @@ public class CustomRecipeProvider extends RecipeProvider {
         DissolverRecipeProvider dissolverRecipeProvider = new DissolverRecipeProvider(pConsumer);
         LiquifierRecipeProvider liquifierRecipeProvider = new LiquifierRecipeProvider(pConsumer);
         FissionRecipeProvider fissionRecipeProvider = new FissionRecipeProvider(pConsumer);
+        FusionRecipeProvider fusionRecipeProvider = new FusionRecipeProvider(pConsumer);
 
         atomizerRecipeProvider.register();
         compactorRecipeProvider.register();
@@ -35,5 +37,6 @@ public class CustomRecipeProvider extends RecipeProvider {
         dissolverRecipeProvider.register();
         liquifierRecipeProvider.register();
         fissionRecipeProvider.register();
+        fusionRecipeProvider.register();
     }
 }

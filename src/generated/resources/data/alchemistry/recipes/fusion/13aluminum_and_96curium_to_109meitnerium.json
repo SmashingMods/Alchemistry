@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:aluminum"
+  },
+  "input2": {
+    "item": "chemlib:curium"
+  },
+  "output": {
+    "item": "chemlib:meitnerium"
+  }
+}

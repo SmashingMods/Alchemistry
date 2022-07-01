@@ -10,6 +10,8 @@ import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipeSeria
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
+import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.evaporator.EvaporatorRecipe;
@@ -41,6 +43,7 @@ public class RecipeRegistry {
     public static RecipeType<DissolverRecipe> DISSOLVER_TYPE;
     public static RecipeType<EvaporatorRecipe> EVAPORATOR_TYPE;
     public static RecipeType<FissionRecipe> FISSION_TYPE;
+    public static RecipeType<FusionRecipe> FUSION_TYPE;
     public static RecipeType<LiquifierRecipe> LIQUIFIER_TYPE;
 
     public static final RegistryObject<AtomizerRecipeSerializer<AtomizerRecipe>> ATOMIZER_SERIALIZER
@@ -60,6 +63,9 @@ public class RecipeRegistry {
 
     public static final RegistryObject<FissionRecipeSerializer<FissionRecipe>> FISSION_SERIALIZER
             = SERIALIZERS.register("fission", () -> new FissionRecipeSerializer<>(FissionRecipe::new));
+
+    public static final RegistryObject<FusionRecipeSerializer<FusionRecipe>> FUSION_SERIALIZER
+            = SERIALIZERS.register("fusion", () -> new FusionRecipeSerializer<>(FusionRecipe::new));
 
     public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));

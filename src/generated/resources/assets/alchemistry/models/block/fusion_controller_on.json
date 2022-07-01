@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "alchemistry:block/fusion_controller_end",
+    "up": "alchemistry:block/fusion_controller_end",
+    "north": "alchemistry:block/fusion_controller_on",
+    "south": "alchemistry:block/fusion_controller_end",
+    "east": "alchemistry:block/fusion_controller_side",
+    "west": "alchemistry:block/fusion_controller_side"
+  }
+}

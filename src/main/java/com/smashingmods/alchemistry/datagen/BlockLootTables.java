@@ -18,11 +18,11 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.EVAPORTOR.get());
         this.dropSelf(BlockRegistry.LIQUIFIER.get());
         this.dropSelf(BlockRegistry.FISSION_CONTROLLER.get());
-        this.dropSelf(BlockRegistry.FISSION_CASING_BLOCK.get());
-        this.dropSelf(BlockRegistry.FISSION_CORE_BLOCK.get());
+        this.dropSelf(BlockRegistry.REACTOR_CASING.get());
+        this.dropSelf(BlockRegistry.FISSION_CORE.get());
         this.dropSelf(BlockRegistry.FUSION_CONTROLLER.get());
-        this.dropSelf(BlockRegistry.FUSION_CASING_BLOCK.get());
-        this.dropSelf(BlockRegistry.FUSION_CORE_BLOCK.get());
+        this.dropSelf(BlockRegistry.REACTOR_CASING.get());
+        this.dropSelf(BlockRegistry.FUSION_CORE.get());
     }
 
     @Override

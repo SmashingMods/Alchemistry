@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:oxygen"
+  },
+  "input2": {
+    "item": "chemlib:silicon"
+  },
+  "output": {
+    "item": "chemlib:titanium"
+  }
+}

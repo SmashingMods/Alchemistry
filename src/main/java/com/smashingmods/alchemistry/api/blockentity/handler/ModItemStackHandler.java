@@ -36,8 +36,11 @@ public class ModItemStackHandler extends ItemStackHandler {
 
     public void setOrIncrement(int slot, ItemStack stackToSet) {
         if (!stackToSet.isEmpty()) {
-            if (this.getStackInSlot(slot).isEmpty()) this.setStackInSlot(slot, stackToSet);
-            else this.incrementSlot(slot, stackToSet.getCount());
+            if (getStackInSlot(slot).isEmpty()) {
+                setStackInSlot(slot, stackToSet);
+            } else {
+                incrementSlot(slot, stackToSet.getCount());
+            }
         }
     }
 

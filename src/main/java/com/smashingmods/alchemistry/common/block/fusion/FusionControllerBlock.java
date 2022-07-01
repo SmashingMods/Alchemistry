@@ -1,49 +1,79 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
+import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
+import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class FusionControllerBlock extends AbstractAlchemistryBlock {
+
+    public static final EnumProperty<PowerState> STATUS = PowerStateProperty.STATUS;
+    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public FusionControllerBlock() {
         super(FusionControllerBlockEntity::new);
     }
 
     @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        pBuilder.add(STATUS, FACING);
+    }
+
+    @Override
+    @Nullable
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState()
+                .setValue(FACING, pContext.getHorizontalDirection().getOpposite())
+                .setValue(STATUS, PowerState.OFF);
+    }
+
+    @Override
+    public void appendHoverText(@Nonnull ItemStack pStack, @Nullable BlockGetter pLevel, @Nonnull List<Component> pTooltip, @Nonnull TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.Common.fusionEnergyPerTick.get()));
+    }
+
+    @Override
     @Nonnull
     @SuppressWarnings("deprecation")
-    public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, @Nonnull InteractionHand pHand, @Nonnull BlockHitResult pHit) {
+    public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, InteractionHand pHand, @Nonnull BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            boolean interactionSuccessful = true;
-
-            if (blockEntity instanceof FusionControllerBlockEntity) {
-                interactionSuccessful = ((FusionControllerBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
-            }
-
-            if (!interactionSuccessful) {
-                NetworkHooks.openGui(((ServerPlayer) pPlayer), (FusionControllerBlockEntity) blockEntity, pPos);
-            }
-            return InteractionResult.CONSUME;
+            NetworkHooks.openGui(((ServerPlayer) pPlayer), (FusionControllerBlockEntity) blockEntity, pPos);
+            return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;
     }
@@ -52,8 +82,8 @@ public class FusionControllerBlock extends AbstractAlchemistryBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
-                if (blockEntity instanceof FusionControllerBlockEntity) {
-                    FusionControllerBlockEntity.tick(level, pos, blockState, (FusionControllerBlockEntity) blockEntity);
+                if (blockEntity instanceof FusionControllerBlockEntity controller) {
+                    controller.tick(pLevel);
                 }
             };
         }

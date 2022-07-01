@@ -41,7 +41,7 @@ public class FissionRecipeResult implements FinishedRecipe {
 
     @Override
     public void serializeRecipeData(@Nonnull JsonObject pJson) {
-        if (!this.group.isEmpty()) {
+        if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
         DatagenUtil.itemStackToJson(pJson, "input", new ItemStack(input));

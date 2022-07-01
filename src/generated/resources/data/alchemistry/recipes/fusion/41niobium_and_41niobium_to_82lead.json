@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:niobium"
+  },
+  "input2": {
+    "item": "chemlib:niobium"
+  },
+  "output": {
+    "item": "chemlib:lead"
+  }
+}

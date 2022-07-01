@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "alchemistry:blocks/wet_sand"
+    "all": "alchemistry:block/wet_sand"
   }
 }

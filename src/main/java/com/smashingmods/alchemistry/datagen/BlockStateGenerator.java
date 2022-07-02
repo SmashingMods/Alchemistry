@@ -78,26 +78,26 @@ public class BlockStateGenerator extends BlockStateProvider {
         Block controller = pBlock.get();
         Objects.requireNonNull(controller.getRegistryName());
         String type = controller.getRegistryName().getPath().split("_")[0];
-
         ResourceLocation side = modLoc(String.format("block/%s_controller_side", type));
         ResourceLocation end = modLoc(String.format("block/%s_controller_end", type));
-        ResourceLocation off = modLoc(String.format("block/%s_controller_off", type));
-        ResourceLocation standby = modLoc(String.format("block/%s_controller_standby", type));
-        ResourceLocation on = modLoc(String.format("block/%s_controller_on", type));
 
-        BlockModelBuilder controllerOff = models().cube(String.format("%s_controller_off", type), end, end, off, end, side, side);
-        BlockModelBuilder controllerStandby = models().cube(String.format("%s_controller_standby", type), end, end, standby, end, side, side);
-        BlockModelBuilder controllerOn = models().cube(String.format("%s_controller_on", type), end, end, on, end, side, side);
+        Function<PowerState, BlockModelBuilder> controllerModelFunction = (state) ->
+            models().withExistingParent(String.format("%s_controller_%s", type, state.getSerializedName()), mcLoc("block/cube"))
+                .texture("particle", side)
+                .texture("down", end)
+                .texture("up", end)
+                .texture("north", modLoc(String.format("block/%s_controller_%s", type, state.getSerializedName())))
+                .texture("south", end)
+                .texture("east", side)
+                .texture("west", side);
 
         getVariantBuilder(controller).forAllStates(blockState -> {
             Direction direction = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 
             Function<BlockState, ModelFile> modelFunction = state -> {
-                PowerState status = blockState.getValue(PowerStateProperty.STATUS);
-                return switch (status) {
-                    case OFF -> controllerOff;
-                    case STANDBY -> controllerStandby;
-                    case ON -> controllerOn;
+                PowerState powerState = blockState.getValue(PowerStateProperty.STATUS);
+                return switch (powerState) {
+                    case OFF, ON, STANDBY -> controllerModelFunction.apply(powerState);
                 };
             };
 
@@ -107,7 +107,6 @@ public class BlockStateGenerator extends BlockStateProvider {
                     .rotationY(direction.getAxis() != Direction.Axis.Y ? ((direction.get2DDataValue() + 2) % 4) *90 : 0)
                     .build();
         });
-        // registerBlockItemModel(pBlock);
+        itemModels().withExistingParent(pBlock.getId().getPath(), modLoc(String.format("block/%s_off", pBlock.getId().getPath())));
     }
-
 }

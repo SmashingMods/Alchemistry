@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
+    "particle": "alchemistry:block/fission_controller_side",
     "down": "alchemistry:block/fission_controller_end",
     "up": "alchemistry:block/fission_controller_end",
     "north": "alchemistry:block/fission_controller_off",

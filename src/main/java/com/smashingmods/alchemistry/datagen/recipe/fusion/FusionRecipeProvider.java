@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.fusion;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -29,7 +28,7 @@ public class FusionRecipeProvider {
 
         for (int x = 1; x < elements.size(); x++) {
             for (int y = 1; y < elements.size(); y++) {
-                if ((x + y) < elements.size()) {
+                if (!(x > y) && (x + y) <= elements.size()) {
                     Optional<ElementItem> input1 = ItemRegistry.getElementByAtomicNumber(x);
                     Optional<ElementItem> input2 = ItemRegistry.getElementByAtomicNumber(y);
                     Optional<ElementItem> output = ItemRegistry.getElementByAtomicNumber(x + y);

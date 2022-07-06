@@ -104,7 +104,12 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
     public void updateRecipe(Level pLevel) {
         if (!inputHandler.getStackInSlot(0).isEmpty()) {
             List<FusionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, pLevel).stream().toList();
-            currentRecipe = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), inputHandler.getStackInSlot(0)) && ItemStack.isSameItemSameTags(recipe.getInput2(), inputHandler.getStackInSlot(1))).findFirst().orElse(null);
+            currentRecipe = recipes.stream().filter(recipe -> {
+                ItemStack input1 = inputHandler.getStackInSlot(0);
+                ItemStack input2 = inputHandler.getStackInSlot(1);
+                return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
+                        || ItemStack.isSameItemSameTags(recipe.getInput1(), input2) && ItemStack.isSameItemSameTags(recipe.getInput2(), input1);
+            }).findFirst().orElse(null);
         } else {
             currentRecipe = null;
         }
@@ -116,8 +121,10 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
             ItemStack input2 = inputHandler.getStackInSlot(1);
             ItemStack output = outputHandler.getStackInSlot(0);
             return energyHandler.getEnergyStored() >= Config.Common.fissionEnergyPerTick.get()
-                    && (ItemStack.isSameItemSameTags(input1, currentRecipe.getInput1()) && input1.getCount() >= currentRecipe.getInput1().getCount())
-                    && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput2()) && input2.getCount() >= currentRecipe.getInput2().getCount())
+                    && ((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput1()) && input1.getCount() >= currentRecipe.getInput1().getCount())
+                        && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput2()) && input2.getCount() >= currentRecipe.getInput2().getCount()))
+                    || ((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput2()) && input1.getCount() >= currentRecipe.getInput2().getCount())
+                        && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput1()) && input2.getCount() >= currentRecipe.getInput1().getCount()))
                     && ((ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty()) && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize());
         }
         return false;

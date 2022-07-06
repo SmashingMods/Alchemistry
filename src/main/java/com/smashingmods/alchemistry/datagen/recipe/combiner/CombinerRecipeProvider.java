@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvider;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
@@ -28,14 +29,11 @@ public class CombinerRecipeProvider {
         this.consumer = pConsumer;
     }
 
-    private void combiner(ItemStack pOutput, List<ItemStack> pInput) {
-        CombinerRecipeBuilder.createRecipe(pOutput, pInput)
-                .group(Alchemistry.MODID + ":combiner")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput)))
-                .save(consumer);
+    public static void register(Consumer<FinishedRecipe> pConsumer) {
+        new CombinerRecipeProvider(pConsumer).register();
     }
 
-    public void register() {
+    private void register() {
 
         // saplings
         combiner(new ItemStack(Items.OAK_SAPLING), Lists.newArrayList(toStack("oxygen"),
@@ -221,6 +219,13 @@ public class CombinerRecipeProvider {
 //            }
 //            combiner(new ItemStack(compound), inputs);
 //        }
+    }
+
+    private void combiner(ItemStack pOutput, List<ItemStack> pInput) {
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput)
+                .group(Alchemistry.MODID + ":combiner")
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput)))
+                .save(consumer);
     }
 
     private ResourceLocation getLocation(ItemStack itemStack) {

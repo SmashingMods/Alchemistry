@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -18,7 +19,11 @@ public class FissionRecipeProvider {
         this.consumer = pConsumer;
     }
 
-    public void register() {
+    public static void register(Consumer<FinishedRecipe> pConsumer) {
+        new FissionRecipeProvider(pConsumer).register();
+    }
+
+    private void register() {
         for (int index = 2; index <= 118; index++) {
             //noinspection OptionalGetWithoutIsPresent
             fission(ItemRegistry.getElementByAtomicNumber(index).get());

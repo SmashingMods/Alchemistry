@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.fusion;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -19,7 +20,11 @@ public class FusionRecipeProvider {
         this.consumer = pConsumer;
     }
 
-    public void register() {
+    public static void register(Consumer<FinishedRecipe> pConsumer) {
+        new FusionRecipeProvider(pConsumer).register();
+    }
+
+    private void register() {
         List<ElementItem> elements = ItemRegistry.getElements();
 
         for (int x = 1; x < elements.size(); x++) {

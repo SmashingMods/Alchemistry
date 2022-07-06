@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvider;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
@@ -25,7 +26,11 @@ public class CompactorRecipeProvider {
         this.consumer = pConsumer;
     }
 
-    public void register() {
+    public static void register(Consumer<FinishedRecipe> pConsumer) {
+        new CompactorRecipeProvider(pConsumer).register();
+    }
+
+    private void register() {
         
         // dusts
         for (ElementItem element : ItemRegistry.getElements()) {

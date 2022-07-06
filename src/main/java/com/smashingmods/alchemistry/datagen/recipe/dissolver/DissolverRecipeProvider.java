@@ -6,6 +6,7 @@ import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
+import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeProvider;
 import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
@@ -44,56 +45,11 @@ public class DissolverRecipeProvider {
         initializeMetals();
     }
 
-    private void initializeMetals() {
-        metals.addAll(ItemRegistry.getElements().stream()
-                .filter(element -> element.getMetalType().equals(MetalType.METAL))
-                .map(ElementItem::getChemicalName).collect(Collectors.toList()));
-
-        metalTagData.add(new DissolverTagData("ingots", 16, metals));
-        metalTagData.add(new DissolverTagData("ores", 32, metals));
-        metalTagData.add(new DissolverTagData("dusts", 16, metals));
-        metalTagData.add(new DissolverTagData("storage_blocks", 144, metals));
-        metalTagData.add(new DissolverTagData("nuggets", 1, metals));
-        metalTagData.add(new DissolverTagData("plates", 16, metals));
+    public static void register(Consumer<FinishedRecipe> pConsumer) {
+        new DissolverRecipeProvider(pConsumer).register();
     }
 
-    private void dissolver(IngredientStack pStack, ProbabilitySet pSet, boolean pReversible) {
-        List<ItemStack> itemStacks = pStack.toStacks();
-        itemStacks.forEach(itemStack -> {
-                Objects.requireNonNull(itemStack.getItem().getRegistryName());
-                DissolverRecipeBuilder.createRecipe(pStack, pSet)
-                        .group(Alchemistry.MODID + ":dissolver")
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(itemStack.getItem().getRegistryName()))
-                        .save(consumer);
-
-                if (pReversible) {
-                    CombinerRecipeBuilder.createRecipe(itemStack, pSet.getProbabilityGroups().get(0).getOutput());
-                }
-        });
-    }
-
-    private void dissolver(IngredientStack pStack, ProbabilitySet pSet) {
-        dissolver(pStack, pSet, false);
-    }
-
-    private void dissolver(ItemLike pItemLike, ProbabilitySet pSet, boolean pReversible) {
-        dissolver(IngredientStack.of(pItemLike), pSet, pReversible);
-    }
-
-    private void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {
-        dissolver(pItemLike, pSet, false);
-    }
-
-    private void dissolver(String pItemTag, ProbabilitySet pSet) {
-
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
-        Ingredient ingredient = Ingredient.of(tagKey);
-
-        IngredientStack ingredientStack = IngredientStack.of(ingredient);
-        dissolver(ingredientStack, pSet);
-    }
-
-    public void register() {
+    private void register() {
 
         for (Item item : newArrayList(Items.DIRT, Items.COARSE_DIRT, Items.PODZOL)) {
             dissolver(item, set()
@@ -970,5 +926,54 @@ public class DissolverRecipeProvider {
 //                dissolver(data.toForgeTag(i), set().addGroup(1, data.getStack(i)).build());
 //            }
 //        }
+    }
+
+    private void initializeMetals() {
+        metals.addAll(ItemRegistry.getElements().stream()
+                .filter(element -> element.getMetalType().equals(MetalType.METAL))
+                .map(ElementItem::getChemicalName).collect(Collectors.toList()));
+
+        metalTagData.add(new DissolverTagData("ingots", 16, metals));
+        metalTagData.add(new DissolverTagData("ores", 32, metals));
+        metalTagData.add(new DissolverTagData("dusts", 16, metals));
+        metalTagData.add(new DissolverTagData("storage_blocks", 144, metals));
+        metalTagData.add(new DissolverTagData("nuggets", 1, metals));
+        metalTagData.add(new DissolverTagData("plates", 16, metals));
+    }
+
+    private void dissolver(IngredientStack pStack, ProbabilitySet pSet, boolean pReversible) {
+        List<ItemStack> itemStacks = pStack.toStacks();
+        itemStacks.forEach(itemStack -> {
+            Objects.requireNonNull(itemStack.getItem().getRegistryName());
+            DissolverRecipeBuilder.createRecipe(pStack, pSet)
+                    .group(Alchemistry.MODID + ":dissolver")
+                    .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(itemStack.getItem().getRegistryName()))
+                    .save(consumer);
+
+            if (pReversible) {
+                CombinerRecipeBuilder.createRecipe(itemStack, pSet.getProbabilityGroups().get(0).getOutput());
+            }
+        });
+    }
+
+    private void dissolver(IngredientStack pStack, ProbabilitySet pSet) {
+        dissolver(pStack, pSet, false);
+    }
+
+    private void dissolver(ItemLike pItemLike, ProbabilitySet pSet, boolean pReversible) {
+        dissolver(IngredientStack.of(pItemLike), pSet, pReversible);
+    }
+
+    private void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {
+        dissolver(pItemLike, pSet, false);
+    }
+
+    private void dissolver(String pItemTag, ProbabilitySet pSet) {
+
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
+        Ingredient ingredient = Ingredient.of(tagKey);
+
+        IngredientStack ingredientStack = IngredientStack.of(ingredient);
+        dissolver(ingredientStack, pSet);
     }
 }

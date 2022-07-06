@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.datagen.recipe.dissolver.DissolverRecipeProvider;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
@@ -23,7 +24,11 @@ public class LiquifierRecipeProvider {
         this.consumer = pConsumer;
     }
 
-    public void register() {
+    public static void register(Consumer<FinishedRecipe> pConsumer) {
+        new LiquifierRecipeProvider(pConsumer).register();
+    }
+
+    private void register() {
         ItemRegistry.getElements().stream().filter(element -> element.getMatterState().equals(MatterState.LIQUID) || element.getMatterState().equals(MatterState.GAS) && !element.isArtificial()).forEach(fluidToChemicalRecipe());
         ItemRegistry.getCompounds().stream().filter(compound -> compound.getMatterState().equals(MatterState.LIQUID) || compound.getMatterState().equals(MatterState.GAS)).forEach(fluidToChemicalRecipe());
         liquifier(new ItemStack(ItemRegistry.getCompoundByName("water").get(), 8), new FluidStack(Fluids.WATER, 500));

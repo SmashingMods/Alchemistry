@@ -14,7 +14,6 @@ public enum PowerState implements StringRepresentable {
     }
 
     @Override
-
     public String getSerializedName() {
         return this.name;
     }

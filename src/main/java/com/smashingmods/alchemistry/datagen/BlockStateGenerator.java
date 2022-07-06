@@ -95,7 +95,7 @@ public class BlockStateGenerator extends BlockStateProvider {
             Direction direction = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 
             Function<BlockState, ModelFile> modelFunction = state -> {
-                PowerState powerState = blockState.getValue(PowerStateProperty.STATUS);
+                PowerState powerState = blockState.getValue(PowerStateProperty.POWER_STATE);
                 return switch (powerState) {
                     case OFF, ON, STANDBY -> controllerModelFunction.apply(powerState);
                 };

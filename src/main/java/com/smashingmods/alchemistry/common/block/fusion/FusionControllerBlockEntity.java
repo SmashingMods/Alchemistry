@@ -12,12 +12,12 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.FurnaceMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +42,7 @@ import java.util.Map;
 public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity, MultiblockBlockEntity {
 
     protected final ContainerData data;
+    private boolean validMultiblock;
 
     private int progress = 0;
     private final int maxProgress = Config.Common.fusionTicksPerOperation.get();
@@ -62,7 +63,6 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
 
     public FusionControllerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.FUSION_CONTROLLER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
@@ -90,13 +90,24 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
         };
     }
 
+    @Override
     public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-            updateRecipe(pLevel);
-            if (canProcessRecipe()) {
-                processRecipe();
+        if (level != null && !pLevel.isClientSide()) {
+            validMultiblock = isValidMultiblock();
+            if (isValidMultiblock()) {
+                if (this.getBlockState().getValue(PowerStateProperty.POWER_STATE) == PowerState.OFF) {
+                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.STANDBY));
+                }
+                updateRecipe(pLevel);
+                if (canProcessRecipe()) {
+                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.ON));
+                    processRecipe();
+                } else {
+                    progress = 0;
+                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.STANDBY));
+                }
             } else {
-                progress = 0;
+                level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.OFF));
             }
         }
     }
@@ -108,7 +119,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
                 ItemStack input1 = inputHandler.getStackInSlot(0);
                 ItemStack input2 = inputHandler.getStackInSlot(1);
                 return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
-                        || ItemStack.isSameItemSameTags(recipe.getInput1(), input2) && ItemStack.isSameItemSameTags(recipe.getInput2(), input1);
+                        || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
             }).findFirst().orElse(null);
         } else {
             currentRecipe = null;
@@ -116,7 +127,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
     }
 
     public boolean canProcessRecipe() {
-        if (currentRecipe != null && isValidMultiblock()) {
+        if (currentRecipe != null && validMultiblock) {
             ItemStack input1 = inputHandler.getStackInSlot(0);
             ItemStack input2 = inputHandler.getStackInSlot(1);
             ItemStack output = outputHandler.getStackInSlot(0);
@@ -149,12 +160,12 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
 
             Map<BoundingBox, List<Block>> map = new HashMap<>();
             map.put(provider.CORE, List.of(BlockRegistry.FUSION_CORE.get()));
-            map.put(provider.FRONT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.FUSION_CONTROLLER.get()));
-            map.put(provider.REAR_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.FRONT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.FUSION_CONTROLLER.get(), BlockRegistry.REACTOR_ENERGY.get()));
+            map.put(provider.REAR_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get()));
             map.put(provider.TOP_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
             map.put(provider.BOTTOM_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-            map.put(provider.LEFT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-            map.put(provider.RIGHT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.LEFT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get()));
+            map.put(provider.RIGHT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get()));
 
             return validateMultiblock(level, map);
         }

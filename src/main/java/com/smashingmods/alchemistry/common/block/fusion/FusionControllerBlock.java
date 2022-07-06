@@ -2,13 +2,8 @@ package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.PowerState;
 import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
-import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
-import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
-import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
-import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -28,8 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -38,24 +31,21 @@ import java.util.List;
 
 public class FusionControllerBlock extends AbstractAlchemistryBlock {
 
-    public static final EnumProperty<PowerState> STATUS = PowerStateProperty.STATUS;
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-
     public FusionControllerBlock() {
         super(FusionControllerBlockEntity::new);
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(STATUS, FACING);
+        pBuilder.add(PowerStateProperty.POWER_STATE, BlockStateProperties.HORIZONTAL_FACING);
     }
 
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState()
-                .setValue(FACING, pContext.getHorizontalDirection().getOpposite())
-                .setValue(STATUS, PowerState.OFF);
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite())
+                .setValue(PowerStateProperty.POWER_STATE, PowerState.OFF);
     }
 
     @Override
@@ -68,9 +58,12 @@ public class FusionControllerBlock extends AbstractAlchemistryBlock {
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            NetworkHooks.openGui(((ServerPlayer) pPlayer), (FusionControllerBlockEntity) blockEntity, pPos);
-            return InteractionResult.SUCCESS;
+            if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.OFF) {
+                BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+                NetworkHooks.openGui(((ServerPlayer) pPlayer), (FusionControllerBlockEntity) blockEntity, pPos);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.FAIL;
         }
         return InteractionResult.SUCCESS;
     }

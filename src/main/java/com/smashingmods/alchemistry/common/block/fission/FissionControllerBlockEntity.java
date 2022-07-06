@@ -9,7 +9,6 @@ import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,18 +30,13 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity, MultiblockBlockEntity {
 
     protected final ContainerData data;
-    private BlockState blockState;
-    private PowerState powerState;
     private boolean validMultiblock;
 
     private int progress = 0;
@@ -64,9 +58,6 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
 
     public FissionControllerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.FISSION_CONTROLLER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
-        this.blockState = pBlockState;
-        this.powerState = pBlockState.getValue(PowerStateProperty.STATUS);
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
@@ -96,22 +87,22 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
 
     @Override
     public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-
+        if (level != null && !pLevel.isClientSide()) {
             validMultiblock = isValidMultiblock();
-
-            if (validMultiblock && powerState.equals(PowerState.OFF)) {
-                blockState.setValue(PowerStateProperty.STATUS, PowerState.STANDBY);
-            }
-
-            updateRecipe(pLevel);
-            if (canProcessRecipe()) {
-
-
-
-                processRecipe();
+            if (isValidMultiblock()) {
+                if (this.getBlockState().getValue(PowerStateProperty.POWER_STATE) == PowerState.OFF) {
+                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.STANDBY));
+                }
+                updateRecipe(pLevel);
+                if (canProcessRecipe()) {
+                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.ON));
+                    processRecipe();
+                } else {
+                    progress = 0;
+                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.STANDBY));
+                }
             } else {
-                progress = 0;
+                level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.OFF));
             }
         }
     }

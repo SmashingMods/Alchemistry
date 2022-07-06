@@ -23,8 +23,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -37,20 +35,17 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
         super(FissionControllerBlockEntity::new);
     }
 
-    public static final EnumProperty<PowerState> STATUS = PowerStateProperty.STATUS;
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(STATUS, FACING);
+        pBuilder.add(PowerStateProperty.POWER_STATE, BlockStateProperties.HORIZONTAL_FACING);
     }
 
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState()
-                .setValue(FACING, pContext.getHorizontalDirection().getOpposite())
-                .setValue(STATUS, PowerState.OFF);
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite())
+                .setValue(PowerStateProperty.POWER_STATE, PowerState.OFF);
     }
 
     @Override
@@ -63,9 +58,12 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            NetworkHooks.openGui(((ServerPlayer) pPlayer), (FissionControllerBlockEntity) blockEntity, pPos);
-            return InteractionResult.SUCCESS;
+            if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.OFF) {
+                BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+                NetworkHooks.openGui(((ServerPlayer) pPlayer), (FissionControllerBlockEntity) blockEntity, pPos);
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.FAIL;
         }
         return InteractionResult.SUCCESS;
     }

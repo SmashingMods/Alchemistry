@@ -22,7 +22,6 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> pConsumer) {
         AtomizerRecipeProvider.register(pConsumer);
         CompactorRecipeProvider.register(pConsumer);
-        CompactorRecipeProvider.register(pConsumer);
         CombinerRecipeProvider.register(pConsumer);
         DissolverRecipeProvider.register(pConsumer);
         LiquifierRecipeProvider.register(pConsumer);

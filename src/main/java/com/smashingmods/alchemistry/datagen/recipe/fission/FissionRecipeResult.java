@@ -11,8 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import javax.annotation.Nonnull;
-
 public class FissionRecipeResult implements FinishedRecipe {
 
     private final String group;
@@ -40,7 +38,7 @@ public class FissionRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    public void serializeRecipeData(@Nonnull JsonObject pJson) {
+    public void serializeRecipeData(JsonObject pJson) {
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
@@ -50,13 +48,11 @@ public class FissionRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    @Nonnull
     public ResourceLocation getId() {
         return recipeId;
     }
 
     @Override
-    @Nonnull
     public RecipeSerializer<?> getType() {
         return RecipeRegistry.FISSION_SERIALIZER.get();
     }

@@ -11,8 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import javax.annotation.Nonnull;
-
 public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
 
     private final AbstractAlchemistryBlockEntity blockEntity;
@@ -43,8 +41,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
     }
 
     @Override
-    @Nonnull
-    public ItemStack quickMoveStack(@Nonnull Player pPlayer, int pIndex) {
+    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
         if (!sourceSlot.hasItem()) {
             return ItemStack.EMPTY;

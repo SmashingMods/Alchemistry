@@ -17,8 +17,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public abstract class AbstractAlchemistryBlockEntity extends BlockEntity implements MenuProvider, Nameable {
@@ -30,13 +28,11 @@ public abstract class AbstractAlchemistryBlockEntity extends BlockEntity impleme
     }
 
     @Override
-    @Nonnull
     public Component getName() {
         return this.name != null ? this.name : this.getDefaultName();
     }
 
     @Override
-    @Nonnull
     public Component getDisplayName() {
         return this.getName();
     }
@@ -46,7 +42,6 @@ public abstract class AbstractAlchemistryBlockEntity extends BlockEntity impleme
     }
 
     @Override
-    @Nonnull
     public CompoundTag getUpdateTag() {
         CompoundTag tag = super.getUpdateTag();
         saveAdditional(tag);

@@ -11,8 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -33,8 +31,7 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    @Nonnull
-    public RecipeBuilder unlockedBy(@Nonnull String pCriterionName, @Nonnull CriterionTriggerInstance pCriterionTrigger) {
+    public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
 
         Objects.requireNonNull(result.getItem().getRegistryName());
 
@@ -45,14 +42,12 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    @Nonnull
     public RecipeBuilder group(@Nullable String pGroupName) {
         this.group = pGroupName;
         return this;
     }
 
     @Override
-    @Nonnull
     public Item getResult() {
         return result.getItem();
     }

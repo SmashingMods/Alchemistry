@@ -38,7 +38,7 @@ package com.smashingmods.alchemistry.client.jei.category;
 //    }
 //
 //    @Override
-//    public void setRecipe(IRecipeLayout pRecipeLayout, DissolverRecipe pRecipe, @Nonnull IIngredients pIngredients) {
+//    public void setRecipe(IRecipeLayout pRecipeLayout, DissolverRecipe pRecipe, IIngredients pIngredients) {
 //        IGuiItemStackGroup guiItemStacks = pRecipeLayout.getItemStacks();
 //        //List<ItemStack> inputStack = recipe.getInputs();//ingredients.getInputs(VanillaTypes.ITEM)[0]
 //        List<ProbabilityGroup> outputSet = pRecipe.outputs.getSet();
@@ -65,7 +65,7 @@ package com.smashingmods.alchemistry.client.jei.category;
 //    }
 //
 //    @Override
-//    public void draw(DissolverRecipe pRecipe, @Nonnull IRecipeSlotsView pRecipeSlotsView, @Nonnull PoseStack pPoseStack, double pMouseX, double pMouseY) {
+//    public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, PoseStack pPoseStack, double pMouseX, double pMouseY) {
 //        Minecraft minecraft = Minecraft.getInstance();
 //        int y = 50;
 //        for (int index = 0; index < pRecipe.outputs.getSet().size(); index++) {

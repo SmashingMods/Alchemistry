@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nonnull;
+import java.util.List;
 
 public class FissionRecipe implements Recipe<Inventory> {
 
@@ -30,37 +30,32 @@ public class FissionRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return RecipeRegistry.FISSION_SERIALIZER.get();
     }
 
     @Override
-    @Nonnull
     public RecipeType<?> getType() {
         return RecipeRegistry.FISSION_TYPE;
     }
 
     @Override
-    @Nonnull
     public ResourceLocation getId() {
         return recipeId;
     }
 
     @Override
-    @Nonnull
     public String getGroup() {
         return group;
     }
 
     @Override
-    public boolean matches(@Nonnull Inventory pContainer, @Nonnull Level pLevel) {
+    public boolean matches(Inventory pContainer, Level pLevel) {
         return false;
     }
 
     @Override
-    @Nonnull
-    public ItemStack assemble(@Nonnull Inventory pContainer) {
+    public ItemStack assemble(Inventory pContainer) {
         return output1;
     }
 
@@ -70,15 +65,18 @@ public class FissionRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    @Nonnull
     public ItemStack getResultItem() {
         return ItemStack.EMPTY;
     }
 
     @Override
-    @Nonnull
     public NonNullList<Ingredient> getIngredients() {
         return NonNullList.of(Ingredient.of(input));
+    }
+
+    @Override
+    public String toString(){
+        return String.format("input=%s, outputs=%s", input, List.of(output1, output2));
     }
 
     public ItemStack getInput() {

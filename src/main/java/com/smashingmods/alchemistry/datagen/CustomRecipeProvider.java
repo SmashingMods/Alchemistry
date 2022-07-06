@@ -10,8 +10,6 @@ import com.smashingmods.alchemistry.datagen.recipe.liquifier.LiquifierRecipeProv
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
-
-import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 public class CustomRecipeProvider extends RecipeProvider {
@@ -21,7 +19,7 @@ public class CustomRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> pConsumer) {
+    protected void buildCraftingRecipes(Consumer<FinishedRecipe> pConsumer) {
 
         AtomizerRecipeProvider atomizerRecipeProvider = new AtomizerRecipeProvider(pConsumer);
         CompactorRecipeProvider compactorRecipeProvider = new CompactorRecipeProvider(pConsumer);

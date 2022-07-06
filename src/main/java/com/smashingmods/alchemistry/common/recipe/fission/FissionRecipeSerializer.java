@@ -10,8 +10,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import javax.annotation.Nonnull;
-
 public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private final FissionRecipeSerializer.IFactory<T> factory;
@@ -21,8 +19,7 @@ public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegis
     }
 
     @Override
-    @Nonnull
-    public T fromJson(@Nonnull ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
         String group = pSerializedRecipe.get("group").getAsString();
         ItemStack input = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input"));
         ItemStack output1 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("output1"));
@@ -31,7 +28,7 @@ public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegis
     }
 
     @Override
-    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         ItemStack input = pBuffer.readItem();
         ItemStack output1 = pBuffer.readItem();

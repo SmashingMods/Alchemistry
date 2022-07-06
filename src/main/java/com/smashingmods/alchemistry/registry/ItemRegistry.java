@@ -10,15 +10,12 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import javax.annotation.Nonnull;
-
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class ItemRegistry {
 
     public static final CreativeModeTab MACHINE_TAB = new CreativeModeTab("Alchemistry") {
         @Override
-        @Nonnull
         public ItemStack makeIcon() {
             return new ItemStack(BlockRegistry.ATOMIZER.get());
         }

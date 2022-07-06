@@ -1,10 +1,7 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.FluidBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
@@ -12,7 +9,6 @@ import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -36,15 +32,9 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, FluidBlockEntity {
+public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, FluidBlockEntity, ProcessingBlockEntity {
     protected final ContainerData data;
 
     private int progress = 0;
@@ -100,6 +90,7 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
         };
     }
 
+    @Override
     public void tick(Level pLevel) {
         if (!pLevel.isClientSide()) {
             updateRecipe(pLevel);
@@ -111,32 +102,35 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
         }
     }
 
-    private void updateRecipe(Level pLevel) {
+    @Override
+    public void updateRecipe(Level pLevel) {
         currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, pLevel).stream()
-                .filter(recipe -> ItemStack.isSameItemSameTags(recipe.input, inputHandler.getStackInSlot(0)))
+                .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0)))
                 .findFirst()
                 .orElse(null);
     }
 
-    private boolean canProcessRecipe() {
+    @Override
+    public boolean canProcessRecipe() {
         if (currentRecipe != null) {
             return energyHandler.getEnergyStored() >= Config.Common.liquifierEnergyPerTick.get()
-                    && fluidHandler.getFluidStack().isFluidEqual(currentRecipe.output) || fluidHandler.isEmpty()
-                    && fluidHandler.getFluidAmount() <= fluidHandler.getFluidAmount() + currentRecipe.output.getAmount()
-                    && ItemStack.isSameItemSameTags(currentRecipe.input.copy(), getInputHandler().getStackInSlot(0))
-                    && getInputHandler().getStackInSlot(0).getCount() >= currentRecipe.input.getCount();
+                    && fluidHandler.getFluidStack().isFluidEqual(currentRecipe.getOutput()) || fluidHandler.isEmpty()
+                    && fluidHandler.getFluidAmount() <= fluidHandler.getFluidAmount() + currentRecipe.getOutput().getAmount()
+                    && ItemStack.isSameItemSameTags(currentRecipe.getInput().copy(), getInputHandler().getStackInSlot(0))
+                    && getInputHandler().getStackInSlot(0).getCount() >= currentRecipe.getInput().getCount();
         } else {
             return false;
         }
     }
 
-    private void processRecipe() {
+    @Override
+    public void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
             progress = 0;
-            inputHandler.decrementSlot(0, currentRecipe.input.getCount());
-            fluidHandler.fill(currentRecipe.output.copy(), IFluidHandler.FluidAction.EXECUTE);
+            inputHandler.decrementSlot(0, currentRecipe.getInput().getCount());
+            fluidHandler.fill(currentRecipe.getOutput().copy(), IFluidHandler.FluidAction.EXECUTE);
         }
         energyHandler.extractEnergy(Config.Common.liquifierEnergyPerTick.get(), false);
         setChanged();
@@ -173,7 +167,7 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     public ModItemStackHandler initializeOutputHandler() {
         return new ModItemStackHandler(this, 1) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isItemValid(int slot, ItemStack stack) {
                 return false;
             }
         };
@@ -192,7 +186,6 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
-            @Nonnull
             @Override
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
@@ -203,7 +196,6 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
-            @NotNull
             @Override
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (!getStackInSlot(pSlot).isEmpty()) {
@@ -221,13 +213,11 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
-
         return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {
@@ -257,7 +247,7 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void load(@Nonnull CompoundTag pTag) {
+    public void load(CompoundTag pTag) {
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));

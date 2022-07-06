@@ -2,22 +2,18 @@ package com.smashingmods.alchemistry.common.recipe.atomizer;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import javax.annotation.Nonnull;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class AtomizerRecipeSerializer<T extends AtomizerRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
@@ -28,8 +24,7 @@ public class AtomizerRecipeSerializer<T extends AtomizerRecipe> extends ForgeReg
     }
 
     @Override
-    @Nonnull
-    public T fromJson(@Nonnull ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
+    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
 
         String recipeGroup = pSerializedRecipe.has("group") ? pSerializedRecipe.get("group").getAsString() : "atomizer";
 
@@ -51,7 +46,7 @@ public class AtomizerRecipeSerializer<T extends AtomizerRecipe> extends ForgeReg
     }
 
     @Override
-    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String recipeGroup = pBuffer.readUtf(Short.MAX_VALUE);
         FluidStack input = pBuffer.readFluidStack();
         ItemStack output = pBuffer.readItem();
@@ -61,11 +56,11 @@ public class AtomizerRecipeSerializer<T extends AtomizerRecipe> extends ForgeReg
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
-        pBuffer.writeFluidStack(pRecipe.input);
-        pBuffer.writeItem(pRecipe.output);
+        pBuffer.writeFluidStack(pRecipe.getInput());
+        pBuffer.writeItem(pRecipe.getOutput());
     }
 
-    public interface IFactory<T extends ProcessingRecipe> {
+    public interface IFactory<T extends Recipe<Inventory>> {
         T create(ResourceLocation resource, String group, FluidStack input, ItemStack output);
     }
 }

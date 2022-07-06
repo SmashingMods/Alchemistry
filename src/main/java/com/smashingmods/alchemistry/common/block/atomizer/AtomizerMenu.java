@@ -10,8 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class AtomizerMenu extends AbstractAlchemistryMenu {
@@ -28,7 +26,7 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
     }
 
     @Override
-    public boolean stillValid(@Nonnull Player pPlayer) {
+    public boolean stillValid(Player pPlayer) {
         Objects.requireNonNull(this.getBlockEntity().getLevel());
         return stillValid(ContainerLevelAccess.create(this.getBlockEntity().getLevel(), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.ATOMIZER.get());
     }

@@ -13,8 +13,6 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class DissolverMenu extends AbstractAlchemistryMenu {
@@ -46,7 +44,7 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
     }
 
     @Override
-    public boolean stillValid(@Nonnull Player pPlayer) {
+    public boolean stillValid(Player pPlayer) {
         return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(this.getBlockEntity().getLevel()), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.DISSOLVER.get());
     }
 }

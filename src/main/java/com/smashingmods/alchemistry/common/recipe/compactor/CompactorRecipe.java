@@ -1,29 +1,78 @@
 package com.smashingmods.alchemistry.common.recipe.compactor;
 
-import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
-import javax.annotation.Nonnull;
+public class CompactorRecipe implements Recipe<Inventory> {
 
-public class CompactorRecipe extends ProcessingRecipe {
-
+    private final ResourceLocation recipeId;
+    private final String group;
     private final ItemStack input;
     private final ItemStack output;
 
     public CompactorRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, ItemStack pOutput) {
-        super(RecipeRegistry.COMPACTOR_TYPE, pId, pGroup, Ingredient.of(pInput), pOutput);
+        this.recipeId = pId;
+        this.group = pGroup;
         this.input = pInput;
         this.output = pOutput;
     }
 
     @Override
-    @Nonnull
     public RecipeSerializer<?> getSerializer() {
         return RecipeRegistry.COMPACTOR_SERIALIZER.get();
+    }
+
+    @Override
+    public RecipeType<?> getType() {
+        return RecipeRegistry.COMPACTOR_TYPE;
+    }
+
+    @Override
+    public ResourceLocation getId() {
+        return recipeId;
+    }
+
+    @Override
+    public String getGroup() {
+        return group;
+    }
+
+    @Override
+    public boolean matches(Inventory pContainer, Level pLevel) {
+        return false;
+    }
+
+    @Override
+    public ItemStack assemble(Inventory pContainer) {
+        return output;
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+        return false;
+    }
+
+    @Override
+    public ItemStack getResultItem() {
+        return output;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return NonNullList.of(Ingredient.of(input));
+    }
+
+    @Override
+    public String toString(){
+        return String.format("input=%s, outputs=%s", input, output);
     }
 
     public ItemStack getInput() {

@@ -17,8 +17,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
-
 public class FakeItemRenderer {
 
     private static final Minecraft MINECRAFT = Minecraft.getInstance();
@@ -90,37 +88,31 @@ class WrappedVertexConsumer implements VertexConsumer {
     }
 
     @Override
-    @Nonnull
     public VertexConsumer vertex(double pX, double pY, double pZ) {
         return consumer.vertex(pX, pY, pZ);
     }
 
     @Override
-    @Nonnull
     public VertexConsumer color(int pRed, int pGreen, int pBlue, int pAlpha) {
         return consumer.color((int)(pRed * red), (int)(pGreen * green), (int)(pBlue * blue), (int)(pAlpha * alpha));
     }
 
     @Override
-    @Nonnull
     public VertexConsumer uv(float pU, float pV) {
         return consumer.uv(pU, pV);
     }
 
     @Override
-    @Nonnull
     public VertexConsumer overlayCoords(int pU, int pV) {
         return consumer.overlayCoords(pU, pV);
     }
 
     @Override
-    @Nonnull
     public VertexConsumer uv2(int pU, int pV) {
         return consumer.uv2(pU, pV);
     }
 
     @Override
-    @Nonnull
     public VertexConsumer normal(float pX, float pY, float pZ) {
         return consumer.normal(pX, pY, pZ);
     }

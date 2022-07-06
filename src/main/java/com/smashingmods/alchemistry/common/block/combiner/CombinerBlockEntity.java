@@ -4,6 +4,7 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.ProcessingBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
@@ -31,8 +32,6 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,7 @@ import java.util.Optional;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity {
+public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity {
 
     protected final ContainerData data;
 
@@ -113,25 +112,29 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         }
     }
 
-    private boolean canProcessRecipe() {
+    public void updateRecipe(Level pLevel) {
+
+    }
+
+    public boolean canProcessRecipe() {
         if (currentRecipe != null) {
             ItemStack output = outputHandler.getStackInSlot(0);
             return energyHandler.getEnergyStored() >= Config.Common.combinerEnergyPerTick.get()
-                    && (currentRecipe.output.getCount() + output.getCount()) <= currentRecipe.output.getMaxStackSize()
-                    && (ItemStack.isSameItemSameTags(output, currentRecipe.output) || output.isEmpty())
+                    && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize()
+                    && (ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty())
                     && currentRecipe.matchInputs(inputHandler);
         }
         return false;
     }
 
-    private void processRecipe() {
+    public void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
             progress = 0;
-            outputHandler.setOrIncrement(0, currentRecipe.output.copy());
-            for (int index = 0; index < currentRecipe.input.size(); index++) {
-                ItemStack itemStack = currentRecipe.input.get(index);
+            outputHandler.setOrIncrement(0, currentRecipe.getOutput().copy());
+            for (int index = 0; index < currentRecipe.getInput().size(); index++) {
+                ItemStack itemStack = currentRecipe.getInput().get(index);
                 if (itemStack != null && !itemStack.isEmpty()) {
                     inputHandler.decrementSlot(index, itemStack.getCount());
                 }
@@ -262,8 +265,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (pDirection != null) {
             if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
                 return switch (pDirection) {
@@ -303,7 +305,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public void load(@Nonnull CompoundTag pTag) {
+    public void load(CompoundTag pTag) {
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));

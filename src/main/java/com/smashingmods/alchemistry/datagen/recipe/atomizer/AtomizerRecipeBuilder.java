@@ -12,8 +12,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -34,8 +32,7 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    @Nonnull
-    public RecipeBuilder unlockedBy(@Nonnull String pCriterionName, @Nonnull CriterionTriggerInstance pCriterionTrigger) {
+    public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
 
         Objects.requireNonNull(result.getItem().getRegistryName());
 
@@ -46,20 +43,18 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    @Nonnull
     public RecipeBuilder group(@Nullable String pGroupName) {
         this.group = pGroupName;
         return this;
     }
 
     @Override
-    @Nonnull
     public Item getResult() {
         return result.getItem();
     }
 
     @Override
-    public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, @Nonnull ResourceLocation pRecipeId) {
+    public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
 
         Objects.requireNonNull(this.result.getItem().getItemCategory());
 

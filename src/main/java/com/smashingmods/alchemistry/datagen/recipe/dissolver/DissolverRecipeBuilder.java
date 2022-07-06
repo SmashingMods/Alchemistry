@@ -13,8 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -35,8 +33,7 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    @Nonnull
-    public RecipeBuilder unlockedBy(@Nonnull String pCriterionName, @Nonnull CriterionTriggerInstance pCriterionTrigger) {
+    public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         Item item = input.ingredient.getItems()[0].getItem();
         Objects.requireNonNull(item.getRegistryName());
 
@@ -47,20 +44,18 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    @Nonnull
     public RecipeBuilder group(@Nullable String pGroupName) {
         this.group = pGroupName;
         return this;
     }
 
     @Override
-    @Nonnull
     public Item getResult() {
         return input.ingredient.getItems()[0].getItem();
     }
 
     @Override
-    public void save(@Nonnull Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
+    public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
         String advancementPath = String.format("recipes/dissolver/%s", pRecipeId.getPath());
 
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath()));

@@ -1,22 +1,19 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
 import com.google.gson.JsonSyntaxException;
-import com.smashingmods.alchemistry.common.recipe.ProcessingRecipe;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class LiquifierRecipeSerializer<T extends LiquifierRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
@@ -60,11 +57,11 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe> extends ForgeR
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
-        pBuffer.writeItem(pRecipe.input);
-        pBuffer.writeFluidStack(pRecipe.output);
+        pBuffer.writeItem(pRecipe.getInput());
+        pBuffer.writeFluidStack(pRecipe.getOutput());
     }
 
-    public interface IFactory<T extends ProcessingRecipe> {
+    public interface IFactory<T extends Recipe<Inventory>> {
         T create(ResourceLocation pId, String pGroup, ItemStack pInput, FluidStack pOutput);
     }
 }

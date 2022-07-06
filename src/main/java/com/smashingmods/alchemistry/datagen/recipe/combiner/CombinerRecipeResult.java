@@ -8,8 +8,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class CombinerRecipeResult implements FinishedRecipe {
@@ -36,7 +34,7 @@ public class CombinerRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    public void serializeRecipeData(@Nonnull JsonObject pJson) {
+    public void serializeRecipeData(JsonObject pJson) {
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
@@ -45,13 +43,11 @@ public class CombinerRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    @Nonnull
     public ResourceLocation getId() {
         return this.id;
     }
 
     @Override
-    @Nonnull
     public RecipeSerializer<?> getType() {
         return RecipeRegistry.COMBINER_SERIALIZER.get();
     }

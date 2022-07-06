@@ -9,8 +9,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import javax.annotation.Nonnull;
-
 public class DissolverRecipeResult implements FinishedRecipe {
 
     private final String group;
@@ -35,7 +33,7 @@ public class DissolverRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    public void serializeRecipeData(@Nonnull JsonObject json) {
+    public void serializeRecipeData(JsonObject json) {
         if (!group.isEmpty()) {
             json.addProperty("group", group);
         }
@@ -44,13 +42,11 @@ public class DissolverRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    @Nonnull
     public ResourceLocation getId() {
         return this.id;
     }
 
     @Override
-    @Nonnull
     public RecipeSerializer<?> getType() {
         return RecipeRegistry.DISSOLVER_SERIALIZER.get();
     }

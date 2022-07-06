@@ -11,8 +11,6 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-
 public class FusionRecipeSerializer<T extends FusionRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
 
     private final FusionRecipeSerializer.IFactory<T> factory;
@@ -22,8 +20,7 @@ public class FusionRecipeSerializer<T extends FusionRecipe> extends ForgeRegistr
     }
 
     @Override
-    @Nonnull
-    public T fromJson(@Nonnull ResourceLocation pRecipeId, @Nonnull JsonObject pSerializedRecipe) {
+    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
         String group = pSerializedRecipe.get("group").getAsString();
         ItemStack input1 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input1"));
         ItemStack input2 = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input2"));
@@ -33,7 +30,7 @@ public class FusionRecipeSerializer<T extends FusionRecipe> extends ForgeRegistr
 
     @Nullable
     @Override
-    public T fromNetwork(@Nonnull ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         ItemStack input1 = pBuffer.readItem();
         ItemStack input2 = pBuffer.readItem();
@@ -42,7 +39,7 @@ public class FusionRecipeSerializer<T extends FusionRecipe> extends ForgeRegistr
     }
 
     @Override
-    public void toNetwork(@Nonnull FriendlyByteBuf pBuffer, @Nonnull T pRecipe) {
+    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
         pBuffer.writeItem(pRecipe.getInput1());
         pBuffer.writeItem(pRecipe.getInput2());

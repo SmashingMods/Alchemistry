@@ -21,8 +21,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
-
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +34,6 @@ public class JEIPlugin implements IModPlugin {
     public static final RecipeType<CombinerRecipe> COMBINER = RecipeType.create(Alchemistry.MODID, "combiner", CombinerRecipe.class);
 
     @Override
-    @Nonnull
     public ResourceLocation getPluginUid() {
         return new ResourceLocation(Alchemistry.MODID, "jei_plugin");
     }

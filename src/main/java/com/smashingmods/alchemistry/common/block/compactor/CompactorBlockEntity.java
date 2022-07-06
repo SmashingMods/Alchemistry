@@ -4,6 +4,7 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.ProcessingBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
@@ -29,12 +30,10 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity {
+public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity {
 
     protected final ContainerData data;
 
@@ -85,6 +84,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
         };
     }
 
+    @Override
     public void tick(Level pLevel) {
         if (!pLevel.isClientSide()) {
             updateRecipe(pLevel);
@@ -96,6 +96,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
         }
     }
 
+    @Override
     public void updateRecipe(Level pLevel) {
         if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
 
@@ -110,7 +111,8 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
         }
     }
 
-    private boolean canProcessRecipe() {
+    @Override
+    public boolean canProcessRecipe() {
         if (currentRecipe != null) {
             ItemStack input = inputHandler.getStackInSlot(0);
             ItemStack output = outputHandler.getStackInSlot(0);
@@ -122,7 +124,8 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
         return false;
     }
 
-    private void processRecipe() {
+    @Override
+    public void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
@@ -153,7 +156,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     public ModItemStackHandler initializeOutputHandler() {
         return new ModItemStackHandler(this, 1) {
             @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+            public boolean isItemValid(int slot, ItemStack stack) {
                 return false;
             }
         };
@@ -173,7 +176,6 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
             }
@@ -184,7 +186,6 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (!getStackInSlot(pSlot).isEmpty()) {
                     return super.extractItem(pSlot, pAmount, pSimulate);
@@ -201,8 +202,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {
@@ -227,7 +227,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void load(@Nonnull CompoundTag pTag) {
+    public void load(CompoundTag pTag) {
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));
@@ -237,7 +237,7 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @Nonnull Inventory pInventory, @Nonnull Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new CompactorMenu(pContainerId, pInventory, this, this.data);
     }
 }

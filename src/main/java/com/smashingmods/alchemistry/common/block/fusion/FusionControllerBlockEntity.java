@@ -1,9 +1,7 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
@@ -22,8 +20,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -34,15 +32,14 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity {
+public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity, MultiblockBlockEntity {
 
     protected final ContainerData data;
 
@@ -104,7 +101,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
         }
     }
 
-    private void updateRecipe(Level pLevel) {
+    public void updateRecipe(Level pLevel) {
         if (!inputHandler.getStackInSlot(0).isEmpty()) {
             List<FusionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, pLevel).stream().toList();
             currentRecipe = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), inputHandler.getStackInSlot(0)) && ItemStack.isSameItemSameTags(recipe.getInput2(), inputHandler.getStackInSlot(1))).findFirst().orElse(null);
@@ -113,7 +110,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
         }
     }
 
-    private boolean canProcessRecipe() {
+    public boolean canProcessRecipe() {
         if (currentRecipe != null && isValidMultiblock()) {
             ItemStack input1 = inputHandler.getStackInSlot(0);
             ItemStack input2 = inputHandler.getStackInSlot(1);
@@ -126,7 +123,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
         return false;
     }
 
-    private void processRecipe() {
+    public void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
@@ -139,48 +136,20 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
         setChanged();
     }
 
-    private boolean isValidMultiblock() {
+    public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
-            BlockPos controller = this.getBlockPos();
-            Direction frontFacing = level.getBlockState(controller).getValue(BlockStateProperties.HORIZONTAL_FACING);
-            Direction oppositeFacing = frontFacing.getOpposite();
-            Direction leftFacing = frontFacing.getCounterClockWise();
-            Direction rightFacing = frontFacing.getClockWise();
+            ReactorShape provider = ReactorShape.create(this.getBlockPos(), level);
 
-            BlockPos coreBottom = controller.relative(oppositeFacing, 2);
-            BlockPos coreTop = coreBottom.relative(Direction.UP, 2);
-            BlockPos frontTopCW = controller.relative(Direction.UP, 3).relative(leftFacing, 2);
-            BlockPos frontTopCCW = controller.relative(Direction.UP, 3).relative(rightFacing, 2);
-            BlockPos frontBottomCW = controller.relative(Direction.DOWN, 1).relative(leftFacing, 2);
-            BlockPos frontBottomCCW = controller.relative(Direction.DOWN, 1).relative(rightFacing, 2);
-            BlockPos rearTopCW = controller.relative(Direction.UP, 3).relative(oppositeFacing, 4).relative(leftFacing, 2);
-            BlockPos rearTopCCW = controller.relative(Direction.UP, 3).relative(oppositeFacing, 4).relative(rightFacing, 2);
-            BlockPos rearBottomCW = controller.relative(Direction.DOWN, 1).relative(oppositeFacing, 4).relative(leftFacing, 2);
-            BlockPos rearBottomCCW = controller.relative(Direction.DOWN, 1).relative(oppositeFacing, 4).relative(rightFacing, 2);
+            Map<BoundingBox, List<Block>> map = new HashMap<>();
+            map.put(provider.CORE, List.of(BlockRegistry.FUSION_CORE.get()));
+            map.put(provider.FRONT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.FUSION_CONTROLLER.get()));
+            map.put(provider.REAR_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.TOP_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.BOTTOM_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.LEFT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.RIGHT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
 
-            Function<BlockPos, Boolean> containsCasing = blockPos -> level.getBlockState(blockPos).getBlock() == BlockRegistry.REACTOR_CASING.get();
-            Function<BlockPos, Boolean> containsCore = blockPos -> level.getBlockState(blockPos).getBlock() == BlockRegistry.FUSION_CORE.get();
-            Function<BlockPos, Boolean> containsController = blockPos -> level.getBlockState(blockPos).getBlock() == BlockRegistry.FUSION_CONTROLLER.get();
-            Function<BlockPos, Boolean> validateFrontPlane = blockPos -> containsCasing.apply(blockPos) || containsController.apply(blockPos);
-            Function<BlockPos, Vec3i> blockPosToVec3i = blockPos -> new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-
-            BoundingBox core = BoundingBox.fromCorners(blockPosToVec3i.apply(coreBottom), blockPosToVec3i.apply(coreTop));
-            BoundingBox frontPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCW), blockPosToVec3i.apply(frontTopCCW));
-            BoundingBox rearPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(rearBottomCW), blockPosToVec3i.apply(rearTopCCW));
-            BoundingBox topPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontTopCW), blockPosToVec3i.apply(rearTopCCW));
-            BoundingBox bottomPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCW), blockPosToVec3i.apply(rearBottomCCW));
-            BoundingBox leftPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCCW), blockPosToVec3i.apply(rearTopCCW));
-            BoundingBox rightPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCW), blockPosToVec3i.apply(rearTopCW));
-
-            boolean coreMatches = BlockPos.betweenClosedStream(core).allMatch(containsCore::apply);
-            boolean frontMatches = BlockPos.betweenClosedStream(frontPlane).allMatch(validateFrontPlane::apply);
-            boolean rearMatches = BlockPos.betweenClosedStream(rearPlane).allMatch(containsCasing::apply);
-            boolean topMatches = BlockPos.betweenClosedStream(topPlane).allMatch(containsCasing::apply);
-            boolean bottomMatches = BlockPos.betweenClosedStream(bottomPlane).allMatch(containsCasing::apply);
-            boolean leftMatches = BlockPos.betweenClosedStream(leftPlane).allMatch(containsCasing::apply);
-            boolean rightMatches = BlockPos.betweenClosedStream(rightPlane).allMatch(containsCasing::apply);
-
-            return coreMatches && frontMatches && rearMatches && topMatches && bottomMatches && leftMatches && rightMatches;
+            return validateMultiblock(level, map);
         }
         return false;
     }
@@ -204,7 +173,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
     public ModItemStackHandler initializeOutputHandler() {
         return new ModItemStackHandler(this, 1) {
             @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+            public boolean isItemValid(int slot, ItemStack stack) {
                 return false;
             }
         };
@@ -224,7 +193,6 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
             }
@@ -235,7 +203,6 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (!getStackInSlot(pSlot).isEmpty()) {
                     return super.extractItem(pSlot, pAmount, pSimulate);
@@ -252,8 +219,7 @@ public class FusionControllerBlockEntity extends AbstractAlchemistryBlockEntity 
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {

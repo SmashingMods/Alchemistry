@@ -29,8 +29,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import java.util.List;
 
 public class FissionControllerBlock extends AbstractAlchemistryBlock {
@@ -56,15 +54,14 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
     }
 
     @Override
-    public void appendHoverText(@Nonnull ItemStack pStack, @Nullable BlockGetter pLevel, @Nonnull List<Component> pTooltip, @Nonnull TooltipFlag pFlag) {
+    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
         pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.Common.fissionEnergyPerTick.get()));
     }
 
     @Override
-    @Nonnull
     @SuppressWarnings("deprecation")
-    public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, InteractionHand pHand, @Nonnull BlockHitResult pHit) {
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             NetworkHooks.openGui(((ServerPlayer) pPlayer), (FissionControllerBlockEntity) blockEntity, pPos);

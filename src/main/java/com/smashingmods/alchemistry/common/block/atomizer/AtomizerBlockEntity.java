@@ -1,10 +1,7 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.FluidBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
@@ -37,9 +34,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-
-public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, FluidBlockEntity {
+public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, FluidBlockEntity, ProcessingBlockEntity {
 
     protected final ContainerData data;
 
@@ -108,9 +103,9 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     public void updateRecipe(Level pLevel) {
-        if (!fluidHandler.isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.output, getOutputHandler().getStackInSlot(0)))) {
+        if (!fluidHandler.isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
             currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, pLevel).stream()
-                    .filter(recipe -> recipe.input.getFluid() == fluidHandler.getFluidStack().getFluid()).findFirst().orElse(null);
+                    .filter(recipe -> recipe.getInput().getFluid() == fluidHandler.getFluidStack().getFluid()).findFirst().orElse(null);
         } else {
             currentRecipe = null;
         }
@@ -118,10 +113,10 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     public boolean canProcessRecipe() {
             if (currentRecipe != null) {
-                ItemStack recipeOutput = currentRecipe.output.copy();
+                ItemStack recipeOutput = currentRecipe.getOutput().copy();
                 ItemStack outputSlot = getOutputHandler().getStackInSlot(0);
                 return energyHandler.getEnergyStored() >= Config.Common.atomizerEnergyPerTick.get() &&
-                        fluidHandler.getFluidAmount() >= currentRecipe.input.getAmount() &&
+                        fluidHandler.getFluidAmount() >= currentRecipe.getInput().getAmount() &&
                         ItemStack.matches(outputSlot, recipeOutput) || outputSlot.isEmpty() &&
                         outputSlot.getCount() + recipeOutput.getCount() <= recipeOutput.getMaxStackSize();
             } else {
@@ -134,8 +129,8 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
             progress++;
         } else {
             progress = 0;
-            outputHandler.setOrIncrement(0, currentRecipe.output.copy());
-            fluidHandler.drain(currentRecipe.input.getAmount(), IFluidHandler.FluidAction.EXECUTE);
+            outputHandler.setOrIncrement(0, currentRecipe.getOutput().copy());
+            fluidHandler.drain(currentRecipe.getInput().getAmount(), IFluidHandler.FluidAction.EXECUTE);
         }
         energyHandler.extractEnergy(Config.Common.atomizerEnergyPerTick.get(), false);
         setChanged();
@@ -172,7 +167,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     public ModItemStackHandler initializeOutputHandler() {
         return new ModItemStackHandler(this, 1) {
             @Override
-            public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
+            public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;
             }
         };
@@ -189,7 +184,6 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
             }
@@ -199,7 +193,6 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (!getStackInSlot(pSlot).isEmpty()) {
                     return super.extractItem(pSlot, pAmount, pSimulate);
@@ -220,8 +213,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {
@@ -251,7 +243,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public void load(@Nonnull CompoundTag pTag) {
+    public void load(CompoundTag pTag) {
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));
@@ -262,7 +254,7 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     @Nullable
     @Override
-    public AbstractContainerMenu createMenu(int pContainerId, @Nonnull Inventory pInventory, @Nonnull Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new AtomizerMenu(pContainerId, pInventory, this, this.data);
     }
 }

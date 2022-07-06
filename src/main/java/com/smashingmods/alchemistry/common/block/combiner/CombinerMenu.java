@@ -15,8 +15,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +26,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     private final CombinerBlockEntity blockEntity;
     private final List<CombinerRecipe> displayedRecipes = new ArrayList<>();
 
-    public CombinerMenu(int pContainerId, Inventory pInventory, @Nonnull FriendlyByteBuf pBuffer) {
+    public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
         this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())), new SimpleContainerData(5));
     }
 
@@ -57,13 +55,13 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     }
 
     @Override
-    public boolean stillValid(@Nonnull Player pPlayer) {
+    public boolean stillValid(Player pPlayer) {
         Objects.requireNonNull(this.getBlockEntity().getLevel());
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, BlockRegistry.COMBINER.get());
     }
 
     @Override
-    public boolean clickMenuButton(@Nonnull Player pPlayer, int pId) {
+    public boolean clickMenuButton(Player pPlayer, int pId) {
         if(pPlayer.level.isClientSide()) {
             if (this.isValidRecipeIndex(pId)) {
                 int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));
@@ -114,8 +112,8 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     public void searchRecipeList(String pKeyword) {
         this.displayedRecipes.clear();
         this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream().filter(recipe -> {
-            Objects.requireNonNull(recipe.output.getItem().getRegistryName());
-            return recipe.output.getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
+            Objects.requireNonNull(recipe.getOutput().getItem().getRegistryName());
+            return recipe.getOutput().getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
         }).collect(Collectors.toList()));
     }
 

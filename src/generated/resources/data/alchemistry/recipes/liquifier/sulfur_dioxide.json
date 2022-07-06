@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:sulfur_dioxide",
+    "count": 8
+  },
+  "result": {
+    "fluid": "chemlib:sulfur_dioxide_source",
+    "amount": "500"
+  }
+}

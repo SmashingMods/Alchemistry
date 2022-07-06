@@ -11,8 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-
 public class FusionRecipeResult implements FinishedRecipe {
 
     private final String group;
@@ -50,7 +48,6 @@ public class FusionRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    @Nonnull
     public ResourceLocation getId() {
         return recipeId;
     }

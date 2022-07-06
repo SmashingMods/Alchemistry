@@ -1,9 +1,7 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
@@ -14,7 +12,6 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,6 +19,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.common.capabilities.Capability;
@@ -33,17 +31,19 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Map;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity {
+public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity, MultiblockBlockEntity {
 
     protected final ContainerData data;
+    private BlockState blockState;
+    private PowerState powerState;
+    private boolean validMultiblock;
 
     private int progress = 0;
     private final int maxProgress = Config.Common.fissionTicksPerOperation.get();
@@ -65,6 +65,8 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     public FissionControllerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.FISSION_CONTROLLER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
 
+        this.blockState = pBlockState;
+        this.powerState = pBlockState.getValue(PowerStateProperty.STATUS);
         this.data = new ContainerData() {
             @Override
             public int get(int pIndex) {
@@ -92,10 +94,21 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
         };
     }
 
+    @Override
     public void tick(Level pLevel) {
         if (!pLevel.isClientSide()) {
+
+            validMultiblock = isValidMultiblock();
+
+            if (validMultiblock && powerState.equals(PowerState.OFF)) {
+                blockState.setValue(PowerStateProperty.STATUS, PowerState.STANDBY);
+            }
+
             updateRecipe(pLevel);
             if (canProcessRecipe()) {
+
+
+
                 processRecipe();
             } else {
                 progress = 0;
@@ -103,7 +116,8 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
         }
     }
 
-    private void updateRecipe(Level pLevel) {
+    @Override
+    public void updateRecipe(Level pLevel) {
         if (!inputHandler.getStackInSlot(0).isEmpty()) {
             List<FissionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, pLevel).stream().toList();
             currentRecipe = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0))).findFirst().orElse(null);
@@ -112,8 +126,9 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
         }
     }
 
-    private boolean canProcessRecipe() {
-        if (currentRecipe != null && isValidMultiblock()) {
+    @Override
+    public boolean canProcessRecipe() {
+        if (currentRecipe != null && validMultiblock) {
             ItemStack input = inputHandler.getStackInSlot(0);
             ItemStack output1 = outputHandler.getStackInSlot(0);
             ItemStack output2 = outputHandler.getStackInSlot(1);
@@ -125,7 +140,8 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
         return false;
     }
 
-    private void processRecipe() {
+    @Override
+    public void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
@@ -138,48 +154,20 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
         setChanged();
     }
 
-    private boolean isValidMultiblock() {
+    public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
-            BlockPos controller = this.getBlockPos();
-            Direction frontFacing = level.getBlockState(controller).getValue(FissionControllerBlock.FACING);
-            Direction oppositeFacing = frontFacing.getOpposite();
-            Direction leftFacing = frontFacing.getCounterClockWise();
-            Direction rightFacing = frontFacing.getClockWise();
+            ReactorShape provider = ReactorShape.create(this.getBlockPos(), level);
 
-            BlockPos coreBottom = controller.relative(oppositeFacing, 2);
-            BlockPos coreTop = coreBottom.relative(Direction.UP, 2);
-            BlockPos frontTopCW = controller.relative(Direction.UP, 3).relative(leftFacing, 2);
-            BlockPos frontTopCCW = controller.relative(Direction.UP, 3).relative(rightFacing, 2);
-            BlockPos frontBottomCW = controller.relative(Direction.DOWN, 1).relative(leftFacing, 2);
-            BlockPos frontBottomCCW = controller.relative(Direction.DOWN, 1).relative(rightFacing, 2);
-            BlockPos rearTopCW = controller.relative(Direction.UP, 3).relative(oppositeFacing, 4).relative(leftFacing, 2);
-            BlockPos rearTopCCW = controller.relative(Direction.UP, 3).relative(oppositeFacing, 4).relative(rightFacing, 2);
-            BlockPos rearBottomCW = controller.relative(Direction.DOWN, 1).relative(oppositeFacing, 4).relative(leftFacing, 2);
-            BlockPos rearBottomCCW = controller.relative(Direction.DOWN, 1).relative(oppositeFacing, 4).relative(rightFacing, 2);
+            Map<BoundingBox, List<Block>> map = new HashMap<>();
+            map.put(provider.CORE, List.of(BlockRegistry.FISSION_CORE.get()));
+            map.put(provider.FRONT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.FISSION_CONTROLLER.get()));
+            map.put(provider.REAR_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.TOP_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.BOTTOM_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.LEFT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
+            map.put(provider.RIGHT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
 
-            Function<BlockPos, Boolean> containsCasing = blockPos -> level.getBlockState(blockPos).getBlock() == BlockRegistry.REACTOR_CASING.get();
-            Function<BlockPos, Boolean> containsCore = blockPos -> level.getBlockState(blockPos).getBlock() == BlockRegistry.FISSION_CORE.get();
-            Function<BlockPos, Boolean> containsController = blockPos -> level.getBlockState(blockPos).getBlock() == BlockRegistry.FISSION_CONTROLLER.get();
-            Function<BlockPos, Boolean> validateFrontPlane = blockPos -> containsCasing.apply(blockPos) || containsController.apply(blockPos);
-            Function<BlockPos, Vec3i> blockPosToVec3i = blockPos -> new Vec3i(blockPos.getX(), blockPos.getY(), blockPos.getZ());
-
-            BoundingBox core = BoundingBox.fromCorners(blockPosToVec3i.apply(coreBottom), blockPosToVec3i.apply(coreTop));
-            BoundingBox frontPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCW), blockPosToVec3i.apply(frontTopCCW));
-            BoundingBox rearPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(rearBottomCW), blockPosToVec3i.apply(rearTopCCW));
-            BoundingBox topPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontTopCW), blockPosToVec3i.apply(rearTopCCW));
-            BoundingBox bottomPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCW), blockPosToVec3i.apply(rearBottomCCW));
-            BoundingBox leftPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCCW), blockPosToVec3i.apply(rearTopCCW));
-            BoundingBox rightPlane = BoundingBox.fromCorners(blockPosToVec3i.apply(frontBottomCW), blockPosToVec3i.apply(rearTopCW));
-
-            boolean coreMatches = BlockPos.betweenClosedStream(core).allMatch(containsCore::apply);
-            boolean frontMatches = BlockPos.betweenClosedStream(frontPlane).allMatch(validateFrontPlane::apply);
-            boolean rearMatches = BlockPos.betweenClosedStream(rearPlane).allMatch(containsCasing::apply);
-            boolean topMatches = BlockPos.betweenClosedStream(topPlane).allMatch(containsCasing::apply);
-            boolean bottomMatches = BlockPos.betweenClosedStream(bottomPlane).allMatch(containsCasing::apply);
-            boolean leftMatches = BlockPos.betweenClosedStream(leftPlane).allMatch(containsCasing::apply);
-            boolean rightMatches = BlockPos.betweenClosedStream(rightPlane).allMatch(containsCasing::apply);
-
-            return coreMatches && frontMatches && rearMatches && topMatches && bottomMatches && leftMatches && rightMatches;
+            return validateMultiblock(level, map);
         }
         return false;
     }
@@ -203,7 +191,7 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     public ModItemStackHandler initializeOutputHandler() {
         return new ModItemStackHandler(this, 2) {
             @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+            public boolean isItemValid(int slot, ItemStack stack) {
                 return false;
             }
         };
@@ -223,7 +211,6 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
             }
@@ -234,7 +221,6 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
             @Override
-            @Nonnull
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (!getStackInSlot(pSlot).isEmpty()) {
                     return super.extractItem(pSlot, pAmount, pSimulate);
@@ -251,8 +237,7 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {

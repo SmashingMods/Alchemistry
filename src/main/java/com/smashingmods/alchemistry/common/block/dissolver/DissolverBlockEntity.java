@@ -4,13 +4,13 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.EnergyBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.ProcessingBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -29,16 +29,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity {
+public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity {
 
     protected final ContainerData data;
 
@@ -105,31 +99,34 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
         }
     }
 
-    private void updateRecipe(Level pLevel) {
-        if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.input, getInputHandler().getStackInSlot(0)))) {
-            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, pLevel).stream().filter(recipe -> recipe.input.getItem() == inputHandler.getStackInSlot(0).getItem()).findFirst().orElse(null);
+    @Override
+    public void updateRecipe(Level pLevel) {
+        if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.getInput(), getInputHandler().getStackInSlot(0)))) {
+            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, pLevel).stream().filter(recipe -> recipe.getInput().getItem() == inputHandler.getStackInSlot(0).getItem()).findFirst().orElse(null);
         }
     }
 
-    private boolean canProcessRecipe() {
+    @Override
+    public boolean canProcessRecipe() {
         if (currentRecipe != null) {
             return energyHandler.getEnergyStored() >= Config.Common.dissolverEnergyPerTick.get()
-                    && ItemStack.isSameItemSameTags(inputHandler.getStackInSlot(0), currentRecipe.input);
+                    && ItemStack.isSameItemSameTags(inputHandler.getStackInSlot(0), currentRecipe.getInput());
 
         } else {
             return false;
         }
     }
 
-    private void processRecipe() {
+    @Override
+    public void processRecipe() {
         if (progress < maxProgress) {
             progress++;
         } else {
             progress = 0;
-            inputHandler.decrementSlot(0, currentRecipe.input.getCount());
+            inputHandler.decrementSlot(0, currentRecipe.getInput().getCount());
 
-            List<ItemStack> output = currentRecipe.output.getAsList();
-            int size = currentRecipe.output.getAsList().size();
+            List<ItemStack> output = currentRecipe.getOutput().getAsList();
+            int size = currentRecipe.getOutput().getAsList().size();
 
             for (int index = 0; index < size; index++) {
                 ItemStack itemStack = output.get(index);
@@ -178,7 +175,6 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
-            @Nonnull
             @Override
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 return ItemStack.EMPTY;
@@ -189,7 +185,6 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler) {
         return new AutomationStackHandler(pHandler) {
-            @NotNull
             @Override
             public ItemStack extractItem(int pSlot, int pAmount, boolean pSimulate) {
                 if (getStackInSlot(pSlot).isEmpty()) {
@@ -207,8 +202,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    @Nonnull
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
         } else if (cap == CapabilityEnergy.ENERGY) {
@@ -234,7 +228,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void load(@Nonnull CompoundTag pTag) {
+    public void load(CompoundTag pTag) {
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));

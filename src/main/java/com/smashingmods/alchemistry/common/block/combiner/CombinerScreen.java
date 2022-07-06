@@ -32,8 +32,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
-
-import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.List;
 
@@ -80,7 +78,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     }
 
     @Override
-    public void render(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+    public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         renderBackground(pPoseStack);
         renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
@@ -96,7 +94,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     }
 
     @Override
-    protected void renderBg(@Nonnull PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_gui.png"));
@@ -104,7 +102,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     }
 
     @Override
-    protected void renderLabels(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.combiner");
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
@@ -155,7 +153,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
         for (int index = startIndex; index < pRecipeIndexOffsetMax && index < menu.getDisplayedRecipes().size(); index++) {
 
-            ItemStack output = list.get(index).output;
+            ItemStack output = list.get(index).getOutput();
 
             int firstVisibleIndex = index - startIndex;
             int recipeBoxLeftPos = pLeftPos + firstVisibleIndex % 4 * RECIPE_BOX_SIZE + 1;
@@ -172,7 +170,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         // Intellij thinks this is never null. Remove this and watch it crash.
         //noinspection ConstantConditions
         if (currentRecipe != null) {
-            ItemStack currentOutput = currentRecipe.output;
+            ItemStack currentOutput = currentRecipe.getOutput();
             Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(currentOutput, leftPos + 21, topPos + 15);
 
             if (pMouseX >= leftPos + 20 && pMouseX < leftPos + 36 && pMouseY > topPos + 14 && pMouseY < topPos + 30) {
@@ -188,9 +186,9 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
                     int x = xOrigin + column * 18;
                     int y = yOrigin + row * 18;
 
-                    if (index < currentRecipe.input.size()) {
+                    if (index < currentRecipe.getInput().size()) {
 
-                        ItemStack itemStack = currentRecipe.input.get(index);
+                        ItemStack itemStack = currentRecipe.getInput().get(index);
 
                         if (handler.getStackInSlot(index).isEmpty()) {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
@@ -213,7 +211,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
         for (int index = startIndex; index < startIndex + DISPLAYED_SLOTS && index < displayedRecipes.size(); index++) {
 
-            ItemStack output = displayedRecipes.get(index).output;
+            ItemStack output = displayedRecipes.get(index).getOutput();
 
             int firstVisibleIndex = index - startIndex;
             int recipeBoxLeftPos = originX + firstVisibleIndex % 4 * RECIPE_BOX_SIZE;

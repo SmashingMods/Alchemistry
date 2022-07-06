@@ -16,7 +16,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.function.BiFunction;
 
 public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
@@ -41,7 +40,6 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
     }
 
     @Override
-    @Nonnull
     @SuppressWarnings("deprecation")
     public BlockState mirror(BlockState pState, Mirror pMirror) {
         return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
@@ -53,15 +51,14 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
     }
 
     @Override
-    @Nonnull
     @SuppressWarnings("deprecation")
-    public RenderShape getRenderShape(@Nonnull BlockState pState) {
+    public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.MODEL;
     }
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onRemove(BlockState pState, @Nonnull Level pLevel, @Nonnull BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof InventoryBlockEntity) {
@@ -73,7 +70,7 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(@Nonnull BlockPos pPos, @Nonnull BlockState pState) {
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return blockEntityFunction.apply(pPos, pState);
     }
 }

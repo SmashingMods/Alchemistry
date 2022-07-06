@@ -25,8 +25,6 @@ import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
-
 public class DissolverBlock extends AbstractAlchemistryBlock {
 
     public DissolverBlock() {
@@ -38,23 +36,20 @@ public class DissolverBlock extends AbstractAlchemistryBlock {
     public static final VoxelShape SHAPE = Shapes.or(A,B);
 
     @Override
-    @Nonnull
     @SuppressWarnings("deprecation")
-    public VoxelShape getOcclusionShape(@Nonnull BlockState pState, @Nonnull BlockGetter pLevel, @Nonnull BlockPos pPos) {
+    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return SHAPE;
     }
 
     @Override
-    @Nonnull
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@Nonnull BlockState pState, @Nonnull BlockGetter pLevel, @Nonnull BlockPos pPos, @Nonnull CollisionContext pContext) {
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
 
     @Override
-    @Nonnull
     @SuppressWarnings("deprecation")
-    public InteractionResult use(@Nonnull BlockState pState, Level pLevel, @Nonnull BlockPos pPos, @Nonnull Player pPlayer, @Nonnull InteractionHand pHand, @Nonnull BlockHitResult pHit) {
+    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             NetworkHooks.openGui(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);

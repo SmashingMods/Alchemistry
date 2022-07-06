@@ -16,16 +16,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractAlchemistryScreen<MENU extends AbstractContainerMenu> extends AbstractContainerScreen<MENU> {
+public abstract class AbstractAlchemistryScreen<M extends AbstractContainerMenu> extends AbstractContainerScreen<M> {
 
-    protected final List<DisplayData> displayData = new ArrayList<>();
-
-    public AbstractAlchemistryScreen(MENU pMenu, Inventory pPlayerInventory, Component pTitle) {
+    public AbstractAlchemistryScreen(M pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
     }
 
@@ -82,7 +77,7 @@ public abstract class AbstractAlchemistryScreen<MENU extends AbstractContainerMe
         }
     }
 
-    public static TextureAtlasSprite getResourceTexture(@Nonnull ResourceLocation pResourceLocation) {
+    public static TextureAtlasSprite getResourceTexture(ResourceLocation pResourceLocation) {
         return Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(pResourceLocation);
     }
 
@@ -167,7 +162,7 @@ public abstract class AbstractAlchemistryScreen<MENU extends AbstractContainerMe
         });
     }
 
-    public <WIDGET extends GuiEventListener & Widget & NarratableEntry> void renderWidget(WIDGET pWidget, int pX, int pY) {
+    public <W extends GuiEventListener & Widget & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
         if (!renderables.contains(pWidget)) {
             if (pWidget instanceof AbstractWidget widget) {
                 widget.x = pX;

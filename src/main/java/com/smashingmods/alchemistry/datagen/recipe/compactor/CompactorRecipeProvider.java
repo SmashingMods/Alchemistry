@@ -73,10 +73,13 @@ public class CompactorRecipeProvider {
         compactor(new ItemStack(ItemRegistry.getCompoundByName("cobalt_aluminate").get(), 4), new ItemStack(Items.LIGHT_BLUE_DYE));
         compactor(new ItemStack(ItemRegistry.getCompoundByName("magnesium_sulfate").get(), 4), new ItemStack(Items.LIGHT_GRAY_DYE));
         compactor(new ItemStack(ItemRegistry.getCompoundByName("copper_chloride").get(), 4), new ItemStack(Items.CYAN_DYE));
+        compactor(new ItemStack(ItemRegistry.getCompoundByName("hydroxylapatite").get(), 2), new ItemStack(Items.BONE_MEAL, 3));
         
         compactor(new ItemStack(ItemRegistry.getCompoundByName("sucrose").get()), new ItemStack(Items.SUGAR));
-        compactor(new ItemStack(ItemRegistry.getElementByName("carbon").get(), 8), new ItemStack(Items.COAL));
-        compactor(new ItemStack(ItemRegistry.getElementByName("carbon").get(), 8), new ItemStack(Items.CHARCOAL));
+        Item graphite = ItemRegistry.getCompoundByName("graphite").get();
+        compactor(new ItemStack(ItemRegistry.getElementByName("carbon").get(), 4), new ItemStack(graphite));
+        compactor(new ItemStack(graphite, 2), new ItemStack(Items.COAL));
+        compactor(new ItemStack(graphite, 2), new ItemStack(Items.CHARCOAL));
         compactor(new ItemStack(ItemRegistry.getElementByName("phosphorus").get(), 4), new ItemStack(Items.GLOWSTONE_DUST));
         compactor(new ItemStack(ItemRegistry.getElementByName("phosphorus").get(), 16), new ItemStack(Items.GLOWSTONE));
 
@@ -84,6 +87,11 @@ public class CompactorRecipeProvider {
         compactor(new ItemStack(water, 4), new ItemStack(Items.SNOWBALL));
         compactor(new ItemStack(water, 16), new ItemStack(Items.SNOW));
         compactor(new ItemStack(water, 16), new ItemStack(Items.ICE));
+
+        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 3), new ItemStack(Items.LEATHER));
+        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 3), new ItemStack(Items.ROTTEN_FLESH));
+        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 2), new ItemStack(Items.FEATHER));
+        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 1), new ItemStack(Items.STRING, 2));
     }
 
     public void compactor(ItemStack pInput, ItemStack pResult) {

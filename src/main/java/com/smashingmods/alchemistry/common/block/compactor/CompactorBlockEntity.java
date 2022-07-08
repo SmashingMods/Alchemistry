@@ -19,7 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -85,9 +84,9 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-            updateRecipe(pLevel);
+    public void tick() {
+        if (level != null && !level.isClientSide()) {
+            updateRecipe();
             if (canProcessRecipe()) {
                 processRecipe();
             } else {
@@ -97,16 +96,18 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void updateRecipe(Level pLevel) {
-        if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
+    public void updateRecipe() {
+        if (level != null && !level.isClientSide()) {
+            if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
 
-            List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, pLevel).stream().toList();
-            List<CompactorRecipe> filtered = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0))).collect(Collectors.toList());
+                List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().toList();
+                List<CompactorRecipe> filtered = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0))).collect(Collectors.toList());
 
-            if (filtered.size() > 1) {
-                currentRecipe = filtered.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), inputHandler.getStackInSlot(1))).findFirst().orElse(null);
-            } else {
-                currentRecipe = !filtered.isEmpty() ? filtered.get(0) : null;
+                if (filtered.size() > 1) {
+                    currentRecipe = filtered.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), inputHandler.getStackInSlot(1))).findFirst().orElse(null);
+                } else {
+                    currentRecipe = !filtered.isEmpty() ? filtered.get(0) : null;
+                }
             }
         }
     }

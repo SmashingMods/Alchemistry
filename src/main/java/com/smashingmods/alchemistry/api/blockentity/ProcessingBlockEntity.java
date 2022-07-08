@@ -1,12 +1,11 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
-import net.minecraft.world.level.Level;
 
 public interface ProcessingBlockEntity {
 
-    void tick(Level pLevel);
+    void tick();
 
-    void updateRecipe(Level pLevel);
+    void updateRecipe();
 
     boolean canProcessRecipe();
 

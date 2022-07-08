@@ -5,6 +5,9 @@ import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyInputBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorItemInputBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorItemOutputBlockEntity;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
@@ -17,10 +20,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -30,14 +31,13 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import org.jetbrains.annotations.Nullable;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity implements InventoryBlockEntity, EnergyBlockEntity, ProcessingBlockEntity, MultiblockBlockEntity {
 
     protected final ContainerData data;
-    private boolean validMultiblock;
+    private ReactorShape reactorShape;
 
     private int progress = 0;
     private final int maxProgress = Config.Common.fissionTicksPerOperation.get();
@@ -86,40 +86,56 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     }
 
     @Override
-    public void tick(Level pLevel) {
-        if (level != null && !pLevel.isClientSide()) {
-            validMultiblock = isValidMultiblock();
+    public void tick() {
+        if (level != null && !level.isClientSide()) {
+            if (reactorShape == null) {
+                reactorShape = new ReactorShape(this.getBlockPos(), ReactorType.FISSION, level);
+            }
+
             if (isValidMultiblock()) {
-                if (this.getBlockState().getValue(PowerStateProperty.POWER_STATE) == PowerState.OFF) {
-                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.STANDBY));
+                setMultiblockHandlers();
+
+                if (this.getBlockState().getValue(PowerStateProperty.POWER_STATE) == PowerState.DISABLED) {
+                    if (this.energyHandler.getEnergyStored() > 0) {
+                        setPowerState(PowerState.STANDBY);
+                    } else {
+                        setPowerState(PowerState.OFF);
+                    }
                 }
-                updateRecipe(pLevel);
+
+                updateRecipe();
                 if (canProcessRecipe()) {
-                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.ON));
+                    setPowerState(PowerState.ON);
                     processRecipe();
                 } else {
                     progress = 0;
-                    level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.STANDBY));
+                    if (this.energyHandler.getEnergyStored() > 0) {
+                        setPowerState(PowerState.STANDBY);
+                    } else {
+                        setPowerState(PowerState.OFF);
+                    }
                 }
             } else {
-                level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, PowerState.OFF));
+                setPowerState(PowerState.DISABLED);
             }
         }
     }
 
     @Override
-    public void updateRecipe(Level pLevel) {
-        if (!inputHandler.getStackInSlot(0).isEmpty()) {
-            List<FissionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, pLevel).stream().toList();
-            currentRecipe = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0))).findFirst().orElse(null);
-        } else {
-            currentRecipe = null;
+    public void updateRecipe() {
+        if (level != null && !level.isClientSide()) {
+            if (!inputHandler.getStackInSlot(0).isEmpty()) {
+                List<FissionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, level).stream().toList();
+                currentRecipe = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0))).findFirst().orElse(null);
+            } else {
+                currentRecipe = null;
+            }
         }
     }
 
     @Override
     public boolean canProcessRecipe() {
-        if (currentRecipe != null && validMultiblock) {
+        if (currentRecipe != null) {
             ItemStack input = inputHandler.getStackInSlot(0);
             ItemStack output1 = outputHandler.getStackInSlot(0);
             ItemStack output2 = outputHandler.getStackInSlot(1);
@@ -147,20 +163,37 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
 
     public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
-            ReactorShape provider = ReactorShape.create(this.getBlockPos(), level);
-
-            Map<BoundingBox, List<Block>> map = new HashMap<>();
-            map.put(provider.CORE, List.of(BlockRegistry.FISSION_CORE.get()));
-            map.put(provider.FRONT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.FISSION_CONTROLLER.get()));
-            map.put(provider.REAR_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-            map.put(provider.TOP_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-            map.put(provider.BOTTOM_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-            map.put(provider.LEFT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-            map.put(provider.RIGHT_PLANE, List.of(BlockRegistry.REACTOR_CASING.get()));
-
-            return validateMultiblock(level, map);
+            return validateMultiblockShape(level, reactorShape.createShapeMap());
         }
         return false;
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    private void setMultiblockHandlers() {
+        BlockPos.betweenClosedStream(reactorShape.getFullBoundingBox()).forEach(blockPos -> {
+            Block block = level.getBlockState(blockPos).getBlock();
+            if (block.equals(BlockRegistry.REACTOR_ENERGY_INPUT.get())) {
+                if (level.getBlockEntity(blockPos) instanceof ReactorEnergyInputBlockEntity blockEntity) {
+                    blockEntity.setEnergyHandler(this.energyHandler);
+                }
+            }
+            if (block.equals(BlockRegistry.REACTOR_ITEM_INPUT.get())) {
+                if (level.getBlockEntity(blockPos) instanceof ReactorItemInputBlockEntity blockEntity) {
+                    blockEntity.setInputHandler(this.inputHandler);
+                }
+            }
+            if (block.equals(BlockRegistry.REACTOR_ITEM_OUTPUT.get())) {
+                if (level.getBlockEntity(blockPos) instanceof ReactorItemOutputBlockEntity blockEntity) {
+                    blockEntity.setOutputHandler(this.outputHandler);
+                }
+            }
+        });
+    }
+
+    private void setPowerState(PowerState pPowerState) {
+        if (level != null && !level.isClientSide()) {
+            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(PowerStateProperty.POWER_STATE, pPowerState));
+        }
     }
 
     @Override
@@ -228,13 +261,13 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     }
 
     @Override
-    public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
-        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    public <T> LazyOptional<T> getCapability(Capability<T> pCapability, @Nullable Direction pDirection) {
+        if (pCapability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return lazyItemHandler.cast();
-        } else if (cap == CapabilityEnergy.ENERGY) {
+        } else if (pCapability == CapabilityEnergy.ENERGY) {
             return lazyEnergyHandler.cast();
         }
-        return super.getCapability(cap, pDirection);
+        return super.getCapability(pCapability, pDirection);
     }
 
     @Override

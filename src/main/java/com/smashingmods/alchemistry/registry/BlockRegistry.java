@@ -1,5 +1,9 @@
 package com.smashingmods.alchemistry.registry;
 
+import com.smashingmods.alchemistry.common.block.reactor.ReactorItemOutputBlock;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyInputBlock;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorGlassBlock;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorItemInputBlock;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlock;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlock;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlock;
@@ -26,11 +30,16 @@ public class BlockRegistry {
     public static final RegistryObject<Block> COMBINER = BLOCKS.register("combiner", CombinerBlock::new);
     public static final RegistryObject<Block> DISSOLVER = BLOCKS.register("dissolver", DissolverBlock::new);
     public static final RegistryObject<Block> LIQUIFIER = BLOCKS.register("liquifier", LiquifierBlock::new);
+
     public static final RegistryObject<Block> FISSION_CONTROLLER = BLOCKS.register("fission_controller", FissionControllerBlock::new);
     public static final RegistryObject<Block> FUSION_CONTROLLER = BLOCKS.register("fusion_controller", FusionControllerBlock::new);
-    public static final RegistryObject<Block> REACTOR_CASING = BLOCKS.register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
     public static final RegistryObject<RotatedPillarBlock> FISSION_CORE = BLOCKS.register("fission_core", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
     public static final RegistryObject<RotatedPillarBlock> FUSION_CORE = BLOCKS.register("fusion_core", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
+    public static final RegistryObject<Block> REACTOR_CASING = BLOCKS.register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
+    public static final RegistryObject<Block> REACTOR_GLASS = BLOCKS.register("reactor_glass", ReactorGlassBlock::new);
+    public static final RegistryObject<Block> REACTOR_ENERGY_INPUT = BLOCKS.register("reactor_energy_input", ReactorEnergyInputBlock::new);
+    public static final RegistryObject<Block> REACTOR_ITEM_INPUT = BLOCKS.register("reactor_item_input", ReactorItemInputBlock::new);
+    public static final RegistryObject<Block> REACTOR_ITEM_OUTPUT = BLOCKS.register("reactor_item_output", ReactorItemOutputBlock::new);
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

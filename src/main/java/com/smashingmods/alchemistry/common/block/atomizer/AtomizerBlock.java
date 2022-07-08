@@ -79,7 +79,7 @@ public class AtomizerBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pBlockPos, pBlockState, pBlockEntity) -> {
                 if (pBlockEntity instanceof AtomizerBlockEntity blockEntity) {
-                    blockEntity.tick(pLevel);
+                    blockEntity.tick();
                 }
             };
         }

@@ -16,7 +16,7 @@ public interface MultiblockBlockEntity {
         return (box, blockList, level) -> BlockPos.betweenClosedStream(box).allMatch(blockPos -> blockList.contains(level.getBlockState(blockPos).getBlock()));
     }
 
-    default boolean validateMultiblock(Level pLevel, Map<BoundingBox, List<Block>> pMap) {
+    default boolean validateMultiblockShape(Level pLevel, Map<BoundingBox, List<Block>> pMap) {
         List<Boolean> checks = new ArrayList<>();
         pMap.forEach((box, list) -> checks.add(blockPredicate().apply(box, list, pLevel)));
         return checks.stream().allMatch(check -> check);

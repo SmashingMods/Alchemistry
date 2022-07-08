@@ -67,6 +67,8 @@ public class Alchemistry {
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LIQUIFIER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FISSION_CONTROLLER.get(), RenderType.translucent());
             ItemBlockRenderTypes.setRenderLayer(BlockRegistry.FUSION_CONTROLLER.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.REACTOR_CASING.get(), RenderType.solid());
+            ItemBlockRenderTypes.setRenderLayer(BlockRegistry.REACTOR_GLASS.get(), RenderType.translucent());
         });
     }
 

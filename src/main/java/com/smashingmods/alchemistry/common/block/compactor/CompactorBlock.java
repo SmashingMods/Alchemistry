@@ -50,7 +50,7 @@ public class CompactorBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof CompactorBlockEntity compactor) {
-                    compactor.tick(pLevel);
+                    compactor.tick();
                 }
             };
         }

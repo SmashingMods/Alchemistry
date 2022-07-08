@@ -91,9 +91,9 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-            updateRecipe(pLevel);
+    public void tick() {
+        if (level !=null && !level.isClientSide()) {
+            updateRecipe();
             if (canProcessRecipe()) {
                 processRecipe();
             } else {
@@ -102,12 +102,14 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         }
     }
 
-    public void updateRecipe(Level pLevel) {
-        if (!fluidHandler.isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
-            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, pLevel).stream()
-                    .filter(recipe -> recipe.getInput().getFluid() == fluidHandler.getFluidStack().getFluid()).findFirst().orElse(null);
-        } else {
-            currentRecipe = null;
+    public void updateRecipe() {
+        if (level !=null && !level.isClientSide()) {
+            if (!fluidHandler.isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
+                currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
+                        .filter(recipe -> recipe.getInput().getFluid() == fluidHandler.getFluidStack().getFluid()).findFirst().orElse(null);
+            } else {
+                currentRecipe = null;
+            }
         }
     }
 

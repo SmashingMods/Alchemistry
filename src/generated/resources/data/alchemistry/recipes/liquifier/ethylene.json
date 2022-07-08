@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "item": "chemlib:ethylene",
+    "count": 8
+  },
+  "result": {
+    "fluid": "chemlib:ethylene_source",
+    "amount": "500"
+  }
+}

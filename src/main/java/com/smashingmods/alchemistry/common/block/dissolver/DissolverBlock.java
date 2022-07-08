@@ -63,7 +63,7 @@ public class DissolverBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof DissolverBlockEntity) {
-                    ((DissolverBlockEntity) blockEntity).tick(pLevel);
+                    ((DissolverBlockEntity) blockEntity).tick();
                 }
             };
         }

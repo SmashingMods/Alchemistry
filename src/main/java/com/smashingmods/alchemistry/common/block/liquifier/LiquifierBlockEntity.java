@@ -91,9 +91,9 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-            updateRecipe(pLevel);
+    public void tick() {
+        if (level != null && !level.isClientSide()) {
+            updateRecipe();
             if (canProcessRecipe()) {
                 processRecipe();
             }
@@ -103,11 +103,13 @@ public class LiquifierBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void updateRecipe(Level pLevel) {
-        currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, pLevel).stream()
-                .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0)))
-                .findFirst()
-                .orElse(null);
+    public void updateRecipe() {
+        if (level != null && !level.isClientSide()) {
+            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
+                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), inputHandler.getStackInSlot(0)))
+                    .findFirst()
+                    .orElse(null);
+        }
     }
 
     @Override

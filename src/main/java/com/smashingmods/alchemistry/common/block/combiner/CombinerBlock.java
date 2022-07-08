@@ -73,7 +73,7 @@ public class CombinerBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof CombinerBlockEntity) {
-                    ((CombinerBlockEntity) blockEntity).tick(pLevel);
+                    ((CombinerBlockEntity) blockEntity).tick();
                 }
             };
         }

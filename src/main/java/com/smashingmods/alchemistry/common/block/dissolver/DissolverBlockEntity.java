@@ -19,7 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -88,9 +87,10 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
         return new DissolverMenu(pContainerId, pInventory, this, this.data);
     }
 
-    public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
-            updateRecipe(pLevel);
+    @Override
+    public void tick() {
+        if (level !=null && !level.isClientSide()) {
+            updateRecipe();
             if (canProcessRecipe()) {
                 processRecipe();
             } else {
@@ -100,9 +100,11 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public void updateRecipe(Level pLevel) {
-        if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.getInput(), getInputHandler().getStackInSlot(0)))) {
-            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, pLevel).stream().filter(recipe -> recipe.getInput().getItem() == inputHandler.getStackInSlot(0).getItem()).findFirst().orElse(null);
+    public void updateRecipe() {
+        if (level != null && !level.isClientSide()) {
+            if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.getInput(), getInputHandler().getStackInSlot(0)))) {
+                currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream().filter(recipe -> recipe.getInput().getItem() == inputHandler.getStackInSlot(0).getItem()).findFirst().orElse(null);
+            }
         }
     }
 

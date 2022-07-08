@@ -40,11 +40,12 @@ public class BlockStateGenerator extends BlockStateProvider {
         registerMachineModel(BlockRegistry.DISSOLVER, dissolverModel);
         registerMachineModel(BlockRegistry.LIQUIFIER, liquifierModel);
 
+        registerController(BlockRegistry.FISSION_CONTROLLER);
+        registerController(BlockRegistry.FUSION_CONTROLLER);
         registerAxisBlock(BlockRegistry.FISSION_CORE);
         registerAxisBlock(BlockRegistry.FUSION_CORE);
         registerSimpleBlock(BlockRegistry.REACTOR_CASING);
-        registerController(BlockRegistry.FISSION_CONTROLLER);
-        registerController(BlockRegistry.FUSION_CONTROLLER);
+        registerSimpleBlock(BlockRegistry.REACTOR_GLASS);
     }
 
     private void registerSimpleBlock(RegistryObject<Block> pBlock) {
@@ -97,7 +98,7 @@ public class BlockStateGenerator extends BlockStateProvider {
             Function<BlockState, ModelFile> modelFunction = state -> {
                 PowerState powerState = blockState.getValue(PowerStateProperty.POWER_STATE);
                 return switch (powerState) {
-                    case OFF, ON, STANDBY -> controllerModelFunction.apply(powerState);
+                    case DISABLED, OFF, ON, STANDBY -> controllerModelFunction.apply(powerState);
                 };
             };
 

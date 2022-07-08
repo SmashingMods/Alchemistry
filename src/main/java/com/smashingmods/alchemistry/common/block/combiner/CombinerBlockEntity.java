@@ -20,7 +20,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -100,8 +99,9 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    public void tick(Level pLevel) {
-        if (!pLevel.isClientSide()) {
+    @Override
+    public void tick() {
+        if (level !=null && !level.isClientSide()) {
             if (!paused) {
                 if (canProcessRecipe()) {
                     processRecipe();
@@ -112,9 +112,8 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         }
     }
 
-    public void updateRecipe(Level pLevel) {
-
-    }
+    @Override
+    public void updateRecipe() {}
 
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
@@ -266,18 +265,10 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction pDirection) {
-        if (pDirection != null) {
-            if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-                return switch (pDirection) {
-                    case DOWN, EAST, WEST, NORTH, SOUTH -> lazyItemHandler.cast();
-                    case UP -> super.getCapability(cap, pDirection);
-                };
-            } else if (cap == CapabilityEnergy.ENERGY) {
-                return switch (pDirection) {
-                    case UP -> lazyEnergyHandler.cast();
-                    case DOWN, NORTH, EAST, SOUTH, WEST -> super.getCapability(cap, pDirection);
-                };
-            }
+        if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return lazyItemHandler.cast();
+        } else if (cap == CapabilityEnergy.ENERGY) {
+            return lazyEnergyHandler.cast();
         }
         return super.getCapability(cap, pDirection);
     }

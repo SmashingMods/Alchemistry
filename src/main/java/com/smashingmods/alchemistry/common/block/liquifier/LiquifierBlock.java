@@ -70,7 +70,7 @@ public class LiquifierBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pBlockPos, pBlockState, pBlockEntity) -> {
                 if (pBlockEntity instanceof LiquifierBlockEntity blockEntity) {
-                    blockEntity.tick(pLevel);
+                    blockEntity.tick();
                 }
             };
         }

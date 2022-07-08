@@ -45,7 +45,7 @@ public class FusionControllerBlock extends AbstractAlchemistryBlock {
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         return this.defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite())
-                .setValue(PowerStateProperty.POWER_STATE, PowerState.OFF);
+                .setValue(PowerStateProperty.POWER_STATE, PowerState.DISABLED);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class FusionControllerBlock extends AbstractAlchemistryBlock {
     @SuppressWarnings("deprecation")
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.OFF) {
+            if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.DISABLED) {
                 BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
                 NetworkHooks.openGui(((ServerPlayer) pPlayer), (FusionControllerBlockEntity) blockEntity, pPos);
                 return InteractionResult.SUCCESS;
@@ -73,7 +73,7 @@ public class FusionControllerBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof FusionControllerBlockEntity controller) {
-                    controller.tick(pLevel);
+                    controller.tick();
                 }
             };
         }

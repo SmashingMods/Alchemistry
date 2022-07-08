@@ -1,5 +1,20 @@
 {
   "variants": {
+    "facing=north,power_state=disabled": {
+      "model": "alchemistry:block/fusion_controller_disabled"
+    },
+    "facing=south,power_state=disabled": {
+      "model": "alchemistry:block/fusion_controller_disabled",
+      "y": 180
+    },
+    "facing=west,power_state=disabled": {
+      "model": "alchemistry:block/fusion_controller_disabled",
+      "y": 270
+    },
+    "facing=east,power_state=disabled": {
+      "model": "alchemistry:block/fusion_controller_disabled",
+      "y": 90
+    },
     "facing=north,power_state=off": {
       "model": "alchemistry:block/fusion_controller_off"
     },

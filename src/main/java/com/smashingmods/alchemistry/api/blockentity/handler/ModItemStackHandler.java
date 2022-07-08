@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.api.blockentity.handler;
 
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
 import com.smashingmods.alchemistry.utils.IItemHandlerUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -17,9 +16,9 @@ import static net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABI
 
 public class ModItemStackHandler extends ItemStackHandler {
 
-    public AbstractAlchemistryBlockEntity blockEntity;
+    public BlockEntity blockEntity;
 
-    public ModItemStackHandler(AbstractAlchemistryBlockEntity pBlockEntity, int pSize) {
+    public <T extends BlockEntity> ModItemStackHandler(T pBlockEntity, int pSize) {
         super(pSize);
         this.blockEntity = pBlockEntity;
     }

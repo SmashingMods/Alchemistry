@@ -8,8 +8,12 @@
     "alchemistry:liquifier",
     "alchemistry:fission_controller",
     "alchemistry:fusion_controller",
-    "alchemistry:reactor_casing",
     "alchemistry:fission_core",
-    "alchemistry:fusion_core"
+    "alchemistry:fusion_core",
+    "alchemistry:reactor_casing",
+    "alchemistry:reactor_glass",
+    "alchemistry:reactor_energy_input",
+    "alchemistry:reactor_item_input",
+    "alchemistry:reactor_item_output"
   ]
 }

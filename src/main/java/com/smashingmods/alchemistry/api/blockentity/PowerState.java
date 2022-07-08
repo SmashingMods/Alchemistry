@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.api.blockentity;
 import net.minecraft.util.StringRepresentable;
 
 public enum PowerState implements StringRepresentable {
+    DISABLED("disabled"),
     OFF("off"),
     STANDBY("standby"),
     ON("on");

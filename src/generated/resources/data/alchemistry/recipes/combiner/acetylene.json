@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 2
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:acetylene"
+  }
+}

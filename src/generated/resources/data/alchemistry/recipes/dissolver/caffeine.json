@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:caffeine"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:carbon",
+            "count": 8
+          },
+          {
+            "item": "chemlib:hydrogen",
+            "count": 10
+          },
+          {
+            "item": "chemlib:nitrogen",
+            "count": 4
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  }
+}

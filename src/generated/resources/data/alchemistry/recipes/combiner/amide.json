@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:nitrogen"
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:amide"
+  }
+}

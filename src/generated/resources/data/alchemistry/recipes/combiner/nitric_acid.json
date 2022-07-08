@@ -1,0 +1,19 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:hydrogen"
+    },
+    {
+      "item": "chemlib:nitrogen"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "chemlib:nitric_acid"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:potassium_permanganate"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:potassium"
+          },
+          {
+            "item": "chemlib:manganese"
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

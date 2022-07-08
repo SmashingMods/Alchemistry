@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:nitrogen"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "chemlib:nitrate"
+  }
+}

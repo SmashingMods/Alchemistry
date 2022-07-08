@@ -1,0 +1,19 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:copper"
+    },
+    {
+      "item": "chemlib:sulfur"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "chemlib:copper_ii_sulfate"
+  }
+}

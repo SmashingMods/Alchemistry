@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:hydrogen",
+      "count": 2
+    },
+    {
+      "item": "chemlib:sulfur"
+    }
+  ],
+  "result": {
+    "item": "chemlib:hydrogen_sulfide"
+  }
+}

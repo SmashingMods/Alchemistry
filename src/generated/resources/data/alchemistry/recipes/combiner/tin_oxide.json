@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:tin"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:tin_oxide"
+  }
+}

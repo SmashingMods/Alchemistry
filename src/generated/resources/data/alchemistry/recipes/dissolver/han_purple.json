@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:han_purple"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:barium"
+          },
+          {
+            "item": "chemlib:copper"
+          },
+          {
+            "item": "chemlib:silicon",
+            "count": 2
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 6
+          }
+        ]
+      }
+    ]
+  }
+}

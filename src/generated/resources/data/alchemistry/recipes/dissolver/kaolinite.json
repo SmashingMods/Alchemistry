@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:kaolinite"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:aluminum_oxide"
+          },
+          {
+            "item": "chemlib:silicon_dioxide",
+            "count": 2
+          },
+          {
+            "item": "chemlib:water",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  }
+}

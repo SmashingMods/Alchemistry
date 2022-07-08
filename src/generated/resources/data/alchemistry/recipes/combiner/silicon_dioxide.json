@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:silicon_dioxide"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:ammonia"
+    },
+    {
+      "item": "chemlib:carbon_dioxide"
+    },
+    {
+      "item": "chemlib:ethylene"
+    },
+    {
+      "item": "chemlib:sulfur"
+    }
+  ],
+  "result": {
+    "item": "chemlib:protein"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon"
+    },
+    {
+      "item": "chemlib:oxygen"
+    },
+    {
+      "item": "chemlib:amide",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:urea"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:potassium"
+    },
+    {
+      "item": "chemlib:carbon"
+    },
+    {
+      "item": "chemlib:nitrogen"
+    }
+  ],
+  "result": {
+    "item": "chemlib:potassium_cyanide"
+  }
+}

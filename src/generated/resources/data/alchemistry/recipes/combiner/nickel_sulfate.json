@@ -1,0 +1,19 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:nickel"
+    },
+    {
+      "item": "chemlib:sulfur"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "chemlib:nickel_sulfate"
+  }
+}

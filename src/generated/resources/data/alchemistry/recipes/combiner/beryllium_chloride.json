@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:beryllium"
+    },
+    {
+      "item": "chemlib:chlorine",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:beryllium_chloride"
+  }
+}

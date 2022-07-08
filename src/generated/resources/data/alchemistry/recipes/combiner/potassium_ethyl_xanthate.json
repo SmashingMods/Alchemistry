@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:potassium"
+    },
+    {
+      "item": "chemlib:polyvinyl_chloride"
+    },
+    {
+      "item": "chemlib:water"
+    },
+    {
+      "item": "chemlib:carbon_disulfide"
+    }
+  ],
+  "result": {
+    "item": "chemlib:potassium_ethyl_xanthate"
+  }
+}

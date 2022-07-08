@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:iron"
+    },
+    {
+      "item": "chemlib:oxygen"
+    }
+  ],
+  "result": {
+    "item": "chemlib:iron_ii_oxide"
+  }
+}

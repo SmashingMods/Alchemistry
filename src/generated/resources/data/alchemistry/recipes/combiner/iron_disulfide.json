@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:iron"
+    },
+    {
+      "item": "chemlib:sulfur",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:iron_disulfide"
+  }
+}

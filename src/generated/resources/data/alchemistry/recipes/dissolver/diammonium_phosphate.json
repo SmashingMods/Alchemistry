@@ -1,0 +1,28 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:diammonium_phosphate"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:ammonium",
+            "count": 2
+          },
+          {
+            "item": "chemlib:hydrogen"
+          },
+          {
+            "item": "chemlib:phosphate"
+          }
+        ]
+      }
+    ]
+  }
+}

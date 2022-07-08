@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:lead"
+    },
+    {
+      "item": "chemlib:sulfur"
+    }
+  ],
+  "result": {
+    "item": "chemlib:lead_sulfide"
+  }
+}

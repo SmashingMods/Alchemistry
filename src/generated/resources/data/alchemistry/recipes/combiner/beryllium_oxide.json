@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:beryllium"
+    },
+    {
+      "item": "chemlib:oxygen"
+    }
+  ],
+  "result": {
+    "item": "chemlib:beryllium_oxide"
+  }
+}

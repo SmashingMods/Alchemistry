@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:arsenic",
+      "count": 4
+    },
+    {
+      "item": "chemlib:sulfur",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "chemlib:arsenic_sulfide"
+  }
+}

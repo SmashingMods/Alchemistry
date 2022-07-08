@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cadmium"
+    },
+    {
+      "item": "chemlib:hydroxide",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:cadmium_hydroxide"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 18
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 32
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:triglyceride"
+  }
+}

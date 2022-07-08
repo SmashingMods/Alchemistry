@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 5
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 12
+    }
+  ],
+  "result": {
+    "item": "chemlib:pentane"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:strontium"
+    },
+    {
+      "item": "chemlib:oxygen"
+    }
+  ],
+  "result": {
+    "item": "chemlib:strontium_oxide"
+  }
+}

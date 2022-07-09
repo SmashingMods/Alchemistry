@@ -5,7 +5,7 @@
     "item": "minecraft:smooth_stone"
   },
   "output": {
-    "rolls": 2,
+    "rolls": 4,
     "relativeProbability": true,
     "groups": [
       {

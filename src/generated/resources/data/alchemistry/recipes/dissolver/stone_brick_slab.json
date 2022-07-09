@@ -5,7 +5,7 @@
     "item": "minecraft:stone_brick_slab"
   },
   "output": {
-    "rolls": 1,
+    "rolls": 2,
     "relativeProbability": true,
     "groups": [
       {

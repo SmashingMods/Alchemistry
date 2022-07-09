@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cadmium"
+    },
+    {
+      "item": "chemlib:carbonate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:cadmium_carbonate"
+  }
+}

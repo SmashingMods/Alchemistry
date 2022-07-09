@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:lithium",
+      "count": 2
+    },
+    {
+      "item": "chemlib:carbonate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:lithium_carbonate"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 2
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 3
+    },
+    {
+      "item": "chemlib:chlorine"
+    }
+  ],
+  "result": {
+    "item": "chemlib:polyvinyl_chloride"
+  }
+}

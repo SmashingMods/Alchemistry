@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 8
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 10
+    },
+    {
+      "item": "chemlib:nitrogen",
+      "count": 4
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:caffeine"
+  }
+}

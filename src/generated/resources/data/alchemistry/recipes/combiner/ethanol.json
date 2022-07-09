@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 2
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 5
+    },
+    {
+      "item": "chemlib:hydroxide"
+    }
+  ],
+  "result": {
+    "item": "chemlib:ethanol"
+  }
+}

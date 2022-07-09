@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:zinc"
+    },
+    {
+      "item": "chemlib:oxygen"
+    }
+  ],
+  "result": {
+    "item": "chemlib:zinc_oxide"
+  }
+}

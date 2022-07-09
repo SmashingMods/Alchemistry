@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:methane"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:carbon"
+          },
+          {
+            "item": "chemlib:hydrogen",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

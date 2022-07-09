@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cesium"
+    },
+    {
+      "item": "chemlib:hydroxide"
+    }
+  ],
+  "result": {
+    "item": "chemlib:cesium_hydroxide"
+  }
+}

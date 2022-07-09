@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:aluminum_oxide"
+    },
+    {
+      "item": "chemlib:silicon_dioxide",
+      "count": 2
+    },
+    {
+      "item": "chemlib:water",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:kaolinite"
+  }
+}

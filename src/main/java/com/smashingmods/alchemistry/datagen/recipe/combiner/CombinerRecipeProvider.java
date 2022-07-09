@@ -29,6 +29,18 @@ public class CombinerRecipeProvider {
 
     private void register() {
 
+//        Add Chemlib recipes
+        ItemRegistry.getCompounds().stream().forEach(compoundItem -> {
+            List<ItemStack> components = new ArrayList<>();
+            compoundItem.getComponents().forEach((name, count) -> {
+                Optional<ElementItem> optionalElement = ItemRegistry.getElementByName(name);
+                Optional<CompoundItem> optionalCompound = ItemRegistry.getCompoundByName(name);
+                optionalElement.ifPresent(element -> components.add(new ItemStack(element, count)));
+                optionalCompound.ifPresent(compound -> components.add(new ItemStack(compound, count)));
+            });
+            combiner(new ItemStack(compoundItem), components);
+        });
+
         // saplings
         combiner(new ItemStack(Items.OAK_SAPLING), Lists.newArrayList(toStack("oxygen"),
                 toStack("cellulose", 2)));

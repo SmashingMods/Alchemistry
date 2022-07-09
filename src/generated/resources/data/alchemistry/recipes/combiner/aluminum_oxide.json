@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:aluminum",
+      "count": 2
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "chemlib:aluminum_oxide"
+  }
+}

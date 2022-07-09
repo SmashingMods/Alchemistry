@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 12
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 22
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 11
+    }
+  ],
+  "result": {
+    "item": "chemlib:sucrose"
+  }
+}

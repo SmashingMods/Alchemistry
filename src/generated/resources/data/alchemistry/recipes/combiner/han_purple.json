@@ -1,0 +1,23 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:barium"
+    },
+    {
+      "item": "chemlib:copper"
+    },
+    {
+      "item": "chemlib:silicon",
+      "count": 2
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 6
+    }
+  ],
+  "result": {
+    "item": "chemlib:han_purple"
+  }
+}

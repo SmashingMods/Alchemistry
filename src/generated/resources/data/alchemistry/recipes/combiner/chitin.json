@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon",
+      "count": 8
+    },
+    {
+      "item": "chemlib:hydrogen",
+      "count": 13
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 5
+    },
+    {
+      "item": "chemlib:nitrogen"
+    }
+  ],
+  "result": {
+    "item": "chemlib:chitin"
+  }
+}

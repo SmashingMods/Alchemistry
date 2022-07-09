@@ -1,0 +1,28 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:nitric_acid"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:hydrogen"
+          },
+          {
+            "item": "chemlib:nitrogen"
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  }
+}

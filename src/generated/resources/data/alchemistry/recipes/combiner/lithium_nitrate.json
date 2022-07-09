@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:lithium"
+    },
+    {
+      "item": "chemlib:nitrate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:lithium_nitrate"
+  }
+}

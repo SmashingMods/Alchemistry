@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:iron_disulfide"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:iron"
+          },
+          {
+            "item": "chemlib:sulfur",
+            "count": 2
+          }
+        ]
+      }
+    ]
+  }
+}

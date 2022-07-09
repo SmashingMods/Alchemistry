@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:manganese"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "chemlib:manganese_oxide"
+  }
+}

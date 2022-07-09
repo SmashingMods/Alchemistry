@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:antimony_trioxide"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:antimony",
+            "count": 2
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 3
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:carbon"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "chemlib:carbonate"
+  }
+}

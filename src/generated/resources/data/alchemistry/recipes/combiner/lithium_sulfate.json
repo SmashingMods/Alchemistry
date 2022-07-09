@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:lithium",
+      "count": 2
+    },
+    {
+      "item": "chemlib:sulfur"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "chemlib:lithium_sulfate"
+  }
+}

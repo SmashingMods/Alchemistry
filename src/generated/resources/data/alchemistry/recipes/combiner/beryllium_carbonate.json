@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:beryllium"
+    },
+    {
+      "item": "chemlib:carbonate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:beryllium_carbonate"
+  }
+}

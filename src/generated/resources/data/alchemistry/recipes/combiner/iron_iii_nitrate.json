@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:iron"
+    },
+    {
+      "item": "chemlib:nitrate",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "chemlib:iron_iii_nitrate"
+  }
+}

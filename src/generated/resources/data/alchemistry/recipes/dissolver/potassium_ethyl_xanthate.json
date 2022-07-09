@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:potassium_ethyl_xanthate"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:potassium"
+          },
+          {
+            "item": "chemlib:polyvinyl_chloride"
+          },
+          {
+            "item": "chemlib:water"
+          },
+          {
+            "item": "chemlib:carbon_disulfide"
+          }
+        ]
+      }
+    ]
+  }
+}

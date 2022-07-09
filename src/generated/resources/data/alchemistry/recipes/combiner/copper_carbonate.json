@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:copper"
+    },
+    {
+      "item": "chemlib:carbonate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:copper_carbonate"
+  }
+}

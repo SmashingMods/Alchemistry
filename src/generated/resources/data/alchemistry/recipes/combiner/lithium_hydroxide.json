@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:lithium"
+    },
+    {
+      "item": "chemlib:hydroxide"
+    }
+  ],
+  "result": {
+    "item": "chemlib:lithium_hydroxide"
+  }
+}

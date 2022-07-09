@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cesium",
+      "count": 2
+    },
+    {
+      "item": "chemlib:sulfur"
+    },
+    {
+      "item": "chemlib:oxygen",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "chemlib:cesium_sulfate"
+  }
+}

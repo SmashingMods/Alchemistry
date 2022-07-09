@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:sodium"
+    },
+    {
+      "item": "chemlib:hydroxide"
+    }
+  ],
+  "result": {
+    "item": "chemlib:sodium_hydroxide"
+  }
+}

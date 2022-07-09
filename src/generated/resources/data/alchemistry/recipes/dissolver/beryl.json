@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:beryl"
+  },
+  "output": {
+    "rolls": 1,
+    "relativeProbability": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:beryllium",
+            "count": 3
+          },
+          {
+            "item": "chemlib:aluminum",
+            "count": 2
+          },
+          {
+            "item": "chemlib:silicon",
+            "count": 6
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 18
+          }
+        ]
+      }
+    ]
+  }
+}

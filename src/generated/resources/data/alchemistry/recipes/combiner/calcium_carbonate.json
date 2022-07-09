@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:calcium"
+    },
+    {
+      "item": "chemlib:carbonate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:calcium_carbonate"
+  }
+}

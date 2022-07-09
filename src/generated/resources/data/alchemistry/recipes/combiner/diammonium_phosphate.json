@@ -1,0 +1,19 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:ammonium",
+      "count": 2
+    },
+    {
+      "item": "chemlib:hydrogen"
+    },
+    {
+      "item": "chemlib:phosphate"
+    }
+  ],
+  "result": {
+    "item": "chemlib:diammonium_phosphate"
+  }
+}

@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -28,8 +28,8 @@ public class FusionControllerMenu extends AbstractAlchemistryMenu {
         this.containerData = pContainerData;
 
         FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) pBlockEntity;
-        ModItemStackHandler inputHandler = blockEntity.getInputHandler();
-        ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
+        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
         addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 44, 35);
         addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 62, 35);

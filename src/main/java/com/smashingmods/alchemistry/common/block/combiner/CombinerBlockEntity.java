@@ -7,7 +7,7 @@ import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.ProcessingBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -45,17 +45,14 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private int progress = 0;
     private int maxProgress = Config.Common.combinerTicksPerOperation.get();
 
-    private final ModItemStackHandler inputHandler = initializeInputHandler();
-    private final ModItemStackHandler outputHandler = initializeOutputHandler();
+    private final CustomItemStackHandler inputHandler = initializeInputHandler();
+    private final CustomItemStackHandler outputHandler = initializeOutputHandler();
 
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(inputHandler);
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(outputHandler);
 
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
     private final LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
-
-    private final ModItemStackHandler catalystHandler = initializeCatalystHandler();
-    private final LazyOptional<IItemHandler> lazyCatalystHandler = LazyOptional.of(() -> catalystHandler);
 
     private final CustomEnergyStorage energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
@@ -101,7 +98,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     @Override
     public void tick() {
-        if (level !=null && !level.isClientSide()) {
+        if (level != null && !level.isClientSide()) {
             if (!paused) {
                 if (canProcessRecipe()) {
                     processRecipe();
@@ -194,19 +191,21 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public ModItemStackHandler initializeInputHandler() {
-        return new ModItemStackHandler(this, 4) {
+    public CustomItemStackHandler initializeInputHandler() {
+        return new CustomItemStackHandler(4) {
             @Override
             protected void onContentsChanged(int slot) {
-                Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, this.blockEntity.getLevel()).stream().filter(recipe -> recipe.matchInputs(this)).findFirst();
-                combinerRecipe.ifPresent(recipe -> setCurrentRecipe(recipe));
+                if (level != null && !level.isClientSide()) {
+                    Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream().filter(recipe -> recipe.matchInputs(this)).findFirst();
+                    combinerRecipe.ifPresent(recipe -> setCurrentRecipe(recipe));
+                }
             }
         };
     }
 
     @Override
-    public ModItemStackHandler initializeOutputHandler() {
-        return new ModItemStackHandler(this, 1) {
+    public CustomItemStackHandler initializeOutputHandler() {
+        return new CustomItemStackHandler( 1) {
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
                 return false;
@@ -214,21 +213,13 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    private ModItemStackHandler initializeCatalystHandler() {
-        return new ModItemStackHandler(this, 1);
-    }
-
-    public ModItemStackHandler getCatalystHandler() {
-        return catalystHandler;
-    }
-
     @Override
-    public ModItemStackHandler getInputHandler() {
+    public CustomItemStackHandler getInputHandler() {
         return inputHandler;
     }
 
     @Override
-    public ModItemStackHandler getOutputHandler() {
+    public CustomItemStackHandler getOutputHandler() {
         return outputHandler;
     }
 
@@ -277,7 +268,6 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     public void invalidateCaps() {
         super.invalidateCaps();
         lazyItemHandler.invalidate();
-        lazyCatalystHandler.invalidate();
         lazyEnergyHandler.invalidate();
     }
 
@@ -285,7 +275,6 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("progress", progress);
         pTag.put("input", inputHandler.serializeNBT());
-        pTag.put("catalyst", catalystHandler.serializeNBT());
         pTag.put("output", outputHandler.serializeNBT());
         pTag.put("energy", energyHandler.serializeNBT());
         pTag.putString("editBoxText", editBoxText);
@@ -300,7 +289,6 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         super.load(pTag);
         progress = pTag.getInt("progress");
         inputHandler.deserializeNBT(pTag.getCompound("input"));
-        catalystHandler.deserializeNBT(pTag.getCompound("catalyst"));
         outputHandler.deserializeNBT(pTag.getCompound("output"));
         energyHandler.deserializeNBT(pTag.get("energy"));
         editBoxText = pTag.getString("editBoxText");

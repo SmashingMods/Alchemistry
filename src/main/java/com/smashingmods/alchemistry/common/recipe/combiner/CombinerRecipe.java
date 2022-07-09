@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -90,11 +90,11 @@ public class CombinerRecipe implements Recipe<Inventory>, Comparable<CombinerRec
         return output;
     }
 
-    public boolean matchInputs(ModItemStackHandler pHandler) {
+    public boolean matchInputs(CustomItemStackHandler pHandler) {
 
         int matchingStacks = 0;
 
-        List<ItemStack> handlerStacks = pHandler.getSlotsAsList().subList(0, 4).stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+        List<ItemStack> handlerStacks = pHandler.getStacks().stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
         List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
 
         if (recipeStacks.size() == handlerStacks.size()) {

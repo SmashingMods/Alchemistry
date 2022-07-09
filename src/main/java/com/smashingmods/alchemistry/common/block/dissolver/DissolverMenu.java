@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -28,8 +28,8 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
 
         this.containerData = pContainerData;
         DissolverBlockEntity blockEntity = (DissolverBlockEntity) pBlockEntity;
-        ModItemStackHandler inputHandler = blockEntity.getInputHandler();
-        ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
+        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
         // input
         addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 84, 12);

@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -23,7 +23,7 @@ public class LiquifierMenu extends AbstractAlchemistryMenu {
     protected LiquifierMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
         super(MenuRegistry.LIQUIFIER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
         LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) pBlockEntity;
-        ModItemStackHandler input = blockEntity.getInputHandler();
+        CustomItemStackHandler input = blockEntity.getInputHandler();
         addSlots(SlotItemHandler::new, input, 1, 1, 0, input.getSlots(), 62, 35);
     }
 

@@ -1,8 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;

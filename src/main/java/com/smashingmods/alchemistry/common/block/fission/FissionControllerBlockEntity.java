@@ -4,7 +4,7 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyInputBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorItemInputBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorItemOutputBlockEntity;
@@ -42,8 +42,8 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     private int progress = 0;
     private final int maxProgress = Config.Common.fissionTicksPerOperation.get();
 
-    private final ModItemStackHandler inputHandler = initializeInputHandler();
-    private final ModItemStackHandler outputHandler = initializeOutputHandler();
+    private final CustomItemStackHandler inputHandler = initializeInputHandler();
+    private final CustomItemStackHandler outputHandler = initializeOutputHandler();
 
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(getInputHandler());
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(getOutputHandler());
@@ -207,13 +207,13 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     }
 
     @Override
-    public ModItemStackHandler initializeInputHandler() {
-        return new ModItemStackHandler(this, 1);
+    public CustomItemStackHandler initializeInputHandler() {
+        return new CustomItemStackHandler(1);
     }
 
     @Override
-    public ModItemStackHandler initializeOutputHandler() {
-        return new ModItemStackHandler(this, 2) {
+    public CustomItemStackHandler initializeOutputHandler() {
+        return new CustomItemStackHandler(2) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
                 return false;
@@ -222,12 +222,12 @@ public class FissionControllerBlockEntity extends AbstractAlchemistryBlockEntity
     }
 
     @Override
-    public ModItemStackHandler getInputHandler() {
+    public CustomItemStackHandler getInputHandler() {
         return inputHandler;
     }
 
     @Override
-    public ModItemStackHandler getOutputHandler() {
+    public CustomItemStackHandler getOutputHandler() {
         return outputHandler;
     }
 

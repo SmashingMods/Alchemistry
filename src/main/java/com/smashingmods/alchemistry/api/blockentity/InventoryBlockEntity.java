@@ -1,15 +1,15 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 public interface InventoryBlockEntity {
 
-    ModItemStackHandler getInputHandler();
+    CustomItemStackHandler getInputHandler();
 
-    ModItemStackHandler getOutputHandler();
+    CustomItemStackHandler getOutputHandler();
 
     AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler);
 
@@ -17,9 +17,9 @@ public interface InventoryBlockEntity {
 
     CombinedInvWrapper getAutomationInventory();
 
-    ModItemStackHandler initializeInputHandler();
+    CustomItemStackHandler initializeInputHandler();
 
-    ModItemStackHandler initializeOutputHandler();
+    CustomItemStackHandler initializeOutputHandler();
 
     void getDrops();
 }

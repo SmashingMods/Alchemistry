@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -21,7 +21,7 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
         super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
         AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
-        ModItemStackHandler output = blockEntity.getOutputHandler();
+        CustomItemStackHandler output = blockEntity.getOutputHandler();
         addSlots(SlotItemHandler::new, output, 1, 1, 0, output.getSlots(), 98, 35);
     }
 

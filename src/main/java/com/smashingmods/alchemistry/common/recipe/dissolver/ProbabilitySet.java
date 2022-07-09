@@ -72,18 +72,6 @@ public class ProbabilitySet {
         return probabilityGroups;
     }
 
-    public List<ItemStack> getAsList() {
-        ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-        probabilityGroups.forEach(group -> builder.add(ImmutableList.copyOf(group.getOutput())));
-        return builder.build().stream()
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
-    }
-
-    public List<ItemStack> filterEmpty() {
-        return getAsList().stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
-    }
-
     public double getProbability(int pIndex) {
         if (relativeProbability) {
             double sum = getTotalProbability();
@@ -113,37 +101,43 @@ public class ProbabilitySet {
 
                     if (trackingProbability >= targetProbability) {
 
-                        group.getOutput().stream().filter(itemStack -> !itemStack.isEmpty()).forEach(itemStack -> {
+                        group.getOutput().stream()
+                            .filter(itemStack -> !itemStack.isEmpty())
+                            .forEach(itemStack -> {
 
-                            int stackIndex = IntStream.range(0, toReturn.size())
-                                    .filter(index -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(index)))
-                                    .findFirst().orElse(-1);
+                                int stackIndex = IntStream.range(0, toReturn.size())
+                                        .filter(index -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(index)))
+                                        .findFirst().orElse(-1);
 
-                            if (stackIndex != -1) {
-                                toReturn.get(stackIndex).grow(itemStack.getCount());
-                            } else {
-                                toReturn.add(itemStack);
+                                if (stackIndex != -1) {
+                                    toReturn.get(stackIndex).grow(itemStack.getCount());
+                                } else {
+                                    toReturn.add(itemStack);
+                                }
                             }
-                        });
+                        );
                         break;
                     }
                 }
             } else {
-                for (ProbabilityGroup component : probabilityGroups) {
-                    if (component.getProbability() >= random.nextInt(101)) {
+                for (ProbabilityGroup group : probabilityGroups) {
+                    if (group.getProbability() >= random.nextInt(101)) {
 
-                        component.getOutput().stream().filter(itemStack -> !itemStack.isEmpty()).forEach(itemStack -> {
+                        group.getOutput().stream()
+                            .filter(itemStack -> !itemStack.isEmpty())
+                            .forEach(itemStack -> {
 
-                            int index = IntStream.range(0, toReturn.size())
-                                    .filter(it -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(it)))
-                                    .findFirst().orElse(-1);
+                                int index = IntStream.range(0, toReturn.size())
+                                        .filter(it -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(it)))
+                                        .findFirst().orElse(-1);
 
-                            if (index != -1) {
-                                toReturn.get(index).grow(itemStack.getCount());
-                            } else {
-                                toReturn.add(itemStack);
+                                if (index != -1) {
+                                    toReturn.get(index).grow(itemStack.getCount());
+                                } else {
+                                    toReturn.add(itemStack);
+                                }
                             }
-                        });
+                        );
                     }
                 }
             }

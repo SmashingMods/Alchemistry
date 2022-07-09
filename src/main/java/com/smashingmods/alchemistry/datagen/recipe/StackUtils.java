@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.utils;
+package com.smashingmods.alchemistry.datagen.recipe;
 
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;

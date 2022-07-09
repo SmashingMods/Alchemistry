@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.CombinerRecipePacket;
@@ -35,15 +35,12 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
         this.level = pInventory.player.getLevel();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
-        ModItemStackHandler inputHandler = blockEntity.getInputHandler();
-        ModItemStackHandler catalystHandler = blockEntity.getCatalystHandler();
-        ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
+        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
         setupRecipeList();
         // input 2x2 grid
         addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 12, 63);
-        // catalyst/solvent
-        addSlots(SlotItemHandler::new, catalystHandler, 1, 1, 0, catalystHandler.getSlots(), 21, 43);
         // output
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 102, 81);
     }

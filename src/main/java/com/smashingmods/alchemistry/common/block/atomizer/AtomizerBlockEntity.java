@@ -5,7 +5,7 @@ import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -41,8 +41,8 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     private int progress = 0;
     private final int maxProgress = Config.Common.atomizerTicksPerOperation.get();
 
-    private final ModItemStackHandler inputHandler = initializeInputHandler();
-    private final ModItemStackHandler outputHandler = initializeOutputHandler();
+    private final CustomItemStackHandler inputHandler = initializeInputHandler();
+    private final CustomItemStackHandler outputHandler = initializeOutputHandler();
 
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(getInputHandler());
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(getOutputHandler());
@@ -161,13 +161,13 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public ModItemStackHandler initializeInputHandler() {
-        return new ModItemStackHandler(this, 1);
+    public CustomItemStackHandler initializeInputHandler() {
+        return new CustomItemStackHandler(1);
     }
 
     @Override
-    public ModItemStackHandler initializeOutputHandler() {
-        return new ModItemStackHandler(this, 1) {
+    public CustomItemStackHandler initializeOutputHandler() {
+        return new CustomItemStackHandler(1) {
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;
@@ -175,11 +175,11 @@ public class AtomizerBlockEntity extends AbstractAlchemistryBlockEntity implemen
         };
     }
 
-    public ModItemStackHandler getInputHandler() {
+    public CustomItemStackHandler getInputHandler() {
         return inputHandler;
     }
 
-    public ModItemStackHandler getOutputHandler() {
+    public CustomItemStackHandler getOutputHandler() {
         return outputHandler;
     }
 

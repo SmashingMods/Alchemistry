@@ -2,24 +2,18 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvider;
-import com.smashingmods.chemlib.api.ChemicalItemType;
-import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
-import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Consumer;
 
-import static com.smashingmods.alchemistry.utils.StackUtils.toStack;
+import static com.smashingmods.alchemistry.datagen.recipe.StackUtils.toStack;
 
 public class CombinerRecipeProvider {
 

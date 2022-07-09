@@ -4,7 +4,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.*;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.CombinerButtonPacket;
@@ -165,7 +165,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         CombinerRecipe currentRecipe = menu.getBlockEntity().getCurrentRecipe();
-        ModItemStackHandler handler = menu.getBlockEntity().getInputHandler();
+        CustomItemStackHandler handler = menu.getBlockEntity().getInputHandler();
 
         // Intellij thinks this is never null. Remove this and watch it crash.
         //noinspection ConstantConditions

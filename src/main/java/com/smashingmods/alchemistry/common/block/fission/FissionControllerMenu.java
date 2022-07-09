@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -28,8 +28,8 @@ public class FissionControllerMenu extends AbstractAlchemistryMenu {
         this.containerData = pContainerData;
 
         FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) pBlockEntity;
-        ModItemStackHandler inputHandler = blockEntity.getInputHandler();
-        ModItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
+        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
 
         addSlots(SlotItemHandler::new, inputHandler, 44, 35);
         addSlots(SlotItemHandler::new, outputHandler, 0, outputHandler.getSlots(), 116, 35);

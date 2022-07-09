@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.smashingmods.alchemistry.utils.StackUtils;
+import com.smashingmods.alchemistry.datagen.recipe.StackUtils;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;

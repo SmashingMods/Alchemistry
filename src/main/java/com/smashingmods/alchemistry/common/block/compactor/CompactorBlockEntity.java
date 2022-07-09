@@ -7,7 +7,7 @@ import com.smashingmods.alchemistry.api.blockentity.InventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.ProcessingBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.AutomationStackHandler;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -39,8 +39,8 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     private int progress = 0;
     private final int maxProgress = Config.Common.compactorTicksPerOperation.get();
 
-    private final ModItemStackHandler inputHandler = initializeInputHandler();
-    private final ModItemStackHandler outputHandler = initializeOutputHandler();
+    private final CustomItemStackHandler inputHandler = initializeInputHandler();
+    private final CustomItemStackHandler outputHandler = initializeOutputHandler();
 
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(getInputHandler());
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(getOutputHandler());
@@ -149,13 +149,13 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public ModItemStackHandler initializeInputHandler() {
-        return new ModItemStackHandler(this, 2);
+    public CustomItemStackHandler initializeInputHandler() {
+        return new CustomItemStackHandler(2);
     }
 
     @Override
-    public ModItemStackHandler initializeOutputHandler() {
-        return new ModItemStackHandler(this, 1) {
+    public CustomItemStackHandler initializeOutputHandler() {
+        return new CustomItemStackHandler(1) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
                 return false;
@@ -164,12 +164,12 @@ public class CompactorBlockEntity extends AbstractAlchemistryBlockEntity impleme
     }
 
     @Override
-    public ModItemStackHandler getInputHandler() {
+    public CustomItemStackHandler getInputHandler() {
         return inputHandler;
     }
 
     @Override
-    public ModItemStackHandler getOutputHandler() {
+    public CustomItemStackHandler getOutputHandler() {
         return outputHandler;
     }
 

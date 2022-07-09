@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.ModItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,14 +16,14 @@ import javax.annotation.Nullable;
 
 public class ReactorItemOutputBlockEntity extends BlockEntity {
 
-    private ModItemStackHandler outputHandler = new ModItemStackHandler(this, 0);
+    private CustomItemStackHandler outputHandler = new CustomItemStackHandler(0);
     private final LazyOptional<IItemHandler> lazyOutputHandler = LazyOptional.of(() -> outputHandler);
 
     public ReactorItemOutputBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.REACTOR_ITEM_OUTPUT_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
-    public void setOutputHandler(ModItemStackHandler pOutputHandler) {
+    public void setOutputHandler(CustomItemStackHandler pOutputHandler) {
         this.outputHandler = pOutputHandler;
     }
 

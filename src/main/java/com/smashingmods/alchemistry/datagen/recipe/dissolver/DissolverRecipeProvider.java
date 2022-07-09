@@ -2,13 +2,10 @@ package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverTagData;
-import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.datagen.recipe.IngredientStack;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
-import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeProvider;
 import com.smashingmods.chemlib.api.MetalType;
-import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -21,18 +18,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.set;
-import static com.smashingmods.alchemistry.utils.StackUtils.toStack;
+import static com.smashingmods.alchemistry.datagen.recipe.StackUtils.toStack;
 
 public class DissolverRecipeProvider {
 

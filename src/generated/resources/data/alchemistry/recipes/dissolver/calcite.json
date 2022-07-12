@@ -9,7 +9,7 @@
     "relativeProbability": true,
     "groups": [
       {
-        "probability": 100.0,
+        "probability": 1.0,
         "results": [
           {
             "item": "chemlib:calcium_carbonate"

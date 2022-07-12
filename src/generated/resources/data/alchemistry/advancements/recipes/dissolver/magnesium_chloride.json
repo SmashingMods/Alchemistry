@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:magnesium_chloride"
+      "chemlib:magnesium_chloride"
     ]
   },
   "criteria": {

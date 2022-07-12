@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:hydrochloric_acid"
+      "chemlib:hydrochloric_acid"
     ]
   },
   "criteria": {

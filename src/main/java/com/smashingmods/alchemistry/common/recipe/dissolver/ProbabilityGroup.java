@@ -36,9 +36,7 @@ public class ProbabilityGroup {
 
         for (ItemStack itemStack : this.output) {
             Objects.requireNonNull(itemStack.getItem().getRegistryName());
-
             JsonObject jsonObject = new JsonObject();
-
             jsonObject.add("item", new JsonPrimitive(itemStack.getItem().getRegistryName().toString()));
 
             if (itemStack.getCount() > 1) {

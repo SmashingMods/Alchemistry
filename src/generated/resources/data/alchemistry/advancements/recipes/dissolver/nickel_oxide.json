@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:nickel_oxide"
+      "chemlib:nickel_oxide"
     ]
   },
   "criteria": {

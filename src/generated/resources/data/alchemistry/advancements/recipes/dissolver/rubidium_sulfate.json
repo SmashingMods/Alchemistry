@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:rubidium_sulfate"
+      "chemlib:rubidium_sulfate"
     ]
   },
   "criteria": {

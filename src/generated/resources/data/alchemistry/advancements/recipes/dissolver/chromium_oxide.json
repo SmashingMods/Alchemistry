@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:chromium_oxide"
+      "chemlib:chromium_oxide"
     ]
   },
   "criteria": {

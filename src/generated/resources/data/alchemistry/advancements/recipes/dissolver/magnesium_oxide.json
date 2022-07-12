@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:magnesium_oxide"
+      "chemlib:magnesium_oxide"
     ]
   },
   "criteria": {

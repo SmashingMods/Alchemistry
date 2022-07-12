@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:deepslate_tile_slab"
+      "minecraft:deepslate_tile_slab"
     ]
   },
   "criteria": {

@@ -100,12 +100,10 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            if (!inputHandler.getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.getInput().copy(), getInputHandler().getStackInSlot(0).copy()))) {
-                currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
-                        .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput().copy(), inputHandler.getStackInSlot(0).copy()))
-                        .findFirst()
-                        .orElse(null);
-            }
+            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
+                .filter(recipe -> recipe.matches(inputHandler.getStackInSlot(0)))
+                .findFirst()
+                .orElse(null);
         }
     }
 
@@ -114,8 +112,8 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
         if (currentRecipe != null) {
             ItemStack input = inputHandler.getStackInSlot(0).copy();
             return energyHandler.getEnergyStored() >= Config.Common.dissolverEnergyPerTick.get()
-                    && ItemStack.isSameItemSameTags(input, currentRecipe.getInput())
-                    && (input.getCount() >= currentRecipe.getInput().getCount())
+                    && currentRecipe.matches(input)
+                    && (input.getCount() >= currentRecipe.getInput().getItems()[0].copy().getCount())
                     && internalBuffer.isEmpty();
         } else {
             return false;
@@ -128,7 +126,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
             progress++;
         } else {
             progress = 0;
-            inputHandler.decrementSlot(0, currentRecipe.getInput().copy().getCount());
+            inputHandler.decrementSlot(0, currentRecipe.getInput().getItems()[0].copy().getCount());
             internalBuffer.addAll(currentRecipe.getOutput().calculateOutput());
         }
         energyHandler.extractEnergy(Config.Common.dissolverEnergyPerTick.get(), false);

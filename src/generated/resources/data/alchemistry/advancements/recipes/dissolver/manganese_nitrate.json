@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:manganese_nitrate"
+      "chemlib:manganese_nitrate"
     ]
   },
   "criteria": {

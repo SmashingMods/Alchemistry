@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:beryl"
+      "chemlib:beryl"
     ]
   },
   "criteria": {

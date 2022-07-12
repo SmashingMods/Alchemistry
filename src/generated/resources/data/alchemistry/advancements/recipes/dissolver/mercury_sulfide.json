@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:mercury_sulfide"
+      "chemlib:mercury_sulfide"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:copper_i_oxide"
+      "chemlib:copper_i_oxide"
     ]
   },
   "criteria": {

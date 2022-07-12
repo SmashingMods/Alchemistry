@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:zinc_nitrate"
+      "chemlib:zinc_nitrate"
     ]
   },
   "criteria": {

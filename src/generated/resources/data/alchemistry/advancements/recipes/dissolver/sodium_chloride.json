@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:sodium_chloride"
+      "chemlib:sodium_chloride"
     ]
   },
   "criteria": {

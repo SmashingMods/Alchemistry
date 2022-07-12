@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:urea"
+      "chemlib:urea"
     ]
   },
   "criteria": {

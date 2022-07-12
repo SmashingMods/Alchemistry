@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:barium_carbonate"
+      "chemlib:barium_carbonate"
     ]
   },
   "criteria": {

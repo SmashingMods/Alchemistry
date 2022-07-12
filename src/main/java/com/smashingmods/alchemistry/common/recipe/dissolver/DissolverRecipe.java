@@ -15,10 +15,10 @@ public class DissolverRecipe implements Recipe<Inventory> {
 
     private final ResourceLocation recipeId;
     private final String group;
-    private final ItemStack input;
+    private final Ingredient input;
     private final ProbabilitySet output;
 
-    public DissolverRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, ProbabilitySet pOutput) {
+    public DissolverRecipe(ResourceLocation pId, String pGroup, Ingredient pInput, ProbabilitySet pOutput) {
         this.recipeId = pId;
         this.group = pGroup;
         this.input = pInput;
@@ -67,7 +67,7 @@ public class DissolverRecipe implements Recipe<Inventory> {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.of(input));
+        return NonNullList.of(input);
     }
 
     @Override
@@ -75,11 +75,15 @@ public class DissolverRecipe implements Recipe<Inventory> {
         return String.format("input=%s, outputs=%s", input, output);
     }
 
-    public ItemStack getInput() {
+    public Ingredient getInput() {
         return input;
     }
 
     public ProbabilitySet getOutput() {
         return output;
+    }
+
+    public boolean matches(ItemStack pItemStack) {
+        return input.test(pItemStack);
     }
 }

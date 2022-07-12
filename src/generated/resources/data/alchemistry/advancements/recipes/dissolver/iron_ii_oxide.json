@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:iron_ii_oxide"
+      "chemlib:iron_ii_oxide"
     ]
   },
   "criteria": {

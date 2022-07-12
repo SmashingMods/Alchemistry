@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:copper_ii_hydroxide"
+      "chemlib:copper_ii_hydroxide"
     ]
   },
   "criteria": {

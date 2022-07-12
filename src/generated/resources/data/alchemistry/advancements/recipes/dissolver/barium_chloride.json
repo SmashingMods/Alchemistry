@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:barium_chloride"
+      "chemlib:barium_chloride"
     ]
   },
   "criteria": {

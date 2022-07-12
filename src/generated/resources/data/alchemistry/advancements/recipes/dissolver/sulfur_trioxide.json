@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:sulfur_trioxide"
+      "chemlib:sulfur_trioxide"
     ]
   },
   "criteria": {

@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.chemlib.common.items.CompoundItem;
+import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -29,7 +30,7 @@ public class CombinerRecipeProvider {
 
     private void register() {
 
-//        Add Chemlib recipes
+        // Add Chemlib recipes
         ItemRegistry.getCompounds().stream().forEach(compoundItem -> {
             List<ItemStack> components = new ArrayList<>();
             compoundItem.getComponents().forEach((name, count) -> {

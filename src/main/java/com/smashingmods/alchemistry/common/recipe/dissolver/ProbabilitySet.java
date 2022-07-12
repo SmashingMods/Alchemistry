@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,18 +8,14 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class ProbabilitySet {
 
     private final List<ProbabilityGroup> probabilityGroups;
-    public final boolean relativeProbability;
-    public final int rolls;
+    private final boolean relativeProbability;
+    private final int rolls;
 
     public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups) {
         this(pProbabilityGroups, true, 1);
@@ -68,21 +63,10 @@ public class ProbabilitySet {
         return new ProbabilitySet(groupArrayList, relative, rolls);
     }
 
-    public List<ProbabilityGroup> getProbabilityGroups() {
-        return probabilityGroups;
-    }
-
-    public double getProbability(int pIndex) {
-        if (relativeProbability) {
-            double sum = getTotalProbability();
-            return probabilityGroups.get(pIndex).getProbability() / sum;
-        } else {
-            return probabilityGroups.get(pIndex).getProbability();
-        }
-    }
-
     private double getTotalProbability() {
-        return probabilityGroups.stream().mapToDouble(ProbabilityGroup::getProbability).sum();
+        return probabilityGroups.stream()
+                .mapToDouble(ProbabilityGroup::getProbability)
+                .sum();
     }
 
     public NonNullList<ItemStack> calculateOutput() {
@@ -91,7 +75,6 @@ public class ProbabilitySet {
 
         for (int i = 1; i <= rolls; i++) {
             if (relativeProbability) {
-
                 double totalProbability = getTotalProbability();
                 double targetProbability = random.nextDouble();
                 double trackingProbability = 0.0;
@@ -100,17 +83,16 @@ public class ProbabilitySet {
                     trackingProbability += (group.getProbability() / totalProbability);
 
                     if (trackingProbability >= targetProbability) {
-
                         group.getOutput().stream()
                             .filter(itemStack -> !itemStack.isEmpty())
                             .forEach(itemStack -> {
 
-                                int stackIndex = IntStream.range(0, toReturn.size())
+                                OptionalInt optionalIndex = IntStream.range(0, toReturn.size())
                                         .filter(index -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(index)))
-                                        .findFirst().orElse(-1);
+                                        .findFirst();
 
-                                if (stackIndex != -1) {
-                                    toReturn.get(stackIndex).grow(itemStack.getCount());
+                                if (optionalIndex.isPresent()) {
+                                    toReturn.get(optionalIndex.getAsInt()).grow(itemStack.getCount());
                                 } else {
                                     toReturn.add(itemStack);
                                 }
@@ -122,17 +104,16 @@ public class ProbabilitySet {
             } else {
                 for (ProbabilityGroup group : probabilityGroups) {
                     if (group.getProbability() >= random.nextInt(101)) {
-
                         group.getOutput().stream()
                             .filter(itemStack -> !itemStack.isEmpty())
                             .forEach(itemStack -> {
 
-                                int index = IntStream.range(0, toReturn.size())
-                                        .filter(it -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(it)))
-                                        .findFirst().orElse(-1);
+                                OptionalInt optionalIndex = IntStream.range(0, toReturn.size())
+                                        .filter(index -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(index)))
+                                        .findFirst();
 
-                                if (index != -1) {
-                                    toReturn.get(index).grow(itemStack.getCount());
+                                if (optionalIndex.isPresent()) {
+                                    toReturn.get(optionalIndex.getAsInt()).grow(itemStack.getCount());
                                 } else {
                                     toReturn.add(itemStack);
                                 }
@@ -152,7 +133,7 @@ public class ProbabilitySet {
 
         public Builder() {}
 
-        public static Builder set() {
+        public static Builder createSet() {
             return new Builder();
         }
 

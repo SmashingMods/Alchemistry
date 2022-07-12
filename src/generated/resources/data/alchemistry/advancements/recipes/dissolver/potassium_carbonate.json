@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:potassium_carbonate"
+      "chemlib:potassium_carbonate"
     ]
   },
   "criteria": {

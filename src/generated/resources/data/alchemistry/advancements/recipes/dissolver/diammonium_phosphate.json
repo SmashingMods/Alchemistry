@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:diammonium_phosphate"
+      "chemlib:diammonium_phosphate"
     ]
   },
   "criteria": {

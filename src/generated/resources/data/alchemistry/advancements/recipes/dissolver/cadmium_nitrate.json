@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cadmium_nitrate"
+      "chemlib:cadmium_nitrate"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:acetic_acid"
+      "chemlib:acetic_acid"
     ]
   },
   "criteria": {

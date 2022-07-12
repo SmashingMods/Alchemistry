@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:hexane"
+      "chemlib:hexane"
     ]
   },
   "criteria": {

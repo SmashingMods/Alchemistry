@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:sulfur_dioxide"
+      "chemlib:sulfur_dioxide"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:rubidium_oxide"
+      "chemlib:rubidium_oxide"
     ]
   },
   "criteria": {

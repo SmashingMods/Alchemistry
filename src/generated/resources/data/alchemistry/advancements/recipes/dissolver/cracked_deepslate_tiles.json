@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cracked_deepslate_tiles"
+      "minecraft:cracked_deepslate_tiles"
     ]
   },
   "criteria": {

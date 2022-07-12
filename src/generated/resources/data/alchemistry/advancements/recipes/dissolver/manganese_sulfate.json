@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:manganese_sulfate"
+      "chemlib:manganese_sulfate"
     ]
   },
   "criteria": {

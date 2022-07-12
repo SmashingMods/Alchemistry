@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:iron_carbonate"
+      "chemlib:iron_carbonate"
     ]
   },
   "criteria": {

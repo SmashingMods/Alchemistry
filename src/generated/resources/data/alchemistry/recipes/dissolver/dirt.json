@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:dirt"
+    "tag": "minecraft:dirt"
   },
   "output": {
     "rolls": 1,

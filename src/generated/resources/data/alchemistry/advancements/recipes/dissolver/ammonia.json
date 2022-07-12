@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:ammonia"
+      "chemlib:ammonia"
     ]
   },
   "criteria": {

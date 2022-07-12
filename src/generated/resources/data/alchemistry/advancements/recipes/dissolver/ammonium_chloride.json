@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:ammonium_chloride"
+      "chemlib:ammonium_chloride"
     ]
   },
   "criteria": {

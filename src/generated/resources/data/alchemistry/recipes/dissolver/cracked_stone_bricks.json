@@ -9,14 +9,6 @@
     "relativeProbability": true,
     "groups": [
       {
-        "probability": 20.0,
-        "results": [
-          {
-            "item": "minecraft:air"
-          }
-        ]
-      },
-      {
         "probability": 2.0,
         "results": [
           {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:lead_sulfide"
+      "chemlib:lead_sulfide"
     ]
   },
   "criteria": {

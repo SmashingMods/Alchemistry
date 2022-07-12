@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:calcium_oxide"
+      "chemlib:calcium_oxide"
     ]
   },
   "criteria": {

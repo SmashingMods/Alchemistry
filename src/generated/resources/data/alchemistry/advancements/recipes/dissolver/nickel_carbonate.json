@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:nickel_carbonate"
+      "chemlib:nickel_carbonate"
     ]
   },
   "criteria": {

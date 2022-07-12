@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:potassium_hydroxide"
+      "chemlib:potassium_hydroxide"
     ]
   },
   "criteria": {

@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
@@ -14,16 +15,16 @@ import java.util.stream.IntStream;
 public class ProbabilitySet {
 
     private final List<ProbabilityGroup> probabilityGroups;
-    private final boolean relativeProbability;
+    private final boolean weighted;
     private final int rolls;
 
     public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups) {
         this(pProbabilityGroups, true, 1);
     }
 
-    public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups, boolean pRelativeProbability, int pRolls) {
+    public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups, boolean pWeighted, int pRolls) {
         this.probabilityGroups = pProbabilityGroups;
-        this.relativeProbability = pRelativeProbability;
+        this.weighted = pWeighted;
         this.rolls = pRolls;
     }
 
@@ -32,7 +33,7 @@ public class ProbabilitySet {
         JsonArray jsonArray = new JsonArray();
 
         toReturn.add("rolls", new JsonPrimitive(rolls));
-        toReturn.add("relativeProbability", new JsonPrimitive(relativeProbability));
+        toReturn.add("weighted", new JsonPrimitive(weighted));
 
         for (ProbabilityGroup group : probabilityGroups) {
             jsonArray.add(group.serialize());
@@ -45,7 +46,7 @@ public class ProbabilitySet {
     public void write(FriendlyByteBuf pBuffer) {
         pBuffer.writeInt(probabilityGroups.size());
         pBuffer.writeInt(rolls);
-        pBuffer.writeBoolean(relativeProbability);
+        pBuffer.writeBoolean(weighted);
         for (ProbabilityGroup group : probabilityGroups) {
             group.write(pBuffer);
         }
@@ -55,12 +56,12 @@ public class ProbabilitySet {
         List<ProbabilityGroup> groupArrayList = new ArrayList<>();
         int size = pbuffer.readInt();
         int rolls = pbuffer.readInt();
-        boolean relative = pbuffer.readBoolean();
+        boolean weighted = pbuffer.readBoolean();
 
         for (int index = 0; index < size; index++) {
             groupArrayList.add(ProbabilityGroup.read(pbuffer));
         }
-        return new ProbabilitySet(groupArrayList, relative, rolls);
+        return new ProbabilitySet(groupArrayList, weighted, rolls);
     }
 
     private double getTotalProbability() {
@@ -74,51 +75,30 @@ public class ProbabilitySet {
         Random random = new Random();
 
         for (int i = 1; i <= rolls; i++) {
-            if (relativeProbability) {
-                double totalProbability = getTotalProbability();
-                double targetProbability = random.nextDouble();
-                double trackingProbability = 0.0;
+            double totalProbability = getTotalProbability();
+            double targetProbability = random.nextDouble();
+
+            if (weighted) {
+                double outputProbability = 0.0;
 
                 for (ProbabilityGroup group : probabilityGroups) {
-                    trackingProbability += (group.getProbability() / totalProbability);
+                    outputProbability += (group.getProbability() / totalProbability);
 
-                    if (trackingProbability >= targetProbability) {
+                    if (outputProbability >= targetProbability) {
                         group.getOutput().stream()
                             .filter(itemStack -> !itemStack.isEmpty())
-                            .forEach(itemStack -> {
-
-                                OptionalInt optionalIndex = IntStream.range(0, toReturn.size())
-                                        .filter(index -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(index)))
-                                        .findFirst();
-
-                                if (optionalIndex.isPresent()) {
-                                    toReturn.get(optionalIndex.getAsInt()).grow(itemStack.getCount());
-                                } else {
-                                    toReturn.add(itemStack);
-                                }
-                            }
-                        );
+                            .forEach(itemStack -> populateReturnList(toReturn, itemStack));
                         break;
                     }
                 }
             } else {
+                if ((totalProbability / 100) < targetProbability) return toReturn;
+
                 for (ProbabilityGroup group : probabilityGroups) {
                     if (group.getProbability() >= random.nextInt(101)) {
                         group.getOutput().stream()
                             .filter(itemStack -> !itemStack.isEmpty())
-                            .forEach(itemStack -> {
-
-                                OptionalInt optionalIndex = IntStream.range(0, toReturn.size())
-                                        .filter(index -> ItemStack.isSameItemSameTags(itemStack, toReturn.get(index)))
-                                        .findFirst();
-
-                                if (optionalIndex.isPresent()) {
-                                    toReturn.get(optionalIndex.getAsInt()).grow(itemStack.getCount());
-                                } else {
-                                    toReturn.add(itemStack);
-                                }
-                            }
-                        );
+                            .forEach(itemStack -> populateReturnList(toReturn, itemStack));
                     }
                 }
             }
@@ -126,9 +106,37 @@ public class ProbabilitySet {
         return toReturn;
     }
 
+    private void populateReturnList(NonNullList<ItemStack> pList, ItemStack pItemStack) {
+
+        Item item = pItemStack.copy().getItem();
+        int count = pItemStack.copy().getCount();
+
+        OptionalInt optionalIndex = IntStream.range(0, pList.size())
+                .filter(index -> ItemStack.isSameItemSameTags(pItemStack.copy(), pList.get(index)))
+                .findFirst();
+
+        if (count > 64) {
+            while (count > 0) {
+                if (count >= 64) {
+                    pList.add(new ItemStack(item, 64));
+                    count -= 64;
+                } else {
+                    pList.add(new ItemStack(item, count));
+                    count = 0;
+                }
+            }
+        } else {
+            if (optionalIndex.isPresent()) {
+                pList.get(optionalIndex.getAsInt()).grow(count);
+            } else {
+                pList.add(new ItemStack(item, count));
+            }
+        }
+    }
+
     public static class Builder {
         private final List<ProbabilityGroup> groups = new ArrayList<>();
-        private boolean relativeProbability = true;
+        private boolean weighted = false;
         private int rolls = 1;
 
         public Builder() {}
@@ -142,8 +150,18 @@ public class ProbabilitySet {
             return this;
         }
 
+        public Builder addGroup(List<ItemStack> itemStacks) {
+            groups.add(new ProbabilityGroup(itemStacks));
+            return this;
+        }
+
+        public Builder addGroup(List<ItemStack> itemStacks, double pProbability) {
+            groups.add(new ProbabilityGroup(itemStacks, pProbability));
+            return this;
+        }
+
         public Builder addGroup(ItemStack... pItemStacks) {
-            groups.add(new ProbabilityGroup(Arrays.asList(pItemStacks), 1));
+            groups.add(new ProbabilityGroup(Arrays.asList(pItemStacks)));
             return this;
         }
 
@@ -157,13 +175,13 @@ public class ProbabilitySet {
             return this;
         }
 
-        public Builder relative(boolean pRelativeProbability) {
-            this.relativeProbability = pRelativeProbability;
+        public Builder weighted() {
+            this.weighted = true;
             return this;
         }
 
         public ProbabilitySet build() {
-            return new ProbabilitySet(groups, relativeProbability, rolls);
+            return new ProbabilitySet(groups, weighted, rolls);
         }
     }
 }

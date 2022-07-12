@@ -102,7 +102,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
         if (level != null && !level.isClientSide()) {
             currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
                 .filter(recipe -> recipe.matches(inputHandler.getStackInSlot(0)))
-                .findFirst()
+                .findAny()
                 .orElse(null);
         }
     }

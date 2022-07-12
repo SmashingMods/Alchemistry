@@ -34,7 +34,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeR
 
         JsonObject outputJson = pSerializedRecipe.getAsJsonObject("output");
         int rolls = outputJson.get("rolls").getAsInt();
-        boolean relativeProbability = outputJson.get("relativeProbability").getAsBoolean();
+        boolean weighted = outputJson.get("weighted").getAsBoolean();
         List<ProbabilityGroup> groups = new ArrayList<>();
         JsonArray groupArray = outputJson.getAsJsonArray("groups");
 
@@ -52,7 +52,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeR
             double probability = jsonObject.get("probability").getAsFloat();
             groups.add(new ProbabilityGroup(output, probability));
         }
-        ProbabilitySet output = new ProbabilitySet(groups, relativeProbability, rolls);
+        ProbabilitySet output = new ProbabilitySet(groups, weighted, rolls);
 
         return this.factory.create(pRecipeId, group, input, output);
     }

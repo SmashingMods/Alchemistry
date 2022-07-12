@@ -21,6 +21,11 @@ public class ProbabilityGroup {
         this.probability = pProbability;
     }
 
+    public ProbabilityGroup(List<ItemStack> pOutput) {
+        this.output = pOutput;
+        this.probability = 1;
+    }
+
     public List<ItemStack> getOutput() {
         return this.output;
     }

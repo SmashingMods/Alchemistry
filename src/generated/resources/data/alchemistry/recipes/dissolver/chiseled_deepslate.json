@@ -6,7 +6,7 @@
   },
   "output": {
     "rolls": 2,
-    "relativeProbability": true,
+    "weighted": false,
     "groups": [
       {
         "probability": 2.0,

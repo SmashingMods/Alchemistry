@@ -1,8 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
-import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
@@ -54,16 +52,16 @@ public class DissolverRecipeProvider {
                 optionalElement.ifPresent(element -> components.add(new ItemStack(element, count)));
                 optionalCompound.ifPresent(compound -> components.add(new ItemStack(compound, count)));
             });
-            dissolver(compoundItem, new ProbabilitySet(Lists.newArrayList(new ProbabilityGroup(components, 100))));
+            dissolver(compoundItem, createSet().addGroup(components, 100).build());
         });
 
-//        Stones
+        // Stones
         for (Item item : newArrayList(Items.STONE, Items.SMOOTH_STONE, Items.STONE_BRICK_SLAB, Items.STONE_BRICKS, Items.CRACKED_STONE_BRICKS, Items.CHISELED_STONE_BRICKS)) {
             int rolls = 4;
             if (item == Items.STONE_BRICK_SLAB || item == Items.SMOOTH_STONE_SLAB) {
                 rolls = 2;
             }
-            dissolver(item, createSet().rolls(rolls)
+            dissolver(item, createSet().rolls(rolls).weighted()
                     .addGroup(2, toStack("aluminum"))
                     .addGroup(4, toStack("iron"))
                     .addGroup(1.5, toStack("gold"))
@@ -940,9 +938,9 @@ public class DissolverRecipeProvider {
                             case DUST, INGOT, PLATE -> 16;
                             default -> 1;
                         };
-                        ItemRegistry.getChemicalItemByNameAndType(name, type).ifPresent(item ->dissolver(item, createSet().addGroup(100, toStack(name, count)).build()));
+                        ItemRegistry.getChemicalItemByNameAndType(name, type).ifPresent(item -> dissolver(item, createSet().addGroup(100, toStack(name, count)).build()));
                     });
-                ItemRegistry.getChemicalBlockItemByName(name).ifPresent(blockItem -> dissolver(blockItem, createSet().addGroup(100, toStack(name)).build()));
+                ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(blockItem -> dissolver(blockItem, createSet().addGroup(100, toStack(name, 144)).build()));
             });
     }
 

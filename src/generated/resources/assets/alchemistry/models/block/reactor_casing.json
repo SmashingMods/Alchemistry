@@ -1,6 +1,32 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "alchemistry:block/reactor_casing"
+    "particle": "alchemistry:block/reactor_casing",
+    "texture1": "alchemistry:block/reactor_casing",
+    "texture2": "alchemistry:block/reactor_border"
+  },
+  "elements": [
+  {   "from": [ 0, 0, 0 ],
+    "to": [ 16, 16, 16 ],
+    "faces": {
+      "down":  { "texture": "#texture1", "cullface": "down" },
+      "up":    { "texture": "#texture1", "cullface": "up" },
+      "north": { "texture": "#texture1", "cullface": "north" },
+      "south": { "texture": "#texture1", "cullface": "south" },
+      "west":  { "texture": "#texture1", "cullface": "west" },
+      "east":  { "texture": "#texture1", "cullface": "east" }
+    }
+  },
+  {   "from": [ 0, 0, 0 ],
+    "to": [ 16, 16, 16],
+    "faces": {
+      "down":  { "texture": "#texture2", "cullface": "down" },
+      "up":    { "texture": "#texture2", "cullface": "up" },
+      "north": { "texture": "#texture2", "cullface": "north" },
+      "south": { "texture": "#texture2", "cullface": "south" },
+      "west":  { "texture": "#texture2", "cullface": "west" },
+      "east":  { "texture": "#texture2", "cullface": "east" }
+    }
   }
+]
 }

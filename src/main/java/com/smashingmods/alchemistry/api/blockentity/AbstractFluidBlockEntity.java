@@ -7,9 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
@@ -71,7 +68,7 @@ public abstract class AbstractFluidBlockEntity extends AbstractProcessingBlockEn
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("input"));
+        itemHandler.deserializeNBT(pTag.getCompound("item"));
         fluidStorage.readFromNBT(pTag.getCompound("fluid"));
     }
 
@@ -84,11 +81,5 @@ public abstract class AbstractFluidBlockEntity extends AbstractProcessingBlockEn
             }
             Containers.dropContents(level, worldPosition, container);
         }
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
     }
 }

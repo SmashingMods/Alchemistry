@@ -7,9 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,10 +25,8 @@ public abstract class AbstractInventoryBlockEntity extends AbstractProcessingBlo
 
     private final CustomItemStackHandler inputHandler = initializeInputHandler();
     private final CustomItemStackHandler outputHandler = initializeOutputHandler();
-
     private final AutomationStackHandler automationInputHandler = getAutomationInputHandler(inputHandler);
     private final AutomationStackHandler automationOutputHandler = getAutomationOutputHandler(outputHandler);
-
     private final CombinedInvWrapper combinedInvWrapper = new CombinedInvWrapper(automationInputHandler, automationOutputHandler);
     private final LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.of(() -> combinedInvWrapper);
 
@@ -80,16 +75,6 @@ public abstract class AbstractInventoryBlockEntity extends AbstractProcessingBlo
         return combinedInvWrapper;
     }
 
-    @Override
-    public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(0);
-    }
-
-    @Override
-    public CustomItemStackHandler initializeOutputHandler() {
-        return new CustomItemStackHandler(0);
-    }
-
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> pCapability, @Nullable Direction pDirection) {
@@ -121,11 +106,5 @@ public abstract class AbstractInventoryBlockEntity extends AbstractProcessingBlo
             }
             Containers.dropContents(level, worldPosition, container);
         }
-    }
-
-    @Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
-        return null;
     }
 }

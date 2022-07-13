@@ -45,6 +45,6 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(this.getBlockEntity().getLevel()), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.DISSOLVER.get());
+        return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(getBlockEntity().getLevel()), getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.DISSOLVER.get());
     }
 }

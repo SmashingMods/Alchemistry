@@ -62,12 +62,10 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     public void updateRecipe() {
-        if (level !=null && !level.isClientSide()) {
-            if (!getFluidStorage().isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getItemHandler().getStackInSlot(0)))) {
+        if (level != null && !level.isClientSide()) {
+            if (!getFluidStorage().isEmpty() && (currentRecipe == null || getItemHandler().getStackInSlot(0).isEmpty() || ItemStack.isSameItemSameTags(currentRecipe.getOutput(), getItemHandler().getStackInSlot(0)))) {
                 currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
                         .filter(recipe -> recipe.getInput().getFluid() == getFluidStorage().getFluidStack().getFluid()).findFirst().orElse(null);
-            } else {
-                currentRecipe = null;
             }
         }
     }
@@ -76,8 +74,8 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         if (currentRecipe != null) {
             return getEnergyHandler().getEnergyStored() >= Config.Common.atomizerEnergyPerTick.get()
                     && getFluidStorage().getFluidAmount() >= currentRecipe.getInput().getAmount()
-                    && ItemStack.matches(getItemHandler().getStackInSlot(0), currentRecipe.getOutput()) || getItemHandler().getStackInSlot(0).isEmpty()
-                    && getItemHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount() <= currentRecipe.getOutput().getMaxStackSize();
+                    && (ItemStack.isSameItemSameTags(getItemHandler().getStackInSlot(0), currentRecipe.getOutput())) || getItemHandler().getStackInSlot(0).isEmpty()
+                    && (getItemHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount()) <= currentRecipe.getOutput().getMaxStackSize();
         } else {
             return false;
         }

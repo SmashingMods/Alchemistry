@@ -6,10 +6,10 @@
   },
   "output": {
     "rolls": 1,
-    "weighted": false,
+    "weighted": true,
     "groups": [
       {
-        "probability": 30.0,
+        "probability": 3.0,
         "results": [
           {
             "item": "chemlib:water"
@@ -17,7 +17,7 @@
         ]
       },
       {
-        "probability": 50.0,
+        "probability": 5.0,
         "results": [
           {
             "item": "chemlib:silicon_dioxide"
@@ -25,7 +25,7 @@
         ]
       },
       {
-        "probability": 10.0,
+        "probability": 1.0,
         "results": [
           {
             "item": "chemlib:cellulose"
@@ -33,7 +33,7 @@
         ]
       },
       {
-        "probability": 10.0,
+        "probability": 1.0,
         "results": [
           {
             "item": "chemlib:kaolinite"

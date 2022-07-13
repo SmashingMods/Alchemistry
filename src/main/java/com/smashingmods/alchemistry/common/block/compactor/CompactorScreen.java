@@ -30,13 +30,13 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        this.renderBackground(pPoseStack);
-        this.renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
+        renderBackground(pPoseStack);
+        renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        this.renderDisplayData(displayData, pPoseStack, leftPos, topPos);
-        this.renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
-        this.renderTooltip(pPoseStack, pMouseX, pMouseY);
+        renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+        renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
+        renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override

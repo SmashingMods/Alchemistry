@@ -11,7 +11,19 @@ public interface ProcessingBlockEntity {
 
     void processRecipe();
 
-//    boolean getPaused();
-//
-//    void setPaused(boolean pPaused);
+    int getProgress();
+
+    void setProgress(int pProgress);
+
+    void incrementProgress();
+
+    boolean getRecipeLocked();
+
+    void setRecipeLocked(boolean pRecipeLocked);
+
+    boolean getPaused();
+
+    void setPaused(boolean pPaused);
+
+    void dropContents();
 }

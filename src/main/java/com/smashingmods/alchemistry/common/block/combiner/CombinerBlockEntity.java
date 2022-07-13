@@ -43,7 +43,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     protected final ContainerData data;
 
     private int progress = 0;
-    private int maxProgress = Config.Common.combinerTicksPerOperation.get();
+    private final int maxProgress = Config.Common.combinerTicksPerOperation.get();
 
     private final CustomItemStackHandler inputHandler = initializeInputHandler();
     private final CustomItemStackHandler outputHandler = initializeOutputHandler();
@@ -100,6 +100,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     public void tick() {
         if (level != null && !level.isClientSide()) {
             if (!paused) {
+                updateRecipe();
                 if (canProcessRecipe()) {
                     processRecipe();
                 } else {
@@ -110,7 +111,12 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
     }
 
     @Override
-    public void updateRecipe() {}
+    public void updateRecipe() {
+        if (level != null && !level.isClientSide()) {
+            Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream().filter(recipe -> recipe.matchInputs(inputHandler)).findFirst();
+            combinerRecipe.ifPresent(this::setCurrentRecipe);
+        }
+    }
 
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
@@ -192,15 +198,7 @@ public class CombinerBlockEntity extends AbstractAlchemistryBlockEntity implemen
 
     @Override
     public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(4) {
-            @Override
-            protected void onContentsChanged(int slot) {
-                if (level != null && !level.isClientSide()) {
-                    Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream().filter(recipe -> recipe.matchInputs(this)).findFirst();
-                    combinerRecipe.ifPresent(recipe -> setCurrentRecipe(recipe));
-                }
-            }
-        };
+        return new CustomItemStackHandler(4);
     }
 
     @Override

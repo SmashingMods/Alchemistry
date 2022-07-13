@@ -145,6 +145,7 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
                 }
             }
         }
+        setChanged();
     }
 
     @Override
@@ -168,6 +169,11 @@ public class DissolverBlockEntity extends AbstractAlchemistryBlockEntity impleme
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;
+            }
+
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
             }
         };
     }

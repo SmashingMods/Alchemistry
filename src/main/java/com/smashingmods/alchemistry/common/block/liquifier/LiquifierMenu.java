@@ -23,8 +23,8 @@ public class LiquifierMenu extends AbstractAlchemistryMenu {
     protected LiquifierMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
         super(MenuRegistry.LIQUIFIER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
         LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) pBlockEntity;
-        CustomItemStackHandler input = blockEntity.getInputHandler();
-        addSlots(SlotItemHandler::new, input, 1, 1, 0, input.getSlots(), 62, 35);
+        CustomItemStackHandler inputHandler = blockEntity.getItemHandler();
+        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 62, 35);
     }
 
     @Override

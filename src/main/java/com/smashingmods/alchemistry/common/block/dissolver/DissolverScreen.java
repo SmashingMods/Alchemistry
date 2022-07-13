@@ -4,18 +4,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.container.*;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class DissolverScreen extends AbstractAlchemistryScreen<DissolverMenu> {
     protected final List<DisplayData> displayData = new ArrayList<>();
 
@@ -29,12 +25,13 @@ public class DissolverScreen extends AbstractAlchemistryScreen<DissolverMenu> {
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        this.renderBackground(pPoseStack);
-        this.renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
+        renderBackground(pPoseStack);
+        renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        this.renderDisplayData(displayData, pPoseStack, this.leftPos, this.topPos);
-        this.renderDisplayTooltip(displayData, pPoseStack, this.leftPos, this.topPos, pMouseX, pMouseY);
-        this.renderTooltip(pPoseStack, pMouseX, pMouseY);
+
+        renderDisplayData(displayData, pPoseStack, this.leftPos, this.topPos);
+        renderDisplayTooltip(displayData, pPoseStack, this.leftPos, this.topPos, pMouseX, pMouseY);
+        renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override

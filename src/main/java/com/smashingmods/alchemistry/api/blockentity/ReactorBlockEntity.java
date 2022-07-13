@@ -10,7 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public interface MultiblockBlockEntity {
+public interface ReactorBlockEntity {
+
+    ReactorShape getReactorShape();
+
+    void setReactorShape(ReactorShape pReactorShape);
+
+    ReactorType getReactorType();
+
+    void setReactorType(ReactorType pReactorType);
+
+    void setMultiblockHandlers();
+
+    void setPowerState(PowerState pPowerState);
 
     default Function3<BoundingBox, List<Block>, Level, Boolean> blockPredicate() {
         return (box, blockList, level) -> BlockPos.betweenClosedStream(box).allMatch(blockPos -> blockList.contains(level.getBlockState(blockPos).getBlock()));

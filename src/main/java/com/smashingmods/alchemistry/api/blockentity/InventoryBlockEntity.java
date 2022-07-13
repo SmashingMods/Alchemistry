@@ -9,17 +9,15 @@ public interface InventoryBlockEntity {
 
     CustomItemStackHandler getInputHandler();
 
+    CustomItemStackHandler initializeInputHandler();
+
     CustomItemStackHandler getOutputHandler();
+
+    CustomItemStackHandler initializeOutputHandler();
 
     AutomationStackHandler getAutomationInputHandler(IItemHandlerModifiable pHandler);
 
     AutomationStackHandler getAutomationOutputHandler(IItemHandlerModifiable pHandler);
 
     CombinedInvWrapper getAutomationInventory();
-
-    CustomItemStackHandler initializeInputHandler();
-
-    CustomItemStackHandler initializeOutputHandler();
-
-    void getDrops();
 }

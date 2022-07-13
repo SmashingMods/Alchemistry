@@ -75,7 +75,7 @@ public class DissolverRecipeProvider {
         }
 
         newArrayList(Items.ANDESITE, Items.POLISHED_ANDESITE).forEach(item ->
-                dissolver(item, createSet()
+                dissolver(item, createSet().weighted()
                         .addGroup(4, toStack("aluminum_oxide"))
                         .addGroup(3, toStack("iron"))
                         .addGroup(4, toStack("potassium_chloride"))
@@ -85,7 +85,7 @@ public class DissolverRecipeProvider {
                         .build()));
 
         newArrayList(Items.DIORITE, Items.POLISHED_DIORITE).forEach(item ->
-                dissolver(item, createSet()
+                dissolver(item, createSet().weighted()
                         .addGroup(4, toStack("aluminum_oxide"))
                         .addGroup(2, toStack("iron"))
                         .addGroup(4, toStack("potassium_chloride"))
@@ -97,7 +97,7 @@ public class DissolverRecipeProvider {
                         .build()));
 
         newArrayList(Items.GRANITE, Items.POLISHED_GRANITE).forEach(item ->
-                dissolver(item, createSet()
+                dissolver(item, createSet().weighted()
                         .addGroup(5, toStack("aluminum_oxide"))
                         .addGroup(2, toStack("iron"))
                         .addGroup(2, toStack("potassium_chloride"))
@@ -114,7 +114,7 @@ public class DissolverRecipeProvider {
             } else {
                 rolls = 2;
             }
-            dissolver(item, createSet().rolls(rolls)
+            dissolver(item, createSet().rolls(rolls).weighted()
                     .addGroup(2, toStack("osmium"))
                     .addGroup(4, toStack("iron"))
                     .addGroup(2, toStack("gold"))
@@ -131,19 +131,19 @@ public class DissolverRecipeProvider {
                 .addGroup(1, toStack("calcium_carbonate"))
                 .build());
 
-        dissolver("minecraft:dirt", createSet()
-                .addGroup(30, toStack("water"))
-                .addGroup(50, toStack("silicon_dioxide"))
-                .addGroup(10, toStack("cellulose"))
-                .addGroup(10, toStack("kaolinite"))
+        dissolver("minecraft:dirt", createSet().weighted()
+                .addGroup(3, toStack("water"))
+                .addGroup(5, toStack("silicon_dioxide"))
+                .addGroup(1, toStack("cellulose"))
+                .addGroup(1, toStack("kaolinite"))
                 .build());
 
-        dissolver(Items.MYCELIUM, createSet()
-                .addGroup(30, toStack("water"))
-                .addGroup(50, toStack("silicon_dioxide"))
-                .addGroup(10, toStack("cellulose"))
-                .addGroup(10, toStack("kaolinite"))
-                .addGroup(30, toStack("chitin"))
+        dissolver(Items.MYCELIUM, createSet().weighted()
+                .addGroup(3, toStack("water"))
+                .addGroup(5, toStack("silicon_dioxide"))
+                .addGroup(1, toStack("cellulose"))
+                .addGroup(1, toStack("kaolinite"))
+                .addGroup(3, toStack("chitin"))
                 .build());
 
 //        dissolver("minecraft:logs", set().addGroup(toStack("cellulose")).build());

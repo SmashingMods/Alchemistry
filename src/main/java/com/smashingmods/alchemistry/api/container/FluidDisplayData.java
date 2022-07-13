@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.api.container;
 
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.inventory.ContainerData;
@@ -12,12 +12,12 @@ import java.util.Locale;
 
 public class FluidDisplayData extends DisplayData {
 
-    private final AbstractAlchemistryBlockEntity blockEntity;
+    private final AbstractProcessingBlockEntity blockEntity;
     private final ContainerData data;
     private final int valueSlot;
     private final int maxValueSlot;
 
-    public FluidDisplayData(AbstractAlchemistryBlockEntity pBlockEntity, ContainerData pData, int pValueSlot, int pMaxValueSlot, int pX, int pY, int pWidth, int pHeight) {
+    public FluidDisplayData(AbstractProcessingBlockEntity pBlockEntity, ContainerData pData, int pValueSlot, int pMaxValueSlot, int pX, int pY, int pWidth, int pHeight) {
         super(pX, pY, pWidth, pHeight);
         this.blockEntity = pBlockEntity;
         this.data = pData;

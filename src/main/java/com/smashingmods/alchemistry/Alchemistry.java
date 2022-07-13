@@ -16,10 +16,8 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -31,6 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(Alchemistry.MODID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Alchemistry {
 
     public static final Logger LOGGER = LogManager.getLogger();
@@ -38,19 +37,14 @@ public class Alchemistry {
 
     public Alchemistry() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
+        Registry.register();
         modEventBus.addListener(this::clientSetupEvent);
         modEventBus.addListener(this::commonSetupEvent);
-        Registry.register();
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-
-        MinecraftForge.EVENT_BUS.register(this);
-
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> modEventBus.addListener(this::clientSetupEvent));
     }
 
+    @SubscribeEvent
     public void clientSetupEvent(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(MenuRegistry.ATOMIZER_MENU.get(), AtomizerScreen::new);
@@ -72,14 +66,16 @@ public class Alchemistry {
         });
     }
 
+    @SubscribeEvent
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
         AlchemistryPacketHandler.register();
-        RecipeRegistry.ATOMIZER_TYPE = RecipeType.register(Alchemistry.MODID + ":atomizer");
-        RecipeRegistry.COMPACTOR_TYPE = RecipeType.register(Alchemistry.MODID + ":compactor");
-        RecipeRegistry.COMBINER_TYPE = RecipeType.register(Alchemistry.MODID + ":combiner");
-        RecipeRegistry.DISSOLVER_TYPE = RecipeType.register(Alchemistry.MODID + ":dissolver");
-        RecipeRegistry.FISSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fission");
-        RecipeRegistry.FUSION_TYPE = RecipeType.register(Alchemistry.MODID + ":fusion");
-        RecipeRegistry.LIQUIFIER_TYPE = RecipeType.register(Alchemistry.MODID + ":liquifier");
+
+        RecipeRegistry.ATOMIZER_TYPE = RecipeType.register(String.format("%s:atomizer", MODID));
+        RecipeRegistry.COMPACTOR_TYPE = RecipeType.register(String.format("%s:compactor", MODID));
+        RecipeRegistry.COMBINER_TYPE = RecipeType.register(String.format("%s:combiner", MODID));
+        RecipeRegistry.DISSOLVER_TYPE = RecipeType.register(String.format("%s:dissolver", MODID));
+        RecipeRegistry.FISSION_TYPE = RecipeType.register(String.format("%s:fission", MODID));
+        RecipeRegistry.FUSION_TYPE = RecipeType.register(String.format("%s:fusion", MODID));
+        RecipeRegistry.LIQUIFIER_TYPE = RecipeType.register(String.format("%s:liquifier", MODID));
     }
 }

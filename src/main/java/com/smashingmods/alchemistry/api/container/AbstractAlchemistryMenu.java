@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.api.container;
 
 import com.mojang.datafixers.util.Function4;
-import com.smashingmods.alchemistry.api.blockentity.AbstractAlchemistryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import net.minecraft.world.entity.player.Inventory;
@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
 
-    private final AbstractAlchemistryBlockEntity blockEntity;
+    private final AbstractProcessingBlockEntity blockEntity;
     private final Level level;
     private final ContainerData containerData;
     private final int blockEntitySlots;
@@ -23,8 +23,9 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
 
         this.containerData = pContainerData;
         this.blockEntitySlots = pSlots;
-        blockEntity = ((AbstractAlchemistryBlockEntity) pBlockEntity);
-        level = pInventory.player.level;
+        this.blockEntity = ((AbstractProcessingBlockEntity) pBlockEntity);
+        this.level = pInventory.player.level;
+
         addPlayerInventorySlots(pInventory);
         addDataSlots(pContainerData);
     }
@@ -33,9 +34,9 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
     public void broadcastChanges() {
         super.broadcastChanges();
         AlchemistryPacketHandler.sendToNear(
-                new BlockEntityPacket(this.getBlockEntity().getBlockPos(), this.blockEntity.getUpdateTag()),
-                this.level,
-                this.blockEntity.getBlockPos(),
+                new BlockEntityPacket(getBlockEntity().getBlockPos(), blockEntity.getUpdateTag()),
+                level,
+                blockEntity.getBlockPos(),
                 16
         );
     }
@@ -101,7 +102,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         addSlots(Slot::new, pInventory, 1, 9, 0, 9,8, 144);
     }
 
-    public AbstractAlchemistryBlockEntity getBlockEntity() {
+    public AbstractProcessingBlockEntity getBlockEntity() {
         return blockEntity;
     }
 

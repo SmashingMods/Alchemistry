@@ -31,8 +31,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DISSOLVER = BLOCKS.register("dissolver", DissolverBlock::new);
     public static final RegistryObject<Block> LIQUIFIER = BLOCKS.register("liquifier", LiquifierBlock::new);
 
-    public static final RegistryObject<Block> FISSION_CONTROLLER = BLOCKS.register("fission_controller", FissionControllerBlock::new);
-    public static final RegistryObject<Block> FUSION_CONTROLLER = BLOCKS.register("fusion_controller", FusionControllerBlock::new);
+    public static final RegistryObject<Block> FISSION_CONTROLLER = BLOCKS.register("fission_chamber_controller", FissionControllerBlock::new);
+    public static final RegistryObject<Block> FUSION_CONTROLLER = BLOCKS.register("fusion_chamber_controller", FusionControllerBlock::new);
     public static final RegistryObject<RotatedPillarBlock> FISSION_CORE = BLOCKS.register("fission_core", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
     public static final RegistryObject<RotatedPillarBlock> FUSION_CORE = BLOCKS.register("fusion_core", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
     public static final RegistryObject<Block> REACTOR_CASING = BLOCKS.register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));

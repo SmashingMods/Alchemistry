@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "alchemistry:block/reactor_casing",
+    "down": "alchemistry:block/reactor_casing",
+    "up": "alchemistry:block/reactor_casing",
+    "north": "alchemistry:block/reactor_item_output",
+    "south": "alchemistry:block/reactor_casing",
+    "east": "alchemistry:block/reactor_casing",
+    "west": "alchemistry:block/reactor_casing"
+  }
+}

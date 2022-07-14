@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "alchemistry:block/fission_chamber_controller_end",
+    "down": "alchemistry:block/fission_chamber_controller_side",
+    "up": "alchemistry:block/fission_chamber_controller_side",
+    "north": "alchemistry:block/fission_chamber_controller_off",
+    "south": "alchemistry:block/fission_chamber_controller_side",
+    "east": "alchemistry:block/fission_chamber_controller_end",
+    "west": "alchemistry:block/fission_chamber_controller_end"
+  }
+}

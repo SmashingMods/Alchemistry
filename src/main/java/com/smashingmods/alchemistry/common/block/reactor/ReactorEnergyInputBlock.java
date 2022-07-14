@@ -1,6 +1,8 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemistry.api.blockentity.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -21,12 +23,14 @@ public class ReactorEnergyInputBlock extends AbstractAlchemistryBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        pBuilder.add(BlockStateProperties.HORIZONTAL_FACING);
+        pBuilder.add(PowerStateProperty.POWER_STATE, BlockStateProperties.HORIZONTAL_FACING);
     }
 
     @Override
     public @Nullable BlockState getStateForPlacement(BlockPlaceContext pContext) {
-        return this.defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState()
+                .setValue(BlockStateProperties.HORIZONTAL_FACING, pContext.getHorizontalDirection().getOpposite())
+                .setValue(PowerStateProperty.POWER_STATE, PowerState.DISABLED);
     }
 
     @Override

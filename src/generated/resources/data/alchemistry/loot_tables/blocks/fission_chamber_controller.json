@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "alchemistry:fission_controller"
+          "name": "alchemistry:fission_chamber_controller"
         }
       ],
       "conditions": [

@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.datagen;
 
-
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,6 +17,7 @@ public class DataGenerators {
             generator.addProvider(new BlockStateGenerator(generator, pEvent.getExistingFileHelper()));
             generator.addProvider(new LootTableProvider(generator));
             generator.addProvider(new TagProvider(generator, pEvent.getExistingFileHelper()));
+            generator.addProvider(new LocalizationGenerator(generator, "en_us"));
         }
     }
 }

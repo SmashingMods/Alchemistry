@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "alchemistry:fusion_controller"
+          "name": "alchemistry:fusion_chamber_controller"
         }
       ],
       "conditions": [

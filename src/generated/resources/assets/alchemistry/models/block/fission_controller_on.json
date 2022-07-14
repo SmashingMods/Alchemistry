@@ -5,7 +5,7 @@
     "down": "alchemistry:block/fission_controller_end",
     "up": "alchemistry:block/fission_controller_end",
     "north": "alchemistry:block/fission_controller_on",
-    "south": "alchemistry:block/fission_controller_end",
+    "south": "alchemistry:block/fission_controller_back",
     "east": "alchemistry:block/fission_controller_side",
     "west": "alchemistry:block/fission_controller_side"
   }

@@ -3,7 +3,7 @@
   "textures": {
     "particle": "alchemistry:block/reactor_casing",
     "texture1": "alchemistry:block/reactor_casing",
-    "texture2": "alchemistry:block/reactor_border"
+    "texture2": "alchemistry:block/reactor_casing"
   },
   "elements": [
   {   "from": [ 0, 0, 0 ],

@@ -1,0 +1,13 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "SOLID",
+    "textures": [
+        "alchemistry:block/reactor_casing_ctm"
+    ],
+    "extra": {
+      "light": 0
+    }
+  }
+}

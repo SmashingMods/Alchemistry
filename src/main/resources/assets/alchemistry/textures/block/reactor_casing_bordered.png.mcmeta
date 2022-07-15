@@ -7,7 +7,20 @@
         "alchemistry:block/reactor_casing_ctm"
     ],
     "extra": {
-      "light": 0
+      "light": 0,
+      "connect_to": [ {
+          "block": "alchemistry:reactor_item_input"
+        },
+        {
+          "block": "alchemistry:reactor_item_output"
+        },
+        {
+          "block": "alchemistry:reactor_energy_input"
+        },
+        {
+          "block": "alchemistry:reactor_casing"
+        }
+      ]
     }
   }
 }

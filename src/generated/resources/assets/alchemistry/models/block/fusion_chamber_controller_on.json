@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "particle": "alchemistry:block/fusion_chamber_controller_end",
-    "down": "alchemistry:block/fusion_chamber_controller_side",
-    "up": "alchemistry:block/fusion_chamber_controller_side",
+    "particle": "alchemistry:block/fusion_chamber_controller_back",
+    "down": "alchemistry:block/fusion_chamber_controller_vside",
+    "up": "alchemistry:block/fusion_chamber_controller_vside",
     "north": "alchemistry:block/fusion_chamber_controller_on",
-    "south": "alchemistry:block/fusion_chamber_controller_side",
-    "east": "alchemistry:block/fusion_chamber_controller_end",
-    "west": "alchemistry:block/fusion_chamber_controller_end"
+    "south": "alchemistry:block/fusion_chamber_controller_back",
+    "east": "alchemistry:block/fusion_chamber_controller_hside",
+    "west": "alchemistry:block/fusion_chamber_controller_hside"
   }
 }

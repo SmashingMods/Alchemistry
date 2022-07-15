@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "particle": "alchemistry:block/fission_chamber_controller_end",
-    "down": "alchemistry:block/fission_chamber_controller_side",
-    "up": "alchemistry:block/fission_chamber_controller_side",
+    "particle": "alchemistry:block/fission_chamber_controller_back",
+    "down": "alchemistry:block/fission_chamber_controller_vside",
+    "up": "alchemistry:block/fission_chamber_controller_vside",
     "north": "alchemistry:block/fission_chamber_controller_standby",
-    "south": "alchemistry:block/fission_chamber_controller_side",
-    "east": "alchemistry:block/fission_chamber_controller_end",
-    "west": "alchemistry:block/fission_chamber_controller_end"
+    "south": "alchemistry:block/fission_chamber_controller_back",
+    "east": "alchemistry:block/fission_chamber_controller_hside",
+    "west": "alchemistry:block/fission_chamber_controller_hside"
   }
 }

@@ -64,7 +64,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
                 int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));
                 CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
                 this.setSelectedRecipeIndex(pId);
-                this.blockEntity.setCurrentRecipe(recipe);
+                this.blockEntity.setRecipe(recipe);
                 AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
             }
         }

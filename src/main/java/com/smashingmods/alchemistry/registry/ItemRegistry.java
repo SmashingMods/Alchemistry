@@ -14,7 +14,7 @@ import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class ItemRegistry {
 
-    public static final CreativeModeTab MACHINE_TAB = new CreativeModeTab("Alchemistry") {
+    public static final CreativeModeTab MACHINE_TAB = new CreativeModeTab("alchemistry") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(BlockRegistry.ATOMIZER.get());

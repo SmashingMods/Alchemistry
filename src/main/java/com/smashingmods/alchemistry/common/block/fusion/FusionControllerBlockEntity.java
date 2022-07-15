@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -96,6 +97,16 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
         }
         getEnergyHandler().extractEnergy(Config.Common.fusionEnergyPerTick.get(), false);
         setChanged();
+    }
+
+    @Override
+    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+        currentRecipe = (FusionRecipe) pRecipe;
+    }
+
+    @Override
+    public Recipe<Inventory> getRecipe() {
+        return currentRecipe;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.crafting.Recipe;
 
 public interface ProcessingBlockEntity {
 
@@ -10,6 +12,10 @@ public interface ProcessingBlockEntity {
     boolean canProcessRecipe();
 
     void processRecipe();
+
+    <T extends Recipe<Inventory>> void setRecipe(T pRecipe);
+
+    <T extends Recipe<Inventory>> Recipe<Inventory> getRecipe();
 
     int getProgress();
 

@@ -1,28 +1,24 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class CombinerRecipe implements Recipe<Inventory>, Comparable<CombinerRecipe> {
+public class CombinerRecipe extends AbstractAlchemistryRecipe implements Comparable<CombinerRecipe> {
 
-    private final ResourceLocation recipeId;
-    private final String group;
     private final ItemStack output;
     private final List<ItemStack> input = new ArrayList<>();
 
     public CombinerRecipe(ResourceLocation pId, String pGroup, List<ItemStack> pInputList, ItemStack pOutput) {
-        this.recipeId = pId;
-        this.group = pGroup;
+        super(pId, pGroup);
         this.output = pOutput;
 
         for (ItemStack itemStack : pInputList) {
@@ -41,28 +37,8 @@ public class CombinerRecipe implements Recipe<Inventory>, Comparable<CombinerRec
     }
 
     @Override
-    public ResourceLocation getId() {
-        return recipeId;
-    }
-
-    @Override
-    public String getGroup() {
-        return group;
-    }
-
-    @Override
-    public boolean matches(Inventory pContainer, Level pLevel) {
-        return false;
-    }
-
-    @Override
     public ItemStack assemble(Inventory pContainer) {
         return output;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return false;
     }
 
     @Override
@@ -90,11 +66,10 @@ public class CombinerRecipe implements Recipe<Inventory>, Comparable<CombinerRec
         return output;
     }
 
-    public boolean matchInputs(CustomItemStackHandler pHandler) {
-
+    public boolean matchInputs(List<ItemStack> pStacks) {
         int matchingStacks = 0;
 
-        List<ItemStack> handlerStacks = pHandler.getStacks().stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+        List<ItemStack> handlerStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
         List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
 
         if (recipeStacks.size() == handlerStacks.size()) {
@@ -108,5 +83,9 @@ public class CombinerRecipe implements Recipe<Inventory>, Comparable<CombinerRec
             return matchingStacks == recipeStacks.size();
         }
         return false;
+    }
+
+    public boolean matchInputs(CustomItemStackHandler pHandler) {
+        return matchInputs(pHandler.getStacks());
     }
 }

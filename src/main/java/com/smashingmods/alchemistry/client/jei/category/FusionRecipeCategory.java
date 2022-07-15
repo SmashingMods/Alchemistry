@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.client.jei.category;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
-import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
+import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -18,29 +18,29 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 @SuppressWarnings("removal")
-public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
+public class FusionRecipeCategory implements IRecipeCategory<FusionRecipe> {
 
     private IGuiHelper guiHelper;
 
-    public FissionRecipeCategory() {}
+    public FusionRecipeCategory() {}
 
-    public FissionRecipeCategory(IGuiHelper pGuiHelper) {
+    public FusionRecipeCategory(IGuiHelper pGuiHelper) {
         this.guiHelper = pGuiHelper;
     }
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("alchemistry.jei.fission_controller");
+        return new TranslatableComponent("alchemistry.jei.fusion_controller");
     }
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/fission_jei.png"), 0, 0, 150, 75);
+        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/fusion_jei.png"), 0, 0, 150, 75);
     }
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.FISSION_CONTROLLER.get()));
+        return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.FUSION_CONTROLLER.get()));
     }
 
     @Override
@@ -49,19 +49,20 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
     }
 
     @Override
-    public Class<? extends FissionRecipe> getRecipeClass() {
-        return FissionRecipe.class;
+    public Class<? extends FusionRecipe> getRecipeClass() {
+        return FusionRecipe.class;
     }
 
     @Override
-    public RecipeType<FissionRecipe> getRecipeType() {
-        return RecipeTypes.FISSION;
+    public RecipeType<FusionRecipe> getRecipeType() {
+        return RecipeTypes.FUSION;
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder pBuilder, FissionRecipe pRecipe, IFocusGroup pFocusGroup) {
-        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 25).addItemStack(pRecipe.getInput());
-        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 9).addItemStack(pRecipe.getOutput1());
-        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 42).addItemStack(pRecipe.getOutput2());
+    public void setRecipe(IRecipeLayoutBuilder pBuilder, FusionRecipe pRecipe, IFocusGroup pFocusGroup) {
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 8).addItemStack(pRecipe.getInput1());
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 42).addItemStack(pRecipe.getInput2());
+
+        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addItemStack(pRecipe.getOutput());
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -66,7 +67,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream().filter(recipe -> recipe.matchInputs(getInputHandler())).findFirst();
-            combinerRecipe.ifPresent(this::setCurrentRecipe);
+            combinerRecipe.ifPresent(this::setRecipe);
         }
     }
 
@@ -74,8 +75,8 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
         if (currentRecipe != null) {
             ItemStack output = getOutputHandler().getStackInSlot(0);
             return getEnergyHandler().getEnergyStored() >= Config.Common.combinerEnergyPerTick.get()
-                    && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize()
-                    && (ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty())
+                    && (currentRecipe.getOutput().copy().getCount() + output.copy().getCount()) <= currentRecipe.getOutput().copy().getMaxStackSize()
+                    && (ItemStack.isSameItemSameTags(output.copy(), currentRecipe.getOutput().copy()) || output.isEmpty())
                     && currentRecipe.matchInputs(getInputHandler());
         }
         return false;
@@ -88,14 +89,23 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
             setProgress(0);
             getOutputHandler().setOrIncrement(0, currentRecipe.getOutput().copy());
             for (int index = 0; index < currentRecipe.getInput().size(); index++) {
-                ItemStack itemStack = currentRecipe.getInput().get(index);
-                if (itemStack != null && !itemStack.isEmpty()) {
-                    getInputHandler().decrementSlot(index, itemStack.getCount());
+                if (!currentRecipe.getInput().get(index).copy().isEmpty()) {
+                    getInputHandler().decrementSlot(index, currentRecipe.getInput().get(index).copy().getCount());
                 }
             }
         }
         getEnergyHandler().extractEnergy(Config.Common.combinerEnergyPerTick.get(), false);
         setChanged();
+    }
+
+    @Override
+    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+        currentRecipe = (CombinerRecipe) pRecipe;
+    }
+
+    @Override
+    public Recipe<Inventory> getRecipe() {
+        return currentRecipe;
     }
 
     public List<CombinerRecipe> getRecipes() {
@@ -104,14 +114,6 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     public void setRecipes(List<CombinerRecipe> pRecipes) {
         this.recipes = pRecipes;
-    }
-
-    public CombinerRecipe getCurrentRecipe() {
-        return this.currentRecipe;
-    }
-
-    public void setCurrentRecipe(CombinerRecipe pRecipe) {
-        this.currentRecipe = pRecipe;
     }
 
     protected String getEditBoxText() {

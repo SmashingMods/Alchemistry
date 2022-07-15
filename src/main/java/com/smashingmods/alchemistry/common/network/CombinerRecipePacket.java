@@ -37,7 +37,7 @@ public class CombinerRecipePacket {
             Objects.requireNonNull(player);
             CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.level.getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
-            blockEntity.setCurrentRecipe(blockEntity.getRecipes().get(pPacket.recipeIndex));
+            blockEntity.setRecipe(blockEntity.getRecipes().get(pPacket.recipeIndex));
         });
         pContext.get().setPacketHandled(true);
     }

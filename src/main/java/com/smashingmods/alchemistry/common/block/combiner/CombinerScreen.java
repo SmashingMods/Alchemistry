@@ -109,7 +109,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     public void renderWidgets() {
         renderWidget(editBox, leftPos + 57, topPos + 7);
-        renderWidget(lockIconButton, leftPos - 32, topPos);
+//        renderWidget(lockIconButton, leftPos - 32, topPos);
     }
 
     protected void renderRecipeBox(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -137,7 +137,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             int row = pY + rowt * RECIPE_BOX_SIZE + 2;
             int vOffset = imageHeight;
 
-            int currentRecipeIndex = menu.getDisplayedRecipes().indexOf(menu.getBlockEntity().getCurrentRecipe());
+            int currentRecipeIndex = menu.getDisplayedRecipes().indexOf((CombinerRecipe) menu.getBlockEntity().getRecipe());
 
             if (index == menu.getSelectedRecipeIndex() || index == currentRecipeIndex) {
                 vOffset += RECIPE_BOX_SIZE;
@@ -164,7 +164,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     }
 
     private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        CombinerRecipe currentRecipe = menu.getBlockEntity().getCurrentRecipe();
+        CombinerRecipe currentRecipe = (CombinerRecipe) menu.getBlockEntity().getRecipe();
         CustomItemStackHandler handler = menu.getBlockEntity().getInputHandler();
 
         // Intellij thinks this is never null. Remove this and watch it crash.

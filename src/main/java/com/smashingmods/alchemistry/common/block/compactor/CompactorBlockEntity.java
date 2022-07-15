@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -58,15 +59,15 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            if (!getInputHandler().getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.matches(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
-
-                List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().toList();
-                List<CompactorRecipe> filtered = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0))).collect(Collectors.toList());
-
-                if (filtered.size() > 1) {
-                    currentRecipe = filtered.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), getInputHandler().getStackInSlot(1))).findFirst().orElse(null);
-                } else {
-                    currentRecipe = !filtered.isEmpty() ? filtered.get(0) : null;
+            if (!getInputHandler().getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
+                if (!getInputHandler().getStackInSlot(1).isEmpty()) {
+                    List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().toList();
+                    List<CompactorRecipe> filtered = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0))).collect(Collectors.toList());
+                    if (filtered.size() > 1) {
+                        currentRecipe = filtered.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), getInputHandler().getStackInSlot(1))).findFirst().orElse(null);
+                    } else {
+                        currentRecipe = !filtered.isEmpty() ? filtered.get(0) : null;
+                    }
                 }
             }
         }
@@ -99,6 +100,16 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
+    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+        currentRecipe = (CompactorRecipe) pRecipe;
+    }
+
+    @Override
+    public Recipe<Inventory> getRecipe() {
+        return currentRecipe;
+    }
+
+    @Override
     public CustomEnergyStorage initializeEnergyStorage() {
         return new CustomEnergyStorage(Config.Common.compactorEnergyCapacity.get()) {
             @Override
@@ -110,7 +121,18 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(2);
+        return new CustomItemStackHandler(2) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                if (level != null && !level.isClientSide()) {
+                    if (slot == 1 && !getInputHandler().getStackInSlot(slot).isEmpty()) {
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput())).findFirst().ifPresent(recipe -> {
+                            setRecipe(recipe);
+                        });
+                    }
+                }
+            }
+        };
     }
 
     @Override

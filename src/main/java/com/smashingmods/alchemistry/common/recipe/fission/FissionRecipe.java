@@ -1,29 +1,25 @@
 package com.smashingmods.alchemistry.common.recipe.fission;
 
+import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class FissionRecipe implements Recipe<Inventory> {
+public class FissionRecipe extends AbstractAlchemistryRecipe {
 
-    private final ResourceLocation recipeId;
-    private final String group;
     private final ItemStack input;
     private final ItemStack output1;
     private final ItemStack output2;
 
     public FissionRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, ItemStack pOutput1, ItemStack pOutput2) {
-        this.recipeId = pId;
-        this.group = pGroup;
+        super(pId, pGroup);
         this.input = pInput;
         this.output1 = pOutput1;
         this.output2 = pOutput2;
@@ -40,33 +36,8 @@ public class FissionRecipe implements Recipe<Inventory> {
     }
 
     @Override
-    public ResourceLocation getId() {
-        return recipeId;
-    }
-
-    @Override
-    public String getGroup() {
-        return group;
-    }
-
-    @Override
-    public boolean matches(Inventory pContainer, Level pLevel) {
-        return false;
-    }
-
-    @Override
     public ItemStack assemble(Inventory pContainer) {
         return output1;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem() {
-        return ItemStack.EMPTY;
     }
 
     @Override

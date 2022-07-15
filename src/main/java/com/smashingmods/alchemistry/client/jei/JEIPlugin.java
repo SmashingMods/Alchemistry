@@ -1,37 +1,30 @@
 package com.smashingmods.alchemistry.client.jei;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.client.jei.category.AtomizerRecipeCategory;
-import com.smashingmods.alchemistry.client.jei.category.CombinerRecipeCategory;
+import com.smashingmods.alchemistry.client.jei.category.*;
+import com.smashingmods.alchemistry.common.block.atomizer.AtomizerScreen;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerScreen;
-import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
-import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorScreen;
+import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
+import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
+import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
+import com.smashingmods.alchemistry.common.network.*;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IRecipeTransferRegistration;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.List;
+import net.minecraft.world.item.crafting.RecipeManager;
+
 import java.util.Objects;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
-
-    public static final RecipeType<AtomizerRecipe> ATOMIZER = RecipeType.create(Alchemistry.MODID, "atomizer", AtomizerRecipe.class);
-    public static final RecipeType<CombinerRecipe> COMBINER = RecipeType.create(Alchemistry.MODID, "combiner", CombinerRecipe.class);
 
     @Override
     public ResourceLocation getPluginUid() {
@@ -39,45 +32,46 @@ public class JEIPlugin implements IModPlugin {
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration pRegistration) {
-
-        ClientLevel level = Minecraft.getInstance().level;
-        Objects.requireNonNull(level);
-
-        List<AtomizerRecipe> atomizerRecipes = level.getRecipeManager().getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE);
-        List<CombinerRecipe> combinerRecipes = level.getRecipeManager().getAllRecipesFor(RecipeRegistry.COMBINER_TYPE);
-
-        pRegistration.addRecipes(ATOMIZER, atomizerRecipes);
-        pRegistration.addRecipes(COMBINER, combinerRecipes);
-    }
-
-    @Override
     public void registerCategories(IRecipeCategoryRegistration pRegistration) {
         IGuiHelper guiHelper = pRegistration.getJeiHelpers().getGuiHelper();
         pRegistration.addRecipeCategories(
                 new AtomizerRecipeCategory(guiHelper),
-                new CombinerRecipeCategory(guiHelper)
+                new CombinerRecipeCategory(guiHelper),
+                new CompactorRecipeCategory(guiHelper),
+                new FissionRecipeCategory(guiHelper),
+                new FusionRecipeCategory(guiHelper),
+                new LiquifierRecipeCategory(guiHelper)
         );
     }
 
     @Override
-    public void registerRecipeTransferHandlers(IRecipeTransferRegistration pRegistration) {
-//        pRegistration.addRecipeTransferHandler(AtomizerMenu.class, new AtomizerRecipeCategory().getRecipeType(), 0, 1, 1, 36);
-//        pRegistration.addRecipeTransferHandler(CombinerMenu.class, new CombinerRecipeCategory().getRecipeType(), 0, 1, 1, 36);
+    public void registerGuiHandlers(IGuiHandlerRegistration pRegistration) {
+        pRegistration.addRecipeClickArea(AtomizerScreen.class, 58, 39, 30, 9, RecipeTypes.ATOMIZER);
+        pRegistration.addRecipeClickArea(CombinerScreen.class, 64, 84, 30, 9, RecipeTypes.COMBINER);
+        pRegistration.addRecipeClickArea(CompactorScreen.class, 58, 39, 30, 9, RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeClickArea(FissionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FISSION);
+        pRegistration.addRecipeClickArea(FusionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FUSION);
+        pRegistration.addRecipeClickArea(LiquifierScreen.class, 58, 39, 30, 9, RecipeTypes.LIQUIFIER);
     }
 
     @Override
-    public void registerGuiHandlers(IGuiHandlerRegistration pRegistration) {
+    public void registerRecipes(IRecipeRegistration pRegistration) {
+        RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        pRegistration.addGuiContainerHandler(CombinerScreen.class, new IGuiContainerHandler<>() {
+        pRegistration.addRecipes(RecipeTypes.ATOMIZER, recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE));
+        pRegistration.addRecipes(RecipeTypes.COMBINER, recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE));
+        pRegistration.addRecipes(RecipeTypes.COMPACTOR, recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE));
+        pRegistration.addRecipes(RecipeTypes.FISSION, recipeManager.getAllRecipesFor(RecipeRegistry.FISSION_TYPE));
+        pRegistration.addRecipes(RecipeTypes.FUSION, recipeManager.getAllRecipesFor(RecipeRegistry.FUSION_TYPE));
+        pRegistration.addRecipes(RecipeTypes.LIQUIFIER, recipeManager.getAllRecipesFor(RecipeRegistry.LIQUIFIER_TYPE));
+    }
 
-            @Override
-            public List<Rect2i> getGuiExtraAreas(CombinerScreen containerScreen) {
-                return IGuiContainerHandler.super.getGuiExtraAreas(containerScreen);
-            }
-        });
-
-//        pRegistration.addRecipeClickArea(AtomizerScreen.class, 73, 54, 39, 23, new AtomizerRecipeCategory().getRecipeType());
-//        pRegistration.addRecipeClickArea(CombinerScreen.class, 73, 54, 39, 23, new CombinerRecipeCategory().getRecipeType());
+    @Override
+    public void registerRecipeTransferHandlers(IRecipeTransferRegistration pRegistration) {
+        pRegistration.addRecipeTransferHandler(new CombinerTransferPacket.TransferHandler(), RecipeTypes.COMBINER);
+        pRegistration.addRecipeTransferHandler(new CompactorTransferPacket.TransferHandler(), RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeTransferHandler(new FissionTransferPacket.TransferHandler(), RecipeTypes.FISSION);
+        pRegistration.addRecipeTransferHandler(new FusionTransferPacket.TransferHandler(), RecipeTypes.FUSION);
+        pRegistration.addRecipeTransferHandler(new LiquifierTransferPacket.TransferHandler(), RecipeTypes.LIQUIFIER);
     }
 }

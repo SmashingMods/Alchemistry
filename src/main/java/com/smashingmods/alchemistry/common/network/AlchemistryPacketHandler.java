@@ -40,6 +40,36 @@ public class AlchemistryPacketHandler {
                 .encoder(CombinerRecipePacket::encode)
                 .consumer(CombinerRecipePacket::handle)
                 .add();
+
+        INSTANCE.messageBuilder(CombinerTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CombinerTransferPacket::new)
+                .encoder(CombinerTransferPacket::encode)
+                .consumer(CombinerTransferPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(CompactorTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CompactorTransferPacket::new)
+                .encoder(CompactorTransferPacket::encode)
+                .consumer(CompactorTransferPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(FissionTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(FissionTransferPacket::new)
+                .encoder(FissionTransferPacket::encode)
+                .consumer(FissionTransferPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(FusionTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(FusionTransferPacket::new)
+                .encoder(FusionTransferPacket::encode)
+                .consumer(FusionTransferPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(LiquifierTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(LiquifierTransferPacket::new)
+                .encoder(LiquifierTransferPacket::encode)
+                .consumer(LiquifierTransferPacket::handle)
+                .add();
     }
 
     @SuppressWarnings("unused")

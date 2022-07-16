@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
@@ -41,6 +42,9 @@ public class CombinerRecipeProvider {
             });
             combiner(new ItemStack(compoundItem), components);
         });
+
+        // Reactor Glass
+        combiner(new ItemStack(BlockRegistry.REACTOR_GLASS.get().asItem()), Lists.newArrayList(toStack("silicon_dioxide"), toStack("lead_oxide")));
 
         // saplings
         combiner(new ItemStack(Items.OAK_SAPLING), Lists.newArrayList(toStack("oxygen"),
@@ -182,50 +186,6 @@ public class CombinerRecipeProvider {
                 toStack("strontium_carbonate", 9)));
 
         combiner(new ItemStack(Items.REDSTONE), Lists.newArrayList(toStack("iron_oxide"), toStack("strontium_carbonate")));
-
-        Map<CompoundItem, List<ItemStack>> overrides = new HashMap<>();
-        overrides.put(ItemRegistry.getCompoundByName("triglyceride").get(),
-                Lists.newArrayList(toStack("oxygen", 2),
-                                toStack("hydrogen", 32),
-                                toStack("carbon", 18)));
-
-        overrides.put(ItemRegistry.getCompoundByName("cucurbitacin").get(),
-                Lists.newArrayList(toStack("hydrogen", 44),
-                                toStack("carbon", 32),
-                                toStack("oxygen", 8)));
-
-        overrides.put(ItemRegistry.getCompoundByName("acetic_acid").get(),
-                Lists.newArrayList(toStack("carbon", 2),
-                        toStack("hydrogen", 4),
-                        toStack("oxygen", 2)));
-
-        overrides.put(ItemRegistry.getCompoundByName("carbon_monoxide").get(),
-                Lists.newArrayList(toStack("oxygen"), toStack("carbon")));
-
-        overrides.put(ItemRegistry.getCompoundByName("carbon_dioxide").get(),
-                Lists.newArrayList(toStack("oxygen", 2), toStack("carbon")));
-
-        overrides.put(ItemRegistry.getCompoundByName("carbonate").get(),
-                Lists.newArrayList(toStack("oxygen", 3), toStack("carbon")));
-
-//        for (CompoundItem compound : ItemRegistry.COMPOUNDS) {
-//            List<ItemStack> inputs = new ArrayList<>();
-//
-//            if (overrides.containsKey(compound)) {
-//                inputs = overrides.get(compound).stream().map(itemStack -> {
-//                    if (itemStack == null) return ItemStack.EMPTY;
-//                    else return itemStack;
-//                }).collect(Collectors.toList());
-//            } else {
-//                for (int i = 0; i < compound.shiftedSlots; i++) {
-//                    inputs.add(ItemStack.EMPTY);
-//                }
-//                for (ItemStack component : compound.getComponentStacks()) {
-//                    inputs.add(component.copy());
-//                }
-//            }
-//            combiner(new ItemStack(compound), inputs);
-//        }
     }
 
     private void combiner(ItemStack pOutput, List<ItemStack> pInput) {

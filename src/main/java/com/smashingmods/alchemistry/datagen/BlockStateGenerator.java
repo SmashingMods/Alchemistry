@@ -96,10 +96,10 @@ public class BlockStateGenerator extends BlockStateProvider {
         getVariantBuilder(controller).forAllStates(blockState -> {
             Direction direction = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
             String type = controller.getRegistryName().getPath().split("_")[0];
-            ResourceLocation side = modLoc(String.format("block/%s_chamber_controller_side", type));
-            ResourceLocation end = modLoc(String.format("block/%s_chamber_controller_end", type));
+            ResourceLocation hSide = modLoc(String.format("block/%s_chamber_controller_hside", type));
+            ResourceLocation vSide = modLoc(String.format("block/%s_chamber_controller_vside", type));
             return ConfiguredModel.builder()
-                    .modelFile(modelFunction.apply(blockState.getValue(PowerStateProperty.POWER_STATE), controller.getRegistryName(), side, end, side))
+                    .modelFile(modelFunction.apply(blockState.getValue(PowerStateProperty.POWER_STATE), controller.getRegistryName(), hSide, vSide, hSide))
                     .rotationX(direction.getAxis() == Direction.Axis.Y ? direction.getAxisDirection().getStep() * -90 : 0)
                     .rotationY(direction.getAxis() != Direction.Axis.Y ? ((direction.get2DDataValue() + 2) % 4) *90 : 0)
                     .build();

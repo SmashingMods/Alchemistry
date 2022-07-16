@@ -60,7 +60,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, AtomizerRecipe pRecipe, IFocusGroup pFocusGroup) {
-        pBuilder.addSlot(RecipeIngredientRole.INPUT, 18, 29).addIngredient(VanillaTypes.FLUID, pRecipe.getInput());
-        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 118, 29).addItemStack(pRecipe.getOutput());
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addIngredient(VanillaTypes.FLUID, pRecipe.getInput());
+        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addItemStack(pRecipe.getOutput());
     }
 }

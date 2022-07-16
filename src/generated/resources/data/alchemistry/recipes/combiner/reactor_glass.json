@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon_dioxide"
+    },
+    {
+      "item": "chemlib:lead_oxide"
+    }
+  ],
+  "result": {
+    "item": "alchemistry:reactor_glass"
+  }
+}

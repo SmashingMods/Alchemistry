@@ -64,12 +64,6 @@ public class ProbabilitySet {
         return new ProbabilitySet(groupArrayList, weighted, rolls);
     }
 
-    private double getTotalProbability() {
-        return probabilityGroups.stream()
-                .mapToDouble(ProbabilityGroup::getProbability)
-                .sum();
-    }
-
     public NonNullList<ItemStack> calculateOutput() {
         NonNullList<ItemStack> toReturn = NonNullList.create();
         Random random = new Random();
@@ -132,6 +126,25 @@ public class ProbabilitySet {
                 pList.add(new ItemStack(item, count));
             }
         }
+    }
+
+
+    public List<ProbabilityGroup> getProbabilityGroups() {
+        return probabilityGroups;
+    }
+
+    public boolean isWeighted() {
+        return weighted;
+    }
+
+    public int getRolls() {
+        return rolls;
+    }
+
+    private double getTotalProbability() {
+        return probabilityGroups.stream()
+                .mapToDouble(ProbabilityGroup::getProbability)
+                .sum();
     }
 
     public static class Builder {

@@ -1,101 +1,140 @@
 package com.smashingmods.alchemistry.client.jei.category;
 
-//public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe> {
-//    private final IGuiHelper guiHelper;
-//    private final static int u = 5;
-//    private final static int v = 5;
-//    private final static int INPUT_ONE = 2;
-//    private final static int OUTPUT_STARTING_INDEX = 3;
-//    private final static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#0.00");
-//
-//    public DissolverRecipeCategory(IGuiHelper guiHelper) {
-//        this.guiHelper = guiHelper;
-//    }
-//
-//    @Override
-//    @Nonnull
-//    public RecipeType<DissolverRecipe> getRecipeType() {
-//        return new RecipeType<>(new ResourceLocation(Alchemistry.MODID, JEIIntegration.DISSOLVER_CATEGORY), DissolverRecipe.class);
-//    }
-//
-//    @Override
-//    @Nonnull
-//    public Component getTitle() {
-//        return new TranslatableComponent("alchemistry.jei.dissolver");
-//    }
-//
-//    @Override
-//    @Nonnull
-//    public IDrawable getBackground() {
-//        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_jei.png"),
-//                u, v, 180, 256);
-//    }
-//
-//    @Override
-//    @Nonnull
-//    public IDrawable getIcon() {
-//        return guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(BlockRegistry.DISSOLVER_BLOCK.get()));
-//    }
-//
-//    @Override
-//    public void setRecipe(IRecipeLayout pRecipeLayout, DissolverRecipe pRecipe, IIngredients pIngredients) {
-//        IGuiItemStackGroup guiItemStacks = pRecipeLayout.getItemStacks();
-//        //List<ItemStack> inputStack = recipe.getInputs();//ingredients.getInputs(VanillaTypes.ITEM)[0]
-//        List<ProbabilityGroup> outputSet = pRecipe.outputs.getSet();
-//        int x = 95 - u;
-//        int y = 7 - v;
-//        guiItemStacks.init(INPUT_ONE, true, x, y);
-//        guiItemStacks.set(INPUT_ONE, Arrays.asList(pRecipe.inputIngredient.ingredient.getItems()));
-//        x = 50 - u;
-//        y = 50 - v;
-//
-//        int outputSlotIndex = OUTPUT_STARTING_INDEX;
-//        for (ProbabilityGroup component : outputSet) {
-//            for (ItemStack stack : component.getOutputs()) {
-//                guiItemStacks.init(outputSlotIndex, false, x, y);
-//                if (!stack.isEmpty()) {
-//                    guiItemStacks.set(outputSlotIndex, stack);
-//                }
-//                x += 18;
-//                outputSlotIndex++;
-//            }
-//            x = 50 - u;
-//            y += 18;
-//        }
-//    }
-//
-//    @Override
-//    public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, PoseStack pPoseStack, double pMouseX, double pMouseY) {
-//        Minecraft minecraft = Minecraft.getInstance();
-//        int y = 50;
-//        for (int index = 0; index < pRecipe.outputs.getSet().size(); index++) {
-//            String text = formatProbability(pRecipe, pRecipe.outputs.probabilityAtIndex(index));
-//            minecraft.font.draw(pPoseStack, text, 0/*-5*/, y, Color.BLACK.getRGB());
-//            y += 18;
-//        }
-//
-//        String probabilityType = "";
-//        if (pRecipe.outputs.relativeProbability) probabilityType = I18n.get("alchemistry.jei.dissolver.relative");
-//        else probabilityType = I18n.get("alchemistry.jei.dissolver.absolute");
-//        String typeLabel = I18n.get("alchemistry.jei.dissolver.type");
-//        String rollsLabel = I18n.get("alchemistry.jei.dissolver.rolls");
-//        int rolls = pRecipe.outputs.rolls;
-//        minecraft.font.draw(pPoseStack, typeLabel + ": " + probabilityType, 5, 4, Color.BLACK.getRGB());
-//        minecraft.font.draw(pPoseStack, rollsLabel + ": " + rolls, 5, 16, Color.BLACK.getRGB());
-//    }
-//
-//    @Override
-//    public ResourceLocation getUid() {
-//        return null;
-//    }
-//
-//    @Override
-//    public Class<? extends DissolverRecipe> getRecipeClass() {
-//        return null;
-//    }
-//
-//    public String formatProbability(DissolverRecipe recipe, double probability) {//probability: Double): String {
-//        if (recipe.outputs.relativeProbability) return DECIMAL_FORMAT.format(probability * 100) + "%";
-//        else return DECIMAL_FORMAT.format(probability) + "%";
-//    }
-//}
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
+import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
+import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocusGroup;
+import mezz.jei.api.recipe.RecipeIngredientRole;
+import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@SuppressWarnings("removal")
+public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe> {
+
+    private IGuiHelper guiHelper;
+
+    public DissolverRecipeCategory() {}
+
+    public DissolverRecipeCategory(IGuiHelper pGuiHelper) {
+        this.guiHelper = pGuiHelper;
+    }
+
+    @Override
+    public Component getTitle() {
+        return new TranslatableComponent("alchemistry.jei.dissolver");
+    }
+
+    @Override
+    public IDrawable getBackground() {
+        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
+    }
+
+    @Override
+    public IDrawable getIcon() {
+        return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.DISSOLVER.get()));
+    }
+
+    @Override
+    public ResourceLocation getUid() {
+        return getRecipeType().getUid();
+    }
+
+    @Override
+    public Class<? extends DissolverRecipe> getRecipeClass() {
+        return DissolverRecipe.class;
+    }
+
+    @Override
+    public RecipeType<DissolverRecipe> getRecipeType() {
+        return RecipeTypes.DISSOLVER;
+    }
+
+    @Override
+    public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, PoseStack pPoseStack, double pMouseX, double pMouseY) {
+
+        Font font = Minecraft.getInstance().font;
+
+        List<Double> probabilities = pRecipe.getOutput().getProbabilityGroups().stream().map(ProbabilityGroup::getProbability).collect(Collectors.toList());
+        int groupCount = pRecipe.getOutput().getProbabilityGroups().size();
+        double totalProbability = pRecipe.getOutput().getProbabilityGroups().stream().mapToDouble(ProbabilityGroup::getProbability).sum();
+        boolean weighted = pRecipe.getOutput().isWeighted();
+        int rolls = pRecipe.getOutput().getRolls();
+
+        font.drawShadow(pPoseStack, String.format("Weighted: %s", weighted), 0, 0, 0xFFFFFFFF);
+        font.drawShadow(pPoseStack, String.format("Rolls: %s", rolls), 0, 24, 0xFFFFFFFF);
+
+        int xOrigin = 41;
+        int yOrigin = 58;
+
+        probabilities.forEach(aDouble -> {
+            for (int row = 0; row < 4; row++) {
+                for (int column = 0; column < 2; column++) {
+                    int index = column + row * 2;
+                    int x = xOrigin + column * 52;
+                    int y = yOrigin + row * 21;
+
+                    if (groupCount > index) {
+
+                        if (weighted) {
+                            NumberFormat numberFormat = NumberFormat.getInstance();
+                            numberFormat.setMaximumFractionDigits(1);
+                            double value = groupCount == 1 ? probabilities.get(0) : probabilities.get(index);
+                            double percent = (value / totalProbability) * 100;
+                            font.drawShadow(pPoseStack, numberFormat.format(percent) + "%", x, y, 0xFFFFFFFF);
+                        } else {
+                            double value = groupCount == 1 ? probabilities.get(0) : probabilities.get(index);
+                            font.drawShadow(pPoseStack, value+ "%", x, y, 0xFFFFFFFF);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void setRecipe(IRecipeLayoutBuilder pBuilder, DissolverRecipe pRecipe, IFocusGroup pFocusGroup) {
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 78, 17).addIngredients(pRecipe.getInput());
+
+        int xOrigin = 23;
+        int yOrigin = 54;
+
+        List<ItemStack> items = new ArrayList<>();
+
+        pRecipe.getOutput().getProbabilityGroups().stream().forEach(group -> items.addAll(group.getOutput()));
+
+        items.forEach(itemStack -> {
+            for (int row = 0; row < 4; row++) {
+                for (int column = 0; column < 2; column++) {
+                    int itemIndex = column + row * 2;
+                    int x = xOrigin + column * 52;
+                    int y = yOrigin + row * 21;
+
+                    if (items.size() > itemIndex) {
+                        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(items.get(itemIndex));
+                    }
+                }
+            }
+        });
+    }
+}

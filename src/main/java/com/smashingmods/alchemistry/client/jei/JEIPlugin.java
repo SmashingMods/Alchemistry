@@ -38,6 +38,7 @@ public class JEIPlugin implements IModPlugin {
                 new AtomizerRecipeCategory(guiHelper),
                 new CombinerRecipeCategory(guiHelper),
                 new CompactorRecipeCategory(guiHelper),
+                new DissolverRecipeCategory(guiHelper),
                 new FissionRecipeCategory(guiHelper),
                 new FusionRecipeCategory(guiHelper),
                 new LiquifierRecipeCategory(guiHelper)
@@ -48,10 +49,10 @@ public class JEIPlugin implements IModPlugin {
     public void registerGuiHandlers(IGuiHandlerRegistration pRegistration) {
         pRegistration.addRecipeClickArea(AtomizerScreen.class, 58, 39, 30, 9, RecipeTypes.ATOMIZER);
         pRegistration.addRecipeClickArea(CombinerScreen.class, 64, 84, 30, 9, RecipeTypes.COMBINER);
-        pRegistration.addRecipeClickArea(CompactorScreen.class, 58, 39, 30, 9, RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeClickArea(CompactorScreen.class, 74, 39, 30, 9, RecipeTypes.COMPACTOR);
         pRegistration.addRecipeClickArea(FissionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FISSION);
         pRegistration.addRecipeClickArea(FusionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FUSION);
-        pRegistration.addRecipeClickArea(LiquifierScreen.class, 58, 39, 30, 9, RecipeTypes.LIQUIFIER);
+        pRegistration.addRecipeClickArea(LiquifierScreen.class, 90, 39, 30, 9, RecipeTypes.LIQUIFIER);
     }
 
     @Override
@@ -61,6 +62,7 @@ public class JEIPlugin implements IModPlugin {
         pRegistration.addRecipes(RecipeTypes.ATOMIZER, recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE));
         pRegistration.addRecipes(RecipeTypes.COMBINER, recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE));
         pRegistration.addRecipes(RecipeTypes.COMPACTOR, recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE));
+        pRegistration.addRecipes(RecipeTypes.DISSOLVER, recipeManager.getAllRecipesFor(RecipeRegistry.DISSOLVER_TYPE));
         pRegistration.addRecipes(RecipeTypes.FISSION, recipeManager.getAllRecipesFor(RecipeRegistry.FISSION_TYPE));
         pRegistration.addRecipes(RecipeTypes.FUSION, recipeManager.getAllRecipesFor(RecipeRegistry.FUSION_TYPE));
         pRegistration.addRecipes(RecipeTypes.LIQUIFIER, recipeManager.getAllRecipesFor(RecipeRegistry.LIQUIFIER_TYPE));

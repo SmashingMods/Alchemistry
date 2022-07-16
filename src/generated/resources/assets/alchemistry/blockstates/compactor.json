@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "alchemistry:block/compactor"
+    }
+  }
+}

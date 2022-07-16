@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "alchemistry:block/compactor_side",
+    "end": "alchemistry:block/compactor_end"
+  }
+}

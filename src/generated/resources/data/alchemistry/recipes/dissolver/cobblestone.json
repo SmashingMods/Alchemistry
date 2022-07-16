@@ -1,0 +1,89 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "tag": "minecraft:cobblestone"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 700.0,
+        "results": []
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:aluminum"
+          }
+        ]
+      },
+      {
+        "probability": 4.0,
+        "results": [
+          {
+            "item": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 1.5,
+        "results": [
+          {
+            "item": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:dysprosium"
+          }
+        ]
+      },
+      {
+        "probability": 1.5,
+        "results": [
+          {
+            "item": "chemlib:zirconium"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:nickel"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:gallium"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:tungsten"
+          }
+        ]
+      }
+    ]
+  }
+}

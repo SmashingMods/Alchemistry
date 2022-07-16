@@ -1,0 +1,31 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:oxidized_copper"
+  },
+  "output": {
+    "rolls": 16,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 75.0,
+        "results": [
+          {
+            "item": "chemlib:copper",
+            "count": 9
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "item": "chemlib:copper_i_oxide",
+            "count": 9
+          }
+        ]
+      }
+    ]
+  }
+}

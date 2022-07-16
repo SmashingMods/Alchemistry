@@ -5,11 +5,15 @@
     "item": "minecraft:smooth_stone"
   },
   "output": {
-    "rolls": 4,
+    "rolls": 2,
     "weighted": true,
     "groups": [
       {
-        "probability": 2.0,
+        "probability": 20.0,
+        "results": []
+      },
+      {
+        "probability": 1.0,
         "results": [
           {
             "item": "chemlib:aluminum"
@@ -17,7 +21,7 @@
         ]
       },
       {
-        "probability": 4.0,
+        "probability": 2.0,
         "results": [
           {
             "item": "chemlib:iron"
@@ -25,7 +29,7 @@
         ]
       },
       {
-        "probability": 1.5,
+        "probability": 0.7,
         "results": [
           {
             "item": "chemlib:gold"
@@ -33,7 +37,7 @@
         ]
       },
       {
-        "probability": 20.0,
+        "probability": 5.0,
         "results": [
           {
             "item": "chemlib:silicon_dioxide"
@@ -41,7 +45,7 @@
         ]
       },
       {
-        "probability": 0.5,
+        "probability": 0.3,
         "results": [
           {
             "item": "chemlib:dysprosium"
@@ -49,7 +53,7 @@
         ]
       },
       {
-        "probability": 1.25,
+        "probability": 0.6,
         "results": [
           {
             "item": "chemlib:zirconium"
@@ -57,7 +61,7 @@
         ]
       },
       {
-        "probability": 1.0,
+        "probability": 0.5,
         "results": [
           {
             "item": "chemlib:tungsten"
@@ -65,7 +69,7 @@
         ]
       },
       {
-        "probability": 1.0,
+        "probability": 0.5,
         "results": [
           {
             "item": "chemlib:nickel"
@@ -73,7 +77,7 @@
         ]
       },
       {
-        "probability": 1.0,
+        "probability": 0.5,
         "results": [
           {
             "item": "chemlib:gallium"

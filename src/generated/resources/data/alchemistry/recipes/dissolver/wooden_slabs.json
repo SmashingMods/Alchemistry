@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "tag": "minecraft:wooden_slabs"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 12.5,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
+          }
+        ]
+      }
+    ]
+  }
+}

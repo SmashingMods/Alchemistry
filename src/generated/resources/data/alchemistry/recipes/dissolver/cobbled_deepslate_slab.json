@@ -9,6 +9,10 @@
     "weighted": true,
     "groups": [
       {
+        "probability": 40.0,
+        "results": []
+      },
+      {
         "probability": 2.0,
         "results": [
           {

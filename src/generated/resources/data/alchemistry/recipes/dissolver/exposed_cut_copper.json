@@ -1,0 +1,31 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:exposed_cut_copper"
+  },
+  "output": {
+    "rolls": 16,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 95.0,
+        "results": [
+          {
+            "item": "chemlib:copper",
+            "count": 9
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "chemlib:copper_i_oxide",
+            "count": 9
+          }
+        ]
+      }
+    ]
+  }
+}

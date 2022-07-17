@@ -1,0 +1,42 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:lapis_ore"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:sodium",
+            "count": 24
+          },
+          {
+            "item": "chemlib:calcium",
+            "count": 8
+          },
+          {
+            "item": "chemlib:aluminum",
+            "count": 24
+          },
+          {
+            "item": "chemlib:silicon",
+            "count": 24
+          },
+          {
+            "item": "chemlib:oxygen",
+            "count": 96
+          },
+          {
+            "item": "chemlib:sulfur",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  }
+}

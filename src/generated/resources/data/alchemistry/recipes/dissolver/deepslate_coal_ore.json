@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:deepslate_coal_ore"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:graphite",
+            "count": 8
+          },
+          {
+            "item": "chemlib:sulfur",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  }
+}

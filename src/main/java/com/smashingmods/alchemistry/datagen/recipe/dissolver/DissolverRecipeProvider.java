@@ -57,20 +57,21 @@ public class DissolverRecipeProvider {
 
         // Stones
         for (Item item : newArrayList(Items.STONE, Items.SMOOTH_STONE, Items.STONE_BRICK_SLAB, Items.STONE_BRICKS, Items.CRACKED_STONE_BRICKS, Items.CHISELED_STONE_BRICKS)) {
-            int rolls = 4;
+            int rolls = 2;
             if (item == Items.STONE_BRICK_SLAB || item == Items.SMOOTH_STONE_SLAB) {
-                rolls = 2;
+                rolls = 1;
             }
             dissolver(item, createSet().rolls(rolls).weighted()
-                    .addGroup(2, toStack("aluminum"))
-                    .addGroup(4, toStack("iron"))
-                    .addGroup(1.5, toStack("gold"))
-                    .addGroup(20, toStack("silicon_dioxide"))
-                    .addGroup(.5, toStack("dysprosium"))
-                    .addGroup(1.25, toStack("zirconium"))
-                    .addGroup(1, toStack("tungsten"))
-                    .addGroup(1, toStack("nickel"))
-                    .addGroup(1, toStack("gallium"))
+                    .addGroup(20)
+                    .addGroup(1, toStack("aluminum"))
+                    .addGroup(2, toStack("iron"))
+                    .addGroup(.7, toStack("gold"))
+                    .addGroup(5, toStack("silicon_dioxide"))
+                    .addGroup(.3, toStack("dysprosium"))
+                    .addGroup(.6, toStack("zirconium"))
+                    .addGroup(.5, toStack("tungsten"))
+                    .addGroup(.5, toStack("nickel"))
+                    .addGroup(.5, toStack("gallium"))
                     .build());
         }
 
@@ -115,6 +116,7 @@ public class DissolverRecipeProvider {
                 rolls = 2;
             }
             dissolver(item, createSet().rolls(rolls).weighted()
+                    .addGroup(40)
                     .addGroup(2, toStack("osmium"))
                     .addGroup(4, toStack("iron"))
                     .addGroup(2, toStack("gold"))
@@ -128,9 +130,10 @@ public class DissolverRecipeProvider {
         }
 
         dissolver(Items.CALCITE, createSet()
-                .addGroup(1, toStack("calcium_carbonate"))
+                .addGroup(100, toStack("calcium_carbonate"))
                 .build());
 
+        // Dirt
         dissolver("minecraft:dirt", createSet().weighted()
                 .addGroup(3, toStack("water"))
                 .addGroup(5, toStack("silicon_dioxide"))
@@ -146,41 +149,262 @@ public class DissolverRecipeProvider {
                 .addGroup(3, toStack("chitin"))
                 .build());
 
-//        dissolver("minecraft:logs", set().addGroup(toStack("cellulose")).build());
-//        dissolver("minecraft:planks", set().relative(false).addGroup(25.0, toStack("cellulose")).build());
-//        dissolver("minecraft:wooden_slabs", set().relative(false).addGroup(12.5, toStack("cellulose")).build());
-//        dissolver("forge:fences/wooden", set().relative(false).addGroup(33.3334, toStack("cellulose")).build());
-//        dissolver("forge:fence_gates/wooden", set().addGroup(toStack("cellulose")).build());
-//        dissolver("forge:chests/wooden", set().addGroup(toStack("cellulose", 2)).build());
-//
-//        dissolver("minecraft:leaves", set().relative(false).addGroup(5, toStack("cellulose")).build());
-//        dissolver("minecraft:saplings", set().relative(false).addGroup(25, toStack("cellulose", 1)).build());
-//
-//        dissolver("minecraft:cobblestone", set().addGroup(700, ItemStack.EMPTY)
-//                        .addGroup(2, toStack("aluminum"))
-//                        .addGroup(4, toStack("iron"))
-//                        .addGroup(1.5, toStack("gold"))
-//                        .addGroup(10, toStack("silicon_dioxide"))
-//                        .addGroup(1, toStack("dysprosium"))
-//                        .addGroup(1.5, toStack("zirconium"))
-//                        .addGroup(1, toStack("nickel"))
-//                        .addGroup(1, toStack("gallium"))
-//                        .addGroup(1, toStack("tungsten"))
-//                        .build());
-//
-//        dissolver("minecraft:mossy_cobblestone", set().addGroup(697, ItemStack.EMPTY)
-//                        .addGroup(2, toStack("aluminum"))
-//                        .addGroup(4, toStack("iron"))
-//                        .addGroup(1.5, toStack("gold"))
-//                        .addGroup(10, toStack("silicon_dioxide"))
-//                        .addGroup(1, toStack("dysprosium"))
-//                        .addGroup(1.5, toStack("zirconium"))
-//                        .addGroup(1, toStack("nickel"))
-//                        .addGroup(1, toStack("gallium"))
-//                        .addGroup(1, toStack("tungsten"))
-//                        .addGroup(3, toStack("cellulose"))
-//                        .build());
-//
+        dissolver(Items.CRIMSON_NYLIUM, createSet().weighted()
+                .addGroup(10)
+                .addGroup(2, toStack("cellulose"))
+                .addGroup(4, toStack("zinc_oxide"))
+                .addGroup(1, toStack("gold"))
+                .addGroup(1, toStack("phosphorus"))
+                .addGroup(3, toStack("sulfur"))
+                .addGroup(3, toStack("germanium"))
+                .addGroup(5, toStack("silicon"))
+                .addGroup(1, toStack("selenium"))
+                .build());
+
+        dissolver(Items.WARPED_NYLIUM, createSet().weighted()
+                .addGroup(10)
+                .addGroup(2, toStack("cellulose"))
+                .addGroup(4, toStack("zinc_oxide"))
+                .addGroup(1, toStack("gold"))
+                .addGroup(1, toStack("phosphorus"))
+                .addGroup(3, toStack("sulfur"))
+                .addGroup(1, toStack("mercury"))
+                .addGroup(5, toStack("silicon"))
+                .addGroup(1, toStack("neodymium"))
+                .build());
+
+//        Woods
+        dissolver("minecraft:logs", createSet()
+                .addGroup(100, toStack("cellulose"))
+                .build());
+
+        dissolver("minecraft:planks", createSet()
+                .addGroup(25, toStack("cellulose"))
+                .build());
+
+        dissolver("minecraft:wooden_slabs", createSet()
+                .addGroup(12.5, toStack("cellulose"))
+                .build());
+
+        dissolver("forge:fences/wooden", createSet()
+                .addGroup(33.3334, toStack("cellulose"))
+                .build());
+
+        dissolver("forge:fence_gates/wooden", createSet()
+                .addGroup(100, toStack("cellulose"))
+                .build());
+
+        dissolver("forge:chests/wooden", createSet()
+                .addGroup(100, toStack("cellulose", 2))
+                .build());
+
+        dissolver("minecraft:leaves", createSet()
+                .addGroup(5, toStack("cellulose"))
+                .build());
+
+        dissolver("minecraft:saplings", createSet()
+                .addGroup(25, toStack("cellulose"))
+                .build());
+
+        // Sands
+        dissolver(Items.SAND, createSet().weighted()
+                .addGroup(100, toStack("silicon_dioxide", 4))
+                .addGroup(1, toStack("gold"))
+                .build());
+
+        for (Item item : newArrayList(Items.SANDSTONE, Items.CHISELED_SANDSTONE, Items.CUT_SANDSTONE, Items.SMOOTH_SANDSTONE, Items.SANDSTONE_SLAB, Items.SMOOTH_SANDSTONE_SLAB)) {
+            int rolls;
+            if (item == Items.SANDSTONE_SLAB || item == Items.SMOOTH_SANDSTONE_SLAB) {
+                rolls = 2;
+            } else {
+                rolls = 4;
+            }
+            dissolver(item, createSet().weighted().rolls(rolls)
+                    .addGroup(100, toStack("silicon_dioxide", 4))
+                    .addGroup(1, toStack("gold"))
+                    .build());
+        }
+
+        dissolver(Items.RED_SAND, createSet().weighted()
+                .addGroup(100, toStack("silicon_dioxide", 4))
+                .addGroup(10, toStack("iron_oxide"))
+                .build());
+
+        for (Item item : newArrayList(Items.RED_SANDSTONE, Items.CUT_RED_SANDSTONE, Items.SMOOTH_RED_SANDSTONE, Items.RED_SANDSTONE_SLAB, Items.CHISELED_RED_SANDSTONE, Items.CUT_RED_SANDSTONE_SLAB, Items.SMOOTH_RED_SANDSTONE_SLAB)) {
+            int rolls;
+            if (item == Items.RED_SANDSTONE_SLAB || item == Items.CUT_RED_SANDSTONE_SLAB || item == Items.SMOOTH_RED_SANDSTONE_SLAB) {
+                rolls = 2;
+            } else {
+                rolls = 4;
+            }
+            dissolver(item, createSet().weighted().rolls(rolls)
+                    .addGroup(100, toStack("silicon_dioxide", 4))
+                    .addGroup(10, toStack("iron_oxide"))
+                    .build());
+        }
+
+        dissolver(Items.GRAVEL, createSet()
+                .addGroup(1, toStack("silicon_dioxide")).build());
+
+        dissolver("minecraft:cobblestone", createSet().weighted()
+                .addGroup(700)
+                .addGroup(2, toStack("aluminum"))
+                .addGroup(4, toStack("iron"))
+                .addGroup(1.5, toStack("gold"))
+                .addGroup(10, toStack("silicon_dioxide"))
+                .addGroup(1, toStack("dysprosium"))
+                .addGroup(1.5, toStack("zirconium"))
+                .addGroup(1, toStack("nickel"))
+                .addGroup(1, toStack("gallium"))
+                .addGroup(1, toStack("tungsten"))
+                .build());
+
+        dissolver("minecraft:mossy_cobblestone", createSet().weighted()
+                .addGroup(697)
+                .addGroup(2, toStack("aluminum"))
+                .addGroup(4, toStack("iron"))
+                .addGroup(1.5, toStack("gold"))
+                .addGroup(10, toStack("silicon_dioxide"))
+                .addGroup(1, toStack("dysprosium"))
+                .addGroup(1.5, toStack("zirconium"))
+                .addGroup(1, toStack("nickel"))
+                .addGroup(1, toStack("gallium"))
+                .addGroup(1, toStack("tungsten"))
+                .addGroup(3, toStack("cellulose"))
+                .build());
+
+//      Ores
+        newArrayList(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE).forEach(item ->
+        dissolver(item, createSet()
+                .addGroup(100, toStack("graphite", 8), toStack("sulfur", 8))
+                .build()));
+
+        for (Item item : newArrayList(Items.EMERALD, Items.DEEPSLATE_EMERALD_ORE, Items.EMERALD_ORE, Items.EMERALD_BLOCK)) {
+            int multiplier = 1;
+            if (item == Items.EMERALD_ORE || item == Items.DEEPSLATE_EMERALD_ORE) {
+                multiplier = 2;
+            } else if (item == Items.EMERALD_BLOCK) {
+                multiplier = 9;
+            }
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("beryl", 8 * multiplier),
+                            toStack("chromium", 8 * multiplier),
+                            toStack("vanadium", 4 * multiplier))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.DIAMOND, Items.DEEPSLATE_DIAMOND_ORE, Items.DIAMOND_ORE, Items.DIAMOND_BLOCK)) {
+            int multiplier = 1;
+            if (item == Items.DIAMOND_ORE || item == Items.DEEPSLATE_DIAMOND_ORE) {
+                multiplier = 2;
+            } else if (item == Items.DIAMOND_BLOCK) {
+                multiplier = 9;
+            }
+            dissolver(item, createSet()
+                    .addGroup(100, toStack("graphite", 64 * 2 * multiplier)).build());
+        }
+
+        for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK, Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE)) {
+            int multiplier = 1;
+            if (item == Items.LAPIS_BLOCK) multiplier = 9;
+            else if (item == Items.LAPIS_ORE || item == Items.DEEPSLATE_LAPIS_ORE) multiplier = 4;
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("sodium", 6 * multiplier),
+                            toStack("calcium", 2 * multiplier),
+                            toStack("aluminum", 6 * multiplier),
+                            toStack("silicon", 6 * multiplier),
+                            toStack("oxygen", 24 * multiplier),
+                            toStack("sulfur", 2 * multiplier))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.NETHER_QUARTZ_ORE, Items.QUARTZ_SLAB, Items.SMOOTH_QUARTZ_SLAB)) {
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("barium", 16 * 2),
+                            toStack("silicon_dioxide", 32 * 2))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.REDSTONE, Items.DEEPSLATE_REDSTONE_ORE, Items.REDSTONE_ORE, Items.REDSTONE_BLOCK)) {
+            int multiplier = 1;
+            if (item == Items.REDSTONE_ORE || item == Items.DEEPSLATE_REDSTONE_ORE) {
+                multiplier = 2;
+            } else if (item == Items.REDSTONE_BLOCK) {
+                multiplier = 9;
+            }
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("iron_oxide", multiplier),
+                            toStack("strontium_carbonate", multiplier))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.IRON_INGOT, Items.IRON_NUGGET, Items.DEEPSLATE_IRON_ORE, Items.IRON_ORE, Items.IRON_BLOCK, Items.RAW_IRON, Items.RAW_IRON_BLOCK)) {
+            int multiplier = 1;
+            if (item == Items.IRON_INGOT || item == Items.RAW_IRON) {
+                multiplier = 16;
+            } else if (item == Items.IRON_ORE || item == Items.DEEPSLATE_IRON_ORE) {
+                multiplier = 32;
+            } else if (item == Items.IRON_BLOCK || item == Items.RAW_IRON_BLOCK) {
+                multiplier = 16 * 9;
+            }
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("iron", multiplier))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.GOLD_INGOT, Items.GOLD_NUGGET, Items.DEEPSLATE_GOLD_ORE, Items.GOLD_ORE, Items.GOLD_BLOCK, Items.RAW_GOLD, Items.RAW_GOLD_BLOCK, Items.NETHER_GOLD_ORE)) {
+            int multiplier = 1;
+            if (item == Items.GOLD_INGOT || item == Items.RAW_GOLD) {
+                multiplier = 16;
+            } else if (item == Items.GOLD_ORE || item == Items.DEEPSLATE_GOLD_ORE || item == Items.NETHER_GOLD_ORE) {
+                multiplier = 32;
+            } else if (item == Items.GOLD_BLOCK || item == Items.RAW_GOLD_BLOCK) {
+                multiplier = 16 * 9;
+            }
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("gold", multiplier))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.COPPER_INGOT, Items.DEEPSLATE_COPPER_ORE, Items.COPPER_ORE, Items.COPPER_BLOCK, Items.RAW_COPPER, Items.RAW_COPPER_BLOCK)) {
+            int multiplier = 1;
+            if (item == Items.COPPER_INGOT || item == Items.RAW_COPPER) {
+                multiplier = 16;
+            } else if (item == Items.COPPER_ORE || item == Items.DEEPSLATE_COPPER_ORE) {
+                multiplier = 32;
+            } else if (item == Items.COPPER_BLOCK || item == Items.RAW_COPPER_BLOCK) {
+                multiplier = 16 * 9;
+            }
+            dissolver(item, createSet()
+                    .addGroup(100,
+                            toStack("copper", multiplier))
+                    .build());
+        }
+
+        for (Item item : newArrayList(Items.EXPOSED_COPPER, Items.EXPOSED_CUT_COPPER, Items.EXPOSED_CUT_COPPER_SLAB, Items.WEATHERED_COPPER, Items.WEATHERED_CUT_COPPER, Items.WEATHERED_CUT_COPPER_SLAB, Items.OXIDIZED_COPPER, Items.OXIDIZED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER_SLAB)) {
+            int oxide = 5;
+            int multiplier = 2;
+            if (item == Items.WEATHERED_COPPER || item == Items.WEATHERED_CUT_COPPER || item == Items.WEATHERED_CUT_COPPER_SLAB) {
+                oxide = 15;
+            } else if (item == Items.OXIDIZED_COPPER || item == Items.OXIDIZED_CUT_COPPER || item == Items.OXIDIZED_CUT_COPPER_SLAB) {
+                oxide = 25;
+            }
+            if (item == Items.WEATHERED_CUT_COPPER_SLAB || item == Items.EXPOSED_CUT_COPPER_SLAB || item == Items.OXIDIZED_CUT_COPPER_SLAB) {
+                multiplier = 1;
+            }
+            dissolver(item, createSet().rolls(8 * multiplier)
+                    .addGroup(100 - oxide, toStack("copper", 9))
+                    .addGroup(oxide, toStack("copper_i_oxide", 9))
+                    .build());
+        }
+
+
 //
 //        dissolver(Items.MAGMA_BLOCK, set().rolls(2)
 //                        .addGroup(10, toStack("manganese", 2))
@@ -258,14 +482,7 @@ public class DissolverRecipeProvider {
 //                                toStack("cellulose"))
 //                        .build());
 //
-//        dissolver(Items.COAL_ORE, set().addGroup(1.0,
-//                                toStack("carbon", 32),
-//                                toStack("sulfur", 8))
-//                        .build());
-//        dissolver(Items.DEEPSLATE_COAL_ORE,  set().addGroup(1.0,
-//                                toStack("carbon", 32),
-//                                toStack("sulfur", 8))
-//                        .build());
+
 //
 //        dissolver(Items.COAL_BLOCK, set().addGroup(1.0, toStack("carbon", 9 * 8)).build());
 //
@@ -300,27 +517,7 @@ public class DissolverRecipeProvider {
 //                        .addGroup(4, toStack("silicon"))
 //                        .build());
 //
-//        dissolver(Items.CRIMSON_NYLIUM, set().addGroup(10, ItemStack.EMPTY)
-//                        .addGroup(2, toStack("cellulose"))
-//                        .addGroup(4, toStack("zinc_oxide"))
-//                        .addGroup(1, toStack("gold"))
-//                        .addGroup(1, toStack("phosphorus"))
-//                        .addGroup(3, toStack("sulfur"))
-//                        .addGroup(3, toStack("germanium"))
-//                        .addGroup(5, toStack("silicon"))
-//                        .addGroup(1, toStack("selenium"))
-//                        .build());
-//
-//        dissolver(Items.WARPED_NYLIUM, set().addGroup(10, ItemStack.EMPTY)
-//                        .addGroup(2, toStack("cellulose"))
-//                        .addGroup(4, toStack("zinc_oxide"))
-//                        .addGroup(1, toStack("gold"))
-//                        .addGroup(1, toStack("phosphorus"))
-//                        .addGroup(3, toStack("sulfur"))
-//                        .addGroup(1, toStack("mercury"))
-//                        .addGroup(5, toStack("silicon"))
-//                        .addGroup(1, toStack("neodymium"))
-//                        .build());
+
 //
 //        for (Item item : newArrayList(Items.NETHER_BRICK, Items.NETHER_BRICKS, Items.CRACKED_NETHER_BRICKS, Items.CHISELED_NETHER_BRICKS, Items.RED_NETHER_BRICKS)) {
 //            int rolls = 1;
@@ -355,32 +552,6 @@ public class DissolverRecipeProvider {
 //
 //        dissolver(Items.IRON_TRAPDOOR, set().addGroup(1, toStack("iron", 64)).build());
 //
-//        for (Item item : newArrayList(Items.EMERALD, Items.DEEPSLATE_EMERALD_ORE, Items.EMERALD_ORE, Items.EMERALD_BLOCK)) {
-//            int multiplier = 1;
-//            boolean reversible = false;
-//            if (item == Items.EMERALD) {
-//                reversible = true;
-//            } else if (item == Items.EMERALD_ORE || item == Items.DEEPSLATE_EMERALD_ORE) {
-//                multiplier = 2;
-//            } else if (item == Items.EMERALD_BLOCK) {
-//                multiplier = 9;
-//            }
-//            dissolver(item, set().addGroup(1,
-//                            toStack("beryl", 8 * multiplier),
-//                            toStack("chromium", 8 * multiplier),
-//                            toStack("vanadium", 4 * multiplier)
-//                    ).build(), reversible);
-//        }
-//
-//        for (Item item : newArrayList(Items.DIAMOND, Items.DEEPSLATE_DIAMOND_ORE, Items.DIAMOND_ORE, Items.DIAMOND_BLOCK)) {
-//            int multiplier = 1;
-//            if (item == Items.DIAMOND_ORE || item == Items.DEEPSLATE_DIAMOND_ORE) {
-//                multiplier = 2;
-//            } else if (item == Items.DIAMOND_BLOCK) {
-//                multiplier = 9;
-//            }
-//            dissolver(item, set().addGroup(1, toStack("carbon", 64 * 8 * multiplier)).build());
-//        }
 //
 //        for (Item item : newArrayList(Items.SNOW_BLOCK, Items.ICE)) {
 //            dissolver(item, set().addGroup(1, toStack("water", 16)).build());
@@ -443,12 +614,6 @@ public class DissolverRecipeProvider {
 //                                toStack("silicon_dioxide", 32))
 //                        .build(), true);
 //
-//        for (Item item : newArrayList(Items.NETHER_QUARTZ_ORE, Items.QUARTZ_SLAB, Items.SMOOTH_QUARTZ_SLAB)) {
-//            dissolver(item, set().addGroup(1,
-//                                    toStack("barium", 16 * 2),
-//                                    toStack("silicon_dioxide", 32 * 2))
-//                            .build());
-//        }
 //
 //        for (Item item : newArrayList(Items.CHISELED_QUARTZ_BLOCK, Items.SMOOTH_QUARTZ, Items.QUARTZ_PILLAR, Items.QUARTZ_BRICKS)) {
 //            dissolver(item, set().addGroup(1,
@@ -515,31 +680,6 @@ public class DissolverRecipeProvider {
 //
 //        dissolver(Items.SUGAR_CANE, set().addGroup(1, toStack("sucrose")).build());
 //
-//        dissolver(Items.SAND, set().relative(false)
-//                        .addGroup(100, toStack("silicon_dioxide", 4))
-//                        .addGroup(1, toStack("gold"))
-//                        .build());
-//
-//        for (Item item : newArrayList(Items.SANDSTONE, Items.CHISELED_SANDSTONE, Items.CUT_SANDSTONE)) {
-//            dissolver(item, set().rolls(4)
-//                            .relative(false)
-//                            .addGroup(100, toStack("silicon_dioxide", 4))
-//                            .addGroup(1, toStack("gold"))
-//                            .build());
-//        }
-//
-//        dissolver(Items.RED_SAND, set().relative(false)
-//                        .addGroup(100, toStack("silicon_dioxide", 4))
-//                        .addGroup(10, toStack("iron_oxide"))
-//                        .build());
-//
-//        for (Item item : newArrayList(Items.RED_SANDSTONE, Items.CUT_RED_SANDSTONE, Items.SMOOTH_RED_SANDSTONE)) {
-//            dissolver(item, set().rolls(4)
-//                            .relative(false)
-//                            .addGroup(100, toStack("silicon_dioxide", 4))
-//                            .addGroup(10, toStack("iron_oxide"))
-//                            .build());
-//        }
 //
 //        dissolver(Items.SUGAR, set().addGroup(1, toStack("sucrose")).build());
 //
@@ -604,21 +744,6 @@ public class DissolverRecipeProvider {
 //                        .addGroup(10, toStack("magnesium_oxide"))
 //                        .build());
 //
-//        for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK, Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE)) {
-//            int multiplier = 1;
-//            boolean reversible = false;
-//            if (item == Items.LAPIS_BLOCK) multiplier = 9;
-//            else if (item == Items.LAPIS_ORE || item == Items.DEEPSLATE_LAPIS_ORE) multiplier = 4;
-//            else reversible = true;
-//            dissolver(item, set().addGroup(1,
-//                                    toStack("sodium", 6 * multiplier),
-//                                    toStack("calcium", 2 * multiplier),
-//                                    toStack("aluminum", 6 * multiplier),
-//                                    toStack("silicon", 6 * multiplier),
-//                                    toStack("oxygen", 24 * multiplier),
-//                                    toStack("sulfur", 2 * multiplier))
-//                            .build(), reversible);
-//        }
 //
 //        dissolver(Items.STRING, set().relative(false).addGroup(50, toStack("protein")).build());
 //
@@ -669,7 +794,6 @@ public class DissolverRecipeProvider {
 //            dissolver(item, set().addGroup(1, toStack("silicon_dioxide", 2), toStack("water", 4)).build());
 //        }
 //
-//        dissolver(Items.GRAVEL, set().addGroup(1, toStack("silicon_dioxide")).build());
 //
 //
 //        for (Item item : newArrayList(Items.DEAD_BRAIN_CORAL, Items.DEAD_BRAIN_CORAL_BLOCK, Items.DEAD_BRAIN_CORAL_FAN,
@@ -741,25 +865,6 @@ public class DissolverRecipeProvider {
 //                            .addGroup(25, toStack("potassium", 5))
 //                            .build());
 //        }
-//
-//        dissolver(Items.REDSTONE, set().addGroup(1,
-//                                toStack("iron_oxide"),
-//                                toStack("strontium_carbonate"))
-//                        .build(), true);
-//
-//        dissolver(Items.REDSTONE_ORE, set().addGroup(1,
-//                                toStack("iron_oxide", 4),
-//                                toStack("strontium_carbonate", 4))
-//                        .build());
-//        dissolver(Items.DEEPSLATE_REDSTONE_ORE, set().addGroup(1,
-//                                toStack("iron_oxide", 4),
-//                                toStack("strontium_carbonate", 4))
-//                        .build());
-//
-//        dissolver(Items.REDSTONE_BLOCK, set().addGroup(1,
-//                                toStack("iron_oxide", 9),
-//                                toStack("strontium_carbonate", 9))
-//                        .build());
 //
 //        for (Item item : newArrayList(Items.BEEF, Items.PORKCHOP, Items.MUTTON, Items.COOKED_PORKCHOP,
 //                Items.COOKED_BEEF, Items.COOKED_MUTTON, Items.CHICKEN, Items.COOKED_CHICKEN, Items.RABBIT, Items.COOKED_RABBIT)) {
@@ -909,20 +1014,10 @@ public class DissolverRecipeProvider {
 //
 //        dissolver(Items.SWEET_BERRIES, set().addGroup(1, toStack("cellulose"), toStack("sucrose")).build());
 //
-//        dissolver(Items.IRON_INGOT, set().addGroup(1, toStack("iron", 16)).build());
-//        dissolver(Items.IRON_NUGGET, set().addGroup(1, toStack("iron", 1)).build());
-//        dissolver(Items.IRON_BLOCK, set().addGroup(1, toStack("iron", 16 * 9)).build());
-//        dissolver(Items.IRON_ORE, set().addGroup(1, toStack("iron", 32)).build());
-//        dissolver(Items.DEEPSLATE_IRON_ORE, set().addGroup(1, toStack("iron", 32)).build());
+
 //
 //        dissolver(Items.CHAIN, set().addGroup(1, toStack("iron", 18)).build());
 //
-//        dissolver(Items.GOLD_INGOT, set().addGroup(1, toStack("gold", 16)).build());
-//        dissolver(Items.GOLD_NUGGET, set().addGroup(1, toStack("gold", 1)).build());
-//        dissolver(Items.GOLD_BLOCK, set().addGroup(1, toStack("gold", 16 * 9)).build());
-//        dissolver(Items.GOLD_ORE, set().addGroup(1, toStack("gold", 32)).build());
-//        dissolver(Items.DEEPSLATE_GOLD_ORE, set().addGroup(1, toStack("gold", 32)).build());
-//        dissolver(Items.NETHER_GOLD_ORE, set().addGroup(1, toStack("gold", 32)).build());
 //
 //        dissolver(Items.INK_SAC, set().addGroup(1, toStack("titanium_oxide", 4)).build());
 //        }

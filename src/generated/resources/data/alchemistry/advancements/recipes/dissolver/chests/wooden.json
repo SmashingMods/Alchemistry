@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "forge:chests/wooden"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forge:chests/wooden"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

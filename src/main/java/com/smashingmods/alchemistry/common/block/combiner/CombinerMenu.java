@@ -113,9 +113,4 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
             return recipe.getOutput().getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
         }).collect(Collectors.toList()));
     }
-
-    @Override
-    public CombinerBlockEntity getBlockEntity() {
-        return blockEntity;
-    }
 }

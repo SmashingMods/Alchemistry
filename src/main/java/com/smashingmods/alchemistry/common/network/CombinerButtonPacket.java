@@ -5,11 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 public class CombinerButtonPacket {
 
     private final BlockPos blockPos;

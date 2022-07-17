@@ -83,7 +83,7 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
     runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
-    implementation fg.deobf("curse.maven:mekanism-268560:3743835")
+    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
 }
 
 jar {
@@ -135,7 +135,7 @@ curseforge {
         addGameVersion 'Java 18'
         addGameVersion '1.18.2'
         mainArtifact(jar) {
-            displayName = "ChemLib $project.version"
+            displayName = "Alchemistry - $project.version"
         }
     }
 }

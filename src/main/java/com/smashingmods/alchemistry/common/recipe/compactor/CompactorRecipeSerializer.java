@@ -21,7 +21,7 @@ public class CompactorRecipeSerializer<T extends CompactorRecipe> extends ForgeR
 
     @Override
     public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-        String group = pSerializedRecipe.get("group").getAsString();
+        String group = pSerializedRecipe.has("group") ? pSerializedRecipe.get("group").getAsString() : "compactor";
         ItemStack input = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input"));
         ItemStack output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
         return this.factory.create(pRecipeId, group, input, output);

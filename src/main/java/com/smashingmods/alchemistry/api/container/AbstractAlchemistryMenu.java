@@ -37,7 +37,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
                 new BlockEntityPacket(getBlockEntity().getBlockPos(), blockEntity.getUpdateTag()),
                 level,
                 blockEntity.getBlockPos(),
-                16
+                64
         );
     }
 

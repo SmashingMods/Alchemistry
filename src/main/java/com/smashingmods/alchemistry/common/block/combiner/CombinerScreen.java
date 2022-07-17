@@ -38,6 +38,7 @@ import java.util.List;
 public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     protected final List<DisplayData> displayData = new ArrayList<>();
+    private final CombinerBlockEntity blockEntity;
     protected final EditBox editBox;
     protected final LockIconButton lockIconButton;
 
@@ -53,11 +54,12 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         this.imageHeight = 193;
         this.displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 65, 84, 60, 9, Direction2D.RIGHT));
         this.displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 156, 23, 16, 54));
+        this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
-        if (!getMenu().getBlockEntity().getEditBoxText().isEmpty()) {
-            editBox.setValue(getMenu().getBlockEntity().getEditBoxText());
-            menu.searchRecipeList(getMenu().getBlockEntity().getEditBoxText());
+        if (!blockEntity.getEditBoxText().isEmpty()) {
+            editBox.setValue(blockEntity.getEditBoxText());
+            menu.searchRecipeList(blockEntity.getEditBoxText());
         }
         lockIconButton = new LockIconButton(0, 0, handleLock());
     }
@@ -65,12 +67,12 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     @Override
     protected void containerTick() {
         if (editBox.getValue().isEmpty()) {
-            menu.getBlockEntity().setEditBoxText("");
+            blockEntity.setEditBoxText("");
             menu.resetDisplayedRecipes();
             editBox.setSuggestion(I18n.get("alchemistry.container.combiner.search"));
         } else {
             mouseScrolled(0, 0, 0);
-            menu.getBlockEntity().setEditBoxText(editBox.getValue());
+            blockEntity.setEditBoxText(editBox.getValue());
             menu.searchRecipeList(editBox.getValue());
             editBox.setSuggestion("");
         }
@@ -165,7 +167,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         CombinerRecipe currentRecipe = (CombinerRecipe) menu.getBlockEntity().getRecipe();
-        CustomItemStackHandler handler = menu.getBlockEntity().getInputHandler();
+        CustomItemStackHandler handler = blockEntity.getInputHandler();
 
         // Intellij thinks this is never null. Remove this and watch it crash.
         //noinspection ConstantConditions

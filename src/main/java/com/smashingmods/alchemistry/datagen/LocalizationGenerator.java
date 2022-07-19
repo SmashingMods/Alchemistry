@@ -51,11 +51,12 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.container.combiner.select_recipe", "Select recipe:");
         add("alchemistry.container.combiner.current_recipe", "Current recipe:");
         add("alchemistry.container.combiner.required_input", "Required input item:");
-        add("alchemistry.container.combiner.unlock_recipe", "Unlock recipe");
-        add("alchemistry.container.combiner.lock_recipe", "Lock recipe");
-        add("alchemistry.container.combiner.pause", "Pause");
-        add("alchemistry.container.combiner.resume", "Resume");
-        add("alchemistry.container.combiner.target", "Target");
+        add("alchemistry.container.unlock_recipe", "Unlock recipe");
+        add("alchemistry.container.lock_recipe", "Lock recipe");
+        add("alchemistry.container.pause", "Pause");
+        add("alchemistry.container.resume", "Resume");
+        add("alchemistry.container.target", "Target");
+        add("alchemistry.container.reset_target", "Reset Target");
 
         add("alchemistry.jei.dissolver.relative", "Relative");
         add("alchemistry.jei.dissolver.absolute", "Absolute");

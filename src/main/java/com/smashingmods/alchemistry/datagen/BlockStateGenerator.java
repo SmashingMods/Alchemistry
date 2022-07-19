@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.datagen;
 
-import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.PowerState;

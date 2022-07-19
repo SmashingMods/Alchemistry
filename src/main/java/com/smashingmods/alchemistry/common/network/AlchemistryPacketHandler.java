@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.client.jei.network.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -33,6 +34,12 @@ public class AlchemistryPacketHandler {
                 .decoder(CombinerButtonPacket::new)
                 .encoder(CombinerButtonPacket::encode)
                 .consumer(CombinerButtonPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(CompactorResetPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(CompactorResetPacket::new)
+                .encoder(CompactorResetPacket::encode)
+                .consumer(CompactorResetPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CombinerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)

@@ -2,13 +2,13 @@ package com.smashingmods.alchemistry.client.jei;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.category.*;
+import com.smashingmods.alchemistry.client.jei.network.*;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerScreen;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerScreen;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
-import com.smashingmods.alchemistry.common.network.*;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

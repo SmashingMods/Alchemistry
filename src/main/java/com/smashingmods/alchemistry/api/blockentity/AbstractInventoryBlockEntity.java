@@ -98,6 +98,13 @@ public abstract class AbstractInventoryBlockEntity extends AbstractProcessingBlo
     }
 
     @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        inputHandler.deserializeNBT(pTag.getCompound("input"));
+        outputHandler.deserializeNBT(pTag.getCompound("output"));
+    }
+
+    @Override
     public void dropContents() {
         if (level != null && !level.isClientSide()) {
             SimpleContainer container = new SimpleContainer(getAutomationInventory().getSlots());

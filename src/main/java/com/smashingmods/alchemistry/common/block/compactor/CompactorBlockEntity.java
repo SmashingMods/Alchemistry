@@ -4,10 +4,13 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -15,6 +18,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -25,6 +29,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     protected final ContainerData data;
     private final int maxProgress = Config.Common.compactorTicksPerOperation.get();
     private CompactorRecipe currentRecipe;
+    private ItemStack target = ItemStack.EMPTY;
 
     public CompactorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -59,15 +64,16 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            if (!getInputHandler().getStackInSlot(0).isEmpty() && (currentRecipe == null || !ItemStack.isSameItemSameTags(currentRecipe.getOutput(), getOutputHandler().getStackInSlot(0)))) {
-                if (!getInputHandler().getStackInSlot(1).isEmpty()) {
-                    List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().toList();
-                    List<CompactorRecipe> filtered = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0))).collect(Collectors.toList());
-                    if (filtered.size() > 1) {
-                        currentRecipe = filtered.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), getInputHandler().getStackInSlot(1))).findFirst().orElse(null);
+            if (!getInputHandler().getStackInSlot(0).isEmpty()) {
+                if (target.isEmpty()) {
+                    List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(getInputHandler().getStackInSlot(0), recipe.getInput())).collect(Collectors.toList());
+                    if (recipes.size() > 1) {
+                        currentRecipe = null;
                     } else {
-                        currentRecipe = !filtered.isEmpty() ? filtered.get(0) : null;
+                        currentRecipe = recipes.get(0);
                     }
+                } else {
+                    RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(target, recipe.getOutput())).findFirst().ifPresent(recipe -> currentRecipe = recipe);
                 }
             }
         }
@@ -100,13 +106,29 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
-        currentRecipe = (CompactorRecipe) pRecipe;
+    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
+        if (pRecipe == null) {
+            currentRecipe = null;
+        } else {
+            currentRecipe = (CompactorRecipe) pRecipe;
+            target = ((CompactorRecipe) pRecipe).getOutput();
+            if (level != null && !level.isClientSide()) {
+                AlchemistryPacketHandler.sendToNear(new BlockEntityPacket(getBlockPos(), getUpdateTag()), level, getBlockPos(), 64);
+            }
+        }
     }
 
     @Override
     public Recipe<Inventory> getRecipe() {
         return currentRecipe;
+    }
+
+    public ItemStack getTarget() {
+        return target;
+    }
+
+    public void setTarget(ItemStack pTarget) {
+        this.target = pTarget;
     }
 
     @Override
@@ -132,6 +154,14 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
                     }
                 }
             }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack pItemStack) {
+                if (slot == 1) {
+                    target = new ItemStack(pItemStack.getItem(), 1);
+                }
+                return slot != 1;
+            }
         };
     }
 
@@ -143,6 +173,18 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
                 return false;
             }
         };
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        pTag.put("target", target.serializeNBT());
+        super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        target = ItemStack.of(pTag.getCompound("target"));
     }
 
     @Nullable

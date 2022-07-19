@@ -1,8 +1,9 @@
-package com.smashingmods.alchemistry.common.network;
+package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
+import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;

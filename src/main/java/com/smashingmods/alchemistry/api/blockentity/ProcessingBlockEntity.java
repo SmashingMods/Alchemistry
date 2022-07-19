@@ -3,6 +3,8 @@ package com.smashingmods.alchemistry.api.blockentity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
 
+import javax.annotation.Nullable;
+
 public interface ProcessingBlockEntity {
 
     void tick();
@@ -13,7 +15,7 @@ public interface ProcessingBlockEntity {
 
     void processRecipe();
 
-    <T extends Recipe<Inventory>> void setRecipe(T pRecipe);
+    <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe);
 
     <T extends Recipe<Inventory>> Recipe<Inventory> getRecipe();
 

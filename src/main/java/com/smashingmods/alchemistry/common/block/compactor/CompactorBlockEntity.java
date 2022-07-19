@@ -66,11 +66,13 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
                 if (target.isEmpty()) {
-                    List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(getInputHandler().getStackInSlot(0), recipe.getInput())).collect(Collectors.toList());
-                    if (recipes.size() > 1) {
-                        currentRecipe = null;
-                    } else {
+                    List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
+                            .filter(recipe -> ItemStack.isSameItemSameTags(getInputHandler().getStackInSlot(0), recipe.getInput()))
+                            .collect(Collectors.toList());
+                    if (recipes.size() == 1) {
                         currentRecipe = recipes.get(0);
+                    } else {
+                        currentRecipe = null;
                     }
                 } else {
                     RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(target, recipe.getOutput())).findFirst().ifPresent(recipe -> currentRecipe = recipe);

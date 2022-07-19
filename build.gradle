@@ -127,7 +127,7 @@ fileTree("secrets").matching {
 curseforge {
     apiKey = secrets.getProperty("apiKey")
     project {
-        id = '340666'
+        id = '293425'
         releaseType = 'release'
         changelogType = 'markdown'
         changelog = file("changelog.md")

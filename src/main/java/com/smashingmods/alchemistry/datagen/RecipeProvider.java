@@ -50,7 +50,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("IPI")
                 .pattern("CRC")
                 .pattern("IPI")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
                 .save(pConsumer);
 
         Item combiner = BlockRegistry.COMBINER.get().asItem();
@@ -64,7 +64,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("IDI")
                 .pattern("ORO")
                 .pattern("IPI")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
                 .save(pConsumer);
 
         Item compactor = BlockRegistry.COMPACTOR.get().asItem();
@@ -77,7 +77,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("IPI")
                 .pattern("SRS")
                 .pattern("IPI")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
                 .save(pConsumer);
 
         Item dissolver = BlockRegistry.DISSOLVER.get().asItem();
@@ -90,7 +90,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("IPI")
                 .pattern("MRM")
                 .pattern("IPI")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
                 .save(pConsumer);
 
         Item reactorCasing = BlockRegistry.REACTOR_CASING.get().asItem();
@@ -102,7 +102,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("OPO")
                 .pattern("PBP")
                 .pattern("OPO")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(Items.BLAZE_POWDER).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.BLAZE_POWDER).build()))
                 .save(pConsumer);
 
         Item reactorInput = BlockRegistry.REACTOR_ITEM_INPUT.get().asItem();
@@ -113,7 +113,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("H")
                 .pattern("C")
                 .pattern("H")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
         Item reactorOutput = BlockRegistry.REACTOR_ITEM_OUTPUT.get().asItem();
@@ -124,7 +124,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("D")
                 .pattern("C")
                 .pattern("D")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
         Item reactorEnergy = BlockRegistry.REACTOR_ENERGY_INPUT.get().asItem();
@@ -135,7 +135,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("D")
                 .pattern("C")
                 .pattern("D")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
         Item fissionController = BlockRegistry.FISSION_CONTROLLER.get().asItem();
@@ -149,7 +149,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("ICI")
                 .pattern("GDR")
                 .pattern("ICI")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
         Item fusionController = BlockRegistry.FUSION_CONTROLLER.get().asItem();
@@ -163,7 +163,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("ICI")
                 .pattern("GSR")
                 .pattern("ICI")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
         Item fissionCore = BlockRegistry.FISSION_CORE.get().asItem();
@@ -174,7 +174,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("YBY")
                 .pattern("YBY")
                 .pattern("YBY")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
         Item fusionCore = BlockRegistry.FUSION_CORE.get().asItem();
@@ -185,7 +185,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .pattern("TNT")
                 .pattern("TNT")
                 .pattern("TNT")
-                .unlockedBy("has_redstone", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
     }
 }

@@ -31,3 +31,10 @@ description='''
     versionRange="[1.18.2-2.0.0,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.alchemistry]]
+    modId="ctm"
+    mandatory=false
+    versionRange="[1.18.2-1.1.4,)"
+    ordering="NONE"
+    side="CLIENT"

@@ -83,7 +83,7 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
     runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
-    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
+//    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
 }
 
 jar {
@@ -128,14 +128,19 @@ curseforge {
     apiKey = secrets.getProperty("apiKey")
     project {
         id = '293425'
-        releaseType = 'release'
+        releaseType = 'beta'
         changelogType = 'markdown'
         changelog = file("changelog.md")
         addGameVersion 'Forge'
-        addGameVersion 'Java 18'
+        addGameVersion 'Java 17'
         addGameVersion '1.18.2'
         mainArtifact(jar) {
             displayName = "Alchemistry - $project.version"
+            relations {
+                requiredDependency 'chemlib'
+                optionalDependency 'jei'
+                optionalDependency 'ctm'
+            }
         }
     }
 }

@@ -58,7 +58,7 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({"deprecation", "ConstantConditions"})
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
@@ -66,20 +66,26 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
                 processingBlockEntity.dropContents();
             }
             if (blockEntity instanceof AbstractReactorBlockEntity reactorBlockEntity) {
-                BlockState energyState = reactorBlockEntity.getReactorEnergyBlockEntity().getBlockState();
-                BlockPos energyPos = reactorBlockEntity.getReactorEnergyBlockEntity().getBlockPos();
-                pLevel.setBlock(energyPos, Blocks.AIR.defaultBlockState(), 7);
-                pLevel.setBlock(energyPos, energyState, 7);
+                if (reactorBlockEntity.getReactorEnergyBlockEntity() != null) {
+                    BlockState energyState = reactorBlockEntity.getReactorEnergyBlockEntity().getBlockState();
+                    BlockPos energyPos = reactorBlockEntity.getReactorEnergyBlockEntity().getBlockPos();
+                    pLevel.setBlock(energyPos, Blocks.AIR.defaultBlockState(), 7);
+                    pLevel.setBlock(energyPos, energyState, 7);
+                }
 
-                BlockState inputState = reactorBlockEntity.getReactorInputBlockEntity().getBlockState();
-                BlockPos inputPos = reactorBlockEntity.getReactorInputBlockEntity().getBlockPos();
-                pLevel.setBlock(inputPos, Blocks.AIR.defaultBlockState(), 7);
-                pLevel.setBlock(inputPos, inputState, 7);
+                if (reactorBlockEntity.getReactorInputBlockEntity() != null) {
+                    BlockState inputState = reactorBlockEntity.getReactorInputBlockEntity().getBlockState();
+                    BlockPos inputPos = reactorBlockEntity.getReactorInputBlockEntity().getBlockPos();
+                    pLevel.setBlock(inputPos, Blocks.AIR.defaultBlockState(), 7);
+                    pLevel.setBlock(inputPos, inputState, 7);
+                }
 
-                BlockState outputState = reactorBlockEntity.getReactorOutputBlockEntity().getBlockState();
-                BlockPos outputPos = reactorBlockEntity.getReactorOutputBlockEntity().getBlockPos();
-                pLevel.setBlock(outputPos, Blocks.AIR.defaultBlockState(), 7);
-                pLevel.setBlock(outputPos, outputState, 7);
+                if (reactorBlockEntity.getReactorOutputBlockEntity() != null) {
+                    BlockState outputState = reactorBlockEntity.getReactorOutputBlockEntity().getBlockState();
+                    BlockPos outputPos = reactorBlockEntity.getReactorOutputBlockEntity().getBlockPos();
+                    pLevel.setBlock(outputPos, Blocks.AIR.defaultBlockState(), 7);
+                    pLevel.setBlock(outputPos, outputState, 7);
+                }
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

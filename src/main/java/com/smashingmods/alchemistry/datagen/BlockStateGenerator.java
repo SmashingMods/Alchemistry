@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.datagen;
 
-import com.mojang.datafixers.util.Function5;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.PowerState;
 import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
@@ -80,25 +79,23 @@ public class BlockStateGenerator extends BlockStateProvider {
         Block controller = pBlock.get();
         Objects.requireNonNull(controller.getRegistryName());
 
-        Function5<PowerState, ResourceLocation, ResourceLocation, ResourceLocation, ResourceLocation, BlockModelBuilder> modelFunction = (state, face, back, hSide, vSide) -> {
-            String faceString = String.format("%s_%s", face.getPath(), state.getSerializedName());
-            return models().withExistingParent(faceString, mcLoc("block/cube"))
-                    .texture("particle", hSide)
-                    .texture("down", vSide)
-                    .texture("up", vSide)
-                    .texture("north", modLoc(String.format("block/%s", faceString)))
-                    .texture("south", back)
-                    .texture("east", hSide)
-                    .texture("west", hSide);
-        };
-
         getVariantBuilder(controller).forAllStates(blockState -> {
             Direction direction = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
             String type = controller.getRegistryName().getPath().split("_")[0];
+            String modelName = String.format("block/%s_%s", controller.getRegistryName().getPath(), blockState.getValue(PowerStateProperty.POWER_STATE).getSerializedName());
+            ResourceLocation face = modLoc(modelName);
+            ResourceLocation back = modLoc(String.format("block/%s_chamber_controller_back", type));
             ResourceLocation hSide = modLoc(String.format("block/%s_chamber_controller_hside", type));
             ResourceLocation vSide = modLoc(String.format("block/%s_chamber_controller_vside", type));
             return ConfiguredModel.builder()
-                    .modelFile(modelFunction.apply(blockState.getValue(PowerStateProperty.POWER_STATE), controller.getRegistryName(), hSide, vSide, hSide))
+                    .modelFile(models().withExistingParent(modelName, mcLoc("block/cube"))
+                            .texture("particle", hSide)
+                            .texture("down", vSide)
+                            .texture("up", vSide)
+                            .texture("north", face)
+                            .texture("south", back)
+                            .texture("east", hSide)
+                            .texture("west", hSide))
                     .rotationX(direction.getAxis() == Direction.Axis.Y ? direction.getAxisDirection().getStep() * -90 : 0)
                     .rotationY(direction.getAxis() != Direction.Axis.Y ? ((direction.get2DDataValue() + 2) % 4) *90 : 0)
                     .build();

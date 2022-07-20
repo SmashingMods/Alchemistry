@@ -66,9 +66,20 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
                 processingBlockEntity.dropContents();
             }
             if (blockEntity instanceof AbstractReactorBlockEntity reactorBlockEntity) {
-                reactorBlockEntity.getReactorEnergyBlockEntity().onControllerRemoved();
-                reactorBlockEntity.getReactorInputBlockEntity().onControllerRemoved();
-                reactorBlockEntity.getReactorOutputBlockEntity().onControllerRemoved();
+                BlockState energyState = reactorBlockEntity.getReactorEnergyBlockEntity().getBlockState();
+                BlockPos energyPos = reactorBlockEntity.getReactorEnergyBlockEntity().getBlockPos();
+                pLevel.setBlock(energyPos, Blocks.AIR.defaultBlockState(), 7);
+                pLevel.setBlock(energyPos, energyState, 7);
+
+                BlockState inputState = reactorBlockEntity.getReactorInputBlockEntity().getBlockState();
+                BlockPos inputPos = reactorBlockEntity.getReactorInputBlockEntity().getBlockPos();
+                pLevel.setBlock(inputPos, Blocks.AIR.defaultBlockState(), 7);
+                pLevel.setBlock(inputPos, inputState, 7);
+
+                BlockState outputState = reactorBlockEntity.getReactorOutputBlockEntity().getBlockState();
+                BlockPos outputPos = reactorBlockEntity.getReactorOutputBlockEntity().getBlockPos();
+                pLevel.setBlock(outputPos, Blocks.AIR.defaultBlockState(), 7);
+                pLevel.setBlock(outputPos, outputState, 7);
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

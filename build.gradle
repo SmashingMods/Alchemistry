@@ -83,7 +83,8 @@ dependencies {
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
     runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
-//    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
+    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
+    runtimeOnly fg.deobf("curse.maven:pipez-443900:3819249")
 }
 
 jar {

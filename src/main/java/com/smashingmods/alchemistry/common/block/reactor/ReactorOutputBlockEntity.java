@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 
 public class ReactorOutputBlockEntity extends BlockEntity {
 
+    @Nullable
     private AbstractReactorBlockEntity controller;
     private LazyOptional<IItemHandler> lazyOutputHandler;
 
@@ -23,18 +24,15 @@ public class ReactorOutputBlockEntity extends BlockEntity {
         super(BlockEntityRegistry.REACTOR_OUTPUT_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
+    @Nullable
     public AbstractReactorBlockEntity getController() {
         return controller;
     }
 
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
         this.controller = pController;
+        //noinspection ConstantConditions
         this.lazyOutputHandler = LazyOptional.of(() -> controller.getOutputHandler());
-    }
-
-    public void onControllerRemoved() {
-        controller = null;
-        lazyOutputHandler = LazyOptional.empty();
     }
 
     @Nonnull

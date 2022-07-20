@@ -35,7 +35,6 @@ public class ReactorOutputBlock extends AbstractAlchemistryBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockEntity(pPos) instanceof ReactorOutputBlockEntity blockEntity) {
-                //noinspection ConstantConditions
                 if (blockEntity.getController() != null) {
                     blockEntity.getController().setOutputFound(false);
                 }

@@ -16,6 +16,7 @@ import javax.annotation.Nullable;
 
 public class ReactorEnergyBlockEntity extends BlockEntity {
 
+    @Nullable
     private AbstractReactorBlockEntity controller;
     private LazyOptional<IEnergyStorage> lazyEnergyHandler;
 
@@ -23,18 +24,15 @@ public class ReactorEnergyBlockEntity extends BlockEntity {
         super(BlockEntityRegistry.REACTOR_ENERGY_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
+    @Nullable
     public AbstractReactorBlockEntity getController() {
         return controller;
     }
 
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
         this.controller = pController;
+        //noinspection ConstantConditions
         this.lazyEnergyHandler = LazyOptional.of(() -> controller.getEnergyHandler());
-    }
-
-    public void onControllerRemoved() {
-        controller = null;
-        lazyEnergyHandler = LazyOptional.empty();
     }
 
     @Nonnull

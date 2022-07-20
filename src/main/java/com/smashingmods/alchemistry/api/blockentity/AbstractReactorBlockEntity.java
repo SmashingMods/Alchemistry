@@ -5,6 +5,7 @@ import com.smashingmods.alchemistry.common.block.reactor.ReactorInputBlockEntity
 import com.smashingmods.alchemistry.common.block.reactor.ReactorOutputBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -93,6 +94,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorEnergyBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
+                            BlockState energyState = level.getBlockState(blockPos);
+                            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 7);
+                            level.setBlock(blockPos, energyState, 7);
                             energyFound = true;
                             reactorEnergyBlockEntity = (ReactorEnergyBlockEntity) level.getBlockEntity(blockPos);
                         });
@@ -106,6 +110,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorInputBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
+                            BlockState inputState = level.getBlockState(blockPos);
+                            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 7);
+                            level.setBlock(blockPos, inputState, 7);
                             inputFound = true;
                             reactorInputBlockEntity = (ReactorInputBlockEntity) level.getBlockEntity(blockPos);
                         });
@@ -119,6 +126,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorOutputBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
+                            BlockState outputState = level.getBlockState(blockPos);
+                            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 7);
+                            level.setBlock(blockPos, outputState, 7);
                             outputFound = true;
                             reactorOutputBlockEntity = (ReactorOutputBlockEntity) level.getBlockEntity(blockPos);
                         });

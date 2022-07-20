@@ -39,7 +39,6 @@ public class ReactorEnergyBlock extends AbstractAlchemistryBlock {
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockEntity(pPos) instanceof ReactorEnergyBlockEntity blockEntity) {
-                //noinspection ConstantConditions
                 if (blockEntity.getController() != null) {
                     blockEntity.getController().setEnergyFound(false);
                 }

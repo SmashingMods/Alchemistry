@@ -70,14 +70,6 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (!pLevel.isClientSide() && pState.getBlock() != pNewState.getBlock()) {
-            pLevel.removeBlockEntity(pPos);
-        }
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
-
-    @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {

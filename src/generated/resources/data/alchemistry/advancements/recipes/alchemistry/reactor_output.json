@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "alchemistry:reactor_energy_input"
+      "alchemistry:reactor_output"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "alchemistry:reactor_energy_input"
+        "recipe": "alchemistry:reactor_output"
       }
     }
   },

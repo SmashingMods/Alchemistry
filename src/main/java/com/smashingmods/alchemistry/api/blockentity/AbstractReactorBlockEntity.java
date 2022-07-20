@@ -1,18 +1,25 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
-import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyInputBlockEntity;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorItemInputBlockEntity;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorItemOutputBlockEntity;
-import com.smashingmods.alchemistry.registry.BlockRegistry;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorInputBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorOutputBlockEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-
+import net.minecraft.world.level.levelgen.structure.BoundingBox;
 public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockEntity implements ReactorBlockEntity {
 
     private ReactorShape reactorShape;
     private ReactorType reactorType;
+
+    private ReactorEnergyBlockEntity reactorEnergyBlockEntity;
+    private ReactorInputBlockEntity reactorInputBlockEntity;
+    private ReactorOutputBlockEntity reactorOutputBlockEntity;
+
+    private boolean energyFound;
+    private boolean inputFound;
+    private boolean outputFound;
 
     public AbstractReactorBlockEntity(BlockEntityType<?> pBlockEntityType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pBlockEntityType, pWorldPosition, pBlockState);
@@ -25,9 +32,8 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                 setReactorShape(new ReactorShape(getBlockPos(), getReactorType(), level));
             }
 
+            setMultiblockHandlers();
             if (isValidMultiblock()) {
-                setMultiblockHandlers();
-
                 if (getPowerState().equals(PowerState.DISABLED)) {
                     if (getEnergyHandler().getEnergyStored() > 0) {
                         setPowerState(PowerState.STANDBY);
@@ -78,28 +84,51 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         this.reactorType = pReactorType;
     }
 
-    @SuppressWarnings("ConstantConditions")
     public void setMultiblockHandlers() {
-        BlockPos.betweenClosedStream(getReactorShape().getFullBoundingBox()).forEach(blockPos -> {
-            Block block = level.getBlockState(blockPos).getBlock();
-            if (block.equals(BlockRegistry.REACTOR_ENERGY_INPUT.get())) {
-                if (level.getBlockEntity(blockPos) instanceof ReactorEnergyInputBlockEntity blockEntity) {
-                    blockEntity.setEnergyHandler(getEnergyHandler());
-                }
+        if (level != null && !level.isClientSide()) {
+            BoundingBox reactorBox = getReactorShape().getFullBoundingBox();
+
+            if (!energyFound) {
+                BlockPos.betweenClosedStream(reactorBox)
+                        .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorEnergyBlockEntity)
+                        .findFirst()
+                        .ifPresent(blockPos -> {
+                            energyFound = true;
+                            reactorEnergyBlockEntity = (ReactorEnergyBlockEntity) level.getBlockEntity(blockPos);
+                        });
+            } else {
+                reactorEnergyBlockEntity.setController(this);
             }
-            if (block.equals(BlockRegistry.REACTOR_ITEM_INPUT.get())) {
-                if (level.getBlockEntity(blockPos) instanceof ReactorItemInputBlockEntity blockEntity) {
-                    blockEntity.setInputHandler(getInputHandler());
-                }
+
+            if (reactorInputBlockEntity == null || !inputFound) {
+                inputFound = false;
+                BlockPos.betweenClosedStream(reactorBox)
+                        .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorInputBlockEntity)
+                        .findFirst()
+                        .ifPresent(blockPos -> {
+                            inputFound = true;
+                            reactorInputBlockEntity = (ReactorInputBlockEntity) level.getBlockEntity(blockPos);
+                        });
+            } else {
+                reactorInputBlockEntity.setController(this);
             }
-            if (block.equals(BlockRegistry.REACTOR_ITEM_OUTPUT.get())) {
-                if (level.getBlockEntity(blockPos) instanceof ReactorItemOutputBlockEntity blockEntity) {
-                    blockEntity.setOutputHandler(getOutputHandler());
-                }
+
+            if (reactorOutputBlockEntity == null || !outputFound) {
+                outputFound = false;
+                BlockPos.betweenClosedStream(reactorBox)
+                        .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorOutputBlockEntity)
+                        .findFirst()
+                        .ifPresent(blockPos -> {
+                            outputFound = true;
+                            reactorOutputBlockEntity = (ReactorOutputBlockEntity) level.getBlockEntity(blockPos);
+                        });
+            } else {
+                reactorOutputBlockEntity.setController(this);
             }
-        });
+        }
     }
 
+    @Override
     public PowerState getPowerState() {
         return getBlockState().getValue(PowerStateProperty.POWER_STATE);
     }
@@ -111,11 +140,87 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         }
     }
 
+    public void setEnergyFound(boolean pEnergyFound) {
+        this.energyFound = pEnergyFound;
+    }
+
+    public void setInputFound(boolean pInputFound) {
+        this.inputFound = pInputFound;
+    }
+
+    public void setOutputFound(boolean pOutputFound) {
+        this.outputFound = pOutputFound;
+    }
+
+    public ReactorEnergyBlockEntity getReactorEnergyBlockEntity() {
+        return reactorEnergyBlockEntity;
+    }
+
+    public ReactorInputBlockEntity getReactorInputBlockEntity() {
+        return reactorInputBlockEntity;
+    }
+
+    public ReactorOutputBlockEntity getReactorOutputBlockEntity() {
+        return reactorOutputBlockEntity;
+    }
+
     @Override
     public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
-            return validateMultiblockShape(level, getReactorShape().createShapeMap());
+            return validateMultiblockShape(level, getReactorShape().createShapeMap()) && energyFound && inputFound && outputFound;
         }
         return false;
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        if (reactorEnergyBlockEntity != null) {
+            pTag.put("reactorEnergyPos", blockPosToTag(reactorEnergyBlockEntity.getBlockPos()));
+        }
+        if (reactorInputBlockEntity != null) {
+            pTag.put("reactorInputPos", blockPosToTag(reactorInputBlockEntity.getBlockPos()));
+        }
+        if (reactorOutputBlockEntity != null) {
+            pTag.put("reactorOutputPos", blockPosToTag(reactorOutputBlockEntity.getBlockPos()));
+        }
+        super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+
+        if (level != null && !level.isClientSide()) {
+            if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorEnergyPos"))) instanceof ReactorEnergyBlockEntity blockEntity) {
+                reactorEnergyBlockEntity = blockEntity;
+                energyFound = true;
+            } else {
+                energyFound = false;
+            }
+            if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorInputPos"))) instanceof ReactorInputBlockEntity blockEntity) {
+                reactorInputBlockEntity = blockEntity;
+                inputFound = true;
+            } else {
+                inputFound = false;
+            }
+            if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorOutputPos"))) instanceof ReactorOutputBlockEntity blockEntity) {
+                reactorOutputBlockEntity = blockEntity;
+                outputFound = true;
+            } else {
+                outputFound = false;
+            }
+        }
+    }
+
+    private CompoundTag blockPosToTag(BlockPos pBlockPos) {
+        CompoundTag tag = new CompoundTag();
+        tag.putInt("x", pBlockPos.getX());
+        tag.putInt("y", pBlockPos.getY());
+        tag.putInt("z", pBlockPos.getZ());
+        return tag;
+    }
+
+    private BlockPos blockPosFromTag(CompoundTag pTag) {
+        return new BlockPos(pTag.getInt("x"), pTag.getInt("y"), pTag.getInt("z"));
     }
 }

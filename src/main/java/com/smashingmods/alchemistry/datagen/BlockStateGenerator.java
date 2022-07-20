@@ -108,13 +108,13 @@ public class BlockStateGenerator extends BlockStateProvider {
 
     private void registerReactorIOModels() {
         ResourceLocation side = modLoc("block/reactor_casing");
-        ResourceLocation input = modLoc("block/reactor_item_input");
-        ResourceLocation output = modLoc("block/reactor_item_output");
-        ResourceLocation energy = modLoc("block/reactor_energy_input");
+        ResourceLocation input = modLoc("block/reactor_input");
+        ResourceLocation output = modLoc("block/reactor_output");
+        ResourceLocation energy = modLoc("block/reactor_energy");
 
-        registerFaceBlock(BlockRegistry.REACTOR_ITEM_INPUT, input, side);
-        registerFaceBlock(BlockRegistry.REACTOR_ITEM_OUTPUT, output, side);
-        registerPoweredFaceBlock(BlockRegistry.REACTOR_ENERGY_INPUT, energy, side);
+        registerFaceBlock(BlockRegistry.REACTOR_INPUT, input, side);
+        registerFaceBlock(BlockRegistry.REACTOR_OUTPUT, output, side);
+        registerPoweredFaceBlock(BlockRegistry.REACTOR_ENERGY, energy, side);
     }
 
     private void registerFaceBlock(RegistryObject<Block> pBlock, ResourceLocation pFace, ResourceLocation pSide) {

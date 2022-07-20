@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "facing=north,power_state=disabled": {
+      "model": "alchemistry:block/reactor_energy_disabled"
+    },
+    "facing=south,power_state=disabled": {
+      "model": "alchemistry:block/reactor_energy_disabled",
+      "y": 180
+    },
+    "facing=west,power_state=disabled": {
+      "model": "alchemistry:block/reactor_energy_disabled",
+      "y": 270
+    },
+    "facing=east,power_state=disabled": {
+      "model": "alchemistry:block/reactor_energy_disabled",
+      "y": 90
+    },
+    "facing=north,power_state=off": {
+      "model": "alchemistry:block/reactor_energy_off"
+    },
+    "facing=south,power_state=off": {
+      "model": "alchemistry:block/reactor_energy_off",
+      "y": 180
+    },
+    "facing=west,power_state=off": {
+      "model": "alchemistry:block/reactor_energy_off",
+      "y": 270
+    },
+    "facing=east,power_state=off": {
+      "model": "alchemistry:block/reactor_energy_off",
+      "y": 90
+    },
+    "facing=north,power_state=standby": {
+      "model": "alchemistry:block/reactor_energy_standby"
+    },
+    "facing=south,power_state=standby": {
+      "model": "alchemistry:block/reactor_energy_standby",
+      "y": 180
+    },
+    "facing=west,power_state=standby": {
+      "model": "alchemistry:block/reactor_energy_standby",
+      "y": 270
+    },
+    "facing=east,power_state=standby": {
+      "model": "alchemistry:block/reactor_energy_standby",
+      "y": 90
+    },
+    "facing=north,power_state=on": {
+      "model": "alchemistry:block/reactor_energy_on"
+    },
+    "facing=south,power_state=on": {
+      "model": "alchemistry:block/reactor_energy_on",
+      "y": 180
+    },
+    "facing=west,power_state=on": {
+      "model": "alchemistry:block/reactor_energy_on",
+      "y": 270
+    },
+    "facing=east,power_state=on": {
+      "model": "alchemistry:block/reactor_energy_on",
+      "y": 90
+    }
+  }
+}

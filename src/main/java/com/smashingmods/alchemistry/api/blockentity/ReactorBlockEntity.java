@@ -22,6 +22,8 @@ public interface ReactorBlockEntity {
 
     void setMultiblockHandlers();
 
+    PowerState getPowerState();
+
     void setPowerState(PowerState pPowerState);
 
     default Function3<BoundingBox, List<Block>, Level, Boolean> blockPredicate() {

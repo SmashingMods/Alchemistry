@@ -4,7 +4,7 @@
     "particle": "alchemistry:block/reactor_casing",
     "down": "alchemistry:block/reactor_casing",
     "up": "alchemistry:block/reactor_casing",
-    "north": "alchemistry:block/reactor_energy_input_off",
+    "north": "alchemistry:block/reactor_output",
     "south": "alchemistry:block/reactor_casing",
     "east": "alchemistry:block/reactor_casing",
     "west": "alchemistry:block/reactor_casing"

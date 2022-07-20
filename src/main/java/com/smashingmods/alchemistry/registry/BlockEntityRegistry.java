@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.registry;
 
-import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyInputBlockEntity;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
@@ -8,8 +7,9 @@ import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorItemInputBlockEntity;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorItemOutputBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorInputBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorOutputBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -18,6 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
+@SuppressWarnings("ConstantConditions")
 public class BlockEntityRegistry {
 
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
@@ -50,17 +51,17 @@ public class BlockEntityRegistry {
             = BLOCK_ENTITIES.register("fusion_controller_block_entity",
             () -> BlockEntityType.Builder.of(FusionControllerBlockEntity::new, BlockRegistry.FUSION_CONTROLLER.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<ReactorEnergyInputBlockEntity>> REACTOR_ENERGY_INPUT_BLOCK_ENTITY
-            = BLOCK_ENTITIES.register("reactor_energy_input_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorEnergyInputBlockEntity::new, BlockRegistry.REACTOR_ENERGY_INPUT.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ReactorEnergyBlockEntity>> REACTOR_ENERGY_BLOCK_ENTITY
+            = BLOCK_ENTITIES.register("reactor_energy_block_entity",
+            () -> BlockEntityType.Builder.of(ReactorEnergyBlockEntity::new, BlockRegistry.REACTOR_ENERGY.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<ReactorItemInputBlockEntity>> REACTOR_ITEM_INPUT_BLOCK_ENTITY
-            = BLOCK_ENTITIES.register("reactor_item_input_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorItemInputBlockEntity::new, BlockRegistry.REACTOR_ITEM_INPUT.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ReactorInputBlockEntity>> REACTOR_INPUT_BLOCK_ENTITY
+            = BLOCK_ENTITIES.register("reactor_input_block_entity",
+            () -> BlockEntityType.Builder.of(ReactorInputBlockEntity::new, BlockRegistry.REACTOR_INPUT.get()).build(null));
 
-    public static final RegistryObject<BlockEntityType<ReactorItemOutputBlockEntity>> REACTOR_ITEM_OUTPUT_BLOCK_ENTITY
-            = BLOCK_ENTITIES.register("reactor_item_output_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorItemOutputBlockEntity::new, BlockRegistry.REACTOR_ITEM_OUTPUT.get()).build(null));
+    public static final RegistryObject<BlockEntityType<ReactorOutputBlockEntity>> REACTOR_OUTPUT_BLOCK_ENTITY
+            = BLOCK_ENTITIES.register("reactor_output_block_entity",
+            () -> BlockEntityType.Builder.of(ReactorOutputBlockEntity::new, BlockRegistry.REACTOR_OUTPUT.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

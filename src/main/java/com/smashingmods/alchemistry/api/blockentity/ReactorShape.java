@@ -115,18 +115,18 @@ public class ReactorShape {
 
         reactorShapeMap.put(core, List.of(coreComponent));
 
-        reactorShapeMap.put(frontTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(frontBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(rearTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(rearBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(leftTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(leftBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(rightTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(rightBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(frontLeftCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(frontRightCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(rearLeftCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
-        reactorShapeMap.put(rearRightCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY_INPUT.get(), BlockRegistry.REACTOR_ITEM_INPUT.get(), BlockRegistry.REACTOR_ITEM_OUTPUT.get()));
+        reactorShapeMap.put(frontTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(frontBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(rearTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(rearBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(leftTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(leftBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(rightTopBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(rightBottomBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(frontLeftCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(frontRightCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(rearLeftCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
+        reactorShapeMap.put(rearRightCornerBorder, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_ENERGY.get(), BlockRegistry.REACTOR_INPUT.get(), BlockRegistry.REACTOR_OUTPUT.get()));
 
         reactorShapeMap.put(innerTopPlane, List.of(BlockRegistry.REACTOR_CASING.get()));
         reactorShapeMap.put(innerBottomPlane, List.of(BlockRegistry.REACTOR_CASING.get()));

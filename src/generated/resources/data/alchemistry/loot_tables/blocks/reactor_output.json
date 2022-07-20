@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "alchemistry:reactor_item_output"
+          "name": "alchemistry:reactor_output"
         }
       ],
       "conditions": [

@@ -105,7 +105,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.BLAZE_POWDER).build()))
                 .save(pConsumer);
 
-        Item reactorInput = BlockRegistry.REACTOR_ITEM_INPUT.get().asItem();
+        Item reactorInput = BlockRegistry.REACTOR_INPUT.get().asItem();
         ShapedRecipeBuilder.shaped(reactorInput)
                 .group("machines")
                 .define('H', Items.HOPPER)
@@ -116,7 +116,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
-        Item reactorOutput = BlockRegistry.REACTOR_ITEM_OUTPUT.get().asItem();
+        Item reactorOutput = BlockRegistry.REACTOR_OUTPUT.get().asItem();
         ShapedRecipeBuilder.shaped(reactorOutput)
                 .group("machines")
                 .define('D', Items.DROPPER)
@@ -127,7 +127,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(reactorCasing).build()))
                 .save(pConsumer);
 
-        Item reactorEnergy = BlockRegistry.REACTOR_ENERGY_INPUT.get().asItem();
+        Item reactorEnergy = BlockRegistry.REACTOR_ENERGY.get().asItem();
         ShapedRecipeBuilder.shaped(reactorEnergy)
                 .group("machines")
                 .define('D', Items.REDSTONE)

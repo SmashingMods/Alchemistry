@@ -27,6 +27,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
 
 public class FissionControllerBlock extends AbstractAlchemistryBlock {
@@ -66,6 +67,14 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
             return InteractionResult.FAIL;
         }
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+        if (!pLevel.isClientSide() && pState.getBlock() != pNewState.getBlock()) {
+            pLevel.removeBlockEntity(pPos);
+        }
+        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 
     @Override

@@ -9,13 +9,13 @@
     "extra": {
       "light": 0,
       "connect_to": [ {
-          "block": "alchemistry:reactor_item_input"
+          "block": "alchemistry:reactor_input"
         },
         {
-          "block": "alchemistry:reactor_item_output"
+          "block": "alchemistry:reactor_output"
         },
         {
-          "block": "alchemistry:reactor_energy_input"
+          "block": "alchemistry:reactor_energy"
         },
         {
           "block": "alchemistry:reactor_casing"

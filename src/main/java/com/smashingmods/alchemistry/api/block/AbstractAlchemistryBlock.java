@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.api.block;
 
+import com.smashingmods.alchemistry.api.blockentity.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.ProcessingBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -63,6 +64,11 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
             if (blockEntity instanceof ProcessingBlockEntity processingBlockEntity) {
                 processingBlockEntity.dropContents();
+            }
+            if (blockEntity instanceof AbstractReactorBlockEntity reactorBlockEntity) {
+                reactorBlockEntity.getReactorEnergyBlockEntity().onControllerRemoved();
+                reactorBlockEntity.getReactorInputBlockEntity().onControllerRemoved();
+                reactorBlockEntity.getReactorOutputBlockEntity().onControllerRemoved();
             }
         }
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);

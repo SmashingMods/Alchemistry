@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "alchemistry:reactor_energy_input"
+          "name": "alchemistry:reactor_input"
         }
       ],
       "conditions": [

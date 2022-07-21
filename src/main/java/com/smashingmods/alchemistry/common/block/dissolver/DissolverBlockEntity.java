@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.*;
+import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
@@ -66,8 +66,6 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 }
                 if (canProcessRecipe()) {
                     processRecipe();
-                } else {
-                    setProgress(0);
                 }
                 processBuffer();
             }
@@ -126,7 +124,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (DissolverRecipe) pRecipe;
     }
 

@@ -51,7 +51,7 @@ public class JEIPlugin implements IModPlugin {
         pRegistration.addRecipeClickArea(CombinerScreen.class, 64, 84, 30, 9, RecipeTypes.COMBINER);
         pRegistration.addRecipeClickArea(CompactorScreen.class, 74, 39, 30, 9, RecipeTypes.COMPACTOR);
         pRegistration.addRecipeClickArea(FissionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FISSION);
-        pRegistration.addRecipeClickArea(FusionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FUSION);
+        pRegistration.addRecipeClickArea(FusionControllerScreen.class, 91, 39, 30, 9, RecipeTypes.FUSION);
         pRegistration.addRecipeClickArea(LiquifierScreen.class, 90, 39, 30, 9, RecipeTypes.LIQUIFIER);
     }
 

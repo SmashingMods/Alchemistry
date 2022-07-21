@@ -21,13 +21,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @SuppressWarnings("removal")
 public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe> {
@@ -75,8 +72,12 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
         Font font = Minecraft.getInstance().font;
 
-        List<Double> probabilities = pRecipe.getOutput().getProbabilityGroups().stream().map(ProbabilityGroup::getProbability).collect(Collectors.toList());
-        int groupCount = pRecipe.getOutput().getProbabilityGroups().size();
+        List<Double> probabilities = new LinkedList<>();
+
+        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> probabilities.add(group.getProbability())));
+        Collections.sort(probabilities);
+        Collections.reverse(probabilities);
+
         double totalProbability = pRecipe.getOutput().getProbabilityGroups().stream().mapToDouble(ProbabilityGroup::getProbability).sum();
         boolean weighted = pRecipe.getOutput().isWeighted();
         int rolls = pRecipe.getOutput().getRolls();
@@ -84,54 +85,56 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         font.drawShadow(pPoseStack, String.format("Weighted: %s", weighted), 0, 0, 0xFFFFFFFF);
         font.drawShadow(pPoseStack, String.format("Rolls: %s", rolls), 0, 24, 0xFFFFFFFF);
 
-        int xOrigin = 41;
-        int yOrigin = 58;
+        int xOrigin = 45;
+        int yOrigin = 52;
 
-        probabilities.forEach(aDouble -> {
-            for (int row = 0; row < 4; row++) {
-                for (int column = 0; column < 2; column++) {
-                    int index = column + row * 2;
-                    int x = xOrigin + column * 52;
-                    int y = yOrigin + row * 21;
+        for (int row = 0; row < probabilities.size() / 2; row++) {
+            for (int column = 0; column < 2; column++) {
+                int index = column + row * 2;
+                int x = xOrigin + column * 52;
+                int y = yOrigin + row * 18;
 
-                    if (groupCount > index) {
-
-                        if (weighted) {
-                            NumberFormat numberFormat = NumberFormat.getInstance();
-                            numberFormat.setMaximumFractionDigits(1);
-                            double value = groupCount == 1 ? probabilities.get(0) : probabilities.get(index);
-                            double percent = (value / totalProbability) * 100;
-                            font.drawShadow(pPoseStack, numberFormat.format(percent) + "%", x, y, 0xFFFFFFFF);
-                        } else {
-                            double value = groupCount == 1 ? probabilities.get(0) : probabilities.get(index);
-                            font.drawShadow(pPoseStack, value+ "%", x, y, 0xFFFFFFFF);
-                        }
-                    }
+                if (probabilities.size() > index) {
+                    NumberFormat numberFormat = NumberFormat.getInstance();
+                    numberFormat.setMaximumFractionDigits(2);
+                    double percent = (probabilities.get(index) / totalProbability) * 100;
+                    font.drawShadow(pPoseStack, numberFormat.format(percent) + "%", x, y, 0xFFFFFFFF);
                 }
             }
-        });
+        }
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, DissolverRecipe pRecipe, IFocusGroup pFocusGroup) {
         pBuilder.addSlot(RecipeIngredientRole.INPUT, 78, 17).addIngredients(pRecipe.getInput());
 
-        int xOrigin = 23;
-        int yOrigin = 54;
+        int xOrigin = 25;
+        int yOrigin = 46;
 
-        List<ItemStack> items = new ArrayList<>();
+        Map<ItemStack, Double> map = new HashMap<>();
+        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> map.put(itemStack, group.getProbability())));
 
-        pRecipe.getOutput().getProbabilityGroups().stream().forEach(group -> items.addAll(group.getOutput()));
+        List<ItemStack> items = map.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry<ItemStack, Double>::getValue).reversed())
+                .map(Map.Entry::getKey)
+                .toList();
 
         items.forEach(itemStack -> {
-            for (int row = 0; row < 4; row++) {
+            for (int row = 0; row < items.size() / 2; row++) {
                 for (int column = 0; column < 2; column++) {
                     int itemIndex = column + row * 2;
                     int x = xOrigin + column * 52;
-                    int y = yOrigin + row * 21;
+                    int y = yOrigin + row * 18;
 
                     if (items.size() > itemIndex) {
-                        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(items.get(itemIndex));
+                        if (!items.get(itemIndex).isEmpty()) {
+                            pBuilder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(items.get(itemIndex));
+                        } else {
+                            pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
+                                list.clear();
+                                list.add(new TranslatableComponent("alchemistry.container.nothing"));
+                            });
+                        }
                     }
                 }
             }

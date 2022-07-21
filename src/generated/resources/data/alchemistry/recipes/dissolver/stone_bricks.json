@@ -10,7 +10,11 @@
     "groups": [
       {
         "probability": 20.0,
-        "results": []
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       },
       {
         "probability": 1.0,

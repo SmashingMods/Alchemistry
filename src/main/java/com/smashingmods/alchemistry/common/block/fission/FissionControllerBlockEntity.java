@@ -19,8 +19,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     protected final ContainerData data;
@@ -59,8 +57,8 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     @Override
     public void tick() {
-        if (!getPaused()) {
-            if (!getRecipeLocked()) {
+        if (!isProcessingPaused()) {
+            if (!isRecipeLocked()) {
                 updateRecipe();
             }
             if (canProcessRecipe()) {
@@ -81,9 +79,16 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                List<FissionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, level).stream().toList();
-                currentRecipe = recipes.stream().filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0))).findFirst().orElse(null);
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, level).stream()
+                        .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0)))
+                        .findFirst().ifPresent(recipe -> {
+                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                                setProgress(0);
+                                currentRecipe = recipe;
+                            }
+                        });
             } else {
+                setProgress(0);
                 currentRecipe = null;
             }
         }

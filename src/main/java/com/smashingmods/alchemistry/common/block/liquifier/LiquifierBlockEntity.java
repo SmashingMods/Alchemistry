@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.*;
+import com.smashingmods.alchemistry.api.blockentity.AbstractFluidBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
@@ -65,12 +65,15 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            if (currentRecipe == null || ItemStack.isSameItemSameTags(currentRecipe.getInput(), getItemHandler().getStackInSlot(0))) {
-                currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
-                        .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getItemHandler().getStackInSlot(0)))
-                        .findFirst()
-                        .orElse(null);
-            }
+            RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
+                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getItemHandler().getStackInSlot(0)))
+                    .findFirst()
+                    .ifPresent(recipe -> {
+                        if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                            setProgress(0);
+                            currentRecipe = recipe;
+                        }
+                    });
         }
     }
 
@@ -101,7 +104,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (LiquifierRecipe) pRecipe;
     }
 

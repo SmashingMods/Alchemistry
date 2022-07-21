@@ -30,10 +30,10 @@ public class AlchemistryPacketHandler {
                 .consumer(BlockEntityPacket::handle)
                 .add();
 
-        INSTANCE.messageBuilder(CombinerButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
-                .decoder(CombinerButtonPacket::new)
-                .encoder(CombinerButtonPacket::encode)
-                .consumer(CombinerButtonPacket::handle)
+        INSTANCE.messageBuilder(ProcessingButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ProcessingButtonPacket::new)
+                .encoder(ProcessingButtonPacket::encode)
+                .consumer(ProcessingButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CompactorResetPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)

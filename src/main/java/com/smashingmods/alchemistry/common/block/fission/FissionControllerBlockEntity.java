@@ -1,7 +1,9 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.*;
+import com.smashingmods.alchemistry.api.blockentity.AbstractReactorBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.ReactorType;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
@@ -56,6 +58,26 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
+    public void tick() {
+        if (!getPaused()) {
+            if (!getRecipeLocked()) {
+                updateRecipe();
+            }
+            if (canProcessRecipe()) {
+                setPowerState(PowerState.ON);
+                processRecipe();
+            } else {
+                if (getEnergyHandler().getEnergyStored() > Config.Common.fusionEnergyPerTick.get()) {
+                    setPowerState(PowerState.STANDBY);
+                } else {
+                    setPowerState(PowerState.OFF);
+                }
+            }
+        }
+        super.tick();
+    }
+
+    @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
@@ -96,7 +118,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (FissionRecipe) pRecipe;
     }
 

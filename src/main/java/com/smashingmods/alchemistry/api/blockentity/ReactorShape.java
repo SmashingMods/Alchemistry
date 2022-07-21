@@ -149,4 +149,8 @@ public class ReactorShape {
     public BoundingBox getFullBoundingBox() {
         return fullBoundingBox;
     }
+
+    public BoundingBox getCoreBoundingBox() {
+        return core;
+    }
 }

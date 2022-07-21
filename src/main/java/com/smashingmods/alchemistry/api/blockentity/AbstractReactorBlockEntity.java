@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
+import com.smashingmods.alchemistry.common.block.reactor.ReactorCoreBlock;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorInputBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorOutputBlockEntity;
@@ -9,6 +10,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+
+import java.util.function.Consumer;
+
 public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockEntity implements ReactorBlockEntity {
 
     private ReactorShape reactorShape;
@@ -40,23 +44,6 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         setPowerState(PowerState.STANDBY);
                     } else {
                         setPowerState(PowerState.OFF);
-                    }
-                }
-
-                if (!getPaused()) {
-                    if (!getRecipeLocked()) {
-                        updateRecipe();
-                    }
-                    if (canProcessRecipe()) {
-                        setPowerState(PowerState.ON);
-                        processRecipe();
-                    } else {
-                        setProgress(0);
-                        if (getEnergyHandler().getEnergyStored() > 0) {
-                            setPowerState(PowerState.STANDBY);
-                        } else {
-                            setPowerState(PowerState.OFF);
-                        }
                     }
                 }
             } else {
@@ -162,24 +149,70 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         this.outputFound = pOutputFound;
     }
 
-    public ReactorEnergyBlockEntity getReactorEnergyBlockEntity() {
-        return reactorEnergyBlockEntity;
-    }
-
-    public ReactorInputBlockEntity getReactorInputBlockEntity() {
-        return reactorInputBlockEntity;
-    }
-
-    public ReactorOutputBlockEntity getReactorOutputBlockEntity() {
-        return reactorOutputBlockEntity;
-    }
-
     @Override
     public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
+
+            Consumer<BlockPos> handleCorePowerState = blockPos -> {
+                if (level != null && !level.isClientSide()) {
+                    BlockState blockState = level.getBlockState(blockPos);
+                    if (blockState.getBlock() instanceof ReactorCoreBlock) {
+                        PowerState coreState = blockState.getValue(PowerStateProperty.POWER_STATE);
+                        switch (getPowerState()) {
+                            case DISABLED, OFF -> {
+                                if (coreState.equals(PowerState.ON)) {
+                                    BlockState newState = blockState.setValue(PowerStateProperty.POWER_STATE, PowerState.OFF);
+                                    level.setBlock(blockPos, newState, 7);
+                                }
+                            }
+                            case STANDBY, ON -> {
+                                if (coreState.equals(PowerState.OFF)) {
+                                    BlockState newState = blockState.setValue(PowerStateProperty.POWER_STATE, PowerState.ON);
+                                    level.setBlock(blockPos, newState, 7);
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            BlockPos.betweenClosedStream(reactorShape.getCoreBoundingBox()).forEach(handleCorePowerState);
             return validateMultiblockShape(level, getReactorShape().createShapeMap()) && energyFound && inputFound && outputFound;
         }
         return false;
+    }
+
+    public void onRemove() {
+        if (level != null && !level.isClientSide()) {
+            if (reactorEnergyBlockEntity != null) {
+                BlockState energyState = reactorEnergyBlockEntity.getBlockState();
+                BlockPos energyPos = reactorEnergyBlockEntity.getBlockPos();
+                level.setBlock(energyPos, Blocks.AIR.defaultBlockState(), 7);
+                level.setBlock(energyPos, energyState, 7);
+            }
+
+            if (reactorInputBlockEntity != null) {
+                BlockState inputState = reactorInputBlockEntity.getBlockState();
+                BlockPos inputPos = reactorInputBlockEntity.getBlockPos();
+                level.setBlock(inputPos, Blocks.AIR.defaultBlockState(), 7);
+                level.setBlock(inputPos, inputState, 7);
+            }
+
+            if (reactorOutputBlockEntity != null) {
+                BlockState outputState = reactorOutputBlockEntity.getBlockState();
+                BlockPos outputPos = reactorOutputBlockEntity.getBlockPos();
+                level.setBlock(outputPos, Blocks.AIR.defaultBlockState(), 7);
+                level.setBlock(outputPos, outputState, 7);
+            }
+
+            BlockPos.betweenClosedStream(reactorShape.getCoreBoundingBox()).forEach(blockPos -> {
+                BlockState blockState = level.getBlockState(blockPos);
+                if (blockState.getBlock() instanceof ReactorCoreBlock) {
+                    BlockState offState = blockState.setValue(PowerStateProperty.POWER_STATE, PowerState.OFF);
+                    level.setBlock(blockPos, offState, 7);
+                }
+            });
+        }
     }
 
     @Override

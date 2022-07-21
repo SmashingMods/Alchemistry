@@ -79,9 +79,7 @@ public class ProbabilitySet {
                     outputProbability += (group.getProbability() / totalProbability);
 
                     if (outputProbability >= targetProbability) {
-                        group.getOutput().stream()
-                            .filter(itemStack -> !itemStack.isEmpty())
-                            .forEach(itemStack -> populateReturnList(toReturn, itemStack));
+                        group.getOutput().forEach(itemStack -> populateReturnList(toReturn, itemStack));
                         break;
                     }
                 }
@@ -90,9 +88,7 @@ public class ProbabilitySet {
 
                 for (ProbabilityGroup group : probabilityGroups) {
                     if (group.getProbability() >= random.nextInt(101)) {
-                        group.getOutput().stream()
-                            .filter(itemStack -> !itemStack.isEmpty())
-                            .forEach(itemStack -> populateReturnList(toReturn, itemStack));
+                        group.getOutput().forEach(itemStack -> populateReturnList(toReturn, itemStack));
                     }
                 }
             }
@@ -179,7 +175,11 @@ public class ProbabilitySet {
         }
 
         public Builder addGroup(double pProbability, ItemStack... pItemStacks) {
-            groups.add(new ProbabilityGroup(Arrays.asList(pItemStacks), pProbability));
+            if (pItemStacks.length == 0) {
+                groups.add(new ProbabilityGroup(List.of(ItemStack.EMPTY), pProbability));
+            } else {
+                groups.add(new ProbabilityGroup(Arrays.asList(pItemStacks), pProbability));
+            }
             return this;
         }
 

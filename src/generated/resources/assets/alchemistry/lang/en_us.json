@@ -11,6 +11,7 @@
   "alchemistry.container.fusion_controller": "Fusion Controller",
   "alchemistry.container.liquifier": "Liquifier",
   "alchemistry.container.lock_recipe": "Lock recipe",
+  "alchemistry.container.nothing": "Nothing",
   "alchemistry.container.pause": "Pause",
   "alchemistry.container.reset_target": "Reset Target",
   "alchemistry.container.resume": "Resume",

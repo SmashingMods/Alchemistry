@@ -6,8 +6,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.*;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.CombinerButtonPacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.ChemicalItemType;
@@ -16,9 +14,7 @@ import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.LockIconButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -30,17 +26,18 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.StringUtils;
-import java.util.*;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     protected final List<DisplayData> displayData = new ArrayList<>();
     private final CombinerBlockEntity blockEntity;
     protected final EditBox editBox;
-    protected final LockIconButton lockIconButton;
 
     private final int DISPLAYED_SLOTS = 12;
     private final int RECIPE_BOX_SIZE = 18;
@@ -61,7 +58,6 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             editBox.setValue(blockEntity.getEditBoxText());
             menu.searchRecipeList(blockEntity.getEditBoxText());
         }
-        lockIconButton = new LockIconButton(0, 0, handleLock());
     }
 
     @Override
@@ -81,12 +77,9 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBackground(pPoseStack);
-        renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderRecipeBox(pPoseStack, pMouseX, pMouseY);
-        renderWidgets();
         renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
 
@@ -109,9 +102,10 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
+    @Override
     public void renderWidgets() {
+        super.renderWidgets();
         renderWidget(editBox, leftPos + 57, topPos + 7);
-//        renderWidget(lockIconButton, leftPos - 32, topPos);
     }
 
     protected void renderRecipeBox(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -255,7 +249,6 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     @Override
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
-
         if (pKeyCode == InputConstants.KEY_E && editBox.isFocused()) {
             return false;
         } else if (pKeyCode == InputConstants.KEY_TAB && !editBox.isFocused()) {
@@ -267,10 +260,6 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             editBox.setEditable(false);
             editBox.active = false;
             return false;
-        }  else if (pKeyCode == InputConstants.KEY_R && ModList.get().isLoaded("jei")) {
-            Alchemistry.LOGGER.info("SHOW RECIPE");
-        } else if (pKeyCode == InputConstants.KEY_U && ModList.get().isLoaded("jei")) {
-            Alchemistry.LOGGER.info("SHOW USAGE");
         }
         return super.keyPressed(pKeyCode, pScanCode, pModifiers);
     }
@@ -353,14 +342,5 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     private int getOffscreenRows() {
         return (menu.getDisplayedRecipes().size() + 4 - 1) / 4 - 3;
-    }
-
-    private Button.OnPress handleLock() {
-        return pButton -> {
-            LockIconButton button = (LockIconButton) pButton;
-            boolean lockValue = !button.isLocked();
-            button.setLocked(lockValue);
-            AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerButtonPacket(menu.getBlockEntity().getBlockPos(), false, lockValue));
-        };
     }
 }

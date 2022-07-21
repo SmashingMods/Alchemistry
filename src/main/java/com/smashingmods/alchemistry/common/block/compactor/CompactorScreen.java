@@ -42,7 +42,6 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        renderWidgets();
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
 
@@ -64,8 +63,10 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
-    private void renderWidgets() {
-        renderWidget(resetTargetButton, leftPos - 84, topPos);
+    @Override
+    public void renderWidgets() {
+        super.renderWidgets();
+        renderWidget(resetTargetButton, leftPos - 84, topPos + 48);
     }
 
     private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -88,8 +89,6 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
     }
 
     private Button.OnPress handleResetTargetButton() {
-        return pButton -> {
-            AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
-        };
+        return pButton -> AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
     }
 }

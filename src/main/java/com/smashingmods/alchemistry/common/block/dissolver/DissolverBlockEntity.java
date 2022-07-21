@@ -60,8 +60,8 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void tick() {
         if (level != null && !level.isClientSide()) {
-            if (!this.getPaused()) {
-                if (!this.getRecipeLocked()) {
+            if (!isProcessingPaused()) {
+                if (!isRecipeLocked()) {
                     updateRecipe();
                 }
                 if (canProcessRecipe()) {
@@ -75,10 +75,15 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
                 .filter(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)))
                 .findAny()
-                .orElse(null);
+                .ifPresent(recipe -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                        setProgress(0);
+                        currentRecipe = recipe;
+                    }
+            });
         }
     }
 

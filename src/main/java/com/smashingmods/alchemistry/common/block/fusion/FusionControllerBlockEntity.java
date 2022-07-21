@@ -19,8 +19,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     protected final ContainerData data;
@@ -59,8 +57,8 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     @Override
     public void tick() {
-        if (!getPaused()) {
-            if (!getRecipeLocked()) {
+        if (!isProcessingPaused()) {
+            if (!isRecipeLocked()) {
                 updateRecipe();
             }
             if (canProcessRecipe()) {
@@ -80,14 +78,22 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                List<FusionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream().toList();
-                currentRecipe = recipes.stream().filter(recipe -> {
-                    ItemStack input1 = getInputHandler().getStackInSlot(0);
-                    ItemStack input2 = getInputHandler().getStackInSlot(1);
-                    return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
-                            || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
-                }).findFirst().orElse(null);
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream()
+                        .filter(recipe -> {
+                            ItemStack input1 = getInputHandler().getStackInSlot(0);
+                            ItemStack input2 = getInputHandler().getStackInSlot(1);
+                            return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
+                                    || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
+                        })
+                        .findFirst()
+                        .ifPresent(recipe -> {
+                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                                setProgress(0);
+                                currentRecipe = recipe;
+                            }
+                        });
             } else {
+                setProgress(0);
                 currentRecipe = null;
             }
         }

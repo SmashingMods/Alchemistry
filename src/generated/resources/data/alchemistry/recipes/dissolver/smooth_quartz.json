@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:nether_quartz_ore"
+    "item": "minecraft:smooth_quartz"
   },
   "output": {
     "rolls": 1,

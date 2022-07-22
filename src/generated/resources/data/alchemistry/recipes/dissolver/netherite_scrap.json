@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:nether_quartz_ore"
+    "item": "minecraft:netherite_scrap"
   },
   "output": {
     "rolls": 1,
@@ -12,12 +12,12 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:barium",
-            "count": 64
+            "item": "chemlib:tungsten",
+            "count": 16
           },
           {
-            "item": "chemlib:silicon_dioxide",
-            "count": 128
+            "item": "chemlib:carbon",
+            "count": 16
           }
         ]
       }

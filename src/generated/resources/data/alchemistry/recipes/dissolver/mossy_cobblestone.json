@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "minecraft:mossy_cobblestone"
+    "item": "minecraft:mossy_cobblestone"
   },
   "output": {
     "rolls": 1,

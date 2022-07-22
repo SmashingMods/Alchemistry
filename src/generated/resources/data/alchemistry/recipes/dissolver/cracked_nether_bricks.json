@@ -2,14 +2,14 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cobblestone"
+    "item": "minecraft:cracked_nether_bricks"
   },
   "output": {
-    "rolls": 1,
+    "rolls": 4,
     "weighted": true,
     "groups": [
       {
-        "probability": 700.0,
+        "probability": 5.0,
         "results": [
           {
             "item": "minecraft:air"
@@ -20,20 +20,12 @@
         "probability": 2.0,
         "results": [
           {
-            "item": "chemlib:aluminum"
+            "item": "chemlib:zinc_oxide"
           }
         ]
       },
       {
-        "probability": 4.0,
-        "results": [
-          {
-            "item": "chemlib:iron"
-          }
-        ]
-      },
-      {
-        "probability": 1.5,
+        "probability": 1.0,
         "results": [
           {
             "item": "chemlib:gold"
@@ -41,10 +33,18 @@
         ]
       },
       {
-        "probability": 10.0,
+        "probability": 1.0,
         "results": [
           {
-            "item": "chemlib:silicon_dioxide"
+            "item": "chemlib:phosphorus"
+          }
+        ]
+      },
+      {
+        "probability": 4.0,
+        "results": [
+          {
+            "item": "chemlib:sulfur"
           }
         ]
       },
@@ -52,39 +52,15 @@
         "probability": 1.0,
         "results": [
           {
-            "item": "chemlib:dysprosium"
+            "item": "chemlib:germanium"
           }
         ]
       },
       {
-        "probability": 1.5,
+        "probability": 4.0,
         "results": [
           {
-            "item": "chemlib:zirconium"
-          }
-        ]
-      },
-      {
-        "probability": 1.0,
-        "results": [
-          {
-            "item": "chemlib:nickel"
-          }
-        ]
-      },
-      {
-        "probability": 1.0,
-        "results": [
-          {
-            "item": "chemlib:gallium"
-          }
-        ]
-      },
-      {
-        "probability": 1.0,
-        "results": [
-          {
-            "item": "chemlib:tungsten"
+            "item": "chemlib:silicon"
           }
         ]
       }

@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:nether_quartz_ore"
+    "tag": "minecraft:wool"
   },
   "output": {
     "rolls": 1,
@@ -12,12 +12,10 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:barium",
-            "count": 64
+            "item": "chemlib:protein"
           },
           {
-            "item": "chemlib:silicon_dioxide",
-            "count": 128
+            "item": "chemlib:triglyceride"
           }
         ]
       }

@@ -2,14 +2,14 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cobblestone"
+    "item": "minecraft:cobblestone_slab"
   },
   "output": {
     "rolls": 1,
     "weighted": true,
     "groups": [
       {
-        "probability": 700.0,
+        "probability": 1400.0,
         "results": [
           {
             "item": "minecraft:air"

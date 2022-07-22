@@ -1,0 +1,40 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:amethyst_block"
+  },
+  "output": {
+    "rolls": 4,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 1000.0,
+        "results": [
+          {
+            "item": "chemlib:silicon_dioxide"
+          },
+          {
+            "item": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "chemlib:uranium"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:polonium"
+          }
+        ]
+      }
+    ]
+  }
+}

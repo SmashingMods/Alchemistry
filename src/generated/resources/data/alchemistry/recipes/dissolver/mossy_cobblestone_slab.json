@@ -2,14 +2,14 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cobblestone"
+    "item": "minecraft:mossy_cobblestone_slab"
   },
   "output": {
     "rolls": 1,
     "weighted": true,
     "groups": [
       {
-        "probability": 700.0,
+        "probability": 1394.0,
         "results": [
           {
             "item": "minecraft:air"
@@ -85,6 +85,14 @@
         "results": [
           {
             "item": "chemlib:tungsten"
+          }
+        ]
+      },
+      {
+        "probability": 3.0,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
           }
         ]
       }

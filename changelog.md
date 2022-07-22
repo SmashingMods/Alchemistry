@@ -1,11 +1,14 @@
-# Alchemistry 1.18.2-2.0.1 BETA
+# Alchemistry 1.18.2-2.0.2 BETA
 
-Based on feedback and testing, Alchemistry should be stable enough to release as a Beta (making it available on the CurseForge Launcher). As always, please report any bugs you find to the GitHub. Thanks!
+Thanks again for your feedback. Each issue you open and properly describe helps our team to improve the mod!
 
 Changes:
-- Fix issue #202.
-- Make the reactor work better. Still needs work.
-- Update Forge and Parchment.
-- Update CurseForge publishing gradle task to mark dependencies.
+- Fix issues 208 & 211.
+- Fix issue 199.
+- Add Spanish localization. Select Spanish Espana in the language menu to use it. Thanks albertosaurio65!
+- Add gui buttons for locking/unlocking recipes and pausing/unpausing recipe processing.
+- Fix issue with Reactor IO blocks to unset their connection with any pipes if the controller is broken to prevent voiding items and energy.
+- Add lighting to reactor core when it's powered.
+- Other minor fixes and improvements.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

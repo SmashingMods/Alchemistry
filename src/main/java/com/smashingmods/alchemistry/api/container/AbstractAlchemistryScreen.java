@@ -33,10 +33,10 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
     public AbstractAlchemistryScreen(M pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
 
-        lockButton = new Button(0, 0, 80, 20, new TranslatableComponent("alchemistry.container.lock_recipe"), handleLock());
-        unlockButton = new Button(0, 0, 80, 20, new TranslatableComponent("alchemistry.container.unlock_recipe"), handleLock());
-        pauseButton = new Button(0, 0, 80, 20, new TranslatableComponent("alchemistry.container.pause"), handlePause());
-        resumeButton = new Button(0, 0, 80, 20, new TranslatableComponent("alchemistry.container.resume"), handlePause());
+        lockButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.lock_recipe"), handleLock());
+        unlockButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.unlock_recipe"), handleLock());
+        pauseButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.pause"), handlePause());
+        resumeButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.resume"), handlePause());
     }
 
     @Override
@@ -198,14 +198,14 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
     public void renderWidgets() {
         renderables.clear();
         if (menu.getBlockEntity().isRecipeLocked()) {
-            renderWidget(unlockButton, leftPos - 84, topPos);
+            renderWidget(unlockButton, leftPos - 104, topPos);
         } else {
-            renderWidget(lockButton, leftPos - 84, topPos);
+            renderWidget(lockButton, leftPos - 104, topPos);
         }
         if (menu.getBlockEntity().isProcessingPaused()) {
-            renderWidget(resumeButton, leftPos - 84, topPos + 24);
+            renderWidget(resumeButton, leftPos - 104, topPos + 24);
         } else {
-            renderWidget(pauseButton, leftPos - 84, topPos + 24);
+            renderWidget(pauseButton, leftPos - 104, topPos + 24);
         }
     }
 

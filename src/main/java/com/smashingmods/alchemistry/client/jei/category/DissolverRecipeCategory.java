@@ -17,6 +17,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -82,8 +83,13 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         boolean weighted = pRecipe.getOutput().isWeighted();
         int rolls = pRecipe.getOutput().getRolls();
 
-        font.drawShadow(pPoseStack, String.format("Weighted: %s", weighted), 0, 0, 0xFFFFFFFF);
-        font.drawShadow(pPoseStack, String.format("Rolls: %s", rolls), 0, 24, 0xFFFFFFFF);
+        String typeString = I18n.get("alchemistry.jei.dissolver.type");
+        String relativeString = I18n.get("alchemistry.jei.dissolver.relative");
+        String absoluteString = I18n.get("alchemistry.jei.dissolver.absolute");
+        String rollsString = I18n.get("alchemistry.jei.dissolver.rolls");
+
+        font.drawShadow(pPoseStack, String.format("%s: %s", typeString, weighted ? relativeString : absoluteString), 0, 0, 0xFFFFFFFF);
+        font.drawShadow(pPoseStack, String.format("%s: %s", rollsString, rolls), 0, 24, 0xFFFFFFFF);
 
         int xOrigin = 45;
         int yOrigin = 52;

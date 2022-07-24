@@ -1,7 +1,9 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.*;
+import com.smashingmods.alchemistry.api.blockentity.AbstractReactorBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.ReactorType;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
@@ -16,8 +18,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
 
@@ -55,17 +55,45 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
         };
     }
 
+    @Override
+    public void tick() {
+        if (!isProcessingPaused()) {
+            if (!isRecipeLocked()) {
+                updateRecipe();
+            }
+            if (canProcessRecipe()) {
+                setPowerState(PowerState.ON);
+                processRecipe();
+            } else {
+                if (getEnergyHandler().getEnergyStored() > Config.Common.fusionEnergyPerTick.get()) {
+                    setPowerState(PowerState.STANDBY);
+                } else {
+                    setPowerState(PowerState.OFF);
+                }
+            }
+        }
+        super.tick();
+    }
+
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                List<FusionRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream().toList();
-                currentRecipe = recipes.stream().filter(recipe -> {
-                    ItemStack input1 = getInputHandler().getStackInSlot(0);
-                    ItemStack input2 = getInputHandler().getStackInSlot(1);
-                    return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
-                            || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
-                }).findFirst().orElse(null);
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream()
+                        .filter(recipe -> {
+                            ItemStack input1 = getInputHandler().getStackInSlot(0);
+                            ItemStack input2 = getInputHandler().getStackInSlot(1);
+                            return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
+                                    || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
+                        })
+                        .findFirst()
+                        .ifPresent(recipe -> {
+                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                                setProgress(0);
+                                currentRecipe = recipe;
+                            }
+                        });
             } else {
+                setProgress(0);
                 currentRecipe = null;
             }
         }
@@ -77,10 +105,10 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
             ItemStack input2 = getInputHandler().getStackInSlot(1);
             ItemStack output = getOutputHandler().getStackInSlot(0);
             return getEnergyHandler().getEnergyStored() >= Config.Common.fusionEnergyPerTick.get()
-                    && ((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput1()) && input1.getCount() >= currentRecipe.getInput1().getCount())
+                    && (((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput1()) && input1.getCount() >= currentRecipe.getInput1().getCount())
                         && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput2()) && input2.getCount() >= currentRecipe.getInput2().getCount()))
                     || ((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput2()) && input1.getCount() >= currentRecipe.getInput2().getCount())
-                        && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput1()) && input2.getCount() >= currentRecipe.getInput1().getCount()))
+                        && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput1()) && input2.getCount() >= currentRecipe.getInput1().getCount())))
                     && ((ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty()) && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize());
         }
         return false;
@@ -100,7 +128,7 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (FusionRecipe) pRecipe;
     }
 

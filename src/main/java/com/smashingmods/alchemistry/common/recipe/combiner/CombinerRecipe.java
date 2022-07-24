@@ -9,8 +9,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
-import java.util.*;
-import java.util.stream.Collectors;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class CombinerRecipe extends AbstractAlchemistryRecipe implements Comparable<CombinerRecipe> {
 
@@ -69,8 +71,8 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
     public boolean matchInputs(List<ItemStack> pStacks) {
         int matchingStacks = 0;
 
-        List<ItemStack> handlerStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
-        List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+        List<ItemStack> handlerStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+        List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
 
         if (recipeStacks.size() == handlerStacks.size()) {
             for (ItemStack recipeStack : recipeStacks) {

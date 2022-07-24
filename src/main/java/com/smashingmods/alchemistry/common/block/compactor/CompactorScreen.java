@@ -33,7 +33,7 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 75, 39, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 17, 16, 16, 54));
 
-        resetTargetButton = new Button(0, 0, 80, 20, new TranslatableComponent("alchemistry.container.reset_target"), handleResetTargetButton());
+        resetTargetButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.reset_target"), handleResetTargetButton());
     }
 
     @Override
@@ -42,7 +42,6 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        renderWidgets();
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
 
@@ -64,8 +63,10 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
-    private void renderWidgets() {
-        renderWidget(resetTargetButton, leftPos - 84, topPos);
+    @Override
+    public void renderWidgets() {
+        super.renderWidgets();
+        renderWidget(resetTargetButton, leftPos - 104, topPos + 48);
     }
 
     private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -88,8 +89,6 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
     }
 
     private Button.OnPress handleResetTargetButton() {
-        return pButton -> {
-            AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
-        };
+        return pButton -> AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
     }
 }

@@ -11,14 +11,10 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.SimpleContainerData;
-import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -64,14 +60,12 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     @Override
     public boolean clickMenuButton(Player pPlayer, int pId) {
         if(pPlayer.level.isClientSide()) {
-            if (!getBlockEntity().isRecipeLocked()) {
-                if (this.isValidRecipeIndex(pId)) {
-                    int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));
-                    CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
-                    this.setSelectedRecipeIndex(pId);
-                    this.blockEntity.setRecipe(recipe);
-                    AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
-                }
+            if (this.isValidRecipeIndex(pId)) {
+                int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));
+                CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
+                this.setSelectedRecipeIndex(pId);
+                this.blockEntity.setRecipe(recipe);
+                AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
             }
         }
         return true;
@@ -117,6 +111,6 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
         this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream().filter(recipe -> {
             Objects.requireNonNull(recipe.getOutput().getItem().getRegistryName());
             return recipe.getOutput().getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
-        }).toList());
+        }).collect(Collectors.toList()));
     }
 }

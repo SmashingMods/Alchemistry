@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
@@ -60,12 +60,14 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void tick() {
         if (level != null && !level.isClientSide()) {
-            if (!isProcessingPaused()) {
-                if (!isRecipeLocked()) {
+            if (!this.getPaused()) {
+                if (!this.getRecipeLocked()) {
                     updateRecipe();
                 }
                 if (canProcessRecipe()) {
                     processRecipe();
+                } else {
+                    setProgress(0);
                 }
                 processBuffer();
             }
@@ -75,15 +77,10 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
+            currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
                 .filter(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)))
                 .findAny()
-                .ifPresent(recipe -> {
-                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                        setProgress(0);
-                        currentRecipe = recipe;
-                    }
-            });
+                .orElse(null);
         }
     }
 
@@ -129,7 +126,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
         currentRecipe = (DissolverRecipe) pRecipe;
     }
 

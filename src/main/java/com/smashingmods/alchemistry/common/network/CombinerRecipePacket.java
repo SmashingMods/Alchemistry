@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
-import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
@@ -36,12 +35,7 @@ public class CombinerRecipePacket {
             Objects.requireNonNull(player);
             CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.level.getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
-            CombinerRecipe newRecipe = blockEntity.getRecipes().get(pPacket.recipeIndex);
-            //noinspection ConstantConditions
-            if (blockEntity.getRecipe() == null || !blockEntity.getRecipe().equals(newRecipe)) {
-                blockEntity.setProgress(0);
-                blockEntity.setRecipe(newRecipe);
-            }
+            blockEntity.setRecipe(blockEntity.getRecipes().get(pPacket.recipeIndex));
         });
         pContext.get().setPacketHandled(true);
     }

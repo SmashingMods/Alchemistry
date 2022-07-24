@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractFluidBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
@@ -64,15 +64,10 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
-                    .filter(recipe -> recipe.getInput().getFluid().equals(getFluidStorage().getFluidStack().getFluid()))
-                    .findFirst()
-                    .ifPresent(recipe -> {
-                        if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                            setProgress(0);
-                            currentRecipe = recipe;
-                        }
-                    });
+            if (!getFluidStorage().isEmpty() && (currentRecipe == null || getItemHandler().getStackInSlot(0).isEmpty() || ItemStack.isSameItemSameTags(currentRecipe.getOutput(), getItemHandler().getStackInSlot(0)))) {
+                currentRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
+                        .filter(recipe -> recipe.getInput().getFluid() == getFluidStorage().getFluidStack().getFluid()).findFirst().orElse(null);
+            }
         }
     }
 
@@ -80,7 +75,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         if (currentRecipe != null) {
             return getEnergyHandler().getEnergyStored() >= Config.Common.atomizerEnergyPerTick.get()
                     && getFluidStorage().getFluidAmount() >= currentRecipe.getInput().getAmount()
-                    && ((ItemStack.isSameItemSameTags(getItemHandler().getStackInSlot(0), currentRecipe.getOutput())) || getItemHandler().getStackInSlot(0).isEmpty())
+                    && (ItemStack.isSameItemSameTags(getItemHandler().getStackInSlot(0), currentRecipe.getOutput())) || getItemHandler().getStackInSlot(0).isEmpty()
                     && (getItemHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount()) <= currentRecipe.getOutput().getMaxStackSize();
         } else {
             return false;
@@ -100,7 +95,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
         currentRecipe = (AtomizerRecipe) pRecipe;
     }
 

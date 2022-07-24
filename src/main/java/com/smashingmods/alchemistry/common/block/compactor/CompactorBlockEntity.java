@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
@@ -18,10 +18,11 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
@@ -67,26 +68,14 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
                 if (target.isEmpty()) {
                     List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
                             .filter(recipe -> ItemStack.isSameItemSameTags(getInputHandler().getStackInSlot(0), recipe.getInput()))
-                            .toList();
+                            .collect(Collectors.toList());
                     if (recipes.size() == 1) {
-                        if (currentRecipe == null || !currentRecipe.equals(recipes.get(0))) {
-                            setProgress(0);
-                            currentRecipe = recipes.get(0);
-                        }
+                        currentRecipe = recipes.get(0);
                     } else {
-                        setProgress(0);
                         currentRecipe = null;
                     }
                 } else {
-                    RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
-                            .filter(recipe -> ItemStack.isSameItemSameTags(target, recipe.getOutput()))
-                            .findFirst()
-                            .ifPresent(recipe -> {
-                                if (!currentRecipe.equals(recipe)) {
-                                    setProgress(0);
-                                    currentRecipe = recipe;
-                                }
-                            });
+                    RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(target, recipe.getOutput())).findFirst().ifPresent(recipe -> currentRecipe = recipe);
                 }
             }
         }
@@ -161,13 +150,15 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             protected void onContentsChanged(int slot) {
                 if (level != null && !level.isClientSide()) {
                     if (slot == 1 && !getInputHandler().getStackInSlot(slot).isEmpty()) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput())).findFirst().ifPresent(recipe -> setRecipe(recipe));
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput())).findFirst().ifPresent(recipe -> {
+                            setRecipe(recipe);
+                        });
                     }
                 }
             }
 
             @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack pItemStack) {
+            public boolean isItemValid(int slot, @NotNull ItemStack pItemStack) {
                 if (slot == 1) {
                     target = new ItemStack(pItemStack.getItem(), 1);
                 }

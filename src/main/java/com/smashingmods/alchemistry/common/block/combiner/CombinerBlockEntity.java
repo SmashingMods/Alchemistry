@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.*;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -18,9 +18,9 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
@@ -66,17 +66,8 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            if (currentRecipe == null) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream()
-                        .filter(recipe -> recipe.matchInputs(getInputHandler()))
-                        .findFirst()
-                        .ifPresent(recipe -> {
-                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                                setProgress(0);
-                                setRecipe(recipe);
-                            }
-                        });
-            }
+            Optional<CombinerRecipe> combinerRecipe = RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream().filter(recipe -> recipe.matchInputs(getInputHandler())).findFirst();
+            combinerRecipe.ifPresent(this::setRecipe);
         }
     }
 
@@ -108,7 +99,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
+    public <T extends Recipe<Inventory>> void setRecipe(T pRecipe) {
         currentRecipe = (CombinerRecipe) pRecipe;
     }
 

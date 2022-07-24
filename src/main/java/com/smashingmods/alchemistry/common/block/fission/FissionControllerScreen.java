@@ -9,7 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +25,13 @@ public class FissionControllerScreen extends AbstractAlchemistryScreen<FissionCo
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+        this.renderBackground(pPoseStack);
+        this.renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        renderDisplayData(displayData, pPoseStack, leftPos, topPos);
-        renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
-        renderTooltip(pPoseStack, pMouseX, pMouseY);
+        this.renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+        this.renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
+        this.renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override
@@ -38,7 +39,7 @@ public class FissionControllerScreen extends AbstractAlchemistryScreen<FissionCo
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/fission_gui.png"));
-        blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

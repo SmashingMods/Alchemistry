@@ -1,27 +1,26 @@
 package com.smashingmods.alchemistry.common.network;
 
-import com.smashingmods.alchemistry.api.blockentity.AbstractProcessingBlockEntity;
+import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
-
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class ProcessingButtonPacket {
+public class CombinerButtonPacket {
 
     private final BlockPos blockPos;
     private final boolean lock;
     private final boolean pause;
 
-    public ProcessingButtonPacket(BlockPos pBlockPos, boolean pLock, boolean pPause) {
+    public CombinerButtonPacket(BlockPos pBlockPos, boolean pLock, boolean pPause) {
         this.blockPos = pBlockPos;
         this.lock = pLock;
         this.pause = pPause;
     }
 
-    public ProcessingButtonPacket(FriendlyByteBuf pBuffer) {
+    public CombinerButtonPacket(FriendlyByteBuf pBuffer) {
         this.blockPos = pBuffer.readBlockPos();
         this.lock = pBuffer.readBoolean();
         this.pause = pBuffer.readBoolean();
@@ -33,12 +32,12 @@ public class ProcessingButtonPacket {
         pBuffer.writeBoolean(pause);
     }
 
-    public static void handle(final ProcessingButtonPacket pPacket, Supplier<NetworkEvent.Context> pContext) {
+    public static void handle(final CombinerButtonPacket pPacket, Supplier<NetworkEvent.Context> pContext) {
         pContext.get().enqueueWork(() -> {
             Player player = pContext.get().getSender();
             Objects.requireNonNull(player);
 
-            AbstractProcessingBlockEntity blockEntity = (AbstractProcessingBlockEntity) player.level.getBlockEntity(pPacket.blockPos);
+            CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.level.getBlockEntity(pPacket.blockPos);
 
             Objects.requireNonNull(blockEntity);
 

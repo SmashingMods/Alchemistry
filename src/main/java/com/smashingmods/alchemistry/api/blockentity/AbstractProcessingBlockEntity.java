@@ -11,9 +11,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.Nameable;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -91,6 +89,8 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
                 }
                 if (canProcessRecipe()) {
                     processRecipe();
+                } else {
+                    setProgress(0);
                 }
             }
         }
@@ -112,7 +112,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     }
 
     @Override
-    public boolean isRecipeLocked() {
+    public boolean getRecipeLocked() {
         return this.recipeLocked;
     }
 
@@ -122,7 +122,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     }
 
     @Override
-    public boolean isProcessingPaused() {
+    public boolean getPaused() {
         return this.paused;
     }
 
@@ -154,8 +154,8 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("progress", progress);
-        pTag.putBoolean("locked", isRecipeLocked());
-        pTag.putBoolean("paused", isProcessingPaused());
+        pTag.putBoolean("locked", getRecipeLocked());
+        pTag.putBoolean("paused", getPaused());
         pTag.put("energy", energyHandler.serializeNBT());
         super.saveAdditional(pTag);
     }

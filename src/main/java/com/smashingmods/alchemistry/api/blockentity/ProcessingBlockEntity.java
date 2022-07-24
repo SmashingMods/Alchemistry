@@ -25,11 +25,11 @@ public interface ProcessingBlockEntity {
 
     void incrementProgress();
 
-    boolean isRecipeLocked();
+    boolean getRecipeLocked();
 
     void setRecipeLocked(boolean pRecipeLocked);
 
-    boolean isProcessingPaused();
+    boolean getPaused();
 
     void setPaused(boolean pPaused);
 

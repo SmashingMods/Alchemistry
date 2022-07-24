@@ -3,48 +3,25 @@ package com.smashingmods.alchemistry.api.container;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.ProcessingButtonPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
-
 import java.util.List;
 
-public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMenu> extends AbstractContainerScreen<M> {
-
-    protected final Button lockButton;
-    protected final Button unlockButton;
-
-    protected final Button pauseButton;
-    protected final Button resumeButton;
+public abstract class AbstractAlchemistryScreen<M extends AbstractContainerMenu> extends AbstractContainerScreen<M> {
 
     public AbstractAlchemistryScreen(M pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
-
-        lockButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.lock_recipe"), handleLock());
-        unlockButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.unlock_recipe"), handleLock());
-        pauseButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.pause"), handlePause());
-        resumeButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.resume"), handlePause());
-    }
-
-    @Override
-    public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBackground(pPoseStack);
-        renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        renderWidgets();
     }
 
     public void drawFluidTank(FluidDisplayData pData, int pTextureX, int pTextureY) {
@@ -193,35 +170,5 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
             }
             addRenderableWidget(pWidget);
         }
-    }
-
-    public void renderWidgets() {
-        renderables.clear();
-        if (menu.getBlockEntity().isRecipeLocked()) {
-            renderWidget(unlockButton, leftPos - 104, topPos);
-        } else {
-            renderWidget(lockButton, leftPos - 104, topPos);
-        }
-        if (menu.getBlockEntity().isProcessingPaused()) {
-            renderWidget(resumeButton, leftPos - 104, topPos + 24);
-        } else {
-            renderWidget(pauseButton, leftPos - 104, topPos + 24);
-        }
-    }
-
-    private Button.OnPress handleLock() {
-        return pButton -> {
-            boolean lockState = menu.getBlockEntity().isRecipeLocked();
-            boolean pausedState = menu.getBlockEntity().isProcessingPaused();
-            AlchemistryPacketHandler.INSTANCE.sendToServer(new ProcessingButtonPacket(menu.getBlockEntity().getBlockPos(), !lockState, pausedState));
-        };
-    }
-
-    private Button.OnPress handlePause() {
-        return pButton -> {
-            boolean lockState = menu.getBlockEntity().isRecipeLocked();
-            boolean pausedState = menu.getBlockEntity().isProcessingPaused();
-            AlchemistryPacketHandler.INSTANCE.sendToServer(new ProcessingButtonPacket(menu.getBlockEntity().getBlockPos(), lockState, !pausedState));
-        };
     }
 }

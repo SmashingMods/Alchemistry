@@ -45,7 +45,7 @@
   "block.alchemistry.reactor_output": "Salida de reactor",
   "guide.alchemistry.landing": "Bienvenido a la Guía de Alquímica. Este libro le presentará algunos de los conceptos básicos del mod.",
   "guide.alchemistry.title": "Guía de alquimia",
-  "itemGroup.alchemistry": "Alchemistry",
+  "itemGroup.alchemistry": "Alchemistry", 
   "tooltip.alchemistry.energy_requirement": "Requiere %d FE/t",
   "tooltip.alchemistry.requires": "Requiere"
 }

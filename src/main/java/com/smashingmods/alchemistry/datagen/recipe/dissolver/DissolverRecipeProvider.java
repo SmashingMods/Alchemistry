@@ -19,9 +19,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -44,7 +41,7 @@ public class DissolverRecipeProvider {
     private void register() {
 
         // Add Chemlib recipes
-        ItemRegistry.getCompounds().stream().forEach(compoundItem -> {
+        ItemRegistry.getCompounds().forEach(compoundItem -> {
             List<ItemStack> components = new ArrayList<>();
             compoundItem.getComponents().forEach((name, count) -> {
                 Optional<ElementItem> optionalElement = ItemRegistry.getElementByName(name);

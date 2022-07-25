@@ -511,18 +511,16 @@ public class DissolverRecipeProvider {
                         .build()));
 
 
-        newArrayList(Items.PURPUR_BLOCK, Items.PURPUR_PILLAR).forEach(item -> {
-            dissolver(item, createSet()
-                            .addGroup(100, toStack("silicon_dioxide", 4))
-                            .addGroup(50, toStack("lutetium"))
-                            .build());
-        });
+        newArrayList(Items.PURPUR_BLOCK, Items.PURPUR_PILLAR).forEach(item ->
+                dissolver(item, createSet()
+                        .addGroup(100, toStack("silicon_dioxide", 4))
+                        .addGroup(50, toStack("lutetium"))
+                        .build()));
 
         dissolver(Items.PURPUR_SLAB, createSet()
                 .addGroup(100, toStack("silicon_dioxide", 2))
                 .addGroup(25, toStack("lutetium"))
                 .build());
-    });
 //
 //        dissolver(Items.MAGMA_BLOCK, set().rolls(2)
 //                        .addGroup(10, toStack("manganese", 2))

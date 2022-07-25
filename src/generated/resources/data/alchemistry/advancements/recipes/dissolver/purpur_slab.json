@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "minecraft:purpur_slab"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:purpur_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

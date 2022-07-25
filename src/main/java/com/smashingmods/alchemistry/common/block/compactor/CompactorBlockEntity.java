@@ -62,7 +62,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
+        if (level != null && !level.isClientSide() && !isRecipeLocked()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
                 if (target.isEmpty()) {
                     List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
@@ -71,20 +71,22 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
                     if (recipes.size() == 1) {
                         if (currentRecipe == null || !currentRecipe.equals(recipes.get(0))) {
                             setProgress(0);
-                            currentRecipe = recipes.get(0);
+                            setRecipe(recipes.get(0));
+                            setTarget(new ItemStack(recipes.get(0).getOutput().getItem()));
                         }
                     } else {
                         setProgress(0);
-                        currentRecipe = null;
+                        setRecipe(null);
                     }
                 } else {
                     RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
                             .filter(recipe -> ItemStack.isSameItemSameTags(target, recipe.getOutput()))
                             .findFirst()
                             .ifPresent(recipe -> {
-                                if (!currentRecipe.equals(recipe)) {
+                                if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                                     setProgress(0);
-                                    currentRecipe = recipe;
+                                    setRecipe(recipe);
+                                    setTarget(new ItemStack(recipe.getOutput().getItem()));
                                 }
                             });
                 }
@@ -141,7 +143,9 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     public void setTarget(ItemStack pTarget) {
-        this.target = pTarget;
+        if (level != null && !level.isClientSide() && !isRecipeLocked()) {
+            this.target = pTarget;
+        }
     }
 
     @Override
@@ -169,7 +173,15 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack pItemStack) {
                 if (slot == 1) {
-                    target = new ItemStack(pItemStack.getItem(), 1);
+                    if (level != null && !level.isClientSide()) {
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
+                                .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput().copy(), pItemStack.copy()))
+                                .findFirst()
+                                .ifPresent(recipe -> {
+                                    setRecipe(recipe);
+                                    setTarget(new ItemStack(pItemStack.getItem()));
+                                });
+                    }
                 }
                 return slot != 1;
             }

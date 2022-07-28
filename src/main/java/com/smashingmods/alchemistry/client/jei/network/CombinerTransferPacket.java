@@ -58,14 +58,17 @@ public class CombinerTransferPacket {
             Objects.requireNonNull(blockEntity);
             CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
 
-            int counta = 0;
+            int matches = 0;
             for (int i = 0; i < pPacket.items.size(); i++) {
-                if ((ItemStack.isSameItemSameTags(pPacket.items.get(i), inputHandler.getStackInSlot(i)) || inputHandler.getStackInSlot(i).isEmpty()) && player.getInventory().contains(pPacket.items.get(i))) {
-                    counta++;
+                for (int j = 0; j < inputHandler.getStacks().size(); j++) {
+                    if ((ItemStack.isSameItemSameTags(pPacket.items.get(i), inputHandler.getStackInSlot(i)) || inputHandler.getStackInSlot(i).isEmpty()) && player.getInventory().contains(pPacket.items.get(i))) {
+                        matches++;
+                        break;
+                    }
                 }
             }
 
-            if (counta == pPacket.items.size()) {
+            if (matches == pPacket.items.size()) {
                 RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, player.getLevel()).stream()
                         .filter(recipe -> recipe.matchInputs(pPacket.items))
                         .findFirst()
@@ -79,8 +82,11 @@ public class CombinerTransferPacket {
                             }
 
                             if (count == recipe.getInput().size()) {
+                                recipe.getInput().forEach(itemStack -> {
+                                    int slot = player.getInventory().findSlotMatchingItem(itemStack);
+                                    player.getInventory().removeItem(slot, itemStack.getCount());
+                                });
                                 for (int k = 0; k < recipe.getInput().size(); k++) {
-                                    player.getInventory().removeItem(recipe.getInput().get(k).copy());
                                     inputHandler.setOrIncrement(k, recipe.getInput().get(k).copy());
                                 }
                             }

@@ -3,16 +3,14 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 import com.google.common.collect.Lists;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
-import com.smashingmods.chemlib.common.items.CompoundItem;
-import com.smashingmods.chemlib.common.items.ElementItem;
-import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.datagen.recipe.StackUtils.toStack;
@@ -30,18 +28,6 @@ public class CombinerRecipeProvider {
     }
 
     private void register() {
-
-        // Add Chemlib recipes
-        ItemRegistry.getCompounds().stream().forEach(compoundItem -> {
-            List<ItemStack> components = new ArrayList<>();
-            compoundItem.getComponents().forEach((name, count) -> {
-                Optional<ElementItem> optionalElement = ItemRegistry.getElementByName(name);
-                Optional<CompoundItem> optionalCompound = ItemRegistry.getCompoundByName(name);
-                optionalElement.ifPresent(element -> components.add(new ItemStack(element, count)));
-                optionalCompound.ifPresent(compound -> components.add(new ItemStack(compound, count)));
-            });
-            combiner(new ItemStack(compoundItem), components);
-        });
 
         // Reactor Glass
         combiner(new ItemStack(BlockRegistry.REACTOR_GLASS.get().asItem()), Lists.newArrayList(toStack("silicon_dioxide"), toStack("lead_oxide")));

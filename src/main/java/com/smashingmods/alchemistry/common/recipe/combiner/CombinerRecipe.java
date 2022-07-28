@@ -79,6 +79,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
                 for (ItemStack handlerStack : handlerStacks) {
                     if (ItemStack.isSameItemSameTags(recipeStack, handlerStack) && handlerStack.getCount() >= recipeStack.getCount()) {
                         matchingStacks++;
+                        break;
                     }
                 }
             }

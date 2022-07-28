@@ -1,7 +1,9 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
+import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;
@@ -49,7 +51,7 @@ public class DissolverRecipeProvider {
                 optionalElement.ifPresent(element -> components.add(new ItemStack(element, count)));
                 optionalCompound.ifPresent(compound -> components.add(new ItemStack(compound, count)));
             });
-            dissolver(compoundItem, createSet().addGroup(components, 100).build());
+            dissolver(compoundItem, createSet().addGroup(components, 100).build(), true);
         });
 
         // Stones
@@ -1091,12 +1093,35 @@ public class DissolverRecipeProvider {
     }
 
     private void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {
+        dissolver(pItemLike, pSet, false);
+    }
+
+    private void dissolver(ItemLike pItemLike, ProbabilitySet pSet, boolean pReversible) {
         dissolver(Ingredient.of(pItemLike), pSet, Objects.requireNonNull(pItemLike.asItem().getRegistryName()));
+
+        if (pReversible) {
+            ItemStack output = new ItemStack(pItemLike);
+            List<ItemStack> items = new ArrayList<>();
+
+            pSet.getProbabilityGroups().stream().map(ProbabilityGroup::getOutput).forEach(items::addAll);
+
+            if (items.size() <= 4) {
+                CombinerRecipeBuilder.createRecipe(output, items)
+                        .group(Alchemistry.MODID + ":combiner")
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(output)))
+                        .save(consumer);
+            }
+        }
     }
 
     private void dissolver(String pItemTag, ProbabilitySet pSet) {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
         Ingredient ingredient = Ingredient.of(tagKey);
         dissolver(ingredient, pSet, new ResourceLocation(pItemTag));
+    }
+
+    private ResourceLocation getLocation(ItemStack itemStack) {
+        Objects.requireNonNull(itemStack.getItem().getRegistryName());
+        return new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", itemStack.getItem().getRegistryName().getPath()));
     }
 }

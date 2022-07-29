@@ -27,6 +27,10 @@ public abstract class AbstractAlchemistryBlock extends BaseEntityBlock {
     public AbstractAlchemistryBlock(BiFunction<BlockPos, BlockState, BlockEntity> pBlockEntity) {
         super(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL));
         blockEntityFunction = pBlockEntity;
+
+        if (pBlockEntity instanceof AbstractReactorBlockEntity reactorBlockEntity) {
+            reactorBlockEntity.resetIO();
+        }
     }
 
     @Nullable

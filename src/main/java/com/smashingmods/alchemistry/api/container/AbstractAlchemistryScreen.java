@@ -53,6 +53,7 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
             setShaderColor(fluidStack.getFluid().getAttributes().getColor());
             TextureAtlasSprite icon = getResourceTexture(fluidStack.getFluid().getAttributes().getStillTexture());
             drawTexture(pData, icon, pTextureX, pTextureY);
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }
     }
 

@@ -1,11 +1,14 @@
 package com.smashingmods.alchemistry.api.blockentity;
 
+import com.mojang.math.Vector3f;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorCoreBlock;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorInputBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorOutputBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,11 +42,26 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
 
             setMultiblockHandlers();
             if (isValidMultiblock()) {
-                if (getPowerState().equals(PowerState.DISABLED)) {
-                    if (getEnergyHandler().getEnergyStored() > 0) {
-                        setPowerState(PowerState.STANDBY);
-                    } else {
-                        setPowerState(PowerState.OFF);
+                switch (getPowerState()) {
+                    case ON -> {
+                        BlockPos coreCenter = reactorShape.getCoreBoundingBox().getCenter();
+                        DustParticleOptions options = new DustParticleOptions(new Vector3f(1f, 1f, 0.5f), 0.15f);
+                        ((ServerLevel) level).sendParticles(options,
+                                coreCenter.getX(),
+                                coreCenter.getY(),
+                                coreCenter.getZ(),
+                                50,
+                                1.5f,
+                                1.5f,
+                                1.5f,
+                                0f);
+                    }
+                    case DISABLED -> {
+                        if (getEnergyHandler().getEnergyStored() > 0) {
+                            setPowerState(PowerState.STANDBY);
+                        } else {
+                            setPowerState(PowerState.OFF);
+                        }
                     }
                 }
             } else {
@@ -76,15 +94,15 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         if (level != null && !level.isClientSide()) {
             BoundingBox reactorBox = getReactorShape().getFullBoundingBox();
 
-            if (!energyFound) {
+            if (reactorEnergyBlockEntity == null || !energyFound) {
                 BlockPos.betweenClosedStream(reactorBox)
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorEnergyBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
                             BlockState energyState = level.getBlockState(blockPos);
-                            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 7);
-                            level.setBlock(blockPos, energyState, 7);
-                            energyFound = true;
+                            level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
+                            level.setBlockAndUpdate(blockPos, energyState);
+                            setEnergyFound(true);
                             reactorEnergyBlockEntity = (ReactorEnergyBlockEntity) level.getBlockEntity(blockPos);
                         });
             } else {
@@ -92,7 +110,6 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             }
 
             if (reactorInputBlockEntity == null || !inputFound) {
-                inputFound = false;
                 BlockPos.betweenClosedStream(reactorBox)
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorInputBlockEntity)
                         .findFirst()
@@ -182,34 +199,40 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         return false;
     }
 
-    public void onRemove() {
+    public void resetIO() {
         if (level != null && !level.isClientSide()) {
+            setMultiblockHandlers();
             if (reactorEnergyBlockEntity != null) {
                 BlockState energyState = reactorEnergyBlockEntity.getBlockState();
                 BlockPos energyPos = reactorEnergyBlockEntity.getBlockPos();
-                level.setBlock(energyPos, Blocks.AIR.defaultBlockState(), 7);
-                level.setBlock(energyPos, energyState, 7);
+                level.setBlockAndUpdate(energyPos, Blocks.AIR.defaultBlockState());
+                level.setBlockAndUpdate(energyPos, energyState);
             }
 
             if (reactorInputBlockEntity != null) {
                 BlockState inputState = reactorInputBlockEntity.getBlockState();
                 BlockPos inputPos = reactorInputBlockEntity.getBlockPos();
-                level.setBlock(inputPos, Blocks.AIR.defaultBlockState(), 7);
-                level.setBlock(inputPos, inputState, 7);
+                level.setBlockAndUpdate(inputPos, Blocks.AIR.defaultBlockState());
+                level.setBlockAndUpdate(inputPos, inputState);
             }
 
             if (reactorOutputBlockEntity != null) {
                 BlockState outputState = reactorOutputBlockEntity.getBlockState();
                 BlockPos outputPos = reactorOutputBlockEntity.getBlockPos();
-                level.setBlock(outputPos, Blocks.AIR.defaultBlockState(), 7);
-                level.setBlock(outputPos, outputState, 7);
+                level.setBlockAndUpdate(outputPos, Blocks.AIR.defaultBlockState());
+                level.setBlockAndUpdate(outputPos, outputState);
             }
+        }
+    }
 
+    public void onRemove() {
+        if (level != null && !level.isClientSide()) {
+            resetIO();
             BlockPos.betweenClosedStream(reactorShape.getCoreBoundingBox()).forEach(blockPos -> {
                 BlockState blockState = level.getBlockState(blockPos);
                 if (blockState.getBlock() instanceof ReactorCoreBlock) {
                     BlockState offState = blockState.setValue(PowerStateProperty.POWER_STATE, PowerState.OFF);
-                    level.setBlock(blockPos, offState, 7);
+                    level.setBlockAndUpdate(blockPos, offState);
                 }
             });
         }

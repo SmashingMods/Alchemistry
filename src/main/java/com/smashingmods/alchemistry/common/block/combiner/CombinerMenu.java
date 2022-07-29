@@ -35,7 +35,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     }
 
     protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 5);
+        super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 4);
 
         this.level = pInventory.player.getLevel();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;

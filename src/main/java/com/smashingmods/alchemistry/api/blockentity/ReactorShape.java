@@ -131,9 +131,9 @@ public class ReactorShape {
         reactorShapeMap.put(innerTopPlane, List.of(BlockRegistry.REACTOR_CASING.get()));
         reactorShapeMap.put(innerBottomPlane, List.of(BlockRegistry.REACTOR_CASING.get()));
         reactorShapeMap.put(innerFrontPlane, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_GLASS.get(), controllerComponent));
-        reactorShapeMap.put(innerRearPlane, List.of(BlockRegistry.REACTOR_GLASS.get(), BlockRegistry.REACTOR_GLASS.get()));
-        reactorShapeMap.put(innerLeftPlane, List.of(BlockRegistry.REACTOR_GLASS.get(), BlockRegistry.REACTOR_GLASS.get()));
-        reactorShapeMap.put(innerRightPlane, List.of(BlockRegistry.REACTOR_GLASS.get(), BlockRegistry.REACTOR_GLASS.get()));
+        reactorShapeMap.put(innerRearPlane, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_GLASS.get()));
+        reactorShapeMap.put(innerLeftPlane, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_GLASS.get()));
+        reactorShapeMap.put(innerRightPlane, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_GLASS.get()));
 
         return reactorShapeMap;
     }

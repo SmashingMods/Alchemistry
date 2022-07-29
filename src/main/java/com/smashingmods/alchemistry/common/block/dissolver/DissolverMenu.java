@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
+
 import java.util.Objects;
 
 public class DissolverMenu extends AbstractAlchemistryMenu {
@@ -24,7 +25,7 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
     }
 
     protected DissolverMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 10);
+        super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
 
         this.containerData = pContainerData;
         DissolverBlockEntity blockEntity = (DissolverBlockEntity) pBlockEntity;

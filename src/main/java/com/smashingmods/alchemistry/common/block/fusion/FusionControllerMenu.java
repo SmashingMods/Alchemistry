@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
+
 import java.util.Objects;
 
 public class FusionControllerMenu extends AbstractAlchemistryMenu {
@@ -24,7 +25,7 @@ public class FusionControllerMenu extends AbstractAlchemistryMenu {
     }
 
     protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 3);
+        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2);
         this.containerData = pContainerData;
 
         FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) pBlockEntity;

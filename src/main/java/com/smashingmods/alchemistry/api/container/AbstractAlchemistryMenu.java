@@ -6,7 +6,10 @@ import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.*;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -16,13 +19,13 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
     private final AbstractProcessingBlockEntity blockEntity;
     private final Level level;
     private final ContainerData containerData;
-    private final int blockEntitySlots;
+    private final int inputSlots;
 
-    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData, int pSlots) {
+    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData, int pInputSlots) {
         super(pMenuType, pContainerId);
 
         this.containerData = pContainerData;
-        this.blockEntitySlots = pSlots;
+        this.inputSlots = pInputSlots;
         this.blockEntity = ((AbstractProcessingBlockEntity) pBlockEntity);
         this.level = pInventory.player.level;
 
@@ -52,10 +55,10 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         ItemStack copyStack = sourceStack.copy();
 
         if (pIndex < 36) {
-            if (!moveItemStackTo(sourceStack, 36, 36 + blockEntitySlots, false)) {
+            if (!moveItemStackTo(sourceStack, 36, 36 + inputSlots, false)) {
                 return ItemStack.EMPTY;
             }
-        } else if (pIndex < 36 + blockEntitySlots) {
+        } else if (pIndex < 36 + inputSlots) {
             if (!moveItemStackTo(sourceStack, 0, 36, false))  {
                 return ItemStack.EMPTY;
             }
@@ -72,6 +75,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
         return copyStack;
     }
 
+    @SuppressWarnings("SameParameterValue")
     protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pXOrigin, int pYOrigin) {
         addSlots(pSlotType, pContainer, 1, 1, 0, 1, pXOrigin, pYOrigin);
     }

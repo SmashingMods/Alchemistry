@@ -13,6 +13,7 @@ import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
+
 import java.util.Objects;
 
 public class CompactorMenu extends AbstractAlchemistryMenu {
@@ -22,7 +23,7 @@ public class CompactorMenu extends AbstractAlchemistryMenu {
     }
 
     protected CompactorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.COMPACTOR_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 3);
+        super(MenuRegistry.COMPACTOR_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2);
 
         CompactorBlockEntity blockEntity = (CompactorBlockEntity) pBlockEntity;
         CustomItemStackHandler inputHandler = blockEntity.getInputHandler();

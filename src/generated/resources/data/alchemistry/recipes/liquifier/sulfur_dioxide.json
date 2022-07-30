@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:sulfur_dioxide_source",
+    "fluid": "chemlib:sulfur_dioxide_fluid",
     "amount": "500"
   }
 }

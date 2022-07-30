@@ -22,7 +22,7 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
     }
 
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 0);
+        super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 0, 1);
         AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
         CustomItemStackHandler outputHandler = blockEntity.getItemHandler();
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 98, 35);

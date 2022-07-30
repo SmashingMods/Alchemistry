@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:acetylene_source",
+    "fluid": "chemlib:acetylene_fluid",
     "amount": "500"
   }
 }

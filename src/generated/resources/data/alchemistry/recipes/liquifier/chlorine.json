@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:chlorine_source",
+    "fluid": "chemlib:chlorine_fluid",
     "amount": "500"
   }
 }

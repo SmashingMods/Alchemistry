@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:propane_source",
+    "fluid": "chemlib:propane_fluid",
     "amount": "500"
   },
   "result": {

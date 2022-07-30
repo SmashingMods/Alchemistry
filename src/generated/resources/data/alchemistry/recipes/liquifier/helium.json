@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:helium_source",
+    "fluid": "chemlib:helium_fluid",
     "amount": "500"
   }
 }

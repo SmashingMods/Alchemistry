@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:radon_source",
+    "fluid": "chemlib:radon_fluid",
     "amount": "500"
   }
 }

@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:neon_source",
+    "fluid": "chemlib:neon_fluid",
     "amount": "500"
   },
   "result": {

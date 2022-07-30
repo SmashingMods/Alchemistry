@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:bromine_source",
+    "fluid": "chemlib:bromine_fluid",
     "amount": "500"
   }
 }

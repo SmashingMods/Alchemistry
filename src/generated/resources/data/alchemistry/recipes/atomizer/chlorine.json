@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:chlorine_source",
+    "fluid": "chemlib:chlorine_fluid",
     "amount": "500"
   },
   "result": {

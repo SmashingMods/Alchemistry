@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:argon_source",
+    "fluid": "chemlib:argon_fluid",
     "amount": "500"
   }
 }

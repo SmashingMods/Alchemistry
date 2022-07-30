@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:pentane_source",
+    "fluid": "chemlib:pentane_fluid",
     "amount": "500"
   }
 }

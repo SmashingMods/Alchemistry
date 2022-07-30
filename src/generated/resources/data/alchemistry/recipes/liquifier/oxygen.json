@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:oxygen_source",
+    "fluid": "chemlib:oxygen_fluid",
     "amount": "500"
   }
 }

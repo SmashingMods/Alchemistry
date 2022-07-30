@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:nitrogen_source",
+    "fluid": "chemlib:nitrogen_fluid",
     "amount": "500"
   }
 }

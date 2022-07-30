@@ -25,7 +25,7 @@ public class FusionControllerMenu extends AbstractAlchemistryMenu {
     }
 
     protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2);
+        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2, 1);
         this.containerData = pContainerData;
 
         FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) pBlockEntity;

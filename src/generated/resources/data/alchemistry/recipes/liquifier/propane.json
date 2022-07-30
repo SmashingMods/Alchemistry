@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:propane_source",
+    "fluid": "chemlib:propane_fluid",
     "amount": "500"
   }
 }

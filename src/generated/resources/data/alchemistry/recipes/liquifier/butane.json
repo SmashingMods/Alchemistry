@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:butane_source",
+    "fluid": "chemlib:butane_fluid",
     "amount": "500"
   }
 }

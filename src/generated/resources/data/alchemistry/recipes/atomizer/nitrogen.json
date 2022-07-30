@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:nitrogen_source",
+    "fluid": "chemlib:nitrogen_fluid",
     "amount": "500"
   },
   "result": {

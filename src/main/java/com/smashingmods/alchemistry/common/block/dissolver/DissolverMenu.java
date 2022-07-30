@@ -25,7 +25,7 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
     }
 
     protected DissolverMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
+        super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1, 10);
 
         this.containerData = pContainerData;
         DissolverBlockEntity blockEntity = (DissolverBlockEntity) pBlockEntity;

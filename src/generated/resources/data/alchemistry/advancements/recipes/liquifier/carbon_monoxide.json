@@ -8,7 +8,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "alchemistry:liquifier/carbon_monoxide_source"
+        "recipe": "alchemistry:liquifier/carbon_monoxide_fluid"
       }
     }
   },

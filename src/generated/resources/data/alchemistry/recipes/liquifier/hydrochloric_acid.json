@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:hydrochloric_acid_source",
+    "fluid": "chemlib:hydrochloric_acid_fluid",
     "amount": "500"
   }
 }

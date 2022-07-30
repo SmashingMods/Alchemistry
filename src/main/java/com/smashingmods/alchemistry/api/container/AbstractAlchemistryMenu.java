@@ -20,12 +20,14 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
     private final Level level;
     private final ContainerData containerData;
     private final int inputSlots;
+    private final int outputSlots;
 
-    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData, int pInputSlots) {
+    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData, int pInputSlots, int pOutputSlots) {
         super(pMenuType, pContainerId);
 
         this.containerData = pContainerData;
         this.inputSlots = pInputSlots;
+        this.outputSlots = pOutputSlots;
         this.blockEntity = ((AbstractProcessingBlockEntity) pBlockEntity);
         this.level = pInventory.player.level;
 
@@ -46,6 +48,7 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
 
     @Override
     public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+        int blockEntitySlots = inputSlots + outputSlots;
         Slot sourceSlot = slots.get(pIndex);
         if (!sourceSlot.hasItem()) {
             return ItemStack.EMPTY;
@@ -60,6 +63,10 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
             }
         } else if (pIndex < 36 + inputSlots) {
             if (!moveItemStackTo(sourceStack, 0, 36, false))  {
+                return ItemStack.EMPTY;
+            }
+        } else if (pIndex >= 36 + inputSlots && pIndex < 36 + blockEntitySlots) {
+            if (!moveItemStackTo(sourceStack, 0, 36, true)) {
                 return ItemStack.EMPTY;
             }
         } else {

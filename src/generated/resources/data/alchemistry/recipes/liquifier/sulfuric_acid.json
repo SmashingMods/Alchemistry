@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:sulfuric_acid_source",
+    "fluid": "chemlib:sulfuric_acid_fluid",
     "amount": "500"
   }
 }

@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:nitric_oxide_source",
+    "fluid": "chemlib:nitric_oxide_fluid",
     "amount": "500"
   }
 }

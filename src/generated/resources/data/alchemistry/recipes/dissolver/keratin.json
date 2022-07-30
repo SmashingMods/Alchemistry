@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "chemlib:keratin"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:protein",
+            "count": 2
+          },
+          {
+            "item": "chemlib:starch",
+            "count": 2
+          },
+          {
+            "item": "chemlib:sulfur_dioxide",
+            "count": 5
+          }
+        ]
+      }
+    ]
+  }
+}

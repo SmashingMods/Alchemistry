@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:carbon_disulfide_source",
+    "fluid": "chemlib:carbon_disulfide_fluid",
     "amount": "500"
   }
 }

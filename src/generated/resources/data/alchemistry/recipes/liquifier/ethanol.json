@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:ethanol_source",
+    "fluid": "chemlib:ethanol_fluid",
     "amount": "500"
   }
 }

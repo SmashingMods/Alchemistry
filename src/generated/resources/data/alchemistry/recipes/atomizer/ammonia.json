@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:ammonia_source",
+    "fluid": "chemlib:ammonia_fluid",
     "amount": "500"
   },
   "result": {

@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:krypton_source",
+    "fluid": "chemlib:krypton_fluid",
     "amount": "500"
   },
   "result": {

@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:ammonium_source",
+    "fluid": "chemlib:ammonium_fluid",
     "amount": "500"
   }
 }

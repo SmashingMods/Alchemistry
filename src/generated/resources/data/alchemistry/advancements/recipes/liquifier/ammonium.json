@@ -8,7 +8,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "alchemistry:liquifier/ammonium_source"
+        "recipe": "alchemistry:liquifier/ammonium_fluid"
       }
     }
   },

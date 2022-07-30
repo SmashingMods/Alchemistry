@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:carbon_dioxide_source",
+    "fluid": "chemlib:carbon_dioxide_fluid",
     "amount": "500"
   },
   "result": {

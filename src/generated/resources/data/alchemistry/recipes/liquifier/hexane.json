@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:hexane_source",
+    "fluid": "chemlib:hexane_fluid",
     "amount": "500"
   }
 }

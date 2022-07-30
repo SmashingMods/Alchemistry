@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:hydrogen_sulfide_source",
+    "fluid": "chemlib:hydrogen_sulfide_fluid",
     "amount": "500"
   }
 }

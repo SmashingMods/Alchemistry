@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:sulfur_dioxide_source",
+    "fluid": "chemlib:sulfur_dioxide_fluid",
     "amount": "500"
   },
   "result": {

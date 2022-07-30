@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:xenon_source",
+    "fluid": "chemlib:xenon_fluid",
     "amount": "500"
   }
 }

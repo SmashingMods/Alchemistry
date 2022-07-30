@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
+
 import java.util.Objects;
 
 public class LiquifierMenu extends AbstractAlchemistryMenu {
@@ -21,7 +22,7 @@ public class LiquifierMenu extends AbstractAlchemistryMenu {
     }
 
     protected LiquifierMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.LIQUIFIER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
+        super(MenuRegistry.LIQUIFIER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1, 0);
         LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) pBlockEntity;
         CustomItemStackHandler inputHandler = blockEntity.getItemHandler();
         addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 62, 35);

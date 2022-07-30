@@ -23,7 +23,7 @@ public class CompactorMenu extends AbstractAlchemistryMenu {
     }
 
     protected CompactorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.COMPACTOR_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2);
+        super(MenuRegistry.COMPACTOR_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2, 1);
 
         CompactorBlockEntity blockEntity = (CompactorBlockEntity) pBlockEntity;
         CustomItemStackHandler inputHandler = blockEntity.getInputHandler();

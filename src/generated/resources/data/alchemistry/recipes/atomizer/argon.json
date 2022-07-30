@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:argon_source",
+    "fluid": "chemlib:argon_fluid",
     "amount": "500"
   },
   "result": {

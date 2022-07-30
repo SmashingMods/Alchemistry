@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:nitric_oxide_source",
+    "fluid": "chemlib:nitric_oxide_fluid",
     "amount": "500"
   },
   "result": {

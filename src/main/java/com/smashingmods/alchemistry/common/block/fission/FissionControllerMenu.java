@@ -25,7 +25,7 @@ public class FissionControllerMenu extends AbstractAlchemistryMenu {
     }
 
     protected FissionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.FISSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1);
+        super(MenuRegistry.FISSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 1, 2);
         this.containerData = pContainerData;
 
         FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) pBlockEntity;

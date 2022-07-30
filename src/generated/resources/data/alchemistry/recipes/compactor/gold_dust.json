@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:gold",
+    "count": 16
+  },
+  "result": {
+    "item": "chemlib:gold_dust"
+  }
+}

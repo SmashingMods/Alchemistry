@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:sulfur_trioxide_source",
+    "fluid": "chemlib:sulfur_trioxide_fluid",
     "amount": "500"
   }
 }

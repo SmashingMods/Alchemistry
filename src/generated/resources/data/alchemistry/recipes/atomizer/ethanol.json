@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:ethanol_source",
+    "fluid": "chemlib:ethanol_fluid",
     "amount": "500"
   },
   "result": {

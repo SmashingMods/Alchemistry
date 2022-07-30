@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:sulfur_trioxide_source",
+    "fluid": "chemlib:sulfur_trioxide_fluid",
     "amount": "500"
   },
   "result": {

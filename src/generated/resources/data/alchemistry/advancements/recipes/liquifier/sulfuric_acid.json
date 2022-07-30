@@ -8,7 +8,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "alchemistry:liquifier/sulfuric_acid_source"
+        "recipe": "alchemistry:liquifier/sulfuric_acid_fluid"
       }
     }
   },

@@ -6,7 +6,7 @@
     "count": 8
   },
   "result": {
-    "fluid": "chemlib:carbon_dioxide_source",
+    "fluid": "chemlib:carbon_dioxide_fluid",
     "amount": "500"
   }
 }

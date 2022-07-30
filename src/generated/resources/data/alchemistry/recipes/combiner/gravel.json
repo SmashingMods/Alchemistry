@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon_dioxide"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gravel"
+  }
+}

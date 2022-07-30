@@ -16,24 +16,15 @@
             "count": 6
           },
           {
-            "item": "chemlib:calcium",
-            "count": 2
+            "item": "chemlib:mullite",
+            "count": 3
           },
           {
-            "item": "chemlib:aluminum",
-            "count": 6
+            "item": "minecraft:air"
           },
           {
             "item": "chemlib:silicon",
-            "count": 6
-          },
-          {
-            "item": "chemlib:oxygen",
-            "count": 24
-          },
-          {
-            "item": "chemlib:sulfur",
-            "count": 2
+            "count": 3
           }
         ]
       }

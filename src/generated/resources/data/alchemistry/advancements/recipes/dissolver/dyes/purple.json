@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "forge:dyes/purple"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forge:dyes/purple"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

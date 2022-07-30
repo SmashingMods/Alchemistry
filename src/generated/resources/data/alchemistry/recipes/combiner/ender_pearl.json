@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon",
+      "count": 16
+    },
+    {
+      "item": "chemlib:mercury",
+      "count": 16
+    },
+    {
+      "item": "chemlib:neodymium",
+      "count": 16
+    }
+  ],
+  "result": {
+    "item": "minecraft:ender_pearl"
+  }
+}

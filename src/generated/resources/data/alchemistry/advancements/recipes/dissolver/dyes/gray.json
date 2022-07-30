@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "forge:dyes/gray"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forge:dyes/gray"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

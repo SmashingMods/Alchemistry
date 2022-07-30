@@ -1,0 +1,53 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:end_stone"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "chemlib:mercury"
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "chemlib:neodymium"
+          }
+        ]
+      },
+      {
+        "probability": 250.0,
+        "results": [
+          {
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "chemlib:lithium"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:thorium"
+          }
+        ]
+      }
+    ]
+  }
+}

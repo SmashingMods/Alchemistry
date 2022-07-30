@@ -12,7 +12,7 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:protein"
+            "item": "minecraft:air"
           },
           {
             "item": "chemlib:triglyceride"

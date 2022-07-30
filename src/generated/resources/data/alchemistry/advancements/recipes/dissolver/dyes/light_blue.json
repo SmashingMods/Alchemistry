@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "forge:dyes/light_blue"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forge:dyes/light_blue"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

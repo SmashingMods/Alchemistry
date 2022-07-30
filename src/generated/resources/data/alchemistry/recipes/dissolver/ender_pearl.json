@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:deepslate_lapis_ore"
+    "item": "minecraft:ender_pearl"
   },
   "output": {
     "rolls": 1,
@@ -12,19 +12,16 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:sodium",
-            "count": 24
-          },
-          {
-            "item": "chemlib:mullite",
-            "count": 12
-          },
-          {
-            "item": "minecraft:air"
-          },
-          {
             "item": "chemlib:silicon",
-            "count": 12
+            "count": 16
+          },
+          {
+            "item": "chemlib:mercury",
+            "count": 16
+          },
+          {
+            "item": "chemlib:neodymium",
+            "count": 16
           }
         ]
       }

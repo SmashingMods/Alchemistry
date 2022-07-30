@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:calcium_carbonate"
+    }
+  ],
+  "result": {
+    "item": "minecraft:calcite"
+  }
+}

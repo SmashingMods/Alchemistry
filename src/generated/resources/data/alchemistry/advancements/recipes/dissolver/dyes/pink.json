@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "forge:dyes/pink"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "forge:dyes/pink"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

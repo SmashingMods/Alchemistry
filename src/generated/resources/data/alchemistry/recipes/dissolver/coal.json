@@ -2,20 +2,18 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "minecraft:carpets"
+    "item": "minecraft:coal"
   },
   "output": {
     "rolls": 1,
     "weighted": false,
     "groups": [
       {
-        "probability": 66.66666666666666,
+        "probability": 100.0,
         "results": [
           {
-            "item": "minecraft:air"
-          },
-          {
-            "item": "chemlib:triglyceride"
+            "item": "chemlib:graphite",
+            "count": 2
           }
         ]
       }

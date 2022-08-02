@@ -9,14 +9,44 @@
       "name": "Fusion Multiblock",
       "multiblock": {
         "pattern": [
-          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC"],
-          ["CGGGC", "G   G", "G F G", "G   G", "CGGGC"],
-          ["CGGGC", "G   G", "G F G", "G   G", "CGGGC"],
-          ["CGGGC", "G   G", "G F G", "G   G", "CG0GC"],
-          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CIEOC"]
+          [
+            "CCCCC",
+            "CCCCC",
+            "CCCCC",
+            "CCCCC",
+            "CCCCC"
+          ],
+          [
+            "CGGGC",
+            "G   G",
+            "G F G",
+            "G   G",
+            "CGGGC"
+          ],
+          [
+            "CGGGC",
+            "G   G",
+            "G F G",
+            "G   G",
+            "CGGGC"
+          ],
+          [
+            "CGGGC",
+            "G   G",
+            "G F X",
+            "G   G",
+            "CGGGC"
+          ],
+          [
+            "CCCCC",
+            "CCCCI",
+            "CC0CE",
+            "CCCCO",
+            "CCCCC"
+          ]
         ],
         "mapping": {
-          "0": "alchemistry:fusion_chamber_controller[facing=east]",
+          "X": "alchemistry:fusion_chamber_controller[facing=south]",
           "F": "alchemistry:fusion_core",
           "E": "alchemistry:reactor_energy",
           "I": "alchemistry:reactor_input",

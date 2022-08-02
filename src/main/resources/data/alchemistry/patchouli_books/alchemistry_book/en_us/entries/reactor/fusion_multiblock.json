@@ -1,0 +1,40 @@
+{
+  "name": "Fusion Multiblock",
+  "icon": "alchemistry:reactor_casing",
+  "category": "alchemistry:reactor_category",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Fusion Multiblock",
+      "multiblock": {
+        "pattern": [
+          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC"],
+          ["CGGGC", "G   G", "G F G", "G   G", "CGGGC"],
+          ["CGGGC", "G   G", "G F G", "G   G", "CGGGC"],
+          ["CGGGC", "G   G", "G F G", "G   G", "CG0GC"],
+          ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CIEOC"]
+        ],
+        "mapping": {
+          "0": "alchemistry:fusion_chamber_controller[facing=east]",
+          "F": "alchemistry:fusion_core",
+          "E": "alchemistry:reactor_energy",
+          "I": "alchemistry:reactor_input",
+          "O": "alchemistry:reactor_output",
+          "C": "alchemistry:reactor_casing",
+          "G": "alchemistry:reactor_glass"
+        }
+      }
+    },
+    {
+      "type": "text",
+      "title": "Required Blocks",
+      "text": " 1x Fusion Chamber Controller $(br) 3x Fusion Core $(br) 1x Reactor Energy Input $(br) 1x Reactor Item Input $(br) 1x Reactor Item Output $(br) 62x Reactor Casing $(br) 36x Reactor Glass"
+    },
+    {
+      "type": "text",
+      "title": "Optional Blocks",
+      "text": "Reactor energy input and item input/output blocks can be placed anywhere that requires a reactor casing but not anywhere there is reactor glass.$(br2)Reactor glass is optional. Anywhere that requires reactor glass can be replaced with reactor casing. Make it look however you want."
+    }
+  ]
+}

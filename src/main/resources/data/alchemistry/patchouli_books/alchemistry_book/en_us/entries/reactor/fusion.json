@@ -1,0 +1,22 @@
+{
+  "name": "Fusion Overview",
+  "icon": "alchemistry:fusion_chamber_controller",
+  "category": "alchemistry:reactor_category",
+  "sortnum": 3,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Fusion Reactor allows you to fuse two elements together to create new elements. The output will be decided by the sum of the atomic number of the two inputs. See JEI for recipes.$(br2)$(o)From Professor Warren's notes: Fusion requires the use of a star, and some elements only found in the depths of the Nether. Using these to make a few changes to the Fission Reactor components gives me a more powerful reactor, capable of fusing two elements into one with the sum of their atomic numbers. With careful applications of fission and fusion, I can now turn literally any element into any other one."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fusion_chamber_controller",
+      "text": "The fusion chamber core controls the process of smashing elements together. It takes power and can have an item input and output."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fusion_core",
+      "text": "The place where two becomes one; in the reactor core and surrounding air. Items are placed inside the core and slammed together at high speeds to merge smaller elements into bigger ones for your other experiments."
+    }
+  ]
+}

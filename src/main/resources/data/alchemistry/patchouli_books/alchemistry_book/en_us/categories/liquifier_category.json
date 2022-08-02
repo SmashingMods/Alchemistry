@@ -1,5 +1,6 @@
 {
   "name": "Liquifier",
-  "description": "An overview of the Liquifier block",
-  "icon": "alchemistry:liquifier"
+  "description": "An excerpt from the Alchemistry Labs Catalog:$(br)Naturally, you may want to turn that H₂O back into something you can use to water your garden. No fear! Our Liquifier does the trick! Just make sure that what you think is H₂O isn't H₂SO₄!",
+  "icon": "alchemistry:liquifier",
+  "sortnum": 6
 }

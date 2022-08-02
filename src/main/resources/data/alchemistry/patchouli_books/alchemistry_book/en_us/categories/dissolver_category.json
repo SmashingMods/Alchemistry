@@ -1,0 +1,6 @@
+{
+  "name": "Chemical Dissolver",
+  "description": "An excerpt from the Alchemistry Labs Catalog:$(br)We've all been there. You come back from a mining expedition and have a ton of useless cobblestone, or your survivalist farm of beetroot is now just taking up room. Have no fear! By throwing these items into our Chemical Dissolver, you can extract useful elements from them! Turn those beets into iron! Find gold in that cobblestone, and sometimes even rarer things!",
+  "icon": "alchemistry:dissolver",
+  "sortnum": 3
+}

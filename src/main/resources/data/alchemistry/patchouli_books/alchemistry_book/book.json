@@ -1,5 +1,8 @@
 {
-  "name": "guide.alchemistry.title",
-  "landing_text": "guide.alchemistry.landing",
+  "name": "alchemistry.patchouli.book_name",
+  "landing_text": "alchemistry.patchouli.landing_text",
+  "book_texture": "patchouli:textures/gui/book_blue.png",
+  "model": "patchouli:book_blue",
+  "show_progress": false,
   "version": 1
 }

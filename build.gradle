@@ -35,6 +35,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 alchemistry {
@@ -47,6 +49,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             mods {
                 alchemistry {
@@ -59,6 +63,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             args '--mod', "$archivesBaseName", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
 
@@ -72,19 +78,24 @@ minecraft {
 }
 
 repositories {
-    maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url "https://www.cursemaven.com" }
+    maven { url "https://dvs1.progwml6.com/files/maven/" }
+    maven { url 'https://maven.blamejared.com' }
     mavenLocal()
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
     implementation fg.deobf("curse.maven:chemlib-${chemlib_pid}:${chemlib_fid}")
+
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}")
+
     runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
-    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
-    runtimeOnly fg.deobf("curse.maven:pipez-443900:3819249")
 }
 
 jar {

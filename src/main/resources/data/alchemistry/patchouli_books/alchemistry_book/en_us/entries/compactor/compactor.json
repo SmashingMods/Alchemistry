@@ -1,0 +1,15 @@
+{
+  "name": "Chemical Compactor",
+  "icon": "alchemistry:compactor",
+  "category": "alchemistry:compactor_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The compactor is a powered machine that will allow you to form simple items by compacting their components.$(br2)$(o)From Professor Warren's notes: The simplest form of atomic manipulation is assembling one element or compound into a more convenient form: dusts, and so forth. More pistons, and everything just squeezes together."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:compactor"
+    }
+  ]
+}

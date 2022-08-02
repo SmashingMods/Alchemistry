@@ -65,7 +65,7 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.jei.dissolver.rolls", "Rolls");
         add("alchemistry.jei.elements.description", "All elements (except Hydrogen) can be created with the Fusion Chamber multiblock.\\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers.\"");
 
-        add("guide.alchemistry.landing", "Welcome to the Alchemistry Guidebook. This book will introduce you to some of the basics of the mod.");
-        add("guide.alchemistry.title", "Alchemistry Guidebook");
+        add("alchemistry.patchouli.book_name", "Alchemistry Labs Catalogue");
+        add("alchemistry.patchouli.landing_text", "Looking to smash some atoms together? This catalogue will outline the machines you can manufacture in your progression through Alchemistry.");
     }
 }

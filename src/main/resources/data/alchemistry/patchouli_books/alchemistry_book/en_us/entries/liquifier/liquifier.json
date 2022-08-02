@@ -1,0 +1,15 @@
+{
+  "name": "Element Liquifier",
+  "icon": "alchemistry:liquifier",
+  "category": "alchemistry:liquifier_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Liquifier is a powered machine that can be used convert elements and compounds into their fluid equivalents.$(br2)$(o)From Professor Warren's notes: Of course, every process must be reversible. The right amount of pressure can be used to force the atomic phials back into liquid form by compression against iron."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:liquifier"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Chemical Compactor",
+  "description": "An excerpt from the Alchemistry Labs Catalog:$(br)So, you've broken down materials with the Chemical Dissolver. The next thing to do is put them back together! No one can spend a test tube after all. The Compactor can squeeze the silcon dioxide from cobble and stone into more attractive granite, or that gold you found into easily smelted dust. Shiny!",
+  "icon": "alchemistry:compactor",
+  "sortnum": 4
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Fluid Atomizer",
+  "icon": "alchemistry:atomizer",
+  "category": "alchemistry:atomizer_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Atomizer is a powered machine that is used to convert fluids into their equivalent Alchemistry elements or compounds.$(br)$(o)From Professor Warren's notes: Liquids are the simplest things to break down. The mere use of pistons to force them out of cauldrons turns them into easily stored atomic phials."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:atomizer"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Fission Overview",
+  "icon": "alchemistry:fission_chamber_controller",
+  "category": "alchemistry:reactor_category",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Fission Reactor allows you to split apart the very fabric that holds elements together. All elements except for Hydrogen can be split with the fission multiblock. See JEI for recipes.$(br2)$(o)From Professor Warren's notes: The rods dropped from the volatile blazes have inspired me to make a new machine.$()$(br2)The Fission Reactor is a 5x5x5 cubic structure, featuring a ceiling, floor and corner pillars of reactor casings. There are three fission core blocks in the center. The walls are filled in reactor casing or reactor glass. The chamber is entirely inert however without the fission chamber controller, energy input, and item input/output blocks."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fission_chamber_controller",
+      "text": "While not the core, the chamber controller is the heart of the fission reactor. This machine controls everything that happens in the core. It takes power and can have an item input and output."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:fission_core",
+      "text": "The core and the surrounding air around it are where fission takes place. Items are placed inside the core and then the atom is split which leaves behind elements to use in your experiments."
+    }
+  ]
+}

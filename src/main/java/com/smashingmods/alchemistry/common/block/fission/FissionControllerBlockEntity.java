@@ -65,7 +65,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
                 setPowerState(PowerState.ON);
                 processRecipe();
             } else {
-                if (getEnergyHandler().getEnergyStored() > Config.Common.fusionEnergyPerTick.get()) {
+                if (getEnergyHandler().getEnergyStored() > Config.Common.fissionEnergyPerTick.get()) {
                     setPowerState(PowerState.STANDBY);
                 } else {
                     setPowerState(PowerState.OFF);

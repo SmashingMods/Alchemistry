@@ -1,5 +1,6 @@
 {
   "name": "Atomizer",
-  "description": "An overview of the Atomizer block",
-  "icon": "alchemistry:atomizer"
+  "icon": "alchemistry:atomizer",
+  "description": "An excerpt from the Alchemistry Labs Catalog:$(br)Tired of having to mop up laboratory spills?  It's a mess, and never mind the biohazard problems!  Our Atomizer will turn that bucket of water into convenient phials of H₂O!",
+  "sortnum": 5
 }

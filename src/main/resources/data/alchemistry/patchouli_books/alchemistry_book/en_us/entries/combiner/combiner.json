@@ -1,0 +1,16 @@
+{
+  "name": "Chemical Combiner",
+  "icon": "alchemistry:combiner",
+  "category": "alchemistry:combiner_category",
+  "pages": [
+    {
+      "type": "text",
+      "text": "The Chemical Combiner is a powered machine, perhaps the most important machine of all in Alchemistry. It allows you to combine elements, compounds, and occasionally other items to form new items. The combiner takes up to 4 input items similar to a 2x2 crafting grid, but unlike a crafting grid it allows each input slot to contain more than one item per craft.$(br2)$(o)From Professor Warren's notes: The Compactor is all well and good, but rather simplistic.  I'm interested in what I can do with these components. With the focusing power of a diamond and the resistance of obsidian, I can use a piston to force these components into more complex items."
+    },
+    {
+      "type": "crafting",
+      "recipe": "alchemistry:combiner",
+      "text": "While the combiner is very powerful, it's also easy to use. To get started, choose the item you want to craft in the combiner screen or use JEI to transfer the recipe."
+    }
+  ]
+}

@@ -29,6 +29,8 @@
   "alchemistry.jei.fission_controller": "Fission Controller",
   "alchemistry.jei.fusion_controller": "Fusion Controller",
   "alchemistry.jei.liquifier": "Liquifier",
+  "alchemistry.patchouli.book_name": "Alchemistry Labs Catalogue",
+  "alchemistry.patchouli.landing_text": "Looking to smash some atoms together? This catalogue will outline the machines you can manufacture in your progression through Alchemistry.",
   "block.alchemistry.atomizer": "Atomizer",
   "block.alchemistry.combiner": "Combiner",
   "block.alchemistry.compactor": "Compactor",
@@ -43,8 +45,6 @@
   "block.alchemistry.reactor_glass": "Reactor Glass",
   "block.alchemistry.reactor_input": "Reactor Input",
   "block.alchemistry.reactor_output": "Reactor Output",
-  "guide.alchemistry.landing": "Welcome to the Alchemistry Guidebook. This book will introduce you to some of the basics of the mod.",
-  "guide.alchemistry.title": "Alchemistry Guidebook",
   "itemGroup.alchemistry": "Alchemistry",
   "tooltip.alchemistry.energy_requirement": "Requires %d FE/t",
   "tooltip.alchemistry.requires": "Requires"

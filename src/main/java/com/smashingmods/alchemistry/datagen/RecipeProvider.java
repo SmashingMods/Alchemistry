@@ -53,6 +53,20 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
                 .save(pConsumer);
 
+        Item liquifier = BlockRegistry.LIQUIFIER.get().asItem();
+        ShapedRecipeBuilder.shaped(liquifier)
+                .group("machines")
+                .define('I', Items.IRON_INGOT)
+                .define('P', Items.PISTON)
+                .define('R', Items.REDSTONE)
+                .define('S', Items.STONE_PRESSURE_PLATE)
+                .define('C', Items.CAULDRON)
+                .pattern("IPI")
+                .pattern("SRS")
+                .pattern("ICI")
+                .unlockedBy("has_item", inventoryTrigger(ItemPredicate.Builder.item().of(Items.IRON_INGOT).build()))
+                .save(pConsumer);
+
         Item combiner = BlockRegistry.COMBINER.get().asItem();
         ShapedRecipeBuilder.shaped(combiner)
                 .group("machines")

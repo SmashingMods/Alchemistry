@@ -1,0 +1,43 @@
+{
+  "name": "Reactors: An Overview",
+  "icon": "alchemistry:reactor_casing",
+  "category": "alchemistry:reactor_category",
+  "sortnum": 0,
+  "priority": true,
+  "pages": [
+    {
+      "type": "text",
+      "text": "The fission and fusion reactors are an integral part of manipulating matter to form elements for whatever you need to create. They are complex multiblock machines with a lot of requirements to get started.$(br2)Every reactor will need a number of these blocks:$(li)Reactor Casing$(li)Reactor Glass$(li)Reactor Controller$(li)Reactor Core$(li)Energy Input$(li)Item Input$(li)Item Output"
+    },
+    {
+      "type": "crafting",
+      "title": "Reactor Casing",
+      "recipe": "alchemistry:reactor_casing",
+      "text": "Reactor Casing makes up the majority of the reactor's structure. The casing has the strength to hold up against the pressure of splitting and merging elements. You will need a lot of these to make a single reactor."
+    },
+    {
+      "type": "spotlight",
+      "title": "Reactor Glass",
+      "item": "alchemistry:reactor_glass",
+      "text": "Reactor glass allows you to view inside of your reactor. It's lead lined, which will hopefully keep the radiation at bay -- maybe. These are made in the combiner, check JEI for the recipe."
+    },
+    {
+      "type": "crafting",
+      "title": "Reactor Energy",
+      "recipe": "alchemistry:reactor_energy",
+      "text": "Your reactors need power -- a $(bold)lot$() of power. This block can be connected to energy cables that are hopefully up to the challenge."
+    },
+    {
+      "type": "crafting",
+      "title": "Reactor Input",
+      "recipe": "alchemistry:reactor_input",
+      "text": "You can place your elements into the reactor by hand, but what's the fun in that? Automate your reactors by hooking them up to your item pipes."
+    },
+    {
+      "type": "crafting",
+      "title": "Reactor Output",
+      "recipe": "alchemistry:reactor_output",
+      "text": "Basically the same as the reactor input but in reverse."
+    }
+  ]
+}

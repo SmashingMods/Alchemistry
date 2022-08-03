@@ -91,10 +91,10 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         font.drawShadow(pPoseStack, String.format("%s: %s", typeString, weighted ? relativeString : absoluteString), 0, 0, 0xFFFFFFFF);
         font.drawShadow(pPoseStack, String.format("%s: %s", rollsString, rolls), 0, 24, 0xFFFFFFFF);
 
-        int xOrigin = 45;
+        int xOrigin = 43;
         int yOrigin = 52;
 
-        for (int row = 0; row < probabilities.size() / 2; row++) {
+        for (int row = 0; row <= probabilities.size() / 2; row++) {
             for (int column = 0; column < 2; column++) {
                 int index = column + row * 2;
                 int x = xOrigin + column * 52;
@@ -126,7 +126,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                 .toList();
 
         items.forEach(itemStack -> {
-            for (int row = 0; row < items.size() / 2; row++) {
+            for (int row = 0; row <= items.size() / 2; row++) {
                 for (int column = 0; column < 2; column++) {
                     int itemIndex = column + row * 2;
                     int x = xOrigin + column * 52;

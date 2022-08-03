@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
-import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.datagen.recipe.atomizer.AtomizerRecipeProvider;
+import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
@@ -9,14 +8,15 @@ import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CompactorRecipeProvider {
 
@@ -36,73 +36,93 @@ public class CompactorRecipeProvider {
         for (ElementItem element : ItemRegistry.getElements()) {
             if (element.getMetalType().equals(MetalType.METAL) && !element.isArtificial()) {
                 Optional<ChemicalItem> output = ItemRegistry.getChemicalItemByNameAndType(element.getChemicalName(), ChemicalItemType.DUST);
-                output.ifPresent(chemicalItem -> compactor(new ItemStack(element, 16), new ItemStack(chemicalItem)));
+                output.ifPresent(chemicalItem -> compactor(new ItemStack(element, 16), chemicalItem));
             }
         }
 
         // logs
-        List<ItemStack> logs = Arrays.asList(Items.OAK_LOG, Items.SPRUCE_LOG, Items.BIRCH_LOG, Items.JUNGLE_LOG, Items.DARK_OAK_LOG, Items.ACACIA_LOG).stream().map(ItemStack::new).collect(Collectors.toList());
-        ItemStack cellulose = new ItemStack(ItemRegistry.getCompoundByName("cellulose").get());
-        for (ItemStack log : logs) {
-            compactor(cellulose, log);
-        }
-        compactor(cellulose, new ItemStack(Items.BAMBOO));
+        List<Item> logs = Stream.of(Items.OAK_LOG, Items.SPRUCE_LOG, Items.BIRCH_LOG, Items.JUNGLE_LOG, Items.DARK_OAK_LOG, Items.ACACIA_LOG).toList();
+        ItemRegistry.getCompoundByName("cellulose").ifPresent(cellulose -> {
+            for (Item log : logs) {
+                compactor(cellulose, log);
+            }
+            compactor(cellulose, Items.BAMBOO);
+        });
         
         // stones
-        List<ItemStack> silicates = Arrays.asList(Items.GRAVEL, Items.COBBLESTONE, Items.STONE, Items.GRANITE, Items.DIORITE, Items.ANDESITE).stream().map(ItemStack::new).collect(Collectors.toList());
-        Item siliconDioxide = ItemRegistry.getCompoundByName("silicon_dioxide").get();
-        for (ItemStack silicate : silicates) {
-            compactor(new ItemStack(siliconDioxide), silicate);
-        }
-        compactor(new ItemStack(siliconDioxide, 4), new ItemStack(Items.SAND));
-        compactor(new ItemStack(siliconDioxide, 3), new ItemStack(Items.FLINT));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("kaolinite").get()), new ItemStack(Items.CLAY_BALL));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("kaolinite").get(), 4), new ItemStack(Items.CLAY));
+        ItemRegistry.getCompoundByName("silicon_dioxide").ifPresent(siliconDioxide -> {
+            List<Item> silicates = Stream.of(Items.GRAVEL, Items.COBBLESTONE, Items.STONE, Items.GRANITE, Items.DIORITE, Items.ANDESITE).toList();
+            for (Item silicate : silicates) {
+                compactor(siliconDioxide, silicate);
+            }
+            compactor(new ItemStack(siliconDioxide, 4), Items.SAND);
+            compactor(new ItemStack(siliconDioxide, 3), Items.FLINT);
+        });
+
+        ItemRegistry.getCompoundByName("kaolinite").ifPresent(kaolinite -> {
+            compactor(kaolinite, Items.CLAY_BALL);
+            compactor(new ItemStack(kaolinite, 4), Items.CLAY);
+        });
 
         // dyes
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("mercury_sulfide").get(), 4), new ItemStack(Items.RED_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("arsenic_sulfide").get(), 4), new ItemStack(Items.PINK_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("nickel_chloride").get(), 4), new ItemStack(Items.GREEN_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("chromium_oxide").get(), 4), new ItemStack(Items.LIME_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("potassium_permanganate").get(), 4), new ItemStack(Items.PURPLE_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("lead_iodide").get(), 4), new ItemStack(Items.YELLOW_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("potassium_dichromate").get(), 4), new ItemStack(Items.ORANGE_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("titanium_oxide").get(), 4), new ItemStack(Items.BLACK_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("barium_sulfate").get(), 4), new ItemStack(Items.GRAY_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("han_purple").get(), 4), new ItemStack(Items.MAGENTA_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("cobalt_aluminate").get(), 4), new ItemStack(Items.LIGHT_BLUE_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("magnesium_sulfate").get(), 4), new ItemStack(Items.LIGHT_GRAY_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("copper_chloride").get(), 4), new ItemStack(Items.CYAN_DYE));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("hydroxylapatite").get(), 2), new ItemStack(Items.BONE_MEAL, 3));
-        
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("sucrose").get()), new ItemStack(Items.SUGAR));
-        Item graphite = ItemRegistry.getCompoundByName("graphite").get();
-        compactor(new ItemStack(ItemRegistry.getElementByName("carbon").get(), 4), new ItemStack(graphite));
-        compactor(new ItemStack(graphite, 2), new ItemStack(Items.COAL));
-        compactor(new ItemStack(graphite, 2), new ItemStack(Items.CHARCOAL));
-        compactor(new ItemStack(ItemRegistry.getElementByName("phosphorus").get(), 4), new ItemStack(Items.GLOWSTONE_DUST));
-        compactor(new ItemStack(ItemRegistry.getElementByName("phosphorus").get(), 16), new ItemStack(Items.GLOWSTONE));
+        ItemRegistry.getCompoundByName("mercury_sulfide").ifPresent(mercurySulfide -> compactor(new ItemStack(mercurySulfide, 4), Items.RED_DYE));
+        ItemRegistry.getCompoundByName("arsenic_sulfide").ifPresent(arsenicSulfide -> compactor(new ItemStack(arsenicSulfide, 4), Items.PINK_DYE));
+        ItemRegistry.getCompoundByName("nickel_chloride").ifPresent(nickelChloride -> compactor(new ItemStack(nickelChloride, 4), Items.GREEN_DYE));
+        ItemRegistry.getCompoundByName("chromium_oxide").ifPresent(chromiumOxide -> compactor(new ItemStack(chromiumOxide, 4), Items.LIME_DYE));
+        ItemRegistry.getCompoundByName("potassium_permanganate").ifPresent(potassiumPermanganate -> compactor(new ItemStack(potassiumPermanganate, 4), Items.PURPLE_DYE));
+        ItemRegistry.getCompoundByName("lead_iodide").ifPresent(leadIodide -> compactor(new ItemStack(leadIodide, 4), Items.YELLOW_DYE));
+        ItemRegistry.getCompoundByName("potassium_dichromate").ifPresent(potassiumDichromate -> compactor(new ItemStack(potassiumDichromate, 4), Items.ORANGE_DYE));
+        ItemRegistry.getCompoundByName("titanium_oxide").ifPresent(titaniumOxide -> compactor(new ItemStack(titaniumOxide, 4), Items.BLACK_DYE));
+        ItemRegistry.getCompoundByName("barium_sulfate").ifPresent(bariumSulfate -> compactor(new ItemStack(bariumSulfate, 4), Items.GRAY_DYE));
+        ItemRegistry.getCompoundByName("han_purple").ifPresent(hanPurple -> compactor(new ItemStack(hanPurple, 4), Items.MAGENTA_DYE));
+        ItemRegistry.getCompoundByName("cobalt_aluminate").ifPresent(cobaltAluminate -> compactor(new ItemStack(cobaltAluminate, 4), Items.LIGHT_BLUE_DYE));
+        ItemRegistry.getCompoundByName("magnesium_sulfate").ifPresent(magnesiumSulfate -> compactor(new ItemStack(magnesiumSulfate, 4), Items.LIGHT_GRAY_DYE));
+        ItemRegistry.getCompoundByName("copper_chloride").ifPresent(copperChloride -> compactor(new ItemStack(copperChloride, 4), Items.CYAN_DYE));
+        ItemRegistry.getCompoundByName("hydroxylapatite").ifPresent(hydroxlapatite -> compactor(new ItemStack(hydroxlapatite, 2), new ItemStack(Items.BONE_MEAL, 3)));
 
-        Item water = ItemRegistry.getCompoundByName("water").get();
-        compactor(new ItemStack(water, 4), new ItemStack(Items.SNOWBALL));
-        compactor(new ItemStack(water, 16), new ItemStack(Items.SNOW));
-        compactor(new ItemStack(water, 16), new ItemStack(Items.ICE));
+        ItemRegistry.getCompoundByName("sucrose").ifPresent(sucrose -> compactor(sucrose, Items.SUGAR));
 
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 3), new ItemStack(Items.LEATHER));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 3), new ItemStack(Items.ROTTEN_FLESH));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 2), new ItemStack(Items.FEATHER));
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("protein").get(), 1), new ItemStack(Items.STRING, 2));
+        ItemRegistry.getCompoundByName("graphite").ifPresent(graphite -> {
+            ItemRegistry.getElementByName("carbon").ifPresent(carbon -> compactor(new ItemStack(carbon, 4), new ItemStack(graphite)));
+            compactor(new ItemStack(graphite, 2), new ItemStack(Items.COAL));
+            compactor(new ItemStack(graphite, 2), new ItemStack(Items.CHARCOAL));
+        });
+
+        ItemRegistry.getCompoundByName("phosphorus").ifPresent(phosphorus -> {
+            compactor(new ItemStack(phosphorus, 4), new ItemStack(Items.GLOWSTONE_DUST));
+            compactor(new ItemStack(phosphorus, 16), new ItemStack(Items.GLOWSTONE));
+        });
+
+        ItemRegistry.getCompoundByName("water").ifPresent(water -> {
+            compactor(new ItemStack(water, 4), Items.SNOWBALL);
+            compactor(new ItemStack(water, 16), Items.SNOW);
+            compactor(new ItemStack(water, 16), Items.ICE);
+        });
+
+        ItemRegistry.getCompoundByName("protein").ifPresent(protein -> {
+            compactor(new ItemStack(protein, 3), Items.LEATHER);
+            compactor(new ItemStack(protein, 3), Items.ROTTEN_FLESH);
+            compactor(new ItemStack(protein, 2), Items.FEATHER);
+            compactor(protein, new ItemStack(Items.STRING, 2));
+        });
+    }
+
+    public void compactor(ItemLike pInput, ItemStack pResult) {
+        compactor(new ItemStack(pInput), pResult);
+    }
+
+    public void compactor(ItemLike pInput, ItemLike pResult) {
+        compactor(new ItemStack(pInput), new ItemStack(pResult));
+    }
+
+    public void compactor(ItemStack pInput, ItemLike pResult) {
+        compactor(pInput, new ItemStack(pResult));
     }
 
     public void compactor(ItemStack pInput, ItemStack pResult) {
         CompactorRecipeBuilder.createRecipe(pInput, pResult)
                 .group("compactor")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pResult)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pResult, "compactor")))
                 .save(consumer);
-    }
-
-    private ResourceLocation getLocation(ItemStack pItemStack) {
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        return new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", pItemStack.getItem().getRegistryName().getPath()));
     }
 }

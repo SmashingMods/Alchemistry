@@ -1,14 +1,13 @@
 package com.smashingmods.alchemistry.datagen.recipe.fusion;
 
-import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class FusionRecipeProvider {
@@ -44,12 +43,7 @@ public class FusionRecipeProvider {
     private void fusion(ElementItem pInput1, ElementItem pInput2, ElementItem pOutput) {
         FusionRecipeBuilder.createRecipe(pInput1, pInput2, pOutput)
                 .group("fusion")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "fusion")))
                 .save(consumer);
-    }
-
-    private ResourceLocation getLocation(Item pItem) {
-        Objects.requireNonNull(pItem.getRegistryName());
-        return new ResourceLocation(Alchemistry.MODID, String.format("fusion/%s", pItem.getRegistryName().getPath()));
     }
 }

@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
+import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
@@ -26,7 +27,7 @@ import java.util.function.Consumer;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
-import static com.smashingmods.alchemistry.datagen.recipe.StackUtils.toStack;
+import static com.smashingmods.alchemistry.datagen.recipe.RecipeUtils.toStack;
 
 public class DissolverRecipeProvider {
 
@@ -573,14 +574,12 @@ public class DissolverRecipeProvider {
                 .addGroup(1, toStack("polonium", 1))
                 .build());
 
-
         // End
         newArrayList(Items.CHORUS_FLOWER, Items.CHORUS_FRUIT, Items.CHORUS_PLANT, Items.POPPED_CHORUS_FRUIT).forEach(item ->
                 dissolver(item, createSet()
                         .addGroup(100, toStack("cellulose"))
                         .addGroup(50, toStack("lutetium"))
                         .build()));
-
 
         newArrayList(Items.PURPUR_BLOCK, Items.PURPUR_PILLAR).forEach(item ->
                 dissolver(item, createSet()
@@ -592,6 +591,7 @@ public class DissolverRecipeProvider {
                 .addGroup(100, toStack("silicon_dioxide", 2))
                 .addGroup(25, toStack("lutetium"))
                 .build());
+
         for (Item item : newArrayList(Items.END_STONE, Items.END_STONE_BRICKS)) {
             dissolver(item, createSet().weighted()
                     .addGroup(50, toStack("mercury"))
@@ -617,7 +617,6 @@ public class DissolverRecipeProvider {
                     toStack("mercury", 16),
                     toStack("neodymium", 16))
                 .build(), true);
-
 
         // Dyes
         dissolver("forge:dyes/white", createSet().addGroup(100, toStack("hydroxylapatite")).build());
@@ -650,7 +649,6 @@ public class DissolverRecipeProvider {
                         toStack("sucrose", 2))
                 .build(), true);
         dissolver(Items.SLIME_BLOCK, createSet().addGroup(100,toStack("protein", 9*2), toStack("sucrose", 9*2)).build(), true);
-
         dissolver(Items.COBWEB, createSet().addGroup(100, toStack("protein", 2)).build(), true);
 
         for (Item item : newArrayList(Items.TALL_GRASS, Items.SEAGRASS, Items.GRASS, Items.DEAD_BUSH)) {
@@ -684,15 +682,10 @@ public class DissolverRecipeProvider {
                         .build(), true);
 
         dissolver(Items.IRON_HORSE_ARMOR, createSet().addGroup(100, toStack("iron", 64)).build());
-
         dissolver(Items.GOLDEN_HORSE_ARMOR, createSet().addGroup(100, toStack("gold", 64)).build());
-
         dissolver(Items.DIAMOND_HORSE_ARMOR, createSet().addGroup(100, toStack("graphite", 64 * 8)).build());
-
         dissolver(Items.ANVIL, createSet().addGroup(100, toStack("iron", (144 * 3) + (16 * 4))).build());
-
         dissolver(Items.IRON_DOOR, createSet().addGroup(100, toStack("iron", 32)).build());
-
         dissolver(Items.IRON_TRAPDOOR, createSet().addGroup(100, toStack("iron", 64)).build());
 
         for (Item item : newArrayList(Items.SNOW_BLOCK, Items.ICE)) {
@@ -722,8 +715,7 @@ public class DissolverRecipeProvider {
         dissolver(Items.LILY_PAD, createSet().addGroup(25, toStack("cellulose", 1)).build(), true);
 
         for (Item item : newArrayList(Items.PUMPKIN, Items.CARVED_PUMPKIN)) {
-            dissolver(item, createSet()
-                    .addGroup(50, toStack("cucurbitacin", 1)).build());
+            dissolver(item, createSet().addGroup(50, toStack("cucurbitacin", 1)).build());
         }
 
         dissolver(Items.BROWN_MUSHROOM, createSet().addGroup(100,
@@ -772,7 +764,7 @@ public class DissolverRecipeProvider {
         dissolver(Items.WEEPING_VINES, createSet().addGroup(100,
                 toStack("cellulose"),
                 toStack("mercury_sulfide"))
-    .build(), true);
+        .build(), true);
 
         for (Item item : newArrayList(Items.SOUL_SAND, Items.SOUL_SOIL)) {
             dissolver(item, createSet().addGroup(100,
@@ -992,13 +984,9 @@ public class DissolverRecipeProvider {
         .build(), true);
 
         dissolver(Items.LEATHER, createSet().addGroup(100, toStack("protein", 3)).build(), true);
-
         dissolver(Items.ROTTEN_FLESH, createSet().addGroup(100, toStack("protein", 3)).build());
-
         dissolver(Items.FEATHER, createSet().addGroup(100, toStack("protein", 2)).build(), true);
-
         dissolver(Items.BONE_MEAL, createSet().addGroup(50, toStack("hydroxylapatite")).build(), true);
-
         dissolver(Items.BONE_BLOCK, createSet().rolls(9).addGroup(50, toStack("hydroxylapatite")).build());
 
         dissolver(Items.EGG, createSet().addGroup(100,
@@ -1014,7 +1002,6 @@ public class DissolverRecipeProvider {
         .build(), true);
 
         dissolver(Items.SKELETON_SKULL, createSet().addGroup(100, toStack("hydroxylapatite", 8)).build(), true);
-
         dissolver(Items.BELL, createSet().addGroup(100, toStack("gold", 64)).build());
 
         dissolver(Items.SHROOMLIGHT, createSet().addGroup(100, toStack("phosphorus", 16),
@@ -1068,15 +1055,10 @@ public class DissolverRecipeProvider {
         .build());
 
         dissolver(Items.GHAST_TEAR, createSet().addGroup(100, toStack("polonium", 16)).build(), true);
-
         dissolver(Items.NAUTILUS_SHELL, createSet().addGroup(100, toStack("calcium_carbonate", 16)).build());
-
         dissolver(Items.PHANTOM_MEMBRANE, createSet().addGroup(100, toStack("cerium", 8)).build(), true);
-
         dissolver(Items.SWEET_BERRIES, createSet().addGroup(100, toStack("cellulose"), toStack("sucrose")).build(), true);
-
         dissolver(Items.CHAIN, createSet().addGroup(100, toStack("iron", 18)).build());
-
         dissolver(Items.INK_SAC, createSet().addGroup(100, toStack("titanium_oxide", 4)).build());
 
         ItemRegistry.getElements().stream()
@@ -1119,7 +1101,7 @@ public class DissolverRecipeProvider {
             if (items.size() <= 4) {
                 CombinerRecipeBuilder.createRecipe(output, items)
                         .group(Alchemistry.MODID + ":combiner")
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(output)))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(output, "combiner")))
                         .save(consumer);
             }
         }
@@ -1129,10 +1111,5 @@ public class DissolverRecipeProvider {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
         Ingredient ingredient = Ingredient.of(tagKey);
         dissolver(ingredient, pSet, new ResourceLocation(pItemTag));
-    }
-
-    private ResourceLocation getLocation(ItemStack itemStack) {
-        Objects.requireNonNull(itemStack.getItem().getRegistryName());
-        return new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", itemStack.getItem().getRegistryName().getPath()));
     }
 }

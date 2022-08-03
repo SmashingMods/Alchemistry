@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
-import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -12,13 +12,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public class DissolverRecipeBuilder implements RecipeBuilder {
 
     private String group;
-    private ResourceLocation recipeId;
+    private final ResourceLocation recipeId;
     private final Ingredient input;
     private final ProbabilitySet result;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();

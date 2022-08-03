@@ -6,6 +6,7 @@ import com.smashingmods.alchemistry.client.jei.network.*;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerScreen;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerScreen;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorScreen;
+import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
@@ -50,7 +51,8 @@ public class JEIPlugin implements IModPlugin {
         pRegistration.addRecipeClickArea(AtomizerScreen.class, 58, 39, 30, 9, RecipeTypes.ATOMIZER);
         pRegistration.addRecipeClickArea(CombinerScreen.class, 64, 84, 30, 9, RecipeTypes.COMBINER);
         pRegistration.addRecipeClickArea(CompactorScreen.class, 74, 39, 30, 9, RecipeTypes.COMPACTOR);
-        pRegistration.addRecipeClickArea(FissionControllerScreen.class, 58, 39, 30, 9, RecipeTypes.FISSION);
+        pRegistration.addRecipeClickArea(DissolverScreen.class, 88, 33, 9, 30, RecipeTypes.DISSOLVER);
+        pRegistration.addRecipeClickArea(FissionControllerScreen.class, 74, 39, 30, 9, RecipeTypes.FISSION);
         pRegistration.addRecipeClickArea(FusionControllerScreen.class, 91, 39, 30, 9, RecipeTypes.FUSION);
         pRegistration.addRecipeClickArea(LiquifierScreen.class, 90, 39, 30, 9, RecipeTypes.LIQUIFIER);
     }

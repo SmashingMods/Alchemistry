@@ -30,48 +30,63 @@ public class CombinerRecipeProvider {
     private void register() {
 
         // Reactor Glass
-        combiner(new ItemStack(BlockRegistry.REACTOR_GLASS.get().asItem()), Lists.newArrayList(toStack("silicon_dioxide"), toStack("lead_oxide")));
+        combiner(new ItemStack(BlockRegistry.REACTOR_GLASS.get().asItem()), Lists.newArrayList(
+                toStack("silicon_dioxide"),
+                toStack("lead_oxide")));
 
         // saplings
-        combiner(new ItemStack(Items.OAK_SAPLING), Lists.newArrayList(toStack("oxygen"),
+        combiner(new ItemStack(Items.OAK_SAPLING), Lists.newArrayList(
+                toStack("oxygen"),
                 toStack("cellulose", 2)));
 
-        combiner(new ItemStack(Items.SPRUCE_SAPLING), Lists.newArrayList(toStack("oxygen"),
+        combiner(new ItemStack(Items.SPRUCE_SAPLING), Lists.newArrayList(
+                toStack("oxygen"),
                 toStack("cellulose", 2)));
 
-        combiner(new ItemStack(Items.JUNGLE_SAPLING), Lists.newArrayList(toStack("oxygen"),
+        combiner(new ItemStack(Items.JUNGLE_SAPLING), Lists.newArrayList(
+                toStack("oxygen"),
                 toStack("cellulose", 2)));
 
-        combiner(new ItemStack(Items.ACACIA_SAPLING), Lists.newArrayList(toStack("oxygen"),
+        combiner(new ItemStack(Items.ACACIA_SAPLING), Lists.newArrayList(
+                toStack("oxygen"),
                 toStack("cellulose", 2)));
 
-        combiner(new ItemStack(Items.DARK_OAK_SAPLING), Lists.newArrayList(toStack("oxygen"),
+        combiner(new ItemStack(Items.DARK_OAK_SAPLING), Lists.newArrayList(
+                toStack("oxygen"),
                 toStack("cellulose", 2)));
 
-        combiner(new ItemStack(Items.BIRCH_SAPLING), Lists.newArrayList(toStack("oxygen"),
+        combiner(new ItemStack(Items.BIRCH_SAPLING), Lists.newArrayList(
+                toStack("oxygen"),
                 toStack("cellulose", 2)));
 
         // food
-        combiner(new ItemStack(Items.CARROT), Lists.newArrayList(toStack("cellulose"),
+        combiner(new ItemStack(Items.CARROT), Lists.newArrayList(
+                toStack("cellulose"),
                 toStack("beta_carotene")));
 
-        combiner(new ItemStack(Items.POTATO), Lists.newArrayList(toStack("starch"),
+        combiner(new ItemStack(Items.POTATO), Lists.newArrayList(
+                toStack("starch"),
                 toStack("potassium", 4)));
 
-        combiner(new ItemStack(Items.WHEAT_SEEDS), Lists.newArrayList(toStack("triglyceride"),
+        combiner(new ItemStack(Items.WHEAT_SEEDS), Lists.newArrayList(
+                toStack("triglyceride"),
                 toStack("sucrose")));
 
-        combiner(new ItemStack(Items.PUMPKIN_SEEDS), Lists.newArrayList(toStack("triglyceride"),
+        combiner(new ItemStack(Items.PUMPKIN_SEEDS), Lists.newArrayList(
+                toStack("triglyceride"),
                 toStack("sucrose")));
 
-        combiner(new ItemStack(Items.MELON_SEEDS), Lists.newArrayList(toStack("triglyceride"),
+        combiner(new ItemStack(Items.MELON_SEEDS), Lists.newArrayList(
+                toStack("triglyceride"),
                 toStack("sucrose")));
 
-        combiner(new ItemStack(Items.BEETROOT_SEEDS), Lists.newArrayList(toStack("triglyceride"),
+        combiner(new ItemStack(Items.BEETROOT_SEEDS), Lists.newArrayList(
+                toStack("triglyceride"),
                 toStack("sucrose"),
                 toStack("iron_oxide")));
 
-        combiner(new ItemStack(Items.BEETROOT), Lists.newArrayList(toStack("sucrose"),
+        combiner(new ItemStack(Items.BEETROOT), Lists.newArrayList(
+                toStack("sucrose"),
                 toStack("iron_oxide")));
 
         // mob drops
@@ -107,16 +122,18 @@ public class CombinerRecipeProvider {
                 toStack("cellulose"),
                 toStack("kaolinite")));
 
-        combiner(new ItemStack(Items.GRASS_BLOCK), Lists.newArrayList(toStack("water"),
+        combiner(new ItemStack(Items.GRASS_BLOCK), Lists.newArrayList(
+                toStack("water"),
                 toStack("cellulose"),
                 toStack("kaolinite")));
 
-        combiner(new ItemStack(Items.MYCELIUM), Lists.newArrayList(toStack("psilocybin"),
+        combiner(new ItemStack(Items.MYCELIUM), Lists.newArrayList(
                 toStack("water"),
                 toStack("chitin"),
                 toStack("kaolinite")));
 
-        combiner(new ItemStack(Items.WATER_BUCKET), Lists.newArrayList(toStack("water", 16),
+        combiner(new ItemStack(Items.WATER_BUCKET), Lists.newArrayList(
+                toStack("water", 16),
                 new ItemStack(Items.BUCKET)));
 
         combiner(new ItemStack(Items.MILK_BUCKET), Lists.newArrayList(
@@ -125,12 +142,19 @@ public class CombinerRecipeProvider {
                 toStack("water", 16),
                 new ItemStack(Items.BUCKET)));
 
-        combiner(new ItemStack(Items.REDSTONE_BLOCK), Lists.newArrayList(toStack("iron_oxide", 9),
+        combiner(new ItemStack(Items.REDSTONE_BLOCK), Lists.newArrayList(
+                toStack("iron_oxide", 9),
                 toStack("strontium_carbonate", 9)));
 
-        combiner(new ItemStack(Items.REDSTONE), Lists.newArrayList(toStack("iron_oxide"), toStack("strontium_carbonate")));
+        combiner(new ItemStack(Items.REDSTONE), Lists.newArrayList(
+                toStack("iron_oxide"),
+                toStack("strontium_carbonate")));
 
-        combiner(new ItemStack(Items.PACKED_ICE), Lists.newArrayList(toStack("water", 36), toStack("water", 36), toStack("water", 36), toStack("water", 36)));
+        combiner(new ItemStack(Items.PACKED_ICE), Lists.newArrayList(
+                toStack("water", 36),
+                toStack("water", 36),
+                toStack("water", 36),
+                toStack("water", 36)));
     }
 
     private void combiner(ItemStack pOutput, List<ItemStack> pInput) {

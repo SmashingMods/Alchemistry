@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:glow_lichen"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      }
+    ]
+  }
+}

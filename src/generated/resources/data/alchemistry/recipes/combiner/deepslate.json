@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon_dioxide"
+    },
+    {
+      "item": "chemlib:aluminum"
+    },
+    {
+      "item": "chemlib:iron"
+    }
+  ],
+  "result": {
+    "item": "minecraft:deepslate"
+  }
+}

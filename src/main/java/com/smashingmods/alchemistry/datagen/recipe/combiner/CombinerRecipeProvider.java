@@ -60,6 +60,8 @@ public class CombinerRecipeProvider {
 
         // misc, everything else
         combiner(Items.DIRT, Lists.newArrayList(toStack("water"), toStack("cellulose"), toStack("kaolinite")));
+        combiner(Items.DEEPSLATE, Lists.newArrayList(toStack("silicon_dioxide", 1), toStack("aluminum", 1), toStack("iron", 1)));
+        combiner(Items.BASALT, Lists.newArrayList(toStack("silicon_dioxide", 1), toStack("aluminum_oxide", 1)));
         combiner(Items.GRASS_BLOCK, Lists.newArrayList(toStack("water"), toStack("cellulose"), toStack("kaolinite")));
         combiner(Items.MYCELIUM, Lists.newArrayList(toStack("psilocybin"), toStack("water"), toStack("chitin"), toStack("kaolinite")));
         combiner(Items.WATER_BUCKET, Lists.newArrayList(toStack("water", 16), new ItemStack(Items.BUCKET)));

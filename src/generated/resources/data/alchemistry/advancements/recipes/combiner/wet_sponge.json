@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "alchemistry:wet_sponge"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/wet_sponge"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

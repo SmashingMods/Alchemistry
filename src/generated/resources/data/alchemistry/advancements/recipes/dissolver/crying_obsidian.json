@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "minecraft:crying_obsidian"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:crying_obsidian"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

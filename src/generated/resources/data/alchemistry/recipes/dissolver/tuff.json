@@ -1,0 +1,53 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:tuff"
+  },
+  "output": {
+    "rolls": 2,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:magnesium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:potassium_chloride"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:aluminum_oxide"
+          }
+        ]
+      }
+    ]
+  }
+}

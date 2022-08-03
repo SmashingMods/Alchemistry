@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cellulose"
+    },
+    {
+      "item": "chemlib:sucrose"
+    },
+    {
+      "item": "minecraft:air"
+    }
+  ],
+  "result": {
+    "item": "minecraft:glow_berries"
+  }
+}

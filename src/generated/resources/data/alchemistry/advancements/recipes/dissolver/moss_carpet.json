@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "minecraft:moss_carpet"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:moss_carpet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

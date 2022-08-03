@@ -18,6 +18,9 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
+
 public class CompactorRecipeProvider {
 
     private final Consumer<FinishedRecipe> consumer;
@@ -47,6 +50,8 @@ public class CompactorRecipeProvider {
                 compactor(cellulose, log);
             }
             compactor(cellulose, Items.BAMBOO);
+            compactor(cellulose, new ItemStack(Items.PAPER));
+            compactor(cellulose, new ItemStack(Items.LILY_PAD));
         });
         
         // stones
@@ -58,6 +63,8 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(siliconDioxide, 4), Items.SAND);
             compactor(new ItemStack(siliconDioxide, 3), Items.FLINT);
         });
+        compactor(new ItemStack(ItemRegistry.getCompoundByName("calcium_carbonate").get()), new ItemStack(Items.CALCITE));
+        ItemRegistry.getCompoundByName("calcium_carbonate").ifPresent(carbonate -> compactor(carbonate, Items.POINTED_DRIPSTONE));
 
         ItemRegistry.getCompoundByName("kaolinite").ifPresent(kaolinite -> {
             compactor(kaolinite, Items.CLAY_BALL);
@@ -79,8 +86,10 @@ public class CompactorRecipeProvider {
         ItemRegistry.getCompoundByName("magnesium_sulfate").ifPresent(magnesiumSulfate -> compactor(new ItemStack(magnesiumSulfate, 4), Items.LIGHT_GRAY_DYE));
         ItemRegistry.getCompoundByName("copper_chloride").ifPresent(copperChloride -> compactor(new ItemStack(copperChloride, 4), Items.CYAN_DYE));
         ItemRegistry.getCompoundByName("hydroxylapatite").ifPresent(hydroxlapatite -> compactor(new ItemStack(hydroxlapatite, 2), new ItemStack(Items.BONE_MEAL, 3)));
+        ItemRegistry.getCompoundByName("hydroxylapatite").ifPresent(hydroxlapatite -> compactor(new ItemStack(hydroxlapatite, 6), Items.BONE_BLOCK));
 
         ItemRegistry.getCompoundByName("sucrose").ifPresent(sucrose -> compactor(sucrose, Items.SUGAR));
+        ItemRegistry.getCompoundByName("sucrose").ifPresent(sucrose -> compactor(sucrose, Items.SUGAR_CANE));
 
         ItemRegistry.getCompoundByName("graphite").ifPresent(graphite -> {
             ItemRegistry.getElementByName("carbon").ifPresent(carbon -> compactor(new ItemStack(carbon, 4), new ItemStack(graphite)));
@@ -102,8 +111,14 @@ public class CompactorRecipeProvider {
         ItemRegistry.getCompoundByName("protein").ifPresent(protein -> {
             compactor(new ItemStack(protein, 3), Items.LEATHER);
             compactor(new ItemStack(protein, 3), Items.ROTTEN_FLESH);
-            compactor(new ItemStack(protein, 2), Items.FEATHER);
-            compactor(protein, new ItemStack(Items.STRING, 2));
+            for (Item item : newArrayList(Items.BEEF, Items.PORKCHOP, Items.MUTTON, Items.CHICKEN, Items.RABBIT)) {
+                compactor(new ItemStack(protein, 4), new ItemStack(item));
+            }
+        });
+
+        ItemRegistry.getCompoundByName("keratin").ifPresent(keratin -> {
+            compactor(new ItemStack(keratin, 2), Items.FEATHER);
+            compactor(keratin, new ItemStack(Items.STRING, 2));
         });
     }
 

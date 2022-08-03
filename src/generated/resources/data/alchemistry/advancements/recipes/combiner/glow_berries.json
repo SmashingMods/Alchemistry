@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "alchemistry:glow_berries"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/glow_berries"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

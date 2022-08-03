@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "minecraft:glow_ink_sac"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:glow_ink_sac"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

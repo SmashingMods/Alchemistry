@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:netherite_block"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:tungsten",
+            "count": 576
+          },
+          {
+            "item": "chemlib:carbon",
+            "count": 576
+          },
+          {
+            "item": "chemlib:gold",
+            "count": 576
+          }
+        ]
+      }
+    ]
+  }
+}

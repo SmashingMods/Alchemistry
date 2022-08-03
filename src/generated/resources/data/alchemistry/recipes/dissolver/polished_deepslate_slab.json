@@ -41,6 +41,14 @@
         ]
       },
       {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:aluminum"
+          }
+        ]
+      },
+      {
         "probability": 20.0,
         "results": [
           {

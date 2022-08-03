@@ -2,7 +2,7 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:protein"
+    "item": "chemlib:keratin"
   },
   "result": {
     "item": "minecraft:string",

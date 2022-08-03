@@ -1,0 +1,11 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "item": "chemlib:hydroxylapatite",
+    "count": 6
+  },
+  "result": {
+    "item": "minecraft:bone_block"
+  }
+}

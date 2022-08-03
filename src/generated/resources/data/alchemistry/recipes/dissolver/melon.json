@@ -5,11 +5,11 @@
     "item": "minecraft:melon"
   },
   "output": {
-    "rolls": 1,
+    "rolls": 9,
     "weighted": false,
     "groups": [
       {
-        "probability": 50.0,
+        "probability": 15.0,
         "results": [
           {
             "item": "chemlib:cucurbitacin"
@@ -17,7 +17,7 @@
         ]
       },
       {
-        "probability": 100.0,
+        "probability": 30.0,
         "results": [
           {
             "item": "chemlib:water",

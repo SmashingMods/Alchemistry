@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:dead_bush"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
+          }
+        ]
+      }
+    ]
+  }
+}

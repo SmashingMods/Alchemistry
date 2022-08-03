@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "tag": "minecraft:music_discs"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:polyvinyl_chloride",
+            "count": 64
+          },
+          {
+            "item": "chemlib:lead",
+            "count": 16
+          },
+          {
+            "item": "chemlib:cadmium",
+            "count": 16
+          }
+        ]
+      }
+    ]
+  }
+}

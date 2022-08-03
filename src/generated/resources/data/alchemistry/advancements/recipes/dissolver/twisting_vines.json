@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "minecraft:twisting_vines"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:twisting_vines"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:wither_skeleton_skull"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:hydroxylapatite",
+            "count": 8
+          },
+          {
+            "item": "chemlib:mendelevium",
+            "count": 32
+          }
+        ]
+      }
+    ]
+  }
+}

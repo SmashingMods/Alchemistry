@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:beryl",
+      "count": 4
+    },
+    {
+      "item": "chemlib:niobium",
+      "count": 3
+    },
+    {
+      "item": "chemlib:selenium"
+    }
+  ],
+  "result": {
+    "item": "minecraft:prismarine_shard"
+  }
+}

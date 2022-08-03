@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon_dioxide",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "minecraft:flint"
+  }
+}

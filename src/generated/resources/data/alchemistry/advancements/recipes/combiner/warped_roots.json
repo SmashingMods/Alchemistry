@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "alchemistry:warped_roots"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/warped_roots"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:protein",
+      "count": 2
+    },
+    {
+      "item": "chemlib:keratin"
+    }
+  ],
+  "result": {
+    "item": "minecraft:rabbit_foot"
+  }
+}

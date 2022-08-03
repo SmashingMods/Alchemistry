@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cerium",
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "minecraft:phantom_membrane"
+  }
+}

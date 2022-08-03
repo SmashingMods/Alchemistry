@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:dead_horn_coral_fan"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:calcium_carbonate",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

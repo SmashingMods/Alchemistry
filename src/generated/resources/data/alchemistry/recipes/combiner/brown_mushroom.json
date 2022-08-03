@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:phosphoric_acid"
+    },
+    {
+      "item": "chemlib:chitin"
+    }
+  ],
+  "result": {
+    "item": "minecraft:brown_mushroom"
+  }
+}

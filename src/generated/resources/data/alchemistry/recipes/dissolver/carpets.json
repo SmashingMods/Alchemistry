@@ -12,7 +12,8 @@
         "probability": 66.66666666666666,
         "results": [
           {
-            "item": "minecraft:air"
+            "item": "chemlib:keratin",
+            "count": 2
           },
           {
             "item": "chemlib:triglyceride"

@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:light_blue_terracotta"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:kaolinite",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

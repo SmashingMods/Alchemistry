@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:water"
+    },
+    {
+      "item": "chemlib:cellulose"
+    },
+    {
+      "item": "chemlib:kaolinite"
+    }
+  ],
+  "result": {
+    "item": "minecraft:grass_block"
+  }
+}

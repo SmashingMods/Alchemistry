@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:dried_kelp_block"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:sodium_carbonate",
+            "count": 9
+          },
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      }
+    ]
+  }
+}

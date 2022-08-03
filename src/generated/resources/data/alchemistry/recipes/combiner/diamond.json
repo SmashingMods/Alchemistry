@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:graphite",
+      "count": 64
+    },
+    {
+      "item": "chemlib:graphite",
+      "count": 64
+    }
+  ],
+  "result": {
+    "item": "minecraft:diamond"
+  }
+}

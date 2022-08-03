@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "alchemistry:bone"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/bone"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

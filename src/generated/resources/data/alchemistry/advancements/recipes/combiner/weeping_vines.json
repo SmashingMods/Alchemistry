@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "alchemistry:weeping_vines"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/weeping_vines"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

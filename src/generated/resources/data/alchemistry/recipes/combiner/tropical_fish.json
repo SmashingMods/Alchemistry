@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:protein",
+      "count": 4
+    },
+    {
+      "item": "chemlib:selenium",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "minecraft:tropical_fish"
+  }
+}

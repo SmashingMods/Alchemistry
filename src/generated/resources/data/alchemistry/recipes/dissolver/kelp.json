@@ -1,0 +1,38 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:kelp"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 17.0,
+        "results": [
+          {
+            "item": "chemlib:sodium_carbonate",
+            "count": 2
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      }
+    ]
+  }
+}

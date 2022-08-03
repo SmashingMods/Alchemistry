@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:potassium_nitrate",
+      "count": 2
+    },
+    {
+      "item": "chemlib:sulfur",
+      "count": 8
+    },
+    {
+      "item": "chemlib:graphite",
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "minecraft:gunpowder"
+  }
+}

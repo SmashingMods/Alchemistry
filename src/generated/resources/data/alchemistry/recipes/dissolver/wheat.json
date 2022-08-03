@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:wheat"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "chemlib:starch"
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
+          }
+        ]
+      }
+    ]
+  }
+}

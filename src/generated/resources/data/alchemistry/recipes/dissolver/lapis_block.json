@@ -20,7 +20,8 @@
             "count": 27
           },
           {
-            "item": "minecraft:air"
+            "item": "chemlib:calcium_sulfide",
+            "count": 18
           },
           {
             "item": "chemlib:silicon",

@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "minecraft:air"
+    },
+    {
+      "item": "chemlib:water"
+    },
+    {
+      "item": "chemlib:chitin"
+    },
+    {
+      "item": "chemlib:kaolinite"
+    }
+  ],
+  "result": {
+    "item": "minecraft:mycelium"
+  }
+}

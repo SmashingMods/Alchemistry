@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:water",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:snow"
+  }
+}

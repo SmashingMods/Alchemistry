@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cellulose"
+    },
+    {
+      "item": "chemlib:mercury_sulfide"
+    }
+  ],
+  "result": {
+    "item": "minecraft:weeping_vines"
+  }
+}

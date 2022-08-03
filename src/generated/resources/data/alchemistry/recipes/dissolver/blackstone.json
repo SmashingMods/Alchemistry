@@ -1,0 +1,77 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:blackstone"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 49.0,
+        "results": [
+          {
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "chemlib:sodium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:potassium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:titanium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 7.0,
+        "results": [
+          {
+            "item": "chemlib:iron_ii_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 15.0,
+        "results": [
+          {
+            "item": "chemlib:aluminum_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:calcium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:magnesium_oxide"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:shulker_shell"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:calcium_carbonate",
+            "count": 8
+          },
+          {
+            "item": "chemlib:lutetium",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  }
+}

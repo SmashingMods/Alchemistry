@@ -3,7 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:protein"
+      "item": "chemlib:keratin",
+      "count": 2
     },
     {
       "item": "chemlib:triglyceride"

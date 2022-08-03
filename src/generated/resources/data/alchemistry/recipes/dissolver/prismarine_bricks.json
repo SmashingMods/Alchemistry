@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:prismarine_bricks"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:beryl",
+            "count": 36
+          },
+          {
+            "item": "chemlib:niobium",
+            "count": 27
+          },
+          {
+            "item": "chemlib:selenium",
+            "count": 9
+          }
+        ]
+      }
+    ]
+  }
+}

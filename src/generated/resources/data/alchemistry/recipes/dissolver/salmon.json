@@ -1,0 +1,26 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:salmon"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:protein",
+            "count": 4
+          },
+          {
+            "item": "chemlib:selenium",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

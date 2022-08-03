@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:chitin"
+    },
+    {
+      "item": "chemlib:germanium",
+      "count": 4
+    },
+    {
+      "item": "chemlib:selenium",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:nether_wart"
+  }
+}

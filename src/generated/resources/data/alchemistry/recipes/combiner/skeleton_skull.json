@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:hydroxylapatite",
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "minecraft:skeleton_skull"
+  }
+}

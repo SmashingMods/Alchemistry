@@ -1,0 +1,17 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:calcium_carbonate",
+      "count": 8
+    },
+    {
+      "item": "chemlib:lutetium",
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "minecraft:shulker_shell"
+  }
+}

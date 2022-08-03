@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:sucrose"
+    }
+  ],
+  "result": {
+    "item": "minecraft:sugar"
+  }
+}

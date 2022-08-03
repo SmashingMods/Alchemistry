@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:water",
+      "count": 576
+    }
+  ],
+  "result": {
+    "item": "minecraft:blue_ice"
+  }
+}

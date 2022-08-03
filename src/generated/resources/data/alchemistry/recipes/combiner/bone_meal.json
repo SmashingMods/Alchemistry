@@ -3,8 +3,7 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:hydroxylapatite",
-      "count": 2
+      "item": "chemlib:hydroxylapatite"
     }
   ],
   "result": {

@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:crimson_fungus"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:chitin"
+          },
+          {
+            "item": "chemlib:phosphoric_acid"
+          },
+          {
+            "item": "chemlib:selenium"
+          }
+        ]
+      }
+    ]
+  }
+}

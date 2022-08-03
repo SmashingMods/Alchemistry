@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:prismarine_shard"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:beryl",
+            "count": 4
+          },
+          {
+            "item": "chemlib:niobium",
+            "count": 3
+          },
+          {
+            "item": "chemlib:selenium"
+          }
+        ]
+      }
+    ]
+  }
+}

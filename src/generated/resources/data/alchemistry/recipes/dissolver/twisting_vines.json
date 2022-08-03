@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:twisting_vines"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:cellulose"
+          },
+          {
+            "item": "chemlib:copper_chloride"
+          }
+        ]
+      }
+    ]
+  }
+}

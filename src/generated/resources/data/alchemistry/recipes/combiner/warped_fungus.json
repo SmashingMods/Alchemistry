@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:chitin"
+    },
+    {
+      "item": "chemlib:phosphoric_acid"
+    },
+    {
+      "item": "chemlib:mercury"
+    }
+  ],
+  "result": {
+    "item": "minecraft:warped_fungus"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cellulose"
+    },
+    {
+      "item": "chemlib:copper_chloride"
+    }
+  ],
+  "result": {
+    "item": "minecraft:warped_roots"
+  }
+}

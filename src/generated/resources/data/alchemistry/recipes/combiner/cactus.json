@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cellulose"
+    },
+    {
+      "item": "minecraft:air"
+    }
+  ],
+  "result": {
+    "item": "minecraft:cactus"
+  }
+}

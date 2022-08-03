@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:ink_sac"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:titanium_oxide",
+            "count": 4
+          }
+        ]
+      }
+    ]
+  }
+}

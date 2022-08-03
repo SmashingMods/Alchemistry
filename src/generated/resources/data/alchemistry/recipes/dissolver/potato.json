@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:potato"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": true,
+    "groups": [
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:starch"
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "item": "chemlib:potassium",
+            "count": 5
+          }
+        ]
+      }
+    ]
+  }
+}

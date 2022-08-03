@@ -1,0 +1,22 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:diamond_horse_armor"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:graphite",
+            "count": 512
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:sodium",
+      "count": 6
+    },
+    {
+      "item": "chemlib:mullite",
+      "count": 3
+    },
+    {
+      "item": "chemlib:calcium_sulfide",
+      "count": 2
+    },
+    {
+      "item": "chemlib:silicon",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "minecraft:lapis_lazuli"
+  }
+}

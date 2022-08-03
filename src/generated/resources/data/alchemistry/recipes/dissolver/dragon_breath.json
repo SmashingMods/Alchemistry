@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "item": "minecraft:dragon_breath"
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "item": "chemlib:xenon",
+            "count": 8
+          },
+          {
+            "item": "chemlib:radon",
+            "count": 8
+          },
+          {
+            "item": "chemlib:oganesson",
+            "count": 8
+          }
+        ]
+      }
+    ]
+  }
+}

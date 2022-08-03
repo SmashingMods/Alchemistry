@@ -9,7 +9,7 @@
     "weighted": false,
     "groups": [
       {
-        "probability": 1.0,
+        "probability": 100.0,
         "results": [
           {
             "item": "chemlib:hydroxylapatite"

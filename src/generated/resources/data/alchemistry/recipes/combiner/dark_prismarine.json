@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:beryl",
+      "count": 32
+    },
+    {
+      "item": "chemlib:niobium",
+      "count": 24
+    },
+    {
+      "item": "chemlib:selenium",
+      "count": 8
+    },
+    {
+      "item": "minecraft:air"
+    }
+  ],
+  "result": {
+    "item": "minecraft:dark_prismarine"
+  }
+}

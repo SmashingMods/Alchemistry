@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:silicon_dioxide",
+      "count": 4
+    },
+    {
+      "item": "chemlib:phosphorus",
+      "count": 3
+    },
+    {
+      "item": "chemlib:selenium"
+    }
+  ],
+  "result": {
+    "item": "minecraft:prismarine_crystals"
+  }
+}

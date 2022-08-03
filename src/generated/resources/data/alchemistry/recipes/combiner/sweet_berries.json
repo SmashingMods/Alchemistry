@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:cellulose"
+    },
+    {
+      "item": "chemlib:sucrose"
+    }
+  ],
+  "result": {
+    "item": "minecraft:sweet_berries"
+  }
+}

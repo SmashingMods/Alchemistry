@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:polonium",
+      "count": 16
+    }
+  ],
+  "result": {
+    "item": "minecraft:ghast_tear"
+  }
+}

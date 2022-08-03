@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:calcium",
+      "count": 4
+    },
+    {
+      "item": "chemlib:protein",
+      "count": 2
+    },
+    {
+      "item": "chemlib:water",
+      "count": 16
+    },
+    {
+      "item": "minecraft:bucket"
+    }
+  ],
+  "result": {
+    "item": "minecraft:milk_bucket"
+  }
+}

@@ -55,17 +55,8 @@ public class CombinerRecipeProvider {
         combiner(new ItemStack(Items.CARROT), Lists.newArrayList(toStack("cellulose"),
                 toStack("beta_carotene")));
 
-        combiner(new ItemStack(Items.SUGAR_CANE), Lists.newArrayList(toStack("cellulose"),
-                toStack("sucrose")));
-
-        combiner(new ItemStack(Items.EGG), Lists.newArrayList(toStack("calcium_carbonate", 8),
-                toStack("protein", 2)));
-
         combiner(new ItemStack(Items.POTATO), Lists.newArrayList(toStack("starch"),
                 toStack("potassium", 4)));
-
-        combiner(new ItemStack(Items.APPLE), Lists.newArrayList(toStack("cellulose"),
-                toStack("sucrose")));
 
         combiner(new ItemStack(Items.WHEAT_SEEDS), Lists.newArrayList(toStack("triglyceride"),
                 toStack("sucrose")));
@@ -84,89 +75,55 @@ public class CombinerRecipeProvider {
                 toStack("iron_oxide")));
 
         // mob drops
-        combiner(new ItemStack(Items.BONE_MEAL), Lists.newArrayList(toStack("hydroxylapatite", 2)));
-
-        combiner(new ItemStack(Items.LEATHER), Lists.newArrayList(toStack("protein", 3)));
-
-        combiner(new ItemStack(Items.ROTTEN_FLESH), Lists.newArrayList(toStack("protein", 3)));
-        combiner(new ItemStack(Items.SLIME_BALL), Lists.newArrayList(toStack("protein",
-                2), toStack("sucrose", 2)));
-
-        combiner(new ItemStack(Items.STRING), Lists.newArrayList(
-                toStack("protein", 2)));
-
-        combiner(new ItemStack(Items.FEATHER), Lists.newArrayList(
-                toStack("protein", 2)));
-
-        combiner(new ItemStack(Items.SPIDER_EYE), Lists.newArrayList(
-                toStack("beta_carotene", 2),
-                toStack("protein", 2)));
+        combiner(new ItemStack(Items.NETHER_STAR), Lists.newArrayList(
+                toStack("lutetium", 64),
+                toStack("titanium", 64),
+                toStack("dysprosium", 64),
+                toStack("mendelevium", 64)));
 
         combiner(new ItemStack(Items.WHITE_WOOL), Lists.newArrayList(
-                toStack("protein"),
-                toStack("triglyceride")));
-
-//        combiner(new ItemStack(Items.NETHER_STAR), Lists.newArrayList(
-//                toStack("lutetium", 64),
-//                toStack("hydrogen", 64),
-//                toStack("titanium", 64),
-//                toStack("hydrogen", 64),
-//                toStack("hydrogen", 64),
-//                toStack("hydrogen", 64),
-//                toStack("dysprosium", 64),
-//                toStack("hydrogen", 64),
-//                toStack("mendelevium", 64)));
+                toStack("keratin", 2),
+                toStack("triglyceride", 1)));
 
         // gems
-//        combiner(new ItemStack(Items.DIAMOND), Lists.newArrayList(
-//                toStack("carbon", 64),
-//                toStack("carbon", 64),
-//                toStack("carbon", 64),
-//                toStack("carbon", 64),
-//                toStack("carbon", 64),
-//                toStack("carbon", 64),
-//                toStack("carbon", 64),
-//                toStack("carbon", 64)));
+        combiner(new ItemStack(Items.DIAMOND), Lists.newArrayList(
+                toStack("graphite", 64),
+                toStack("graphite", 64)));
 
-//        combiner(new ItemStack(Items.EMERALD), Lists.newArrayList(
-//                toStack("beryl", 8),
-//                toStack("chromium", 8),
-//                toStack("vanadium", 4)));
+        combiner(new ItemStack(Items.EMERALD), Lists.newArrayList(
+                toStack("beryl", 8),
+                toStack("chromium", 8),
+                toStack("vanadium", 4)));
 
-//        combiner(new ItemStack(Items.LAPIS_LAZULI), Lists.newArrayList(
-//                toStack("sodium", 6),
-//                toStack("calcium", 2),
-//                toStack("aluminum", 6),
-//                toStack("silicon", 6),
-//                toStack("oxygen", 24),
-//                toStack("sulfur", 2)));
+        combiner(new ItemStack(Items.LAPIS_LAZULI), Lists.newArrayList(
+                toStack("sodium", 6),
+                toStack("mullite", 3),
+                toStack("calcium_sulfide", 2),
+                toStack("silicon", 3)));
 
-//        combiner(new ItemStack(Items.NETHER_WART), Lists.newArrayList(
-//                toStack("cellulose"),
-//                toStack("germanium", 4),
-//                toStack("selenium", 4)));
 
-//        combiner(new ItemStack(Items.DIRT), Lists.newArrayList(toStack("water"),
-//                toStack("cellulose"),
-//                toStack("kaolinite")));
+        combiner(new ItemStack(Items.DIRT), Lists.newArrayList(
+                toStack("water"),
+                toStack("cellulose"),
+                toStack("kaolinite")));
 
-//        combiner(new ItemStack(Items.GRASS_BLOCK), Lists.newArrayList(toStack("water"),
-//                toStack("cellulose"),
-//                toStack("kaolinite")));
+        combiner(new ItemStack(Items.GRASS_BLOCK), Lists.newArrayList(toStack("water"),
+                toStack("cellulose"),
+                toStack("kaolinite")));
 
-//        combiner(new ItemStack(Items.MYCELIUM), Lists.newArrayList(toStack("psilocybin"),
-//                toStack("water"),
-//                toStack("cellulose"),
-//                toStack("kaolinite")));
+        combiner(new ItemStack(Items.MYCELIUM), Lists.newArrayList(toStack("psilocybin"),
+                toStack("water"),
+                toStack("chitin"),
+                toStack("kaolinite")));
 
         combiner(new ItemStack(Items.WATER_BUCKET), Lists.newArrayList(toStack("water", 16),
                 new ItemStack(Items.BUCKET)));
 
-//        combiner(new ItemStack(Items.MILK_BUCKET), Lists.newArrayList(toStack("calcium", 4),
-//                toStack("protein", 2),
-//                toStack("water", 16),
-//                toStack("sucrose"),
-//                new ItemStack(Items.BUCKET)));
+        combiner(new ItemStack(Items.MILK_BUCKET), Lists.newArrayList(
+                toStack("calcium", 4),
+                toStack("protein", 2),
+                toStack("water", 16),
+                new ItemStack(Items.BUCKET)));
 
         combiner(new ItemStack(Items.REDSTONE_BLOCK), Lists.newArrayList(toStack("iron_oxide", 9),
                 toStack("strontium_carbonate", 9)));

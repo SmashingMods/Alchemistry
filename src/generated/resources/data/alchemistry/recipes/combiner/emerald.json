@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "item": "chemlib:beryl",
+      "count": 8
+    },
+    {
+      "item": "chemlib:chromium",
+      "count": 8
+    },
+    {
+      "item": "chemlib:vanadium",
+      "count": 4
+    }
+  ],
+  "result": {
+    "item": "minecraft:emerald"
+  }
+}

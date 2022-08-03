@@ -3,9 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:water"
     },
     {

@@ -385,7 +385,7 @@ public class DissolverRecipeProvider {
                 toStack("beryl", 32),
                 toStack("niobium", 24),
                 toStack("selenium", 8),
-                toStack("titanium_dioxide", 4)).build(), true);
+                toStack("titanium_oxide", 4)).build(), true);
 
         for (Item item : newArrayList(Items.BASALT, Items.POLISHED_BASALT, Items.BLACKSTONE,
                 Items.CHISELED_POLISHED_BLACKSTONE, Items.CRACKED_POLISHED_BLACKSTONE_BRICKS, Items.SMOOTH_BASALT, Items.POLISHED_BLACKSTONE_BRICKS, Items.POLISHED_BLACKSTONE_SLAB, Items.BLACKSTONE_SLAB, Items.POLISHED_BLACKSTONE_BRICK_SLAB)) {

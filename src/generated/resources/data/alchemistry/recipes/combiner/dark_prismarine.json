@@ -15,7 +15,8 @@
       "count": 8
     },
     {
-      "item": "minecraft:air"
+      "item": "chemlib:titanium_oxide",
+      "count": 4
     }
   ],
   "result": {

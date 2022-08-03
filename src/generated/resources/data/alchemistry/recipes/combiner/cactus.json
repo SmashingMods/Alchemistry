@@ -6,7 +6,10 @@
       "item": "chemlib:cellulose"
     },
     {
-      "item": "minecraft:air"
+      "item": "chemlib:sucrose"
+    },
+    {
+      "item": "chemlib:nitrate"
     }
   ],
   "result": {

@@ -9,13 +9,16 @@
     "weighted": false,
     "groups": [
       {
-        "probability": 1.0,
+        "probability": 100.0,
         "results": [
           {
             "item": "chemlib:cellulose"
           },
           {
-            "item": "minecraft:air"
+            "item": "chemlib:sucrose"
+          },
+          {
+            "item": "chemlib:nitrate"
           }
         ]
       }

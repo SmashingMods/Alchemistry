@@ -683,24 +683,24 @@ public class DissolverRecipeProvider {
                                 toStack("chitin", 2))
                         .build(), true);
 
-        dissolver(Items.IRON_HORSE_ARMOR, createSet().addGroup(1, toStack("iron", 64)).build());
+        dissolver(Items.IRON_HORSE_ARMOR, createSet().addGroup(100, toStack("iron", 64)).build());
 
-        dissolver(Items.GOLDEN_HORSE_ARMOR, createSet().addGroup(1, toStack("gold", 64)).build());
+        dissolver(Items.GOLDEN_HORSE_ARMOR, createSet().addGroup(100, toStack("gold", 64)).build());
 
-        dissolver(Items.DIAMOND_HORSE_ARMOR, createSet().addGroup(1, toStack("graphite", 64 * 8)).build());
+        dissolver(Items.DIAMOND_HORSE_ARMOR, createSet().addGroup(100, toStack("graphite", 64 * 8)).build());
 
-        dissolver(Items.ANVIL, createSet().addGroup(1, toStack("iron", (144 * 3) + (16 * 4))).build());
+        dissolver(Items.ANVIL, createSet().addGroup(100, toStack("iron", (144 * 3) + (16 * 4))).build());
 
-        dissolver(Items.IRON_DOOR, createSet().addGroup(1, toStack("iron", 32)).build());
+        dissolver(Items.IRON_DOOR, createSet().addGroup(100, toStack("iron", 32)).build());
 
-        dissolver(Items.IRON_TRAPDOOR, createSet().addGroup(1, toStack("iron", 64)).build());
+        dissolver(Items.IRON_TRAPDOOR, createSet().addGroup(100, toStack("iron", 64)).build());
 
         for (Item item : newArrayList(Items.SNOW_BLOCK, Items.ICE)) {
             dissolver(item, createSet().addGroup(100, toStack("water", 16)).build(), true);
         }
 
-        dissolver(Items.PACKED_ICE, createSet().addGroup(100, toStack("water", 16 * 9)).build(), true);
-        dissolver(Items.BLUE_ICE, createSet().addGroup(100, toStack("water", 16 * 9 * 4)).build(), true);
+        dissolver(Items.PACKED_ICE, createSet().addGroup(100, toStack("water", 16 * 9)).build());
+        dissolver(Items.BLUE_ICE, createSet().addGroup(100, toStack("water", 16 * 9 * 4)).build());
         dissolver(Items.SNOWBALL, createSet().addGroup(100, toStack("water", 4)).build(), true);
         dissolver(Items.SNOW, createSet().addGroup(100, toStack("water", 4)).build(), true);
         
@@ -710,7 +710,7 @@ public class DissolverRecipeProvider {
                 toStack("cadmium", 16))
         .build());
 
-        dissolver(Items.JUKEBOX, createSet().addGroup(1,
+        dissolver(Items.JUKEBOX, createSet().addGroup(100,
                 toStack("graphite", 64 * 2),
                 toStack("cellulose", 2))
         .build());
@@ -827,19 +827,23 @@ public class DissolverRecipeProvider {
             int rolls = 1;
             if (item == Items.HAY_BLOCK) rolls = 9;
             dissolver(item, createSet()
-                            .rolls(rolls)
-                            .addGroup(5, toStack("starch"))
-                            .addGroup(25, toStack("cellulose"))
-                            .build());
+                    .rolls(rolls)
+                    .addGroup(5, toStack("starch"))
+                    .addGroup(25, toStack("cellulose"))
+            .build());
         }
 
         dissolver(Items.MELON, createSet()
-                        .addGroup(50, toStack("cucurbitacin"))
-                        .addGroup(1, toStack("water", 4), toStack("sucrose", 2))
-                        .build());
+                .addGroup(50, toStack("cucurbitacin"))
+                .addGroup(100, toStack("water", 4), toStack("sucrose", 2))
+        .build());
 
-        dissolver(Items.CACTUS, createSet().addGroup(1, toStack("cellulose"), toStack("mescaline"))
-                        .build(), true);
+        dissolver(Items.CACTUS, createSet()
+                .addGroup(100,
+                        toStack("cellulose"),
+                        toStack("sucrose"),
+                        toStack("nitrate"))
+                .build(), true);
 
         // Terracotta
         for (Item item : newArrayList(Items.TERRACOTTA, Items.BLACK_GLAZED_TERRACOTTA, Items.BLACK_TERRACOTTA,
@@ -987,9 +991,9 @@ public class DissolverRecipeProvider {
                 toStack("calcium_carbonate", 8))
         .build(), true);
 
-        dissolver(Items.LEATHER, createSet().addGroup(1, toStack("protein", 3)).build(), true);
+        dissolver(Items.LEATHER, createSet().addGroup(100, toStack("protein", 3)).build(), true);
 
-        dissolver(Items.ROTTEN_FLESH, createSet().addGroup(1, toStack("protein", 3)).build());
+        dissolver(Items.ROTTEN_FLESH, createSet().addGroup(100, toStack("protein", 3)).build());
 
         dissolver(Items.FEATHER, createSet().addGroup(100, toStack("protein", 2)).build(), true);
 
@@ -1073,7 +1077,7 @@ public class DissolverRecipeProvider {
 
         dissolver(Items.CHAIN, createSet().addGroup(100, toStack("iron", 18)).build());
 
-        dissolver(Items.INK_SAC, createSet().addGroup(1, toStack("titanium_oxide", 4)).build());
+        dissolver(Items.INK_SAC, createSet().addGroup(100, toStack("titanium_oxide", 4)).build());
 
         ItemRegistry.getElements().stream()
             .filter(element -> element.getMetalType().equals(MetalType.METAL) && element.getMatterState().equals(MatterState.SOLID))

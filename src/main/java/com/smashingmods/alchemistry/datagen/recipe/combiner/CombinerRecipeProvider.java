@@ -129,6 +129,8 @@ public class CombinerRecipeProvider {
                 toStack("strontium_carbonate", 9)));
 
         combiner(new ItemStack(Items.REDSTONE), Lists.newArrayList(toStack("iron_oxide"), toStack("strontium_carbonate")));
+
+        combiner(new ItemStack(Items.PACKED_ICE), Lists.newArrayList(toStack("water", 36), toStack("water", 36), toStack("water", 36), toStack("water", 36)));
     }
 
     private void combiner(ItemStack pOutput, List<ItemStack> pInput) {

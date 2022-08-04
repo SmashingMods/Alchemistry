@@ -268,7 +268,7 @@ public class DissolverRecipeProvider {
         dissolver(Items.BIG_DRIPLEAF, createSet().addGroup(100, toStack("cellulose")).build());
         dissolver(Items.SMALL_DRIPLEAF, createSet().addGroup(50, toStack("cellulose")).build());
         dissolver(Items.SPORE_BLOSSOM, createSet().addGroup(66.6, toStack("cellulose")).build());
-        dissolver(Items.GLOW_LICHEN, createSet().addGroup(50, toStack("cellulose")).addGroup(50, toStack("phosphorous")).build());
+        dissolver(Items.GLOW_LICHEN, createSet().addGroup(50, toStack("cellulose")).addGroup(50, toStack("phosphorus")).build());
 
         dissolver(Items.CRAFTING_TABLE, createSet().addGroup(100, toStack("cellulose")).build());
 
@@ -598,7 +598,7 @@ public class DissolverRecipeProvider {
                 .addGroup(100, toStack("tungsten", 16 * 4), toStack("carbon", 16 * 4), toStack("gold", 16 * 4)).build());
         dissolver(Items.NETHERITE_BLOCK, createSet()
                 .addGroup(100, toStack("tungsten", 16 * 4 * 9), toStack("carbon", 16 * 4 * 9), toStack("gold", 16 * 4 * 9)).build());
-       dissolver(Items.ANCIENT_DEBRIS, createSet()
+        dissolver(Items.ANCIENT_DEBRIS, createSet()
                 .addGroup(100, toStack("tungsten", 16), toStack("carbon", 16)).build());
 
         dissolver(Items.AMETHYST_SHARD, createSet()
@@ -1088,7 +1088,7 @@ public class DissolverRecipeProvider {
                         toStack("potassium_chloride", 8),
                         toStack("aluminum_oxide", 8),
                         toStack("silicon_dioxide", 24),
-                        toStack("phosphorous", 8),
+                        toStack("phosphorus", 8),
                         toStack("iridium", 8))
                 .build());
 
@@ -1121,10 +1121,10 @@ public class DissolverRecipeProvider {
         dissolver(Items.NAUTILUS_SHELL, createSet().addGroup(100, toStack("calcium_carbonate", 16)).build());
         dissolver(Items.PHANTOM_MEMBRANE, createSet().addGroup(100, toStack("cerium", 8)).build(), true);
         dissolver(Items.SWEET_BERRIES, createSet().addGroup(100, toStack("cellulose"), toStack("sucrose")).build(), true);
-        dissolver(Items.GLOW_BERRIES, createSet().addGroup(100, toStack("cellulose"), toStack("sucrose"), toStack("phosphorous")).build(), true);
+        dissolver(Items.GLOW_BERRIES, createSet().addGroup(100, toStack("cellulose"), toStack("sucrose"), toStack("phosphorus")).build(), true);
         dissolver(Items.CHAIN, createSet().addGroup(100, toStack("iron", 18)).build());
         dissolver(Items.INK_SAC, createSet().addGroup(100, toStack("titanium_oxide", 4)).build());
-        dissolver(Items.GLOW_INK_SAC, createSet().addGroup(100, toStack("opper_chloride", 4), toStack("phosphorous", 2)).build(), true);
+        dissolver(Items.GLOW_INK_SAC, createSet().addGroup(100, toStack("copper_chloride", 4), toStack("phosphorus", 2)).build(), true);
 
         ItemRegistry.getElements().stream()
             .filter(element -> element.getMetalType().equals(MetalType.METAL) && element.getMatterState().equals(MatterState.SOLID))
@@ -1164,6 +1164,7 @@ public class DissolverRecipeProvider {
             pSet.getProbabilityGroups().stream().map(ProbabilityGroup::getOutput).forEach(items::addAll);
 
             if (items.size() <= 4) {
+                items = items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
                 CombinerRecipeBuilder.createRecipe(output, items)
                         .group(Alchemistry.MODID + ":combiner")
                         .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(output, "combiner")))

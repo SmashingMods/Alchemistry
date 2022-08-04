@@ -7,8 +7,10 @@ issueTrackerURL="https://github.com/smashingmods/alchemistry/issues"
 modId="alchemistry"
 version="${file.jarVersion}"
 displayName="Alchemistry"
+logoFile="alchemistry-logo.png"
 authors="SmashingMods"
 description='''
+Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to decompose items into their constituent elements, then recombine them to create new items.
 '''
 
 [[dependencies.alchemistry]]
@@ -28,7 +30,7 @@ description='''
 [[dependencies.alchemistry]]
     modId="chemlib"
     mandatory=true
-    versionRange="[1.18.2-2.0.5,)"
+    versionRange="[1.18.2-2.0.6,)"
     ordering="NONE"
     side="BOTH"
 

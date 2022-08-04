@@ -28,7 +28,8 @@
             "count": 24
           },
           {
-            "item": "minecraft:air"
+            "item": "chemlib:phosphorus",
+            "count": 8
           },
           {
             "item": "chemlib:iridium",

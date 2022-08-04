@@ -3,9 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "minecraft:air"
-    },
-    {
       "item": "chemlib:water"
     },
     {
@@ -13,6 +10,9 @@
     },
     {
       "item": "chemlib:kaolinite"
+    },
+    {
+      "item": "chemlib:silicon_dioxide"
     }
   ],
   "result": {

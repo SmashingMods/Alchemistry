@@ -12,10 +12,12 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "minecraft:air"
+            "item": "chemlib:copper_chloride",
+            "count": 4
           },
           {
-            "item": "minecraft:air"
+            "item": "chemlib:phosphorus",
+            "count": 2
           }
         ]
       }

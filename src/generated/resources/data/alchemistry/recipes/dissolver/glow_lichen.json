@@ -20,7 +20,7 @@
         "probability": 50.0,
         "results": [
           {
-            "item": "minecraft:air"
+            "item": "chemlib:phosphorus"
           }
         ]
       }

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:carbonate"
+      "chemlib:carbonate"
     ]
   },
   "criteria": {

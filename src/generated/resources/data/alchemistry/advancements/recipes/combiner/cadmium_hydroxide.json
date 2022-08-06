@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cadmium_hydroxide"
+      "chemlib:cadmium_hydroxide"
     ]
   },
   "criteria": {

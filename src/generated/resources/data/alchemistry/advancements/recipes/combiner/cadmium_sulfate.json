@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cadmium_sulfate"
+      "chemlib:cadmium_sulfate"
     ]
   },
   "criteria": {

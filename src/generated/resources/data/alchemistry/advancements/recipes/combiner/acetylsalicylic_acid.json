@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:acetylsalicylic_acid"
+      "chemlib:acetylsalicylic_acid"
     ]
   },
   "criteria": {

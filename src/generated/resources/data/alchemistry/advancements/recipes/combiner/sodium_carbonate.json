@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:sodium_carbonate"
+      "chemlib:sodium_carbonate"
     ]
   },
   "criteria": {

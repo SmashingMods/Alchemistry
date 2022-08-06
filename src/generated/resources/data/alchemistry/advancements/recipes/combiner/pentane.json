@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:pentane"
+      "chemlib:pentane"
     ]
   },
   "criteria": {

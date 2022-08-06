@@ -32,6 +32,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     private IGuiHelper guiHelper;
 
+    @SuppressWarnings("unused")
     public DissolverRecipeCategory() {}
 
     public DissolverRecipeCategory(IGuiHelper pGuiHelper) {
@@ -72,7 +73,6 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
     public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, PoseStack pPoseStack, double pMouseX, double pMouseY) {
 
         Font font = Minecraft.getInstance().font;
-
         List<Double> probabilities = new LinkedList<>();
 
         pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> probabilities.add(group.getProbability())));
@@ -117,10 +117,10 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         int xOrigin = 25;
         int yOrigin = 46;
 
-        Map<ItemStack, Double> map = new HashMap<>();
-        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> map.put(itemStack, group.getProbability())));
+        Map<ItemStack, Double> itemProbabilityMap = new HashMap<>();
+        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> itemProbabilityMap.put(itemStack, group.getProbability())));
 
-        List<ItemStack> items = map.entrySet().stream()
+        List<ItemStack> items = itemProbabilityMap.entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry<ItemStack, Double>::getValue).reversed())
                 .map(Map.Entry::getKey)
                 .toList();

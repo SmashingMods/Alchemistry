@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:strontium_carbonate"
+      "chemlib:strontium_carbonate"
     ]
   },
   "criteria": {

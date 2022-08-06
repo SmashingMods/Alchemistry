@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:lead_carbonate"
+      "chemlib:lead_carbonate"
     ]
   },
   "criteria": {

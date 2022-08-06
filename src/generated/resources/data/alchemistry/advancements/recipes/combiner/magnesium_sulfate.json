@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:magnesium_sulfate"
+      "chemlib:magnesium_sulfate"
     ]
   },
   "criteria": {

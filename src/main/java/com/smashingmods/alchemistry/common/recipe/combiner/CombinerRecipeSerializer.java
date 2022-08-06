@@ -5,12 +5,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
@@ -35,19 +35,19 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> extends ForgeReg
         inputJson.forEach(element -> input.add(ShapedRecipe.itemStackFromJson(element.getAsJsonObject())));
 
         if (pSerializedRecipe.get("result").isJsonObject()) {
-            output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
+            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), false, true);
         } else {
-            output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "item"));
+            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("item"), false, true);
         }
-
         return this.factory.create(pRecipeId, group, input, output);
     }
 
     @Override
     public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
+        int inputCount = pBuffer.readInt();
         List<ItemStack> inputList = Lists.newArrayList();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < inputCount; i++) {
             inputList.add(pBuffer.readItem());
         }
         ItemStack output = pBuffer.readItem();
@@ -57,7 +57,8 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> extends ForgeReg
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
-        for (int i = 0; i < 4; i++) {
+        pBuffer.writeInt(pRecipe.getInput().size());
+        for (int i = 0; i < pRecipe.getInput().size(); i++) {
             pBuffer.writeItemStack(pRecipe.getInput().get(i), true);
         }
         pBuffer.writeItemStack(pRecipe.getOutput(), true);

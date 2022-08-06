@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:shulker_shell"
+      "minecraft:shulker_shell"
     ]
   },
   "criteria": {

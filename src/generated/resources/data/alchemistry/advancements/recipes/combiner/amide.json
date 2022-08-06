@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:amide"
+      "chemlib:amide"
     ]
   },
   "criteria": {

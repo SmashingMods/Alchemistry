@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:antimony_trioxide"
+      "chemlib:antimony_trioxide"
     ]
   },
   "criteria": {

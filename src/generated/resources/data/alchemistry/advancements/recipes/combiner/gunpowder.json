@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:gunpowder"
+      "minecraft:gunpowder"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:epinephrine"
+      "chemlib:epinephrine"
     ]
   },
   "criteria": {

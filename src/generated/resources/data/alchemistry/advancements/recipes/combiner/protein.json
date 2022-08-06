@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:protein"
+      "chemlib:protein"
     ]
   },
   "criteria": {

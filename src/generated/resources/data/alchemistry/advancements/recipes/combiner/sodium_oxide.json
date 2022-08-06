@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:sodium_oxide"
+      "chemlib:sodium_oxide"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:potassium_ethyl_xanthate"
+      "chemlib:potassium_ethyl_xanthate"
     ]
   },
   "criteria": {

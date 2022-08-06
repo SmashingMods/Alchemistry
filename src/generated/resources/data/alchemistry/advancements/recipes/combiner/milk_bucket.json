@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:milk_bucket"
+      "minecraft:milk_bucket"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:silicon_dioxide"
+      "chemlib:silicon_dioxide"
     ]
   },
   "criteria": {

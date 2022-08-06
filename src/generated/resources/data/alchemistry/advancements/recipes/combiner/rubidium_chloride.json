@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:rubidium_chloride"
+      "chemlib:rubidium_chloride"
     ]
   },
   "criteria": {

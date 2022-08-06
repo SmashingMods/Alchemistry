@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:lithium_hydroxide"
+      "chemlib:lithium_hydroxide"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cobalt_nitrate"
+      "chemlib:cobalt_nitrate"
     ]
   },
   "criteria": {

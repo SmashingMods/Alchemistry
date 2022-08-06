@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:zinc_oxide"
+      "chemlib:zinc_oxide"
     ]
   },
   "criteria": {

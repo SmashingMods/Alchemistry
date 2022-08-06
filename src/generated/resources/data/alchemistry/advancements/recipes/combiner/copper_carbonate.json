@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:copper_carbonate"
+      "chemlib:copper_carbonate"
     ]
   },
   "criteria": {

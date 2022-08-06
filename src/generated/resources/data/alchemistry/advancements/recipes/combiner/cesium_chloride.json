@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cesium_chloride"
+      "chemlib:cesium_chloride"
     ]
   },
   "criteria": {

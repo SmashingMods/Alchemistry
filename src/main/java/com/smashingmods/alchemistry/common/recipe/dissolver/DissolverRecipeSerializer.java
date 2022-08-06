@@ -52,9 +52,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeR
             double probability = jsonObject.get("probability").getAsFloat();
             groups.add(new ProbabilityGroup(output, probability));
         }
-        ProbabilitySet output = new ProbabilitySet(groups, weighted, rolls);
-
-        return this.factory.create(pRecipeId, group, input, output);
+        return this.factory.create(pRecipeId, group, input, new ProbabilitySet(groups, weighted, rolls));
     }
 
     @Override

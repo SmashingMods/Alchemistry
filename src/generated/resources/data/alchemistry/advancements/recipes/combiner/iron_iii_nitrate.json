@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:iron_iii_nitrate"
+      "chemlib:iron_iii_nitrate"
     ]
   },
   "criteria": {

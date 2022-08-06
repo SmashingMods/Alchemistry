@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cesium_sulfate"
+      "chemlib:cesium_sulfate"
     ]
   },
   "criteria": {

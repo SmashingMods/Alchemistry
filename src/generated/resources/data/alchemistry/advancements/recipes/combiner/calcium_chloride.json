@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:calcium_chloride"
+      "chemlib:calcium_chloride"
     ]
   },
   "criteria": {

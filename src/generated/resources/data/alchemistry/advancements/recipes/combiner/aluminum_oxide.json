@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:aluminum_oxide"
+      "chemlib:aluminum_oxide"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:strontium_chloride"
+      "chemlib:strontium_chloride"
     ]
   },
   "criteria": {

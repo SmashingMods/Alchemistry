@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:wither_skeleton_skull"
+      "minecraft:wither_skeleton_skull"
     ]
   },
   "criteria": {

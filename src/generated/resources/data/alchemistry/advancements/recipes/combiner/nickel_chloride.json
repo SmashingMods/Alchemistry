@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:nickel_chloride"
+      "chemlib:nickel_chloride"
     ]
   },
   "criteria": {

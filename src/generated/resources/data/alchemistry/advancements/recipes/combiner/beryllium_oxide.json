@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:beryllium_oxide"
+      "chemlib:beryllium_oxide"
     ]
   },
   "criteria": {

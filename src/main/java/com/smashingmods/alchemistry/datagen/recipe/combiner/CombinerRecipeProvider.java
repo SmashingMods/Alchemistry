@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.datagen.recipe.RecipeUtils.toStack;
@@ -76,8 +77,8 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<ItemStack> pInput) {
-        CombinerRecipeBuilder.createRecipe(pOutput, pInput)
-                .group(Alchemistry.MODID + ":combiner")
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(pOutput.getItem().getRegistryName()))
+                .group(String.format("%s:combiner", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "combiner")))
                 .save(consumer);
     }

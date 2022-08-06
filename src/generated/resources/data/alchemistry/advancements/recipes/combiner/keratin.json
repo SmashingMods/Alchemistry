@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:keratin"
+      "chemlib:keratin"
     ]
   },
   "criteria": {

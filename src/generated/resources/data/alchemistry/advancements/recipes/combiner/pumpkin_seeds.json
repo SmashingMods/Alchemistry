@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:pumpkin_seeds"
+      "minecraft:pumpkin_seeds"
     ]
   },
   "criteria": {

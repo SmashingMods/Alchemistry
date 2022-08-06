@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:barium_hydroxide"
+      "chemlib:barium_hydroxide"
     ]
   },
   "criteria": {

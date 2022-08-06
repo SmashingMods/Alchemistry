@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:potassium_cyanide"
+      "chemlib:potassium_cyanide"
     ]
   },
   "criteria": {

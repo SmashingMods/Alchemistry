@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:hydrogen_sulfide"
+      "chemlib:hydrogen_sulfide"
     ]
   },
   "criteria": {

@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:phosphate"
+      "chemlib:phosphate"
     ]
   },
   "criteria": {

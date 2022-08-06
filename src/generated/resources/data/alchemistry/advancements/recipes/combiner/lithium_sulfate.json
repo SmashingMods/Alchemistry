@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:lithium_sulfate"
+      "chemlib:lithium_sulfate"
     ]
   },
   "criteria": {

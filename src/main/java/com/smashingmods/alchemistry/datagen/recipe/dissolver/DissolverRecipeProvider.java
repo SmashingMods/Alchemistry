@@ -1139,7 +1139,7 @@ public class DissolverRecipeProvider {
                         };
                         ItemRegistry.getChemicalItemByNameAndType(name, type).ifPresent(item -> dissolver(item, createSet().addGroup(100, toStack(name, count)).build()));
                     });
-                ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(blockItem -> dissolver(blockItem, createSet().addGroup(100, toStack(name, 144)).build()));
+                ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(item -> dissolver(item, createSet().addGroup(100, toStack(name, 144)).build()));
             });
     }
 
@@ -1165,9 +1165,10 @@ public class DissolverRecipeProvider {
 
             if (items.size() <= 4) {
                 items = items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
-                CombinerRecipeBuilder.createRecipe(output, items)
-                        .group(Alchemistry.MODID + ":combiner")
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(output, "combiner")))
+                ResourceLocation recipeId = RecipeUtils.getLocation(output, "combiner");
+                CombinerRecipeBuilder.createRecipe(output, items, Objects.requireNonNull(output.getItem().getRegistryName()))
+                        .group(String.format("%s:combiner", Alchemistry.MODID))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
                         .save(consumer);
             }
         }

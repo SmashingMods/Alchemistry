@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:strontium_sulfate"
+      "chemlib:strontium_sulfate"
     ]
   },
   "criteria": {

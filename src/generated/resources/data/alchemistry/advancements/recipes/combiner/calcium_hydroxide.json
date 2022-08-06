@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:calcium_hydroxide"
+      "chemlib:calcium_hydroxide"
     ]
   },
   "criteria": {

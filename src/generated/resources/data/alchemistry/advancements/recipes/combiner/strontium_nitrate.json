@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:strontium_nitrate"
+      "chemlib:strontium_nitrate"
     ]
   },
   "criteria": {

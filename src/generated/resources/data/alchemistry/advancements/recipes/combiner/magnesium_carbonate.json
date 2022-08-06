@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:magnesium_carbonate"
+      "chemlib:magnesium_carbonate"
     ]
   },
   "criteria": {

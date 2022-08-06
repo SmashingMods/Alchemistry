@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:cobalt_aluminate"
+      "chemlib:cobalt_aluminate"
     ]
   },
   "criteria": {

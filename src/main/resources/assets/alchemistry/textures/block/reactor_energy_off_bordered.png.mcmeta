@@ -1,0 +1,26 @@
+{
+  "ctm": {
+    "ctm_version": 1,
+    "type": "ctm",
+    "layer": "SOLID",
+    "textures": [
+        "alchemistry:block/reactor_energy_off_ctm"
+    ],
+    "extra": {
+      "light": 0,
+      "connect_to": [ {
+          "block": "alchemistry:reactor_input"
+        },
+        {
+          "block": "alchemistry:reactor_output"
+        },
+        {
+          "block": "alchemistry:reactor_energy"
+        },
+        {
+          "block": "alchemistry:reactor_casing"
+        }
+      ]
+    }
+  }
+}

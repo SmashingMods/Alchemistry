@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:protein",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:protein"
     },
     {
-      "item": "chemlib:starch",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:starch"
     },
     {
-      "item": "chemlib:sulfur_dioxide",
-      "count": 5
+      "count": 5,
+      "item": "chemlib:sulfur_dioxide"
     }
   ],
   "result": {

@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class MenuRegistry {
-    public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.CONTAINERS, MODID);
+    public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MODID);
 
     public static final RegistryObject<MenuType<AtomizerMenu>> ATOMIZER_MENU = registerMenuType(AtomizerMenu::new, "atomizer_menu");
     public static final RegistryObject<MenuType<CompactorMenu>> COMPACTOR_MENU = registerMenuType(CompactorMenu::new, "compactor_menu");
@@ -30,10 +30,10 @@ public class MenuRegistry {
     public static final RegistryObject<MenuType<FusionControllerMenu>> FUSION_CONTROLLER_MENU = registerMenuType(FusionControllerMenu::new, "fusion_controller_menu");
 
     private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
-        return MENUS.register(name, () -> IForgeMenuType.create(factory));
+        return MENU_TYPES.register(name, () -> IForgeMenuType.create(factory));
     }
 
     public static void register(IEventBus eventBus) {
-        MENUS.register(eventBus);
+        MENU_TYPES.register(eventBus);
     }
 }

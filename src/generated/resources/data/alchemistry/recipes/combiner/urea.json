@@ -9,8 +9,8 @@
       "item": "chemlib:oxygen"
     },
     {
-      "item": "chemlib:amide",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:amide"
     }
   ],
   "result": {

@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "minecraft:fire_coral"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "minecraft:fire_coral"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:fire_coral"
+    ]
+  }
 }

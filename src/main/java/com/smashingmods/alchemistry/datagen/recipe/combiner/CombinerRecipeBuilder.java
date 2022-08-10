@@ -36,7 +36,6 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
 
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
-        Objects.requireNonNull(result.getItem().getRegistryName());
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(RequirementsStrategy.OR);

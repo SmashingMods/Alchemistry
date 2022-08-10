@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:pentane_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:pentane_fluid"
   },
   "result": {
-    "item": "chemlib:pentane",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:pentane"
   }
 }

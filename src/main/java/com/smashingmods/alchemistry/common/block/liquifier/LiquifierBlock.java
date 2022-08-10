@@ -20,6 +20,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @MethodsReturnNonnullByDefault
@@ -58,7 +59,7 @@ public class LiquifierBlock extends AbstractAlchemistryBlock {
             }
 
             if (!interactionSuccessful) {
-                NetworkHooks.openGui(((ServerPlayer) pPlayer), (LiquifierBlockEntity) blockEntity, pPos);
+                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (LiquifierBlockEntity) blockEntity, pPos);
             }
             return InteractionResult.CONSUME;
         }

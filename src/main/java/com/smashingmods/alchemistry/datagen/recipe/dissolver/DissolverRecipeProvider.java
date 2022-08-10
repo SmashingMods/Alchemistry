@@ -21,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -1155,7 +1156,7 @@ public class DissolverRecipeProvider {
     }
 
     private void dissolver(ItemLike pItemLike, ProbabilitySet pSet, boolean pReversible) {
-        dissolver(Ingredient.of(pItemLike), pSet, Objects.requireNonNull(pItemLike.asItem().getRegistryName()));
+        dissolver(Ingredient.of(pItemLike), pSet, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItemLike.asItem())));
 
         if (pReversible) {
             ItemStack output = new ItemStack(pItemLike);
@@ -1166,7 +1167,7 @@ public class DissolverRecipeProvider {
             if (items.size() <= 4) {
                 items = items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
                 ResourceLocation recipeId = RecipeUtils.getLocation(output, "combiner");
-                CombinerRecipeBuilder.createRecipe(output, items, Objects.requireNonNull(output.getItem().getRegistryName()))
+                CombinerRecipeBuilder.createRecipe(output, items, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(output.getItem())))
                         .group(String.format("%s:combiner", Alchemistry.MODID))
                         .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))
                         .save(consumer);

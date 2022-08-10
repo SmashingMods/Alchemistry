@@ -5,22 +5,22 @@
     "item": "minecraft:egg"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:calcium_carbonate",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:calcium_carbonate"
           },
           {
-            "item": "chemlib:protein",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:protein"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

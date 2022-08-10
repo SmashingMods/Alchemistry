@@ -6,8 +6,8 @@
       "item": "chemlib:oxygen"
     },
     {
-      "item": "chemlib:cellulose",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:cellulose"
     }
   ],
   "result": {

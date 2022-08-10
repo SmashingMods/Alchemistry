@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "minecraft:cobbled_deepslate"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "minecraft:cobbled_deepslate"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:cobbled_deepslate"
+    ]
+  }
 }

@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:antimony",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:antimony"
     },
     {
-      "item": "chemlib:oxygen",
-      "count": 3
+      "count": 3,
+      "item": "chemlib:oxygen"
     }
   ],
   "result": {

@@ -5,21 +5,21 @@
     "item": "chemlib:copper_i_oxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:copper",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:copper"
           },
           {
             "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

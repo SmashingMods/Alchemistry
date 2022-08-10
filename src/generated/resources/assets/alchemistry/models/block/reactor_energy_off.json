@@ -1,12 +1,13 @@
 {
   "parent": "minecraft:block/cube",
+  "render_type": "minecraft:solid",
   "textures": {
-    "particle": "alchemistry:block/reactor_casing",
     "down": "alchemistry:block/reactor_casing",
-    "up": "alchemistry:block/reactor_casing",
-    "north": "alchemistry:block/reactor_energy_off",
-    "south": "alchemistry:block/reactor_casing",
     "east": "alchemistry:block/reactor_casing",
+    "north": "alchemistry:block/reactor_energy_off",
+    "particle": "alchemistry:block/reactor_casing",
+    "south": "alchemistry:block/reactor_casing",
+    "up": "alchemistry:block/reactor_casing",
     "west": "alchemistry:block/reactor_casing"
   }
 }

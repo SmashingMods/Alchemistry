@@ -5,25 +5,25 @@
     "item": "chemlib:lithium_sulfate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:lithium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:lithium"
           },
           {
             "item": "chemlib:sulfur"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

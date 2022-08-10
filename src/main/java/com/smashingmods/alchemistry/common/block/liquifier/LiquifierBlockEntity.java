@@ -65,7 +65,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE.get(), level).stream()
                     .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getItemHandler().getStackInSlot(0)))
                     .findFirst()
                     .ifPresent(recipe -> {

@@ -5,8 +5,6 @@
     "item": "minecraft:stone"
   },
   "output": {
-    "rolls": 2,
-    "weighted": true,
     "groups": [
       {
         "probability": 20.0,
@@ -88,6 +86,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 2,
+    "weighted": true
   }
 }

@@ -5,8 +5,6 @@
     "item": "chemlib:potassium_ethyl_xanthate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
@@ -25,6 +23,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

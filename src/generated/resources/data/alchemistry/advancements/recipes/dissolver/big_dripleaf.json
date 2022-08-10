@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "minecraft:big_dripleaf"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "minecraft:big_dripleaf"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:big_dripleaf"
+    ]
+  }
 }

@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:radium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:radium"
   },
   "result": {
     "item": "chemlib:radium_dust"

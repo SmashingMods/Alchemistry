@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:potassium_nitrate",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:potassium_nitrate"
     },
     {
-      "item": "chemlib:sulfur",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:sulfur"
     },
     {
-      "item": "chemlib:graphite",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:graphite"
     }
   ],
   "result": {

@@ -5,22 +5,22 @@
     "item": "chemlib:butane"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 10
+            "count": 10,
+            "item": "chemlib:hydrogen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

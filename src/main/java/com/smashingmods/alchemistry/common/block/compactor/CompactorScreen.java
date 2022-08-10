@@ -10,7 +10,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -33,7 +34,7 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 75, 39, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 17, 16, 16, 54));
 
-        resetTargetButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.reset_target"), handleResetTargetButton());
+        resetTargetButton = new Button(0, 0, 100, 20, MutableComponent.create(new TranslatableContents("alchemistry.container.reset_target")), handleResetTargetButton());
     }
 
     @Override
@@ -59,7 +60,7 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = new TranslatableComponent("alchemistry.container.compactor");
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.compactor"));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -81,7 +82,7 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
             FakeItemRenderer.renderFakeItem(target, xStart, yStart, 0.5f);
             if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
                 List<Component> components = new ArrayList<>();
-                components.add(0, new TranslatableComponent("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
+                components.add(0, MutableComponent.create(new TranslatableContents("alchemistry.container.target")).withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
                 components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
                 renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
             }

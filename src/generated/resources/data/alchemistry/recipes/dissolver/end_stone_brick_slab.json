@@ -5,8 +5,6 @@
     "item": "minecraft:end_stone_brick_slab"
   },
   "output": {
-    "rolls": 1,
-    "weighted": true,
     "groups": [
       {
         "probability": 350.0,
@@ -56,6 +54,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": true
   }
 }

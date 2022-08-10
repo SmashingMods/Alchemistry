@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "alchemistry:block/reactor_input",
+      "y": 90
+    },
     "facing=north": {
       "model": "alchemistry:block/reactor_input"
     },
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "alchemistry:block/reactor_input",
       "y": 270
-    },
-    "facing=east": {
-      "model": "alchemistry:block/reactor_input",
-      "y": 90
     }
   }
 }

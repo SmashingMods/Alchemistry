@@ -5,21 +5,21 @@
     "item": "chemlib:mullite"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:aluminum_oxide",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:aluminum_oxide"
           },
           {
             "item": "chemlib:silicon_dioxide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

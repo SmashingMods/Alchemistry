@@ -1,25 +1,25 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
-  "pattern": [
-    "IPI",
-    "MRM",
-    "IPI"
-  ],
   "key": {
     "I": {
       "item": "minecraft:iron_ingot"
+    },
+    "M": {
+      "item": "minecraft:magma_block"
     },
     "P": {
       "item": "minecraft:piston"
     },
     "R": {
       "item": "minecraft:redstone"
-    },
-    "M": {
-      "item": "minecraft:magma_block"
     }
   },
+  "pattern": [
+    "IPI",
+    "MRM",
+    "IPI"
+  ],
   "result": {
     "item": "alchemistry:dissolver"
   }

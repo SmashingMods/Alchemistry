@@ -3,8 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:polonium",
-      "count": 16
+      "count": 16,
+      "item": "chemlib:polonium"
     }
   ],
   "result": {

@@ -5,26 +5,26 @@
     "item": "chemlib:triglyceride"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 18
+            "count": 18,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 32
+            "count": 32,
+            "item": "chemlib:hydrogen"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

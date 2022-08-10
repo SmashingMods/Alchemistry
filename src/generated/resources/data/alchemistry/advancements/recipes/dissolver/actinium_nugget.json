@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "chemlib:actinium_nugget"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "chemlib:actinium_nugget"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chemlib:actinium_nugget"
+    ]
+  }
 }

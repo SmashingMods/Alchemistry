@@ -5,22 +5,22 @@
     "item": "minecraft:brain_coral_block"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:calcium_carbonate",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:calcium_carbonate"
           },
           {
-            "item": "chemlib:arsenic_sulfide",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:arsenic_sulfide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

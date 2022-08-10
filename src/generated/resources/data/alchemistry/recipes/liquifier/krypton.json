@@ -2,11 +2,11 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:krypton",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:krypton"
   },
   "result": {
-    "fluid": "chemlib:krypton_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:krypton_fluid"
   }
 }

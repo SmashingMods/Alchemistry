@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:radon_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:radon_fluid"
   },
   "result": {
-    "item": "chemlib:radon",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:radon"
   }
 }

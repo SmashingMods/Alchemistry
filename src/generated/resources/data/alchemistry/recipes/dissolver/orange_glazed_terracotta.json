@@ -5,18 +5,18 @@
     "item": "minecraft:orange_glazed_terracotta"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:kaolinite",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:kaolinite"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

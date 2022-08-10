@@ -5,22 +5,22 @@
     "item": "minecraft:slime_ball"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:protein",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:protein"
           },
           {
-            "item": "chemlib:sucrose",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:sucrose"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

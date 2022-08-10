@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:barium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:barium"
   },
   "result": {
     "item": "chemlib:barium_dust"

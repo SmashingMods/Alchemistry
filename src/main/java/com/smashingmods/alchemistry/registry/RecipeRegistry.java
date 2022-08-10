@@ -6,14 +6,14 @@ import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
-import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
-import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
-import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
+import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -33,14 +33,16 @@ import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class RecipeRegistry {
 
+    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MODID);
     private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
-    public static RecipeType<AtomizerRecipe> ATOMIZER_TYPE;
-    public static RecipeType<CompactorRecipe> COMPACTOR_TYPE;
-    public static RecipeType<CombinerRecipe> COMBINER_TYPE;
-    public static RecipeType<DissolverRecipe> DISSOLVER_TYPE;
-    public static RecipeType<FissionRecipe> FISSION_TYPE;
-    public static RecipeType<FusionRecipe> FUSION_TYPE;
-    public static RecipeType<LiquifierRecipe> LIQUIFIER_TYPE;
+
+    public static RegistryObject<RecipeType<AtomizerRecipe>> ATOMIZER_TYPE = registerRecipeType("atomizer");
+    public static RegistryObject<RecipeType<CompactorRecipe>> COMPACTOR_TYPE = registerRecipeType("compactor");
+    public static RegistryObject<RecipeType<CombinerRecipe>> COMBINER_TYPE = registerRecipeType("combiner");
+    public static RegistryObject<RecipeType<DissolverRecipe>> DISSOLVER_TYPE = registerRecipeType("dissolver");
+    public static RegistryObject<RecipeType<FissionRecipe>> FISSION_TYPE = registerRecipeType("fission");
+    public static RegistryObject<RecipeType<FusionRecipe>> FUSION_TYPE = registerRecipeType("fusion");
+    public static RegistryObject<RecipeType<LiquifierRecipe>> LIQUIFIER_TYPE = registerRecipeType("liquifier");
 
     public static final RegistryObject<AtomizerRecipeSerializer<AtomizerRecipe>> ATOMIZER_SERIALIZER
             = SERIALIZERS.register("atomizer", () -> new AtomizerRecipeSerializer<>(AtomizerRecipe::new));
@@ -63,6 +65,15 @@ public class RecipeRegistry {
     public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
+    private static <T extends Recipe<Inventory>> RegistryObject<RecipeType<T>> registerRecipeType(String pType) {
+        return RECIPE_TYPES.register(pType, () -> new RecipeType<>() {
+            @Override
+            public String toString() {
+                return pType;
+            }
+        });
+    }
+
     private static final Map<RecipeType<? extends Recipe<Inventory>>, List<? extends Recipe<Inventory>>> recipesMap = new HashMap<>();
 
     @SuppressWarnings("unchecked")
@@ -78,6 +89,7 @@ public class RecipeRegistry {
     }
 
     public static void register(IEventBus eventBus) {
+        RECIPE_TYPES.register(eventBus);
         SERIALIZERS.register(eventBus);
     }
 }

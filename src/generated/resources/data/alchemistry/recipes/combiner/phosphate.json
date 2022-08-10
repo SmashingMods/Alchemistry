@@ -6,8 +6,8 @@
       "item": "chemlib:phosphorus"
     },
     {
-      "item": "chemlib:oxygen",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:oxygen"
     }
   ],
   "result": {

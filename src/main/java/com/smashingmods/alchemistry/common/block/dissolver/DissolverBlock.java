@@ -47,7 +47,7 @@ public class DissolverBlock extends AbstractAlchemistryBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            NetworkHooks.openGui(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);
+            NetworkHooks.openScreen(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);
             return InteractionResult.CONSUME;
         }
         return InteractionResult.SUCCESS;

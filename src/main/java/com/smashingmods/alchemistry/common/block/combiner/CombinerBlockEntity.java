@@ -67,7 +67,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (currentRecipe == null) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream()
+                RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE.get(), level).stream()
                         .filter(recipe -> recipe.matchInputs(getInputHandler()))
                         .findFirst()
                         .ifPresent(recipe -> {

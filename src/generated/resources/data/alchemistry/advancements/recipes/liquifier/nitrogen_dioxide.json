@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "alchemistry:nitrogen_dioxide_bucket"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "alchemistry:liquifier/nitrogen_dioxide_fluid"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:nitrogen_dioxide_bucket"
+    ]
+  }
 }

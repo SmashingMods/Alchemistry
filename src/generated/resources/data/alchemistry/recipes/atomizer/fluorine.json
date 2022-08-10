@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:fluorine_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:fluorine_fluid"
   },
   "result": {
-    "item": "chemlib:fluorine",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:fluorine"
   }
 }

@@ -6,8 +6,8 @@
       "item": "chemlib:copper"
     },
     {
-      "item": "chemlib:hydroxide",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:hydroxide"
     }
   ],
   "result": {

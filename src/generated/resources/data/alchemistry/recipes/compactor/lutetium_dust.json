@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:lutetium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:lutetium"
   },
   "result": {
     "item": "chemlib:lutetium_dust"

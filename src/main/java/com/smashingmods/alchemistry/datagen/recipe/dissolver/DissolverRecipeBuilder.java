@@ -13,7 +13,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class DissolverRecipeBuilder implements RecipeBuilder {
@@ -37,8 +36,6 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         Item item = input.getItems()[0].getItem();
-        Objects.requireNonNull(item.getRegistryName());
-
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(RequirementsStrategy.OR);

@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:titanium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:titanium"
   },
   "result": {
     "item": "chemlib:titanium_dust"

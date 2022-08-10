@@ -78,7 +78,7 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream()
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE.get(), level).stream()
                         .filter(recipe -> {
                             ItemStack input1 = getInputHandler().getStackInSlot(0);
                             ItemStack input2 = getInputHandler().getStackInSlot(1);

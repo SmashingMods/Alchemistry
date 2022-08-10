@@ -5,22 +5,22 @@
     "item": "minecraft:pufferfish"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:protein",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:protein"
           },
           {
-            "item": "chemlib:potassium_cyanide",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:potassium_cyanide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

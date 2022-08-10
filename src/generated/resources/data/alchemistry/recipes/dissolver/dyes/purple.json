@@ -5,18 +5,18 @@
     "tag": "forge:dyes/purple"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:potassium_permanganate",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:potassium_permanganate"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

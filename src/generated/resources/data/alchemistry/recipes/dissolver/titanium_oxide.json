@@ -5,22 +5,22 @@
     "item": "chemlib:titanium_oxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:titanium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:titanium"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 3
+            "count": 3,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

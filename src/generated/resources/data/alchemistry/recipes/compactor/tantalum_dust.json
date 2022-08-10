@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:tantalum",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:tantalum"
   },
   "result": {
     "item": "chemlib:tantalum_dust"

@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "alchemistry:sulfur"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "alchemistry:fusion/sulfur"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:sulfur"
+    ]
+  }
 }

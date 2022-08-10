@@ -2,11 +2,11 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:radon",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:radon"
   },
   "result": {
-    "fluid": "chemlib:radon_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:radon_fluid"
   }
 }

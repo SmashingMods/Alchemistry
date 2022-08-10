@@ -32,7 +32,7 @@ public class FusionRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeRegistry.FUSION_TYPE;
+        return RecipeRegistry.FUSION_TYPE.get();
     }
 
     @Override

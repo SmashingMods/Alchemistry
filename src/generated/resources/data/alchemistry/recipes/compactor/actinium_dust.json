@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:actinium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:actinium"
   },
   "result": {
     "item": "chemlib:actinium_dust"

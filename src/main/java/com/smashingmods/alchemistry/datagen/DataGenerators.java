@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.datagen;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -11,14 +11,11 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent pEvent) {
         DataGenerator generator = pEvent.getGenerator();
-
-        if (pEvent.includeServer()) {
-            generator.addProvider(new RecipeProvider(generator));
-            generator.addProvider(new BlockStateGenerator(generator, pEvent.getExistingFileHelper()));
-            generator.addProvider(new LootTableProvider(generator));
-            generator.addProvider(new TagProvider(generator, pEvent.getExistingFileHelper()));
-            generator.addProvider(new LocalizationGenerator(generator, "en_us"));
-        }
+        generator.addProvider(pEvent.includeServer(), new RecipeProvider(generator));
+        generator.addProvider(pEvent.includeClient(), new BlockStateGenerator(generator, pEvent.getExistingFileHelper()));
+        generator.addProvider(pEvent.includeServer(), new LootTableProvider(generator));
+        generator.addProvider(pEvent.includeServer(), new TagProvider(generator, pEvent.getExistingFileHelper()));
+        generator.addProvider(pEvent.includeClient(), new LocalizationGenerator(generator, "en_us"));
     }
 }
 

@@ -5,21 +5,21 @@
     "tag": "minecraft:carpets"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 66.66666666666666,
         "results": [
           {
-            "item": "chemlib:keratin",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:keratin"
           },
           {
             "item": "chemlib:triglyceride"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

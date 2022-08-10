@@ -5,8 +5,6 @@
     "item": "minecraft:gilded_blackstone"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 29.0,
@@ -20,8 +18,8 @@
         "probability": 20.0,
         "results": [
           {
-            "item": "chemlib:gold",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:gold"
           }
         ]
       },
@@ -81,6 +79,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

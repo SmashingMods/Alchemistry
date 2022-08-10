@@ -5,15 +5,13 @@
     "item": "minecraft:sand"
   },
   "output": {
-    "rolls": 1,
-    "weighted": true,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:silicon_dioxide",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:silicon_dioxide"
           }
         ]
       },
@@ -25,6 +23,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": true
   }
 }

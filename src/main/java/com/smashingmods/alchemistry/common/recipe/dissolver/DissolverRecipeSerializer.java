@@ -13,12 +13,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class DissolverRecipeSerializer<T extends DissolverRecipe> implements RecipeSerializer<T> {
 
     private final DissolverRecipeSerializer.IFactory<T> factory;
 

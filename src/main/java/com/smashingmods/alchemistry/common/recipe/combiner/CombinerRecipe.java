@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeRegistry.COMBINER_TYPE;
+        return RecipeRegistry.COMBINER_TYPE.get();
     }
 
     @Override
@@ -50,9 +51,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
 
     @Override
     public int compareTo(@NotNull CombinerRecipe pRecipe) {
-        Objects.requireNonNull(this.output.getItem().getRegistryName());
-        Objects.requireNonNull(pRecipe.output.getItem().getRegistryName());
-        return this.output.getItem().getRegistryName().compareNamespaced(pRecipe.output.getItem().getRegistryName());
+        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(output.getItem())).compareNamespaced(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pRecipe.output.getItem())));
     }
 
     @Override

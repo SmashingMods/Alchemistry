@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "alchemistry:thallium"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "alchemistry:fission/thallium"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:thallium"
+    ]
+  }
 }

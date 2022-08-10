@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "alchemistry:carbon_disulfide"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "alchemistry:atomizer/carbon_disulfide"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:carbon_disulfide"
+    ]
+  }
 }

@@ -5,22 +5,22 @@
     "item": "chemlib:beta_carotene"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 40
+            "count": 40,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 56
+            "count": 56,
+            "item": "chemlib:hydrogen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

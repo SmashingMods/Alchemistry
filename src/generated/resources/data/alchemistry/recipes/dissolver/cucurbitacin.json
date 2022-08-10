@@ -5,26 +5,26 @@
     "item": "chemlib:cucurbitacin"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 32
+            "count": 32,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 44
+            "count": 44,
+            "item": "chemlib:hydrogen"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

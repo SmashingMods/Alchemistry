@@ -6,8 +6,8 @@
       "item": "chemlib:iron"
     },
     {
-      "item": "chemlib:nitrate",
-      "count": 3
+      "count": 3,
+      "item": "chemlib:nitrate"
     }
   ],
   "result": {

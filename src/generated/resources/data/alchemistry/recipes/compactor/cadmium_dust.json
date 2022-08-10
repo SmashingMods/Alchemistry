@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cadmium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:cadmium"
   },
   "result": {
     "item": "chemlib:cadmium_dust"

@@ -5,18 +5,18 @@
     "item": "minecraft:diamond_horse_armor"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:graphite",
-            "count": 512
+            "count": 512,
+            "item": "chemlib:graphite"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

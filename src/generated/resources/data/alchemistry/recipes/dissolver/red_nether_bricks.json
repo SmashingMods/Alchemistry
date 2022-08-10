@@ -5,8 +5,6 @@
     "item": "minecraft:red_nether_bricks"
   },
   "output": {
-    "rolls": 4,
-    "weighted": true,
     "groups": [
       {
         "probability": 5.0,
@@ -64,6 +62,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 4,
+    "weighted": true
   }
 }

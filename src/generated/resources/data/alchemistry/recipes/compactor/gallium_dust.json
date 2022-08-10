@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:gallium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:gallium"
   },
   "result": {
     "item": "chemlib:gallium_dust"

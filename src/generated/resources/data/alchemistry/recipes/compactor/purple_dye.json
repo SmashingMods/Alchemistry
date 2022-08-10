@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:potassium_permanganate",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:potassium_permanganate"
   },
   "result": {
     "item": "minecraft:purple_dye"

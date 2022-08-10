@@ -5,18 +5,18 @@
     "item": "chemlib:zinc_dust"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:zinc",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:zinc"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

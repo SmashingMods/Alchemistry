@@ -5,22 +5,22 @@
     "item": "minecraft:cooked_cod"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:protein",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:protein"
           },
           {
-            "item": "chemlib:selenium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:selenium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

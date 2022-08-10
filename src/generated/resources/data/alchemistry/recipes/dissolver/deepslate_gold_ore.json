@@ -5,18 +5,18 @@
     "item": "minecraft:deepslate_gold_ore"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:gold",
-            "count": 32
+            "count": 32,
+            "item": "chemlib:gold"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

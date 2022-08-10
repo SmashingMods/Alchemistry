@@ -1,4 +1,5 @@
 {
+    "render_type": "translucent",
     "textures": {
         "particle": "alchemistry:block/dark_block",
         "dull_blue": "alchemistry:block/dull_blue",

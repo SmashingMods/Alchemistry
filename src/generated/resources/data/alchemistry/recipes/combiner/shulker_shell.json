@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:calcium_carbonate",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:calcium_carbonate"
     },
     {
-      "item": "chemlib:lutetium",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:lutetium"
     }
   ],
   "result": {

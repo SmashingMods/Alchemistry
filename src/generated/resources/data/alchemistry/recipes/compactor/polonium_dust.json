@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:polonium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:polonium"
   },
   "result": {
     "item": "chemlib:polonium_dust"

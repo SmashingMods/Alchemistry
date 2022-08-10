@@ -75,7 +75,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE.get(), level).stream()
                 .filter(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)))
                 .findAny()
                 .ifPresent(recipe -> {

@@ -5,18 +5,18 @@
     "item": "minecraft:bone"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 50.0,
         "results": [
           {
-            "item": "chemlib:hydroxylapatite",
-            "count": 3
+            "count": 3,
+            "item": "chemlib:hydroxylapatite"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

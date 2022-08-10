@@ -11,6 +11,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Objects;
@@ -44,7 +45,7 @@ public class LiquifierRecipeProvider {
     private Consumer<? super Chemical> fluidToChemicalRecipe() {
         return chemical -> FluidRegistry.FLUIDS.getEntries().stream()
                 .map(RegistryObject::get)
-                .filter(fluid -> Objects.requireNonNull(fluid.getRegistryName())
+                .filter(fluid -> Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid))
                         .getPath()
                         .contains(chemical.getChemicalName()))
                 .findFirst()

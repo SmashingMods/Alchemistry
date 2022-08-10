@@ -6,8 +6,8 @@
       "item": "chemlib:iron"
     },
     {
-      "item": "chemlib:sulfur",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:sulfur"
     }
   ],
   "result": {

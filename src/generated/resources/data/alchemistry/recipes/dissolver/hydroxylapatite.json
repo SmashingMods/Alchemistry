@@ -5,26 +5,26 @@
     "item": "chemlib:hydroxylapatite"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:calcium",
-            "count": 5
+            "count": 5,
+            "item": "chemlib:calcium"
           },
           {
-            "item": "chemlib:phosphate",
-            "count": 6
+            "count": 6,
+            "item": "chemlib:phosphate"
           },
           {
-            "item": "chemlib:hydroxide",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:hydroxide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

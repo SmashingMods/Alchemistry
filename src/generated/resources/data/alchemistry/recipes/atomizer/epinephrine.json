@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:epinephrine_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:epinephrine_fluid"
   },
   "result": {
-    "item": "chemlib:epinephrine",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:epinephrine"
   }
 }

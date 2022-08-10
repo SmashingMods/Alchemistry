@@ -5,8 +5,6 @@
     "item": "minecraft:tuff"
   },
   "output": {
-    "rolls": 2,
-    "weighted": true,
     "groups": [
       {
         "probability": 5.0,
@@ -48,6 +46,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 2,
+    "weighted": true
   }
 }

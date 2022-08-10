@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "chemlib:lanthanum_plate"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "chemlib:lanthanum_plate"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chemlib:lanthanum_plate"
+    ]
+  }
 }

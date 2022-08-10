@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "alchemistry:bone_block"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "alchemistry:compactor/bone_block"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:bone_block"
+    ]
+  }
 }

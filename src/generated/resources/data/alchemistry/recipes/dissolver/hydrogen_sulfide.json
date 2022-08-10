@@ -5,21 +5,21 @@
     "item": "chemlib:hydrogen_sulfide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:hydrogen",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:hydrogen"
           },
           {
             "item": "chemlib:sulfur"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

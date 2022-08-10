@@ -5,30 +5,30 @@
     "item": "minecraft:lapis_block"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:sodium",
-            "count": 54
+            "count": 54,
+            "item": "chemlib:sodium"
           },
           {
-            "item": "chemlib:mullite",
-            "count": 27
+            "count": 27,
+            "item": "chemlib:mullite"
           },
           {
-            "item": "chemlib:calcium_sulfide",
-            "count": 18
+            "count": 18,
+            "item": "chemlib:calcium_sulfide"
           },
           {
-            "item": "chemlib:silicon",
-            "count": 27
+            "count": 27,
+            "item": "chemlib:silicon"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

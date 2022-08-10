@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class DatagenUtil {
         if (!pItemStack.isEmpty()) {
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("item", Objects.requireNonNull(pItemStack.getItem().getRegistryName()).toString());
+            jsonObject.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItemStack.getItem())).toString());
 
             if (pItemStack.getCount() > 1) {
                 jsonObject.addProperty("count", pItemStack.getCount());
@@ -33,13 +34,12 @@ public class DatagenUtil {
 
                 JsonObject jsonObject = new JsonObject();
                 if (itemStack != null) {
-                    Objects.requireNonNull(itemStack.getItem().getRegistryName());
-                    jsonObject.addProperty("item", itemStack.getItem().getRegistryName().toString());
+                    jsonObject.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemStack.getItem())).toString());
                     if (itemStack.getCount() > 1) {
                         jsonObject.addProperty("count", itemStack.getCount());
                     }
                 } else {
-                    jsonObject.addProperty("item", ItemStack.EMPTY.getItem().getRegistryName().toString());
+                    jsonObject.addProperty("item", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(ItemStack.EMPTY.getItem())).toString());
                 }
                 jsonArray.add(jsonObject);
             }
@@ -51,7 +51,7 @@ public class DatagenUtil {
         if (!pFluidStack.isEmpty()) {
 
             JsonObject jsonObject = new JsonObject();
-            ResourceLocation fluidLocation = pFluidStack.getFluid().getRegistryName();
+            ResourceLocation fluidLocation = ForgeRegistries.FLUIDS.getKey(pFluidStack.getFluid());
             String amount = String.valueOf(pFluidStack.getAmount());
 
             jsonObject.addProperty("fluid", Objects.requireNonNull(fluidLocation).toString());

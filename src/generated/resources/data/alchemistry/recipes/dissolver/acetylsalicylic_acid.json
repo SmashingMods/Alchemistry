@@ -5,26 +5,26 @@
     "item": "chemlib:acetylsalicylic_acid"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:hydrogen"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

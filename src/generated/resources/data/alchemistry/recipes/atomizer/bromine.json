@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:bromine_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:bromine_fluid"
   },
   "result": {
-    "item": "chemlib:bromine",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:bromine"
   }
 }

@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "chemlib:barium_chloride"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "chemlib:barium_chloride"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chemlib:barium_chloride"
+    ]
+  }
 }

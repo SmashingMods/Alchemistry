@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:arsenic_sulfide",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:arsenic_sulfide"
   },
   "result": {
     "item": "minecraft:pink_dye"

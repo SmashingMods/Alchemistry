@@ -5,8 +5,6 @@
     "item": "minecraft:cobbled_deepslate"
   },
   "output": {
-    "rolls": 2,
-    "weighted": true,
     "groups": [
       {
         "probability": 40.0,
@@ -96,6 +94,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 2,
+    "weighted": true
   }
 }

@@ -3,8 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:ammonium",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:ammonium"
     },
     {
       "item": "chemlib:hydrogen"

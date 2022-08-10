@@ -5,30 +5,30 @@
     "item": "chemlib:caffeine"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 10
+            "count": 10,
+            "item": "chemlib:hydrogen"
           },
           {
-            "item": "chemlib:nitrogen",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:nitrogen"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

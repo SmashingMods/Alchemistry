@@ -5,22 +5,22 @@
     "item": "minecraft:netherite_scrap"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:tungsten",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:tungsten"
           },
           {
-            "item": "chemlib:carbon",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:carbon"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

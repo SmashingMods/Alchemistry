@@ -5,21 +5,21 @@
     "item": "chemlib:sodium_oxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:sodium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:sodium"
           },
           {
             "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

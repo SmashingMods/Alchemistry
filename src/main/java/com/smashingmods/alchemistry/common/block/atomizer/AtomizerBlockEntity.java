@@ -64,7 +64,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE.get(), level).stream()
                     .filter(recipe -> recipe.getInput().getFluid().equals(getFluidStorage().getFluidStack().getFluid()))
                     .findFirst()
                     .ifPresent(recipe -> {

@@ -5,18 +5,18 @@
     "item": "chemlib:molybdenum_plate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:molybdenum",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:molybdenum"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

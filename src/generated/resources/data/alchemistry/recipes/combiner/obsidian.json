@@ -3,20 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:magnesium_oxide",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:magnesium_oxide"
     },
     {
-      "item": "chemlib:potassium_chloride",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:potassium_chloride"
     },
     {
-      "item": "chemlib:aluminum_oxide",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:aluminum_oxide"
     },
     {
-      "item": "chemlib:silicon_dioxide",
-      "count": 24
+      "count": 24,
+      "item": "chemlib:silicon_dioxide"
     }
   ],
   "result": {

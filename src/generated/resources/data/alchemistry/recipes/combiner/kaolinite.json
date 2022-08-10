@@ -6,12 +6,12 @@
       "item": "chemlib:aluminum_oxide"
     },
     {
-      "item": "chemlib:silicon_dioxide",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:silicon_dioxide"
     },
     {
-      "item": "chemlib:water",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:water"
     }
   ],
   "result": {

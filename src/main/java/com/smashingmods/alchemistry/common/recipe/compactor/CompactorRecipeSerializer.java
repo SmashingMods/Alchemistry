@@ -8,10 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
-public class CompactorRecipeSerializer<T extends CompactorRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class CompactorRecipeSerializer<T extends CompactorRecipe> implements RecipeSerializer<T> {
 
     private final CompactorRecipeSerializer.IFactory<T> factory;
 

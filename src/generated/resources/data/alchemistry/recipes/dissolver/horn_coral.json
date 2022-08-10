@@ -5,22 +5,22 @@
     "item": "minecraft:horn_coral"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:calcium_carbonate",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:calcium_carbonate"
           },
           {
-            "item": "chemlib:lead_iodide",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:lead_iodide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

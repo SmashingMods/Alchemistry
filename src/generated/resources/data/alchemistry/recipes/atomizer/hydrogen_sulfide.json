@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:hydrogen_sulfide_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:hydrogen_sulfide_fluid"
   },
   "result": {
-    "item": "chemlib:hydrogen_sulfide",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:hydrogen_sulfide"
   }
 }

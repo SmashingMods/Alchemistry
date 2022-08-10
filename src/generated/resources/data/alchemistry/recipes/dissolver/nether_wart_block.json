@@ -5,26 +5,26 @@
     "item": "minecraft:nether_wart_block"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:chitin",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:chitin"
           },
           {
-            "item": "chemlib:germanium",
-            "count": 36
+            "count": 36,
+            "item": "chemlib:germanium"
           },
           {
-            "item": "chemlib:selenium",
-            "count": 36
+            "count": 36,
+            "item": "chemlib:selenium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

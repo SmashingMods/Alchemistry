@@ -5,22 +5,22 @@
     "item": "minecraft:spider_eye"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:beta_carotene",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:beta_carotene"
           },
           {
-            "item": "chemlib:chitin",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:chitin"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

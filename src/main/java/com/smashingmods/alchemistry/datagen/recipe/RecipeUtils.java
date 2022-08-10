@@ -45,17 +45,14 @@ public class RecipeUtils {
     }
 
     public static ResourceLocation getLocation(ItemStack pItemStack, String pType) {
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, pItemStack.getItem().getRegistryName().getPath()));
+        return getLocation(pItemStack.getItem(), pType);
     }
 
     public static ResourceLocation getLocation(Item pItem, String pType) {
-        Objects.requireNonNull(pItem.getRegistryName());
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, pItem.getRegistryName().getPath()));
+        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItem)).getPath()));
     }
 
     public static ResourceLocation getLocation(FluidStack pFluidStack, String pType) {
-        Objects.requireNonNull(pFluidStack.getFluid().getRegistryName());
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, pFluidStack.getFluid().getRegistryName().getPath()));
+        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(pFluidStack.getFluid())).getPath()));
     }
 }

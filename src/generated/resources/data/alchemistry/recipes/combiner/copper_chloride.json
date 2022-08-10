@@ -6,8 +6,8 @@
       "item": "chemlib:copper"
     },
     {
-      "item": "chemlib:chlorine",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:chlorine"
     }
   ],
   "result": {

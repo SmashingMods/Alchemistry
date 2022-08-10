@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:niobium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:niobium"
   },
   "result": {
     "item": "chemlib:niobium_dust"

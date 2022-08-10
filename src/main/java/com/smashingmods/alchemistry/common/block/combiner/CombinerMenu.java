@@ -18,6 +18,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     private void setupRecipeList() {
         this.blockEntity.getRecipes().clear();
         List<CombinerRecipe> recipes = level.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE)
+                .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE.get())
                 .map(recipe -> (CombinerRecipe) recipe).sorted()
                 .collect(Collectors.toList());
 
@@ -114,9 +115,10 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
     public void searchRecipeList(String pKeyword) {
         this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream().filter(recipe -> {
-            Objects.requireNonNull(recipe.getOutput().getItem().getRegistryName());
-            return recipe.getOutput().getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
-        }).toList());
+        this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream()
+                .filter(recipe -> Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(recipe.getOutput().getItem()))
+                        .getPath()
+                        .contains(pKeyword.toLowerCase().replace(" ", "_")))
+                .toList());
     }
 }

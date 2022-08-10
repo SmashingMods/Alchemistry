@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:protactinium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:protactinium"
   },
   "result": {
     "item": "chemlib:protactinium_dust"

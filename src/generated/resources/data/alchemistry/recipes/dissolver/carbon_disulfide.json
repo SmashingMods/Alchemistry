@@ -5,8 +5,6 @@
     "item": "chemlib:carbon_disulfide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
@@ -15,11 +13,13 @@
             "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:sulfur",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:sulfur"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

@@ -1,7 +1,5 @@
 package com.smashingmods.alchemistry.api.container;
 
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.inventory.ContainerData;
 
 public class ProgressDisplayData extends DisplayData {
@@ -31,10 +29,5 @@ public class ProgressDisplayData extends DisplayData {
 
     public Direction2D getDirection() {
         return direction2D;
-    }
-
-    @Override
-    public Component toTextComponent() {
-        return new TextComponent("Show Recipes");
     }
 }

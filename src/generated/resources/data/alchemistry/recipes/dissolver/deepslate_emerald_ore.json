@@ -5,26 +5,26 @@
     "item": "minecraft:deepslate_emerald_ore"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:beryl",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:beryl"
           },
           {
-            "item": "chemlib:chromium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:chromium"
           },
           {
-            "item": "chemlib:vanadium",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:vanadium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

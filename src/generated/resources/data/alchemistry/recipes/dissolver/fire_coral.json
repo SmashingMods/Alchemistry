@@ -5,22 +5,22 @@
     "item": "minecraft:fire_coral"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:calcium_carbonate",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:calcium_carbonate"
           },
           {
-            "item": "chemlib:cobalt_nitrate",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:cobalt_nitrate"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

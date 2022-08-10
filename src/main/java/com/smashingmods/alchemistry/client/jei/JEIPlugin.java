@@ -61,13 +61,13 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration pRegistration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        pRegistration.addRecipes(RecipeTypes.ATOMIZER, recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE));
-        pRegistration.addRecipes(RecipeTypes.COMBINER, recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE));
-        pRegistration.addRecipes(RecipeTypes.COMPACTOR, recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE));
-        pRegistration.addRecipes(RecipeTypes.DISSOLVER, recipeManager.getAllRecipesFor(RecipeRegistry.DISSOLVER_TYPE));
-        pRegistration.addRecipes(RecipeTypes.FISSION, recipeManager.getAllRecipesFor(RecipeRegistry.FISSION_TYPE));
-        pRegistration.addRecipes(RecipeTypes.FUSION, recipeManager.getAllRecipesFor(RecipeRegistry.FUSION_TYPE));
-        pRegistration.addRecipes(RecipeTypes.LIQUIFIER, recipeManager.getAllRecipesFor(RecipeRegistry.LIQUIFIER_TYPE));
+        pRegistration.addRecipes(RecipeTypes.ATOMIZER, recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.COMBINER, recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.COMPACTOR, recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.DISSOLVER, recipeManager.getAllRecipesFor(RecipeRegistry.DISSOLVER_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.FISSION, recipeManager.getAllRecipesFor(RecipeRegistry.FISSION_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.FUSION, recipeManager.getAllRecipesFor(RecipeRegistry.FUSION_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.LIQUIFIER, recipeManager.getAllRecipesFor(RecipeRegistry.LIQUIFIER_TYPE.get()));
     }
 
     @Override

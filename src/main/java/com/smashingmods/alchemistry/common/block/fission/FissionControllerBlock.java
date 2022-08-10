@@ -6,7 +6,8 @@ import com.smashingmods.alchemistry.api.blockentity.PowerState;
 import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -52,7 +53,7 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(new TranslatableComponent("tooltip.alchemistry.energy_requirement", Config.Common.fissionEnergyPerTick.get()));
+        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", Config.Common.fissionEnergyPerTick.get())));
     }
 
     @Override
@@ -61,7 +62,7 @@ public class FissionControllerBlock extends AbstractAlchemistryBlock {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.DISABLED) {
                 BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-                NetworkHooks.openGui(((ServerPlayer) pPlayer), (FissionControllerBlockEntity) blockEntity, pPos);
+                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (FissionControllerBlockEntity) blockEntity, pPos);
                 return InteractionResult.SUCCESS;
             }
             return InteractionResult.FAIL;

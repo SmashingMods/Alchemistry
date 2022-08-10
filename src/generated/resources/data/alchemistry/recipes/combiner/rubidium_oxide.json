@@ -3,8 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:rubidium",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:rubidium"
     },
     {
       "item": "chemlib:oxygen"

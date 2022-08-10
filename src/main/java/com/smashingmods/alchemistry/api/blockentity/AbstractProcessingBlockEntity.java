@@ -7,7 +7,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -41,7 +42,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
 
     public AbstractProcessingBlockEntity(BlockEntityType<?> pBlockEntityType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pBlockEntityType, pWorldPosition, pBlockState);
-        this.name = new TranslatableComponent(String.format("%s.container.%s", Alchemistry.MODID, Objects.requireNonNull(getType().getRegistryName()).getPath()));
+        this.name = MutableComponent.create(new LiteralContents(String.format("%s.container.%s", Alchemistry.MODID, pBlockState.getBlock().getName())));
     }
 
     @Override

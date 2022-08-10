@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cesium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:cesium"
   },
   "result": {
     "item": "chemlib:cesium_dust"

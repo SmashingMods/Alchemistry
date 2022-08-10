@@ -5,7 +5,7 @@
     "item": "chemlib:keratin"
   },
   "result": {
-    "item": "minecraft:string",
-    "count": 2
+    "count": 2,
+    "item": "minecraft:string"
   }
 }

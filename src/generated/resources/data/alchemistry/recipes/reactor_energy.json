@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
+  "key": {
+    "C": {
+      "item": "alchemistry:reactor_casing"
+    },
+    "D": {
+      "item": "minecraft:redstone"
+    }
+  },
   "pattern": [
     "D",
     "C",
     "D"
   ],
-  "key": {
-    "D": {
-      "item": "minecraft:redstone"
-    },
-    "C": {
-      "item": "alchemistry:reactor_casing"
-    }
-  },
   "result": {
     "item": "alchemistry:reactor_energy"
   }

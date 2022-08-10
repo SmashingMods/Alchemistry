@@ -9,12 +9,12 @@
       "item": "chemlib:copper"
     },
     {
-      "item": "chemlib:silicon",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:silicon"
     },
     {
-      "item": "chemlib:oxygen",
-      "count": 6
+      "count": 6,
+      "item": "chemlib:oxygen"
     }
   ],
   "result": {

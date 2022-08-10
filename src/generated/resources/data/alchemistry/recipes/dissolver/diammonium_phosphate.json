@@ -5,15 +5,13 @@
     "item": "chemlib:diammonium_phosphate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:ammonium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:ammonium"
           },
           {
             "item": "chemlib:hydrogen"
@@ -23,6 +21,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

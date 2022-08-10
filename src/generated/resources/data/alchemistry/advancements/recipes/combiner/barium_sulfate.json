@@ -1,20 +1,20 @@
 {
-  "rewards": {
-    "recipes": [
-      "chemlib:barium_sulfate"
-    ]
-  },
   "criteria": {
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "alchemistry:combiner/barium_sulfate"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "chemlib:barium_sulfate"
+    ]
+  }
 }

@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:holmium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:holmium"
   },
   "result": {
     "item": "chemlib:holmium_dust"

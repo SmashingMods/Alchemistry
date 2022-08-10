@@ -5,22 +5,22 @@
     "item": "minecraft:white_concrete"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:silicon_dioxide",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:silicon_dioxide"
           },
           {
-            "item": "chemlib:water",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:water"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

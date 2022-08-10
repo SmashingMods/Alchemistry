@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:samarium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:samarium"
   },
   "result": {
     "item": "chemlib:samarium_dust"

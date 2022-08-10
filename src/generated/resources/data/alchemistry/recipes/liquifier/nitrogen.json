@@ -2,11 +2,11 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:nitrogen",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:nitrogen"
   },
   "result": {
-    "fluid": "chemlib:nitrogen_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:nitrogen_fluid"
   }
 }

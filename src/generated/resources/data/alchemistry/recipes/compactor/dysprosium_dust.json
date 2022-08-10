@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:dysprosium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:dysprosium"
   },
   "result": {
     "item": "chemlib:dysprosium_dust"

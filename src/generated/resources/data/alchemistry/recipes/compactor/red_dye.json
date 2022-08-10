@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:mercury_sulfide",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:mercury_sulfide"
   },
   "result": {
     "item": "minecraft:red_dye"

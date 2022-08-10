@@ -8,10 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
-public class FusionRecipeSerializer<T extends FusionRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class FusionRecipeSerializer<T extends FusionRecipe> implements RecipeSerializer<T> {
 
     private final FusionRecipeSerializer.IFactory<T> factory;
 

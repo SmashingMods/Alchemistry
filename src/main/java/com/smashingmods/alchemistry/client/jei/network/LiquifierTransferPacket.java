@@ -2,21 +2,27 @@ package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.AbstractFluidBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class LiquifierTransferPacket {
@@ -50,7 +56,7 @@ public class LiquifierTransferPacket {
             ItemStack handlerStack = inputHandler.getStackInSlot(0);
 
             if (player.getInventory().contains(input) && (ItemStack.isSameItemSameTags(input, handlerStack) || handlerStack.isEmpty())) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, player.getLevel()).stream()
+                RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE.get(), player.getLevel()).stream()
                         .filter(recipe -> ItemStack.isSameItemSameTags(input, recipe.getInput()))
                         .findFirst()
                         .ifPresent(recipe -> {
@@ -77,8 +83,13 @@ public class LiquifierTransferPacket {
         }
 
         @Override
-        public Class<LiquifierRecipe> getRecipeClass() {
-            return LiquifierRecipe.class;
+        public Optional<MenuType<LiquifierMenu>> getMenuType() {
+            return Optional.of(MenuRegistry.LIQUIFIER_MENU.get());
+        }
+
+        @Override
+        public RecipeType<LiquifierRecipe> getRecipeType() {
+            return RecipeTypes.LIQUIFIER;
         }
 
         @Override

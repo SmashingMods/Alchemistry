@@ -30,7 +30,7 @@ public class LiquifierRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeRegistry.LIQUIFIER_TYPE;
+        return RecipeRegistry.LIQUIFIER_TYPE.get();
     }
 
     @Override

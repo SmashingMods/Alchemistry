@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:scandium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:scandium"
   },
   "result": {
     "item": "chemlib:scandium_dust"

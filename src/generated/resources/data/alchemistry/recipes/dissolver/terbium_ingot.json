@@ -5,18 +5,18 @@
     "item": "chemlib:terbium_ingot"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:terbium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:terbium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

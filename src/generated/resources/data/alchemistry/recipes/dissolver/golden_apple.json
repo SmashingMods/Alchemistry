@@ -5,15 +5,13 @@
     "item": "minecraft:golden_apple"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:gold",
-            "count": 128
+            "count": 128,
+            "item": "chemlib:gold"
           },
           {
             "item": "chemlib:cellulose"
@@ -23,6 +21,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

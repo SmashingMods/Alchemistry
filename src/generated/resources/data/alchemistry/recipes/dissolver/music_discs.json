@@ -5,26 +5,26 @@
     "tag": "minecraft:music_discs"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:polyvinyl_chloride",
-            "count": 64
+            "count": 64,
+            "item": "chemlib:polyvinyl_chloride"
           },
           {
-            "item": "chemlib:lead",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:lead"
           },
           {
-            "item": "chemlib:cadmium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:cadmium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

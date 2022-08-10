@@ -5,8 +5,6 @@
     "item": "chemlib:iron_ii_oxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
@@ -19,6 +17,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

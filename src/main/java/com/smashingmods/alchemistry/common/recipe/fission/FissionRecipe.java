@@ -32,7 +32,7 @@ public class FissionRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeRegistry.FISSION_TYPE;
+        return RecipeRegistry.FISSION_TYPE.get();
     }
 
     @Override

@@ -5,8 +5,6 @@
     "item": "minecraft:cobblestone_slab"
   },
   "output": {
-    "rolls": 1,
-    "weighted": true,
     "groups": [
       {
         "probability": 1400.0,
@@ -88,6 +86,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": true
   }
 }

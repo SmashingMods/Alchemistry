@@ -27,7 +27,7 @@ public class DissolverRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeRegistry.DISSOLVER_TYPE;
+        return RecipeRegistry.DISSOLVER_TYPE.get();
     }
 
     @Override

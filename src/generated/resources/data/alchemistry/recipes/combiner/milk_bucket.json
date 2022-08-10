@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:calcium",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:calcium"
     },
     {
-      "item": "chemlib:protein",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:protein"
     },
     {
-      "item": "chemlib:water",
-      "count": 16
+      "count": 16,
+      "item": "chemlib:water"
     },
     {
       "item": "minecraft:bucket"

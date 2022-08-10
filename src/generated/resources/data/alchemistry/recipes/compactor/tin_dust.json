@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:tin",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:tin"
   },
   "result": {
     "item": "chemlib:tin_dust"

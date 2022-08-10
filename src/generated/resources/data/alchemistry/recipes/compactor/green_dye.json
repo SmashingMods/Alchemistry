@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:nickel_chloride",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:nickel_chloride"
   },
   "result": {
     "item": "minecraft:green_dye"

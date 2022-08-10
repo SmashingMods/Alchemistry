@@ -5,18 +5,18 @@
     "item": "chemlib:sodium_dust"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:sodium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:sodium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

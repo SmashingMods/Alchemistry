@@ -5,21 +5,21 @@
     "item": "chemlib:rubidium_oxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:rubidium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:rubidium"
           },
           {
             "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

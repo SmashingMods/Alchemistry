@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
+  "key": {
+    "C": {
+      "item": "alchemistry:reactor_casing"
+    },
+    "H": {
+      "item": "minecraft:hopper"
+    }
+  },
   "pattern": [
     "H",
     "C",
     "H"
   ],
-  "key": {
-    "H": {
-      "item": "minecraft:hopper"
-    },
-    "C": {
-      "item": "alchemistry:reactor_casing"
-    }
-  },
   "result": {
     "item": "alchemistry:reactor_input"
   }

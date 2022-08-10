@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cobalt_aluminate",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:cobalt_aluminate"
   },
   "result": {
     "item": "minecraft:light_blue_dye"

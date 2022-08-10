@@ -1,12 +1,15 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
@@ -15,12 +18,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class CompactorTransferPacket {
@@ -61,7 +65,7 @@ public class CompactorTransferPacket {
             ItemStack handlerInputStack = inputHandler.getStackInSlot(0);
             ItemStack handlerOutputStack = outputHandler.getStackInSlot(0);
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE.get(), level).stream()
                     .filter(recipe -> ItemStack.isSameItemSameTags(packetOutput, recipe.getOutput()))
                     .findFirst()
                     .ifPresent(recipe -> {
@@ -109,8 +113,13 @@ public class CompactorTransferPacket {
         }
 
         @Override
-        public Class<CompactorRecipe> getRecipeClass() {
-            return CompactorRecipe.class;
+        public Optional<MenuType<CompactorMenu>> getMenuType() {
+            return Optional.of(MenuRegistry.COMPACTOR_MENU.get());
+        }
+
+        @Override
+        public RecipeType<CompactorRecipe> getRecipeType() {
+            return RecipeTypes.COMPACTOR;
         }
 
         @Override

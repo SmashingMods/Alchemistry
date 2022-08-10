@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beryl",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:beryl"
     },
     {
-      "item": "chemlib:niobium",
-      "count": 3
+      "count": 3,
+      "item": "chemlib:niobium"
     },
     {
       "item": "chemlib:selenium"

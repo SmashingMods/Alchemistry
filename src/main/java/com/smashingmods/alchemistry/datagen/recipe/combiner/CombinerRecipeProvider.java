@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Objects;
@@ -77,7 +78,7 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<ItemStack> pInput) {
-        CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(pOutput.getItem().getRegistryName()))
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())))
                 .group(String.format("%s:combiner", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "combiner")))
                 .save(consumer);

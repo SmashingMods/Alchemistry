@@ -5,22 +5,22 @@
     "item": "minecraft:redstone_block"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:iron_oxide",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:iron_oxide"
           },
           {
-            "item": "chemlib:strontium_carbonate",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:strontium_carbonate"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

@@ -6,8 +6,8 @@
       "item": "chemlib:sulfur"
     },
     {
-      "item": "chemlib:oxygen",
-      "count": 3
+      "count": 3,
+      "item": "chemlib:oxygen"
     }
   ],
   "result": {

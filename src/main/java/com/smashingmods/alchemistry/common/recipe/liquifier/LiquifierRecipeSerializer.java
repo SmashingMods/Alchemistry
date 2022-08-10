@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,11 +11,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Objects;
 
-public class LiquifierRecipeSerializer<T extends LiquifierRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class LiquifierRecipeSerializer<T extends LiquifierRecipe> implements RecipeSerializer<T> {
 
     private final IFactory<T> factory;
 

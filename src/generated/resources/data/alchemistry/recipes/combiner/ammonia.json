@@ -6,8 +6,8 @@
       "item": "chemlib:nitrogen"
     },
     {
-      "item": "chemlib:hydrogen",
-      "count": 3
+      "count": 3,
+      "item": "chemlib:hydrogen"
     }
   ],
   "result": {

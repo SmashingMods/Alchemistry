@@ -5,22 +5,22 @@
     "item": "minecraft:glow_ink_sac"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:copper_chloride",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:copper_chloride"
           },
           {
-            "item": "chemlib:phosphorus",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:phosphorus"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:carbon",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:carbon"
   },
   "result": {
     "item": "chemlib:graphite"

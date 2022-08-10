@@ -5,8 +5,6 @@
     "item": "minecraft:baked_potato"
   },
   "output": {
-    "rolls": 1,
-    "weighted": true,
     "groups": [
       {
         "probability": 10.0,
@@ -20,11 +18,13 @@
         "probability": 25.0,
         "results": [
           {
-            "item": "chemlib:potassium",
-            "count": 5
+            "count": 5,
+            "item": "chemlib:potassium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": true
   }
 }

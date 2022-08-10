@@ -3,8 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:cerium",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:cerium"
     }
   ],
   "result": {

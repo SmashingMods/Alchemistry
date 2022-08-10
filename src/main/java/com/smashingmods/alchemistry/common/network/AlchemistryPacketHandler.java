@@ -27,55 +27,55 @@ public class AlchemistryPacketHandler {
         INSTANCE.messageBuilder(BlockEntityPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(BlockEntityPacket::new)
                 .encoder(BlockEntityPacket::encode)
-                .consumer(BlockEntityPacket::handle)
+                .consumerNetworkThread(BlockEntityPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(ProcessingButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ProcessingButtonPacket::new)
                 .encoder(ProcessingButtonPacket::encode)
-                .consumer(ProcessingButtonPacket::handle)
+                .consumerNetworkThread(ProcessingButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CompactorResetPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(CompactorResetPacket::new)
                 .encoder(CompactorResetPacket::encode)
-                .consumer(CompactorResetPacket::handle)
+                .consumerNetworkThread(CompactorResetPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CombinerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(CombinerRecipePacket::new)
                 .encoder(CombinerRecipePacket::encode)
-                .consumer(CombinerRecipePacket::handle)
+                .consumerNetworkThread(CombinerRecipePacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CombinerTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(CombinerTransferPacket::new)
                 .encoder(CombinerTransferPacket::encode)
-                .consumer(CombinerTransferPacket::handle)
+                .consumerNetworkThread(CombinerTransferPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CompactorTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(CompactorTransferPacket::new)
                 .encoder(CompactorTransferPacket::encode)
-                .consumer(CompactorTransferPacket::handle)
+                .consumerNetworkThread(CompactorTransferPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(FissionTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(FissionTransferPacket::new)
                 .encoder(FissionTransferPacket::encode)
-                .consumer(FissionTransferPacket::handle)
+                .consumerNetworkThread(FissionTransferPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(FusionTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(FusionTransferPacket::new)
                 .encoder(FusionTransferPacket::encode)
-                .consumer(FusionTransferPacket::handle)
+                .consumerNetworkThread(FusionTransferPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(LiquifierTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(LiquifierTransferPacket::new)
                 .encoder(LiquifierTransferPacket::encode)
-                .consumer(LiquifierTransferPacket::handle)
+                .consumerNetworkThread(LiquifierTransferPacket::handle)
                 .add();
     }
 

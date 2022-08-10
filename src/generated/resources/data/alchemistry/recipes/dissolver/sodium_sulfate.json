@@ -5,25 +5,25 @@
     "item": "chemlib:sodium_sulfate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:sodium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:sodium"
           },
           {
             "item": "chemlib:sulfur"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

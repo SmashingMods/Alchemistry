@@ -5,26 +5,26 @@
     "item": "minecraft:warped_wart_block"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:chitin",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:chitin"
           },
           {
-            "item": "chemlib:neodymium",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:neodymium"
           },
           {
-            "item": "chemlib:mercury",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:mercury"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

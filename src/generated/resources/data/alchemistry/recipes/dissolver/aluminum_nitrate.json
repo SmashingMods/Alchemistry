@@ -5,8 +5,6 @@
     "item": "chemlib:aluminum_nitrate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
@@ -15,11 +13,13 @@
             "item": "chemlib:aluminum"
           },
           {
-            "item": "chemlib:nitrate",
-            "count": 3
+            "count": 3,
+            "item": "chemlib:nitrate"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

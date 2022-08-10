@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:terbium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:terbium"
   },
   "result": {
     "item": "chemlib:terbium_dust"

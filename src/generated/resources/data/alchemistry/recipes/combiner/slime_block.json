@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:protein",
-      "count": 18
+      "count": 18,
+      "item": "chemlib:protein"
     },
     {
-      "item": "chemlib:sucrose",
-      "count": 18
+      "count": 18,
+      "item": "chemlib:sucrose"
     }
   ],
   "result": {

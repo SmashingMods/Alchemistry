@@ -6,7 +6,8 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -43,7 +44,7 @@ public class LiquifierScreen extends AbstractAlchemistryScreen<LiquifierMenu> {
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = new TranslatableComponent("alchemistry.container.liquifier");
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.liquifier"));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

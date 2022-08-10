@@ -5,8 +5,6 @@
     "item": "chemlib:phosphate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
@@ -15,11 +13,13 @@
             "item": "chemlib:phosphorus"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

@@ -5,22 +5,22 @@
     "item": "minecraft:wither_skeleton_skull"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:hydroxylapatite",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:hydroxylapatite"
           },
           {
-            "item": "chemlib:mendelevium",
-            "count": 32
+            "count": 32,
+            "item": "chemlib:mendelevium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

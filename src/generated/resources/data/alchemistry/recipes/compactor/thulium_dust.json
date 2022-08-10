@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:thulium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:thulium"
   },
   "result": {
     "item": "chemlib:thulium_dust"

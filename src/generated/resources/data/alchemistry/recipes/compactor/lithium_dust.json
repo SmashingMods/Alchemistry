@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:lithium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:lithium"
   },
   "result": {
     "item": "chemlib:lithium_dust"

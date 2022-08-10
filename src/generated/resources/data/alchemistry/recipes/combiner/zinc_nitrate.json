@@ -6,8 +6,8 @@
       "item": "chemlib:zinc"
     },
     {
-      "item": "chemlib:nitrate",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:nitrate"
     }
   ],
   "result": {

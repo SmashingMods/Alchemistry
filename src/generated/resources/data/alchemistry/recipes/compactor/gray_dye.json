@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:barium_sulfate",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:barium_sulfate"
   },
   "result": {
     "item": "minecraft:gray_dye"

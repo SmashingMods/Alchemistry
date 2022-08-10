@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:han_purple",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:han_purple"
   },
   "result": {
     "item": "minecraft:magenta_dye"

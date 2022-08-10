@@ -6,8 +6,8 @@
       "item": "chemlib:nickel"
     },
     {
-      "item": "chemlib:nitrate",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:nitrate"
     }
   ],
   "result": {

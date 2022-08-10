@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:carbon_disulfide_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:carbon_disulfide_fluid"
   },
   "result": {
-    "item": "chemlib:carbon_disulfide",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:carbon_disulfide"
   }
 }

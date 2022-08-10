@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:copper",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:copper"
   },
   "result": {
     "item": "chemlib:copper_dust"

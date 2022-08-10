@@ -5,22 +5,22 @@
     "item": "chemlib:arsenic_sulfide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:arsenic",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:arsenic"
           },
           {
-            "item": "chemlib:sulfur",
-            "count": 4
+            "count": 4,
+            "item": "chemlib:sulfur"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

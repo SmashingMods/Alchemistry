@@ -2,11 +2,14 @@ package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
@@ -14,11 +17,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class FusionTransferPacket {
@@ -63,7 +68,7 @@ public class FusionTransferPacket {
                     && (ItemStack.isSameItemSameTags(input1, handler1) || handler1.isEmpty())
                     && (ItemStack.isSameItemSameTags(input2, handler2) || handler2.isEmpty())) {
 
-                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, player.getLevel()).stream()
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE.get(), player.getLevel()).stream()
                         .filter(recipe -> ItemStack.isSameItemSameTags(input1, recipe.getInput1()) && ItemStack.isSameItemSameTags(input2, recipe.getInput2()))
                         .findFirst()
                         .ifPresent(recipe -> {
@@ -91,8 +96,13 @@ public class FusionTransferPacket {
         }
 
         @Override
-        public Class<FusionRecipe> getRecipeClass() {
-            return FusionRecipe.class;
+        public Optional<MenuType<FusionControllerMenu>> getMenuType() {
+            return Optional.of(MenuRegistry.FUSION_CONTROLLER_MENU.get());
+        }
+
+        @Override
+        public RecipeType<FusionRecipe> getRecipeType() {
+            return RecipeTypes.FUSION;
         }
 
         @Override

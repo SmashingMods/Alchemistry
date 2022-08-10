@@ -5,25 +5,25 @@
     "item": "chemlib:ethanol"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 5
+            "count": 5,
+            "item": "chemlib:hydrogen"
           },
           {
             "item": "chemlib:hydroxide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

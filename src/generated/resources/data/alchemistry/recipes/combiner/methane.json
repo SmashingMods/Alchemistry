@@ -6,8 +6,8 @@
       "item": "chemlib:carbon"
     },
     {
-      "item": "chemlib:hydrogen",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:hydrogen"
     }
   ],
   "result": {

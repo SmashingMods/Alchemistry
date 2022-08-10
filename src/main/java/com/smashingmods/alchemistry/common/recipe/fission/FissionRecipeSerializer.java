@@ -8,9 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class FissionRecipeSerializer<T extends FissionRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class FissionRecipeSerializer<T extends FissionRecipe> implements RecipeSerializer<T> {
 
     private final FissionRecipeSerializer.IFactory<T> factory;
 

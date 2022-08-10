@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:mercury_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:mercury_fluid"
   },
   "result": {
-    "item": "chemlib:mercury",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:mercury"
   }
 }

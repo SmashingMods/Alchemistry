@@ -29,7 +29,7 @@ public class AtomizerRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public RecipeType<?> getType() {
-        return RecipeRegistry.ATOMIZER_TYPE;
+        return RecipeRegistry.ATOMIZER_TYPE.get();
     }
 
     @Override

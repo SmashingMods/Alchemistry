@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beryl",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:beryl"
     },
     {
-      "item": "chemlib:chromium",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:chromium"
     },
     {
-      "item": "chemlib:vanadium",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:vanadium"
     }
   ],
   "result": {

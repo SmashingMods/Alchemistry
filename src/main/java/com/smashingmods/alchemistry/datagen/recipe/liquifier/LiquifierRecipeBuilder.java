@@ -11,8 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class LiquifierRecipeBuilder implements RecipeBuilder {
@@ -34,7 +36,7 @@ public class LiquifierRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, result.getFluid().getBucket().getRegistryName().getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(result.getFluid().getBucket())).getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
     }

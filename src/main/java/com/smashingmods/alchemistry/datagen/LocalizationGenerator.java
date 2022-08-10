@@ -5,9 +5,8 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -24,14 +23,14 @@ public class LocalizationGenerator extends LanguageProvider {
     protected void addTranslations() {
         BlockRegistry.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
-                .map(Block::getRegistryName)
+                .map(ForgeRegistries.BLOCKS::getKey)
                 .filter(Objects::nonNull)
                 .map(ResourceLocation::getPath)
                 .forEach(path -> add(String.format("block.alchemistry.%s", path), WordUtils.capitalize(path.replace("_", " "))));
 
-        MenuRegistry.MENUS.getEntries().stream()
+        MenuRegistry.MENU_TYPES.getEntries().stream()
                 .map(RegistryObject::get)
-                .map(MenuType::getRegistryName)
+                .map(ForgeRegistries.MENU_TYPES::getKey)
                 .filter(Objects::nonNull)
                 .map(ResourceLocation::getPath)
                 .forEach(path -> {

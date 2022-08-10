@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:arsenic",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:arsenic"
     },
     {
-      "item": "chemlib:sulfur",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:sulfur"
     }
   ],
   "result": {

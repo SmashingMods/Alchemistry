@@ -5,8 +5,6 @@
     "item": "minecraft:nether_brick"
   },
   "output": {
-    "rolls": 1,
-    "weighted": true,
     "groups": [
       {
         "probability": 5.0,
@@ -64,6 +62,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": true
   }
 }

@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:ruthenium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:ruthenium"
   },
   "result": {
     "item": "chemlib:ruthenium_dust"

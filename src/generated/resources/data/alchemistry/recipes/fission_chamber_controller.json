@@ -1,28 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
-  "pattern": [
-    "ICI",
-    "GDR",
-    "ICI"
-  ],
   "key": {
+    "C": {
+      "item": "alchemistry:reactor_casing"
+    },
+    "D": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
     },
     "R": {
       "item": "minecraft:redstone"
-    },
-    "C": {
-      "item": "alchemistry:reactor_casing"
-    },
-    "G": {
-      "item": "minecraft:glass"
-    },
-    "D": {
-      "item": "minecraft:glowstone_dust"
     }
   },
+  "pattern": [
+    "ICI",
+    "GDR",
+    "ICI"
+  ],
   "result": {
     "item": "alchemistry:fission_chamber_controller"
   }

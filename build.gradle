@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
+        classpath 'org.parchmentmc:librarian:1.2.0'
     }
 }
 
@@ -29,7 +29,7 @@ sourceSets{
 }
 
 minecraft {
-    mappings channel: 'parchment', version: "$parchment_version-$minecraft_version"
+    mappings channel: 'parchment', version: "1.18.2-$parchment_version-$minecraft_version"
     runs {
         client {
             workingDirectory project.file('run')
@@ -89,13 +89,14 @@ dependencies {
 
     implementation fg.deobf("curse.maven:chemlib-${chemlib_pid}:${chemlib_fid}")
 
-    implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-${patchouli_version}")
 
-    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
+//    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
 }
 
 jar {
@@ -140,18 +141,19 @@ curseforge {
     apiKey = secrets.getProperty("apiKey")
     project {
         id = '293425'
-        releaseType = 'release'
+        releaseType = 'beta'
         changelogType = 'markdown'
         changelog = file("changelog.md")
         addGameVersion 'Forge'
         addGameVersion 'Java 17'
-        addGameVersion '1.18.2'
+        addGameVersion '1.19.1'
         mainArtifact(jar) {
             displayName = "Alchemistry - $project.version"
             relations {
                 requiredDependency 'chemlib'
                 optionalDependency 'jei'
-                optionalDependency 'ctm'
+                optionalDependency 'patchouli'
+//                optionalDependency 'ctm'
             }
         }
     }

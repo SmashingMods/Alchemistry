@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beta_carotene",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:beta_carotene"
     },
     {
-      "item": "chemlib:chitin",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:chitin"
     }
   ],
   "result": {

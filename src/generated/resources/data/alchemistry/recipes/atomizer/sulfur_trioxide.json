@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:sulfur_trioxide_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:sulfur_trioxide_fluid"
   },
   "result": {
-    "item": "chemlib:sulfur_trioxide",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:sulfur_trioxide"
   }
 }

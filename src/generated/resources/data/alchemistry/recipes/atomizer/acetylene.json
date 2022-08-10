@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:acetylene_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:acetylene_fluid"
   },
   "result": {
-    "item": "chemlib:acetylene",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:acetylene"
   }
 }

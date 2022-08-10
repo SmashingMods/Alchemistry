@@ -1,7 +1,8 @@
 package com.smashingmods.alchemistry.api.container;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
 
 public abstract class DisplayData implements IDisplayData {
 
@@ -22,7 +23,7 @@ public abstract class DisplayData implements IDisplayData {
         if (this.toString() != null) {
             temp = this.toString();
         }
-        return new TextComponent(temp);
+        return MutableComponent.create(new LiteralContents(temp));
     }
 
     @Override

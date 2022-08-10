@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,9 +41,8 @@ public class ProbabilityGroup {
         JsonArray results = new JsonArray();
 
         for (ItemStack itemStack : this.output) {
-            Objects.requireNonNull(itemStack.getItem().getRegistryName());
             JsonObject jsonObject = new JsonObject();
-            jsonObject.add("item", new JsonPrimitive(itemStack.getItem().getRegistryName().toString()));
+            jsonObject.add("item", new JsonPrimitive(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemStack.getItem())).toString()));
 
             if (itemStack.getCount() > 1) {
                 jsonObject.add("count", new JsonPrimitive(itemStack.getCount()));

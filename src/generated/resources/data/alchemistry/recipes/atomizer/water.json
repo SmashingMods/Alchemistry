@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "minecraft:water",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "minecraft:water"
   },
   "result": {
-    "item": "chemlib:water",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:water"
   }
 }

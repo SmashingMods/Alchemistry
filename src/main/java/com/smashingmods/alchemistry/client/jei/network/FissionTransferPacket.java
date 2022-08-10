@@ -2,22 +2,27 @@ package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class FissionTransferPacket {
@@ -51,7 +56,7 @@ public class FissionTransferPacket {
             ItemStack handlerStack = inputHandler.getStackInSlot(0);
 
             if (player.getInventory().contains(input) && (ItemStack.isSameItemSameTags(input, handlerStack) || handlerStack.isEmpty())) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, player.getLevel()).stream()
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE.get(), player.getLevel()).stream()
                         .filter(recipe -> ItemStack.isSameItemSameTags(input, recipe.getInput()))
                         .findFirst()
                         .ifPresent(recipe -> {
@@ -76,8 +81,13 @@ public class FissionTransferPacket {
         }
 
         @Override
-        public Class<FissionRecipe> getRecipeClass() {
-            return FissionRecipe.class;
+        public Optional<MenuType<FissionControllerMenu>> getMenuType() {
+            return Optional.of(MenuRegistry.FISSION_CONTROLLER_MENU.get());
+        }
+
+        @Override
+        public RecipeType<FissionRecipe> getRecipeType() {
+            return RecipeTypes.FISSION;
         }
 
         @Override

@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:ammonia_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:ammonia_fluid"
   },
   "result": {
-    "item": "chemlib:ammonia",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:ammonia"
   }
 }

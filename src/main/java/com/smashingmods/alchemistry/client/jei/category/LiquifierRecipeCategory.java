@@ -5,6 +5,7 @@ import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -13,11 +14,11 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-@SuppressWarnings("removal")
 public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe> {
 
     private IGuiHelper guiHelper;
@@ -30,7 +31,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("alchemistry.jei.liquifier");
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.liquifier"));
     }
 
     @Override
@@ -44,16 +45,6 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
     }
 
     @Override
-    public ResourceLocation getUid() {
-        return getRecipeType().getUid();
-    }
-
-    @Override
-    public Class<? extends LiquifierRecipe> getRecipeClass() {
-        return LiquifierRecipe.class;
-    }
-
-    @Override
     public RecipeType<LiquifierRecipe> getRecipeType() {
         return RecipeTypes.LIQUIFIER;
     }
@@ -61,6 +52,6 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, LiquifierRecipe pRecipe, IFocusGroup pFocusGroup) {
         pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStack(pRecipe.getInput());
-        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(VanillaTypes.FLUID, pRecipe.getOutput());
+        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(ForgeTypes.FLUID_STACK, pRecipe.getOutput());
     }
 }

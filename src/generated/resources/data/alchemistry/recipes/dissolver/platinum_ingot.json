@@ -5,18 +5,18 @@
     "item": "chemlib:platinum_ingot"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:platinum",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:platinum"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

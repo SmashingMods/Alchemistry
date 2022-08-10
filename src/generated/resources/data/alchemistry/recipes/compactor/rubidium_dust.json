@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:rubidium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:rubidium"
   },
   "result": {
     "item": "chemlib:rubidium_dust"

@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:kaolinite",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:kaolinite"
   },
   "result": {
     "item": "minecraft:clay"

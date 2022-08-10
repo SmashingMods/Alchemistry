@@ -5,18 +5,18 @@
     "item": "minecraft:diamond_ore"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:graphite",
-            "count": 256
+            "count": 256,
+            "item": "chemlib:graphite"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

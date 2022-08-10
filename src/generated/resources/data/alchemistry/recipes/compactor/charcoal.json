@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:graphite",
-    "count": 2
+    "count": 2,
+    "item": "chemlib:graphite"
   },
   "result": {
     "item": "minecraft:charcoal"

@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:carbon",
-      "count": 3
+      "count": 3,
+      "item": "chemlib:carbon"
     },
     {
-      "item": "chemlib:hydrogen",
-      "count": 8
+      "count": 8,
+      "item": "chemlib:hydrogen"
     }
   ],
   "result": {

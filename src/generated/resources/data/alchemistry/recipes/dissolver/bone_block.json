@@ -5,8 +5,6 @@
     "item": "minecraft:bone_block"
   },
   "output": {
-    "rolls": 9,
-    "weighted": false,
     "groups": [
       {
         "probability": 50.0,
@@ -16,6 +14,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 9,
+    "weighted": false
   }
 }

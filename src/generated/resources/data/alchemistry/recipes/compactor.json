@@ -1,11 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
-  "pattern": [
-    "IPI",
-    "SRS",
-    "IPI"
-  ],
   "key": {
     "I": {
       "item": "minecraft:iron_ingot"
@@ -20,6 +15,11 @@
       "item": "minecraft:stone_pressure_plate"
     }
   },
+  "pattern": [
+    "IPI",
+    "SRS",
+    "IPI"
+  ],
   "result": {
     "item": "alchemistry:compactor"
   }

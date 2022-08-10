@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:lanthanum",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:lanthanum"
   },
   "result": {
     "item": "chemlib:lanthanum_dust"

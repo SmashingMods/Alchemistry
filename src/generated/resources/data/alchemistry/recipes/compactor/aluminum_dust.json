@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:aluminum",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:aluminum"
   },
   "result": {
     "item": "chemlib:aluminum_dust"

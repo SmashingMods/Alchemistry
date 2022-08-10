@@ -5,22 +5,22 @@
     "item": "minecraft:quartz"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:barium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:barium"
           },
           {
-            "item": "chemlib:silicon_dioxide",
-            "count": 32
+            "count": 32,
+            "item": "chemlib:silicon_dioxide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

@@ -5,30 +5,30 @@
     "item": "minecraft:deepslate_lapis_ore"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:sodium",
-            "count": 24
+            "count": 24,
+            "item": "chemlib:sodium"
           },
           {
-            "item": "chemlib:mullite",
-            "count": 12
+            "count": 12,
+            "item": "chemlib:mullite"
           },
           {
-            "item": "chemlib:calcium_sulfide",
-            "count": 8
+            "count": 8,
+            "item": "chemlib:calcium_sulfide"
           },
           {
-            "item": "chemlib:silicon",
-            "count": 12
+            "count": 12,
+            "item": "chemlib:silicon"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

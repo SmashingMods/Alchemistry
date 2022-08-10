@@ -6,12 +6,12 @@
       "item": "chemlib:chitin"
     },
     {
-      "item": "chemlib:germanium",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:germanium"
     },
     {
-      "item": "chemlib:selenium",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:selenium"
     }
   ],
   "result": {

@@ -19,7 +19,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,7 +28,6 @@ import net.minecraft.world.item.Items;
 import java.text.NumberFormat;
 import java.util.*;
 
-@SuppressWarnings("removal")
 public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe> {
 
     private IGuiHelper guiHelper;
@@ -41,7 +41,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("alchemistry.jei.dissolver");
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.dissolver"));
     }
 
     @Override
@@ -52,16 +52,6 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
     @Override
     public IDrawable getIcon() {
         return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.DISSOLVER.get()));
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return getRecipeType().getUid();
-    }
-
-    @Override
-    public Class<? extends DissolverRecipe> getRecipeClass() {
-        return DissolverRecipe.class;
     }
 
     @Override
@@ -138,7 +128,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                         } else {
                             pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
                                 list.clear();
-                                list.add(new TranslatableComponent("alchemistry.container.nothing"));
+                                list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing")));
                             });
                         }
                     }

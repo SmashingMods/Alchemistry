@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:silicon",
-      "count": 16
+      "count": 16,
+      "item": "chemlib:silicon"
     },
     {
-      "item": "chemlib:mercury",
-      "count": 16
+      "count": 16,
+      "item": "chemlib:mercury"
     },
     {
-      "item": "chemlib:neodymium",
-      "count": 16
+      "count": 16,
+      "item": "chemlib:neodymium"
     }
   ],
   "result": {

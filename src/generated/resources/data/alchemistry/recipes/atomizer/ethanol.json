@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:ethanol_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:ethanol_fluid"
   },
   "result": {
-    "item": "chemlib:ethanol",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:ethanol"
   }
 }

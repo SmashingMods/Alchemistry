@@ -2,11 +2,11 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:xenon",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:xenon"
   },
   "result": {
-    "fluid": "chemlib:xenon_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:xenon_fluid"
   }
 }

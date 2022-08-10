@@ -3,8 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:carbon",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:carbon"
     }
   ],
   "result": {

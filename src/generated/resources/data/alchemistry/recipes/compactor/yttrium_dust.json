@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:yttrium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:yttrium"
   },
   "result": {
     "item": "chemlib:yttrium_dust"

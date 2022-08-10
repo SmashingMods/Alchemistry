@@ -14,11 +14,13 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 
 import java.util.List;
 
@@ -33,10 +35,10 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
     public AbstractAlchemistryScreen(M pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
 
-        lockButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.lock_recipe"), handleLock());
-        unlockButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.unlock_recipe"), handleLock());
-        pauseButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.pause"), handlePause());
-        resumeButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.resume"), handlePause());
+        lockButton = new Button(0, 0, 100, 20, MutableComponent.create(new TranslatableContents("alchemistry.container.lock_recipe")), handleLock());
+        unlockButton = new Button(0, 0, 100, 20, MutableComponent.create(new TranslatableContents("alchemistry.container.unlock_recipe")), handleLock());
+        pauseButton = new Button(0, 0, 100, 20, MutableComponent.create(new TranslatableContents("alchemistry.container.pause")), handlePause());
+        resumeButton = new Button(0, 0, 100, 20, MutableComponent.create(new TranslatableContents("alchemistry.container.resume")), handlePause());
     }
 
     @Override
@@ -49,9 +51,9 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
 
     public void drawFluidTank(FluidDisplayData pData, int pTextureX, int pTextureY) {
         if (pData.getValue() > 0) {
-            FluidStack fluidStack = pData.getFluidHandler().getFluidStack();
-            setShaderColor(fluidStack.getFluid().getAttributes().getColor());
-            TextureAtlasSprite icon = getResourceTexture(fluidStack.getFluid().getAttributes().getStillTexture());
+            Fluid fluid = pData.getFluidHandler().getFluidStack().getFluid();
+            setShaderColor(IClientFluidTypeExtensions.of(fluid).getTintColor());
+            TextureAtlasSprite icon = getResourceTexture(IClientFluidTypeExtensions.of(fluid).getStillTexture());
             drawTexture(pData, icon, pTextureX, pTextureY);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }

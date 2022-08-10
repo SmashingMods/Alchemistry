@@ -5,22 +5,22 @@
     "item": "minecraft:jukebox"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:graphite",
-            "count": 128
+            "count": 128,
+            "item": "chemlib:graphite"
           },
           {
-            "item": "chemlib:cellulose",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:cellulose"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

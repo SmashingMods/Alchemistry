@@ -6,8 +6,8 @@
       "item": "chemlib:starch"
     },
     {
-      "item": "chemlib:potassium",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:potassium"
     }
   ],
   "result": {

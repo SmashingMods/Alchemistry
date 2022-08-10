@@ -11,11 +11,10 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Objects;
 
-public class AtomizerRecipeSerializer<T extends AtomizerRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class AtomizerRecipeSerializer<T extends AtomizerRecipe> implements RecipeSerializer<T> {
 
     private final IFactory<T> factory;
 

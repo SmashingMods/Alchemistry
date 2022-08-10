@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:potassium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:potassium"
   },
   "result": {
     "item": "chemlib:potassium_dust"

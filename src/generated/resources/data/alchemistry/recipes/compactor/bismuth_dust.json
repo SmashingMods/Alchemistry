@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:bismuth",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:bismuth"
   },
   "result": {
     "item": "chemlib:bismuth_dust"

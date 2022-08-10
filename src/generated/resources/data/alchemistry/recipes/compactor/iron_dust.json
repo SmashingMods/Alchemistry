@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:iron",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:iron"
   },
   "result": {
     "item": "chemlib:iron_dust"

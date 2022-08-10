@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:potassium",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:potassium"
     },
     {
-      "item": "chemlib:chromium",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:chromium"
     },
     {
-      "item": "chemlib:oxygen",
-      "count": 7
+      "count": 7,
+      "item": "chemlib:oxygen"
     }
   ],
   "result": {

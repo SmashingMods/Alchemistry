@@ -5,25 +5,25 @@
     "item": "chemlib:polyvinyl_chloride"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:carbon",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:carbon"
           },
           {
-            "item": "chemlib:hydrogen",
-            "count": 3
+            "count": 3,
+            "item": "chemlib:hydrogen"
           },
           {
             "item": "chemlib:chlorine"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

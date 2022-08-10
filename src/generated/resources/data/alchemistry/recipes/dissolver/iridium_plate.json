@@ -5,18 +5,18 @@
     "item": "chemlib:iridium_plate"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:iridium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:iridium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

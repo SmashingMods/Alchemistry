@@ -19,8 +19,9 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -53,7 +54,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         this.displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 156, 23, 16, 54));
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
-        editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
+        editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, MutableComponent.create(new LiteralContents("")));
         if (!blockEntity.getEditBoxText().isEmpty()) {
             editBox.setValue(blockEntity.getEditBoxText());
             menu.searchRecipeList(blockEntity.getEditBoxText());
@@ -98,7 +99,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = new TranslatableComponent("alchemistry.container.combiner");
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.combiner"));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -222,28 +223,27 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     private void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, String pTranslationKey, int pMouseX, int pMouseY) {
         List<Component> components = new ArrayList<>();
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
+        String namespace = StringUtils.capitalize(pItemStack.getItem().getDescriptionId());
 
-        components.add(new TranslatableComponent(pTranslationKey).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
-        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
+        components.add(MutableComponent.create(new TranslatableContents(pTranslationKey)).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
+        components.add(MutableComponent.create(new LiteralContents(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString()))));
 
         if (pItemStack.getItem() instanceof Chemical chemical) {
 
             String abbreviation = chemical.getAbbreviation();
 
             if (chemical instanceof ElementItem element) {
-                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+                components.add(MutableComponent.create(new LiteralContents((String.format("%s (%d)", abbreviation, element.getAtomicNumber())))).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents(element.getGroupName())).withStyle(ChatFormatting.GRAY));
             } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
                 ElementItem element = (ElementItem) chemicalItem.getChemical();
-                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+                components.add(MutableComponent.create(new LiteralContents((String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())))).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents((element.getGroupName()))).withStyle(ChatFormatting.GRAY));
             } else if (chemical instanceof CompoundItem) {
-                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents((abbreviation))).withStyle(ChatFormatting.DARK_AQUA));
             }
         }
-        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
+        components.add(MutableComponent.create(new LiteralContents(namespace)).withStyle(ChatFormatting.BLUE));
         renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
     }
 

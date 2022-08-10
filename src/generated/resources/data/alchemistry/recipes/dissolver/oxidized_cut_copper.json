@@ -5,15 +5,13 @@
     "item": "minecraft:oxidized_cut_copper"
   },
   "output": {
-    "rolls": 16,
-    "weighted": false,
     "groups": [
       {
         "probability": 75.0,
         "results": [
           {
-            "item": "chemlib:copper",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:copper"
           }
         ]
       },
@@ -21,11 +19,13 @@
         "probability": 25.0,
         "results": [
           {
-            "item": "chemlib:copper_i_oxide",
-            "count": 9
+            "count": 9,
+            "item": "chemlib:copper_i_oxide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 16,
+    "weighted": false
   }
 }

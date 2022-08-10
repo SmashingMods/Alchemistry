@@ -79,7 +79,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, level).stream()
+                RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE.get(), level).stream()
                         .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0)))
                         .findFirst().ifPresent(recipe -> {
                             if (currentRecipe == null || !currentRecipe.equals(recipe)) {

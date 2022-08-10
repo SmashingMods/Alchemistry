@@ -5,18 +5,18 @@
     "item": "chemlib:praseodymium_dust"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:praseodymium",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:praseodymium"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

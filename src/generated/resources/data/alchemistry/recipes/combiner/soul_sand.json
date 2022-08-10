@@ -6,8 +6,8 @@
       "item": "chemlib:thulium"
     },
     {
-      "item": "chemlib:silicon_dioxide",
-      "count": 4
+      "count": 4,
+      "item": "chemlib:silicon_dioxide"
     }
   ],
   "result": {

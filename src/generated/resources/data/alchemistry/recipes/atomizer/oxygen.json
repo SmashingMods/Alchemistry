@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:oxygen_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:oxygen_fluid"
   },
   "result": {
-    "item": "chemlib:oxygen",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:oxygen"
   }
 }

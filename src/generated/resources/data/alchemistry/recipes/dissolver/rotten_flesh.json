@@ -5,18 +5,18 @@
     "item": "minecraft:rotten_flesh"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:protein",
-            "count": 3
+            "count": 3,
+            "item": "chemlib:protein"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

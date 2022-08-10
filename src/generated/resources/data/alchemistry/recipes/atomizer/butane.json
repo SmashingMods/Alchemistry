@@ -2,11 +2,11 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "fluid": "chemlib:butane_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:butane_fluid"
   },
   "result": {
-    "item": "chemlib:butane",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:butane"
   }
 }

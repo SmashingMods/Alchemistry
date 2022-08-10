@@ -5,8 +5,6 @@
     "item": "chemlib:copper_ii_hydroxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
@@ -15,11 +13,13 @@
             "item": "chemlib:copper"
           },
           {
-            "item": "chemlib:hydroxide",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:hydroxide"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

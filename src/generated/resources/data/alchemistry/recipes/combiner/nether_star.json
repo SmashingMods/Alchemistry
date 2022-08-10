@@ -3,20 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:lutetium",
-      "count": 64
+      "count": 64,
+      "item": "chemlib:lutetium"
     },
     {
-      "item": "chemlib:titanium",
-      "count": 64
+      "count": 64,
+      "item": "chemlib:titanium"
     },
     {
-      "item": "chemlib:dysprosium",
-      "count": 64
+      "count": 64,
+      "item": "chemlib:dysprosium"
     },
     {
-      "item": "chemlib:mendelevium",
-      "count": 64
+      "count": 64,
+      "item": "chemlib:mendelevium"
     }
   ],
   "result": {

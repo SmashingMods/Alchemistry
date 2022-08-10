@@ -3,20 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:water",
-      "count": 36
+      "count": 36,
+      "item": "chemlib:water"
     },
     {
-      "item": "chemlib:water",
-      "count": 36
+      "count": 36,
+      "item": "chemlib:water"
     },
     {
-      "item": "chemlib:water",
-      "count": 36
+      "count": 36,
+      "item": "chemlib:water"
     },
     {
-      "item": "chemlib:water",
-      "count": 36
+      "count": 36,
+      "item": "chemlib:water"
     }
   ],
   "result": {

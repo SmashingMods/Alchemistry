@@ -5,21 +5,21 @@
     "item": "chemlib:potassium_oxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:potassium",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:potassium"
           },
           {
             "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

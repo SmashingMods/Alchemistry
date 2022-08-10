@@ -5,18 +5,18 @@
     "item": "chemlib:cobalt_dust"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:cobalt",
-            "count": 16
+            "count": 16,
+            "item": "chemlib:cobalt"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

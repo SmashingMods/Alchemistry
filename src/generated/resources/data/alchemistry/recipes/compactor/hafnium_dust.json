@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:hafnium",
-    "count": 16
+    "count": 16,
+    "item": "chemlib:hafnium"
   },
   "result": {
     "item": "chemlib:hafnium_dust"

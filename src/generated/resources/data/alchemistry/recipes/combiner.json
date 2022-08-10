@@ -1,28 +1,28 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
-  "pattern": [
-    "IDI",
-    "ORO",
-    "IPI"
-  ],
   "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
     },
     "P": {
       "item": "minecraft:piston"
     },
     "R": {
       "item": "minecraft:redstone"
-    },
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
     }
   },
+  "pattern": [
+    "IDI",
+    "ORO",
+    "IPI"
+  ],
   "result": {
     "item": "alchemistry:combiner"
   }

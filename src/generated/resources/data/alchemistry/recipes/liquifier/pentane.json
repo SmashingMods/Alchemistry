@@ -2,11 +2,11 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:pentane",
-    "count": 8
+    "count": 8,
+    "item": "chemlib:pentane"
   },
   "result": {
-    "fluid": "chemlib:pentane_fluid",
-    "amount": "500"
+    "amount": "500",
+    "fluid": "chemlib:pentane_fluid"
   }
 }

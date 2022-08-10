@@ -13,11 +13,11 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-@SuppressWarnings("removal")
 public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
     private IGuiHelper guiHelper;
@@ -30,7 +30,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
     @Override
     public Component getTitle() {
-        return new TranslatableComponent("alchemistry.jei.combiner");
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.combiner"));
     }
 
     @Override
@@ -41,16 +41,6 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
     @Override
     public IDrawable getIcon() {
         return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(BlockRegistry.COMBINER.get()));
-    }
-
-    @Override
-    public ResourceLocation getUid() {
-        return getRecipeType().getUid();
-    }
-
-    @Override
-    public Class<? extends CombinerRecipe> getRecipeClass() {
-        return CombinerRecipe.class;
     }
 
     @Override

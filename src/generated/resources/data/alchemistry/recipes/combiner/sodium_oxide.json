@@ -3,8 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:sodium",
-      "count": 2
+      "count": 2,
+      "item": "chemlib:sodium"
     },
     {
       "item": "chemlib:oxygen"

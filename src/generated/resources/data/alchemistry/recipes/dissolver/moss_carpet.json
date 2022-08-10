@@ -5,8 +5,6 @@
     "item": "minecraft:moss_carpet"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 66.6,
@@ -24,6 +22,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

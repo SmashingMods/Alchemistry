@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:titanium_oxide",
-    "count": 4
+    "count": 4,
+    "item": "chemlib:titanium_oxide"
   },
   "result": {
     "item": "minecraft:black_dye"

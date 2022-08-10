@@ -2,8 +2,8 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:protein",
-    "count": 3
+    "count": 3,
+    "item": "chemlib:protein"
   },
   "result": {
     "item": "minecraft:leather"

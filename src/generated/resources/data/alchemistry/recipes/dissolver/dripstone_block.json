@@ -5,8 +5,6 @@
     "item": "minecraft:dripstone_block"
   },
   "output": {
-    "rolls": 4,
-    "weighted": true,
     "groups": [
       {
         "probability": 10.0,
@@ -48,6 +46,8 @@
           }
         ]
       }
-    ]
+    ],
+    "rolls": 4,
+    "weighted": true
   }
 }

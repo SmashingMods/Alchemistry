@@ -5,22 +5,22 @@
     "item": "chemlib:antimony_trioxide"
   },
   "output": {
-    "rolls": 1,
-    "weighted": false,
     "groups": [
       {
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:antimony",
-            "count": 2
+            "count": 2,
+            "item": "chemlib:antimony"
           },
           {
-            "item": "chemlib:oxygen",
-            "count": 3
+            "count": 3,
+            "item": "chemlib:oxygen"
           }
         ]
       }
-    ]
+    ],
+    "rolls": 1,
+    "weighted": false
   }
 }

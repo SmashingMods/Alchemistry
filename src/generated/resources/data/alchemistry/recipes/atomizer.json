@@ -1,12 +1,10 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "machines",
-  "pattern": [
-    "IPI",
-    "CRC",
-    "IPI"
-  ],
   "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
     "I": {
       "item": "minecraft:iron_ingot"
     },
@@ -15,11 +13,13 @@
     },
     "R": {
       "item": "minecraft:redstone"
-    },
-    "C": {
-      "item": "minecraft:cauldron"
     }
   },
+  "pattern": [
+    "IPI",
+    "CRC",
+    "IPI"
+  ],
   "result": {
     "item": "alchemistry:atomizer"
   }

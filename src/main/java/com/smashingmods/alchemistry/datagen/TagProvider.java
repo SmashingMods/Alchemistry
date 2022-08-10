@@ -23,9 +23,4 @@ public class TagProvider extends ForgeRegistryTagsProvider<Block> {
             tag(BlockTags.NEEDS_IRON_TOOL).add(blockRegistryObject.get());
         });
     }
-
-    @Override
-    public String getName() {
-        return null;
-    }
 }

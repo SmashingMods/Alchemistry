@@ -1,10 +1,9 @@
-# Alchemistry 1.18.2-2.0.5 RELEASE
+# Alchemistry 1.18.2-2.0.6 RELEASE
 
-Whoops, had a pretty bad bug with the combiner recipe serializer that would prevent players from connecting to servers.
+The combiner is pretty complicated, so it makes sense that there are a few more bugs that need to be fixed. Hopefully this is the last one!
 
 Changes:
-- Fix a severe bug that prevented players from connecting to a server.
-- Fix a minor issue with advancements for the combiner.
-- Update Forge/Parchment
+- Fix duplication bug in combiner.
+- Bump mod, forge, and jei versions.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

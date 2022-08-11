@@ -74,8 +74,8 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
 
         if (recipeStacks.size() == handlerStacks.size()) {
-            for (ItemStack recipeStack : recipeStacks) {
-                for (ItemStack handlerStack : handlerStacks) {
+            for (ItemStack handlerStack : handlerStacks) {
+                for (ItemStack recipeStack : recipeStacks) {
                     if (ItemStack.isSameItemSameTags(recipeStack, handlerStack) && handlerStack.getCount() >= recipeStack.getCount()) {
                         matchingStacks++;
                         break;

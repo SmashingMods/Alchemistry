@@ -74,6 +74,7 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration pRegistration) {
         pRegistration.addRecipeTransferHandler(new CombinerTransferPacket.TransferHandler(), RecipeTypes.COMBINER);
         pRegistration.addRecipeTransferHandler(new CompactorTransferPacket.TransferHandler(), RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeTransferHandler(new DissolverTransferPacket.TransferHandler(), RecipeTypes.DISSOLVER);
         pRegistration.addRecipeTransferHandler(new FissionTransferPacket.TransferHandler(), RecipeTypes.FISSION);
         pRegistration.addRecipeTransferHandler(new FusionTransferPacket.TransferHandler(), RecipeTypes.FUSION);
         pRegistration.addRecipeTransferHandler(new LiquifierTransferPacket.TransferHandler(), RecipeTypes.LIQUIFIER);

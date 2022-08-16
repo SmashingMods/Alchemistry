@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.common.network;
+package com.smashingmods.alchemistry.common.network.recipe;
 
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -10,17 +10,17 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class CombinerRecipePacket {
+public class ServerCombinerRecipePacket {
 
     private final BlockPos blockPos;
     private final int recipeIndex;
 
-    public CombinerRecipePacket(BlockPos pBlockPos, int pIndex) {
+    public ServerCombinerRecipePacket(BlockPos pBlockPos, int pIndex) {
         this.blockPos = pBlockPos;
         this.recipeIndex = pIndex;
     }
 
-    public CombinerRecipePacket(FriendlyByteBuf pBuffer) {
+    public ServerCombinerRecipePacket(FriendlyByteBuf pBuffer) {
         this.blockPos = pBuffer.readBlockPos();
         this.recipeIndex = pBuffer.readInt();
     }
@@ -30,7 +30,7 @@ public class CombinerRecipePacket {
         pBuffer.writeInt(recipeIndex);
     }
 
-    public static void handle(final CombinerRecipePacket pPacket, Supplier<NetworkEvent.Context> pContext) {
+    public static void handle(final ServerCombinerRecipePacket pPacket, Supplier<NetworkEvent.Context> pContext) {
         pContext.get().enqueueWork(() -> {
             Player player = pContext.get().getSender();
             Objects.requireNonNull(player);

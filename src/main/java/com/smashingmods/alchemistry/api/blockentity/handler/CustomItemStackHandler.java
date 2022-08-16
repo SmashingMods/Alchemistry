@@ -1,8 +1,11 @@
 package com.smashingmods.alchemistry.api.blockentity.handler;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.PlayerInvWrapper;
 
 public class CustomItemStackHandler extends ItemStackHandler {
 
@@ -42,6 +45,19 @@ public class CustomItemStackHandler extends ItemStackHandler {
         } else {
             this.setStackInSlot(pSlot, temp);
         }
+    }
+
+    public void emptyToInventory(Inventory pInventory) {
+        for (int i = 0; i < this.stacks.size(); i++) {
+            if (!getStackInSlot(i).isEmpty()) {
+                ItemHandlerHelper.insertItemStacked(new PlayerInvWrapper(pInventory), getStackInSlot(i), false);
+                setStackInSlot(i, ItemStack.EMPTY);
+            }
+        }
+    }
+
+    public boolean isEmpty() {
+        return stacks.stream().allMatch(ItemStack::isEmpty);
     }
 
     public NonNullList<ItemStack> getStacks() {

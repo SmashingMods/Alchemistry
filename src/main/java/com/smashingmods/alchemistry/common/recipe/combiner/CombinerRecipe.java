@@ -68,7 +68,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         return output;
     }
 
-    public boolean matchInputs(List<ItemStack> pStacks) {
+    public boolean matchInputs(List<ItemStack> pStacks, boolean exact) {
         int matchingStacks = 0;
 
         List<ItemStack> handlerStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
@@ -77,7 +77,8 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         if (recipeStacks.size() == handlerStacks.size()) {
             for (ItemStack handlerStack : handlerStacks) {
                 for (ItemStack recipeStack : recipeStacks) {
-                    if (ItemStack.isSameItemSameTags(recipeStack, handlerStack) && handlerStack.getCount() >= recipeStack.getCount()) {
+                    boolean exactMatch = exact ? handlerStack.getCount() == recipeStack.getCount() : handlerStack.getCount() >= recipeStack.getCount();
+                    if (ItemStack.isSameItemSameTags(recipeStack, handlerStack) && exactMatch) {
                         matchingStacks++;
                         break;
                     }
@@ -89,6 +90,6 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
     }
 
     public boolean matchInputs(CustomItemStackHandler pHandler) {
-        return matchInputs(pHandler.getStacks());
+        return matchInputs(pHandler.getStacks(), false);
     }
 }

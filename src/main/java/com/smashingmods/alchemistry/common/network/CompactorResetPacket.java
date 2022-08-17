@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class CompactorResetPacket {
 
-    BlockPos blockPos;
+    private final BlockPos blockPos;
 
     public CompactorResetPacket(BlockPos pBlockPos) {
         this.blockPos = pBlockPos;

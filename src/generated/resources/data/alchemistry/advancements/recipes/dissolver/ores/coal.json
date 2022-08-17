@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:deepslate_lapis_ore"
+      "forge:ores/coal"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:deepslate_lapis_ore"
+        "recipe": "forge:ores/coal"
       }
     }
   },

@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:deepslate_emerald_ore"
+    "tag": "forge:ores/redstone"
   },
   "output": {
     "rolls": 1,
@@ -12,16 +12,12 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:beryl",
-            "count": 16
+            "item": "chemlib:iron_oxide",
+            "count": 6
           },
           {
-            "item": "chemlib:chromium",
-            "count": 16
-          },
-          {
-            "item": "chemlib:vanadium",
-            "count": 8
+            "item": "chemlib:strontium_carbonate",
+            "count": 6
           }
         ]
       }

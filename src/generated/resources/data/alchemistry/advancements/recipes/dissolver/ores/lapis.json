@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:iron_ore"
+      "forge:ores/lapis"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:iron_ore"
+        "recipe": "forge:ores/lapis"
       }
     }
   },

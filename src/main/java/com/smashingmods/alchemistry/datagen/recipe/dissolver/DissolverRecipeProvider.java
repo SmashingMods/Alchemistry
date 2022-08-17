@@ -450,10 +450,9 @@ public class DissolverRecipeProvider {
                 .build());
 
         // Ores
-        newArrayList(Items.COAL_ORE, Items.DEEPSLATE_COAL_ORE).forEach(item ->
-        dissolver(item, createSet()
+        dissolver("forge:ores/coal", createSet()
                 .addGroup(100, toStack("graphite", 8), toStack("sulfur", 8))
-                .build()));
+                .build());
 
         dissolver(Items.COAL_BLOCK, createSet().addGroup(100, toStack("graphite", 9 * 2)).build());
 
@@ -461,11 +460,9 @@ public class DissolverRecipeProvider {
 
         dissolver(Items.CHARCOAL, createSet().addGroup(100, toStack("graphite", 2)).build());
 
-        for (Item item : newArrayList(Items.EMERALD, Items.DEEPSLATE_EMERALD_ORE, Items.EMERALD_ORE, Items.EMERALD_BLOCK)) {
+        for (Item item : newArrayList(Items.EMERALD, Items.EMERALD_BLOCK)) {
             int multiplier = 1;
-            if (item == Items.EMERALD_ORE || item == Items.DEEPSLATE_EMERALD_ORE) {
-                multiplier = 2;
-            } else if (item == Items.EMERALD_BLOCK) {
+             if (item == Items.EMERALD_BLOCK) {
                 multiplier = 9;
             }
             dissolver(item, createSet()
@@ -475,22 +472,27 @@ public class DissolverRecipeProvider {
                             toStack("vanadium", 4 * multiplier))
                     .build());
         }
+        dissolver("forge:ores/emerald", createSet()
+                .addGroup(100,
+                        toStack("beryl", 8 * 2),
+                        toStack("chromium", 8 * 2),
+                        toStack("vanadium", 4 * 2))
+                .build());
 
-        for (Item item : newArrayList(Items.DIAMOND, Items.DEEPSLATE_DIAMOND_ORE, Items.DIAMOND_ORE, Items.DIAMOND_BLOCK)) {
+        for (Item item : newArrayList(Items.DIAMOND, Items.DIAMOND_BLOCK)) {
             int multiplier = 1;
-            if (item == Items.DIAMOND_ORE || item == Items.DEEPSLATE_DIAMOND_ORE) {
-                multiplier = 2;
-            } else if (item == Items.DIAMOND_BLOCK) {
+            if (item == Items.DIAMOND_BLOCK) {
                 multiplier = 9;
             }
             dissolver(item, createSet()
                     .addGroup(100, toStack("graphite", 64 * 2 * multiplier)).build());
         }
+        dissolver("forge:ores/diamond", createSet()
+                .addGroup(100, toStack("graphite", 64 * 2 * 2)).build());
 
-        for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK, Items.LAPIS_ORE, Items.DEEPSLATE_LAPIS_ORE)) {
+        for (Item item : newArrayList(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK)) {
             int multiplier = 1;
             if (item == Items.LAPIS_BLOCK) multiplier = 9;
-            else if (item == Items.LAPIS_ORE || item == Items.DEEPSLATE_LAPIS_ORE) multiplier = 4;
             dissolver(item, createSet()
                     .addGroup(100,
                             toStack("sodium", 6 * multiplier),
@@ -500,7 +502,15 @@ public class DissolverRecipeProvider {
                     .build());
         }
 
-        for (Item item : newArrayList(Items.QUARTZ, Items.NETHER_QUARTZ_ORE, Items.QUARTZ_SLAB, Items.SMOOTH_QUARTZ_SLAB, Items.QUARTZ_BRICKS, Items.QUARTZ_PILLAR, Items.CHISELED_QUARTZ_BLOCK, Items.SMOOTH_QUARTZ)) {
+        dissolver("forge:ores/lapis", createSet()
+                .addGroup(100,
+                        toStack("sodium", 6 * 9),
+                        toStack("mullite", 3 * 9),
+                        toStack("calcium_sulfide", 2 * 9),
+                        toStack("silicon", 3 * 9))
+                .build());
+
+        for (Item item : newArrayList(Items.QUARTZ, Items.QUARTZ_SLAB, Items.SMOOTH_QUARTZ_SLAB, Items.QUARTZ_BRICKS, Items.QUARTZ_PILLAR, Items.CHISELED_QUARTZ_BLOCK, Items.SMOOTH_QUARTZ)) {
             int multiplier = 4;
             if (item == Items.QUARTZ) {
                 multiplier = 1;
@@ -514,13 +524,14 @@ public class DissolverRecipeProvider {
                     .build());
         }
         dissolver("forge:storage_blocks/quartz", createSet()
-                .addGroup(toStack("barium", 16 * 4), toStack("silicon_dioxide", 32 * 4)) .build());
+                .addGroup(100, toStack("barium", 16 * 4), toStack("silicon_dioxide", 32 * 4)) .build());
+        dissolver("forge:ores/quartz", createSet()
+                .addGroup(100, toStack("barium", 16 * 4), toStack("silicon_dioxide", 32 * 4)) .build());
 
-        for (Item item : newArrayList(Items.REDSTONE, Items.DEEPSLATE_REDSTONE_ORE, Items.REDSTONE_ORE, Items.REDSTONE_BLOCK)) {
+
+        for (Item item : newArrayList(Items.REDSTONE, Items.REDSTONE_BLOCK)) {
             int multiplier = 1;
-            if (item == Items.REDSTONE_ORE || item == Items.DEEPSLATE_REDSTONE_ORE) {
-                multiplier = 2;
-            } else if (item == Items.REDSTONE_BLOCK) {
+            if (item == Items.REDSTONE_BLOCK) {
                 multiplier = 9;
             }
             dissolver(item, createSet()
@@ -529,13 +540,16 @@ public class DissolverRecipeProvider {
                             toStack("strontium_carbonate", multiplier))
                     .build());
         }
+        dissolver("forge:ores/redstone", createSet()
+                .addGroup(100,
+                        toStack("iron_oxide", 6),
+                        toStack("strontium_carbonate", 6))
+                .build());
 
-        for (Item item : newArrayList(Items.IRON_INGOT, Items.IRON_NUGGET, Items.DEEPSLATE_IRON_ORE, Items.IRON_ORE, Items.IRON_BLOCK, Items.RAW_IRON, Items.RAW_IRON_BLOCK)) {
+        for (Item item : newArrayList(Items.IRON_INGOT, Items.IRON_NUGGET, Items.IRON_BLOCK, Items.RAW_IRON, Items.RAW_IRON_BLOCK)) {
             int multiplier = 1;
             if (item == Items.IRON_INGOT || item == Items.RAW_IRON) {
                 multiplier = 16;
-            } else if (item == Items.IRON_ORE || item == Items.DEEPSLATE_IRON_ORE) {
-                multiplier = 32;
             } else if (item == Items.IRON_BLOCK || item == Items.RAW_IRON_BLOCK) {
                 multiplier = 16 * 9;
             }
@@ -544,13 +558,12 @@ public class DissolverRecipeProvider {
                             toStack("iron", multiplier))
                     .build());
         }
+        dissolver("forge:ores/iron", createSet().addGroup(100, toStack("iron", 32)).build());
 
-        for (Item item : newArrayList(Items.GOLD_INGOT, Items.GOLD_NUGGET, Items.DEEPSLATE_GOLD_ORE, Items.GOLD_ORE, Items.GOLD_BLOCK, Items.RAW_GOLD, Items.RAW_GOLD_BLOCK, Items.NETHER_GOLD_ORE)) {
+        for (Item item : newArrayList(Items.GOLD_INGOT, Items.GOLD_NUGGET, Items.GOLD_BLOCK, Items.RAW_GOLD, Items.RAW_GOLD_BLOCK)) {
             int multiplier = 1;
             if (item == Items.GOLD_INGOT || item == Items.RAW_GOLD) {
                 multiplier = 16;
-            } else if (item == Items.GOLD_ORE || item == Items.DEEPSLATE_GOLD_ORE || item == Items.NETHER_GOLD_ORE) {
-                multiplier = 32;
             } else if (item == Items.GOLD_BLOCK || item == Items.RAW_GOLD_BLOCK) {
                 multiplier = 16 * 9;
             }
@@ -559,13 +572,12 @@ public class DissolverRecipeProvider {
                             toStack("gold", multiplier))
                     .build());
         }
+        dissolver("forge:ores/gold", createSet().addGroup(100, toStack("gold", 32)).build());
 
-        for (Item item : newArrayList(Items.COPPER_INGOT, Items.DEEPSLATE_COPPER_ORE, Items.COPPER_ORE, Items.COPPER_BLOCK, Items.RAW_COPPER, Items.RAW_COPPER_BLOCK, Items.CUT_COPPER)) {
+        for (Item item : newArrayList(Items.COPPER_INGOT, Items.COPPER_BLOCK, Items.RAW_COPPER, Items.RAW_COPPER_BLOCK, Items.CUT_COPPER)) {
             int multiplier = 1;
             if (item == Items.COPPER_INGOT || item == Items.RAW_COPPER) {
                 multiplier = 16;
-            } else if (item == Items.COPPER_ORE || item == Items.DEEPSLATE_COPPER_ORE) {
-                multiplier = 32;
             } else if (item == Items.COPPER_BLOCK || item == Items.RAW_COPPER_BLOCK) {
                 multiplier = 16 * 9;
             }
@@ -574,6 +586,7 @@ public class DissolverRecipeProvider {
                             toStack("copper", multiplier))
                     .build());
         }
+        dissolver("forge:ores/copper", createSet().addGroup(100, toStack("copper", 32)).build());
 
         for (Item item : newArrayList(Items.EXPOSED_COPPER, Items.EXPOSED_CUT_COPPER, Items.EXPOSED_CUT_COPPER_SLAB, Items.WEATHERED_COPPER, Items.WEATHERED_CUT_COPPER, Items.WEATHERED_CUT_COPPER_SLAB, Items.OXIDIZED_COPPER, Items.OXIDIZED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER_SLAB)) {
             int oxide = 5;
@@ -1141,6 +1154,15 @@ public class DissolverRecipeProvider {
                     });
                 ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(item -> dissolver(item, createSet().addGroup(100, toStack(name, 144)).build()));
             });
+        // Thermal Expansion
+//        dissolver(thermal:slag, createSet().weighted()
+//                .addGroup(20)
+//                .addGroup(20, toStack("silicon_dioxide"))
+//                .addGroup(3, toStack("magnesium_oxide"))
+//                .addGroup(3, toStack("iron_oxide"))@
+//                .addGroup(2, toStack("manganese_oxide"))
+//                .addGroup(2, toStack("aluminum_oxide"))
+//                .addGroup(1, toStack("phosphate")))
     }
 
     private void dissolver(Ingredient pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId) {

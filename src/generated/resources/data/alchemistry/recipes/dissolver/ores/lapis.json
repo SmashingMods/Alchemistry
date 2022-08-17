@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:deepslate_lapis_ore"
+    "tag": "forge:ores/lapis"
   },
   "output": {
     "rolls": 1,
@@ -13,19 +13,19 @@
         "results": [
           {
             "item": "chemlib:sodium",
-            "count": 24
+            "count": 54
           },
           {
             "item": "chemlib:mullite",
-            "count": 12
+            "count": 27
           },
           {
             "item": "chemlib:calcium_sulfide",
-            "count": 8
+            "count": 18
           },
           {
             "item": "chemlib:silicon",
-            "count": 12
+            "count": 27
           }
         ]
       }

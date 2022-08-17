@@ -47,9 +47,10 @@ public class LocalizationGenerator extends LanguageProvider {
         add("tooltip.alchemistry.energy_requirement", "Requires %d FE/t");
         add("tooltip.alchemistry.requires", "Requires");
 
+        add("alchemistry.container.current_recipe", "Current recipe:");
+
         add("alchemistry.container.combiner.search", "Search...");
         add("alchemistry.container.combiner.select_recipe", "Select recipe:");
-        add("alchemistry.container.combiner.current_recipe", "Current recipe:");
         add("alchemistry.container.combiner.required_input", "Required input item:");
         add("alchemistry.container.unlock_recipe", "Unlock recipe");
         add("alchemistry.container.lock_recipe", "Lock recipe");

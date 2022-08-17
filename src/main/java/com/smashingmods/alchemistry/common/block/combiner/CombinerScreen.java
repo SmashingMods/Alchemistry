@@ -6,14 +6,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.*;
+import com.smashingmods.alchemistry.api.container.button.OpenScreenButton;
+import com.smashingmods.alchemistry.common.TestScreen;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
-import com.smashingmods.chemlib.api.Chemical;
-import com.smashingmods.chemlib.api.ChemicalItemType;
-import com.smashingmods.chemlib.common.items.ChemicalItem;
-import com.smashingmods.chemlib.common.items.CompoundItem;
-import com.smashingmods.chemlib.common.items.ElementItem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
@@ -26,12 +23,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
@@ -44,6 +39,8 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     private float scrollOffset;
     private boolean scrolling;
     private int startIndex;
+
+    private Button testButton;
 
     public CombinerScreen(CombinerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -58,6 +55,8 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
             editBox.setValue(blockEntity.getEditBoxText());
             menu.searchRecipeList(blockEntity.getEditBoxText());
         }
+
+        testButton = new OpenScreenButton(0, 0,this, new TestScreen());
     }
 
     @Override
@@ -80,8 +79,13 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderRecipeBox(pPoseStack, pMouseX, pMouseY);
-        renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
+        renderCurrentRecipeRequirements(pPoseStack, pMouseX, pMouseY);
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+
+        //noinspection ConstantConditions
+        if (blockEntity.getRecipe() != null) {
+            renderCurrentOutput(pPoseStack, pMouseX, pMouseY, 21, 15, blockEntity.getRecipe().getOutput());
+        }
 
         renderTooltip(pPoseStack, pMouseX, pMouseY);
         renderRecipeTooltips(pPoseStack, pMouseX, pMouseY);
@@ -106,6 +110,10 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     public void renderWidgets() {
         super.renderWidgets();
         renderWidget(editBox, leftPos + 57, topPos + 7);
+
+        if (testButton != null) {
+            renderWidget(testButton, leftPos - 24, topPos + 48);
+        }
     }
 
     protected void renderRecipeBox(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -159,20 +167,13 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         }
     }
 
-    private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    private void renderCurrentRecipeRequirements(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         CombinerRecipe currentRecipe = (CombinerRecipe) menu.getBlockEntity().getRecipe();
         CustomItemStackHandler handler = blockEntity.getInputHandler();
 
         // Intellij thinks this is never null. Remove this and watch it crash.
         //noinspection ConstantConditions
         if (currentRecipe != null) {
-            ItemStack currentOutput = currentRecipe.getOutput();
-            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(currentOutput, leftPos + 21, topPos + 15);
-
-            if (pMouseX >= leftPos + 20 && pMouseX < leftPos + 36 && pMouseY > topPos + 14 && pMouseY < topPos + 30) {
-                renderItemTooltip(pPoseStack, currentOutput, "alchemistry.container.combiner.current_recipe", pMouseX, pMouseY);
-            }
-
             int xOrigin = leftPos + 12;
             int yOrigin = topPos + 63;
 
@@ -218,33 +219,6 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
                 renderItemTooltip(pPoseStack, output, "alchemistry.container.combiner.select_recipe", pMouseX, pMouseY);
             }
         }
-    }
-
-    private void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, String pTranslationKey, int pMouseX, int pMouseY) {
-        List<Component> components = new ArrayList<>();
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
-
-        components.add(new TranslatableComponent(pTranslationKey).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
-        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
-
-        if (pItemStack.getItem() instanceof Chemical chemical) {
-
-            String abbreviation = chemical.getAbbreviation();
-
-            if (chemical instanceof ElementItem element) {
-                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
-            } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
-                ElementItem element = (ElementItem) chemicalItem.getChemical();
-                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
-            } else if (chemical instanceof CompoundItem) {
-                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
-            }
-        }
-        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
-        renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
     }
 
     @Override

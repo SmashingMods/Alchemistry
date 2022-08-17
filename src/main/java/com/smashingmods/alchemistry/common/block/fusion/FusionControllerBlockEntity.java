@@ -133,7 +133,7 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public FusionRecipe getRecipe() {
         return currentRecipe;
     }
 

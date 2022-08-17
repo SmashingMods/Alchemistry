@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.fission;
 
-import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;

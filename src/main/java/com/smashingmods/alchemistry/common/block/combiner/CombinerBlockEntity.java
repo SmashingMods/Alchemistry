@@ -116,7 +116,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public CombinerRecipe getRecipe() {
         return currentRecipe;
     }
 

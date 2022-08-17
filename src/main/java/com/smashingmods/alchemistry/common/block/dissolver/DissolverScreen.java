@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DissolverScreen extends AbstractAlchemistryScreen<DissolverMenu> {
+
     protected final List<DisplayData> displayData = new ArrayList<>();
 
     public DissolverScreen(DissolverMenu pMenu, Inventory pPlayerInventory, Component pTitle) {

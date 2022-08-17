@@ -105,7 +105,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public AtomizerRecipe getRecipe() {
         return currentRecipe;
     }
 

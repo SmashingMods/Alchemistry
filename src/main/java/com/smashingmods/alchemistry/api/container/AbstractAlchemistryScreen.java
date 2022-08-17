@@ -5,6 +5,12 @@ import com.mojang.blaze3d.vertex.*;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.ProcessingButtonPacket;
+import com.smashingmods.chemlib.api.Chemical;
+import com.smashingmods.chemlib.api.ChemicalItemType;
+import com.smashingmods.chemlib.common.items.ChemicalItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -14,15 +20,23 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMenu> extends AbstractContainerScreen<M> {
+
+    protected ItemStack currentOutput;
 
     protected final Button lockButton;
     protected final Button unlockButton;
@@ -43,6 +57,7 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         renderBackground(pPoseStack);
         renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
+
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
         renderWidgets();
     }
@@ -197,16 +212,17 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
     }
 
     public void renderWidgets() {
+        int padding = 4;
         renderables.clear();
         if (menu.getBlockEntity().isRecipeLocked()) {
-            renderWidget(unlockButton, leftPos - 104, topPos);
+            renderWidget(unlockButton, leftPos - unlockButton.getWidth() - padding, topPos);
         } else {
-            renderWidget(lockButton, leftPos - 104, topPos);
+            renderWidget(lockButton, leftPos - lockButton.getWidth() - padding, topPos);
         }
         if (menu.getBlockEntity().isProcessingPaused()) {
-            renderWidget(resumeButton, leftPos - 104, topPos + 24);
+            renderWidget(resumeButton, leftPos - resumeButton.getWidth() - padding, topPos + resumeButton.getHeight() + padding);
         } else {
-            renderWidget(pauseButton, leftPos - 104, topPos + 24);
+            renderWidget(pauseButton, leftPos - pauseButton.getWidth() - padding, topPos + pauseButton.getHeight() + padding);
         }
     }
 
@@ -224,5 +240,50 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
             boolean pausedState = menu.getBlockEntity().isProcessingPaused();
             AlchemistryPacketHandler.INSTANCE.sendToServer(new ProcessingButtonPacket(menu.getBlockEntity().getBlockPos(), lockState, !pausedState));
         };
+    }
+
+    protected void renderCurrentOutput(PoseStack pPoseStack, int pMouseX, int pMouseY, int pX, int pY, ItemStack pRecipeOutput) {
+        if (currentOutput != null) {
+            if (currentOutput != pRecipeOutput) {
+                setCurrentOutput(pRecipeOutput);
+            }
+            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(currentOutput, leftPos + pX, topPos + pY);
+            if (pMouseX >= leftPos + (pX - 1) && pMouseX < leftPos + (pX + 17) && pMouseY > topPos + (pY - 1) && pMouseY < topPos + (pY + 17)) {
+                renderItemTooltip(pPoseStack, currentOutput, "alchemistry.container.current_recipe", pMouseX, pMouseY);
+            }
+        } else {
+            setCurrentOutput(pRecipeOutput);
+        }
+    }
+
+    protected void setCurrentOutput(ItemStack pItemStack) {
+        this.currentOutput = pItemStack;
+    }
+
+    protected void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, String pTranslationKey, int pMouseX, int pMouseY) {
+        List<Component> components = new ArrayList<>();
+        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
+        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
+
+        components.add(new TranslatableComponent(pTranslationKey).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
+        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
+
+        if (pItemStack.getItem() instanceof Chemical chemical) {
+
+            String abbreviation = chemical.getAbbreviation();
+
+            if (chemical instanceof ElementItem element) {
+                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+            } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
+                ElementItem element = (ElementItem) chemicalItem.getChemical();
+                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+            } else if (chemical instanceof CompoundItem) {
+                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
+            }
+        }
+        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
+        renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
     }
 }

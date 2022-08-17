@@ -128,7 +128,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public FissionRecipe getRecipe() {
         return currentRecipe;
     }
 

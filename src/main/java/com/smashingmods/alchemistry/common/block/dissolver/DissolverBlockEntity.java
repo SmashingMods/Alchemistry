@@ -134,7 +134,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public DissolverRecipe getRecipe() {
         return currentRecipe;
     }
 

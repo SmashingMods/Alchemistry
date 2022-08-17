@@ -109,7 +109,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public LiquifierRecipe getRecipe() {
         return currentRecipe;
     }
 

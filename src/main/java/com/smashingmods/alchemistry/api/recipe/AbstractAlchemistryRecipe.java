@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.common.recipe;
+package com.smashingmods.alchemistry.api.recipe;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

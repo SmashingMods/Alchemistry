@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

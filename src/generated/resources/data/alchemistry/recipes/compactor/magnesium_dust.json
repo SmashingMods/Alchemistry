@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:magnesium",
+    "ingredient": {
+      "item": "chemlib:magnesium"
+    },
     "count": 16
   },
   "result": {

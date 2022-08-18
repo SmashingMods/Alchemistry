@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:calcium",
+    "ingredient": {
+      "item": "chemlib:calcium"
+    },
     "count": 16
   },
   "result": {

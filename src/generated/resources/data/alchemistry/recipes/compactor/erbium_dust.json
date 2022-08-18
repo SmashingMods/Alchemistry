@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:erbium",
+    "ingredient": {
+      "item": "chemlib:erbium"
+    },
     "count": 16
   },
   "result": {

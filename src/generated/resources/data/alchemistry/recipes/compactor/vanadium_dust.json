@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:vanadium",
+    "ingredient": {
+      "item": "chemlib:vanadium"
+    },
     "count": 16
   },
   "result": {

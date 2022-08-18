@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:potassium_dichromate",
+    "ingredient": {
+      "item": "chemlib:potassium_dichromate"
+    },
     "count": 4
   },
   "result": {

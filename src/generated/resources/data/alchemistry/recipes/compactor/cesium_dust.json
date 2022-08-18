@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cesium",
+    "ingredient": {
+      "item": "chemlib:cesium"
+    },
     "count": 16
   },
   "result": {

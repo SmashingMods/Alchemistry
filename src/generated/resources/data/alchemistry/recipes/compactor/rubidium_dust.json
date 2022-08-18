@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:rubidium",
+    "ingredient": {
+      "item": "chemlib:rubidium"
+    },
     "count": 16
   },
   "result": {

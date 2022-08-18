@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:lanthanum",
+    "ingredient": {
+      "item": "chemlib:lanthanum"
+    },
     "count": 16
   },
   "result": {

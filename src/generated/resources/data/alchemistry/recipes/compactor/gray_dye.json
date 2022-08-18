@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:barium_sulfate",
+    "ingredient": {
+      "item": "chemlib:barium_sulfate"
+    },
     "count": 4
   },
   "result": {

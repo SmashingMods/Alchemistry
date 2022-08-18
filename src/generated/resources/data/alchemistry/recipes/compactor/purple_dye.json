@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:potassium_permanganate",
+    "ingredient": {
+      "item": "chemlib:potassium_permanganate"
+    },
     "count": 4
   },
   "result": {

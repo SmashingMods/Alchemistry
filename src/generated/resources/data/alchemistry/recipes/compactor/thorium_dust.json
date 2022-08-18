@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:thorium",
+    "ingredient": {
+      "item": "chemlib:thorium"
+    },
     "count": 16
   },
   "result": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:osmium",
+    "ingredient": {
+      "item": "chemlib:osmium"
+    },
     "count": 16
   },
   "result": {

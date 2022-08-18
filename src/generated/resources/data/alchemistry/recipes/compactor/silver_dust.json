@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:silver",
+    "ingredient": {
+      "item": "chemlib:silver"
+    },
     "count": 16
   },
   "result": {

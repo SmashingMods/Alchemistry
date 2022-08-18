@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:sodium",
+    "ingredient": {
+      "item": "chemlib:sodium"
+    },
     "count": 16
   },
   "result": {

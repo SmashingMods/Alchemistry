@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:han_purple",
+    "ingredient": {
+      "item": "chemlib:han_purple"
+    },
     "count": 4
   },
   "result": {

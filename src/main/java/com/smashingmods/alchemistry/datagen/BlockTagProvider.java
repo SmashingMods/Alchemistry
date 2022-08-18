@@ -10,9 +10,9 @@ import net.minecraftforge.common.data.ForgeRegistryTagsProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
-public class TagProvider extends ForgeRegistryTagsProvider<Block> {
+public class BlockTagProvider extends ForgeRegistryTagsProvider<Block> {
 
-    public TagProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
+    public BlockTagProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
         super(generator, ForgeRegistries.BLOCKS, Alchemistry.MODID, existingFileHelper);
     }
 
@@ -26,6 +26,6 @@ public class TagProvider extends ForgeRegistryTagsProvider<Block> {
 
     @Override
     public String getName() {
-        return null;
+        return "";
     }
 }

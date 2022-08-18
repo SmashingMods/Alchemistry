@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:chromium",
+    "ingredient": {
+      "item": "chemlib:chromium"
+    },
     "count": 16
   },
   "result": {

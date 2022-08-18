@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cerium",
+    "ingredient": {
+      "item": "chemlib:cerium"
+    },
     "count": 16
   },
   "result": {

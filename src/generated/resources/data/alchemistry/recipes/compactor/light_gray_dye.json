@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:magnesium_sulfate",
+    "ingredient": {
+      "item": "chemlib:magnesium_sulfate"
+    },
     "count": 4
   },
   "result": {

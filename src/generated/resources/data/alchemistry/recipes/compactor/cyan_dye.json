@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:copper_chloride",
+    "ingredient": {
+      "item": "chemlib:copper_chloride"
+    },
     "count": 4
   },
   "result": {

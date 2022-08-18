@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:titanium_oxide",
+    "ingredient": {
+      "item": "chemlib:titanium_oxide"
+    },
     "count": 4
   },
   "result": {

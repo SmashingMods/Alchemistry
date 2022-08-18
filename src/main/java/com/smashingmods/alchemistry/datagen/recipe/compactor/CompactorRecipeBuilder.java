@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -11,22 +12,23 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CompactorRecipeBuilder implements RecipeBuilder {
 
     private String group;
-    private final ItemStack input;
+    private final IngredientStack input;
     private final ItemStack result;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public CompactorRecipeBuilder(ItemStack pInput, ItemStack pResult) {
+    public CompactorRecipeBuilder(IngredientStack pInput, ItemStack pResult) {
         this.input = pInput;
         this.result = pResult;
     }
 
-    public static CompactorRecipeBuilder createRecipe(ItemStack pInput, ItemStack pOutput) {
+    public static CompactorRecipeBuilder createRecipe(IngredientStack pInput, ItemStack pOutput) {
         return new CompactorRecipeBuilder(pInput, pOutput);
     }
 

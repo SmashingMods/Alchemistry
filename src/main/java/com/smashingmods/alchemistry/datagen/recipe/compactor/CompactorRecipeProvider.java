@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MetalType;
@@ -7,10 +8,14 @@ import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.List;
@@ -19,7 +24,6 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
 
 public class CompactorRecipeProvider {
 
@@ -63,8 +67,11 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(siliconDioxide, 4), Items.SAND);
             compactor(new ItemStack(siliconDioxide, 3), Items.FLINT);
         });
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("calcium_carbonate").get()), new ItemStack(Items.CALCITE));
-        ItemRegistry.getCompoundByName("calcium_carbonate").ifPresent(carbonate -> compactor(carbonate, Items.POINTED_DRIPSTONE));
+
+        ItemRegistry.getCompoundByName("calcium_carbonate").ifPresent(carbonate -> {
+            compactor(carbonate, new ItemStack(Items.CALCITE));
+            compactor(carbonate, Items.POINTED_DRIPSTONE);
+        });
 
         ItemRegistry.getCompoundByName("kaolinite").ifPresent(kaolinite -> {
             compactor(kaolinite, Items.CLAY_BALL);
@@ -122,22 +129,41 @@ public class CompactorRecipeProvider {
         });
     }
 
-    public void compactor(ItemLike pInput, ItemStack pResult) {
-        compactor(new ItemStack(pInput), pResult);
+    public void compactor(ItemStack pInput, ItemStack pOutput) {
+        compactor(new IngredientStack(pInput), pOutput);
     }
 
-    public void compactor(ItemLike pInput, ItemLike pResult) {
-        compactor(new ItemStack(pInput), new ItemStack(pResult));
+    public void compactor(ItemLike pInput, ItemStack pOutput) {
+        compactor(new IngredientStack(pInput), pOutput);
     }
 
-    public void compactor(ItemStack pInput, ItemLike pResult) {
-        compactor(pInput, new ItemStack(pResult));
+    public void compactor(ItemLike pInput, ItemLike pOutput) {
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput));
     }
 
-    public void compactor(ItemStack pInput, ItemStack pResult) {
-        CompactorRecipeBuilder.createRecipe(pInput, pResult)
+    public void compactor(ItemStack pInput, ItemLike pOutput) {
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput));
+    }
+
+    private void compactor(String pInputTag, ItemStack pOutput) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        Ingredient ingredient = Ingredient.of(tagKey);
+        compactor(ingredient, pOutput);
+    }
+
+    private void compactor(String pInputTag, int count, ItemStack pOutput) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        compactor(new IngredientStack(Ingredient.of(tagKey), count), pOutput);
+    }
+
+    public void compactor(Ingredient pInput, ItemStack pOutput) {
+        compactor(new IngredientStack(pInput), pOutput);
+    }
+
+    public void compactor(IngredientStack pInput, ItemStack pOutput) {
+        CompactorRecipeBuilder.createRecipe(pInput, pOutput)
                 .group("compactor")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pResult, "compactor")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "compactor")))
                 .save(consumer);
     }
 }

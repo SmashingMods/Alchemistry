@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:platinum",
+    "ingredient": {
+      "item": "chemlib:platinum"
+    },
     "count": 16
   },
   "result": {

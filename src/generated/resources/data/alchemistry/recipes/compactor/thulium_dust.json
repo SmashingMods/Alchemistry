@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:thulium",
+    "ingredient": {
+      "item": "chemlib:thulium"
+    },
     "count": 16
   },
   "result": {

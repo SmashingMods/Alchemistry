@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:tantalum",
+    "ingredient": {
+      "item": "chemlib:tantalum"
+    },
     "count": 16
   },
   "result": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:actinium",
+    "ingredient": {
+      "item": "chemlib:actinium"
+    },
     "count": 16
   },
   "result": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:gallium",
+    "ingredient": {
+      "item": "chemlib:gallium"
+    },
     "count": 16
   },
   "result": {

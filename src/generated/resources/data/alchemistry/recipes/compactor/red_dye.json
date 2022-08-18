@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:mercury_sulfide",
+    "ingredient": {
+      "item": "chemlib:mercury_sulfide"
+    },
     "count": 4
   },
   "result": {

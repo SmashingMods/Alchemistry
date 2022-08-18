@@ -1,11 +1,14 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
+import com.smashingmods.alchemistry.api.item.IngredientStack;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class TransferUtils {
 
@@ -48,5 +51,21 @@ public class TransferUtils {
             ints.add(maxCount / pRecipeInputList.get(i).getCount());
         }
         return Collections.min(ints);
+    }
+
+    public static ItemStack matchIngredientToItemStack(NonNullList<ItemStack> pItems, IngredientStack pIngredientStack) {
+        AtomicReference<ItemStack> atomicItem = new AtomicReference<>();
+        boolean test = pItems.stream().anyMatch(itemStack -> {
+            boolean matches = pIngredientStack.matches(itemStack);
+            if (matches) {
+                atomicItem.set(itemStack);
+                return true;
+            }
+            return false;
+        });
+        if (test) {
+            return atomicItem.get();
+        }
+        return ItemStack.EMPTY;
     }
 }

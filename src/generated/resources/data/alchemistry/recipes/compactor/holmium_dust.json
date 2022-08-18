@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:holmium",
+    "ingredient": {
+      "item": "chemlib:holmium"
+    },
     "count": 16
   },
   "result": {

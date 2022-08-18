@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:iridium",
+    "ingredient": {
+      "item": "chemlib:iridium"
+    },
     "count": 16
   },
   "result": {

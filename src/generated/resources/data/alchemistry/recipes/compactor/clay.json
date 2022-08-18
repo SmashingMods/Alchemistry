@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:kaolinite",
+    "ingredient": {
+      "item": "chemlib:kaolinite"
+    },
     "count": 4
   },
   "result": {

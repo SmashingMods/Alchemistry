@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:thallium",
+    "ingredient": {
+      "item": "chemlib:thallium"
+    },
     "count": 16
   },
   "result": {

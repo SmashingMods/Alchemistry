@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:iron",
+    "ingredient": {
+      "item": "chemlib:iron"
+    },
     "count": 16
   },
   "result": {

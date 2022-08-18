@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:tin",
+    "ingredient": {
+      "item": "chemlib:tin"
+    },
     "count": 16
   },
   "result": {

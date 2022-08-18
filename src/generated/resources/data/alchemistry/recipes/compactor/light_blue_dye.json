@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cobalt_aluminate",
+    "ingredient": {
+      "item": "chemlib:cobalt_aluminate"
+    },
     "count": 4
   },
   "result": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:palladium",
+    "ingredient": {
+      "item": "chemlib:palladium"
+    },
     "count": 16
   },
   "result": {

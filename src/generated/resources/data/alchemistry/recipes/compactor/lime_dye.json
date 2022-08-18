@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:chromium_oxide",
+    "ingredient": {
+      "item": "chemlib:chromium_oxide"
+    },
     "count": 4
   },
   "result": {

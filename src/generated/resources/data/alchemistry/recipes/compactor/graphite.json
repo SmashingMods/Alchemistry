@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:carbon",
+    "ingredient": {
+      "item": "chemlib:carbon"
+    },
     "count": 4
   },
   "result": {

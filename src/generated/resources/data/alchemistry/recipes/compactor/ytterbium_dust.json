@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:ytterbium",
+    "ingredient": {
+      "item": "chemlib:ytterbium"
+    },
     "count": 16
   },
   "result": {

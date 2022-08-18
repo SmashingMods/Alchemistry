@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:aluminum",
+    "ingredient": {
+      "item": "chemlib:aluminum"
+    },
     "count": 16
   },
   "result": {

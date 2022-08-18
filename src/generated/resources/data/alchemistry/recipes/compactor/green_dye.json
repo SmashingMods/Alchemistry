@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:nickel_chloride",
+    "ingredient": {
+      "item": "chemlib:nickel_chloride"
+    },
     "count": 4
   },
   "result": {

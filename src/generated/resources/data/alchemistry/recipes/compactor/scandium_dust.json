@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:scandium",
+    "ingredient": {
+      "item": "chemlib:scandium"
+    },
     "count": 16
   },
   "result": {

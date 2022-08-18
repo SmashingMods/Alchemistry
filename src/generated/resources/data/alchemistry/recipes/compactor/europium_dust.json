@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:europium",
+    "ingredient": {
+      "item": "chemlib:europium"
+    },
     "count": 16
   },
   "result": {

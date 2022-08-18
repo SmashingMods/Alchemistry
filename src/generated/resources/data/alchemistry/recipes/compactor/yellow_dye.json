@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:lead_iodide",
+    "ingredient": {
+      "item": "chemlib:lead_iodide"
+    },
     "count": 4
   },
   "result": {

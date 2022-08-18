@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.compactor;
 
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
@@ -12,10 +13,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class CompactorRecipe extends AbstractAlchemistryRecipe {
 
-    private final ItemStack input;
+    private final IngredientStack input;
     private final ItemStack output;
 
-    public CompactorRecipe(ResourceLocation pId, String pGroup, ItemStack pInput, ItemStack pOutput) {
+    public CompactorRecipe(ResourceLocation pId, String pGroup, IngredientStack pInput, ItemStack pOutput) {
         super(pId, pGroup);
         this.input = pInput;
         this.output = pOutput;
@@ -43,7 +44,7 @@ public class CompactorRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.of(input));
+        return NonNullList.of(input.getIngredient());
     }
 
     @Override
@@ -51,11 +52,15 @@ public class CompactorRecipe extends AbstractAlchemistryRecipe {
         return String.format("input=%s, outputs=%s", input, output);
     }
 
-    public ItemStack getInput() {
+    public IngredientStack getInput() {
         return input;
     }
 
     public ItemStack getOutput() {
         return output;
+    }
+
+    public boolean matches(ItemStack pItemStack) {
+        return input.matches(pItemStack);
     }
 }

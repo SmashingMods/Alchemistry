@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:polonium",
+    "ingredient": {
+      "item": "chemlib:polonium"
+    },
     "count": 16
   },
   "result": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:lead",
+    "ingredient": {
+      "item": "chemlib:lead"
+    },
     "count": 16
   },
   "result": {

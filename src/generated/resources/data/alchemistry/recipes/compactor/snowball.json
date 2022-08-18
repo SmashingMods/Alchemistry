@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:water",
+    "ingredient": {
+      "item": "chemlib:water"
+    },
     "count": 4
   },
   "result": {

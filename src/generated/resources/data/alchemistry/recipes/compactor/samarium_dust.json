@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:samarium",
+    "ingredient": {
+      "item": "chemlib:samarium"
+    },
     "count": 16
   },
   "result": {

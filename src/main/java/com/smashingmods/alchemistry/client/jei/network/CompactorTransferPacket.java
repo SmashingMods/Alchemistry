@@ -66,18 +66,20 @@ public class CompactorTransferPacket {
                         inputHandler.emptyToInventory(inventory);
                         outputHandler.emptyToInventory(inventory);
 
+                        ItemStack input = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
                         boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (inventory.contains(recipe.getInput()) || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                        boolean canTransfer = (!input.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                         if (canTransfer) {
                             if (creative) {
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), pPacket.maxTransfer);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
+                                ItemStack creativeInput = recipe.getInput().getIngredient().getItems()[(int) (Math.random() * (recipe.getInput().getIngredient().getItems().length))];
+                                int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
+                                inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                             } else {
-                                int slot = inventory.findSlotMatchingItem(recipe.getInput());
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventory.getItem(slot), pPacket.maxTransfer, false);
+                                int slot = inventory.findSlotMatchingItem(input);
+                                int maxOperations = TransferUtils.getMaxOperations(input, inventory.getItem(slot), pPacket.maxTransfer, false);
                                 inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
+                                inputHandler.setOrIncrement(0, new ItemStack(input.getItem(), recipe.getInput().getCount() * maxOperations));
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);

@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:cobalt",
+    "ingredient": {
+      "item": "chemlib:cobalt"
+    },
     "count": 16
   },
   "result": {

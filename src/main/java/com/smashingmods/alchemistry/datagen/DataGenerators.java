@@ -16,7 +16,7 @@ public class DataGenerators {
             generator.addProvider(new RecipeProvider(generator));
             generator.addProvider(new BlockStateGenerator(generator, pEvent.getExistingFileHelper()));
             generator.addProvider(new LootTableProvider(generator));
-            generator.addProvider(new TagProvider(generator, pEvent.getExistingFileHelper()));
+            generator.addProvider(new BlockTagProvider(generator, pEvent.getExistingFileHelper()));
             generator.addProvider(new LocalizationGenerator(generator, "en_us"));
         }
     }

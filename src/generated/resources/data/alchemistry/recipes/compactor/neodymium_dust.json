@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:neodymium",
+    "ingredient": {
+      "item": "chemlib:neodymium"
+    },
     "count": 16
   },
   "result": {

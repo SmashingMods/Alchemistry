@@ -60,7 +60,7 @@ public class CompactorRecipeCategory implements IRecipeCategory<CompactorRecipe>
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, CompactorRecipe pRecipe, IFocusGroup pFocusGroup) {
-        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStack(pRecipe.getInput());
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStacks(pRecipe.getInput().toStacks());
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addItemStack(pRecipe.getOutput());
     }
 }

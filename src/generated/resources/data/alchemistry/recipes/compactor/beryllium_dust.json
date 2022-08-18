@@ -2,7 +2,9 @@
   "type": "alchemistry:compactor",
   "group": "compactor",
   "input": {
-    "item": "chemlib:beryllium",
+    "ingredient": {
+      "item": "chemlib:beryllium"
+    },
     "count": 16
   },
   "result": {

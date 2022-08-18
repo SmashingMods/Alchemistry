@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:rubidium_sulfate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:rubidium_sulfate_dust"
+  }
+}

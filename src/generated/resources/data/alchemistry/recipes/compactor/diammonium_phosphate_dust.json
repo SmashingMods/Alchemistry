@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:diammonium_phosphate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:diammonium_phosphate_dust"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:cucurbitacin"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:cucurbitacin_dust"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:phosphoric_acid"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:phosphoric_acid_dust"
+  }
+}

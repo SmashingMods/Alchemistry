@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:antimony_trioxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:antimony_trioxide_dust"
+  }
+}

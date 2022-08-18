@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:potassium_cyanide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:potassium_cyanide_dust"
+  }
+}

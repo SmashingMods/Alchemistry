@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:cadmium_sulfide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:cadmium_sulfide_dust"
+  }
+}

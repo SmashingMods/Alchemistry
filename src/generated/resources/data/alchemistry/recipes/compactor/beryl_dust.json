@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:beryl"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:beryl_dust"
+  }
+}

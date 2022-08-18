@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:keratin"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:keratin_dust"
+  }
+}

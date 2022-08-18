@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:sucrose"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:sucrose_dust"
+  }
+}

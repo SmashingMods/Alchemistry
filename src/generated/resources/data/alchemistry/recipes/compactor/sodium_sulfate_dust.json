@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:sodium_sulfate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:sodium_sulfate_dust"
+  }
+}

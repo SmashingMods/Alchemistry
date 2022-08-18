@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:lead_nitrate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:lead_nitrate_dust"
+  }
+}

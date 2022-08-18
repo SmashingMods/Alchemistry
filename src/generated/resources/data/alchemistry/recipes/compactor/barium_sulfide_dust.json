@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:barium_sulfide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:barium_sulfide_dust"
+  }
+}

@@ -3,8 +3,10 @@ package com.smashingmods.alchemistry.datagen.recipe.compactor;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.api.ChemicalItemType;
+import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -44,6 +46,13 @@ public class CompactorRecipeProvider {
             if (element.getMetalType().equals(MetalType.METAL) && !element.isArtificial()) {
                 Optional<ChemicalItem> output = ItemRegistry.getChemicalItemByNameAndType(element.getChemicalName(), ChemicalItemType.DUST);
                 output.ifPresent(chemicalItem -> compactor(new ItemStack(element, 16), chemicalItem));
+            }
+        }
+
+        for (CompoundItem compound : ItemRegistry.getCompounds()) {
+            if (compound.getMatterState().equals(MatterState.SOLID)) {
+                Optional<ChemicalItem> output = ItemRegistry.getChemicalItemByNameAndType(compound.getChemicalName(), ChemicalItemType.COMPOUND);
+                output.ifPresent(chemicalItem -> compactor(new ItemStack(compound, 8), chemicalItem));
             }
         }
 

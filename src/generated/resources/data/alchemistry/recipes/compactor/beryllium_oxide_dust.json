@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:beryllium_oxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:beryllium_oxide_dust"
+  }
+}

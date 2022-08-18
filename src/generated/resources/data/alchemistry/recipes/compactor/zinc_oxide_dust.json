@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:zinc_oxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:zinc_oxide_dust"
+  }
+}

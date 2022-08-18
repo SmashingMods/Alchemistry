@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:lithium_chloride"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:lithium_chloride_dust"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:lead_sulfate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:lead_sulfate_dust"
+  }
+}

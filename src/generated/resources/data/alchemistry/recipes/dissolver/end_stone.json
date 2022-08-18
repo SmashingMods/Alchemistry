@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:end_stone"
+    "ingredient": {
+      "item": "minecraft:end_stone"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

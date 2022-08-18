@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:tube_coral"
+    "ingredient": {
+      "item": "minecraft:tube_coral"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

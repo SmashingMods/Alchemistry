@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:tuff"
+    "ingredient": {
+      "item": "minecraft:tuff"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 2,

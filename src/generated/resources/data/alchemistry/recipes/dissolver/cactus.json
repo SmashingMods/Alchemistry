@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cactus"
+    "ingredient": {
+      "item": "minecraft:cactus"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

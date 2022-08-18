@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:cadmium_dust"
+    "ingredient": {
+      "item": "chemlib:cadmium_dust"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

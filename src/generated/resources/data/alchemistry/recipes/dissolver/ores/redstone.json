@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:ores/redstone"
+    "ingredient": {
+      "tag": "forge:ores/redstone"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

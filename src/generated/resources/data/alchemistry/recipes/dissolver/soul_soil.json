@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:soul_soil"
+    "ingredient": {
+      "item": "minecraft:soul_soil"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

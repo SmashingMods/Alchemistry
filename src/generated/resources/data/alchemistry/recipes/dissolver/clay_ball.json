@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:clay_ball"
+    "ingredient": {
+      "item": "minecraft:clay_ball"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

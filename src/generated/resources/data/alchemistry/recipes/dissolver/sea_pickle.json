@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:sea_pickle"
+    "ingredient": {
+      "item": "minecraft:sea_pickle"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

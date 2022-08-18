@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:red_nether_bricks"
+    "ingredient": {
+      "item": "minecraft:red_nether_bricks"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 4,

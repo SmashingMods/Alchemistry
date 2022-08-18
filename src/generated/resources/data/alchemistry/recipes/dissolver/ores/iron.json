@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:ores/iron"
+    "ingredient": {
+      "tag": "forge:ores/iron"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

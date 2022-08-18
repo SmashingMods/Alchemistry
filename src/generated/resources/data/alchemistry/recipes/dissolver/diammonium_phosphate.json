@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:diammonium_phosphate"
+    "ingredient": {
+      "item": "chemlib:diammonium_phosphate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

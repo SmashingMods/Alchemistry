@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:quartz_pillar"
+    "ingredient": {
+      "item": "minecraft:quartz_pillar"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

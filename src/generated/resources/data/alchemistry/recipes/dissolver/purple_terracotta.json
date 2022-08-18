@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:purple_terracotta"
+    "ingredient": {
+      "item": "minecraft:purple_terracotta"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

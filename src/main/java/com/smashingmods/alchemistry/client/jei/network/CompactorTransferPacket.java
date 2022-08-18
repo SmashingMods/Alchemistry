@@ -66,9 +66,10 @@ public class CompactorTransferPacket {
                         inputHandler.emptyToInventory(inventory);
                         outputHandler.emptyToInventory(inventory);
 
-                        ItemStack input = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
+                        ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
+                        ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipe.getInput().getCount());
                         boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (!input.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                        boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                         if (canTransfer) {
                             if (creative) {
@@ -76,10 +77,10 @@ public class CompactorTransferPacket {
                                 int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
                                 inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                             } else {
-                                int slot = inventory.findSlotMatchingItem(input);
-                                int maxOperations = TransferUtils.getMaxOperations(input, inventory.getItem(slot), pPacket.maxTransfer, false);
+                                int slot = inventory.findSlotMatchingItem(inventoryInput);
+                                int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), pPacket.maxTransfer, false);
                                 inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(input.getItem(), recipe.getInput().getCount() * maxOperations));
+                                inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);

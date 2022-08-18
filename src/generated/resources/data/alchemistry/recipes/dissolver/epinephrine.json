@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:epinephrine"
+    "ingredient": {
+      "item": "chemlib:epinephrine"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:chiseled_sandstone"
+    "ingredient": {
+      "item": "minecraft:chiseled_sandstone"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 4,

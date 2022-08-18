@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:beryllium_ingot"
+    "ingredient": {
+      "item": "chemlib:beryllium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

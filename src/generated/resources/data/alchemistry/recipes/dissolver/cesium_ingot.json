@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:cesium_ingot"
+    "ingredient": {
+      "item": "chemlib:cesium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

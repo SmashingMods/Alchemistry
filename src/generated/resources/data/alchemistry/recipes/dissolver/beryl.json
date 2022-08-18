@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:beryl"
+    "ingredient": {
+      "item": "chemlib:beryl"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

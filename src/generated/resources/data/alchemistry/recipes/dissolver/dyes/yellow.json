@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:dyes/yellow"
+    "ingredient": {
+      "tag": "forge:dyes/yellow"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

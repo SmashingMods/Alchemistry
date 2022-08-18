@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:gold_nugget"
+    "ingredient": {
+      "item": "minecraft:gold_nugget"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:nickel_nitrate"
+    "ingredient": {
+      "item": "chemlib:nickel_nitrate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

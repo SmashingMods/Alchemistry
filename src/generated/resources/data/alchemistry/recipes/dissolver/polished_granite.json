@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:polished_granite"
+    "ingredient": {
+      "item": "minecraft:polished_granite"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

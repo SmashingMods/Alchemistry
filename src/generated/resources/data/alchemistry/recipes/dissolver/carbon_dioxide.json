@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:carbon_dioxide"
+    "ingredient": {
+      "item": "chemlib:carbon_dioxide"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

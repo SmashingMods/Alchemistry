@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:cobalt_sulfate"
+    "ingredient": {
+      "item": "chemlib:cobalt_sulfate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

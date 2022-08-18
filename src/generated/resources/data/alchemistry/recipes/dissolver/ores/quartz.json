@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:ores/quartz"
+    "ingredient": {
+      "tag": "forge:ores/quartz"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

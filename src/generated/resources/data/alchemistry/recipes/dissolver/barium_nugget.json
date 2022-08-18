@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:barium_nugget"
+    "ingredient": {
+      "item": "chemlib:barium_nugget"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

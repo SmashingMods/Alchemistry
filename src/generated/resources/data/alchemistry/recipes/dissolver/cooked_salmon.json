@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cooked_salmon"
+    "ingredient": {
+      "item": "minecraft:cooked_salmon"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

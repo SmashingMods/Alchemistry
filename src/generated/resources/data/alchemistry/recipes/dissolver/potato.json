@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:potato"
+    "ingredient": {
+      "item": "minecraft:potato"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

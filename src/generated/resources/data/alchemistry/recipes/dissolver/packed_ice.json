@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:packed_ice"
+    "ingredient": {
+      "item": "minecraft:packed_ice"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

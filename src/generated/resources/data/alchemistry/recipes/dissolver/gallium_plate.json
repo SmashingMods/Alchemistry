@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:gallium_plate"
+    "ingredient": {
+      "item": "chemlib:gallium_plate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

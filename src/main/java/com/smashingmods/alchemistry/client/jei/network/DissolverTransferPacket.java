@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
@@ -16,20 +17,20 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 public class DissolverTransferPacket {
 
     private final BlockPos blockPos;
-    private final Ingredient input;
+    private final IngredientStack input;
     private final boolean maxTransfer;
 
-    public DissolverTransferPacket(BlockPos pBlockPos, Ingredient pInput, boolean pMaxTransfer) {
+    public DissolverTransferPacket(BlockPos pBlockPos, IngredientStack pInput, boolean pMaxTransfer) {
         this.blockPos = pBlockPos;
         this.input = pInput;
         this.maxTransfer = pMaxTransfer;
@@ -37,7 +38,7 @@ public class DissolverTransferPacket {
 
     public DissolverTransferPacket(FriendlyByteBuf pBuffer) {
         this.blockPos = pBuffer.readBlockPos();
-        this.input = Ingredient.fromNetwork(pBuffer);
+        this.input = IngredientStack.fromNetwork(pBuffer);
         this.maxTransfer = pBuffer.readBoolean();
     }
 
@@ -58,32 +59,36 @@ public class DissolverTransferPacket {
             CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
             CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
-            ItemStack input = pPacket.input.getItems()[0];
 
             RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, player.getLevel()).stream()
-                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput().getItems()[0], input))
+                    .filter(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(pPacket.input.getIngredient()))
                     .findFirst()
                     .ifPresent(recipe -> {
+
+                        //TODO: add a map cache for getting a recipe based on the input ingredient
 
                         inputHandler.emptyToInventory(inventory);
                         outputHandler.emptyToInventory(inventory);
 
+                        ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
+                        ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipe.getInput().getCount());
                         boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (inventory.contains(input) || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                        boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                         if (canTransfer) {
                             if (creative) {
-                                int maxOperations = TransferUtils.getMaxOperations(input, pPacket.maxTransfer);
-                                inputHandler.setOrIncrement(0, new ItemStack(input.getItem(), input.getCount() * maxOperations));
+                                ItemStack creativeInput = recipe.getInput().getIngredient().getItems()[(int) (Math.random() * recipe.getInput().getIngredient().getItems().length)];
+                                int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
+                                inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                             } else {
-                                int slot = inventory.findSlotMatchingItem(input);
-                                int maxOperations = TransferUtils.getMaxOperations(input, inventory.getItem(slot), pPacket.maxTransfer, false);
-                                inventory.removeItem(slot, input.getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(input.getItem(), input.getCount() * maxOperations));
+                                int slot = inventory.findSlotMatchingItem(inventoryInput);
+                                int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), pPacket.maxTransfer, false);
+                                inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
+                                inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
-                            AlchemistryPacketHandler.sendToNear(new ClientDissolverRecipePacket(pPacket.blockPos, input), player.getLevel(), pPacket.blockPos, 64);
+                            AlchemistryPacketHandler.sendToNear(new ClientDissolverRecipePacket(pPacket.blockPos, inventoryInput), player.getLevel(), pPacket.blockPos, 64);
                         }
                     });
         });

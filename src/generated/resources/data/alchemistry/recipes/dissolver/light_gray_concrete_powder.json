@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:light_gray_concrete_powder"
+    "ingredient": {
+      "item": "minecraft:light_gray_concrete_powder"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

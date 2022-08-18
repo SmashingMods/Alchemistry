@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:glass"
+    "ingredient": {
+      "tag": "forge:glass"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

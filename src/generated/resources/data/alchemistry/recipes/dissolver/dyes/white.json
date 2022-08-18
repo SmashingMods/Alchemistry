@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:dyes/white"
+    "ingredient": {
+      "tag": "forge:dyes/white"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

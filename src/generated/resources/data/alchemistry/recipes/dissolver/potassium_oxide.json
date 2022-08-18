@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:potassium_oxide"
+    "ingredient": {
+      "item": "chemlib:potassium_oxide"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

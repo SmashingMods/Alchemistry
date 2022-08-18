@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:terbium_ingot"
+    "ingredient": {
+      "item": "chemlib:terbium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

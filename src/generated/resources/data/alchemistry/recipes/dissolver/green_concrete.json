@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:green_concrete"
+    "ingredient": {
+      "item": "minecraft:green_concrete"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

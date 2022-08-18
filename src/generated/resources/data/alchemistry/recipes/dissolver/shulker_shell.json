@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:shulker_shell"
+    "ingredient": {
+      "item": "minecraft:shulker_shell"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

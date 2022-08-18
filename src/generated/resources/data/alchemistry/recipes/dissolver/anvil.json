@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:anvil"
+    "ingredient": {
+      "item": "minecraft:anvil"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

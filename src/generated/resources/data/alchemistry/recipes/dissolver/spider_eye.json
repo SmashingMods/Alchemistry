@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:spider_eye"
+    "ingredient": {
+      "item": "minecraft:spider_eye"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

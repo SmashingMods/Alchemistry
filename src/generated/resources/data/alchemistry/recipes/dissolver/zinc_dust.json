@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:zinc_dust"
+    "ingredient": {
+      "item": "chemlib:zinc_dust"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

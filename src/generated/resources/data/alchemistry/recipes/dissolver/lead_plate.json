@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lead_plate"
+    "ingredient": {
+      "item": "chemlib:lead_plate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

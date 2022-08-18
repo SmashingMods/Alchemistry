@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:raw_gold"
+    "ingredient": {
+      "item": "minecraft:raw_gold"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

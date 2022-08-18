@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cobweb"
+    "ingredient": {
+      "item": "minecraft:cobweb"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

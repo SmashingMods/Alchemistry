@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:polished_deepslate"
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 2,

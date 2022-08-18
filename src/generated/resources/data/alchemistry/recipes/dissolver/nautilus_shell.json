@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:nautilus_shell"
+    "ingredient": {
+      "item": "minecraft:nautilus_shell"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

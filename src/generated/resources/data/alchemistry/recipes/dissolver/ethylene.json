@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:ethylene"
+    "ingredient": {
+      "item": "chemlib:ethylene"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

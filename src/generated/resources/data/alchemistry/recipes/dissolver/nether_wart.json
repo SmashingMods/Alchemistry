@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:nether_wart"
+    "ingredient": {
+      "item": "minecraft:nether_wart"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

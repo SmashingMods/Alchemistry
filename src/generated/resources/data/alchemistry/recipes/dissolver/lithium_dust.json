@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lithium_dust"
+    "ingredient": {
+      "item": "chemlib:lithium_dust"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

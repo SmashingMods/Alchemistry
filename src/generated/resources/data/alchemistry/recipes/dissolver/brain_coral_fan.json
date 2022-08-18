@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:brain_coral_fan"
+    "ingredient": {
+      "item": "minecraft:brain_coral_fan"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

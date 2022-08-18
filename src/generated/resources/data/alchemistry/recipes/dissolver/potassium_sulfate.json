@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:potassium_sulfate"
+    "ingredient": {
+      "item": "chemlib:potassium_sulfate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

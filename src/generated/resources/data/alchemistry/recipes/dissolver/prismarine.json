@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:prismarine"
+    "ingredient": {
+      "item": "minecraft:prismarine"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

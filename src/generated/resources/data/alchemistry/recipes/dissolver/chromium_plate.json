@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:chromium_plate"
+    "ingredient": {
+      "item": "chemlib:chromium_plate"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

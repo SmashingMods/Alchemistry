@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "minecraft:music_discs"
+    "ingredient": {
+      "tag": "minecraft:music_discs"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

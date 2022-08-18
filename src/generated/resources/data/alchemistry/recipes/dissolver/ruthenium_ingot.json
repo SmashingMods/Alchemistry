@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:ruthenium_ingot"
+    "ingredient": {
+      "item": "chemlib:ruthenium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

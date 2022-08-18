@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:ores/coal"
+    "ingredient": {
+      "tag": "forge:ores/coal"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

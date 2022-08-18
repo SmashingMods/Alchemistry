@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:ender_pearl"
+    "ingredient": {
+      "item": "minecraft:ender_pearl"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

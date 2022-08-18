@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:blue_ice"
+    "ingredient": {
+      "item": "minecraft:blue_ice"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

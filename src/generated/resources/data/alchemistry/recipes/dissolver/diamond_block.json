@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:diamond_block"
+    "ingredient": {
+      "item": "minecraft:diamond_block"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
@@ -1165,7 +1166,7 @@ public class DissolverRecipeProvider {
 //                .addGroup(1, toStack("phosphate")))
     }
 
-    private void dissolver(Ingredient pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId) {
+    private void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId) {
         DissolverRecipeBuilder.createRecipe(pIngredient, pSet, pRecipeId)
                 .group(String.format("%s:dissolver", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
@@ -1177,7 +1178,7 @@ public class DissolverRecipeProvider {
     }
 
     private void dissolver(ItemLike pItemLike, ProbabilitySet pSet, boolean pReversible) {
-        dissolver(Ingredient.of(pItemLike), pSet, Objects.requireNonNull(pItemLike.asItem().getRegistryName()));
+        dissolver(new IngredientStack(pItemLike), pSet, Objects.requireNonNull(pItemLike.asItem().getRegistryName()));
 
         if (pReversible) {
             ItemStack output = new ItemStack(pItemLike);
@@ -1199,6 +1200,6 @@ public class DissolverRecipeProvider {
     private void dissolver(String pItemTag, ProbabilitySet pSet) {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
         Ingredient ingredient = Ingredient.of(tagKey);
-        dissolver(ingredient, pSet, new ResourceLocation(pItemTag));
+        dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, new ResourceLocation(pItemTag));
     }
 }

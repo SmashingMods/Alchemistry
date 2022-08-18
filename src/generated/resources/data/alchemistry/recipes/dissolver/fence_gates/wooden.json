@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:fence_gates/wooden"
+    "ingredient": {
+      "tag": "forge:fence_gates/wooden"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:gadolinium_nugget"
+    "ingredient": {
+      "item": "chemlib:gadolinium_nugget"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

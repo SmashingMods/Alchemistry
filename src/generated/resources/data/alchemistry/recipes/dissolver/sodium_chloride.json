@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:sodium_chloride"
+    "ingredient": {
+      "item": "chemlib:sodium_chloride"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

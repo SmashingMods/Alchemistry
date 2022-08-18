@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "minecraft:leaves"
+    "ingredient": {
+      "tag": "minecraft:leaves"
+    },
+    "count": 1
   },
   "output": {
     "rolls": 1,

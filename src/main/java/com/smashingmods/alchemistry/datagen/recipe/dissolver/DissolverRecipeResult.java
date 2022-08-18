@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.google.gson.JsonObject;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class DissolverRecipeResult implements FinishedRecipe {
@@ -15,14 +15,14 @@ public class DissolverRecipeResult implements FinishedRecipe {
     private final Advancement.Builder advancementBuilder;
     private final ResourceLocation id;
     private final ResourceLocation advancementId;
-    private final Ingredient input;
+    private final IngredientStack input;
     private final ProbabilitySet output;
 
     public DissolverRecipeResult(String pGroup,
                                  Advancement.Builder pBuilder,
                                  ResourceLocation pId,
                                  ResourceLocation pAdvancementId,
-                                 Ingredient pInput,
+                                 IngredientStack pInput,
                                  ProbabilitySet pOutput) {
         this.group = pGroup;
         this.advancementBuilder = pBuilder;

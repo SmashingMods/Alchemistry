@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:nether_quartz_ore"
+      "forge:ores/quartz"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:nether_quartz_ore"
+        "recipe": "forge:ores/quartz"
       }
     }
   },

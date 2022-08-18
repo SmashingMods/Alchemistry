@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:nether_gold_ore"
+      "forge:ores/diamond"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:nether_gold_ore"
+        "recipe": "forge:ores/diamond"
       }
     }
   },

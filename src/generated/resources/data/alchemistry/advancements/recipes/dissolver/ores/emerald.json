@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:coal_ore"
+      "forge:ores/emerald"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:coal_ore"
+        "recipe": "forge:ores/emerald"
       }
     }
   },

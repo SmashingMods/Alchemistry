@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:deepslate_emerald_ore"
+      "forge:ores/copper"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:deepslate_emerald_ore"
+        "recipe": "forge:ores/copper"
       }
     }
   },

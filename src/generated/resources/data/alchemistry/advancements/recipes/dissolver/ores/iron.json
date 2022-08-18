@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:diamond_ore"
+      "forge:ores/iron"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:diamond_ore"
+        "recipe": "forge:ores/iron"
       }
     }
   },

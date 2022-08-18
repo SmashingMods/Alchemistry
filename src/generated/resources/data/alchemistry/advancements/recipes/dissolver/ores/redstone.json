@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:gold_ore"
+      "forge:ores/redstone"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:gold_ore"
+        "recipe": "forge:ores/redstone"
       }
     }
   },

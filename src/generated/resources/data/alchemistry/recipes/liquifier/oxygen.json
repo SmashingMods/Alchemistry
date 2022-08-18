@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:oxygen",
+    "ingredient": {
+      "item": "chemlib:oxygen"
+    },
     "count": 8
   },
   "result": {

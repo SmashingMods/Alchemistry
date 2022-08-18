@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:carbon_monoxide_bucket"
+      "chemlib:carbon_monoxide_fluid"
     ]
   },
   "criteria": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:xenon",
+    "ingredient": {
+      "item": "chemlib:xenon"
+    },
     "count": 8
   },
   "result": {

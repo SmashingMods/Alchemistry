@@ -1198,8 +1198,8 @@ public class DissolverRecipeProvider {
     }
 
     private void dissolver(String pItemTag, ProbabilitySet pSet) {
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
-        Ingredient ingredient = Ingredient.of(tagKey);
-        dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, new ResourceLocation(pItemTag));
+        ResourceLocation itemId = new ResourceLocation(pItemTag);
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, itemId);
+        dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId);
     }
 }

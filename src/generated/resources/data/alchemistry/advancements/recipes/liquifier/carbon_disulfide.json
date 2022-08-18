@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:carbon_disulfide_bucket"
+      "chemlib:carbon_disulfide_fluid"
     ]
   },
   "criteria": {

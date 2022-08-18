@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:hexane_bucket"
+      "chemlib:hexane_fluid"
     ]
   },
   "criteria": {

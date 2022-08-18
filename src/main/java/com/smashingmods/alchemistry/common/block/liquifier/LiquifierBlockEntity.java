@@ -66,7 +66,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
-                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getItemHandler().getStackInSlot(0)))
+                    .filter(recipe -> recipe.getInput().matches(getItemHandler().getStackInSlot(0)))
                     .findFirst()
                     .ifPresent(recipe -> {
                         if (currentRecipe == null || !currentRecipe.equals(recipe)) {
@@ -79,12 +79,12 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public boolean canProcessRecipe() {
+        ItemStack input = getItemHandler().getStackInSlot(0);
         if (currentRecipe != null) {
             return getEnergyHandler().getEnergyStored() >= Config.Common.liquifierEnergyPerTick.get()
                     && (getFluidStorage().getFluidStack().isFluidEqual(currentRecipe.getOutput()) || getFluidStorage().isEmpty())
                     && getFluidStorage().getFluidAmount() <= (getFluidStorage().getFluidAmount() + currentRecipe.getOutput().getAmount())
-                    && (ItemStack.isSameItemSameTags(currentRecipe.getInput().copy(), getItemHandler().getStackInSlot(0)))
-                    && getItemHandler().getStackInSlot(0).getCount() >= currentRecipe.getInput().getCount();
+                    && (currentRecipe.getInput().matches(input) && input.getCount() >= currentRecipe.getInput().getCount());
         } else {
             return false;
         }

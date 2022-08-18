@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:krypton",
+    "ingredient": {
+      "item": "chemlib:krypton"
+    },
     "count": 8
   },
   "result": {

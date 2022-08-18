@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:methane_bucket"
+      "chemlib:methane_fluid"
     ]
   },
   "criteria": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:hydrogen",
+    "ingredient": {
+      "item": "chemlib:hydrogen"
+    },
     "count": 8
   },
   "result": {

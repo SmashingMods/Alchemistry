@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:epinephrine",
+    "ingredient": {
+      "item": "chemlib:epinephrine"
+    },
     "count": 8
   },
   "result": {

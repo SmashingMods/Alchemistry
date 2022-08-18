@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:sulfuric_acid_bucket"
+      "chemlib:sulfuric_acid_fluid"
     ]
   },
   "criteria": {

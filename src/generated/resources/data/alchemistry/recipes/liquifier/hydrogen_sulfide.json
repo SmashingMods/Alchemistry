@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:hydrogen_sulfide",
+    "ingredient": {
+      "item": "chemlib:hydrogen_sulfide"
+    },
     "count": 8
   },
   "result": {

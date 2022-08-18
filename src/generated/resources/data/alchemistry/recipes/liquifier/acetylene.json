@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:acetylene",
+    "ingredient": {
+      "item": "chemlib:acetylene"
+    },
     "count": 8
   },
   "result": {

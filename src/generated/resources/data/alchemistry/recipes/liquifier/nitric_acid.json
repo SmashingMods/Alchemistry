@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:nitric_acid",
+    "ingredient": {
+      "item": "chemlib:nitric_acid"
+    },
     "count": 8
   },
   "result": {

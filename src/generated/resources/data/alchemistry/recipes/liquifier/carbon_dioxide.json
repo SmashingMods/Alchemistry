@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:carbon_dioxide",
+    "ingredient": {
+      "item": "chemlib:carbon_dioxide"
+    },
     "count": 8
   },
   "result": {

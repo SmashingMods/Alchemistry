@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:ammonia",
+    "ingredient": {
+      "item": "chemlib:ammonia"
+    },
     "count": 8
   },
   "result": {

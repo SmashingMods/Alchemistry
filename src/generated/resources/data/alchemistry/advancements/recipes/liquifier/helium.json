@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:helium_bucket"
+      "chemlib:helium_fluid"
     ]
   },
   "criteria": {

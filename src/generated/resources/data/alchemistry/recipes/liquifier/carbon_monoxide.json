@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:carbon_monoxide",
+    "ingredient": {
+      "item": "chemlib:carbon_monoxide"
+    },
     "count": 8
   },
   "result": {

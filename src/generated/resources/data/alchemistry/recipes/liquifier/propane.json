@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:propane",
+    "ingredient": {
+      "item": "chemlib:propane"
+    },
     "count": 8
   },
   "result": {

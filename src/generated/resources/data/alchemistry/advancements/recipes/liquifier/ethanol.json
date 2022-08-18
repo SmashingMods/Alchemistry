@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:ethanol_bucket"
+      "chemlib:ethanol_fluid"
     ]
   },
   "criteria": {

@@ -1,14 +1,20 @@
 package com.smashingmods.alchemistry.datagen.recipe.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.RegistryObject;
@@ -34,10 +40,19 @@ public class LiquifierRecipeProvider {
         ItemRegistry.getCompoundByName("water").ifPresent(water -> liquifier(new ItemStack(water, 8), new FluidStack(Fluids.WATER, 500)));
     }
 
-    private void liquifier(ItemStack pInput, FluidStack pResult) {
-        LiquifierRecipeBuilder.createRecipe(pInput, pResult)
+    private void liquifier(String pItemTag, FluidStack pOutput) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
+        liquifier(new IngredientStack(Ingredient.of(tagKey)), pOutput);
+    }
+
+    private void liquifier(ItemStack pInput, FluidStack pOutput) {
+        liquifier(new IngredientStack(pInput), pOutput);
+    }
+
+    private void liquifier(IngredientStack pInput, FluidStack pOutput) {
+        LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(pOutput.getFluid().getRegistryName()))
                 .group(Alchemistry.MODID + ":liquifier")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pResult, "liquifier")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "liquifier")))
                 .save(consumer);
     }
 

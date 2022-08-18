@@ -1,7 +1,7 @@
 {
   "rewards": {
     "recipes": [
-      "alchemistry:hydrogen_sulfide_bucket"
+      "chemlib:hydrogen_sulfide_fluid"
     ]
   },
   "criteria": {

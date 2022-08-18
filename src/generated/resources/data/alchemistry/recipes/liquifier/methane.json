@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:methane",
+    "ingredient": {
+      "item": "chemlib:methane"
+    },
     "count": 8
   },
   "result": {

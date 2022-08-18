@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:ethane",
+    "ingredient": {
+      "item": "chemlib:ethane"
+    },
     "count": 8
   },
   "result": {

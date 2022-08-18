@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:butane",
+    "ingredient": {
+      "item": "chemlib:butane"
+    },
     "count": 8
   },
   "result": {

@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:bromine",
+    "ingredient": {
+      "item": "chemlib:bromine"
+    },
     "count": 8
   },
   "result": {

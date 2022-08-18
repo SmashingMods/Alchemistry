@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:sulfur_trioxide",
+    "ingredient": {
+      "item": "chemlib:sulfur_trioxide"
+    },
     "count": 8
   },
   "result": {

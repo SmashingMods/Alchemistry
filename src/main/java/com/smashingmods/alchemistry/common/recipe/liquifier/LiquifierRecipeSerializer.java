@@ -1,14 +1,13 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -25,14 +24,13 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe> extends ForgeR
 
     @Override
     public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-
         String group = pSerializedRecipe.has("group") ? pSerializedRecipe.get("group").getAsString() : "liquifier";
 
         if (!pSerializedRecipe.has("input")) {
             throw new JsonSyntaxException("Missing input, expected to find an object.");
         }
 
-        ItemStack input = pSerializedRecipe.has("input") ? ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("input")) : ItemStack.EMPTY;
+        IngredientStack input = IngredientStack.fromJson(pSerializedRecipe.getAsJsonObject("input"));
 
         if (!pSerializedRecipe.has("result")) {
             throw new JsonSyntaxException("Missing result, expected to find an object.");
@@ -49,7 +47,7 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe> extends ForgeR
     @Override
     public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
-        ItemStack input = pBuffer.readItem();
+        IngredientStack input = IngredientStack.fromNetwork(pBuffer);
         FluidStack output = pBuffer.readFluidStack();
         return this.factory.create(pRecipeId, group, input, output);
     }
@@ -57,11 +55,11 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe> extends ForgeR
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
-        pBuffer.writeItem(pRecipe.getInput());
+        pRecipe.getInput().toNetwork(pBuffer);
         pBuffer.writeFluidStack(pRecipe.getOutput());
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {
-        T create(ResourceLocation pId, String pGroup, ItemStack pInput, FluidStack pOutput);
+        T create(ResourceLocation pId, String pGroup, IngredientStack pInput, FluidStack pOutput);
     }
 }

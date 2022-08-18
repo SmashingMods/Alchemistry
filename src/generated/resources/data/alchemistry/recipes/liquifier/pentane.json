@@ -2,7 +2,9 @@
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
   "input": {
-    "item": "chemlib:pentane",
+    "ingredient": {
+      "item": "chemlib:pentane"
+    },
     "count": 8
   },
   "result": {

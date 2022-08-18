@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:protein",
+      "ingredient": {
+        "item": "chemlib:protein"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:keratin"
+      "ingredient": {
+        "item": "chemlib:keratin"
+      },
+      "count": 1
     }
   ],
   "result": {

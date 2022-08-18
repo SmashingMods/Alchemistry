@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:cellulose"
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:beta_carotene"
+      "ingredient": {
+        "item": "chemlib:beta_carotene"
+      },
+      "count": 1
     }
   ],
   "result": {

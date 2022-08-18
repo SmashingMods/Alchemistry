@@ -3,7 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:cerium",
+      "ingredient": {
+        "item": "chemlib:cerium"
+      },
       "count": 8
     }
   ],

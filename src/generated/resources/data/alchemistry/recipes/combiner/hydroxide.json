@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:oxygen"
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:hydrogen"
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
+      "count": 1
     }
   ],
   "result": {

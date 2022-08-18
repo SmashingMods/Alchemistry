@@ -3,14 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:nitrogen"
+      "ingredient": {
+        "item": "chemlib:nitrogen"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:hydrogen",
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
       "count": 4
     },
     {
-      "item": "chemlib:chlorine"
+      "ingredient": {
+        "item": "chemlib:chlorine"
+      },
+      "count": 1
     }
   ],
   "result": {

@@ -3,7 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:carbon",
+      "ingredient": {
+        "item": "chemlib:carbon"
+      },
       "count": 4
     }
   ],

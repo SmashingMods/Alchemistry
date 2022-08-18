@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 public class CombinerTransferPacket {
 
@@ -68,31 +69,42 @@ public class CombinerTransferPacket {
                         inputHandler.emptyToInventory(inventory);
                         outputHandler.emptyToInventory(inventory);
 
+                        List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipe.getInput());
+                        List<ItemStack> recipeInput = new ArrayList<>();
+                        IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipe.getInput().get(i).getCount())));
+
                         boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (recipe.getInput().stream().allMatch(inventory::contains) || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                        boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                         if (canTransfer) {
                             if (creative) {
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), pPacket.maxTransfer);
-                                for (int k = 0; k < recipe.getInput().size(); k++) {
-                                    inputHandler.setOrIncrement(k, new ItemStack(recipe.getInput().get(k).getItem(), recipe.getInput().get(k).getCount() * maxOperations));
+                                List<ItemStack> creativeInput = new ArrayList<>();
+
+                                for (int i = 0; i < recipe.getInput().size(); i++) {
+                                    ItemStack[] items = recipe.getInput().get(i).getIngredient().getItems();
+                                    creativeInput.add(i, items[(int) (Math.random() * items.length)]);
+                                }
+
+                                int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
+                                for (int i = 0; i < recipe.getInput().size(); i++) {
+                                    inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
                                 }
                             } else {
                                 List<ItemStack> inventoryStacks = new ArrayList<>();
-                                recipe.getInput().stream().map(inventory::findSlotMatchingItem).forEach(slot -> {
+                                inventoryInput.stream().map(inventory::findSlotMatchingItem).forEach(slot -> {
                                     if (slot != -1) {
                                         inventoryStacks.add(inventory.getItem(slot));
                                     }
                                 });
 
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventoryStacks, pPacket.maxTransfer, false);
-                                recipe.getInput().forEach(itemStack -> {
+                                int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventoryStacks, pPacket.maxTransfer, false);
+                                recipeInput.forEach(itemStack -> {
                                         int slot = player.getInventory().findSlotMatchingItem(itemStack);
                                         player.getInventory().removeItem(slot, itemStack.getCount() * maxOperations);
                                 });
 
                                 for (int k = 0; k < recipe.getInput().size(); k++) {
-                                    inputHandler.setOrIncrement(k, new ItemStack(recipe.getInput().get(k).getItem(), recipe.getInput().get(k).getCount() * maxOperations));
+                                    inputHandler.setOrIncrement(k, new ItemStack(recipeInput.get(k).getItem(), recipe.getInput().get(k).getCount() * maxOperations));
                                 }
                             }
                             blockEntity.setProgress(0);

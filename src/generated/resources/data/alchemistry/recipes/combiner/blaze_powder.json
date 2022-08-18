@@ -3,15 +3,21 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:germanium",
+      "ingredient": {
+        "item": "chemlib:germanium"
+      },
       "count": 8
     },
     {
-      "item": "chemlib:graphite",
+      "ingredient": {
+        "item": "chemlib:graphite"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:sulfur",
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      },
       "count": 8
     }
   ],

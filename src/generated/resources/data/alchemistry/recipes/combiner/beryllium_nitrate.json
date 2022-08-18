@@ -3,10 +3,15 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beryllium"
+      "ingredient": {
+        "item": "chemlib:beryllium"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:nitrate",
+      "ingredient": {
+        "item": "chemlib:nitrate"
+      },
       "count": 2
     }
   ],

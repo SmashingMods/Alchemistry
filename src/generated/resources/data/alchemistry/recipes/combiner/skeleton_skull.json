@@ -3,7 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:hydroxylapatite",
+      "ingredient": {
+        "item": "chemlib:hydroxylapatite"
+      },
       "count": 8
     }
   ],

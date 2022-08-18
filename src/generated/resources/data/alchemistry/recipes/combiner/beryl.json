@@ -3,19 +3,27 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beryllium",
+      "ingredient": {
+        "item": "chemlib:beryllium"
+      },
       "count": 3
     },
     {
-      "item": "chemlib:aluminum",
+      "ingredient": {
+        "item": "chemlib:aluminum"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:silicon",
+      "ingredient": {
+        "item": "chemlib:silicon"
+      },
       "count": 6
     },
     {
-      "item": "chemlib:oxygen",
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      },
       "count": 18
     }
   ],

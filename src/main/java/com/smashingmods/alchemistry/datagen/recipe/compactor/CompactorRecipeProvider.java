@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.api.item.IngredientStack;
-import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
@@ -163,7 +163,7 @@ public class CompactorRecipeProvider {
     public void compactor(IngredientStack pInput, ItemStack pOutput) {
         CompactorRecipeBuilder.createRecipe(pInput, pOutput)
                 .group("compactor")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "compactor")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
                 .save(consumer);
     }
 }

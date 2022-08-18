@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -20,18 +21,18 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
 
     private String group;
     private final ResourceLocation recipeId;
-    private final List<ItemStack> input;
+    private final List<IngredientStack> input;
     private final ItemStack result;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public CombinerRecipeBuilder(ItemStack pOutput, List<ItemStack> pInput, ResourceLocation pRecipeId) {
+    public CombinerRecipeBuilder(ItemStack pOutput, List<IngredientStack> pInput, ResourceLocation pRecipeId) {
         this.result = pOutput;
         this.input = pInput;
         this.recipeId = pRecipeId;
     }
 
-    public static CombinerRecipeBuilder createRecipe(ItemStack pResult, List<ItemStack> pInput, ResourceLocation pRecipeId) {
-        return new CombinerRecipeBuilder(pResult, pInput, pRecipeId);
+    public static CombinerRecipeBuilder createRecipe(ItemStack pOutput, List<IngredientStack> pInput, ResourceLocation pRecipeId) {
+        return new CombinerRecipeBuilder(pOutput, pInput, pRecipeId);
     }
 
     @Override

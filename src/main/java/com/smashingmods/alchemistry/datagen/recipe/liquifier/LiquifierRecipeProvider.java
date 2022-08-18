@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.datagen.recipe.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
-import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
@@ -52,7 +52,7 @@ public class LiquifierRecipeProvider {
     private void liquifier(IngredientStack pInput, FluidStack pOutput) {
         LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(pOutput.getFluid().getRegistryName()))
                 .group(Alchemistry.MODID + ":liquifier")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "liquifier")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "liquifier")))
                 .save(consumer);
     }
 

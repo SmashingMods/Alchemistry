@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.atomizer;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
@@ -37,7 +37,7 @@ public class AtomizerRecipeProvider {
     private void atomizer(FluidStack pInput, ItemStack pOutput) {
         AtomizerRecipeBuilder.createRecipe(pInput, pOutput)
                 .group(Alchemistry.MODID + ":atomizer")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "atomizer")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "atomizer")))
                 .save(consumer);
     }
 

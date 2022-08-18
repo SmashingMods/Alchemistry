@@ -99,7 +99,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
             getOutputHandler().setOrIncrement(0, currentRecipe.getOutput().copy());
             for (int i = 0; i < currentRecipe.getInput().size(); i++) {
                 for (int j = 0; j < getInputHandler().getStacks().size(); j++) {
-                    if (ItemStack.isSameItemSameTags(currentRecipe.getInput().get(i), getInputHandler().getStacks().get(j))) {
+                    if (currentRecipe.getInput().get(i).matches(getInputHandler().getStackInSlot(j))) {
                         getInputHandler().decrementSlot(j, currentRecipe.getInput().get(i).getCount());
                         break;
                     }
@@ -116,7 +116,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public CombinerRecipe getRecipe() {
         return currentRecipe;
     }
 

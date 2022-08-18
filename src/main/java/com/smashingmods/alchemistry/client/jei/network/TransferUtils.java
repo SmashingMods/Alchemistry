@@ -68,4 +68,12 @@ public class TransferUtils {
         }
         return ItemStack.EMPTY;
     }
+
+    public static List<ItemStack> matchIngredientListToItemStack(NonNullList<ItemStack> pItems, List<IngredientStack> pIngredientStackList) {
+        List<ItemStack> toReturn = new ArrayList<>();
+        for (IngredientStack ingredientStack : pIngredientStackList) {
+            toReturn.add(matchIngredientToItemStack(pItems, ingredientStack));
+        }
+        return toReturn;
+    }
 }

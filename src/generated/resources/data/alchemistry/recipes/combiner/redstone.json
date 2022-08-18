@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:iron_oxide"
+      "ingredient": {
+        "item": "chemlib:iron_oxide"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:strontium_carbonate"
+      "ingredient": {
+        "item": "chemlib:strontium_carbonate"
+      },
+      "count": 1
     }
   ],
   "result": {

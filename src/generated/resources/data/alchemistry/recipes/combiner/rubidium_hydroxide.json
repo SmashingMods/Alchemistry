@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:rubidium"
+      "ingredient": {
+        "item": "chemlib:rubidium"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:hydroxide"
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      },
+      "count": 1
     }
   ],
   "result": {

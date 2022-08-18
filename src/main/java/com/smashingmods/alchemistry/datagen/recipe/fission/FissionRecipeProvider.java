@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
-import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -30,7 +30,7 @@ public class FissionRecipeProvider {
     private void fission(ElementItem pInput) {
         FissionRecipeBuilder.createRecipe(pInput)
                 .group("fission")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pInput, "fission")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pInput, "fission")))
                 .save(consumer);
     }
 }

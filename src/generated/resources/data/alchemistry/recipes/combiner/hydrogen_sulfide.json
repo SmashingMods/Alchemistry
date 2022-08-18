@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:hydrogen",
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:sulfur"
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      },
+      "count": 1
     }
   ],
   "result": {

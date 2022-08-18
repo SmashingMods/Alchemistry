@@ -3,10 +3,15 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:manganese"
+      "ingredient": {
+        "item": "chemlib:manganese"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:oxygen",
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      },
       "count": 2
     }
   ],

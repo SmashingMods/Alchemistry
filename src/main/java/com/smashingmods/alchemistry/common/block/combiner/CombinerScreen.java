@@ -184,7 +184,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
                     if (index < currentRecipe.getInput().size()) {
 
-                        ItemStack itemStack = currentRecipe.getInput().get(index);
+                        ItemStack itemStack = currentRecipe.getInput().get(index).getIngredient().getItems()[(int) (Math.random() * currentRecipe.getInput().get(index).getIngredient().getItems().length)];
 
                         if (handler.getStackInSlot(index).isEmpty()) {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);

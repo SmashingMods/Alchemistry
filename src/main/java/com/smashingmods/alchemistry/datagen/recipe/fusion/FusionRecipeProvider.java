@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.fusion;
 
-import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
@@ -43,7 +43,7 @@ public class FusionRecipeProvider {
     private void fusion(ElementItem pInput1, ElementItem pInput2, ElementItem pOutput) {
         FusionRecipeBuilder.createRecipe(pInput1, pInput2, pOutput)
                 .group("fusion")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pOutput, "fusion")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "fusion")))
                 .save(consumer);
     }
 }

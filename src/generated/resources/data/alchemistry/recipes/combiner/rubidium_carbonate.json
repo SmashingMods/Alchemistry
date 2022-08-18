@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:rubidium",
+      "ingredient": {
+        "item": "chemlib:rubidium"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:carbonate"
+      "ingredient": {
+        "item": "chemlib:carbonate"
+      },
+      "count": 1
     }
   ],
   "result": {

@@ -3,19 +3,27 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:sodium",
+      "ingredient": {
+        "item": "chemlib:sodium"
+      },
       "count": 6
     },
     {
-      "item": "chemlib:mullite",
+      "ingredient": {
+        "item": "chemlib:mullite"
+      },
       "count": 3
     },
     {
-      "item": "chemlib:calcium_sulfide",
+      "ingredient": {
+        "item": "chemlib:calcium_sulfide"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:silicon",
+      "ingredient": {
+        "item": "chemlib:silicon"
+      },
       "count": 3
     }
   ],

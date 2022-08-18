@@ -3,15 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:silicon_dioxide",
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      },
       "count": 4
     },
     {
-      "item": "chemlib:phosphorus",
+      "ingredient": {
+        "item": "chemlib:phosphorus"
+      },
       "count": 3
     },
     {
-      "item": "chemlib:selenium"
+      "ingredient": {
+        "item": "chemlib:selenium"
+      },
+      "count": 1
     }
   ],
   "result": {

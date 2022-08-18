@@ -3,14 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:ammonium",
+      "ingredient": {
+        "item": "chemlib:ammonium"
+      },
       "count": 2
     },
     {
-      "item": "chemlib:hydrogen"
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:phosphate"
+      "ingredient": {
+        "item": "chemlib:phosphate"
+      },
+      "count": 1
     }
   ],
   "result": {

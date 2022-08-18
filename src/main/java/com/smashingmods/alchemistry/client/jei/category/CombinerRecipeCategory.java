@@ -71,7 +71,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
                 int y = yOrigin + row * 19;
 
                 if (pRecipe.getInput().size() > slotIndex) {
-                    pBuilder.addSlot(RecipeIngredientRole.INPUT, x, y).addItemStack(pRecipe.getInput().get(slotIndex));
+                    pBuilder.addSlot(RecipeIngredientRole.INPUT, x, y).addItemStacks(pRecipe.getInput().get(slotIndex).toStacks());
                 }
             }
         }

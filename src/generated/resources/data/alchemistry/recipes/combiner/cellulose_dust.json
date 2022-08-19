@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:cellulose_dust"
+  }
+}

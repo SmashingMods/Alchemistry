@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:iron_ii_sulfate"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:iron_ii_sulfate_dust"
+  }
+}

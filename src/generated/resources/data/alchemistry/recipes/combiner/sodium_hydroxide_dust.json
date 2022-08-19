@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:sodium_hydroxide"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:sodium_hydroxide_dust"
+  }
+}

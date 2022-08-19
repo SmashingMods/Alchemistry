@@ -9,6 +9,7 @@ import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilde
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;
+import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
@@ -58,6 +59,15 @@ public class DissolverRecipeProvider {
             });
             dissolver(compoundItem, createSet().addGroup(components, 100).build(), true);
         });
+
+        for (CompoundItem compound : ItemRegistry.getCompounds()) {
+            if (compound.getMatterState().equals(MatterState.SOLID)) {
+                List<ItemStack> components = new ArrayList<>();
+                Optional<ChemicalItem> input = ItemRegistry.getChemicalItemByNameAndType(compound.getChemicalName(), ChemicalItemType.COMPOUND);
+                components.add(new ItemStack(compound, 8));
+                input.ifPresent(chemicalItem -> dissolver(chemicalItem, createSet().addGroup(components).build(), true));
+            }
+        }
 
         // Stones
         for (Item item : newArrayList(Items.STONE, Items.SMOOTH_STONE, Items.STONE_BRICK_SLAB, Items.STONE_BRICKS, Items.CRACKED_STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.STONE_SLAB, Items.SMOOTH_STONE_SLAB)) {

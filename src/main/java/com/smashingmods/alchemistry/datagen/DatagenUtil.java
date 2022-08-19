@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.crafting.conditions.*;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -134,5 +135,29 @@ public class DatagenUtil {
     public static ResourceLocation getLocation(FluidStack pFluidStack, String pType) {
         Objects.requireNonNull(pFluidStack.getFluid().getRegistryName());
         return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, pFluidStack.getFluid().getRegistryName().getPath()));
+    }
+
+    public static ModLoadedCondition modLoadedCondition(String pModId) {
+        return new ModLoadedCondition(pModId);
+    }
+
+    public static NotCondition notCondition(ICondition pCondition) {
+        return new NotCondition(pCondition);
+    }
+
+    public static AndCondition andCondition(ICondition pCondition1, ICondition pCondition2) {
+        return new AndCondition(pCondition1, pCondition2);
+    }
+
+    public static OrCondition orCondition(ICondition pCondition1, ICondition pCondition2) {
+        return new OrCondition(pCondition1, pCondition2);
+    }
+
+    public static TagEmptyCondition tagEmptyCondition(String pTag) {
+        return new TagEmptyCondition(pTag);
+    }
+
+    public static NotCondition tagNotEmptyCondition(String pTag) {
+        return notCondition(tagEmptyCondition(pTag));
     }
 }

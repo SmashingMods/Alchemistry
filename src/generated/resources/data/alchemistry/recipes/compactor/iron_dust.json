@@ -1,6 +1,6 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "ingredient": {
       "item": "chemlib:iron"

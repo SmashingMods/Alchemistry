@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.api.ChemicalItemType;
@@ -19,8 +20,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -139,19 +143,19 @@ public class CompactorRecipeProvider {
     }
 
     public void compactor(ItemStack pInput, ItemStack pOutput) {
-        compactor(new IngredientStack(pInput), pOutput);
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
     }
 
     public void compactor(ItemLike pInput, ItemStack pOutput) {
-        compactor(new IngredientStack(pInput), pOutput);
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
     }
 
     public void compactor(ItemLike pInput, ItemLike pOutput) {
-        compactor(new IngredientStack(pInput), new ItemStack(pOutput));
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(pOutput.asItem().getRegistryName()));
     }
 
     public void compactor(ItemStack pInput, ItemLike pOutput) {
-        compactor(new IngredientStack(pInput), new ItemStack(pOutput));
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(pOutput.asItem().getRegistryName()));
     }
 
     private void compactor(String pInputTag, ItemStack pOutput) {
@@ -160,18 +164,42 @@ public class CompactorRecipeProvider {
         compactor(ingredient, pOutput);
     }
 
-    private void compactor(String pInputTag, int count, ItemStack pOutput) {
+    private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
-        compactor(new IngredientStack(Ingredient.of(tagKey), count), pOutput);
+        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
     }
 
     public void compactor(Ingredient pInput, ItemStack pOutput) {
-        compactor(new IngredientStack(pInput), pOutput);
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
     }
 
-    public void compactor(IngredientStack pInput, ItemStack pOutput) {
-        CompactorRecipeBuilder.createRecipe(pInput, pOutput)
-                .group("compactor")
+    private void compactor(String pInputTag, ItemLike pItemLike, ICondition pCondition) {
+        compactor(pInputTag, new ItemStack(pItemLike), pCondition);
+    }
+
+    private void compactor(String pInputTag, ItemStack pOutput, ICondition pCondition) {
+        compactor(pInputTag, 1, pOutput, pCondition);
+    }
+
+    private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, pCondition);
+    }
+
+    private void compactor(IngredientStack pInput, ItemStack pOutput, ICondition pCondition) {
+        ResourceLocation recipeId = pOutput.getItem().getRegistryName();
+        ConditionalRecipe.builder()
+                .addCondition(pCondition)
+                .addRecipe(CompactorRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
+                        .group(String.format("%s:compactor", Alchemistry.MODID))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
+                        ::save)
+                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", recipeId.getPath())));
+    }
+
+    public void compactor(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {
+        CompactorRecipeBuilder.createRecipe(pInput, pOutput, pRecipeId)
+                .group(String.format("%s:compactor", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
                 .save(consumer);
     }

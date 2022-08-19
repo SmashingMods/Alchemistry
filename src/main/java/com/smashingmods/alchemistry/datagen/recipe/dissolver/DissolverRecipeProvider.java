@@ -22,6 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -1155,22 +1157,6 @@ public class DissolverRecipeProvider {
                     });
                 ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(item -> dissolver(item, createSet().addGroup(100, toItemStack(name, 144)).build()));
             });
-        // Thermal Expansion
-//        dissolver(thermal:slag, createSet().weighted()
-//                .addGroup(20)
-//                .addGroup(20, toStack("silicon_dioxide"))
-//                .addGroup(3, toStack("magnesium_oxide"))
-//                .addGroup(3, toStack("iron_oxide"))@
-//                .addGroup(2, toStack("manganese_oxide"))
-//                .addGroup(2, toStack("aluminum_oxide"))
-//                .addGroup(1, toStack("phosphate")))
-    }
-
-    private void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId) {
-        DissolverRecipeBuilder.createRecipe(pIngredient, pSet, pRecipeId)
-                .group(String.format("%s:dissolver", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
-                .save(consumer, pRecipeId);
     }
 
     private void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {
@@ -1207,5 +1193,28 @@ public class DissolverRecipeProvider {
         ResourceLocation itemId = new ResourceLocation(pItemTag);
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, itemId);
         dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId);
+    }
+
+    private void dissolver(String pItemTag, ProbabilitySet pSet, ICondition pCondition) {
+        ResourceLocation itemId = new ResourceLocation(pItemTag);
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, itemId);
+        dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId, pCondition);
+    }
+
+    private void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId, ICondition pCondition) {
+        ConditionalRecipe.builder()
+                .addCondition(pCondition)
+                .addRecipe(DissolverRecipeBuilder.createRecipe(pIngredient, pSet, pRecipeId)
+                        .group(String.format("%s:dissolver", Alchemistry.MODID))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
+                        ::save)
+                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath())));
+    }
+
+    private void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId) {
+        DissolverRecipeBuilder.createRecipe(pIngredient, pSet, pRecipeId)
+                .group(String.format("%s:dissolver", Alchemistry.MODID))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
+                .save(consumer, pRecipeId);
     }
 }

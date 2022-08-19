@@ -21,24 +21,23 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
     private String group;
     private final IngredientStack input;
     private final ItemStack result;
+    private final ResourceLocation recipeId;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public CompactorRecipeBuilder(IngredientStack pInput, ItemStack pResult) {
+    public CompactorRecipeBuilder(IngredientStack pInput, ItemStack pResult, ResourceLocation pRecipeId) {
         this.input = pInput;
         this.result = pResult;
+        this.recipeId = pRecipeId;
     }
 
-    public static CompactorRecipeBuilder createRecipe(IngredientStack pInput, ItemStack pOutput) {
-        return new CompactorRecipeBuilder(pInput, pOutput);
+    public static CompactorRecipeBuilder createRecipe(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {
+        return new CompactorRecipeBuilder(pInput, pOutput, pRecipeId);
     }
 
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
-
-        Objects.requireNonNull(result.getItem().getRegistryName());
-
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, result.getItem().getRegistryName().getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, recipeId.getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
     }

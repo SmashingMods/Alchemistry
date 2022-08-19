@@ -12,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -20,24 +21,23 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
     private String group;
     private final FluidStack input;
     private final ItemStack result;
+    private final ResourceLocation recipeId;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public AtomizerRecipeBuilder(FluidStack pInput, ItemStack pResult) {
+    public AtomizerRecipeBuilder(FluidStack pInput, ItemStack pResult, ResourceLocation pRecipeId) {
         this.input = pInput;
         this.result = pResult;
+        this.recipeId = pRecipeId;
     }
 
-    public static AtomizerRecipeBuilder createRecipe(FluidStack pInput, ItemStack pResult) {
-        return new AtomizerRecipeBuilder(pInput, pResult);
+    public static AtomizerRecipeBuilder createRecipe(FluidStack pInput, ItemStack pResult, ResourceLocation pRecipeId) {
+        return new AtomizerRecipeBuilder(pInput, pResult, pRecipeId);
     }
 
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
-
-        Objects.requireNonNull(result.getItem().getRegistryName());
-
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, result.getItem().getRegistryName().getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, recipeId.getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
     }

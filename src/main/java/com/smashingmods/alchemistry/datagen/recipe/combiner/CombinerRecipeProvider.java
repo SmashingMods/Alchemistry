@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
@@ -14,12 +13,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static com.smashingmods.alchemistry.datagen.DatagenUtil.getLocation;
 import static com.smashingmods.alchemistry.datagen.DatagenUtil.toIngredientStack;
 
 public class CombinerRecipeProvider {
@@ -77,8 +80,12 @@ public class CombinerRecipeProvider {
         combiner(Items.REDSTONE, toIngredientStack("iron_oxide"), toIngredientStack("strontium_carbonate"));
         combiner(Items.PACKED_ICE, toIngredientStack("water", 36), toIngredientStack("water", 36), toIngredientStack("water", 36), toIngredientStack("water", 36));
     }
-    
+
     private void combiner(ItemLike pOutput, Object ... pInput) {
+        combiner(pOutput, null, pInput);
+    }
+    
+    private void combiner(ItemLike pOutput, @Nullable ICondition pCondition, Object ... pInput) {
         List<IngredientStack> ingredientStackList = new ArrayList<>();
         for (Object obj : pInput) {
             if (obj instanceof ItemLike itemLike) {
@@ -92,10 +99,15 @@ public class CombinerRecipeProvider {
                 ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
             }
         }
-        combiner(new ItemStack(pOutput), ingredientStackList);
+
+        if (pCondition == null) {
+            combiner(new ItemStack(pOutput), ingredientStackList);
+        } else {
+            combiner(new ItemStack(pOutput), ingredientStackList, pCondition);
+        }
     }
 
-    private void combiner(ItemLike pOutput, List<Object> pInput) {
+    private void combiner(ItemLike pOutput, List<Object> pInput, @Nullable ICondition pCondition) {
         List<IngredientStack> ingredientStackList = new ArrayList<>();
         for (Object obj : pInput) {
             if (obj instanceof ItemStack itemStack) {
@@ -105,13 +117,28 @@ public class CombinerRecipeProvider {
                 ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
             }
         }
-        combiner(new ItemStack(pOutput), ingredientStackList);
+        if (pCondition == null) {
+            combiner(new ItemStack(pOutput), ingredientStackList);
+        } else {
+            combiner(new ItemStack(pOutput), ingredientStackList, pCondition);
+        }
+    }
+
+    private void combiner(ItemStack pOutput, List<IngredientStack> pInput, ICondition pCondition) {
+        ResourceLocation recipeId = pOutput.getItem().getRegistryName();
+        ConditionalRecipe.builder()
+                .addCondition(pCondition)
+                .addRecipe(CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(recipeId))
+                        .group(String.format("%s:combiner", Alchemistry.MODID))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner")))
+                        ::save)
+                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", recipeId.getPath())));
     }
 
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput) {
         CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(pOutput.getItem().getRegistryName()))
                 .group(String.format("%s:combiner", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "combiner")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner")))
                 .save(consumer);
     }
 }

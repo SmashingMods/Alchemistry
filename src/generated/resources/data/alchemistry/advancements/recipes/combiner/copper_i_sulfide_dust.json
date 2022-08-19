@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "chemlib:copper_i_sulfide_dust"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/copper_i_sulfide_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

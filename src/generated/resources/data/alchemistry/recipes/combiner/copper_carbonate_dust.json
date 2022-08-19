@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:copper_carbonate"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:copper_carbonate_dust"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "chemlib:cobalt_nitrate_dust"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/cobalt_nitrate_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

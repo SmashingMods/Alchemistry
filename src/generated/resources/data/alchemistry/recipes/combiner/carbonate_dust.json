@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:carbonate"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:carbonate_dust"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "chemlib:iron_ii_oxide_dust"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/iron_ii_oxide_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

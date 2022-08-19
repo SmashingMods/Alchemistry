@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:manganese_carbonate"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:manganese_carbonate_dust"
+  }
+}

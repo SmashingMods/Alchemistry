@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:barium_chloride"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:barium_chloride_dust"
+  }
+}

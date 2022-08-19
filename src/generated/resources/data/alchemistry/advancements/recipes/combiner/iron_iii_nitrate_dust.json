@@ -1,0 +1,20 @@
+{
+  "rewards": {
+    "recipes": [
+      "chemlib:iron_iii_nitrate_dust"
+    ]
+  },
+  "criteria": {
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "alchemistry:combiner/iron_iii_nitrate_dust"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ]
+}

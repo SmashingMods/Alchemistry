@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:rubidium_chloride"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:rubidium_chloride_dust"
+  }
+}

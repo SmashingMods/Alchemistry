@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:nickel_nitrate"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "item": "chemlib:nickel_nitrate_dust"
+  }
+}

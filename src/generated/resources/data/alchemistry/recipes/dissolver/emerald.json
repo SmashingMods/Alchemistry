@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:emerald"
+    "ingredient": {
+      "item": "minecraft:emerald"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

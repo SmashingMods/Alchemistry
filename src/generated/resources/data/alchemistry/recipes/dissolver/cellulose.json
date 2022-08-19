@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:cellulose"
+    "ingredient": {
+      "item": "chemlib:cellulose"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

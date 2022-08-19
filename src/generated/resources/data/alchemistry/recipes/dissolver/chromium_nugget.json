@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:chromium_nugget"
+    "ingredient": {
+      "item": "chemlib:chromium_nugget"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

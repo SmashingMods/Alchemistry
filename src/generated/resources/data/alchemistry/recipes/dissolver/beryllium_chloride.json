@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:beryllium_chloride"
+    "ingredient": {
+      "item": "chemlib:beryllium_chloride"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

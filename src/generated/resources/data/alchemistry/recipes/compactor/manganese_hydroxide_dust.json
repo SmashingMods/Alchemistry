@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:manganese_hydroxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:manganese_hydroxide_dust"
+  }
+}

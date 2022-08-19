@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:barium_chloride"
+    "ingredient": {
+      "item": "chemlib:barium_chloride"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

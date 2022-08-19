@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:chicken"
+    "ingredient": {
+      "item": "minecraft:chicken"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

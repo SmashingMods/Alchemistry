@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:chitin"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:chitin_dust"
+  }
+}

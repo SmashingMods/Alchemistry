@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:triglyceride"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:triglyceride_dust"
+  }
+}

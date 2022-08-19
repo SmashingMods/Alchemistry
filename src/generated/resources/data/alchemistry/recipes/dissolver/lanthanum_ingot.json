@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lanthanum_ingot"
+    "ingredient": {
+      "item": "chemlib:lanthanum_ingot"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

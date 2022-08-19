@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
@@ -18,15 +19,12 @@ import java.util.Objects;
 public class CombinerRecipe extends AbstractAlchemistryRecipe implements Comparable<CombinerRecipe> {
 
     private final ItemStack output;
-    private final List<ItemStack> input = new ArrayList<>();
+    private final List<IngredientStack> input = new ArrayList<>();
 
-    public CombinerRecipe(ResourceLocation pId, String pGroup, List<ItemStack> pInputList, ItemStack pOutput) {
+    public CombinerRecipe(ResourceLocation pId, String pGroup, List<IngredientStack> pInputList, ItemStack pOutput) {
         super(pId, pGroup);
         this.output = pOutput;
-
-        for (ItemStack itemStack : pInputList) {
-            input.add(itemStack.copy());
-        }
+        input.addAll(pInputList);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         return String.format("input=[%s],output=[%s]", input, output);
     }
 
-    public List<ItemStack> getInput() {
+    public List<IngredientStack> getInput() {
         return input;
     }
 
@@ -67,16 +65,16 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         return output;
     }
 
-    public boolean matchInputs(List<ItemStack> pStacks) {
+    public boolean matchInputs(List<ItemStack> pStacks, boolean exact) {
         int matchingStacks = 0;
 
         List<ItemStack> handlerStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
-        List<ItemStack> recipeStacks = input.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+        List<IngredientStack> recipeStacks = input.stream().filter(ingredientStack -> !ingredientStack.isEmpty()).toList();
 
         if (recipeStacks.size() == handlerStacks.size()) {
             for (ItemStack handlerStack : handlerStacks) {
-                for (ItemStack recipeStack : recipeStacks) {
-                    if (ItemStack.isSameItemSameTags(recipeStack, handlerStack) && handlerStack.getCount() >= recipeStack.getCount()) {
+                for (IngredientStack recipeStack : recipeStacks) {
+                    if (recipeStack.matches(handlerStack) &&  handlerStack.getCount() >= recipeStack.getCount()) {
                         matchingStacks++;
                         break;
                     }
@@ -88,6 +86,6 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
     }
 
     public boolean matchInputs(CustomItemStackHandler pHandler) {
-        return matchInputs(pHandler.getStacks());
+        return matchInputs(pHandler.getStacks(), false);
     }
 }

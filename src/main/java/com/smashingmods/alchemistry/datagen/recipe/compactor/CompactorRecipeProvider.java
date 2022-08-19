@@ -1,25 +1,35 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
-import com.smashingmods.alchemistry.datagen.recipe.RecipeUtils;
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.chemlib.api.ChemicalItemType;
+import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
 
 public class CompactorRecipeProvider {
 
@@ -43,6 +53,13 @@ public class CompactorRecipeProvider {
             }
         }
 
+        for (CompoundItem compound : ItemRegistry.getCompounds()) {
+            if (compound.getMatterState().equals(MatterState.SOLID)) {
+                Optional<ChemicalItem> output = ItemRegistry.getChemicalItemByNameAndType(compound.getChemicalName(), ChemicalItemType.COMPOUND);
+                output.ifPresent(chemicalItem -> compactor(new ItemStack(compound, 8), chemicalItem));
+            }
+        }
+
         // logs
         List<Item> logs = Stream.of(Items.OAK_LOG, Items.SPRUCE_LOG, Items.BIRCH_LOG, Items.JUNGLE_LOG, Items.DARK_OAK_LOG, Items.ACACIA_LOG).toList();
         ItemRegistry.getCompoundByName("cellulose").ifPresent(cellulose -> {
@@ -63,8 +80,11 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(siliconDioxide, 4), Items.SAND);
             compactor(new ItemStack(siliconDioxide, 3), Items.FLINT);
         });
-        compactor(new ItemStack(ItemRegistry.getCompoundByName("calcium_carbonate").get()), new ItemStack(Items.CALCITE));
-        ItemRegistry.getCompoundByName("calcium_carbonate").ifPresent(carbonate -> compactor(carbonate, Items.POINTED_DRIPSTONE));
+
+        ItemRegistry.getCompoundByName("calcium_carbonate").ifPresent(carbonate -> {
+            compactor(carbonate, new ItemStack(Items.CALCITE));
+            compactor(carbonate, Items.POINTED_DRIPSTONE);
+        });
 
         ItemRegistry.getCompoundByName("kaolinite").ifPresent(kaolinite -> {
             compactor(kaolinite, Items.CLAY_BALL);
@@ -122,22 +142,65 @@ public class CompactorRecipeProvider {
         });
     }
 
-    public void compactor(ItemLike pInput, ItemStack pResult) {
-        compactor(new ItemStack(pInput), pResult);
+    public void compactor(ItemStack pInput, ItemStack pOutput) {
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
     }
 
-    public void compactor(ItemLike pInput, ItemLike pResult) {
-        compactor(new ItemStack(pInput), new ItemStack(pResult));
+    public void compactor(ItemLike pInput, ItemStack pOutput) {
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
     }
 
-    public void compactor(ItemStack pInput, ItemLike pResult) {
-        compactor(pInput, new ItemStack(pResult));
+    public void compactor(ItemLike pInput, ItemLike pOutput) {
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(pOutput.asItem().getRegistryName()));
     }
 
-    public void compactor(ItemStack pInput, ItemStack pResult) {
-        CompactorRecipeBuilder.createRecipe(pInput, pResult)
-                .group("compactor")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(RecipeUtils.getLocation(pResult, "compactor")))
+    public void compactor(ItemStack pInput, ItemLike pOutput) {
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(pOutput.asItem().getRegistryName()));
+    }
+
+    private void compactor(String pInputTag, ItemStack pOutput) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        Ingredient ingredient = Ingredient.of(tagKey);
+        compactor(ingredient, pOutput);
+    }
+
+    private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
+    }
+
+    public void compactor(Ingredient pInput, ItemStack pOutput) {
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(pOutput.getItem().getRegistryName()));
+    }
+
+    private void compactor(String pInputTag, ItemLike pItemLike, ICondition pCondition) {
+        compactor(pInputTag, new ItemStack(pItemLike), pCondition);
+    }
+
+    private void compactor(String pInputTag, ItemStack pOutput, ICondition pCondition) {
+        compactor(pInputTag, 1, pOutput, pCondition);
+    }
+
+    private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
+        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, pCondition);
+    }
+
+    private void compactor(IngredientStack pInput, ItemStack pOutput, ICondition pCondition) {
+        ResourceLocation recipeId = pOutput.getItem().getRegistryName();
+        ConditionalRecipe.builder()
+                .addCondition(pCondition)
+                .addRecipe(CompactorRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
+                        .group(String.format("%s:compactor", Alchemistry.MODID))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
+                        ::save)
+                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", recipeId.getPath())));
+    }
+
+    public void compactor(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {
+        CompactorRecipeBuilder.createRecipe(pInput, pOutput, pRecipeId)
+                .group(String.format("%s:compactor", Alchemistry.MODID))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
                 .save(consumer);
     }
 }

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lanthanum_dust"
+    "ingredient": {
+      "item": "chemlib:lanthanum_dust"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

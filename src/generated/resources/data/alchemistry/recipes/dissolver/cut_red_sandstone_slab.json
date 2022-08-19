@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cut_red_sandstone_slab"
+    "ingredient": {
+      "item": "minecraft:cut_red_sandstone_slab"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

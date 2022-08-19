@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:potassium_oxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:potassium_oxide_dust"
+  }
+}

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:iron_oxide"
+    "ingredient": {
+      "item": "chemlib:iron_oxide"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

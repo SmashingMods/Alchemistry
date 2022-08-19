@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:acetylsalicylic_acid"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:acetylsalicylic_acid_dust"
+  }
+}

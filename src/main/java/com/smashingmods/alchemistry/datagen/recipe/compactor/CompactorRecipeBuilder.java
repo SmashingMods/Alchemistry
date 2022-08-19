@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
@@ -19,23 +20,25 @@ import java.util.function.Consumer;
 public class CompactorRecipeBuilder implements RecipeBuilder {
 
     private String group;
-    private final ItemStack input;
+    private final IngredientStack input;
     private final ItemStack result;
+    private final ResourceLocation recipeId;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public CompactorRecipeBuilder(ItemStack pInput, ItemStack pResult) {
+    public CompactorRecipeBuilder(IngredientStack pInput, ItemStack pResult, ResourceLocation pRecipeId) {
         this.input = pInput;
         this.result = pResult;
+        this.recipeId = pRecipeId;
     }
 
-    public static CompactorRecipeBuilder createRecipe(ItemStack pInput, ItemStack pOutput) {
-        return new CompactorRecipeBuilder(pInput, pOutput);
+    public static CompactorRecipeBuilder createRecipe(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {
+        return new CompactorRecipeBuilder(pInput, pOutput, pRecipeId);
     }
 
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(result.getItem())).getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, recipeId.getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
     }

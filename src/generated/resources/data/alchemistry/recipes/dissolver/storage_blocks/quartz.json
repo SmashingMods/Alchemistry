@@ -2,12 +2,15 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:storage_blocks/quartz"
+    "ingredient": {
+      "tag": "forge:storage_blocks/quartz"
+    },
+    "count": 1
   },
   "output": {
     "groups": [
       {
-        "probability": 1.0,
+        "probability": 100.0,
         "results": [
           {
             "count": 64,

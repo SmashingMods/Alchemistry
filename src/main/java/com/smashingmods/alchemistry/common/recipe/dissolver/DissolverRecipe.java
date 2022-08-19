@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
@@ -11,10 +12,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class DissolverRecipe extends AbstractAlchemistryRecipe {
 
-    private final Ingredient input;
+    private final IngredientStack input;
     private final ProbabilitySet output;
 
-    public DissolverRecipe(ResourceLocation pId, String pGroup, Ingredient pInput, ProbabilitySet pOutput) {
+    public DissolverRecipe(ResourceLocation pId, String pGroup, IngredientStack pInput, ProbabilitySet pOutput) {
         super(pId, pGroup);
         this.input = pInput;
         this.output = pOutput;
@@ -32,7 +33,7 @@ public class DissolverRecipe extends AbstractAlchemistryRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(input);
+        return NonNullList.of(input.getIngredient());
     }
 
     @Override
@@ -40,7 +41,7 @@ public class DissolverRecipe extends AbstractAlchemistryRecipe {
         return String.format("input=%s, outputs=%s", input, output);
     }
 
-    public Ingredient getInput() {
+    public IngredientStack getInput() {
         return input;
     }
 
@@ -49,6 +50,6 @@ public class DissolverRecipe extends AbstractAlchemistryRecipe {
     }
 
     public boolean matches(ItemStack pItemStack) {
-        return input.test(pItemStack);
+        return input.matches(pItemStack);
     }
 }

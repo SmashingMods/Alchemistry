@@ -3,13 +3,13 @@ package com.smashingmods.alchemistry.common.recipe.combiner;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.ArrayList;
@@ -28,10 +28,10 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
 
         String group = pSerializedRecipe.get("group").getAsString();
         JsonArray inputJson = pSerializedRecipe.getAsJsonArray("input");
-        List<ItemStack> input = new ArrayList<>();
+        List<IngredientStack> input = new ArrayList<>();
         ItemStack output;
 
-        inputJson.forEach(element -> input.add(ShapedRecipe.itemStackFromJson(element.getAsJsonObject())));
+        inputJson.forEach(element -> input.add(IngredientStack.fromJson(element.getAsJsonObject())));
 
         if (pSerializedRecipe.get("result").isJsonObject()) {
             output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), false, true);
@@ -45,9 +45,9 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
     public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         int inputCount = pBuffer.readInt();
-        List<ItemStack> inputList = Lists.newArrayList();
+        List<IngredientStack> inputList = Lists.newArrayList();
         for (int i = 0; i < inputCount; i++) {
-            inputList.add(pBuffer.readItem());
+            inputList.add(i, IngredientStack.fromNetwork(pBuffer));
         }
         ItemStack output = pBuffer.readItem();
         return this.factory.create(pRecipeId, group, inputList, output);
@@ -58,12 +58,12 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
         pBuffer.writeUtf(pRecipe.getGroup());
         pBuffer.writeInt(pRecipe.getInput().size());
         for (int i = 0; i < pRecipe.getInput().size(); i++) {
-            pBuffer.writeItemStack(pRecipe.getInput().get(i), true);
+            pRecipe.getInput().get(i).toNetwork(pBuffer);
         }
         pBuffer.writeItemStack(pRecipe.getOutput(), true);
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {
-        T create(ResourceLocation pId, String pGroup, List<ItemStack> pInput, ItemStack pOutput);
+        T create(ResourceLocation pId, String pGroup, List<IngredientStack> pInput, ItemStack pOutput);
     }
 }

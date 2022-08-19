@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:brain_coral"
+    "ingredient": {
+      "item": "minecraft:brain_coral"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

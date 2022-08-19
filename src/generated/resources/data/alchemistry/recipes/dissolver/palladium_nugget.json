@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:palladium_nugget"
+    "ingredient": {
+      "item": "chemlib:palladium_nugget"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

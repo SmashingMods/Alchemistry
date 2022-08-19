@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:silicon_dioxide"
+    "ingredient": {
+      "item": "chemlib:silicon_dioxide"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

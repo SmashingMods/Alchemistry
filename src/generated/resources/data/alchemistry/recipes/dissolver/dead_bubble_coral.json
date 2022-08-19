@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:dead_bubble_coral"
+    "ingredient": {
+      "item": "minecraft:dead_bubble_coral"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

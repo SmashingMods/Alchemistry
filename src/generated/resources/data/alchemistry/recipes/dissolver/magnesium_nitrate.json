@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:magnesium_nitrate"
+    "ingredient": {
+      "item": "chemlib:magnesium_nitrate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:niobium_plate"
+    "ingredient": {
+      "item": "chemlib:niobium_plate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

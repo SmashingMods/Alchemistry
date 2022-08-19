@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:crimson_roots"
+    "ingredient": {
+      "item": "minecraft:crimson_roots"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

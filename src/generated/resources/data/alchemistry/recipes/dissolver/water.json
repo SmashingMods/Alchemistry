@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:water"
+    "ingredient": {
+      "item": "chemlib:water"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

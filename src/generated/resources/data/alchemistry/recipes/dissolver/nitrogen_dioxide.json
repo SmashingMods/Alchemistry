@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:nitrogen_dioxide"
+    "ingredient": {
+      "item": "chemlib:nitrogen_dioxide"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

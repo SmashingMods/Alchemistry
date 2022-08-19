@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:ytterbium_plate"
+    "ingredient": {
+      "item": "chemlib:ytterbium_plate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

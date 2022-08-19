@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:dyes/light_blue"
+    "ingredient": {
+      "tag": "forge:dyes/light_blue"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

@@ -66,7 +66,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             if (!getInputHandler().getStackInSlot(0).isEmpty()) {
                 if (target.isEmpty()) {
                     List<CompactorRecipe> recipes = RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE.get(), level).stream()
-                            .filter(recipe -> ItemStack.isSameItemSameTags(getInputHandler().getStackInSlot(0), recipe.getInput()))
+                            .filter(recipe -> recipe.getInput().matches(getInputHandler().getStackInSlot(0)))
                             .toList();
                     if (recipes.size() == 1) {
                         if (currentRecipe == null || !currentRecipe.equals(recipes.get(0))) {
@@ -100,7 +100,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             ItemStack input = getInputHandler().getStackInSlot(0);
             ItemStack output = getOutputHandler().getStackInSlot(0);
             return getEnergyHandler().getEnergyStored() >= Config.Common.compactorEnergyPerTick.get()
-                    && (ItemStack.isSameItemSameTags(input, currentRecipe.getInput()) && input.getCount() >= currentRecipe.getInput().getCount())
+                    && (currentRecipe.getInput().matches(input) && input.getCount() >= currentRecipe.getInput().getCount())
                     && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize()
                     && (ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty());
         }

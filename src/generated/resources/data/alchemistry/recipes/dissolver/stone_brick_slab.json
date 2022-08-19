@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:stone_brick_slab"
+    "ingredient": {
+      "item": "minecraft:stone_brick_slab"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

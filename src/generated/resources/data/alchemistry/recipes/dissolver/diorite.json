@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:diorite"
+    "ingredient": {
+      "item": "minecraft:diorite"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

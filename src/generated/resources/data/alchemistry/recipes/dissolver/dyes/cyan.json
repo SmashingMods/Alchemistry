@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "tag": "forge:dyes/cyan"
+    "ingredient": {
+      "tag": "forge:dyes/cyan"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

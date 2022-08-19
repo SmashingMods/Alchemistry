@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:chiseled_deepslate"
+    "ingredient": {
+      "item": "minecraft:chiseled_deepslate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

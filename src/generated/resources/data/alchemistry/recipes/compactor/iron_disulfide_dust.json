@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:iron_disulfide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:iron_disulfide_dust"
+  }
+}

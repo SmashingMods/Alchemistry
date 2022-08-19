@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:potassium_ethyl_xanthate"
+    "ingredient": {
+      "item": "chemlib:potassium_ethyl_xanthate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

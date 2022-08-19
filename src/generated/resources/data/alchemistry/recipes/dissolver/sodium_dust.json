@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:sodium_dust"
+    "ingredient": {
+      "item": "chemlib:sodium_dust"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

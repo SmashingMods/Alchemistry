@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lithium_hydroxide"
+    "ingredient": {
+      "item": "chemlib:lithium_hydroxide"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

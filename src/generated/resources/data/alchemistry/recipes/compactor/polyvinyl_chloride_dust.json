@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:polyvinyl_chloride"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:polyvinyl_chloride_dust"
+  }
+}

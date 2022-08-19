@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:pink_terracotta"
+    "ingredient": {
+      "item": "minecraft:pink_terracotta"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:gadolinium_plate"
+    "ingredient": {
+      "item": "chemlib:gadolinium_plate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

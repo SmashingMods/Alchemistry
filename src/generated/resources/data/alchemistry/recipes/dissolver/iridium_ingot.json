@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:iridium_ingot"
+    "ingredient": {
+      "item": "chemlib:iridium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

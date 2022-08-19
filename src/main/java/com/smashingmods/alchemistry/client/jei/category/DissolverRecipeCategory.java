@@ -102,7 +102,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, DissolverRecipe pRecipe, IFocusGroup pFocusGroup) {
-        pBuilder.addSlot(RecipeIngredientRole.INPUT, 78, 17).addIngredients(pRecipe.getInput());
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 78, 17).addItemStacks(pRecipe.getInput().toStacks());
 
         int xOrigin = 25;
         int yOrigin = 46;

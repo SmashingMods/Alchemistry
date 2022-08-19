@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cracked_deepslate_bricks"
+    "ingredient": {
+      "item": "minecraft:cracked_deepslate_bricks"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

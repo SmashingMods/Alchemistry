@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:golden_apple"
+    "ingredient": {
+      "item": "minecraft:golden_apple"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

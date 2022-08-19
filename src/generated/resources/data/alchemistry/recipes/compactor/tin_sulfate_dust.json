@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:tin_sulfate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:tin_sulfate_dust"
+  }
+}

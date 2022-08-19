@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lead_nitrate"
+    "ingredient": {
+      "item": "chemlib:lead_nitrate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

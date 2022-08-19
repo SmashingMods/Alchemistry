@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:protactinium_ingot"
+    "ingredient": {
+      "item": "chemlib:protactinium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

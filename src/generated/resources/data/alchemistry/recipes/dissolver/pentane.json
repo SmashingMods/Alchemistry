@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:pentane"
+    "ingredient": {
+      "item": "chemlib:pentane"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

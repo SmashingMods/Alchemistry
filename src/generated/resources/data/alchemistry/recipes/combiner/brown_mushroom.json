@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:phosphoric_acid"
+      "ingredient": {
+        "item": "chemlib:phosphoric_acid"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:chitin"
+      "ingredient": {
+        "item": "chemlib:chitin"
+      },
+      "count": 1
     }
   ],
   "result": {

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lithium_sulfate"
+    "ingredient": {
+      "item": "chemlib:lithium_sulfate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

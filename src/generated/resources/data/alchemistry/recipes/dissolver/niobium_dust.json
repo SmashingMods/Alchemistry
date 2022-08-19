@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:niobium_dust"
+    "ingredient": {
+      "item": "chemlib:niobium_dust"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

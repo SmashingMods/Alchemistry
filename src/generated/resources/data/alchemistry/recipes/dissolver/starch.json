@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:starch"
+    "ingredient": {
+      "item": "chemlib:starch"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

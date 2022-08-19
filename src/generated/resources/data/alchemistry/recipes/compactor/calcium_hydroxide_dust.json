@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:calcium_hydroxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:calcium_hydroxide_dust"
+  }
+}

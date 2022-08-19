@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:iron_iii_nitrate"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:iron_iii_nitrate_dust"
+  }
+}

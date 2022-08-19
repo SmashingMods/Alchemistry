@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:pumpkin_seeds"
+    "ingredient": {
+      "item": "minecraft:pumpkin_seeds"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

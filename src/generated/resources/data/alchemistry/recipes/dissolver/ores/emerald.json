@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "tag": "forge:ores/emerald"
+    },
+    "count": 1
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 16,
+            "item": "chemlib:beryl"
+          },
+          {
+            "count": 16,
+            "item": "chemlib:chromium"
+          },
+          {
+            "count": 8,
+            "item": "chemlib:vanadium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

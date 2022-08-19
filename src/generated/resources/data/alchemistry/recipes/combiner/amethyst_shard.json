@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:silicon_dioxide"
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:iron"
+      "ingredient": {
+        "item": "chemlib:iron"
+      },
+      "count": 1
     }
   ],
   "result": {

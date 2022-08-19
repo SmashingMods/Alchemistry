@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:rubidium_sulfate"
+    "ingredient": {
+      "item": "chemlib:rubidium_sulfate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

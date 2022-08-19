@@ -3,13 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:potassium"
+      "ingredient": {
+        "item": "chemlib:potassium"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:carbon"
+      "ingredient": {
+        "item": "chemlib:carbon"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:nitrogen"
+      "ingredient": {
+        "item": "chemlib:nitrogen"
+      },
+      "count": 1
     }
   ],
   "result": {

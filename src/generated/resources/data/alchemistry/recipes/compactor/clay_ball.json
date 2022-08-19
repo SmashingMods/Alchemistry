@@ -1,8 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
-    "item": "chemlib:kaolinite"
+    "ingredient": {
+      "item": "chemlib:kaolinite"
+    },
+    "count": 1
   },
   "result": {
     "item": "minecraft:clay_ball"

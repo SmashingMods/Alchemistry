@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:cadmium_hydroxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:cadmium_hydroxide_dust"
+  }
+}

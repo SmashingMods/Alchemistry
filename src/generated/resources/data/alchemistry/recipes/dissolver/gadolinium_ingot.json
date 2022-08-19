@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:gadolinium_ingot"
+    "ingredient": {
+      "item": "chemlib:gadolinium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

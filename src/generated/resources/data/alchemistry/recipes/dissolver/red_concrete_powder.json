@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:red_concrete_powder"
+    "ingredient": {
+      "item": "minecraft:red_concrete_powder"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

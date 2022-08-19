@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:rubidium_carbonate"
+    "ingredient": {
+      "item": "chemlib:rubidium_carbonate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

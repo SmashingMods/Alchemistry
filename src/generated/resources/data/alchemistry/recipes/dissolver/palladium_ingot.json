@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:palladium_ingot"
+    "ingredient": {
+      "item": "chemlib:palladium_ingot"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

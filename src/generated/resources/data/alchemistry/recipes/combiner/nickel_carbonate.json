@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:nickel"
+      "ingredient": {
+        "item": "chemlib:nickel"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:carbonate"
+      "ingredient": {
+        "item": "chemlib:carbonate"
+      },
+      "count": 1
     }
   ],
   "result": {

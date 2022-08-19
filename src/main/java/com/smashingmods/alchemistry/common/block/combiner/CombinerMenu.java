@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.combiner;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.CombinerRecipePacket;
+import com.smashingmods.alchemistry.common.network.recipe.ServerCombinerRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -71,7 +71,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
                     CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
                     this.setSelectedRecipeIndex(pId);
                     this.blockEntity.setRecipe(recipe);
-                    AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
+                    AlchemistryPacketHandler.INSTANCE.sendToServer(new ServerCombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
                 }
             }
         }

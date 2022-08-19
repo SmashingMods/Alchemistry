@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cooked_cod"
+    "ingredient": {
+      "item": "minecraft:cooked_cod"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

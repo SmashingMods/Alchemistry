@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:salmon"
+    "ingredient": {
+      "item": "minecraft:salmon"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

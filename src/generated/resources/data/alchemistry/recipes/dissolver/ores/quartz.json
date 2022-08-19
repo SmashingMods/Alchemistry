@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "tag": "forge:ores/quartz"
+    },
+    "count": 1
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 64,
+            "item": "chemlib:barium"
+          },
+          {
+            "count": 128,
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

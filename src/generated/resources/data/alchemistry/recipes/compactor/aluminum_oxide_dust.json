@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:aluminum_oxide"
+    },
+    "count": 8
+  },
+  "result": {
+    "item": "chemlib:aluminum_oxide_dust"
+  }
+}

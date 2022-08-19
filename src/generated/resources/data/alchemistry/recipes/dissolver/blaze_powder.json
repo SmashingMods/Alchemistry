@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:blaze_powder"
+    "ingredient": {
+      "item": "minecraft:blaze_powder"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

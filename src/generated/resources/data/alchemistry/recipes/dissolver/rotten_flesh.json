@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:rotten_flesh"
+    "ingredient": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

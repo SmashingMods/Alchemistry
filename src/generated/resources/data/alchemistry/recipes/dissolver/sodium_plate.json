@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:sodium_plate"
+    "ingredient": {
+      "item": "chemlib:sodium_plate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

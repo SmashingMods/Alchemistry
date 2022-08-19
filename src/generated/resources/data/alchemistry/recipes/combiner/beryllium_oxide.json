@@ -3,10 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beryllium"
+      "ingredient": {
+        "item": "chemlib:beryllium"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:oxygen"
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      },
+      "count": 1
     }
   ],
   "result": {

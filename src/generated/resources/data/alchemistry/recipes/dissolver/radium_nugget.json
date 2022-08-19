@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:radium_nugget"
+    "ingredient": {
+      "item": "chemlib:radium_nugget"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:lithium_plate"
+    "ingredient": {
+      "item": "chemlib:lithium_plate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

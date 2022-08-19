@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:calcium_oxide"
+    "ingredient": {
+      "item": "chemlib:calcium_oxide"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

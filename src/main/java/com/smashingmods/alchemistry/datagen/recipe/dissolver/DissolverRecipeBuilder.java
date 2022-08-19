@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -10,7 +11,6 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -19,23 +19,22 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
 
     private String group;
     private final ResourceLocation recipeId;
-    private final Ingredient input;
+    private final IngredientStack input;
     private final ProbabilitySet result;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public DissolverRecipeBuilder(Ingredient input, ProbabilitySet output, ResourceLocation pRecipeId) {
+    public DissolverRecipeBuilder(IngredientStack input, ProbabilitySet output, ResourceLocation pRecipeId) {
         this.input = input;
         this.result = output;
         this.recipeId = pRecipeId;
     }
 
-    public static DissolverRecipeBuilder createRecipe(Ingredient input, ProbabilitySet output, ResourceLocation pRecipeId) {
+    public static DissolverRecipeBuilder createRecipe(IngredientStack input, ProbabilitySet output, ResourceLocation pRecipeId) {
         return new DissolverRecipeBuilder(input, output, pRecipeId);
     }
 
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
-        Item item = input.getItems()[0].getItem();
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(recipeId))
                 .requirements(RequirementsStrategy.OR);
@@ -50,7 +49,7 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        return input.getItems()[0].getItem();
+        return input.getIngredient().getItems()[0].getItem();
     }
 
     @Override

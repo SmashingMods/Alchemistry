@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:europium_dust"
+    "ingredient": {
+      "item": "chemlib:europium_dust"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

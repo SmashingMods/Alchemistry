@@ -51,7 +51,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, LiquifierRecipe pRecipe, IFocusGroup pFocusGroup) {
-        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStack(pRecipe.getInput());
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStacks(pRecipe.getInput().toStacks());
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(ForgeTypes.FLUID_STACK, pRecipe.getOutput());
     }
 }

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:chain"
+    "ingredient": {
+      "item": "minecraft:chain"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

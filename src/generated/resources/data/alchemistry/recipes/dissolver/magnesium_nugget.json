@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:magnesium_nugget"
+    "ingredient": {
+      "item": "chemlib:magnesium_nugget"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

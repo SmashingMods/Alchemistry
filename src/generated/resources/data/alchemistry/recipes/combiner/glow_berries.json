@@ -3,13 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:cellulose"
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:sucrose"
+      "ingredient": {
+        "item": "chemlib:sucrose"
+      },
+      "count": 1
     },
     {
-      "item": "chemlib:phosphorus"
+      "ingredient": {
+        "item": "chemlib:phosphorus"
+      },
+      "count": 1
     }
   ],
   "result": {

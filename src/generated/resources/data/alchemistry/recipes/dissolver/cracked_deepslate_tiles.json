@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:cracked_deepslate_tiles"
+    "ingredient": {
+      "item": "minecraft:cracked_deepslate_tiles"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

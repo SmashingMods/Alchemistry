@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "chemlib:potassium_dichromate"
+    "ingredient": {
+      "item": "chemlib:potassium_dichromate"
+    },
+    "count": 1
   },
   "output": {
     "groups": [

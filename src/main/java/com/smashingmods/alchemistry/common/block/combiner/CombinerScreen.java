@@ -27,6 +27,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -223,7 +224,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     private void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, String pTranslationKey, int pMouseX, int pMouseY) {
         List<Component> components = new ArrayList<>();
-        String namespace = StringUtils.capitalize(pItemStack.getItem().getDescriptionId());
+        String namespace = StringUtils.capitalize(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItemStack.getItem())).getNamespace());
 
         components.add(MutableComponent.create(new TranslatableContents(pTranslationKey)).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
         components.add(MutableComponent.create(new LiteralContents(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString()))));
@@ -240,7 +241,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
                 components.add(MutableComponent.create(new LiteralContents((String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())))).withStyle(ChatFormatting.DARK_AQUA));
                 components.add(MutableComponent.create(new LiteralContents((element.getGroupName()))).withStyle(ChatFormatting.GRAY));
             } else if (chemical instanceof CompoundItem) {
-                components.add(MutableComponent.create(new LiteralContents((abbreviation))).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents(abbreviation)).withStyle(ChatFormatting.DARK_AQUA));
             }
         }
         components.add(MutableComponent.create(new LiteralContents(namespace)).withStyle(ChatFormatting.BLUE));

@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -66,7 +65,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         return output;
     }
 
-    public boolean matchInputs(List<ItemStack> pStacks, boolean exact) {
+    public boolean matchInputs(List<ItemStack> pStacks) {
         int matchingStacks = 0;
 
         List<ItemStack> handlerStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
@@ -75,7 +74,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         if (recipeStacks.size() == handlerStacks.size()) {
             for (ItemStack handlerStack : handlerStacks) {
                 for (IngredientStack recipeStack : recipeStacks) {
-                    if (recipeStack.matches(handlerStack) &&  handlerStack.getCount() >= recipeStack.getCount()) {
+                    if (recipeStack.matches(handlerStack) && handlerStack.getCount() >= recipeStack.getCount()) {
                         matchingStacks++;
                         break;
                     }
@@ -84,9 +83,5 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
             return matchingStacks == recipeStacks.size();
         }
         return false;
-    }
-
-    public boolean matchInputs(CustomItemStackHandler pHandler) {
-        return matchInputs(pHandler.getStacks(), false);
     }
 }

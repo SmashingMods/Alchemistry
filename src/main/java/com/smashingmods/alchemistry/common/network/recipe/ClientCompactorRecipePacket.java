@@ -39,7 +39,7 @@ public class ClientCompactorRecipePacket {
                     if (level != null) {
                         CompactorBlockEntity blockEntity = (CompactorBlockEntity) level.getBlockEntity(pPacket.blockPos);
                         if (blockEntity != null) {
-                            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
+                            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE.get(), level).stream()
                                     .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), pPacket.output))
                                     .findFirst()
                                     .ifPresent(recipe -> {

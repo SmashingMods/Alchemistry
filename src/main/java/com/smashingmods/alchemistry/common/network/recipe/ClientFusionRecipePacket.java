@@ -42,7 +42,7 @@ public class ClientFusionRecipePacket {
                 if (level != null) {
                     ProcessingBlockEntity blockEntity = (ProcessingBlockEntity) level.getBlockEntity(pPacket.blockPos);
                     if (blockEntity != null) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream()
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE.get(), level).stream()
                                 .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), pPacket.input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), pPacket.input2))
                                 .findFirst()
                                 .ifPresent(blockEntity::setRecipe);

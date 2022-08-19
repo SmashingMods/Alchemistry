@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:helium"
+    "ingredient": {
+      "item": "chemlib:helium"
+    }
   },
   "result": {
     "amount": "500",

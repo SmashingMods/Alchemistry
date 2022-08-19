@@ -4,15 +4,21 @@
   "input": [
     {
       "count": 16,
-      "item": "chemlib:silicon"
+      "ingredient": {
+        "item": "chemlib:silicon"
+      }
     },
     {
       "count": 16,
-      "item": "chemlib:mercury"
+      "ingredient": {
+        "item": "chemlib:mercury"
+      }
     },
     {
       "count": 16,
-      "item": "chemlib:neodymium"
+      "ingredient": {
+        "item": "chemlib:neodymium"
+      }
     }
   ],
   "result": {

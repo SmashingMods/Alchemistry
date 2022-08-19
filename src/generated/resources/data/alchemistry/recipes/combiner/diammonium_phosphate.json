@@ -4,13 +4,21 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:ammonium"
+      "ingredient": {
+        "item": "chemlib:ammonium"
+      }
     },
     {
-      "item": "chemlib:hydrogen"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
     },
     {
-      "item": "chemlib:phosphate"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:phosphate"
+      }
     }
   ],
   "result": {

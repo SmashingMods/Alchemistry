@@ -3,22 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:water"
-      },
-      "count": 1
+      }
     },
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
-      },
-      "count": 1
+      }
     },
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:kaolinite"
-      },
-      "count": 1
+      }
     }
   ],
   "result": {

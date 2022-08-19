@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 8,
     "ingredient": {
       "item": "chemlib:cobalt_carbonate"
-    },
-    "count": 8
+    }
   },
   "result": {
     "item": "chemlib:cobalt_carbonate_dust"

@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:tin"
+    "ingredient": {
+      "item": "chemlib:tin"
+    }
   },
   "result": {
     "item": "chemlib:tin_dust"

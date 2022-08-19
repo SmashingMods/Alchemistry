@@ -39,7 +39,7 @@ public class ClientCombinerRecipePacket {
                 if (level != null) {
                     ProcessingBlockEntity blockEntity = (ProcessingBlockEntity) level.getBlockEntity(pPacket.blockPos);
                     if (blockEntity != null) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream()
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE.get(), level).stream()
                                 .filter(recipe -> ItemStack.isSameItemSameTags(pPacket.output, recipe.getOutput()))
                                 .findFirst()
                                 .ifPresent(blockEntity::setRecipe);

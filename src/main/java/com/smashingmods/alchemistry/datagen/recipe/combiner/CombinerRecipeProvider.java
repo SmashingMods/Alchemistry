@@ -13,9 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -126,7 +126,7 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput, ICondition pCondition) {
-        ResourceLocation recipeId = pOutput.getItem().getRegistryName();
+        ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(recipeId))

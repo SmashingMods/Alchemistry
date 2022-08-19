@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:hydrochloric_acid_bucket"
+      "chemlib:hydrochloric_acid_fluid"
     ]
   }
 }

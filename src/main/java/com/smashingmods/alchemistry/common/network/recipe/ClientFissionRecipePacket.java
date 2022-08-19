@@ -39,7 +39,7 @@ public class ClientFissionRecipePacket {
                 if (level != null) {
                     ProcessingBlockEntity blockEntity = (ProcessingBlockEntity) level.getBlockEntity(pPacket.blockPos);
                     if (blockEntity != null) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, level).stream()
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE.get(), level).stream()
                                 .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), pPacket.input))
                                 .findFirst()
                                 .ifPresent(blockEntity::setRecipe);

@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:hafnium"
+    "ingredient": {
+      "item": "chemlib:hafnium"
+    }
   },
   "result": {
     "item": "chemlib:hafnium_dust"

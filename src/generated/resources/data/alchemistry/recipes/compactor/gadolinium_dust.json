@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:gadolinium"
+    "ingredient": {
+      "item": "chemlib:gadolinium"
+    }
   },
   "result": {
     "item": "chemlib:gadolinium_dust"

@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:manganese"
-      },
-      "count": 1
+      }
     },
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
-      },
-      "count": 1
+      }
     }
   ],
   "result": {

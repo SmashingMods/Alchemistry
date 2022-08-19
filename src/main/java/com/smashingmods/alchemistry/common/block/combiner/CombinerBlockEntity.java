@@ -68,7 +68,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
         if (level != null && !level.isClientSide()) {
             if (currentRecipe == null) {
                 RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE.get(), level).stream()
-                        .filter(recipe -> recipe.matchInputs(getInputHandler()))
+                        .filter(recipe -> recipe.matchInputs(getInputHandler().getStacks()))
                         .findFirst()
                         .ifPresent(recipe -> {
                             if (currentRecipe == null || !currentRecipe.equals(recipe)) {
@@ -86,7 +86,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
             return getEnergyHandler().getEnergyStored() >= Config.Common.combinerEnergyPerTick.get()
                     && (currentRecipe.getOutput().copy().getCount() + output.copy().getCount()) <= currentRecipe.getOutput().copy().getMaxStackSize()
                     && (ItemStack.isSameItemSameTags(output.copy(), currentRecipe.getOutput().copy()) || output.isEmpty())
-                    && currentRecipe.matchInputs(getInputHandler());
+                    && currentRecipe.matchInputs(getInputHandler().getStacks());
         }
         return false;
     }

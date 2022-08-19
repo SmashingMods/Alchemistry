@@ -4,15 +4,21 @@
   "input": [
     {
       "count": 8,
-      "item": "chemlib:beryl"
+      "ingredient": {
+        "item": "chemlib:beryl"
+      }
     },
     {
       "count": 8,
-      "item": "chemlib:chromium"
+      "ingredient": {
+        "item": "chemlib:chromium"
+      }
     },
     {
       "count": 4,
-      "item": "chemlib:vanadium"
+      "ingredient": {
+        "item": "chemlib:vanadium"
+      }
     }
   ],
   "result": {

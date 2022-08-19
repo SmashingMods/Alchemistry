@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:hydrochloric_acid"
+    "ingredient": {
+      "item": "chemlib:hydrochloric_acid"
+    }
   },
   "result": {
     "amount": "500",

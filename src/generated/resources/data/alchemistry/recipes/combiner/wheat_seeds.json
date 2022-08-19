@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:triglyceride"
-      },
-      "count": 1
+      }
     },
     {
+      "count": 1,
       "ingredient": {
         "item": "chemlib:sucrose"
-      },
-      "count": 1
+      }
     }
   ],
   "result": {

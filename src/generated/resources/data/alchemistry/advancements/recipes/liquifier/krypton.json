@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:krypton_bucket"
+      "chemlib:krypton_fluid"
     ]
   }
 }

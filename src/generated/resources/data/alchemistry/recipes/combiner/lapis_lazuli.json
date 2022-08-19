@@ -4,19 +4,27 @@
   "input": [
     {
       "count": 6,
-      "item": "chemlib:sodium"
+      "ingredient": {
+        "item": "chemlib:sodium"
+      }
     },
     {
       "count": 3,
-      "item": "chemlib:mullite"
+      "ingredient": {
+        "item": "chemlib:mullite"
+      }
     },
     {
       "count": 2,
-      "item": "chemlib:calcium_sulfide"
+      "ingredient": {
+        "item": "chemlib:calcium_sulfide"
+      }
     },
     {
       "count": 3,
-      "item": "chemlib:silicon"
+      "ingredient": {
+        "item": "chemlib:silicon"
+      }
     }
   ],
   "result": {

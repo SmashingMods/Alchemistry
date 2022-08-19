@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "item": "chemlib:copper_chloride"
+    "ingredient": {
+      "item": "chemlib:copper_chloride"
+    }
   },
   "result": {
     "item": "minecraft:cyan_dye"

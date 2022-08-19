@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:pentane_bucket"
+      "chemlib:pentane_fluid"
     ]
   }
 }

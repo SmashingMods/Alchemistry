@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:argon"
+    "ingredient": {
+      "item": "chemlib:argon"
+    }
   },
   "result": {
     "amount": "500",

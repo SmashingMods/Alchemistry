@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:calcium"
+    "ingredient": {
+      "item": "chemlib:calcium"
+    }
   },
   "result": {
     "item": "chemlib:calcium_dust"

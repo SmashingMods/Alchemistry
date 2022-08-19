@@ -63,7 +63,7 @@ public class CompactorTransferPacket {
             CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, player.getLevel()).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE.get(), player.getLevel()).stream()
                     .filter(recipe -> ItemStack.isSameItemSameTags(pPacket.output, recipe.getOutput()))
                     .findFirst()
                     .ifPresent(recipe -> {

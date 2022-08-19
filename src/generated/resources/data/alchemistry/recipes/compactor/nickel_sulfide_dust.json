@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 8,
     "ingredient": {
       "item": "chemlib:nickel_sulfide"
-    },
-    "count": 8
+    }
   },
   "result": {
     "item": "chemlib:nickel_sulfide_dust"

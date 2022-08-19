@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:coal_ore"
+        "recipe": "forge:ores/coal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:coal_ore"
+      "forge:ores/coal"
     ]
   }
 }

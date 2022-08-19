@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:magnesium"
+    "ingredient": {
+      "item": "chemlib:magnesium"
+    }
   },
   "result": {
     "item": "chemlib:magnesium_dust"

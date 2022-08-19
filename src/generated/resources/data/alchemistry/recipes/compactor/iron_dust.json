@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:iron"
+    "ingredient": {
+      "item": "chemlib:iron"
+    }
   },
   "result": {
     "item": "chemlib:iron_dust"

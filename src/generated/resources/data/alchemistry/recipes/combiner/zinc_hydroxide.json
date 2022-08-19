@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:zinc"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:zinc"
+      }
     },
     {
       "count": 2,
-      "item": "chemlib:hydroxide"
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
     }
   ],
   "result": {

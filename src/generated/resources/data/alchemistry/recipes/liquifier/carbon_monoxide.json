@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:carbon_monoxide"
+    "ingredient": {
+      "item": "chemlib:carbon_monoxide"
+    }
   },
   "result": {
     "amount": "500",

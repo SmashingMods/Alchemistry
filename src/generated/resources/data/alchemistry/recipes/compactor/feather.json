@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 2,
-    "item": "chemlib:keratin"
+    "ingredient": {
+      "item": "chemlib:keratin"
+    }
   },
   "result": {
     "item": "minecraft:feather"

@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:lapis_ore"
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:ores/lapis"
+    }
   },
   "output": {
     "groups": [
@@ -10,19 +13,19 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 24,
+            "count": 54,
             "item": "chemlib:sodium"
           },
           {
-            "count": 12,
+            "count": 27,
             "item": "chemlib:mullite"
           },
           {
-            "count": 8,
+            "count": 18,
             "item": "chemlib:calcium_sulfide"
           },
           {
-            "count": 12,
+            "count": 27,
             "item": "chemlib:silicon"
           }
         ]

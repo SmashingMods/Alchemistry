@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 8,
     "ingredient": {
       "item": "chemlib:urea"
-    },
-    "count": 8
+    }
   },
   "result": {
     "item": "chemlib:urea_dust"

@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:deepslate_copper_ore"
+        "recipe": "alchemistry:compactor/caffeine_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:deepslate_copper_ore"
+      "alchemistry:caffeine_dust"
     ]
   }
 }

@@ -4,7 +4,9 @@
   "input": [
     {
       "count": 16,
-      "item": "chemlib:polonium"
+      "ingredient": {
+        "item": "chemlib:polonium"
+      }
     }
   ],
   "result": {

@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
@@ -65,7 +66,7 @@ public class CombinerTransferPacket {
             CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, player.getLevel()).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE.get(), player.getLevel()).stream()
                     .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), pPacket.output))
                     .findFirst()
                     .ifPresent(recipe -> {

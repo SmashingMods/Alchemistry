@@ -39,7 +39,7 @@ public class ClientAtomizerRecipePacket {
                 if (level != null) {
                     ProcessingBlockEntity blockEntity = (ProcessingBlockEntity) level.getBlockEntity(pPacket.blockPos);
                     if (blockEntity != null) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE.get(), level).stream()
                                 .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), pPacket.output))
                                 .findFirst()
                                 .ifPresent(blockEntity::setRecipe);

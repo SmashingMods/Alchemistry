@@ -4,11 +4,15 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:antimony"
+      "ingredient": {
+        "item": "chemlib:antimony"
+      }
     },
     {
       "count": 3,
-      "item": "chemlib:oxygen"
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     }
   ],
   "result": {

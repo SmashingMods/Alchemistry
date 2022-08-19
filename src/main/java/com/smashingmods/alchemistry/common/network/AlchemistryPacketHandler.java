@@ -66,7 +66,7 @@ public class AlchemistryPacketHandler {
         INSTANCE.messageBuilder(DissolverTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(DissolverTransferPacket::new)
                 .encoder(DissolverTransferPacket::encode)
-                .consumer(DissolverTransferPacket::handle)
+                .consumerNetworkThread(DissolverTransferPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(FissionTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)

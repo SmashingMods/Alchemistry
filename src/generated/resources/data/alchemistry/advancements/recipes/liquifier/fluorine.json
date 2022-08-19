@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:fluorine_bucket"
+      "chemlib:fluorine_fluid"
     ]
   }
 }

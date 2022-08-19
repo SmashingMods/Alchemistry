@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:acetic_acid_bucket"
+      "chemlib:acetic_acid_fluid"
     ]
   }
 }

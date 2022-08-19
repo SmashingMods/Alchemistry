@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:radon"
+    "ingredient": {
+      "item": "chemlib:radon"
+    }
   },
   "result": {
     "amount": "500",

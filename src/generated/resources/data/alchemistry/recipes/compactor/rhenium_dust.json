@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:rhenium"
+    "ingredient": {
+      "item": "chemlib:rhenium"
+    }
   },
   "result": {
     "item": "chemlib:rhenium_dust"

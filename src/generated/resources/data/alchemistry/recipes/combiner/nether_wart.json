@@ -3,15 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:chitin"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:chitin"
+      }
     },
     {
       "count": 4,
-      "item": "chemlib:germanium"
+      "ingredient": {
+        "item": "chemlib:germanium"
+      }
     },
     {
       "count": 4,
-      "item": "chemlib:selenium"
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
     }
   ],
   "result": {

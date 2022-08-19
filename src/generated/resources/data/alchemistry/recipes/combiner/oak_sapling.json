@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:oxygen"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     },
     {
       "count": 2,
-      "item": "chemlib:cellulose"
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      }
     }
   ],
   "result": {

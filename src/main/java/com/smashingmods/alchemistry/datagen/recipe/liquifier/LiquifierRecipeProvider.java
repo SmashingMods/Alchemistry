@@ -65,7 +65,7 @@ public class LiquifierRecipeProvider {
     }
 
     private void liquifier(IngredientStack pInput, FluidStack pOutput, ICondition pCondition) {
-        ResourceLocation recipeId = pOutput.getFluid().getRegistryName();
+        ResourceLocation recipeId = ForgeRegistries.FLUIDS.getKey(pOutput.getFluid());
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(LiquifierRecipeBuilder
@@ -76,7 +76,7 @@ public class LiquifierRecipeProvider {
     }
 
     private void liquifier(IngredientStack pInput, FluidStack pOutput) {
-        LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(pOutput.getFluid().getRegistryName()))
+        LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(pOutput.getFluid())))
                 .group(String.format("%s:liquifier", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier")))
                 .save(consumer);

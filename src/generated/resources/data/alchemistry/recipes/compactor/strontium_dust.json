@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:strontium"
+    "ingredient": {
+      "item": "chemlib:strontium"
+    }
   },
   "result": {
     "item": "chemlib:strontium_dust"

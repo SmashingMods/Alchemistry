@@ -39,7 +39,7 @@ public class ClientDissolverRecipePacket {
                 if (level != null) {
                     ProcessingBlockEntity blockEntity = (ProcessingBlockEntity) level.getBlockEntity(pPacket.blockPos);
                     if (blockEntity != null) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE.get(), level).stream()
                                 .filter(recipe -> recipe.matches(pPacket.input))
                                 .findFirst()
                                 .ifPresent(blockEntity::setRecipe);

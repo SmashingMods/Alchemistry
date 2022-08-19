@@ -4,10 +4,15 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:protein"
+      "ingredient": {
+        "item": "chemlib:protein"
+      }
     },
     {
-      "item": "chemlib:keratin"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:keratin"
+      }
     }
   ],
   "result": {

@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:chlorine_bucket"
+      "chemlib:chlorine_fluid"
     ]
   }
 }

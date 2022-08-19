@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:emerald_ore"
+        "recipe": "alchemistry:compactor/beryl_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:emerald_ore"
+      "alchemistry:beryl_dust"
     ]
   }
 }

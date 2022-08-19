@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:pentane"
+    "ingredient": {
+      "item": "chemlib:pentane"
+    }
   },
   "result": {
     "amount": "500",

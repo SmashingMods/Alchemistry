@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:hydrogen_bucket"
+      "chemlib:hydrogen_fluid"
     ]
   }
 }

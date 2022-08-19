@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:vanadium"
+    "ingredient": {
+      "item": "chemlib:vanadium"
+    }
   },
   "result": {
     "item": "chemlib:vanadium_dust"

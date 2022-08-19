@@ -1165,7 +1165,7 @@ public class DissolverRecipeProvider {
     }
 
     private void dissolver(ItemLike pItemLike, ProbabilitySet pSet, boolean pReversible) {
-        dissolver(new IngredientStack(pItemLike), pSet, Objects.requireNonNull(pItemLike.asItem().getRegistryName()));
+        dissolver(new IngredientStack(pItemLike), pSet, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItemLike.asItem())));
 
         if (pReversible) {
             ItemStack output = new ItemStack(pItemLike);

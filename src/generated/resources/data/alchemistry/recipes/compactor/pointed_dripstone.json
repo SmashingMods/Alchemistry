@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 1,
     "ingredient": {
       "item": "chemlib:calcium_carbonate"
-    },
-    "count": 1
+    }
   },
   "result": {
     "item": "minecraft:pointed_dripstone"

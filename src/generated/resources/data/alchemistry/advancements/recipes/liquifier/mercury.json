@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:mercury_bucket"
+      "chemlib:mercury_fluid"
     ]
   }
 }

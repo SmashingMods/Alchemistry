@@ -3,14 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:potassium"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:potassium"
+      }
     },
     {
-      "item": "chemlib:manganese"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:manganese"
+      }
     },
     {
       "count": 4,
-      "item": "chemlib:oxygen"
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     }
   ],
   "result": {

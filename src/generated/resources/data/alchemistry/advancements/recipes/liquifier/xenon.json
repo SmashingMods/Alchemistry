@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:xenon_bucket"
+      "chemlib:xenon_fluid"
     ]
   }
 }

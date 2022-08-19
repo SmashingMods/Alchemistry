@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:dysprosium"
+    "ingredient": {
+      "item": "chemlib:dysprosium"
+    }
   },
   "result": {
     "item": "chemlib:dysprosium_dust"

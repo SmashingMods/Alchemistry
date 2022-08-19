@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:sulfuric_acid"
+    "ingredient": {
+      "item": "chemlib:sulfuric_acid"
+    }
   },
   "result": {
     "amount": "500",

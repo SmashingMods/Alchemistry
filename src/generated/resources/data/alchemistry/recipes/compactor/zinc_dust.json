@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:zinc"
+    "ingredient": {
+      "item": "chemlib:zinc"
+    }
   },
   "result": {
     "item": "chemlib:zinc_dust"

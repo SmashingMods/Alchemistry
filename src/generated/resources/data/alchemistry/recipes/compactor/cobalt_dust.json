@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:cobalt"
+    "ingredient": {
+      "item": "chemlib:cobalt"
+    }
   },
   "result": {
     "item": "chemlib:cobalt_dust"

@@ -4,7 +4,9 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:protein"
+      "ingredient": {
+        "item": "chemlib:protein"
+      }
     }
   ],
   "result": {

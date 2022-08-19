@@ -4,11 +4,15 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:titanium"
+      "ingredient": {
+        "item": "chemlib:titanium"
+      }
     },
     {
       "count": 3,
-      "item": "chemlib:oxygen"
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     }
   ],
   "result": {

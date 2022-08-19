@@ -40,7 +40,7 @@ public class ClientLiquifierRecipePacket {
                 if (level != null) {
                     ProcessingBlockEntity blockEntity = (ProcessingBlockEntity) level.getBlockEntity(pPacket.blockPos);
                     if (blockEntity != null) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
+                        RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE.get(), level).stream()
                                 .filter(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(pPacket.input.getIngredient()))
                                 .findFirst()
                                 .ifPresent(blockEntity::setRecipe);

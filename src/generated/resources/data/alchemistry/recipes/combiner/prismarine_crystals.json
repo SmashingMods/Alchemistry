@@ -4,14 +4,21 @@
   "input": [
     {
       "count": 4,
-      "item": "chemlib:silicon_dioxide"
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      }
     },
     {
       "count": 3,
-      "item": "chemlib:phosphorus"
+      "ingredient": {
+        "item": "chemlib:phosphorus"
+      }
     },
     {
-      "item": "chemlib:selenium"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
     }
   ],
   "result": {

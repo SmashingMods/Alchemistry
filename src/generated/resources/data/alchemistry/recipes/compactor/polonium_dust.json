@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:polonium"
+    "ingredient": {
+      "item": "chemlib:polonium"
+    }
   },
   "result": {
     "item": "chemlib:polonium_dust"

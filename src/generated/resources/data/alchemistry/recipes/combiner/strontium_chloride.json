@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:strontium"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:strontium"
+      }
     },
     {
       "count": 2,
-      "item": "chemlib:chlorine"
+      "ingredient": {
+        "item": "chemlib:chlorine"
+      }
     }
   ],
   "result": {

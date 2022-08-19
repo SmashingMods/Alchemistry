@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:fluorine"
+    "ingredient": {
+      "item": "chemlib:fluorine"
+    }
   },
   "result": {
     "amount": "500",

@@ -4,11 +4,15 @@
   "input": [
     {
       "count": 9,
-      "item": "chemlib:iron_oxide"
+      "ingredient": {
+        "item": "chemlib:iron_oxide"
+      }
     },
     {
       "count": 9,
-      "item": "chemlib:strontium_carbonate"
+      "ingredient": {
+        "item": "chemlib:strontium_carbonate"
+      }
     }
   ],
   "result": {

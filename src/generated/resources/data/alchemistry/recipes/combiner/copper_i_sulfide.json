@@ -4,10 +4,15 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:copper"
+      "ingredient": {
+        "item": "chemlib:copper"
+      }
     },
     {
-      "item": "chemlib:sulfur"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
     }
   ],
   "result": {

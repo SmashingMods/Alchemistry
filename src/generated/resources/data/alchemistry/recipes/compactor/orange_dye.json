@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "item": "chemlib:potassium_dichromate"
+    "ingredient": {
+      "item": "chemlib:potassium_dichromate"
+    }
   },
   "result": {
     "item": "minecraft:orange_dye"

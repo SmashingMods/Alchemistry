@@ -3,11 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:cobalt"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:cobalt"
+      }
     },
     {
       "count": 2,
-      "item": "chemlib:nitrate"
+      "ingredient": {
+        "item": "chemlib:nitrate"
+      }
     }
   ],
   "result": {

@@ -4,19 +4,27 @@
   "input": [
     {
       "count": 36,
-      "item": "chemlib:water"
+      "ingredient": {
+        "item": "chemlib:water"
+      }
     },
     {
       "count": 36,
-      "item": "chemlib:water"
+      "ingredient": {
+        "item": "chemlib:water"
+      }
     },
     {
       "count": 36,
-      "item": "chemlib:water"
+      "ingredient": {
+        "item": "chemlib:water"
+      }
     },
     {
       "count": 36,
-      "item": "chemlib:water"
+      "ingredient": {
+        "item": "chemlib:water"
+      }
     }
   ],
   "result": {

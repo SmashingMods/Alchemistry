@@ -4,19 +4,27 @@
   "input": [
     {
       "count": 32,
-      "item": "chemlib:beryl"
+      "ingredient": {
+        "item": "chemlib:beryl"
+      }
     },
     {
       "count": 24,
-      "item": "chemlib:niobium"
+      "ingredient": {
+        "item": "chemlib:niobium"
+      }
     },
     {
       "count": 8,
-      "item": "chemlib:selenium"
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
     },
     {
       "count": 4,
-      "item": "chemlib:titanium_oxide"
+      "ingredient": {
+        "item": "chemlib:titanium_oxide"
+      }
     }
   ],
   "result": {

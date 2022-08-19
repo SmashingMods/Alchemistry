@@ -49,7 +49,7 @@ public class AtomizerRecipeProvider {
     }
 
     private void atomizer(FluidStack pInput, ItemStack pOutput, ICondition pCondition) {
-        ResourceLocation recipeId = pOutput.getItem().getRegistryName();
+        ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
@@ -60,7 +60,7 @@ public class AtomizerRecipeProvider {
     }
 
     private void atomizer(FluidStack pInput, ItemStack pOutput) {
-        ResourceLocation recipeId = pOutput.getItem().getRegistryName();
+        ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
         AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
                 .group(String.format("%s:atomizer", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer")))

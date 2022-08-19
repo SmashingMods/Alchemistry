@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 8,
     "ingredient": {
       "item": "chemlib:calcium_sulfate"
-    },
-    "count": 8
+    }
   },
   "result": {
     "item": "chemlib:calcium_sulfate_dust"

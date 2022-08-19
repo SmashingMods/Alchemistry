@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:water"
+    "ingredient": {
+      "item": "chemlib:water"
+    }
   },
   "result": {
     "item": "minecraft:ice"

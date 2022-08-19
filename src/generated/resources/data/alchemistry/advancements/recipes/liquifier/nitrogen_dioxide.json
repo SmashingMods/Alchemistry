@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:nitrogen_dioxide_bucket"
+      "chemlib:nitrogen_dioxide_fluid"
     ]
   }
 }

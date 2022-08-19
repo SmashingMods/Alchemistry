@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:gallium"
+    "ingredient": {
+      "item": "chemlib:gallium"
+    }
   },
   "result": {
     "item": "chemlib:gallium_dust"

@@ -2,13 +2,16 @@ package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.recipe.ClientDissolverRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
@@ -16,12 +19,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class DissolverTransferPacket {
@@ -60,7 +65,7 @@ public class DissolverTransferPacket {
             CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, player.getLevel()).stream()
+            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE.get(), player.getLevel()).stream()
                     .filter(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(pPacket.input.getIngredient()))
                     .findFirst()
                     .ifPresent(recipe -> {
@@ -105,8 +110,13 @@ public class DissolverTransferPacket {
         }
 
         @Override
-        public Class<DissolverRecipe> getRecipeClass() {
-            return DissolverRecipe.class;
+        public Optional<MenuType<DissolverMenu>> getMenuType() {
+            return Optional.of(MenuRegistry.DISSOLVER_MENU.get());
+        }
+
+        @Override
+        public RecipeType<DissolverRecipe> getRecipeType() {
+            return RecipeTypes.DISSOLVER;
         }
 
         @Override

@@ -2,10 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
+    "count": 1,
     "ingredient": {
       "item": "chemlib:beryllium_nitrate"
-    },
-    "count": 1
+    }
   },
   "output": {
     "groups": [

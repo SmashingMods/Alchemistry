@@ -3,14 +3,22 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "item": "chemlib:beryllium"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:beryllium"
+      }
     },
     {
-      "item": "chemlib:sulfur"
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
     },
     {
       "count": 4,
-      "item": "chemlib:oxygen"
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     }
   ],
   "result": {

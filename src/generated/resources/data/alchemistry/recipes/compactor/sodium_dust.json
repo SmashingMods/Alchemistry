@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:sodium"
+    "ingredient": {
+      "item": "chemlib:sodium"
+    }
   },
   "result": {
     "item": "chemlib:sodium_dust"

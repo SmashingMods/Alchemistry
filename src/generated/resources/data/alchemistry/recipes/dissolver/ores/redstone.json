@@ -2,7 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "item": "minecraft:redstone_ore"
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:ores/redstone"
+    }
   },
   "output": {
     "groups": [
@@ -10,11 +13,11 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 2,
+            "count": 6,
             "item": "chemlib:iron_oxide"
           },
           {
-            "count": 2,
+            "count": 6,
             "item": "chemlib:strontium_carbonate"
           }
         ]

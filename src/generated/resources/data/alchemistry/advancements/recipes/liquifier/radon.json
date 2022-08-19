@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "alchemistry:radon_bucket"
+      "chemlib:radon_fluid"
     ]
   }
 }

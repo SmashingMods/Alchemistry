@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:tungsten"
+    "ingredient": {
+      "item": "chemlib:tungsten"
+    }
   },
   "result": {
     "item": "chemlib:tungsten_dust"

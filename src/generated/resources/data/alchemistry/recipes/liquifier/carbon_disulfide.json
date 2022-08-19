@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:carbon_disulfide"
+    "ingredient": {
+      "item": "chemlib:carbon_disulfide"
+    }
   },
   "result": {
     "amount": "500",

@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 8,
     "ingredient": {
       "item": "chemlib:zinc_hydroxide"
-    },
-    "count": 8
+    }
   },
   "result": {
     "item": "chemlib:zinc_hydroxide_dust"

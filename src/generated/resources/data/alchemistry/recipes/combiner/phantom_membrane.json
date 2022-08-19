@@ -4,7 +4,9 @@
   "input": [
     {
       "count": 8,
-      "item": "chemlib:cerium"
+      "ingredient": {
+        "item": "chemlib:cerium"
+      }
     }
   ],
   "result": {

@@ -2,10 +2,10 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
+    "count": 1,
     "ingredient": {
       "item": "minecraft:horn_coral"
-    },
-    "count": 1
+    }
   },
   "output": {
     "groups": [

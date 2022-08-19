@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:deepslate_coal_ore"
+        "recipe": "alchemistry:compactor/chitin_dust"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:deepslate_coal_ore"
+      "alchemistry:chitin_dust"
     ]
   }
 }

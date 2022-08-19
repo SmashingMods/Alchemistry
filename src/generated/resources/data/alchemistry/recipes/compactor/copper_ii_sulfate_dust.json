@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 8,
     "ingredient": {
       "item": "chemlib:copper_ii_sulfate"
-    },
-    "count": 8
+    }
   },
   "result": {
     "item": "chemlib:copper_ii_sulfate_dust"

@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:thallium"
+    "ingredient": {
+      "item": "chemlib:thallium"
+    }
   },
   "result": {
     "item": "chemlib:thallium_dust"

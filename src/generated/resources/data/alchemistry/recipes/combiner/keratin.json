@@ -4,15 +4,21 @@
   "input": [
     {
       "count": 2,
-      "item": "chemlib:protein"
+      "ingredient": {
+        "item": "chemlib:protein"
+      }
     },
     {
       "count": 2,
-      "item": "chemlib:starch"
+      "ingredient": {
+        "item": "chemlib:starch"
+      }
     },
     {
       "count": 5,
-      "item": "chemlib:sulfur_dioxide"
+      "ingredient": {
+        "item": "chemlib:sulfur_dioxide"
+      }
     }
   ],
   "result": {

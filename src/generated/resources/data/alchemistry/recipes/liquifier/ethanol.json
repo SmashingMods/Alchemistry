@@ -3,7 +3,9 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "item": "chemlib:ethanol"
+    "ingredient": {
+      "item": "chemlib:ethanol"
+    }
   },
   "result": {
     "amount": "500",

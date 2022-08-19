@@ -1,9 +1,11 @@
 {
   "type": "alchemistry:compactor",
-  "group": "compactor",
+  "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "item": "chemlib:molybdenum"
+    "ingredient": {
+      "item": "chemlib:molybdenum"
+    }
   },
   "result": {
     "item": "chemlib:molybdenum_dust"

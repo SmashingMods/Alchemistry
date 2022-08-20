@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.network.*;
-import com.smashingmods.alchemistry.common.network.recipe.*;
+import com.smashingmods.alchemistry.common.network.recipe.ServerCombinerRecipePacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -89,47 +89,47 @@ public class AlchemistryPacketHandler {
 
         // server -> client recipe setting packets
 
-        INSTANCE.messageBuilder(ClientAtomizerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientAtomizerRecipePacket::new)
-                .encoder(ClientAtomizerRecipePacket::encode)
-                .consumerNetworkThread(ClientAtomizerRecipePacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ClientCombinerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientCombinerRecipePacket::new)
-                .encoder(ClientCombinerRecipePacket::encode)
-                .consumerNetworkThread(ClientCombinerRecipePacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ClientCompactorRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientCompactorRecipePacket::new)
-                .encoder(ClientCompactorRecipePacket::encode)
-                .consumerNetworkThread(ClientCompactorRecipePacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ClientDissolverRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientDissolverRecipePacket::new)
-                .encoder(ClientDissolverRecipePacket::encode)
-                .consumerNetworkThread(ClientDissolverRecipePacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ClientFissionRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientFissionRecipePacket::new)
-                .encoder(ClientFissionRecipePacket::encode)
-                .consumerNetworkThread(ClientFissionRecipePacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ClientFusionRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientFusionRecipePacket::new)
-                .encoder(ClientFusionRecipePacket::encode)
-                .consumerNetworkThread(ClientFusionRecipePacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ClientLiquifierRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(ClientLiquifierRecipePacket::new)
-                .encoder(ClientLiquifierRecipePacket::encode)
-                .consumerNetworkThread(ClientLiquifierRecipePacket::handle)
-                .add();
+//        INSTANCE.messageBuilder(ClientAtomizerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientAtomizerRecipePacket::new)
+//                .encoder(ClientAtomizerRecipePacket::encode)
+//                .consumerNetworkThread(ClientAtomizerRecipePacket::handle)
+//                .add();
+//
+//        INSTANCE.messageBuilder(ClientCombinerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientCombinerRecipePacket::new)
+//                .encoder(ClientCombinerRecipePacket::encode)
+//                .consumerNetworkThread(ClientCombinerRecipePacket::handle)
+//                .add();
+//
+//        INSTANCE.messageBuilder(ClientCompactorRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientCompactorRecipePacket::new)
+//                .encoder(ClientCompactorRecipePacket::encode)
+//                .consumerNetworkThread(ClientCompactorRecipePacket::handle)
+//                .add();
+//
+//        INSTANCE.messageBuilder(ClientDissolverRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientDissolverRecipePacket::new)
+//                .encoder(ClientDissolverRecipePacket::encode)
+//                .consumerNetworkThread(ClientDissolverRecipePacket::handle)
+//                .add();
+//
+//        INSTANCE.messageBuilder(ClientFissionRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientFissionRecipePacket::new)
+//                .encoder(ClientFissionRecipePacket::encode)
+//                .consumerNetworkThread(ClientFissionRecipePacket::handle)
+//                .add();
+//
+//        INSTANCE.messageBuilder(ClientFusionRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientFusionRecipePacket::new)
+//                .encoder(ClientFusionRecipePacket::encode)
+//                .consumerNetworkThread(ClientFusionRecipePacket::handle)
+//                .add();
+//
+//        INSTANCE.messageBuilder(ClientLiquifierRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
+//                .decoder(ClientLiquifierRecipePacket::new)
+//                .encoder(ClientLiquifierRecipePacket::encode)
+//                .consumerNetworkThread(ClientLiquifierRecipePacket::handle)
+//                .add();
     }
 
     @SuppressWarnings("unused")

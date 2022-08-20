@@ -146,7 +146,7 @@ curseforge {
         changelog = file("changelog.md")
         addGameVersion 'Forge'
         addGameVersion 'Java 17'
-        addGameVersion '1.19.1'
+        addGameVersion '1.19.2'
         mainArtifact(jar) {
             displayName = "Alchemistry - $project.version"
             relations {

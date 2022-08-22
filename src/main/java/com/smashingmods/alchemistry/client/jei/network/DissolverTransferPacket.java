@@ -5,7 +5,6 @@ import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.recipe.ClientDissolverRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -88,7 +87,6 @@ public class DissolverTransferPacket {
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
-                            AlchemistryPacketHandler.sendToNear(new ClientDissolverRecipePacket(pPacket.blockPos, inventoryInput), player.getLevel(), pPacket.blockPos, 64);
                         }
                     });
         });
@@ -112,6 +110,7 @@ public class DissolverTransferPacket {
         @Override
         public @Nullable IRecipeTransferError transferRecipe(DissolverMenu pContainer, DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
+                pContainer.getBlockEntity().setRecipe(pRecipe);
                 AlchemistryPacketHandler.INSTANCE.sendToServer(new DissolverTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;

@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.combiner;
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.recipe.ServerCombinerRecipePacket;
+import com.smashingmods.alchemistry.common.network.ServerCombinerRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -63,7 +63,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
     @Override
     public boolean clickMenuButton(Player pPlayer, int pId) {
-        if(pPlayer.level.isClientSide()) {
+        if (pPlayer.level.isClientSide()) {
             if (!getBlockEntity().isRecipeLocked()) {
                 if (this.isValidRecipeIndex(pId)) {
                     int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));

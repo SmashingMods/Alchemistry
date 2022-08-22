@@ -4,7 +4,6 @@ import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandl
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.recipe.ClientCompactorRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -85,7 +84,6 @@ public class CompactorTransferPacket {
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
                             blockEntity.setTarget(recipe.getOutput().copy());
-                            AlchemistryPacketHandler.sendToNear(new ClientCompactorRecipePacket(pPacket.blockPos, pPacket.output), player.getLevel(), pPacket.blockPos, 64);
                         }
             });
         });
@@ -109,6 +107,7 @@ public class CompactorTransferPacket {
         @Override
         public @Nullable IRecipeTransferError transferRecipe(CompactorMenu pContainer, CompactorRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
+                pContainer.getBlockEntity().setRecipe(pRecipe);
                 AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getOutput(), pMaxTransfer));
             }
             return null;

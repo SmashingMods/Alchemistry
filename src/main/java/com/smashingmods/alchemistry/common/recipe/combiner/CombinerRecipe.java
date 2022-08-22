@@ -66,8 +66,13 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
     }
 
     public boolean matchInputs(List<ItemStack> pStacks) {
-        return input.stream().allMatch(ingredientStack -> pStacks.stream()
-                        .filter(itemStack -> !itemStack.isEmpty())
-                        .anyMatch(itemStack -> itemStack.getCount() >= ingredientStack.getCount() && ingredientStack.matches(itemStack)));
+        List<ItemStack> inputStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+
+        // Iterate over all recipe input IngredientStacks to make sure that all match the contents of the ItemStack input list.
+        // Each ingredient must match to *any* of the input item stacks, have an equal or greater count, and both lists must be the same size.
+
+        return input.stream().allMatch(ingredientStack -> inputStacks.stream()
+                        .anyMatch(itemStack -> itemStack.getCount() >= ingredientStack.getCount() && ingredientStack.matches(itemStack)))
+                && input.size() == inputStacks.size();
     }
 }

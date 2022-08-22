@@ -18,6 +18,14 @@
             "item": "chemlib:cellulose"
           }
         ]
+      },
+      {
+        "probability": 87.5,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       }
     ]
   }

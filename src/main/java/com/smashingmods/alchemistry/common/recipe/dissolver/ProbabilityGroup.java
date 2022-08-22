@@ -23,7 +23,7 @@ public class ProbabilityGroup {
 
     public ProbabilityGroup(List<ItemStack> pOutput) {
         this.output = pOutput;
-        this.probability = 1;
+        this.probability = 100;
     }
 
     public List<ItemStack> getOutput() {

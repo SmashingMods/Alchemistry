@@ -31,6 +31,14 @@
             "count": 2
           }
         ]
+      },
+      {
+        "probability": 55.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       }
     ]
   }

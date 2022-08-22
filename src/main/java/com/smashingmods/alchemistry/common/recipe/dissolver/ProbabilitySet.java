@@ -8,6 +8,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -138,7 +139,11 @@ public class ProbabilitySet {
     }
 
     private double getTotalProbability() {
-        return probabilityGroups.stream()
+        return getTotalProbability(probabilityGroups);
+    }
+
+    private static double getTotalProbability(List<ProbabilityGroup> pGroups) {
+        return pGroups.stream()
                 .mapToDouble(ProbabilityGroup::getProbability)
                 .sum();
     }
@@ -194,6 +199,11 @@ public class ProbabilitySet {
         }
 
         public ProbabilitySet build() {
+            double totalProbability = getTotalProbability(groups);
+            if (!weighted && totalProbability < 100) {
+                double nothingProbability = 100 - totalProbability;
+                this.addGroup(nothingProbability, new ItemStack(Items.AIR));
+            }
             return new ProbabilitySet(groups, weighted, rolls);
         }
     }

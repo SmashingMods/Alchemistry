@@ -16,6 +16,14 @@
             "item": "chemlib:beta_carotene"
           }
         ]
+      },
+      {
+        "probability": 80.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       }
     ],
     "rolls": 1,

@@ -324,7 +324,7 @@ public class DissolverRecipeProvider {
         }
 
         dissolver(Items.GRAVEL, createSet()
-                .addGroup(1, toItemStack("silicon_dioxide")).build());
+                .addGroup(100, toItemStack("silicon_dioxide")).build());
 
         dissolver(Items.COBBLESTONE, createSet().weighted()
                 .addGroup(700)
@@ -720,7 +720,7 @@ public class DissolverRecipeProvider {
             .build(), true);
         }
 
-        dissolver(Items.FLINT, createSet().addGroup(1.0, toItemStack("silicon_dioxide", 3)).build());
+        dissolver(Items.FLINT, createSet().addGroup(100, toItemStack("silicon_dioxide", 3)).build());
 
         dissolver(Items.COCOA_BEANS, createSet()
                 .addGroup(100, toItemStack("caffeine"))
@@ -1206,6 +1206,7 @@ public class DissolverRecipeProvider {
         dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId);
     }
 
+    @SuppressWarnings("unused")
     private void dissolver(String pItemTag, ProbabilitySet pSet, ICondition pCondition) {
         ResourceLocation itemId = new ResourceLocation(pItemTag);
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, itemId);

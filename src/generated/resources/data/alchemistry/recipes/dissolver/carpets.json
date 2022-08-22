@@ -20,6 +20,14 @@
             "item": "chemlib:triglyceride"
           }
         ]
+      },
+      {
+        "probability": 33.33333333333334,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       }
     ],
     "rolls": 1,

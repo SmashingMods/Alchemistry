@@ -5,7 +5,6 @@ import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.recipe.ClientCombinerRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -114,7 +113,6 @@ public class CombinerTransferPacket {
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
-                            AlchemistryPacketHandler.sendToNear(new ClientCombinerRecipePacket(pPacket.blockPos, pPacket.output), player.getLevel(), pPacket.blockPos, 64);
                         }
                     });
         });
@@ -143,6 +141,7 @@ public class CombinerTransferPacket {
         @Override
         public @Nullable IRecipeTransferError transferRecipe(CombinerMenu pContainer, CombinerRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
+                pContainer.getBlockEntity().setRecipe(pRecipe);
                 AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getOutput(), pMaxTransfer));
             }
             return null;

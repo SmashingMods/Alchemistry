@@ -1,11 +1,10 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
+import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.recipe.ClientFissionRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -86,7 +85,6 @@ public class FissionTransferPacket {
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
-                            AlchemistryPacketHandler.sendToNear(new ClientFissionRecipePacket(pPacket.blockPos, pPacket.input), player.getLevel(), pPacket.blockPos, 64);
                         }
                     });
         });
@@ -115,6 +113,7 @@ public class FissionTransferPacket {
         @Override
         public @Nullable IRecipeTransferError transferRecipe(FissionControllerMenu pContainer, FissionRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
+                pContainer.getBlockEntity().setRecipe(pRecipe);
                 AlchemistryPacketHandler.INSTANCE.sendToServer(new FissionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;

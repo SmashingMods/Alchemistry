@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.common.network.recipe;
+package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;

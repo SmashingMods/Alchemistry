@@ -17,6 +17,14 @@
             "item": "chemlib:hydroxylapatite"
           }
         ]
+      },
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       }
     ],
     "rolls": 1,

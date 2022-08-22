@@ -29,6 +29,14 @@
             "item": "chemlib:sucrose"
           }
         ]
+      },
+      {
+        "probability": 55.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
       }
     ],
     "rolls": 9,

@@ -1,11 +1,10 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
 import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
+import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
 import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.recipe.ClientFusionRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -102,7 +101,6 @@ public class FusionTransferPacket {
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
-                            AlchemistryPacketHandler.sendToNear(new ClientFusionRecipePacket(pPacket.blockPos, pPacket.input1, pPacket.input2), player.getLevel(), pPacket.blockPos, 64);
                         }
                     });
         });
@@ -131,6 +129,7 @@ public class FusionTransferPacket {
         @Override
         public @Nullable IRecipeTransferError transferRecipe(FusionControllerMenu pContainer, FusionRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
+                pContainer.getBlockEntity().setRecipe(pRecipe);
                 AlchemistryPacketHandler.INSTANCE.sendToServer(new FusionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput1(), pRecipe.getInput2(), pMaxTransfer));
             }
             return null;

@@ -30,8 +30,8 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
         imageWidth = 184;
         imageHeight = 163;
 
-        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 75, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),75, 39, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 54));
 
         resetTargetButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.reset_target"), handleResetTargetButton());
     }

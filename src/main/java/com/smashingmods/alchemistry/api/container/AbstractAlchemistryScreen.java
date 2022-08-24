@@ -161,14 +161,14 @@ public abstract class AbstractAlchemistryScreen<M extends AbstractAlchemistryMen
 
     public void renderDisplayData(List<DisplayData> pDisplayData, PoseStack pPoseStack, int pX, int pY) {
         pDisplayData.forEach(data -> {
-            if (data instanceof ProgressDisplayData) {
-                directionalArrow(pPoseStack, pX + data.getX(), pY + data.getY(), data.getValue(), data.getMaxValue(), ((ProgressDisplayData) data).getDirection());
+            if (data instanceof ProgressDisplayData progressData) {
+                directionalArrow(pPoseStack, pX + data.getX(), pY + progressData.getY(), progressData.getValue(), progressData.getMaxValue(), progressData.getDirection());
             }
-            if (data instanceof EnergyDisplayData) {
-                drawEnergyBar(pPoseStack, (EnergyDisplayData) data, 0, 40);
+            if (data instanceof EnergyDisplayData energyData) {
+                drawEnergyBar(pPoseStack, energyData, 0, 40);
             }
-            if (data instanceof FluidDisplayData) {
-                drawFluidTank((FluidDisplayData) data, pX + data.getX(), pY + data.getY());
+            if (data instanceof FluidDisplayData fluidData) {
+                drawFluidTank(fluidData, pX + fluidData.getX(), pY + fluidData.getY());
             }
         });
     }

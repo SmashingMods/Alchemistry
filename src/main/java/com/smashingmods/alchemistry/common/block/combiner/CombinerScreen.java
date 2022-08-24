@@ -49,8 +49,8 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
         super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = 184;
         this.imageHeight = 193;
-        this.displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 65, 84, 60, 9, Direction2D.RIGHT));
-        this.displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 156, 23, 16, 54));
+        this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 65, 84, 60, 9, Direction2D.RIGHT));
+        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 23, 16, 54));
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));

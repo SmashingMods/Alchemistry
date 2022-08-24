@@ -14,7 +14,6 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,39 +21,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
-    protected final ContainerData data;
     private final int maxProgress = Config.Common.dissolverTicksPerOperation.get();
     private DissolverRecipe currentRecipe;
     private final NonNullList<ItemStack> internalBuffer = NonNullList.createWithCapacity(64);
 
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
-        this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
-                    case 0 -> getProgress();
-                    case 1 -> maxProgress;
-                    case 2 -> getEnergyHandler().getEnergyStored();
-                    case 3 -> getEnergyHandler().getMaxEnergyStored();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> setProgress(pValue);
-                    case 2 -> getEnergyHandler().setEnergy(pValue);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
     }
 
     @Override
@@ -128,6 +100,11 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    @Override
     public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (DissolverRecipe) pRecipe;
     }
@@ -169,6 +146,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("maxProgress", maxProgress);
         ListTag bufferTag = new ListTag();
         internalBuffer.stream()
                 .filter(itemStack -> !itemStack.isEmpty())
@@ -191,6 +169,6 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new DissolverMenu(pContainerId, pInventory, this, this.data);
+        return new DissolverMenu(pContainerId, pInventory, this);
     }
 }

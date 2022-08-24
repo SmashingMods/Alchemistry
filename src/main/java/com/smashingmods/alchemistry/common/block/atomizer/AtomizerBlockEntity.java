@@ -9,11 +9,11 @@ import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
@@ -25,41 +25,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
-    protected final ContainerData data;
     private final int maxProgress = Config.Common.atomizerTicksPerOperation.get();
     private AtomizerRecipe currentRecipe;
 
     public AtomizerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.ATOMIZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
-        this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
-                    case 0 -> getProgress();
-                    case 1 -> maxProgress;
-                    case 2 -> getEnergyHandler().getEnergyStored();
-                    case 3 -> getEnergyHandler().getMaxEnergyStored();
-                    case 4 -> getFluidStorage().getFluidAmount();
-                    case 5 -> getFluidStorage().getCapacity();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> setProgress(pValue);
-                    case 2 -> getEnergyHandler().setEnergy(pValue);
-                    case 4 -> getFluidStorage().setAmount(pValue);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 6;
-            }
-        };
     }
 
     public void updateRecipe() {
@@ -97,6 +67,11 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         }
         getEnergyHandler().extractEnergy(Config.Common.atomizerEnergyPerTick.get(), false);
         setChanged();
+    }
+
+    @Override
+    public int getMaxProgress() {
+        return maxProgress;
     }
 
     @Override
@@ -145,9 +120,15 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("maxProgress", maxProgress);
+        super.saveAdditional(pTag);
+    }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new AtomizerMenu(pContainerId, pInventory, this, data);
+        return new AtomizerMenu(pContainerId, pInventory, this);
     }
 }

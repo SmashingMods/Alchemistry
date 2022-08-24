@@ -12,7 +12,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,43 +23,14 @@ import java.util.List;
 
 public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
-    protected final ContainerData data;
     private final int maxProgress = Config.Common.combinerTicksPerOperation.get();
     private List<CombinerRecipe> recipes = new ArrayList<>();
     private CombinerRecipe currentRecipe;
-    private int selectedRecipe = -1;
+    private int selectedRecipeIndex = -1;
     private String editBoxText = "";
 
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
-        this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
-                    case 0 -> getProgress();
-                    case 1 -> maxProgress;
-                    case 2 -> getEnergyHandler().getEnergyStored();
-                    case 3 -> getEnergyHandler().getMaxEnergyStored();
-                    case 4 -> selectedRecipe;
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> setProgress(pValue);
-                    case 2 -> getEnergyHandler().setEnergy(pValue);
-                    case 4 -> selectedRecipe = pValue;
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 5;
-            }
-        };
     }
 
     @Override
@@ -111,6 +81,11 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    @Override
     public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (CombinerRecipe) pRecipe;
     }
@@ -126,6 +101,14 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     public void setRecipes(List<CombinerRecipe> pRecipes) {
         this.recipes = pRecipes;
+    }
+
+    protected int getSelectedRecipeIndex() {
+        return selectedRecipeIndex;
+    }
+
+    protected void setSelectedRecipeIndex(int pIndex) {
+        this.selectedRecipeIndex = pIndex;
     }
 
     protected String getEditBoxText() {
@@ -163,8 +146,9 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("maxProgress", maxProgress);
         pTag.putString("editBoxText", editBoxText);
-        pTag.putInt("selectedRecipe", selectedRecipe);
+        pTag.putInt("selectedRecipe", selectedRecipeIndex);
         super.saveAdditional(pTag);
     }
 
@@ -172,12 +156,12 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     public void load(CompoundTag pTag) {
         super.load(pTag);
         editBoxText = pTag.getString("editBoxText");
-        selectedRecipe = pTag.getInt("selectedRecipe");
+        selectedRecipeIndex = pTag.getInt("selectedRecipe");
     }
 
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new CombinerMenu(pContainerId, pInventory, this, this.data);
+        return new CombinerMenu(pContainerId, pInventory, this);
     }
 }

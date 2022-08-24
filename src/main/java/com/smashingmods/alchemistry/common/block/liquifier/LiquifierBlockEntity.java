@@ -9,11 +9,11 @@ import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
@@ -25,41 +25,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
-    protected final ContainerData data;
     private final int maxProgress = Config.Common.liquifierTicksPerOperation.get();
     private LiquifierRecipe currentRecipe;
 
     public LiquifierBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.LIQUIFIER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
-        this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
-                    case 0 -> getProgress();
-                    case 1 -> maxProgress;
-                    case 2 -> getEnergyHandler().getEnergyStored();
-                    case 3 -> getEnergyHandler().getMaxEnergyStored();
-                    case 4 -> getFluidStorage().getFluidAmount();
-                    case 5 -> getFluidStorage().getCapacity();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> setProgress(pValue);
-                    case 2 -> getEnergyHandler().setEnergy(pValue);
-                    case 4 -> getFluidStorage().setAmount(pValue);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 6;
-            }
-        };
     }
 
     @Override
@@ -104,6 +74,11 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    @Override
     public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
         currentRecipe = (LiquifierRecipe) pRecipe;
     }
@@ -144,9 +119,15 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 
+    @Override
+    protected void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("maxProgress", maxProgress);
+        super.saveAdditional(pTag);
+    }
+
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new LiquifierMenu(pContainerId, pInventory, this, data);
+        return new LiquifierMenu(pContainerId, pInventory, this);
     }
 }

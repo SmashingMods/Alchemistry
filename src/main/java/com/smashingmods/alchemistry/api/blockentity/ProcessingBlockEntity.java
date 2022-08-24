@@ -23,6 +23,8 @@ public interface ProcessingBlockEntity {
 
     void setProgress(int pProgress);
 
+    int getMaxProgress();
+
     void incrementProgress();
 
     boolean isRecipeLocked();

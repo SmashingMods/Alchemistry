@@ -80,8 +80,8 @@ public class CombinerTransferPacket {
                                 List<ItemStack> creativeInput = new ArrayList<>();
 
                                 for (int i = 0; i < recipe.getInput().size(); i++) {
-                                    ItemStack[] items = recipe.getInput().get(i).getIngredient().getItems();
-                                    creativeInput.add(i, items[(int) (Math.random() * items.length)]);
+                                    ItemStack item = new ItemStack(recipe.getInput().get(i).getIngredient().getItems()[0].getItem(), recipe.getInput().get(i).getCount());
+                                    creativeInput.add(i, item);
                                 }
 
                                 int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);

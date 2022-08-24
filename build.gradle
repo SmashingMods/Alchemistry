@@ -78,6 +78,7 @@ minecraft {
 }
 
 repositories {
+    maven { url "https://maven.tamaized.com/releases" }
     maven { url "https://www.cursemaven.com" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url 'https://maven.blamejared.com' }
@@ -87,7 +88,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-    implementation fg.deobf("curse.maven:chemlib-${chemlib_pid}:${chemlib_fid}")
+    implementation fg.deobf("smashingmods:chemlib:${minecraft_version}-${chemlib_version}")
 
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
@@ -114,16 +115,6 @@ jar {
     }
 }
 
-jar.finalizedBy('reobfJar')
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-}
-
 def secrets = new Properties()
 file('secrets.properties').withInputStream {
     stream -> secrets.load(stream)
@@ -136,6 +127,29 @@ fileTree("secrets").matching {
         file.withInputStream {
             stream -> secrets.load(stream)
         }
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            afterEvaluate {
+                artifact project.jar
+            }
+            setGroupId 'smashingmods'
+            setArtifactId 'alchemistry'
+        }
+    }
+    repositories {
+        maven {
+            url "https://maven.tamaized.com/releases"
+            credentials {
+                username secrets.getProperty("maven_username")
+                password secrets.getProperty("maven_password")
+            }
+        }
+    }
 }
 
 curseforge {

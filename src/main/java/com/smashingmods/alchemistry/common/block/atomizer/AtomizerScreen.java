@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.blockentity.AbstractFluidBlockEntity;
 import com.smashingmods.alchemistry.api.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -19,9 +20,9 @@ public class AtomizerScreen extends AbstractAlchemistryScreen<AtomizerMenu> {
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
-        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 58, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 134, 21, 16, 46));
-        displayData.add(new FluidDisplayData(pMenu.getBlockEntity(), pMenu.getContainerData(), 4, 5, 26, 21, 16, 46));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 58, 39, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 134, 21, 16, 46));
+        displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 26, 21, 16, 46));
     }
 
     @Override

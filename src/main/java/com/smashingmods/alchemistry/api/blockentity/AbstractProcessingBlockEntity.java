@@ -102,8 +102,8 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     }
 
     @Override
-    public void setProgress(int progress) {
-        this.progress = progress;
+    public void setProgress(int pProgress) {
+        this.progress = pProgress;
     }
 
     @Override

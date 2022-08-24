@@ -11,9 +11,7 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,11 +29,11 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     private final List<CombinerRecipe> displayedRecipes = new ArrayList<>();
 
     public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())), new SimpleContainerData(5));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
     }
 
-    protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 4, 1);
+    protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
+        super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, 4, 1);
 
         this.level = pInventory.player.getLevel();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
@@ -78,11 +76,11 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     }
 
     protected int getSelectedRecipeIndex() {
-        return this.getContainerData().get(4);
+        return ((CombinerBlockEntity) getBlockEntity()).getSelectedRecipeIndex();
     }
 
     protected void setSelectedRecipeIndex(int pIndex) {
-        this.getContainerData().set(4, pIndex);
+        ((CombinerBlockEntity) getBlockEntity()).setSelectedRecipeIndex(pIndex);
     }
 
     private boolean isValidRecipeIndex(int pSlot) {

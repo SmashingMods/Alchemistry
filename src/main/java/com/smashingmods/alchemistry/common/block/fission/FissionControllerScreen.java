@@ -21,8 +21,8 @@ public class FissionControllerScreen extends AbstractAlchemistryScreen<FissionCo
     public FissionControllerScreen(FissionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
 
-        displayData.add(new ProgressDisplayData(pMenu.getContainerData(), 0, 1, 74, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getContainerData(), 2, 3, 17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 74, 39, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
     }
 
     @Override

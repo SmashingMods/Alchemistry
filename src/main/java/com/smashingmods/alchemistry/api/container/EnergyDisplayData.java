@@ -1,31 +1,27 @@
 package com.smashingmods.alchemistry.api.container;
 
-import net.minecraft.world.inventory.ContainerData;
+import com.smashingmods.alchemistry.api.blockentity.AbstractProcessingBlockEntity;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class EnergyDisplayData extends DisplayData {
 
-    private final ContainerData data;
-    private final int valueSlot;
-    private final int maxValueSlot;
+    AbstractProcessingBlockEntity blockEntity;
 
-    public EnergyDisplayData(ContainerData pData, int pValueSlot, int pMaxValueSlot, int pX, int pY, int pWidth, int pHeight) {
+    public EnergyDisplayData(AbstractProcessingBlockEntity pBlockEntity, int pX, int pY, int pWidth, int pHeight) {
         super(pX, pY, pWidth, pHeight);
-        this.data = pData;
-        this.valueSlot = pValueSlot;
-        this.maxValueSlot = pMaxValueSlot;
+        this.blockEntity = pBlockEntity;
     }
 
     @Override
     public int getValue() {
-        return data.get(valueSlot);
+        return blockEntity.getEnergyHandler().getEnergyStored();
     }
 
     @Override
     public int getMaxValue() {
-        return data.get(maxValueSlot);
+        return blockEntity.getEnergyHandler().getMaxEnergyStored();
     }
 
     @Override

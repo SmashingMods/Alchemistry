@@ -7,9 +7,7 @@ import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
@@ -18,15 +16,12 @@ import java.util.Objects;
 
 public class FusionControllerMenu extends AbstractAlchemistryMenu {
 
-    protected final ContainerData containerData;
-
     public FusionControllerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())), new SimpleContainerData(4));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
     }
 
-    protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2, 1);
-        this.containerData = pContainerData;
+    protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
+        super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, 2, 1);
 
         FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) pBlockEntity;
         CustomItemStackHandler inputHandler = blockEntity.getInputHandler();

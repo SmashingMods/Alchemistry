@@ -4,9 +4,9 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.container.*;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
+import com.smashingmods.alchemylib.common.blockentity.container.*;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
@@ -33,9 +33,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
+public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
-    protected final List<DisplayData> displayData = new ArrayList<>();
+    protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final CombinerBlockEntity blockEntity;
     protected final EditBox editBox;
 
@@ -46,7 +46,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
     private int startIndex;
 
     public CombinerScreen(CombinerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
         this.imageWidth = 184;
         this.imageHeight = 193;
         this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 65, 84, 60, 9, Direction2D.RIGHT));
@@ -161,7 +161,7 @@ public class CombinerScreen extends AbstractAlchemistryScreen<CombinerMenu> {
 
     private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         CombinerRecipe currentRecipe = (CombinerRecipe) menu.getBlockEntity().getRecipe();
-        CustomItemStackHandler handler = blockEntity.getInputHandler();
+        ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
         // Intellij thinks this is never null. Remove this and watch it crash.
         //noinspection ConstantConditions

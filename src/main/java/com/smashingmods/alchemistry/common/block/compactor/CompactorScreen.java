@@ -3,9 +3,9 @@ package com.smashingmods.alchemistry.common.block.compactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.container.*;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.CompactorResetPacket;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemylib.common.blockentity.container.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
@@ -19,13 +19,13 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
+public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
-    protected final List<DisplayData> displayData = new ArrayList<>();
+    protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final Button resetTargetButton;
 
     public CompactorScreen(CompactorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
         imageWidth = 184;
         imageHeight = 163;
@@ -89,6 +89,6 @@ public class CompactorScreen extends AbstractAlchemistryScreen<CompactorMenu> {
     }
 
     private Button.OnPress handleResetTargetButton() {
-        return pButton -> AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
+        return pButton -> PacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
     }
 }

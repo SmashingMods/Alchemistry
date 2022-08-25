@@ -89,6 +89,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("smashingmods:chemlib:${minecraft_version}-${chemlib_version}")
+    implementation fg.deobf("smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}")
 
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
@@ -171,4 +172,8 @@ curseforge {
             }
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

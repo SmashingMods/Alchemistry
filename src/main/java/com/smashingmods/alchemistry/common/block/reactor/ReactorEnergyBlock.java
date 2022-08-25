@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.PowerState;
-import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
+import com.smashingmods.alchemylib.common.block.AbstractProcessingBlock;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class ReactorEnergyBlock extends AbstractAlchemistryBlock {
+public class ReactorEnergyBlock extends AbstractProcessingBlock {
     public ReactorEnergyBlock() {
         super(ReactorEnergyBlockEntity::new);
     }

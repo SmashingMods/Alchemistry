@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemylib.common.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AtomizerBlock extends AbstractAlchemistryBlock {
+public class AtomizerBlock extends AbstractProcessingBlock {
 
     public AtomizerBlock() {
         super(AtomizerBlockEntity::new);

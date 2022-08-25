@@ -1,9 +1,11 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
+import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
+import com.smashingmods.alchemylib.common.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +16,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.Objects;
 
-public class DissolverMenu extends AbstractAlchemistryMenu {
+public class DissolverMenu extends AbstractProcessingMenu {
 
     public DissolverMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
         this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
@@ -24,8 +26,8 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
         super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, 1, 10);
 
         DissolverBlockEntity blockEntity = (DissolverBlockEntity) pBlockEntity;
-        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         // input
         addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 84, 12);
@@ -37,6 +39,17 @@ public class DissolverMenu extends AbstractAlchemistryMenu {
     public void addPlayerInventorySlots(Inventory pInventory) {
         addSlots(Slot::new, pInventory, 3, 9, 9, 27, 12, 113);
         addSlots(Slot::new, pInventory, 1, 9, 0, 9, 12, 171);
+    }
+
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        PacketHandler.sendToNear(
+                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
+                getLevel(),
+                getBlockEntity().getBlockPos(),
+                64
+        );
     }
 
     @Override

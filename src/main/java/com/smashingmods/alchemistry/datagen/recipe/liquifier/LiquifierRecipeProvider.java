@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;

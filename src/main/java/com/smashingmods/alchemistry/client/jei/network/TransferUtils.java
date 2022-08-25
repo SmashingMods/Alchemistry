@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 

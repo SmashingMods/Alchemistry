@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;

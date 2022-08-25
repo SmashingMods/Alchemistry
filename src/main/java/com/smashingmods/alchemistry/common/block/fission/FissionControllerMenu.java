@@ -1,9 +1,11 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
+import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
+import com.smashingmods.alchemylib.common.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +16,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.Objects;
 
-public class FissionControllerMenu extends AbstractAlchemistryMenu {
+public class FissionControllerMenu extends AbstractProcessingMenu {
 
     public FissionControllerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
         this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
@@ -24,8 +26,8 @@ public class FissionControllerMenu extends AbstractAlchemistryMenu {
         super(MenuRegistry.FISSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, 1, 2);
 
         FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) pBlockEntity;
-        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         addSlots(SlotItemHandler::new, inputHandler, 44, 35);
         addSlots(SlotItemHandler::new, outputHandler, 0, outputHandler.getSlots(), 116, 35);
@@ -36,6 +38,17 @@ public class FissionControllerMenu extends AbstractAlchemistryMenu {
     public void addPlayerInventorySlots(Inventory pInventory) {
         addSlots(Slot::new, pInventory, 3, 9, 9, 27, 8, 84);
         addSlots(Slot::new, pInventory, 1, 9, 0, 9, 8, 142);
+    }
+
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        PacketHandler.sendToNear(
+                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
+                getLevel(),
+                getBlockEntity().getBlockPos(),
+                64
+        );
     }
 
     @Override

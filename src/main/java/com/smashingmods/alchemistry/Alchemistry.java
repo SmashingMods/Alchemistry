@@ -7,11 +7,11 @@ import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
-import com.smashingmods.alchemistry.registry.Registry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemistry.registry.Registry;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -68,7 +68,7 @@ public class Alchemistry {
 
     @SubscribeEvent
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
-        AlchemistryPacketHandler.register();
+        PacketHandler.register();
 
         RecipeRegistry.ATOMIZER_TYPE = RecipeType.register(String.format("%s:atomizer", MODID));
         RecipeRegistry.COMPACTOR_TYPE = RecipeType.register(String.format("%s:compactor", MODID));

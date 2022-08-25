@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -55,7 +55,7 @@ public class LiquifierTransferPacket {
             LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getItemHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getSlotHandler();
 
             Inventory inventory = player.getInventory();
 
@@ -108,7 +108,7 @@ public class LiquifierTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(LiquifierMenu pContainer, LiquifierRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new LiquifierTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new LiquifierTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;
         }

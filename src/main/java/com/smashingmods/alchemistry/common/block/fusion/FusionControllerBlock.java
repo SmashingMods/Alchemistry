@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.PowerState;
-import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
+import com.smashingmods.alchemylib.common.block.AbstractProcessingBlock;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FusionControllerBlock extends AbstractAlchemistryBlock {
+public class FusionControllerBlock extends AbstractProcessingBlock {
 
     public FusionControllerBlock() {
         super(FusionControllerBlockEntity::new);

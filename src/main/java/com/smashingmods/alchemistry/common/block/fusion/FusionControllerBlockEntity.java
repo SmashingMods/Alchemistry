@@ -1,14 +1,14 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractReactorBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.PowerState;
-import com.smashingmods.alchemistry.api.blockentity.ReactorType;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
+import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
+import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -114,8 +114,8 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.Common.fusionEnergyCapacity.get()) {
+    public EnergyStorageHandler initializeEnergyStorage() {
+        return new EnergyStorageHandler(Config.Common.fusionEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();
@@ -124,13 +124,13 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(2);
+    public ProcessingSlotHandler initializeInputHandler() {
+        return new ProcessingSlotHandler(2);
     }
 
     @Override
-    public CustomItemStackHandler initializeOutputHandler() {
-        return new CustomItemStackHandler(1) {
+    public ProcessingSlotHandler initializeOutputHandler() {
+        return new ProcessingSlotHandler(1) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
                 return false;

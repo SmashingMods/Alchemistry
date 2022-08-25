@@ -2,6 +2,8 @@ package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.network.*;
+import com.smashingmods.alchemylib.common.network.ToggleLockButtonPacket;
+import com.smashingmods.alchemylib.common.network.TogglePauseButtonPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +14,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-public class AlchemistryPacketHandler {
+public class PacketHandler {
     private static int PACKET_ID = 0;
     private static final String PROTOCOL_VERSION = "1.0";
     public static SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
@@ -24,16 +26,22 @@ public class AlchemistryPacketHandler {
 
     public static void register() {
 
+        INSTANCE.messageBuilder(ToggleLockButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleLockButtonPacket::new)
+                .encoder(ToggleLockButtonPacket::encode)
+                .consumer(ToggleLockButtonPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(TogglePauseButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(TogglePauseButtonPacket::new)
+                .encoder(TogglePauseButtonPacket::encode)
+                .consumer(TogglePauseButtonPacket::handle)
+                .add();
+
         INSTANCE.messageBuilder(BlockEntityPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(BlockEntityPacket::new)
                 .encoder(BlockEntityPacket::encode)
                 .consumer(BlockEntityPacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ProcessingButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ProcessingButtonPacket::new)
-                .encoder(ProcessingButtonPacket::encode)
-                .consumer(ProcessingButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CompactorResetPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)

@@ -1,13 +1,14 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.network.ServerCombinerRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class CombinerMenu extends AbstractAlchemistryMenu {
+public class CombinerMenu extends AbstractProcessingMenu {
 
     private final Level level;
     private final CombinerBlockEntity blockEntity;
@@ -37,8 +38,8 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
         this.level = pInventory.player.getLevel();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
-        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         setupRecipeList();
         // input 2x2 grid
@@ -51,6 +52,17 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     public void addPlayerInventorySlots(Inventory pInventory) {
         addSlots(Slot::new, pInventory, 3, 9, 9, 27,12, 106);
         addSlots(Slot::new, pInventory, 1, 9, 0,9, 12, 164);
+    }
+
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        PacketHandler.sendToNear(
+                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
+                getLevel(),
+                getBlockEntity().getBlockPos(),
+                64
+        );
     }
 
     @Override
@@ -68,7 +80,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
                     CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
                     this.setSelectedRecipeIndex(pId);
                     this.blockEntity.setRecipe(recipe);
-                    AlchemistryPacketHandler.INSTANCE.sendToServer(new ServerCombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
+                    PacketHandler.INSTANCE.sendToServer(new ServerCombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
                 }
             }
         }

@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -53,8 +53,8 @@ public class CompactorTransferPacket {
             CompactorBlockEntity blockEntity = (CompactorBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-            CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
             RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, player.getLevel()).stream()
@@ -108,7 +108,7 @@ public class CompactorTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(CompactorMenu pContainer, CompactorRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new CompactorTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getOutput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new CompactorTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getOutput(), pMaxTransfer));
             }
             return null;
         }

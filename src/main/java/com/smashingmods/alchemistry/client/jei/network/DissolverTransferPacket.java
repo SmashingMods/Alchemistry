@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -55,8 +55,8 @@ public class DissolverTransferPacket {
             DissolverBlockEntity blockEntity = (DissolverBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-            CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
             RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, player.getLevel()).stream()
@@ -111,7 +111,7 @@ public class DissolverTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(DissolverMenu pContainer, DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new DissolverTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new DissolverTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;
         }

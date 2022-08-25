@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.container.*;
+import com.smashingmods.alchemylib.common.blockentity.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -13,11 +13,11 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DissolverScreen extends AbstractAlchemistryScreen<DissolverMenu> {
-    protected final List<DisplayData> displayData = new ArrayList<>();
+public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
+    protected final List<AbstractDisplayData> displayData = new ArrayList<>();
 
     public DissolverScreen(DissolverMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
         this.imageWidth = 184;
         this.imageHeight = 200;
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 88, 34, 60, 9, Direction2D.DOWN));

@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.datagen;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;

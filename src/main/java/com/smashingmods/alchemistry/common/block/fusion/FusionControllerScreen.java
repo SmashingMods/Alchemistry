@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.fusion;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.container.*;
+import com.smashingmods.alchemylib.common.blockentity.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -13,12 +13,12 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FusionControllerScreen extends AbstractAlchemistryScreen<FusionControllerMenu> {
+public class FusionControllerScreen extends AbstractProcessingScreen<FusionControllerMenu> {
 
-    protected final List<DisplayData> displayData = new ArrayList<>();
+    protected final List<AbstractDisplayData> displayData = new ArrayList<>();
 
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 92, 39, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));

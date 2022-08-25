@@ -1,14 +1,15 @@
 package com.smashingmods.alchemistry.common.block.compactor;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -29,7 +30,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     private ItemStack target = ItemStack.EMPTY;
 
     public CompactorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(Alchemistry.MODID, BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             currentRecipe = (CompactorRecipe) pRecipe;
             target = ((CompactorRecipe) pRecipe).getOutput();
             if (level != null && !level.isClientSide()) {
-                AlchemistryPacketHandler.sendToNear(new BlockEntityPacket(getBlockPos(), getUpdateTag()), level, getBlockPos(), 64);
+                PacketHandler.sendToNear(new BlockEntityPacket(getBlockPos(), getUpdateTag()), level, getBlockPos(), 64);
             }
         }
     }
@@ -126,8 +127,8 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.Common.compactorEnergyCapacity.get()) {
+    public EnergyStorageHandler initializeEnergyStorage() {
+        return new EnergyStorageHandler(Config.Common.compactorEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();
@@ -136,8 +137,8 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(2) {
+    public ProcessingSlotHandler initializeInputHandler() {
+        return new ProcessingSlotHandler(2) {
             @Override
             protected void onContentsChanged(int slot) {
                 if (level != null && !level.isClientSide()) {
@@ -166,8 +167,8 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public CustomItemStackHandler initializeOutputHandler() {
-        return new CustomItemStackHandler(1) {
+    public ProcessingSlotHandler initializeOutputHandler() {
+        return new ProcessingSlotHandler(1) {
             @Override
             public boolean isItemValid(int slot, ItemStack stack) {
                 return false;

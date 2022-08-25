@@ -3,8 +3,8 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.AbstractFluidBlockEntity;
-import com.smashingmods.alchemistry.api.container.*;
+import com.smashingmods.alchemylib.common.blockentity.container.*;
+import com.smashingmods.alchemylib.common.blockentity.processing.AbstractFluidBlockEntity;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -14,12 +14,12 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtomizerScreen extends AbstractAlchemistryScreen<AtomizerMenu> {
+public class AtomizerScreen extends AbstractProcessingScreen<AtomizerMenu> {
 
-    protected final List<DisplayData> displayData = new ArrayList<>();
+    protected final List<AbstractDisplayData> displayData = new ArrayList<>();
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 58, 39, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 134, 21, 16, 46));
         displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 26, 21, 16, 46));

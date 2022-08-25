@@ -1,13 +1,14 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractFluidBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomFluidStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
+import com.smashingmods.alchemylib.common.storage.FluidStorageHandler;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
@@ -29,14 +30,14 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     private LiquifierRecipe currentRecipe;
 
     public LiquifierBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockEntityRegistry.LIQUIFIER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(Alchemistry.MODID, BlockEntityRegistry.LIQUIFIER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide()) {
             RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
-                    .filter(recipe -> recipe.getInput().matches(getItemHandler().getStackInSlot(0)))
+                    .filter(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)))
                     .findFirst()
                     .ifPresent(recipe -> {
                         if (currentRecipe == null || !currentRecipe.equals(recipe)) {
@@ -49,7 +50,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public boolean canProcessRecipe() {
-        ItemStack input = getItemHandler().getStackInSlot(0);
+        ItemStack input = getSlotHandler().getStackInSlot(0);
         if (currentRecipe != null) {
             return getEnergyHandler().getEnergyStored() >= Config.Common.liquifierEnergyPerTick.get()
                     && (getFluidStorage().getFluidStack().isFluidEqual(currentRecipe.getOutput()) || getFluidStorage().isEmpty())
@@ -66,7 +67,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
             incrementProgress();
         } else {
             setProgress(0);
-            getItemHandler().decrementSlot(0, currentRecipe.getInput().getCount());
+            getSlotHandler().decrementSlot(0, currentRecipe.getInput().getCount());
             getFluidStorage().fill(currentRecipe.getOutput().copy(), IFluidHandler.FluidAction.EXECUTE);
         }
         getEnergyHandler().extractEnergy(Config.Common.liquifierEnergyPerTick.get(), false);
@@ -89,8 +90,8 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.Common.liquifierEnergyCapacity.get()) {
+    public EnergyStorageHandler initializeEnergyStorage() {
+        return new EnergyStorageHandler(Config.Common.liquifierEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 super.onEnergyChanged();
@@ -100,8 +101,8 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public CustomFluidStorage initializeFluidStorage() {
-        return new CustomFluidStorage(Config.Common.liquifierFluidCapacity.get(), FluidStack.EMPTY) {
+    public FluidStorageHandler initializeFluidStorage() {
+        return new FluidStorageHandler(Config.Common.liquifierFluidCapacity.get(), FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
                 super.onContentsChanged();
@@ -111,8 +112,8 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public CustomItemStackHandler initializeItemHandler() {
-        return new CustomItemStackHandler(1);
+    public ProcessingSlotHandler initializeSlotHandler() {
+        return new ProcessingSlotHandler(1);
     }
 
     public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {

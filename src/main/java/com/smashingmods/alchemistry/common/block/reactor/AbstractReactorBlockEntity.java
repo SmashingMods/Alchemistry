@@ -1,10 +1,10 @@
-package com.smashingmods.alchemistry.api.blockentity;
+package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.mojang.math.Vector3f;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorCoreBlock;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorInputBlockEntity;
-import com.smashingmods.alchemistry.common.block.reactor.ReactorOutputBlockEntity;
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerStateProperty;
+import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +30,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     private boolean outputFound;
 
     public AbstractReactorBlockEntity(BlockEntityType<?> pBlockEntityType, BlockPos pWorldPosition, BlockState pBlockState) {
-        super(pBlockEntityType, pWorldPosition, pBlockState);
+        super(Alchemistry.MODID, pBlockEntityType, pWorldPosition, pBlockState);
     }
 
     @Override

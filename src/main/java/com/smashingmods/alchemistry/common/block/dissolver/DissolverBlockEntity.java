@@ -1,12 +1,13 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -26,7 +27,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     private final NonNullList<ItemStack> internalBuffer = NonNullList.createWithCapacity(64);
 
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
     }
 
     @Override
@@ -115,8 +116,8 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.Common.dissolverEnergyCapacity.get()) {
+    public EnergyStorageHandler initializeEnergyStorage() {
+        return new EnergyStorageHandler(Config.Common.dissolverEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();
@@ -125,13 +126,13 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(1);
+    public ProcessingSlotHandler initializeInputHandler() {
+        return new ProcessingSlotHandler(1);
     }
 
     @Override
-    public CustomItemStackHandler initializeOutputHandler() {
-        return new CustomItemStackHandler(10) {
+    public ProcessingSlotHandler initializeOutputHandler() {
+        return new ProcessingSlotHandler(10) {
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;

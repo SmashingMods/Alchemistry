@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -53,8 +53,8 @@ public class FissionTransferPacket {
             FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-            CustomItemStackHandler outputHander = blockEntity.getOutputHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHander = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
             RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, player.getLevel()).stream()
@@ -104,7 +104,7 @@ public class FissionTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(FissionControllerMenu pContainer, FissionRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new FissionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new FissionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;
         }

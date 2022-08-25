@@ -1,6 +1,7 @@
-package com.smashingmods.alchemistry.api.blockentity;
+package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.mojang.datafixers.util.Function3;
+import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;

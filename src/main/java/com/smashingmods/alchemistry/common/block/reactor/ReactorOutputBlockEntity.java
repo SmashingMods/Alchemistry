@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import com.smashingmods.alchemistry.api.blockentity.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

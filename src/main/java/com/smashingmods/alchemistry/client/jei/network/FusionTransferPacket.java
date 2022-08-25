@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -58,8 +58,8 @@ public class FusionTransferPacket {
             FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-            CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
             RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, player.getLevel()).stream()
@@ -120,7 +120,7 @@ public class FusionTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(FusionControllerMenu pContainer, FusionRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new FusionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput1(), pRecipe.getInput2(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new FusionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput1(), pRecipe.getInput2(), pMaxTransfer));
             }
             return null;
         }

@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;

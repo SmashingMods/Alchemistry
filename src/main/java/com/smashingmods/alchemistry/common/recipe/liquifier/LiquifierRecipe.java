@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

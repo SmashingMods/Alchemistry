@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.api.blockentity;
+package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;

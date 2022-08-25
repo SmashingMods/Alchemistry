@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemylib.common.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;

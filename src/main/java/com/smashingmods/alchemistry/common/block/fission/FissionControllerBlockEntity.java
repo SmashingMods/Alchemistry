@@ -1,14 +1,15 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
-import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
+import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,6 +18,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
@@ -120,7 +122,24 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeInputHandler() {
-        return new ProcessingSlotHandler(1);
+        return new ProcessingSlotHandler(1) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                if (!isEmpty()) {
+                    updateRecipe();
+                }
+                setCanProcess(canProcessRecipe());
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+                if (isRecipeLocked()) {
+                    return ItemStack.isSameItemSameTags(currentRecipe.getInput(), pItemStack);
+                }
+                return pItemStack.getItem() instanceof ElementItem;
+            }
+        };
     }
 
     @Override

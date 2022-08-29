@@ -3,7 +3,8 @@ package com.smashingmods.alchemistry.common.block.fusion;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemylib.common.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.button.AutoBalanceButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -16,12 +17,15 @@ import java.util.List;
 public class FusionControllerScreen extends AbstractProcessingScreen<FusionControllerMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
+    private final AutoBalanceButton autoBalanceButton;
 
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 92, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 50));
+
+        autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
     }
 
     @Override
@@ -31,6 +35,8 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
+
+        renderWidget(autoBalanceButton, leftPos - 24, topPos + 48);
     }
 
     @Override

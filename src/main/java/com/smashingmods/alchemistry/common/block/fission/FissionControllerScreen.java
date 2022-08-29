@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.fission;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemylib.common.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -21,7 +21,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 74, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 50));
     }
 
     @Override

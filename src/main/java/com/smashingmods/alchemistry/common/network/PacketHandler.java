@@ -2,8 +2,6 @@ package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.network.*;
-import com.smashingmods.alchemylib.common.network.ToggleLockButtonPacket;
-import com.smashingmods.alchemylib.common.network.TogglePauseButtonPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +34,12 @@ public class PacketHandler {
                 .decoder(TogglePauseButtonPacket::new)
                 .encoder(TogglePauseButtonPacket::encode)
                 .consumer(TogglePauseButtonPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(ToggleAutoBalanceButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(ToggleAutoBalanceButtonPacket::new)
+                .encoder(ToggleAutoBalanceButtonPacket::encode)
+                .consumer(ToggleAutoBalanceButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(BlockEntityPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)

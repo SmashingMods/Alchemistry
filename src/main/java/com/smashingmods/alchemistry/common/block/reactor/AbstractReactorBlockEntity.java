@@ -2,9 +2,9 @@ package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.mojang.math.Vector3f;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
-import com.smashingmods.alchemylib.common.blockentity.power.PowerStateProperty;
-import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerStateProperty;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -44,17 +44,19 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             if (isValidMultiblock()) {
                 switch (getPowerState()) {
                     case ON -> {
-                        BlockPos coreCenter = reactorShape.getCoreBoundingBox().getCenter();
-                        DustParticleOptions options = new DustParticleOptions(new Vector3f(1f, 1f, 0.5f), 0.15f);
-                        ((ServerLevel) level).sendParticles(options,
-                                coreCenter.getX(),
-                                coreCenter.getY(),
-                                coreCenter.getZ(),
-                                50,
-                                1.5f,
-                                1.5f,
-                                1.5f,
-                                0f);
+                        if (!isProcessingPaused()) {
+                            BlockPos coreCenter = reactorShape.getCoreBoundingBox().getCenter();
+                            DustParticleOptions options = new DustParticleOptions(new Vector3f(1f, 1f, 0.5f), 0.15f);
+                            ((ServerLevel) level).sendParticles(options,
+                                    coreCenter.getX(),
+                                    coreCenter.getY(),
+                                    coreCenter.getZ(),
+                                    50,
+                                    1.5f,
+                                    1.5f,
+                                    1.5f,
+                                    0f);
+                        }
                     }
                     case DISABLED -> {
                         if (getEnergyHandler().getEnergyStored() > 0) {

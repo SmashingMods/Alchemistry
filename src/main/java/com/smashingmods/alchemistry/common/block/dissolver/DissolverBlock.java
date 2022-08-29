@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
-import com.smashingmods.alchemylib.common.block.AbstractProcessingBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;

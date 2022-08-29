@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -102,12 +102,13 @@ public class CombinerTransferPacket {
                                         player.getInventory().removeItem(slot, itemStack.getCount() * maxOperations);
                                 });
 
-                                for (int k = 0; k < recipe.getInput().size(); k++) {
-                                    inputHandler.setOrIncrement(k, new ItemStack(recipeInput.get(k).getItem(), recipe.getInput().get(k).getCount() * maxOperations));
+                                for (int i = 0; i < recipe.getInput().size(); i++) {
+                                    inputHandler.setOrIncrement(i, new ItemStack(recipeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
                                 }
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
+                            blockEntity.setCanProcess(true);
                         }
                     });
         });

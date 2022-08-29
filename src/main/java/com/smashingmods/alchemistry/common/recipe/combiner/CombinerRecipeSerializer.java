@@ -1,9 +1,8 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemylib.common.item.IngredientStack;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -46,7 +45,7 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> extends ForgeReg
     public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         int inputCount = pBuffer.readInt();
-        List<IngredientStack> inputList = Lists.newArrayList();
+        List<IngredientStack> inputList = new ArrayList<>();
         for (int i = 0; i < inputCount; i++) {
             inputList.add(i, IngredientStack.fromNetwork(pBuffer));
         }

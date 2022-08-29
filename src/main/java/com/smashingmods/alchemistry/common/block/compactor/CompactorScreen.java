@@ -3,11 +3,9 @@ package com.smashingmods.alchemistry.common.block.compactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.common.network.CompactorResetPacket;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
-import com.smashingmods.alchemylib.common.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.button.ResetTargetButton;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -22,7 +20,7 @@ import java.util.List;
 public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
-    private final Button resetTargetButton;
+    private final ResetTargetButton resetTargetButton;
 
     public CompactorScreen(CompactorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
@@ -31,9 +29,9 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         imageHeight = 163;
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),75, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 54));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 50));
 
-        resetTargetButton = new Button(0, 0, 100, 20, new TranslatableComponent("alchemistry.container.reset_target"), handleResetTargetButton());
+        resetTargetButton = new ResetTargetButton(this, (CompactorBlockEntity) pMenu.getBlockEntity());
     }
 
     @Override
@@ -47,6 +45,8 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
         renderTarget(pPoseStack, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
+
+        renderWidget(resetTargetButton, leftPos - 24, topPos + 48);
     }
 
     @Override
@@ -61,12 +61,6 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.compactor");
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
-    }
-
-    @Override
-    public void renderWidgets() {
-        super.renderWidgets();
-        renderWidget(resetTargetButton, leftPos - 104, topPos + 48);
     }
 
     private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -86,9 +80,5 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
                 renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
             }
         }
-    }
-
-    private Button.OnPress handleResetTargetButton() {
-        return pButton -> PacketHandler.INSTANCE.sendToServer(new CompactorResetPacket(menu.getBlockEntity().getBlockPos()));
     }
 }

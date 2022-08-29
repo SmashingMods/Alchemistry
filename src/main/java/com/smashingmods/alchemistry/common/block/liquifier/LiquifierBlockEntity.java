@@ -2,13 +2,13 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.processing.AbstractFluidBlockEntity;
-import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
-import com.smashingmods.alchemylib.common.storage.FluidStorageHandler;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
@@ -105,7 +105,6 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         return new FluidStorageHandler(Config.Common.liquifierFluidCapacity.get(), FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
-                super.onContentsChanged();
                 setChanged();
             }
         };
@@ -113,7 +112,16 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeSlotHandler() {
-        return new ProcessingSlotHandler(1);
+        return new ProcessingSlotHandler(1) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                if (!isEmpty() && !isRecipeLocked()) {
+                    updateRecipe();
+                }
+                setCanProcess(canProcessRecipe());
+                setChanged();
+            }
+        };
     }
 
     public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {

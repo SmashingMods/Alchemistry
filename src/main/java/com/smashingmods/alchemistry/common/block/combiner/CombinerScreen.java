@@ -4,9 +4,9 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
-import com.smashingmods.alchemylib.common.blockentity.container.*;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
@@ -50,7 +50,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         this.imageWidth = 184;
         this.imageHeight = 193;
         this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 65, 84, 60, 9, Direction2D.RIGHT));
-        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 23, 16, 54));
+        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 23, 16, 50));
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
@@ -86,6 +86,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         renderTooltip(pPoseStack, pMouseX, pMouseY);
         renderRecipeTooltips(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
+
+        renderWidget(editBox, leftPos + 57, topPos + 7);
     }
 
     @Override
@@ -100,12 +102,6 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.combiner");
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
-    }
-
-    @Override
-    public void renderWidgets() {
-        super.renderWidgets();
-        renderWidget(editBox, leftPos + 57, topPos + 7);
     }
 
     protected void renderRecipeBox(PoseStack pPoseStack, int pMouseX, int pMouseY) {

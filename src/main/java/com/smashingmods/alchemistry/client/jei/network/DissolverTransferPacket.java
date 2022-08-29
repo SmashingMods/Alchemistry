@@ -1,12 +1,12 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
+import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.item.IngredientStack;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;

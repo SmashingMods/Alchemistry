@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemylib.common.block.AbstractProcessingBlock;
-import com.smashingmods.alchemylib.common.blockentity.power.PowerState;
-import com.smashingmods.alchemylib.common.blockentity.power.PowerStateProperty;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;

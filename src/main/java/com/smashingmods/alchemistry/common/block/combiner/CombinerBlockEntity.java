@@ -2,12 +2,13 @@ package com.smashingmods.alchemistry.common.block.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -132,7 +133,28 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeInputHandler() {
-        return new ProcessingSlotHandler(4);
+        return new ProcessingSlotHandler(4) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                if (!isEmpty()) {
+                    updateRecipe();
+                }
+                setCanProcess(canProcessRecipe());
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+                if (currentRecipe != null && isRecipeLocked()) {
+                    boolean notContained = this.getStacks().stream().noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
+                    boolean inputRequired = currentRecipe.getInput().stream()
+                            .map(IngredientStack::getIngredient)
+                            .anyMatch(ingredient -> ingredient.test(pItemStack));
+                    return notContained && inputRequired;
+                }
+                return super.isItemValid(pSlot, pItemStack);
+            }
+        };
     }
 
     @Override

@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
-import com.smashingmods.alchemylib.common.item.IngredientStack;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;

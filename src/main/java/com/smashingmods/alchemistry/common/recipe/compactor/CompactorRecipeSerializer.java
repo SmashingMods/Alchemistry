@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.compactor;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemylib.common.item.IngredientStack;
+import com.smashingmods.alchemistry.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

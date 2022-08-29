@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemylib.common.block.AbstractProcessingBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;

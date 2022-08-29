@@ -2,14 +2,14 @@ package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
@@ -141,27 +141,41 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
         return new ProcessingSlotHandler(2) {
             @Override
             protected void onContentsChanged(int slot) {
-                if (level != null && !level.isClientSide()) {
+                if (level != null && !level.isClientSide() && !isRecipeLocked()) {
                     if (slot == 1 && !getInputHandler().getStackInSlot(slot).isEmpty()) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream().filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput())).findFirst().ifPresent(recipe -> setRecipe(recipe));
-                    }
-                }
-            }
-
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack pItemStack) {
-                if (slot == 1) {
-                    if (level != null && !level.isClientSide()) {
                         RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
-                                .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput().copy(), pItemStack.copy()))
+                                .filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput()))
                                 .findFirst()
                                 .ifPresent(recipe -> {
                                     setRecipe(recipe);
-                                    setTarget(new ItemStack(pItemStack.getItem()));
+                                    setTarget(new ItemStack(recipe.getOutput().getItem()));
                                 });
                     }
                 }
-                return slot != 1;
+                updateRecipe();
+                setCanProcess(canProcessRecipe());
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
+                if (level != null && !level.isClientSide()) {
+                    if (pSlot == 0 && currentRecipe != null && isRecipeLocked()) {
+                        return currentRecipe.getInput().matches(pItemStack);
+                    } else if (pSlot == 1) {
+                        if (!isRecipeLocked()) {
+                            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
+                                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput().copy(), pItemStack.copy()))
+                                    .findFirst()
+                                    .ifPresent(recipe -> {
+                                        setRecipe(recipe);
+                                        setTarget(new ItemStack(pItemStack.getItem()));
+                                    });
+                        }
+                        return false;
+                    }
+                }
+                return super.isItemValid(pSlot, pItemStack);
             }
         };
     }

@@ -1,5 +1,7 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.network.ServerCombinerRecipePacket;
@@ -7,8 +9,6 @@ import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.container.AbstractProcessingMenu;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

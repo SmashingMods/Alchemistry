@@ -2,12 +2,12 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -18,6 +18,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
@@ -32,16 +33,9 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void tick() {
-        if (level != null && !level.isClientSide()) {
-            if (!isProcessingPaused()) {
-                if (!isRecipeLocked()) {
-                    updateRecipe();
-                }
-                if (canProcessRecipe()) {
-                    processRecipe();
-                }
-                processBuffer();
-            }
+        super.tick();
+        if (!isProcessingPaused()) {
+            processBuffer();
         }
     }
 
@@ -97,6 +91,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 }
             }
         }
+        setCanProcess(canProcessRecipe());
         setChanged();
     }
 
@@ -127,7 +122,21 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeInputHandler() {
-        return new ProcessingSlotHandler(1);
+        return new ProcessingSlotHandler(1) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                updateRecipe();
+                setCanProcess(canProcessRecipe());
+            }
+
+            @Override
+            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+                if (isRecipeLocked()) {
+                    return currentRecipe.getInput().matches(pItemStack);
+                }
+                return super.isItemValid(pSlot, pItemStack);
+            }
+        };
     }
 
     @Override

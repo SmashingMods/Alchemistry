@@ -89,7 +89,6 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("smashingmods:chemlib:${minecraft_version}-${chemlib_version}")
-    implementation fg.deobf("smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}")
 
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
@@ -116,6 +115,16 @@ jar {
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
 def secrets = new Properties()
 file('secrets.properties').withInputStream {
     stream -> secrets.load(stream)
@@ -137,6 +146,7 @@ publishing {
         mavenJava(MavenPublication) {
             afterEvaluate {
                 artifact project.jar
+                artifact project.sourcesJar
             }
             setGroupId 'smashingmods'
             setArtifactId 'alchemistry'

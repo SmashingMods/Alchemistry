@@ -35,13 +35,6 @@ Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to 
     side="BOTH"
 
 [[dependencies.alchemistry]]
-    modId="alchemylib"
-    mandatory=true
-    versionRange="[1.18.2-1.0.0,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.alchemistry]]
     modId="ctm"
     mandatory=false
     versionRange="[1.18.2-1.1.4,)"

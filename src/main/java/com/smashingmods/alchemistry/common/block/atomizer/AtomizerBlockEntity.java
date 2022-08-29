@@ -2,13 +2,13 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.blockentity.processing.AbstractFluidBlockEntity;
-import com.smashingmods.alchemylib.common.storage.EnergyStorageHandler;
-import com.smashingmods.alchemylib.common.storage.FluidStorageHandler;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
@@ -53,9 +53,8 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
                     && getFluidStorage().getFluidAmount() >= currentRecipe.getInput().getAmount()
                     && ((ItemStack.isSameItemSameTags(getSlotHandler().getStackInSlot(0), currentRecipe.getOutput())) || getSlotHandler().getStackInSlot(0).isEmpty())
                     && (getSlotHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount()) <= currentRecipe.getOutput().getMaxStackSize();
-        } else {
-            return false;
         }
+        return false;
     }
 
     public void processRecipe() {
@@ -101,7 +100,10 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         return new FluidStorageHandler(Config.Common.atomizerFluidCapacity.get(), FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
-                super.onContentsChanged();
+                if (!isEmpty()) {
+                    updateRecipe();
+                }
+                setCanProcess(canProcessRecipe());
                 setChanged();
             }
         };

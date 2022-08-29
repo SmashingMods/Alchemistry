@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemylib.common.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.*;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -21,7 +21,7 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         this.imageWidth = 184;
         this.imageHeight = 200;
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 88, 34, 60, 9, Direction2D.DOWN));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 12, 16, 54));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 12, 16, 50));
     }
 
     @Override

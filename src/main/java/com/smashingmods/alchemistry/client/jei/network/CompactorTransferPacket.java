@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.common.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
@@ -83,6 +83,7 @@ public class CompactorTransferPacket {
                             }
                             blockEntity.setProgress(0);
                             blockEntity.setRecipe(recipe);
+                            blockEntity.setCanProcess(true);
                             blockEntity.setTarget(recipe.getOutput().copy());
                         }
             });

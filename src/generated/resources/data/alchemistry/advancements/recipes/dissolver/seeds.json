@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:beetroot_seeds"
+      "forge:seeds"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:beetroot_seeds"
+        "recipe": "forge:seeds"
       }
     }
   },

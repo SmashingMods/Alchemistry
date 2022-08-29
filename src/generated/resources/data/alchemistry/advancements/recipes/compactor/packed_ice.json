@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:packed_ice"
+      "alchemistry:packed_ice"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "alchemistry:combiner/packed_ice"
+        "recipe": "alchemistry:compactor/packed_ice"
       }
     }
   },

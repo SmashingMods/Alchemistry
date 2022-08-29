@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "minecraft:wheat_seeds"
+      "alchemistry:blue_ice"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:wheat_seeds"
+        "recipe": "alchemistry:compactor/blue_ice"
       }
     }
   },

@@ -116,6 +116,7 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(graphite, 2), new ItemStack(Items.COAL));
             compactor(new ItemStack(graphite, 2), new ItemStack(Items.CHARCOAL));
         });
+        ItemRegistry.getChemicalItemByNameAndType("graphite", ChemicalItemType.DUST).ifPresent(graphite -> compactor(new ItemStack(graphite, 16), new ItemStack(Items.DIAMOND)));
 
         ItemRegistry.getCompoundByName("phosphorus").ifPresent(phosphorus -> {
             compactor(new ItemStack(phosphorus, 4), new ItemStack(Items.GLOWSTONE_DUST));
@@ -126,6 +127,8 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(water, 4), Items.SNOWBALL);
             compactor(new ItemStack(water, 16), Items.SNOW);
             compactor(new ItemStack(water, 16), Items.ICE);
+            compactor(new ItemStack(Items.ICE, 9), Items.PACKED_ICE);
+            compactor(new ItemStack(Items.PACKED_ICE, 9), Items.BLUE_ICE);
         });
 
         ItemRegistry.getCompoundByName("protein").ifPresent(protein -> {

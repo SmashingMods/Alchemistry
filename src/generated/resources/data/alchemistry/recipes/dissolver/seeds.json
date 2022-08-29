@@ -3,7 +3,7 @@
   "group": "alchemistry:dissolver",
   "input": {
     "ingredient": {
-      "item": "minecraft:melon_seeds"
+      "tag": "forge:seeds"
     },
     "count": 1
   },

@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:calcium"
+        "item": "chemlib:oxygen"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:calcium"
       },
       "count": 1
     }

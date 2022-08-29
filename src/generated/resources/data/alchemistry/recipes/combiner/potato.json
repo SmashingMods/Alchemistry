@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:starch"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
         "item": "chemlib:potassium"
       },
       "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:starch"
+      },
+      "count": 1
     }
   ],
   "result": {

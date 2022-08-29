@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:carbon"
-      },
-      "count": 3
-    },
-    {
-      "ingredient": {
         "item": "chemlib:hydrogen"
       },
       "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:carbon"
+      },
+      "count": 3
     }
   ],
   "result": {

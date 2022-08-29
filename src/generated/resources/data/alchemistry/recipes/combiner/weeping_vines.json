@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:mercury_sulfide"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:mercury_sulfide"
+        "item": "chemlib:cellulose"
       },
       "count": 1
     }

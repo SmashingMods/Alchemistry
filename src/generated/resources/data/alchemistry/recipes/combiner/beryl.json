@@ -4,15 +4,9 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:beryllium"
+        "item": "chemlib:oxygen"
       },
-      "count": 3
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:aluminum"
-      },
-      "count": 2
+      "count": 18
     },
     {
       "ingredient": {
@@ -22,9 +16,15 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:aluminum"
       },
-      "count": 18
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:beryllium"
+      },
+      "count": 3
     }
   ],
   "result": {

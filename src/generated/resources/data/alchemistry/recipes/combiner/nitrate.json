@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:nitrogen"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
         "item": "chemlib:oxygen"
       },
       "count": 3
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:nitrogen"
+      },
+      "count": 1
     }
   ],
   "result": {

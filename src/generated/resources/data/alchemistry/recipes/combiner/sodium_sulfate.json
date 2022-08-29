@@ -4,9 +4,9 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:sodium"
+        "item": "chemlib:oxygen"
       },
-      "count": 2
+      "count": 4
     },
     {
       "ingredient": {
@@ -16,9 +16,9 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:sodium"
       },
-      "count": 4
+      "count": 2
     }
   ],
   "result": {

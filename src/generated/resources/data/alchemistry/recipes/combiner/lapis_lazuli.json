@@ -4,6 +4,12 @@
   "input": [
     {
       "ingredient": {
+        "item": "chemlib:silicon"
+      },
+      "count": 3
+    },
+    {
+      "ingredient": {
         "item": "chemlib:sodium"
       },
       "count": 6
@@ -19,12 +25,6 @@
         "item": "chemlib:calcium_sulfide"
       },
       "count": 2
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:silicon"
-      },
-      "count": 3
     }
   ],
   "result": {

@@ -10,15 +10,15 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:manganese"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
         "item": "chemlib:oxygen"
       },
       "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:manganese"
+      },
+      "count": 1
     }
   ],
   "result": {

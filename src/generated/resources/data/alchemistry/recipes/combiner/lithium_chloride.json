@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:lithium"
+        "item": "chemlib:chlorine"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:chlorine"
+        "item": "chemlib:lithium"
       },
       "count": 1
     }

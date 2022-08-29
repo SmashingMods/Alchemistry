@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:beryllium"
+        "item": "chemlib:oxygen"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:beryllium"
       },
       "count": 1
     }

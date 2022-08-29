@@ -4,9 +4,9 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:calcium"
+        "item": "chemlib:oxygen"
       },
-      "count": 1
+      "count": 4
     },
     {
       "ingredient": {
@@ -16,9 +16,9 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:calcium"
       },
-      "count": 4
+      "count": 1
     }
   ],
   "result": {

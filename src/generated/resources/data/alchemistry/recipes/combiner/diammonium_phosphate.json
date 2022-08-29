@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:ammonium"
-      },
-      "count": 2
-    },
-    {
-      "ingredient": {
         "item": "chemlib:hydrogen"
       },
       "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:ammonium"
+      },
+      "count": 2
     },
     {
       "ingredient": {

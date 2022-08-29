@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:zinc"
+        "item": "chemlib:oxygen"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:zinc"
       },
       "count": 1
     }

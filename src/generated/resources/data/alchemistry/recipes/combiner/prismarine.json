@@ -4,9 +4,9 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:beryl"
+        "item": "chemlib:selenium"
       },
-      "count": 16
+      "count": 4
     },
     {
       "ingredient": {
@@ -16,9 +16,9 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:selenium"
+        "item": "chemlib:beryl"
       },
-      "count": 4
+      "count": 16
     }
   ],
   "result": {

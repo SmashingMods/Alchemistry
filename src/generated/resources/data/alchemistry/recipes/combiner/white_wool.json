@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:keratin"
-      },
-      "count": 2
-    },
-    {
-      "ingredient": {
         "item": "chemlib:triglyceride"
       },
       "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:keratin"
+      },
+      "count": 2
     }
   ],
   "result": {

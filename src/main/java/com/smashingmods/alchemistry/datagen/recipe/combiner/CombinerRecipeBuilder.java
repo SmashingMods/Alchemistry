@@ -13,21 +13,23 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class CombinerRecipeBuilder implements RecipeBuilder {
 
     private String group;
     private final ResourceLocation recipeId;
-    private final List<IngredientStack> input;
+    private final Set<IngredientStack> input;
     private final ItemStack result;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
     public CombinerRecipeBuilder(ItemStack pOutput, List<IngredientStack> pInput, ResourceLocation pRecipeId) {
         this.result = pOutput;
-        this.input = pInput;
+        this.input = new HashSet<>(pInput);
         this.recipeId = pRecipeId;
     }
 

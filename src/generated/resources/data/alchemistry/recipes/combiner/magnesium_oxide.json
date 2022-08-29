@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:magnesium"
+        "item": "chemlib:oxygen"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:magnesium"
       },
       "count": 1
     }

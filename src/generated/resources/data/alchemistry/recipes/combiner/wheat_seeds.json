@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:triglyceride"
+        "item": "chemlib:sucrose"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:sucrose"
+        "item": "chemlib:triglyceride"
       },
       "count": 1
     }

@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:hydroxylapatite"
-      },
-      "count": 8
-    },
-    {
-      "ingredient": {
         "item": "chemlib:mendelevium"
       },
       "count": 32
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:hydroxylapatite"
+      },
+      "count": 8
     }
   ],
   "result": {

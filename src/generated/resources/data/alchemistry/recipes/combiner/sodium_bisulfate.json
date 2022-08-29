@@ -10,6 +10,12 @@
     },
     {
       "ingredient": {
+        "item": "chemlib:oxygen"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
         "item": "chemlib:hydrogen"
       },
       "count": 1
@@ -19,12 +25,6 @@
         "item": "chemlib:sulfur"
       },
       "count": 1
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      },
-      "count": 4
     }
   ],
   "result": {

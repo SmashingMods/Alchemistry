@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:calcium"
+        "item": "chemlib:sulfur"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:calcium"
       },
       "count": 1
     }

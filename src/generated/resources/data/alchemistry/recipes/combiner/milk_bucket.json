@@ -4,27 +4,27 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:calcium"
-      },
-      "count": 4
-    },
-    {
-      "ingredient": {
         "item": "chemlib:protein"
       },
       "count": 2
     },
     {
       "ingredient": {
-        "item": "chemlib:water"
-      },
-      "count": 16
-    },
-    {
-      "ingredient": {
         "item": "minecraft:bucket"
       },
       "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:calcium"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:water"
+      },
+      "count": 16
     }
   ],
   "result": {

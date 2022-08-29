@@ -18,6 +18,7 @@ import net.minecraftforge.common.crafting.conditions.*;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -60,7 +61,7 @@ public class DatagenUtil {
         }
     }
 
-    public static void ingredientStackListToJson(JsonObject pJson, String pKey, List<IngredientStack> pIngredientStackList) {
+    public static void ingredientStackListToJson(JsonObject pJson, String pKey, Collection<IngredientStack> pIngredientStackList) {
         if (!pIngredientStackList.isEmpty()) {
             JsonArray jsonArray = new JsonArray();
             for (IngredientStack ingredientStack : pIngredientStackList) {

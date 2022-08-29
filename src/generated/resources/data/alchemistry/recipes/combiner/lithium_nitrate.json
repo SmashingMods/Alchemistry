@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:lithium"
+        "item": "chemlib:nitrate"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:nitrate"
+        "item": "chemlib:lithium"
       },
       "count": 1
     }

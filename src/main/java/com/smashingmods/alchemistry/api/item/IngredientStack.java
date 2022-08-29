@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.api.item;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,10 +16,14 @@ public class IngredientStack {
 
     private final Ingredient ingredient;
     private final int count;
+    private final ResourceLocation id;
 
     public IngredientStack(Ingredient pIngredient, int pCount) {
         this.ingredient = pIngredient;
         this.count = pCount;
+        this.id = new ResourceLocation(pIngredient.values[0].serialize().has("item") ?
+                pIngredient.values[0].serialize().get("item").getAsString()
+                : pIngredient.values[0].serialize().get("tag").getAsString());
     }
 
     public IngredientStack(Ingredient pIngredient) {
@@ -79,11 +84,31 @@ public class IngredientStack {
         return ingredient;
     }
 
+    public ResourceLocation getId() {
+        return id;
+    }
+
     public int getCount() {
         return count;
     }
 
     public boolean isEmpty() {
         return ingredient.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IngredientStack that)) return false;
+
+        if (getCount() != that.getCount()) return false;
+        return getId().equals(that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCount();
+        result = 31 * result + getId().hashCode();
+        return result;
     }
 }

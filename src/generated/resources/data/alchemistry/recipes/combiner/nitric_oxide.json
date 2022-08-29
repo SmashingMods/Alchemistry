@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:nitrogen"
+        "item": "chemlib:oxygen"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:nitrogen"
       },
       "count": 1
     }

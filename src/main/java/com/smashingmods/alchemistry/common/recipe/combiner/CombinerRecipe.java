@@ -10,16 +10,14 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CombinerRecipe extends AbstractAlchemistryRecipe implements Comparable<CombinerRecipe> {
 
     private final ItemStack output;
-    private final List<IngredientStack> input = new ArrayList<>();
+    private final Set<IngredientStack> input = new LinkedHashSet<>();
 
-    public CombinerRecipe(ResourceLocation pId, String pGroup, List<IngredientStack> pInputList, ItemStack pOutput) {
+    public CombinerRecipe(ResourceLocation pId, String pGroup, Set<IngredientStack> pInputList, ItemStack pOutput) {
         super(pId, pGroup);
         this.output = pOutput;
         input.addAll(pInputList);
@@ -58,7 +56,7 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
     }
 
     public List<IngredientStack> getInput() {
-        return input;
+        return new LinkedList<>(input);
     }
 
     public ItemStack getOutput() {

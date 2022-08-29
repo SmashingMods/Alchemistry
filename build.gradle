@@ -30,6 +30,7 @@ sourceSets{
 
 minecraft {
     mappings channel: 'parchment', version: "$parchment_version-$minecraft_version"
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')

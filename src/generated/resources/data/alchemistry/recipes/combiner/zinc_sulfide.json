@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:zinc"
+        "item": "chemlib:sulfur"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:zinc"
       },
       "count": 1
     }

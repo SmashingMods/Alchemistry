@@ -4,7 +4,7 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:chitin"
+        "item": "chemlib:mercury"
       },
       "count": 1
     },
@@ -16,7 +16,7 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:mercury"
+        "item": "chemlib:chitin"
       },
       "count": 1
     }

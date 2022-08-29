@@ -10,15 +10,15 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:hydrogen"
-      },
-      "count": 44
-    },
-    {
-      "ingredient": {
         "item": "chemlib:oxygen"
       },
       "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
+      "count": 44
     }
   ],
   "result": {

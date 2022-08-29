@@ -10,15 +10,15 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:phosphorus"
-      },
-      "count": 3
-    },
-    {
-      "ingredient": {
         "item": "chemlib:selenium"
       },
       "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:phosphorus"
+      },
+      "count": 3
     }
   ],
   "result": {

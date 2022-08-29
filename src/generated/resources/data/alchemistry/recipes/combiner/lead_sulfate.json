@@ -4,6 +4,12 @@
   "input": [
     {
       "ingredient": {
+        "item": "chemlib:oxygen"
+      },
+      "count": 4
+    },
+    {
+      "ingredient": {
         "item": "chemlib:lead"
       },
       "count": 1
@@ -13,12 +19,6 @@
         "item": "chemlib:sulfur"
       },
       "count": 1
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      },
-      "count": 4
     }
   ],
   "result": {

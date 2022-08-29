@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:beta_carotene"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:beta_carotene"
+        "item": "chemlib:cellulose"
       },
       "count": 1
     }

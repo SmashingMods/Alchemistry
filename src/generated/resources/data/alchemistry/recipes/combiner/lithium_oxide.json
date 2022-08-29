@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:lithium"
-      },
-      "count": 2
-    },
-    {
-      "ingredient": {
         "item": "chemlib:oxygen"
       },
       "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:lithium"
+      },
+      "count": 2
     }
   ],
   "result": {

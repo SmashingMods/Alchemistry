@@ -4,13 +4,13 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:lithium"
+        "item": "chemlib:hydroxide"
       },
       "count": 1
     },
     {
       "ingredient": {
-        "item": "chemlib:hydroxide"
+        "item": "chemlib:lithium"
       },
       "count": 1
     }

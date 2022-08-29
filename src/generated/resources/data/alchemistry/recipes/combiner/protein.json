@@ -4,25 +4,25 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:ammonia"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:carbon_dioxide"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
         "item": "chemlib:ethylene"
       },
       "count": 1
     },
     {
       "ingredient": {
+        "item": "chemlib:ammonia"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
         "item": "chemlib:sulfur"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:carbon_dioxide"
       },
       "count": 1
     }

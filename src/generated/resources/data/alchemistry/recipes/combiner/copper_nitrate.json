@@ -4,15 +4,15 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:copper"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
         "item": "chemlib:nitrate"
       },
       "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:copper"
+      },
+      "count": 1
     }
   ],
   "result": {

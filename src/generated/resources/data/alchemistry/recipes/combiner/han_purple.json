@@ -4,18 +4,6 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:barium"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:copper"
-      },
-      "count": 1
-    },
-    {
-      "ingredient": {
         "item": "chemlib:silicon"
       },
       "count": 2
@@ -25,6 +13,18 @@
         "item": "chemlib:oxygen"
       },
       "count": 6
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:copper"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:barium"
+      },
+      "count": 1
     }
   ],
   "result": {

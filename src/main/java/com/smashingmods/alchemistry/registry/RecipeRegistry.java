@@ -6,14 +6,14 @@ import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipeSerializer;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
-import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
-import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
-import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
+import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -27,6 +27,8 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
@@ -75,6 +77,62 @@ public class RecipeRegistry {
             recipesMap.put(pRecipeType, recipes);
         }
         return (List<T>) recipesMap.get(pRecipeType);
+    }
+
+    public static List<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {
+        return getRecipesByType(ATOMIZER_TYPE, pLevel);
+    }
+
+    public static List<CombinerRecipe> getCombinerRecipes(Level pLevel) {
+        return getRecipesByType(COMBINER_TYPE, pLevel);
+    }
+
+    public static List<CompactorRecipe> getCompactorRecipes(Level pLevel) {
+        return getRecipesByType(COMPACTOR_TYPE, pLevel);
+    }
+
+    public static List<DissolverRecipe> getDissolverRecipes(Level pLevel) {
+        return getRecipesByType(DISSOLVER_TYPE, pLevel);
+    }
+
+    public static List<FissionRecipe> getFissionRecipes(Level pLevel) {
+        return getRecipesByType(FISSION_TYPE, pLevel);
+    }
+
+    public static List<FusionRecipe> getFusionRecipes(Level pLevel) {
+        return getRecipesByType(FUSION_TYPE, pLevel);
+    }
+
+    public static List<LiquifierRecipe> getLiquifierRecipes(Level pLevel) {
+        return getRecipesByType(LIQUIFIER_TYPE, pLevel);
+    }
+
+    public static Optional<AtomizerRecipe> getAtomizerRecipe(Predicate<AtomizerRecipe> pPredicate, Level pLevel) {
+        return getAtomizerRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    public static Optional<CombinerRecipe> getCombinerRecipe(Predicate<CombinerRecipe> pPredicate, Level pLevel) {
+        return getCombinerRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    public static Optional<CompactorRecipe> getCompactorRecipe(Predicate<CompactorRecipe> pPredicate, Level pLevel) {
+        return getCompactorRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    public static Optional<DissolverRecipe> getDissolverRecipe(Predicate<DissolverRecipe> pPredicate, Level pLevel) {
+        return getDissolverRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    public static Optional<FissionRecipe> getFissionRecipe(Predicate<FissionRecipe> pPredicate, Level pLevel) {
+        return getFissionRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    public static Optional<FusionRecipe> getFusionRecipe(Predicate<FusionRecipe> pPredicate, Level pLevel) {
+        return getFusionRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    public static Optional<LiquifierRecipe> getLiquifierRecipe(Predicate<LiquifierRecipe> pPredicate, Level pLevel) {
+        return getLiquifierRecipes(pLevel).stream().filter(pPredicate).findFirst();
     }
 
     public static void register(IEventBus eventBus) {

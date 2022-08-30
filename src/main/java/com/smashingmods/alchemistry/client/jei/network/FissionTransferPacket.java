@@ -57,31 +57,29 @@ public class FissionTransferPacket {
             ProcessingSlotHandler outputHander = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, player.getLevel()).stream()
-                    .filter(recipe -> ItemStack.isSameItemSameTags(pPacket.input, recipe.getInput()))
-                    .findFirst()
-                    .ifPresent(recipe -> {
+            RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), pPacket.input), player.getLevel())
+                .ifPresent(recipe -> {
 
-                        inputHandler.emptyToInventory(inventory);
-                        outputHander.emptyToInventory(inventory);
+                    inputHandler.emptyToInventory(inventory);
+                    outputHander.emptyToInventory(inventory);
 
-                        boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (inventory.contains(recipe.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
+                    boolean creative = player.gameMode.isCreative();
+                    boolean canTransfer = (inventory.contains(recipe.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
 
-                        if (canTransfer) {
-                            if (creative) {
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), pPacket.maxTransfer);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
-                            } else {
-                                int slot = inventory.findSlotMatchingItem(recipe.getInput());
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventory.getItem(slot), pPacket.maxTransfer, false);
-                                inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
-                            }
-                            blockEntity.setProgress(0);
-                            blockEntity.setRecipe(recipe);
+                    if (canTransfer) {
+                        if (creative) {
+                            int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), pPacket.maxTransfer);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
+                        } else {
+                            int slot = inventory.findSlotMatchingItem(recipe.getInput());
+                            int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventory.getItem(slot), pPacket.maxTransfer, false);
+                            inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
                         }
-                    });
+                        blockEntity.setProgress(0);
+                        blockEntity.setRecipe(recipe);
+                    }
+                });
         });
         pContext.get().setPacketHandled(true);
     }

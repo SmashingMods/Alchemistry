@@ -59,7 +59,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeR
     public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         IngredientStack input = IngredientStack.fromNetwork(pBuffer);
-        ProbabilitySet output = ProbabilitySet.read(pBuffer);
+        ProbabilitySet output = ProbabilitySet.fromNetwork(pBuffer);
         return this.factory.create(pRecipeId, group, input, output);
     }
 
@@ -67,7 +67,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeR
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
         pBuffer.writeUtf(pRecipe.getGroup());
         pRecipe.getInput().toNetwork(pBuffer);
-        pRecipe.getOutput().write(pBuffer);
+        pRecipe.getOutput().toNetwork(pBuffer);
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {

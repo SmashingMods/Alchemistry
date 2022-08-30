@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
@@ -52,12 +53,6 @@ public class PacketHandler {
                 .decoder(CompactorResetPacket::new)
                 .encoder(CompactorResetPacket::encode)
                 .consumer(CompactorResetPacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ServerCombinerRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ServerCombinerRecipePacket::new)
-                .encoder(ServerCombinerRecipePacket::encode)
-                .consumer(ServerCombinerRecipePacket::handle)
                 .add();
 
         // JEI recipe transfer packets
@@ -115,5 +110,10 @@ public class PacketHandler {
         double posY = pBlockPos.getY();
         double posZ = pBlockPos.getZ();
         INSTANCE.send(PacketDistributor.NEAR.with(PacketDistributor.TargetPoint.p(posX, posY, posZ, pRadius, dimension)), pMessage);
+    }
+
+    public static <MSG> void sendToTrackingChunk(MSG pMessage, Level pLevel, BlockPos pBlockPos) {
+        LevelChunk levelChunk = pLevel.getChunkAt(pBlockPos);
+        INSTANCE.send(PacketDistributor.TRACKING_CHUNK.with(() -> levelChunk), pMessage);
     }
 }

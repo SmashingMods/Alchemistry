@@ -4,11 +4,14 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +19,15 @@ import java.util.List;
 public class FissionControllerScreen extends AbstractProcessingScreen<FissionControllerMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
+    private final FissionControllerBlockEntity blockEntity;
 
     public FissionControllerScreen(FissionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 74, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 50));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+
+        this.blockEntity = (FissionControllerBlockEntity) pMenu.getBlockEntity();
     }
 
     @Override
@@ -29,6 +35,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+        renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
@@ -45,5 +52,25 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = new TranslatableComponent("alchemistry.container.fission_controller");
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
+    }
+
+    private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+
+        FissionRecipe currentRecipe = blockEntity.getRecipe();
+        ProcessingSlotHandler handler = blockEntity.getInputHandler();
+
+        // Intellij thinks this is never null. Remove this and watch it crash.
+        //noinspection ConstantConditions
+        if (currentRecipe != null && handler.getStackInSlot(0).isEmpty() && blockEntity.isRecipeLocked()) {
+            ItemStack currentInput = currentRecipe.getInput();
+
+            int x = leftPos + 44;
+            int y = topPos + 35;
+
+            FakeItemRenderer.renderFakeItem(currentInput, x, y, 0.35f);
+            if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
+                renderItemTooltip(pPoseStack, currentInput, new TranslatableComponent("alchemistry.container.current_recipe"), pMouseX, pMouseY);
+            }
+        }
     }
 }

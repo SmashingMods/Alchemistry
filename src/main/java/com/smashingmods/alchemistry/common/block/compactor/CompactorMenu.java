@@ -2,8 +2,6 @@ package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,17 +36,6 @@ public class CompactorMenu extends AbstractProcessingMenu {
     public void addPlayerInventorySlots(Inventory pInventory) {
         addSlots(Slot::new, pInventory, 3, 9, 9, 27, 8, 84);
         addSlots(Slot::new, pInventory, 1, 9, 0, 9, 8, 142);
-    }
-
-    @Override
-    public void broadcastChanges() {
-        super.broadcastChanges();
-        PacketHandler.sendToNear(
-                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
-                getLevel(),
-                getBlockEntity().getBlockPos(),
-                64
-        );
     }
 
     @Override

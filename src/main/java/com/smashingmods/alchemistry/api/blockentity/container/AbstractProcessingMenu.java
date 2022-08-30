@@ -2,6 +2,8 @@ package com.smashingmods.alchemistry.api.blockentity.container;
 
 import com.mojang.datafixers.util.Function4;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractProcessingBlockEntity;
+import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -27,6 +29,12 @@ public abstract class AbstractProcessingMenu extends AbstractContainerMenu {
         this.level = pInventory.player.level;
 
         addPlayerInventorySlots(pInventory);
+    }
+
+    @Override
+    public void broadcastChanges() {
+        super.broadcastChanges();
+        PacketHandler.sendToTrackingChunk(new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()), getLevel(), getBlockEntity().getBlockPos());
     }
 
     @Override

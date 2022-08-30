@@ -2,8 +2,6 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 
 import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -39,17 +37,6 @@ public class DissolverMenu extends AbstractProcessingMenu {
     public void addPlayerInventorySlots(Inventory pInventory) {
         addSlots(Slot::new, pInventory, 3, 9, 9, 27, 12, 113);
         addSlots(Slot::new, pInventory, 1, 9, 0, 9, 12, 171);
-    }
-
-    @Override
-    public void broadcastChanges() {
-        super.broadcastChanges();
-        PacketHandler.sendToNear(
-                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
-                getLevel(),
-                getBlockEntity().getBlockPos(),
-                64
-        );
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -41,16 +42,14 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE, level).stream()
-                .filter(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)))
-                .findAny()
+        if (level != null && !level.isClientSide() && !isRecipeLocked()) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
-                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                        setProgress(0);
-                        currentRecipe = recipe;
-                    }
-            });
+                   if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                       setProgress(0);
+                       setRecipe(recipe);
+                   }
+                });
         }
     }
 
@@ -106,7 +105,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public DissolverRecipe getRecipe() {
         return currentRecipe;
     }
 
@@ -125,13 +124,16 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
         return new ProcessingSlotHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
-                updateRecipe();
+                if (!isEmpty()) {
+                    updateRecipe();
+                }
                 setCanProcess(canProcessRecipe());
+                setChanged();
             }
 
             @Override
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
-                if (isRecipeLocked()) {
+                if (currentRecipe != null && isRecipeLocked()) {
                     return currentRecipe.getInput().matches(pItemStack);
                 }
                 return super.isItemValid(pSlot, pItemStack);
@@ -162,6 +164,9 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 .filter(itemStack -> !itemStack.isEmpty())
                 .forEach(itemStack -> bufferTag.add(itemStack.save(new CompoundTag())));
         pTag.put("buffer", bufferTag);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
     }
 
@@ -174,6 +179,12 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 .map(CompoundTag.class::cast)
                 .map(ItemStack::of)
                 .forEach(internalBuffer::add);
+
+        if (level != null) {
+            RecipeRegistry.getDissolverRecipe(
+                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
+                    level).ifPresent(this::setRecipe);
+        }
     }
 
     @Nullable

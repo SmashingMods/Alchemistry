@@ -2,9 +2,6 @@ package com.smashingmods.alchemistry.common.block.combiner;
 
 import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
-import com.smashingmods.alchemistry.common.network.ServerCombinerRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -21,7 +18,6 @@ import net.minecraftforge.items.SlotItemHandler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class CombinerMenu extends AbstractProcessingMenu {
 
@@ -55,17 +51,6 @@ public class CombinerMenu extends AbstractProcessingMenu {
     }
 
     @Override
-    public void broadcastChanges() {
-        super.broadcastChanges();
-        PacketHandler.sendToNear(
-                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
-                getLevel(),
-                getBlockEntity().getBlockPos(),
-                64
-        );
-    }
-
-    @Override
     public boolean stillValid(Player pPlayer) {
         Objects.requireNonNull(this.getBlockEntity().getLevel());
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, BlockRegistry.COMBINER.get());
@@ -80,7 +65,6 @@ public class CombinerMenu extends AbstractProcessingMenu {
                     CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
                     this.setSelectedRecipeIndex(pId);
                     this.blockEntity.setRecipe(recipe);
-                    PacketHandler.INSTANCE.sendToServer(new ServerCombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
                 }
             }
         }
@@ -101,10 +85,7 @@ public class CombinerMenu extends AbstractProcessingMenu {
 
     private void setupRecipeList() {
         this.blockEntity.getRecipes().clear();
-        List<CombinerRecipe> recipes = level.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE)
-                .map(recipe -> (CombinerRecipe) recipe).sorted()
-                .collect(Collectors.toList());
+        List<CombinerRecipe> recipes = RecipeRegistry.getCombinerRecipes(level);
 
         if (displayedRecipes.isEmpty()) {
             this.setSelectedRecipeIndex(-1);

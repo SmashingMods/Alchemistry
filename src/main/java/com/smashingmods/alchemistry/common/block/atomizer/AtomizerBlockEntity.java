@@ -11,6 +11,7 @@ import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -34,16 +35,14 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.ATOMIZER_TYPE, level).stream()
-                    .filter(recipe -> recipe.getInput().getFluid().equals(getFluidStorage().getFluidStack().getFluid()))
-                    .findFirst()
-                    .ifPresent(recipe -> {
-                        if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                            setProgress(0);
-                            currentRecipe = recipe;
-                        }
-                    });
+        if (level != null && !level.isClientSide() && !getFluidStorage().isEmpty() && !isRecipeLocked()) {
+            RecipeRegistry.getAtomizerRecipe(recipe -> recipe.getInput().getFluid().equals(getFluidStorage().getFluidStack().getFluid()), level)
+                .ifPresent(recipe -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                        setProgress(0);
+                        setRecipe(recipe);
+                    }
+                });
         }
     }
 
@@ -126,7 +125,20 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("maxProgress", maxProgress);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        if (level != null) {
+            RecipeRegistry.getAtomizerRecipe(
+                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
+                    level).ifPresent(this::setRecipe);
+        }
     }
 
     @Nullable

@@ -2,8 +2,6 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,17 +24,6 @@ public class AtomizerMenu extends AbstractProcessingMenu {
         AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
         ProcessingSlotHandler outputHandler = blockEntity.getSlotHandler();
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 98, 35);
-    }
-
-    @Override
-    public void broadcastChanges() {
-        super.broadcastChanges();
-        PacketHandler.sendToNear(
-                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
-                getLevel(),
-                getBlockEntity().getBlockPos(),
-                64
-        );
     }
 
     @Override

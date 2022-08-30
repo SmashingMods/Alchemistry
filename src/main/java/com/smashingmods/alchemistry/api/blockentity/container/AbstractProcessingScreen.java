@@ -4,6 +4,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.smashingmods.alchemistry.api.blockentity.container.button.LockButton;
 import com.smashingmods.alchemistry.api.blockentity.container.button.PauseButton;
+import com.smashingmods.chemlib.api.Chemical;
+import com.smashingmods.chemlib.api.ChemicalItemType;
+import com.smashingmods.chemlib.common.items.ChemicalItem;
+import com.smashingmods.chemlib.common.items.CompoundItem;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
@@ -11,13 +17,20 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu> extends AbstractContainerScreen<M> {
 
@@ -138,9 +151,8 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
         int vHeight = pV;
 
         int pVScaled = getScaled(pV, pValue, pMaxValue);
-        int pVScalePercent = (int) (100 - (pVScaled * 2f));
-        int scaledVOffset = pVOffset + pVScalePercent > 100 ? 100 : pVScalePercent;
-        int finalVOffset = pScaleOffset ? scaledVOffset : pVOffset + pV - pVScaled;
+        int pVScalePercent = (int) ((pV * 1.8f) - (pVScaled * 1.8f));
+        int finalVOffset = pScaleOffset ? pVScalePercent : pVOffset + pV - pVScaled;
 
         switch (pDirection2D) {
             case LEFT -> {
@@ -157,9 +169,7 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
                 uWidth = pVScaled;
                 vHeight = pU;
             }
-            case DOWN -> {
-                vHeight = pVScaled;
-            }
+            case DOWN -> vHeight = pVScaled;
         }
         RenderSystem.setShaderTexture(0, new ResourceLocation(modId, "textures/gui/widgets.png"));
         blit(pPoseStack, x, y, uOffset, vOffset, uWidth, vHeight);
@@ -220,6 +230,33 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
                 renderTooltip(pPoseStack, data.toTextComponent(), pMouseX, pMouseY);
             }
         });
+    }
+
+    public void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, BaseComponent pComponent, int pMouseX, int pMouseY) {
+        List<Component> components = new ArrayList<>();
+        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
+        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
+
+        components.add(pComponent.withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
+        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
+
+        if (pItemStack.getItem() instanceof Chemical chemical) {
+
+            String abbreviation = chemical.getAbbreviation();
+
+            if (chemical instanceof ElementItem element) {
+                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+            } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
+                ElementItem element = (ElementItem) chemicalItem.getChemical();
+                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+            } else if (chemical instanceof CompoundItem) {
+                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
+            }
+        }
+        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
+        renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
     }
 
     public <W extends GuiEventListener & Widget & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {

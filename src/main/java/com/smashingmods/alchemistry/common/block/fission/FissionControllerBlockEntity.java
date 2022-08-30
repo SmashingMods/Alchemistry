@@ -12,6 +12,7 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -47,24 +48,25 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
                     setPowerState(PowerState.OFF);
                 }
             }
+        } else {
+            if (getPowerState().equals(PowerState.ON)) {
+                setPowerState(PowerState.STANDBY);
+            }
         }
         super.tick();
     }
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE, level).stream()
-                        .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0)))
-                        .findFirst().ifPresent(recipe -> {
-                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                                setProgress(0);
-                                currentRecipe = recipe;
-                            }
-                        });
+        if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
+            RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0)), level)
+                .ifPresent(recipe -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                        setProgress(0);
+                        setRecipe(recipe);
+                    }
+                });
             }
-        }
     }
 
     @Override
@@ -106,7 +108,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public FissionRecipe getRecipe() {
         return currentRecipe;
     }
 
@@ -134,7 +136,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
             @Override
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
-                if (isRecipeLocked()) {
+                if (currentRecipe != null && isRecipeLocked()) {
                     return ItemStack.isSameItemSameTags(currentRecipe.getInput(), pItemStack);
                 }
                 return pItemStack.getItem() instanceof ElementItem;
@@ -155,7 +157,20 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("maxProgress", maxProgress);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        if (level != null) {
+            RecipeRegistry.getFissionRecipe(
+                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
+                    level).ifPresent(this::setRecipe);
+        }
     }
 
     @Override

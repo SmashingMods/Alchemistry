@@ -11,6 +11,7 @@ import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -35,16 +36,14 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE, level).stream()
-                    .filter(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)))
-                    .findFirst()
-                    .ifPresent(recipe -> {
-                        if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                            setProgress(0);
-                            currentRecipe = recipe;
-                        }
-                    });
+        if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty() && !isRecipeLocked()) {
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)), level)
+                .ifPresent(recipe -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                        setProgress(0);
+                        setRecipe(recipe);
+                    }
+                });
         }
     }
 
@@ -131,7 +130,20 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("maxProgress", maxProgress);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        if (level != null) {
+            RecipeRegistry.getLiquifierRecipe(
+                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
+                    level).ifPresent(this::setRecipe);
+        }
     }
 
     @Nullable

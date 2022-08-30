@@ -29,15 +29,13 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         imageHeight = 163;
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),75, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 50));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 54));
 
         resetTargetButton = new ResetTargetButton(this, (CompactorBlockEntity) pMenu.getBlockEntity());
     }
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBackground(pPoseStack);
-        renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);

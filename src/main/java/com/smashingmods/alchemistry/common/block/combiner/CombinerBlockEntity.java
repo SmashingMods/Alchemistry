@@ -11,6 +11,7 @@ import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -37,18 +38,14 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            if (currentRecipe == null) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE, level).stream()
-                        .filter(recipe -> recipe.matchInputs(getInputHandler().getStacks()))
-                        .findFirst()
-                        .ifPresent(recipe -> {
-                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                                setProgress(0);
-                                setRecipe(recipe);
-                            }
-                        });
-            }
+        if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
+            RecipeRegistry.getCombinerRecipe(recipe -> recipe.matchInputs(getInputHandler().getStacks()), level)
+                .ifPresent(recipes -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipes)) {
+                        setProgress(0);
+                        setRecipe(recipes);
+                    }
+                });
         }
     }
 
@@ -172,6 +169,9 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
         pTag.putInt("maxProgress", maxProgress);
         pTag.putString("editBoxText", editBoxText);
         pTag.putInt("selectedRecipe", selectedRecipeIndex);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
     }
 
@@ -180,6 +180,11 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
         super.load(pTag);
         editBoxText = pTag.getString("editBoxText");
         selectedRecipeIndex = pTag.getInt("selectedRecipe");
+        if (level != null) {
+            RecipeRegistry.getCombinerRecipe(
+                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
+                    level).ifPresent(this::setRecipe);
+        }
     }
 
     @Nullable

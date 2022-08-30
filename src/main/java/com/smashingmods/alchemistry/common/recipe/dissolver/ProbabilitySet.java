@@ -44,23 +44,23 @@ public class ProbabilitySet {
         return toReturn;
     }
 
-    public void write(FriendlyByteBuf pBuffer) {
+    public void toNetwork(FriendlyByteBuf pBuffer) {
         pBuffer.writeInt(probabilityGroups.size());
         pBuffer.writeInt(rolls);
         pBuffer.writeBoolean(weighted);
         for (ProbabilityGroup group : probabilityGroups) {
-            group.write(pBuffer);
+            group.toNetwork(pBuffer);
         }
     }
 
-    public static ProbabilitySet read(FriendlyByteBuf pbuffer) {
+    public static ProbabilitySet fromNetwork(FriendlyByteBuf pbuffer) {
         List<ProbabilityGroup> groupArrayList = new ArrayList<>();
         int size = pbuffer.readInt();
         int rolls = pbuffer.readInt();
         boolean weighted = pbuffer.readBoolean();
 
         for (int index = 0; index < size; index++) {
-            groupArrayList.add(ProbabilityGroup.read(pbuffer));
+            groupArrayList.add(ProbabilityGroup.fromNetwork(pbuffer));
         }
         return new ProbabilitySet(groupArrayList, weighted, rolls);
     }

@@ -7,12 +7,6 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.container.*;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
-import com.smashingmods.chemlib.api.Chemical;
-import com.smashingmods.chemlib.api.ChemicalItemType;
-import com.smashingmods.chemlib.common.items.ChemicalItem;
-import com.smashingmods.chemlib.common.items.CompoundItem;
-import com.smashingmods.chemlib.common.items.ElementItem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
@@ -26,12 +20,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
@@ -50,7 +42,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         this.imageWidth = 184;
         this.imageHeight = 193;
         this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 65, 84, 60, 9, Direction2D.RIGHT));
-        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 23, 16, 50));
+        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 23, 16, 54));
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
@@ -65,7 +57,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         if (editBox.getValue().isEmpty()) {
             blockEntity.setEditBoxText("");
             menu.resetDisplayedRecipes();
-            editBox.setSuggestion(I18n.get("alchemistry.container.combiner.search"));
+            editBox.setSuggestion(I18n.get("alchemistry.container.search"));
         } else {
             mouseScrolled(0, 0, 0);
             blockEntity.setEditBoxText(editBox.getValue());
@@ -80,8 +72,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderRecipeBox(pPoseStack, pMouseX, pMouseY);
-        renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+        renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
 
         renderTooltip(pPoseStack, pMouseX, pMouseY);
         renderRecipeTooltips(pPoseStack, pMouseX, pMouseY);
@@ -166,7 +158,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(currentOutput, leftPos + 21, topPos + 15);
 
             if (pMouseX >= leftPos + 20 && pMouseX < leftPos + 36 && pMouseY > topPos + 14 && pMouseY < topPos + 30) {
-                renderItemTooltip(pPoseStack, currentOutput, "alchemistry.container.combiner.current_recipe", pMouseX, pMouseY);
+                renderItemTooltip(pPoseStack, currentOutput, new TranslatableComponent("alchemistry.container.current_recipe"), pMouseX, pMouseY);
             }
 
             int xOrigin = leftPos + 12;
@@ -186,7 +178,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
 
                             if (pMouseX >= x - 1 && pMouseX < x + 17 && pMouseY > y - 2 && pMouseY < y + 17) {
-                                renderItemTooltip(pPoseStack, itemStack, "alchemistry.container.combiner.required_input", pMouseX, pMouseY);
+                                renderItemTooltip(pPoseStack, itemStack, new TranslatableComponent("alchemistry.container.required_input"), pMouseX, pMouseY);
                             }
                         }
                     }
@@ -211,36 +203,9 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             int recipeBoxTopPos = originY + col * RECIPE_BOX_SIZE;
 
             if (pMouseX >= recipeBoxLeftPos && pMouseX <= recipeBoxLeftPos + 17 && pMouseY >= recipeBoxTopPos && pMouseY <= recipeBoxTopPos + 17) {
-                renderItemTooltip(pPoseStack, output, "alchemistry.container.combiner.select_recipe", pMouseX, pMouseY);
+                renderItemTooltip(pPoseStack, output, new TranslatableComponent("alchemistry.container.select_recipe"), pMouseX, pMouseY);
             }
         }
-    }
-
-    private void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, String pTranslationKey, int pMouseX, int pMouseY) {
-        List<Component> components = new ArrayList<>();
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
-
-        components.add(new TranslatableComponent(pTranslationKey).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
-        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
-
-        if (pItemStack.getItem() instanceof Chemical chemical) {
-
-            String abbreviation = chemical.getAbbreviation();
-
-            if (chemical instanceof ElementItem element) {
-                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
-            } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
-                ElementItem element = (ElementItem) chemicalItem.getChemical();
-                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
-            } else if (chemical instanceof CompoundItem) {
-                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
-            }
-        }
-        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
-        renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
     }
 
     @Override

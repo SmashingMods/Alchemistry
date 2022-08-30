@@ -7,7 +7,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 
 public class DissolverRecipe extends AbstractAlchemistryRecipe {
@@ -22,7 +21,7 @@ public class DissolverRecipe extends AbstractAlchemistryRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public DissolverRecipeSerializer<DissolverRecipe> getSerializer() {
         return RecipeRegistry.DISSOLVER_SERIALIZER.get();
     }
 

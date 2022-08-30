@@ -2,8 +2,6 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,17 +24,6 @@ public class LiquifierMenu extends AbstractProcessingMenu {
         LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) pBlockEntity;
         ProcessingSlotHandler inputHandler = blockEntity.getSlotHandler();
         addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 62, 35);
-    }
-
-    @Override
-    public void broadcastChanges() {
-        super.broadcastChanges();
-        PacketHandler.sendToNear(
-                new BlockEntityPacket(getBlockEntity().getBlockPos(), getBlockEntity().getUpdateTag()),
-                getLevel(),
-                getBlockEntity().getBlockPos(),
-                64
-        );
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
@@ -55,28 +57,30 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
                     setPowerState(PowerState.OFF);
                 }
             }
+        } else {
+            if (getPowerState().equals(PowerState.ON)) {
+                setPowerState(PowerState.STANDBY);
+            }
         }
         super.tick();
     }
 
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            if (!getInputHandler().getStackInSlot(0).isEmpty()) {
-                RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream()
-                        .filter(recipe -> {
-                            ItemStack input1 = getInputHandler().getStackInSlot(0);
-                            ItemStack input2 = getInputHandler().getStackInSlot(1);
-                            return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
-                                    || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
-                        })
-                        .findFirst()
-                        .ifPresent(recipe -> {
-                            if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                                setProgress(0);
-                                currentRecipe = recipe;
-                            }
-                        });
-            }
+        if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
+            Predicate<FusionRecipe> recipePredicate = recipe -> {
+                ItemStack input1 = getInputHandler().getStackInSlot(0);
+                ItemStack input2 = getInputHandler().getStackInSlot(1);
+                return ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2)
+                        || ItemStack.isSameItemSameTags(recipe.getInput2(), input1) && ItemStack.isSameItemSameTags(recipe.getInput1(), input2);
+            };
+
+            RecipeRegistry.getFusionRecipe(recipePredicate, level)
+                .ifPresent(recipe -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                        setProgress(0);
+                        setRecipe(recipe);
+                    }
+                });
         }
     }
 
@@ -119,7 +123,7 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public FusionRecipe getRecipe() {
         return currentRecipe;
     }
 
@@ -176,26 +180,6 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
         return new ProcessingSlotHandler(2) {
             @Override
             protected void onContentsChanged(int slot) {
-                if (level != null && !level.isClientSide() && autoBalanced && !isRecipeLocked()) {
-                    ItemStack slot0 = this.getStackInSlot(0);
-                    ItemStack slot1 = this.getStackInSlot(1);
-                    RecipeRegistry.getRecipesByType(RecipeRegistry.FUSION_TYPE, level).stream()
-                            .filter(recipe -> {
-                                if (slot0.getItem() instanceof ElementItem && slot1.isEmpty()) {
-                                    return ItemStack.isSameItemSameTags(recipe.getInput1(), slot0) && ItemStack.isSameItemSameTags(recipe.getInput2(), slot0);
-                                } else if (slot1.getItem() instanceof ElementItem && slot0.isEmpty()) {
-                                    return ItemStack.isSameItemSameTags(recipe.getInput1(), slot1) && ItemStack.isSameItemSameTags(recipe.getInput2(), slot1);
-                                }
-                                return false;
-                            })
-                            .findFirst()
-                            .ifPresent(recipe -> {
-                                if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                                    setProgress(0);
-                                    currentRecipe = recipe;
-                                }
-                            });
-                }
                 if (!isEmpty()) {
                     updateRecipe();
                 }
@@ -205,6 +189,29 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
 
             @Override
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+
+                if (level != null && !level.isClientSide() && autoBalanced && !isRecipeLocked()) {
+                    ItemStack slot0 = pSlot == 0 ? pItemStack : getStackInSlot(0);
+                    ItemStack slot1 = pSlot == 1 ? pItemStack : getStackInSlot(1);
+
+                    Predicate<FusionRecipe> recipePredicate = recipe -> {
+                        if (slot0.getItem() instanceof ElementItem && slot1.isEmpty()) {
+                            return ItemStack.isSameItemSameTags(recipe.getInput1(), slot0) && ItemStack.isSameItemSameTags(recipe.getInput2(), slot0);
+                        } else if (slot1.getItem() instanceof ElementItem && slot0.isEmpty()) {
+                            return ItemStack.isSameItemSameTags(recipe.getInput1(), slot1) && ItemStack.isSameItemSameTags(recipe.getInput2(), slot1);
+                        }
+                        return false;
+                    };
+
+                    RecipeRegistry.getFusionRecipe(recipePredicate, level).ifPresent(recipe -> {
+                        if (!currentRecipe.equals(recipe)) {
+                            setProgress(0);
+                            setRecipe(recipe);
+                            autoBalance();
+                        }
+                    });
+                }
+
                 if (currentRecipe != null && isRecipeLocked()) {
                     return Stream.of(currentRecipe.getInput1(), currentRecipe.getInput2())
                             .anyMatch(itemStack -> ItemStack.isSameItemSameTags(pItemStack, itemStack));
@@ -227,7 +234,22 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.putInt("maxProgress", maxProgress);
+        pTag.putBoolean("autoBalanced", autoBalanced);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        setAutoBalanced(pTag.getBoolean("autoBalanced"));
+        if (level != null) {
+            RecipeRegistry.getFusionRecipe(
+                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
+                    level).ifPresent(this::setRecipe);
+        }
     }
 
     @Nullable

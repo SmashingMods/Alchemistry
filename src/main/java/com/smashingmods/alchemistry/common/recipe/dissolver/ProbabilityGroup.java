@@ -53,7 +53,7 @@ public class ProbabilityGroup {
         return output;
     }
 
-    public void write(FriendlyByteBuf buf) {
+    public void toNetwork(FriendlyByteBuf buf) {
         buf.writeInt(output.size());
         for (ItemStack stack : output) {
             buf.writeItemStack(stack, false);
@@ -61,7 +61,7 @@ public class ProbabilityGroup {
         buf.writeDouble(probability);
     }
 
-    public static ProbabilityGroup read(FriendlyByteBuf buf) {
+    public static ProbabilityGroup fromNetwork(FriendlyByteBuf buf) {
         List<ItemStack> stacks = Lists.newArrayList();
         int size = buf.readInt();
         for (int i = 0; i < size; i++) {

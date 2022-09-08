@@ -41,7 +41,7 @@
   "block.alchemistry.fusion_core": "融合核心",
   "block.alchemistry.liquifier": "液化機",
   "block.alchemistry.reactor_casing": "反應爐外殼",
-  "block.alchemistry.reactor_energy": "反應爐能量",
+  "block.alchemistry.reactor_energy": "反應爐能量端",
   "block.alchemistry.reactor_glass": "反應爐玻璃",
   "block.alchemistry.reactor_input": "反應爐輸入端",
   "block.alchemistry.reactor_output": "反應爐輸出端",

@@ -26,12 +26,13 @@ import java.util.List;
 
 public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
-    private final int maxProgress = Config.Common.compactorTicksPerOperation.get();
     private CompactorRecipe currentRecipe;
     private ItemStack target = ItemStack.EMPTY;
 
     public CompactorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        setEnergyPerTick(Config.Common.compactorEnergyPerTick.get());
+        setMaxProgress(Config.Common.compactorTicksPerOperation.get());
     }
 
     @Override
@@ -69,7 +70,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
         if (currentRecipe != null) {
             ItemStack input = getInputHandler().getStackInSlot(0);
             ItemStack output = getOutputHandler().getStackInSlot(0);
-            return getEnergyHandler().getEnergyStored() >= Config.Common.compactorEnergyPerTick.get()
+            return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && (currentRecipe.getInput().matches(input) && input.getCount() >= currentRecipe.getInput().getCount())
                     && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize()
                     && (ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty());
@@ -79,20 +80,16 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            CompactorRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getOutputHandler().setOrIncrement(0, currentRecipe.getOutput().copy());
-            getInputHandler().decrementSlot(0, currentRecipe.getInput().getCount());
+            getOutputHandler().setOrIncrement(0, tempRecipe.getOutput());
+            getInputHandler().decrementSlot(0, tempRecipe.getInput().getCount());
         }
-        getEnergyHandler().extractEnergy(Config.Common.compactorEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
-    }
-
-    @Override
-    public int getMaxProgress() {
-        return maxProgress;
     }
 
     @Override
@@ -141,11 +138,11 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             protected void onContentsChanged(int slot) {
                 if (level != null && !level.isClientSide() && !isRecipeLocked()) {
                     if (slot == 1 && !getInputHandler().getStackInSlot(slot).isEmpty()) {
-                        RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
+                        RecipeRegistry.getCompactorRecipes(level).stream()
                                 .filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput()))
                                 .findFirst()
                                 .ifPresent(recipe -> {
-                                    setRecipe(recipe);
+                                    setRecipe(recipe.copy());
                                     setTarget(new ItemStack(recipe.getOutput().getItem()));
                                 });
                     }
@@ -162,11 +159,11 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
                         return currentRecipe.getInput().matches(pItemStack);
                     } else if (pSlot == 1) {
                         if (!isRecipeLocked()) {
-                            RecipeRegistry.getRecipesByType(RecipeRegistry.COMPACTOR_TYPE, level).stream()
-                                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput().copy(), pItemStack.copy()))
+                            RecipeRegistry.getCompactorRecipes(level).stream()
+                                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.copy().getOutput(), pItemStack.copy()))
                                     .findFirst()
                                     .ifPresent(recipe -> {
-                                        setRecipe(recipe);
+                                        setRecipe(recipe.copy());
                                         setTarget(new ItemStack(pItemStack.getItem()));
                                     });
                         }
@@ -190,7 +187,6 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         pTag.put("target", target.serializeNBT());
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());

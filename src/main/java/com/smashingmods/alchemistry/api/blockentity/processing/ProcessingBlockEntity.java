@@ -29,6 +29,8 @@ public interface ProcessingBlockEntity {
 
     int getMaxProgress();
 
+    void setMaxProgress(int pMaxProgress);
+
     void incrementProgress();
 
     boolean isRecipeLocked();
@@ -38,6 +40,10 @@ public interface ProcessingBlockEntity {
     boolean isProcessingPaused();
 
     void setPaused(boolean pPaused);
+
+    String getSearchText();
+
+    void setSearchText(String pText);
 
     void dropContents();
 }

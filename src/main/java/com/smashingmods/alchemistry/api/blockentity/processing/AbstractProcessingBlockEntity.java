@@ -22,7 +22,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -31,10 +30,13 @@ import java.util.Objects;
 public abstract class AbstractProcessingBlockEntity extends BlockEntity implements ProcessingBlockEntity, EnergyBlockEntity, MenuProvider, Nameable {
 
     private final Component name;
+    private int energyPerTick = 0;
+    private int maxProgress = 0;
     private int progress = 0;
     private boolean canProcess = false;
     private boolean recipeLocked = false;
     private boolean paused = false;
+    private String searchText = "";
 
     private final EnergyStorageHandler energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
@@ -105,6 +107,16 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     };
 
     @Override
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    @Override
+    public void setMaxProgress(int pMaxProgress) {
+        maxProgress = pMaxProgress;
+    }
+
+    @Override
     public int getProgress() {
         return progress;
     }
@@ -140,13 +152,31 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     }
 
     @Override
+    public String getSearchText() {
+        return searchText;
+    }
+
+    @Override
+    public void setSearchText(String pText) {
+        searchText = pText;
+    }
+
+    @Override
     public EnergyStorageHandler getEnergyHandler() {
         return energyHandler;
     }
 
+    public int getEnergyPerTick() {
+        return energyPerTick;
+    }
+
+    public void setEnergyPerTick(int pEnergyPerTick) {
+        energyPerTick = pEnergyPerTick;
+    }
+
     @Override
     @Nonnull
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> pCapability, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> pCapability, @Nullable Direction pDirection) {
         if (pCapability == CapabilityEnergy.ENERGY) {
             return lazyEnergyHandler.cast();
         }
@@ -164,6 +194,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
         pTag.putInt("progress", progress);
         pTag.putBoolean("locked", isRecipeLocked());
         pTag.putBoolean("paused", isProcessingPaused());
+        pTag.putString("searchText", searchText);
         pTag.put("energy", energyHandler.serializeNBT());
         super.saveAdditional(pTag);
     }
@@ -174,6 +205,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
         setProgress(pTag.getInt("progress"));
         setRecipeLocked(pTag.getBoolean("locked"));
         setPaused(pTag.getBoolean("paused"));
+        setSearchText(pTag.getString("searchText"));
         energyHandler.deserializeNBT(pTag.get("energy"));
     }
 }

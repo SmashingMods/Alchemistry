@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.fission;
 
-import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -9,10 +9,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class FissionRecipe extends AbstractAlchemistryRecipe {
+public class FissionRecipe extends AbstractProcessingRecipe {
 
     private final ItemStack input;
     private final ItemStack output1;
@@ -48,6 +49,16 @@ public class FissionRecipe extends AbstractAlchemistryRecipe {
     @Override
     public String toString(){
         return String.format("input=%s, outputs=%s", input, List.of(output1, output2));
+    }
+
+    @Override
+    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+        return getId().compareNamespaced(pRecipe.getId());
+    }
+
+    @Override
+    public FissionRecipe copy() {
+        return new FissionRecipe(getId(), getGroup(), input.copy(), output1.copy(), output2.copy());
     }
 
     public ItemStack getInput() {

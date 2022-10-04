@@ -27,11 +27,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
-    private final int maxProgress = Config.Common.liquifierTicksPerOperation.get();
     private LiquifierRecipe currentRecipe;
 
     public LiquifierBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.LIQUIFIER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        setEnergyPerTick(Config.Common.liquifierEnergyPerTick.get());
+        setMaxProgress(Config.Common.liquifierTicksPerOperation.get());
     }
 
     @Override
@@ -41,7 +42,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
-                        setRecipe(recipe);
+                        setRecipe(recipe.copy());
                     }
                 });
         }
@@ -51,10 +52,11 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     public boolean canProcessRecipe() {
         ItemStack input = getSlotHandler().getStackInSlot(0);
         if (currentRecipe != null) {
-            return getEnergyHandler().getEnergyStored() >= Config.Common.liquifierEnergyPerTick.get()
-                    && (getFluidStorage().getFluidStack().isFluidEqual(currentRecipe.getOutput()) || getFluidStorage().isEmpty())
-                    && getFluidStorage().getFluidAmount() <= (getFluidStorage().getFluidAmount() + currentRecipe.getOutput().getAmount())
-                    && (currentRecipe.getInput().matches(input) && input.getCount() >= currentRecipe.getInput().getCount());
+            LiquifierRecipe tempRecipe = currentRecipe.copy();
+            return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
+                    && (getFluidStorage().getFluidStack().isFluidEqual(tempRecipe.getOutput()) || getFluidStorage().isEmpty())
+                    && getFluidStorage().getFluidAmount() <= (getFluidStorage().getFluidAmount() + tempRecipe.getOutput().getAmount())
+                    && (tempRecipe.getInput().matches(input) && input.getCount() >= tempRecipe.getInput().getCount());
         } else {
             return false;
         }
@@ -62,20 +64,16 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            LiquifierRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getSlotHandler().decrementSlot(0, currentRecipe.getInput().getCount());
-            getFluidStorage().fill(currentRecipe.getOutput().copy(), IFluidHandler.FluidAction.EXECUTE);
+            getSlotHandler().decrementSlot(0, tempRecipe.getInput().getCount());
+            getFluidStorage().fill(tempRecipe.getOutput(), IFluidHandler.FluidAction.EXECUTE);
         }
-        getEnergyHandler().extractEnergy(Config.Common.liquifierEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
-    }
-
-    @Override
-    public int getMaxProgress() {
-        return maxProgress;
     }
 
     @Override
@@ -129,7 +127,6 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
@@ -140,9 +137,8 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     public void load(CompoundTag pTag) {
         super.load(pTag);
         if (level != null) {
-            RecipeRegistry.getLiquifierRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
+                    .ifPresent(recipe -> setRecipe(recipe.copy()));
         }
     }
 

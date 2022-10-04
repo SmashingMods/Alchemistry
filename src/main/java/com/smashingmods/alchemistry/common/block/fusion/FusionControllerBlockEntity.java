@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
@@ -27,44 +26,25 @@ import java.util.stream.Stream;
 
 public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
 
-    private final int maxProgress = Config.Common.fusionTicksPerOperation.get();
     private FusionRecipe currentRecipe;
     private boolean autoBalanced = false;
 
     public FusionControllerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.FUSION_CONTROLLER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setReactorType(ReactorType.FUSION);
+        setEnergyPerTick(Config.Common.fusionEnergyPerTick.get());
+        setMaxProgress(Config.Common.fusionTicksPerOperation.get());
     }
 
     @Override
     public void tick() {
-
         if (isAutoBalanced()) {
             autoBalance();
-        }
-
-        if (!isProcessingPaused()) {
-            if (!isRecipeLocked()) {
-                updateRecipe();
-            }
-            if (canProcessRecipe()) {
-                setPowerState(PowerState.ON);
-                processRecipe();
-            } else {
-                if (getEnergyHandler().getEnergyStored() > Config.Common.fusionEnergyPerTick.get()) {
-                    setPowerState(PowerState.STANDBY);
-                } else {
-                    setPowerState(PowerState.OFF);
-                }
-            }
-        } else {
-            if (getPowerState().equals(PowerState.ON)) {
-                setPowerState(PowerState.STANDBY);
-            }
         }
         super.tick();
     }
 
+    @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
             Predicate<FusionRecipe> recipePredicate = recipe -> {
@@ -78,43 +58,42 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
-                        setRecipe(recipe);
+                        setRecipe(recipe.copy());
                     }
                 });
         }
     }
 
+    @Override
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
+            FusionRecipe tempRecipe = currentRecipe.copy();
             ItemStack input1 = getInputHandler().getStackInSlot(0);
             ItemStack input2 = getInputHandler().getStackInSlot(1);
             ItemStack output = getOutputHandler().getStackInSlot(0);
             return getEnergyHandler().getEnergyStored() >= Config.Common.fusionEnergyPerTick.get()
-                    && (((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput1()) && input1.getCount() >= currentRecipe.getInput1().getCount())
-                        && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput2()) && input2.getCount() >= currentRecipe.getInput2().getCount()))
-                    || ((ItemStack.isSameItemSameTags(input1, currentRecipe.getInput2()) && input1.getCount() >= currentRecipe.getInput2().getCount())
-                        && (ItemStack.isSameItemSameTags(input2, currentRecipe.getInput1()) && input2.getCount() >= currentRecipe.getInput1().getCount())))
-                    && ((ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty()) && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize());
+                    && (((ItemStack.isSameItemSameTags(input1, tempRecipe.getInput1()) && input1.getCount() >= tempRecipe.getInput1().getCount())
+                        && (ItemStack.isSameItemSameTags(input2, tempRecipe.getInput2()) && input2.getCount() >= tempRecipe.getInput2().getCount()))
+                    || ((ItemStack.isSameItemSameTags(input1, tempRecipe.getInput2()) && input1.getCount() >= tempRecipe.getInput2().getCount())
+                        && (ItemStack.isSameItemSameTags(input2, tempRecipe.getInput1()) && input2.getCount() >= tempRecipe.getInput1().getCount())))
+                    && ((ItemStack.isSameItemSameTags(output, tempRecipe.getOutput()) || output.isEmpty()) && (tempRecipe.getOutput().getCount() + output.getCount()) <= tempRecipe.getOutput().getMaxStackSize());
         }
         return false;
     }
 
+    @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            FusionRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getInputHandler().decrementSlot(0, currentRecipe.getInput1().getCount());
-            getInputHandler().decrementSlot(1, currentRecipe.getInput2().getCount());
-            getOutputHandler().setOrIncrement(0, currentRecipe.getOutput().copy());
+            getInputHandler().decrementSlot(0, tempRecipe.getInput1().getCount());
+            getInputHandler().decrementSlot(1, tempRecipe.getInput2().getCount());
+            getOutputHandler().setOrIncrement(0, tempRecipe.getOutput());
         }
-        getEnergyHandler().extractEnergy(Config.Common.fusionEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
-    }
-
-    @Override
-    public int getMaxProgress() {
-        return maxProgress;
     }
 
     @Override
@@ -233,7 +212,6 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         pTag.putBoolean("autoBalanced", autoBalanced);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
@@ -246,9 +224,8 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
         super.load(pTag);
         setAutoBalanced(pTag.getBoolean("autoBalanced"));
         if (level != null) {
-            RecipeRegistry.getFusionRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+            RecipeRegistry.getFusionRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
+                    .ifPresent(recipe -> setRecipe(recipe.copy()));
         }
     }
 

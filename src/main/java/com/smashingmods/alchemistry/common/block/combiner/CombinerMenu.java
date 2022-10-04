@@ -11,19 +11,19 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class CombinerMenu extends AbstractProcessingMenu {
 
     private final Level level;
     private final CombinerBlockEntity blockEntity;
-    private final List<CombinerRecipe> displayedRecipes = new ArrayList<>();
+    private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
         this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
@@ -58,25 +58,7 @@ public class CombinerMenu extends AbstractProcessingMenu {
 
     @Override
     public boolean clickMenuButton(Player pPlayer, int pId) {
-        if (pPlayer.level.isClientSide()) {
-            if (!getBlockEntity().isRecipeLocked()) {
-                if (this.isValidRecipeIndex(pId)) {
-                    int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));
-                    CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
-                    this.setSelectedRecipeIndex(pId);
-                    this.blockEntity.setRecipe(recipe);
-                }
-            }
-        }
-        return true;
-    }
-
-    protected int getSelectedRecipeIndex() {
-        return ((CombinerBlockEntity) getBlockEntity()).getSelectedRecipeIndex();
-    }
-
-    protected void setSelectedRecipeIndex(int pIndex) {
-        ((CombinerBlockEntity) getBlockEntity()).setSelectedRecipeIndex(pIndex);
+        return !getBlockEntity().isRecipeLocked() && isValidRecipeIndex(pId);
     }
 
     private boolean isValidRecipeIndex(int pSlot) {
@@ -84,30 +66,38 @@ public class CombinerMenu extends AbstractProcessingMenu {
     }
 
     private void setupRecipeList() {
-        this.blockEntity.getRecipes().clear();
-        List<CombinerRecipe> recipes = RecipeRegistry.getCombinerRecipes(level);
-
         if (displayedRecipes.isEmpty()) {
-            this.setSelectedRecipeIndex(-1);
-            this.blockEntity.setRecipes(recipes);
-            this.resetDisplayedRecipes();
+            resetDisplayedRecipes();
         }
     }
 
     public void resetDisplayedRecipes() {
-        this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(this.blockEntity.getRecipes());
+        displayedRecipes.clear();
+        displayedRecipes.addAll(RecipeRegistry.getCombinerRecipes(level));
     }
 
-    public List<CombinerRecipe> getDisplayedRecipes() {
+    public LinkedList<CombinerRecipe> getDisplayedRecipes() {
         return displayedRecipes;
     }
 
     public void searchRecipeList(String pKeyword) {
-        this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream().filter(recipe -> {
-            Objects.requireNonNull(recipe.getOutput().getItem().getRegistryName());
-            return recipe.getOutput().getItem().getRegistryName().getPath().contains(pKeyword.toLowerCase().replace(" ", "_"));
-        }).toList());
+        displayedRecipes.clear();
+        displayedRecipes.addAll(RecipeRegistry.getCombinerRecipes(level).stream()
+                .filter(recipe -> {
+                    Item item = recipe.getOutput().getItem();
+                    if (pKeyword.charAt(0) == '@') {
+                        Objects.requireNonNull(item.getRegistryName());
+                        boolean space = pKeyword.contains(" ");
+                        boolean namespace = item.getRegistryName().getNamespace().contains(space ? pKeyword.split(" ")[0] : pKeyword.substring(1));
+                        boolean path = item.getRegistryName().getPath().contains(pKeyword.split(" ")[1]);
+                        if (space) {
+                            return namespace && path;
+                        } else {
+                            return namespace;
+                        }
+                    }
+                    return recipe.getOutput().getItem().getDescription().getString().toLowerCase().contains(pKeyword.toLowerCase());
+                })
+                .toList());
     }
 }

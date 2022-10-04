@@ -27,11 +27,20 @@ import org.jetbrains.annotations.Nullable;
 
 public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
-    private final int maxProgress = Config.Common.atomizerTicksPerOperation.get();
     private AtomizerRecipe currentRecipe;
 
     public AtomizerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.ATOMIZER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        setEnergyPerTick(Config.Common.atomizerEnergyPerTick.get());
+        setMaxProgress(Config.Common.atomizerTicksPerOperation.get());
+    }
+
+    @Override
+    public void tick() {
+        if (!getFluidStorage().isEmpty()) {
+            setCanProcess(canProcessRecipe());
+        }
+        super.tick();
     }
 
     public void updateRecipe() {
@@ -40,7 +49,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
-                        setRecipe(recipe);
+                        setRecipe(recipe.copy());
                     }
                 });
         }
@@ -48,7 +57,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
-            return getEnergyHandler().getEnergyStored() >= Config.Common.atomizerEnergyPerTick.get()
+            return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && getFluidStorage().getFluidAmount() >= currentRecipe.getInput().getAmount()
                     && ((ItemStack.isSameItemSameTags(getSlotHandler().getStackInSlot(0), currentRecipe.getOutput())) || getSlotHandler().getStackInSlot(0).isEmpty())
                     && (getSlotHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount()) <= currentRecipe.getOutput().getMaxStackSize();
@@ -57,20 +66,16 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            AtomizerRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getSlotHandler().setOrIncrement(0, currentRecipe.getOutput().copy());
-            getFluidStorage().drain(currentRecipe.getInput().getAmount(), IFluidHandler.FluidAction.EXECUTE);
+            getSlotHandler().setOrIncrement(0, tempRecipe.getOutput().copy());
+            getFluidStorage().drain(tempRecipe.getInput().getAmount(), IFluidHandler.FluidAction.EXECUTE);
         }
-        getEnergyHandler().extractEnergy(Config.Common.atomizerEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
-    }
-
-    @Override
-    public int getMaxProgress() {
-        return maxProgress;
     }
 
     @Override
@@ -124,7 +129,6 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
@@ -135,9 +139,8 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     public void load(CompoundTag pTag) {
         super.load(pTag);
         if (level != null) {
-            RecipeRegistry.getAtomizerRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+            RecipeRegistry.getAtomizerRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
+                    .ifPresent(recipe -> setRecipe(recipe.copy()));
         }
     }
 

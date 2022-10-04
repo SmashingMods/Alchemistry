@@ -111,4 +111,8 @@ public class IngredientStack {
         result = 31 * result + getId().hashCode();
         return result;
     }
+
+    public IngredientStack copy() {
+        return new IngredientStack(ingredient, count);
+    }
 }

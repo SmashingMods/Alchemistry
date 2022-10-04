@@ -4,9 +4,17 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
+import com.smashingmods.alchemistry.api.blockentity.container.RecipeSelectorScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.button.RecipeSelectorButton;
+import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
@@ -22,6 +30,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +39,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final CombinerBlockEntity blockEntity;
     protected final EditBox editBox;
+
+    private final RecipeSelectorButton recipeSelector;
 
     private final int DISPLAYED_SLOTS = 12;
     private final int RECIPE_BOX_SIZE = 18;
@@ -50,6 +61,9 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             editBox.setValue(blockEntity.getEditBoxText());
             menu.searchRecipeList(blockEntity.getEditBoxText());
         }
+
+        RecipeSelectorScreen<CombinerBlockEntity, CombinerRecipe> recipeSelectorScreen = new RecipeSelectorScreen<>((CombinerBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCombinerRecipes(pMenu.getLevel()));
+        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen, new TranslatableComponent("alchemistry.container.select_recipe"), 45, 60);
     }
 
     @Override
@@ -62,6 +76,10 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             mouseScrolled(0, 0, 0);
             blockEntity.setEditBoxText(editBox.getValue());
             menu.searchRecipeList(editBox.getValue());
+            if (menu.getDisplayedRecipes().size() <= 12) {
+                startIndex = 0;
+                scrollOffset = 0;
+            }
             editBox.setSuggestion("");
         }
         super.containerTick();
@@ -80,6 +98,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
 
         renderWidget(editBox, leftPos + 57, topPos + 7);
+        renderWidget(recipeSelector, leftPos - 24, topPos + 72);
     }
 
     @Override
@@ -121,9 +140,9 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             int row = pY + rowt * RECIPE_BOX_SIZE + 2;
             int vOffset = imageHeight;
 
-            int currentRecipeIndex = menu.getDisplayedRecipes().indexOf((CombinerRecipe) menu.getBlockEntity().getRecipe());
+            int currentRecipeIndex = menu.getDisplayedRecipes().indexOf(((CombinerBlockEntity) menu.getBlockEntity()).getRecipe());
 
-            if (index == menu.getSelectedRecipeIndex() || index == currentRecipeIndex) {
+            if (index == currentRecipeIndex) {
                 vOffset += RECIPE_BOX_SIZE;
             } else if (pMouseX >= col && pMouseY >= row && pMouseX < col + RECIPE_BOX_SIZE && pMouseY < row + RECIPE_BOX_SIZE) {
                 vOffset += RECIPE_BOX_SIZE * 2;
@@ -133,7 +152,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     }
 
     private void renderRecipes(int pLeftPos, int pTopPos, int pRecipeIndexOffsetMax) {
-        List<CombinerRecipe> list = menu.getDisplayedRecipes();
+        LinkedList<CombinerRecipe> list = menu.getDisplayedRecipes();
 
         for (int index = startIndex; index < pRecipeIndexOffsetMax && index < menu.getDisplayedRecipes().size(); index++) {
 
@@ -247,12 +266,16 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         int recipeBoxTopPos = topPos + 23;
         int k = startIndex + DISPLAYED_SLOTS;
 
-        for (int index = this.startIndex; index < k; index++) {
+        for (int index = startIndex; index < k; index++) {
             int currentIndex = index - startIndex;
             double boxX = pMouseX - (double)(recipeBoxLeftPos + currentIndex % 4 * RECIPE_BOX_SIZE);
             double boxY = pMouseY - (double)(recipeBoxTopPos + currentIndex / 4 * RECIPE_BOX_SIZE);
 
             if (boxX >= 0 && boxY >= 0 && boxX < RECIPE_BOX_SIZE && boxY < RECIPE_BOX_SIZE && menu.clickMenuButton(Minecraft.getInstance().player, index)) {
+
+                int finalIndex = index;
+                RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), getMenu().getDisplayedRecipes().get(finalIndex).getOutput()), getMenu().getLevel()).ifPresent(blockEntity::setRecipe);
+
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
                 Minecraft.getInstance().gameMode.handleInventoryButtonClick((menu).containerId, index);
                 return true;

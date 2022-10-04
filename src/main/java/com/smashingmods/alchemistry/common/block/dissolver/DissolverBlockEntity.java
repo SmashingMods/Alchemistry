@@ -24,12 +24,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
-    private final int maxProgress = Config.Common.dissolverTicksPerOperation.get();
     private DissolverRecipe currentRecipe;
     private final NonNullList<ItemStack> internalBuffer = NonNullList.createWithCapacity(64);
 
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        setEnergyPerTick(Config.Common.dissolverEnergyPerTick.get());
+        setMaxProgress(Config.Common.dissolverTicksPerOperation.get());
     }
 
     @Override
@@ -56,9 +57,10 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
+            DissolverRecipe tempRecipe = currentRecipe.copy();
             ItemStack input = getInputHandler().getStackInSlot(0).copy();
-            return getEnergyHandler().getEnergyStored() >= Config.Common.dissolverEnergyPerTick.get()
-                    && (currentRecipe.matches(input) && input.getCount() >= currentRecipe.getInput().getCount())
+            return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
+                    && (tempRecipe.matches(input) && input.getCount() >= tempRecipe.getInput().getCount())
                     && internalBuffer.isEmpty();
         } else {
             return false;
@@ -67,14 +69,15 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            DissolverRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getInputHandler().decrementSlot(0, currentRecipe.getInput().getCount());
-            internalBuffer.addAll(currentRecipe.getOutput().calculateOutput());
+            getInputHandler().decrementSlot(0, tempRecipe.getInput().getCount());
+            internalBuffer.addAll(tempRecipe.getOutput().calculateOutput());
         }
-        getEnergyHandler().extractEnergy(Config.Common.dissolverEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
     }
 
@@ -92,11 +95,6 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
         }
         setCanProcess(canProcessRecipe());
         setChanged();
-    }
-
-    @Override
-    public int getMaxProgress() {
-        return maxProgress;
     }
 
     @Override
@@ -158,7 +156,6 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         ListTag bufferTag = new ListTag();
         internalBuffer.stream()
                 .filter(itemStack -> !itemStack.isEmpty())
@@ -181,9 +178,8 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 .forEach(internalBuffer::add);
 
         if (level != null) {
-            RecipeRegistry.getDissolverRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
+                    .ifPresent(recipe -> setRecipe(recipe.copy()));
         }
     }
 

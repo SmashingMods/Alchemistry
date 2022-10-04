@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.registry;
 
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -24,8 +25,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -65,46 +66,47 @@ public class RecipeRegistry {
     public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
-    private static final Map<RecipeType<? extends Recipe<Inventory>>, List<? extends Recipe<Inventory>>> recipesMap = new HashMap<>();
+    private static final Map<RecipeType<? extends Recipe<Inventory>>, LinkedList<? extends Recipe<Inventory>>> recipesMap = new LinkedHashMap<>();
 
     @SuppressWarnings("unchecked")
-    public static <T extends Recipe<Inventory>> List<T> getRecipesByType(RecipeType<T> pRecipeType, Level pLevel) {
+    public static <T extends AbstractProcessingRecipe> LinkedList<T> getRecipesByType(RecipeType<T> pRecipeType, Level pLevel) {
         if (recipesMap.get(pRecipeType) == null) {
-            List<T> recipes = pLevel.getRecipeManager().getRecipes().stream()
+            LinkedList<T> recipes = pLevel.getRecipeManager().getRecipes().stream()
                     .filter(recipe -> recipe.getType().equals(pRecipeType))
                     .map(recipe -> (T) recipe)
-                    .collect(Collectors.toList());
+                    .sorted()
+                    .collect(Collectors.toCollection(LinkedList::new));
             recipesMap.put(pRecipeType, recipes);
         }
-        return (List<T>) recipesMap.get(pRecipeType);
+        return (LinkedList<T>) recipesMap.get(pRecipeType);
     }
 
-    public static List<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {
-        return getRecipesByType(ATOMIZER_TYPE, pLevel);
+    public static LinkedList<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {
+        return  new LinkedList<>(getRecipesByType(ATOMIZER_TYPE, pLevel));
     }
 
-    public static List<CombinerRecipe> getCombinerRecipes(Level pLevel) {
-        return getRecipesByType(COMBINER_TYPE, pLevel);
+    public static LinkedList<CombinerRecipe> getCombinerRecipes(Level pLevel) {
+        return new LinkedList<>(getRecipesByType(COMBINER_TYPE, pLevel));
     }
 
-    public static List<CompactorRecipe> getCompactorRecipes(Level pLevel) {
-        return getRecipesByType(COMPACTOR_TYPE, pLevel);
+    public static LinkedList<CompactorRecipe> getCompactorRecipes(Level pLevel) {
+        return new LinkedList<>(getRecipesByType(COMPACTOR_TYPE, pLevel));
     }
 
-    public static List<DissolverRecipe> getDissolverRecipes(Level pLevel) {
-        return getRecipesByType(DISSOLVER_TYPE, pLevel);
+    public static LinkedList<DissolverRecipe> getDissolverRecipes(Level pLevel) {
+        return new LinkedList<>(getRecipesByType(DISSOLVER_TYPE, pLevel));
     }
 
-    public static List<FissionRecipe> getFissionRecipes(Level pLevel) {
-        return getRecipesByType(FISSION_TYPE, pLevel);
+    public static LinkedList<FissionRecipe> getFissionRecipes(Level pLevel) {
+        return  new LinkedList<>(getRecipesByType(FISSION_TYPE, pLevel));
     }
 
-    public static List<FusionRecipe> getFusionRecipes(Level pLevel) {
-        return getRecipesByType(FUSION_TYPE, pLevel);
+    public static LinkedList<FusionRecipe> getFusionRecipes(Level pLevel) {
+        return  new LinkedList<>(getRecipesByType(FUSION_TYPE, pLevel));
     }
 
-    public static List<LiquifierRecipe> getLiquifierRecipes(Level pLevel) {
-        return getRecipesByType(LIQUIFIER_TYPE, pLevel);
+    public static LinkedList<LiquifierRecipe> getLiquifierRecipes(Level pLevel) {
+        return  new LinkedList<>(getRecipesByType(LIQUIFIER_TYPE, pLevel));
     }
 
     public static Optional<AtomizerRecipe> getAtomizerRecipe(Predicate<AtomizerRecipe> pPredicate, Level pLevel) {

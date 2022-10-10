@@ -8,7 +8,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -28,15 +27,9 @@ public class DissolverMenu extends AbstractProcessingMenu {
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         // input
-        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 84, 12);
-        // output 2x5 grid
-        addSlots(SlotItemHandler::new, outputHandler, 2, 5, 0, outputHandler.getSlots(), 48, 68);
-    }
-
-    @Override
-    public void addPlayerInventorySlots(Inventory pInventory) {
-        addSlots(Slot::new, pInventory, 3, 9, 9, 27, 12, 113);
-        addSlots(Slot::new, pInventory, 1, 9, 0, 9, 12, 171);
+        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 48, 31);
+        // output 4x3 grid
+        addSlots(SlotItemHandler::new, outputHandler, 3, 4, 0, outputHandler.getSlots(), 102, 13);
     }
 
     @Override

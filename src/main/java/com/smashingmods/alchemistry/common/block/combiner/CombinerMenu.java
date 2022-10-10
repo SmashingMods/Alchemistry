@@ -10,7 +10,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -39,15 +38,9 @@ public class CombinerMenu extends AbstractProcessingMenu {
 
         setupRecipeList();
         // input 2x2 grid
-        addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 12, 63);
+        addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 48, 22);
         // output
-        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 102, 81);
-    }
-
-    @Override
-    public void addPlayerInventorySlots(Inventory pInventory) {
-        addSlots(Slot::new, pInventory, 3, 9, 9, 27,12, 106);
-        addSlots(Slot::new, pInventory, 1, 9, 0,9, 12, 164);
+        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
     }
 
     @Override

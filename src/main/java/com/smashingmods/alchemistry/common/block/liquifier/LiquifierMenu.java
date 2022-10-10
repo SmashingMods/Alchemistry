@@ -23,7 +23,7 @@ public class LiquifierMenu extends AbstractProcessingMenu {
         super(MenuRegistry.LIQUIFIER_MENU.get(), pContainerId, pInventory, pBlockEntity, 1, 0);
         LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) pBlockEntity;
         ProcessingSlotHandler inputHandler = blockEntity.getSlotHandler();
-        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 62, 35);
+        addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 48, 31);
     }
 
     @Override

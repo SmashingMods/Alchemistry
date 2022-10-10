@@ -30,8 +30,8 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
         this.imageWidth = 184;
         this.imageHeight = 200;
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 88, 34, 60, 9, Direction2D.DOWN));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 12, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 69, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         this.blockEntity = (DissolverBlockEntity) pMenu.getBlockEntity();
     }
 

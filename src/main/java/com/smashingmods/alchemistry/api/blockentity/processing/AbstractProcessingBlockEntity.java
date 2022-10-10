@@ -36,6 +36,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     private boolean canProcess = false;
     private boolean recipeLocked = false;
     private boolean paused = false;
+    private boolean recipeSelectorOpen = false;
     private String searchText = "";
 
     private final EnergyStorageHandler energyHandler = initializeEnergyStorage();
@@ -149,6 +150,16 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     @Override
     public void setPaused(boolean pPaused) {
         this.paused = pPaused;
+    }
+
+    @Override
+    public void setRecipeSelectorOpen(boolean pOpen) {
+        this.recipeSelectorOpen = pOpen;
+    }
+
+    @Override
+    public boolean isRecipeSelectorOpen() {
+        return recipeSelectorOpen;
     }
 
     @Override

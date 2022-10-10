@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
@@ -16,10 +17,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
 
 public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
@@ -76,13 +78,25 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (FissionRecipe) pRecipe;
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof FissionRecipe fissionRecipe) {
+            currentRecipe = fissionRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public FissionRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<FissionRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getFissionRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     @Override

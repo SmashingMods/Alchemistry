@@ -65,6 +65,11 @@ public class FissionRecipe extends AbstractProcessingRecipe {
         return input;
     }
 
+    @Override
+    public Object getOutput() {
+        return List.of(output1, output2);
+    }
+
     public ItemStack getOutput1() {
         return output1;
     }

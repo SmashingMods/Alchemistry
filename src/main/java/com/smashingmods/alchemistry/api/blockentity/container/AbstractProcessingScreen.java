@@ -8,12 +8,7 @@ import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDispl
 import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
 import com.smashingmods.alchemistry.api.blockentity.container.data.FluidDisplayData;
 import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
-import com.smashingmods.chemlib.api.Chemical;
-import com.smashingmods.chemlib.api.ChemicalItemType;
-import com.smashingmods.chemlib.common.items.ChemicalItem;
-import com.smashingmods.chemlib.common.items.CompoundItem;
-import com.smashingmods.chemlib.common.items.ElementItem;
-import net.minecraft.ChatFormatting;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractProcessingBlockEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
@@ -23,32 +18,30 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu> extends AbstractContainerScreen<M> {
 
     protected final String modId;
-
+    private final AbstractProcessingBlockEntity blockEntity;
     protected final LockButton lockButton;
     protected final PauseButton pauseButton;
 
     public AbstractProcessingScreen(M pMenu, Inventory pPlayerInventory, Component pTitle, String pModId) {
         super(pMenu, pPlayerInventory, pTitle);
+        this.imageWidth = 184;
+        this.imageHeight = 162;
         this.modId = pModId;
-
-        lockButton = new LockButton(this, pMenu.getBlockEntity());
-        pauseButton = new PauseButton(this, pMenu.getBlockEntity());
+        this.blockEntity = pMenu.getBlockEntity();
+        this.lockButton = new LockButton(this, pMenu.getBlockEntity());
+        this.pauseButton = new PauseButton(this, pMenu.getBlockEntity());
     }
 
     @Override
@@ -237,30 +230,7 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
     }
 
     public void renderItemTooltip(PoseStack pPoseStack, ItemStack pItemStack, BaseComponent pComponent, int pMouseX, int pMouseY) {
-        List<Component> components = new ArrayList<>();
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
-
-        components.add(pComponent.withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
-        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
-
-        if (pItemStack.getItem() instanceof Chemical chemical) {
-
-            String abbreviation = chemical.getAbbreviation();
-
-            if (chemical instanceof ElementItem element) {
-                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
-            } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
-                ElementItem element = (ElementItem) chemicalItem.getChemical();
-                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
-            } else if (chemical instanceof CompoundItem) {
-                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
-            }
-        }
-        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
-        renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
+        renderTooltip(pPoseStack, RecipeDisplayUtil.getItemTooltipComponent(pItemStack, pComponent), Optional.empty(), pMouseX, pMouseY);
     }
 
     public <W extends GuiEventListener & Widget & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
@@ -271,5 +241,25 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
             }
             addRenderableWidget(pWidget);
         }
+    }
+
+    public AbstractProcessingBlockEntity getBlockEntity() {
+        return blockEntity;
+    }
+
+    public int getLeftPos() {
+        return leftPos;
+    }
+
+    public int getTopPos() {
+        return topPos;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public int getImageWidth() {
+        return imageWidth;
     }
 }

@@ -8,7 +8,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -27,15 +26,9 @@ public class FissionControllerMenu extends AbstractProcessingMenu {
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
-        addSlots(SlotItemHandler::new, inputHandler, 44, 35);
-        addSlots(SlotItemHandler::new, outputHandler, 0, outputHandler.getSlots(), 116, 35);
-        addSlots(SlotItemHandler::new, outputHandler, 1, outputHandler.getSlots(), 134, 35);
-    }
-
-    @Override
-    public void addPlayerInventorySlots(Inventory pInventory) {
-        addSlots(Slot::new, pInventory, 3, 9, 9, 27, 8, 84);
-        addSlots(Slot::new, pInventory, 1, 9, 0, 9, 8, 142);
+        addSlots(SlotItemHandler::new, inputHandler, 48, 31);
+        addSlots(SlotItemHandler::new, outputHandler, 0, outputHandler.getSlots(), 120, 18);
+        addSlots(SlotItemHandler::new, outputHandler, 1, outputHandler.getSlots(), 120, 44);
     }
 
     @Override

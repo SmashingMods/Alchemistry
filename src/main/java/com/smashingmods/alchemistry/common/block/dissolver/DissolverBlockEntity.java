@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
@@ -17,10 +18,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
@@ -30,7 +32,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.dissolverEnergyPerTick.get());
-        setMaxProgress(Config.Common.dissolverTicksPerOperation.get());
+        setMaxProgress(5);//Config.Common.dissolverTicksPerOperation.get());
     }
 
     @Override
@@ -98,13 +100,25 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (DissolverRecipe) pRecipe;
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
+            currentRecipe = dissolverRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public DissolverRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<DissolverRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getDissolverRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     @Override
@@ -141,7 +155,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeOutputHandler() {
-        return new ProcessingSlotHandler(10) {
+        return new ProcessingSlotHandler(12) {
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;

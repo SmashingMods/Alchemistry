@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
@@ -19,12 +18,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -32,7 +29,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
@@ -40,6 +36,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     private final CombinerBlockEntity blockEntity;
     protected final EditBox editBox;
 
+    private final RecipeSelectorScreen<CombinerScreen, CombinerBlockEntity, CombinerRecipe> recipeSelectorScreen;
     private final RecipeSelectorButton recipeSelector;
 
     private final int DISPLAYED_SLOTS = 12;
@@ -52,8 +49,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
         this.imageWidth = 184;
         this.imageHeight = 193;
-        this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 65, 84, 60, 9, Direction2D.RIGHT));
-        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 23, 16, 54));
+        this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 87, 35, 60, 9, Direction2D.RIGHT));
+        this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         editBox = new EditBox(Minecraft.getInstance().font, 0, 0, 72, 12, new TextComponent(""));
@@ -62,8 +59,16 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             menu.searchRecipeList(blockEntity.getEditBoxText());
         }
 
-        RecipeSelectorScreen<CombinerBlockEntity, CombinerRecipe> recipeSelectorScreen = new RecipeSelectorScreen<>((CombinerBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCombinerRecipes(pMenu.getLevel()));
-        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen, new TranslatableComponent("alchemistry.container.select_recipe"), 45, 60);
+        recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CombinerBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCombinerRecipes(pMenu.getLevel()));
+        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen, new TranslatableComponent("alchemistry.container.select_recipe"));
+    }
+
+    @Override
+    protected void init() {
+        this.leftPos = (width - imageWidth) / 2;
+        this.topPos = (height - imageHeight) / 2;
+        recipeSelectorScreen.setTopPos(topPos);
+        super.init();
     }
 
     @Override
@@ -89,22 +94,26 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        renderRecipeBox(pPoseStack, pMouseX, pMouseY);
+//        renderRecipeBox(pPoseStack, pMouseX, pMouseY);
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
         renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
 
         renderTooltip(pPoseStack, pMouseX, pMouseY);
-        renderRecipeTooltips(pPoseStack, pMouseX, pMouseY);
+//        renderRecipeTooltips(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
 
-        renderWidget(editBox, leftPos + 57, topPos + 7);
+//        renderWidget(editBox, leftPos + 57, topPos + 7);
         renderWidget(recipeSelector, leftPos - 24, topPos + 72);
     }
 
     @Override
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        if (!blockEntity.isRecipeSelectorOpen()) {
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        } else {
+            RenderSystem.setShaderColor(0.3f, 0.3f, 0.3f, 1.0f);
+        }
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_gui.png"));
         blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
@@ -170,18 +179,16 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         CombinerRecipe currentRecipe = (CombinerRecipe) menu.getBlockEntity().getRecipe();
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
-        // Intellij thinks this is never null. Remove this and watch it crash.
-        //noinspection ConstantConditions
         if (currentRecipe != null) {
             ItemStack currentOutput = currentRecipe.getOutput();
-            Minecraft.getInstance().getItemRenderer().renderAndDecorateItem(currentOutput, leftPos + 21, topPos + 15);
+            itemRenderer.renderAndDecorateItem(currentOutput, leftPos + 152, topPos + 15);
 
-            if (pMouseX >= leftPos + 20 && pMouseX < leftPos + 36 && pMouseY > topPos + 14 && pMouseY < topPos + 30) {
+            if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
                 renderItemTooltip(pPoseStack, currentOutput, new TranslatableComponent("alchemistry.container.current_recipe"), pMouseX, pMouseY);
             }
 
-            int xOrigin = leftPos + 12;
-            int yOrigin = topPos + 63;
+            int xOrigin = leftPos + 48;
+            int yOrigin = topPos + 22;
 
             for (int row = 0; row < 2; row++) {
                 for (int column = 0; column < 2; column++) {
@@ -196,7 +203,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                         if (handler.getStackInSlot(index).isEmpty()) {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
 
-                            if (pMouseX >= x - 1 && pMouseX < x + 17 && pMouseY > y - 2 && pMouseY < y + 17) {
+                            if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
                                 renderItemTooltip(pPoseStack, itemStack, new TranslatableComponent("alchemistry.container.required_input"), pMouseX, pMouseY);
                             }
                         }
@@ -229,69 +236,69 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     @Override
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
-        if (pKeyCode == InputConstants.KEY_E && editBox.isFocused()) {
-            return false;
-        } else if (pKeyCode == InputConstants.KEY_TAB && !editBox.isFocused()) {
-            editBox.setFocus(true);
-            editBox.setEditable(true);
-            editBox.active = true;
-        } else if (pKeyCode == InputConstants.KEY_ESCAPE && editBox.isFocused()) {
-            editBox.setFocus(false);
-            editBox.setEditable(false);
-            editBox.active = false;
-            return false;
-        }
+//        if (pKeyCode == InputConstants.KEY_E && editBox.isFocused()) {
+//            return false;
+//        } else if (pKeyCode == InputConstants.KEY_TAB && !editBox.isFocused()) {
+//            editBox.setFocus(true);
+//            editBox.setEditable(true);
+//            editBox.active = true;
+//        } else if (pKeyCode == InputConstants.KEY_ESCAPE && editBox.isFocused()) {
+//            editBox.setFocus(false);
+//            editBox.setEditable(false);
+//            editBox.active = false;
+//            return false;
+//        }
         return super.keyPressed(pKeyCode, pScanCode, pModifiers);
     }
 
     @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
 
-        Objects.requireNonNull(Minecraft.getInstance().player);
-        Objects.requireNonNull(Minecraft.getInstance().gameMode);
-
-        int editBoxMinX = leftPos + 57;
-        int editBoxMaxX = editBoxMinX + 72;
-        int editBoxMinY = topPos + 7;
-        int editBoxMaxY = editBoxMinY + 12;
-
-        if (pMouseX >= editBoxMinX && pMouseX < editBoxMaxX && pMouseY >= editBoxMinY && pMouseY < editBoxMaxY) {
-            editBox.onClick(pMouseX, pMouseY);
-        } else {
-            editBox.active = false;
-        }
-        scrolling = false;
-
-        int recipeBoxLeftPos = leftPos + 57;
-        int recipeBoxTopPos = topPos + 23;
-        int k = startIndex + DISPLAYED_SLOTS;
-
-        for (int index = startIndex; index < k; index++) {
-            int currentIndex = index - startIndex;
-            double boxX = pMouseX - (double)(recipeBoxLeftPos + currentIndex % 4 * RECIPE_BOX_SIZE);
-            double boxY = pMouseY - (double)(recipeBoxTopPos + currentIndex / 4 * RECIPE_BOX_SIZE);
-
-            if (boxX >= 0 && boxY >= 0 && boxX < RECIPE_BOX_SIZE && boxY < RECIPE_BOX_SIZE && menu.clickMenuButton(Minecraft.getInstance().player, index)) {
-
-                int finalIndex = index;
-                RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), getMenu().getDisplayedRecipes().get(finalIndex).getOutput()), getMenu().getLevel()).ifPresent(blockEntity::setRecipe);
-
-                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
-                Minecraft.getInstance().gameMode.handleInventoryButtonClick((menu).containerId, index);
-                return true;
-            }
-
-            int scrollMinX = recipeBoxLeftPos + 75;
-            int scrollMaxX = recipeBoxLeftPos + 87;
-            int scrollMaxY = recipeBoxTopPos + 54;
-
-            if (pMouseX >= scrollMinX
-                    && pMouseX < scrollMaxX
-                    && pMouseY >= recipeBoxTopPos
-                    && pMouseY < scrollMaxY) {
-                scrolling = true;
-            }
-        }
+//        Objects.requireNonNull(Minecraft.getInstance().player);
+//        Objects.requireNonNull(Minecraft.getInstance().gameMode);
+//
+//        int editBoxMinX = leftPos + 57;
+//        int editBoxMaxX = editBoxMinX + 72;
+//        int editBoxMinY = topPos + 7;
+//        int editBoxMaxY = editBoxMinY + 12;
+//
+//        if (pMouseX >= editBoxMinX && pMouseX < editBoxMaxX && pMouseY >= editBoxMinY && pMouseY < editBoxMaxY) {
+//            editBox.onClick(pMouseX, pMouseY);
+//        } else {
+//            editBox.active = false;
+//        }
+//        scrolling = false;
+//
+//        int recipeBoxLeftPos = leftPos + 57;
+//        int recipeBoxTopPos = topPos + 23;
+//        int k = startIndex + DISPLAYED_SLOTS;
+//
+//        for (int index = startIndex; index < k; index++) {
+//            int currentIndex = index - startIndex;
+//            double boxX = pMouseX - (double)(recipeBoxLeftPos + currentIndex % 4 * RECIPE_BOX_SIZE);
+//            double boxY = pMouseY - (double)(recipeBoxTopPos + currentIndex / 4 * RECIPE_BOX_SIZE);
+//
+//            if (boxX >= 0 && boxY >= 0 && boxX < RECIPE_BOX_SIZE && boxY < RECIPE_BOX_SIZE && menu.clickMenuButton(Minecraft.getInstance().player, index)) {
+//
+//                int finalIndex = index;
+//                RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), getMenu().getDisplayedRecipes().get(finalIndex).getOutput()), getMenu().getLevel()).ifPresent(blockEntity::setRecipe);
+//
+//                Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+//                Minecraft.getInstance().gameMode.handleInventoryButtonClick((menu).containerId, index);
+//                return true;
+//            }
+//
+//            int scrollMinX = recipeBoxLeftPos + 75;
+//            int scrollMaxX = recipeBoxLeftPos + 87;
+//            int scrollMaxY = recipeBoxTopPos + 54;
+//
+//            if (pMouseX >= scrollMinX
+//                    && pMouseX < scrollMaxX
+//                    && pMouseY >= recipeBoxTopPos
+//                    && pMouseY < scrollMaxY) {
+//                scrolling = true;
+//            }
+//        }
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 

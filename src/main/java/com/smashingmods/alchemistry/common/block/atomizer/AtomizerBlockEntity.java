@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.block.atomizer;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
@@ -17,13 +18,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
 
 public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
 
@@ -79,13 +81,25 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (AtomizerRecipe) pRecipe;
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof AtomizerRecipe atomizerRecipe) {
+            currentRecipe = atomizerRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public AtomizerRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<AtomizerRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getAtomizerRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     @Override

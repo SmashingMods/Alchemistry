@@ -31,8 +31,8 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 92, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
 
         this.blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
         this.autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());

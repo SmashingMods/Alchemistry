@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
-import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
 import com.smashingmods.alchemistry.api.blockentity.container.button.ResetTargetButton;
 import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
 import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
@@ -33,8 +32,8 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         imageWidth = 184;
         imageHeight = 163;
 
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),75, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),78, 54, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),12, 12, 16, 54));
 
         resetTargetButton = new ResetTargetButton(this, (CompactorBlockEntity) pMenu.getBlockEntity());
     }
@@ -69,13 +68,13 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
     private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         ItemStack target = ((CompactorBlockEntity) this.menu.getBlockEntity()).getTarget();
 
-        int xStart = leftPos + 80;
+        int xStart = leftPos + 83;
         int xEnd = xStart + 18;
-        int yStart = topPos + 12;
+        int yStart = topPos + 15;
         int yEnd = yStart + 18;
 
         if (!target.isEmpty()) {
-            FakeItemRenderer.renderFakeItem(target, xStart, yStart, 0.5f);
+            itemRenderer.renderAndDecorateItem(target, xStart, yStart);
             if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
                 List<Component> components = new ArrayList<>();
                 components.add(0, new TranslatableComponent("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));

@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.block.compactor;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
@@ -17,11 +18,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
@@ -93,21 +94,31 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe == null) {
             currentRecipe = null;
-        } else {
-            currentRecipe = (CompactorRecipe) pRecipe;
-            target = ((CompactorRecipe) pRecipe).getOutput();
+        } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
+            currentRecipe = compactorRecipe;
+            target = compactorRecipe.getOutput();
             if (level != null && !level.isClientSide()) {
                 PacketHandler.sendToTrackingChunk(new BlockEntityPacket(getBlockPos(), getUpdateTag()), level, getBlockPos());
             }
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public CompactorRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<CompactorRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getCompactorRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     public ItemStack getTarget() {

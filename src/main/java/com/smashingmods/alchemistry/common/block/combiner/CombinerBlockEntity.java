@@ -4,6 +4,7 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -16,15 +17,17 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
 
 public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     private CombinerRecipe currentRecipe;
     private String editBoxText = "";
+    private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -80,13 +83,25 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (CombinerRecipe) pRecipe;
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof CombinerRecipe combinerRecipe) {
+            currentRecipe = combinerRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public CombinerRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<CombinerRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getCombinerRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     protected String getEditBoxText() {

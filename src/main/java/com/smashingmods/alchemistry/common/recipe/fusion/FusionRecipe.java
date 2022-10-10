@@ -66,6 +66,11 @@ public class FusionRecipe extends AbstractProcessingRecipe {
         return new FusionRecipe(getId(), getGroup(), input1.copy(), input2.copy(), output.copy());
     }
 
+    @Override
+    public Object getInput() {
+        return List.of(input1, input2);
+    }
+
     public ItemStack getInput1() {
         return input1;
     }

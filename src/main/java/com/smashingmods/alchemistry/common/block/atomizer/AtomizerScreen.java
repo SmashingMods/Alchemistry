@@ -25,9 +25,9 @@ public class AtomizerScreen extends AbstractProcessingScreen<AtomizerMenu> {
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 58, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 134, 21, 16, 46));
-        displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 26, 21, 16, 46));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
+        displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 48, 12, 16, 54));
     }
 
     @Override

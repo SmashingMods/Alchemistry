@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
@@ -16,11 +17,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -97,13 +98,25 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (FusionRecipe) pRecipe;
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof FusionRecipe fusionRecipe) {
+            currentRecipe = fusionRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public FusionRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<FusionRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getFusionRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     public void autoBalance() {

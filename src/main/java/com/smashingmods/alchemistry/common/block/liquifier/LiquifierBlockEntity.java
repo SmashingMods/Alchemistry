@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
@@ -17,13 +18,14 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
 
 public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
@@ -40,7 +42,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty() && !isRecipeLocked()) {
             RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
-                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                    if (currentRecipe == null || !currentRecipe.getId().equals(recipe.getId())) {
                         setProgress(0);
                         setRecipe(recipe.copy());
                     }
@@ -55,7 +57,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
             LiquifierRecipe tempRecipe = currentRecipe.copy();
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && (getFluidStorage().getFluidStack().isFluidEqual(tempRecipe.getOutput()) || getFluidStorage().isEmpty())
-                    && getFluidStorage().getFluidAmount() <= (getFluidStorage().getFluidAmount() + tempRecipe.getOutput().getAmount())
+                    && (getFluidStorage().getFluidAmount() + tempRecipe.getOutput().getAmount()) < getFluidStorage().getCapacity()
                     && (tempRecipe.getInput().matches(input) && input.getCount() >= tempRecipe.getInput().getCount());
         } else {
             return false;
@@ -77,13 +79,25 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (LiquifierRecipe) pRecipe;
+    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
+            currentRecipe = liquifierRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Recipe<Inventory> getRecipe() {
+    public LiquifierRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<LiquifierRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getLiquifierRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     @Override

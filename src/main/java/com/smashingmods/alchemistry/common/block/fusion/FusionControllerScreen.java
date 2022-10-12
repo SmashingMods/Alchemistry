@@ -33,9 +33,8 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
-
-        this.blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
-        this.autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
+        blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
+        autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
     }
 
     @Override
@@ -67,8 +66,6 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         FusionRecipe currentRecipe = blockEntity.getRecipe();
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
-        // Intellij thinks this is never null. Remove this and watch it crash.
-        //noinspection ConstantConditions
         if (currentRecipe != null && blockEntity.isRecipeLocked()) {
 
             int x = leftPos + 44;

@@ -45,6 +45,13 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
     }
 
     @Override
+    protected void init() {
+        this.leftPos = (width - imageWidth) / 2;
+        this.topPos = (height - imageHeight) / 2;
+        super.init();
+    }
+
+    @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         renderBackground(pPoseStack);
         renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);

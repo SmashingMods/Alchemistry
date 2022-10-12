@@ -27,7 +27,6 @@ public class CompactorMenu extends AbstractProcessingMenu {
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 48, 50);
-        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 83, 15);
         addSlots(SlotItemHandler::new, outputHandler, 120, 50);
     }
 

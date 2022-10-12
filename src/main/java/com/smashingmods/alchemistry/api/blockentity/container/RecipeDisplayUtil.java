@@ -34,6 +34,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class RecipeDisplayUtil {
 
@@ -41,7 +43,7 @@ public class RecipeDisplayUtil {
         if (pBlockEntity.getLevel() != null) {
             if (pBlockEntity instanceof AtomizerBlockEntity blockEntity && pRecipe instanceof AtomizerRecipe atomizerRecipe) {
 
-                RecipeRegistry.getAtomizerRecipe(recipe -> recipe.getInput().isFluidEqual(((AtomizerRecipe) pRecipe).getInput()), blockEntity.getLevel())
+                RecipeRegistry.getAtomizerRecipe(recipe -> recipe.getInput().isFluidEqual(atomizerRecipe.getInput()), blockEntity.getLevel())
                         .ifPresent(blockEntity::setRecipe);
 
             } else if (pBlockEntity instanceof CombinerBlockEntity blockEntity && pRecipe instanceof CombinerRecipe combinerRecipe) {
@@ -110,49 +112,49 @@ public class RecipeDisplayUtil {
 
             Objects.requireNonNull(atomizerRecipe.getInput().getFluid().getRegistryName());
             ResourceLocation left = atomizerRecipe.getInput().getFluid().getRegistryName();
-            String right = atomizerRecipe.getInput().getDisplayName().getString();
+            String right = atomizerRecipe.getInput().getDisplayName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
 
             Objects.requireNonNull(combinerRecipe.getOutput().getItem().getRegistryName());
             ResourceLocation left = combinerRecipe.getOutput().getItem().getRegistryName();
-            String right = combinerRecipe.getOutput().getItem().getDescription().toString();
+            String right = combinerRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
 
             Objects.requireNonNull(compactorRecipe.getOutput().getItem().getRegistryName());
             ResourceLocation left = compactorRecipe.getOutput().getItem().getRegistryName();
-            String right = compactorRecipe.getOutput().getItem().getDescription().toString();
+            String right = compactorRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
 
             Objects.requireNonNull(dissolverRecipe.getInput().getRegistryName());
             ResourceLocation left = dissolverRecipe.getInput().getRegistryName();
-            String right = dissolverRecipe.getInput().getRegistryName().getPath();
+            String right = dissolverRecipe.getInput().getRegistryName().getPath().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
 
             Objects.requireNonNull(fissionRecipe.getInput().getItem().getRegistryName());
             ResourceLocation left = fissionRecipe.getInput().getItem().getRegistryName();
-            String right = fissionRecipe.getInput().getItem().getDescription().toString();
+            String right = fissionRecipe.getInput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
 
             Objects.requireNonNull(fusionRecipe.getOutput().getItem().getRegistryName());
             ResourceLocation left = fusionRecipe.getOutput().getItem().getRegistryName();
-            String right = fusionRecipe.getOutput().getItem().getDescription().toString();
+            String right = fusionRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
 
             Objects.requireNonNull(liquifierRecipe.getInput().getRegistryName());
             ResourceLocation left = liquifierRecipe.getOutput().getFluid().getRegistryName();
-            String right = liquifierRecipe.getOutput().getDisplayName().toString();
+            String right = liquifierRecipe.getOutput().getDisplayName().toString().toLowerCase();
             return Pair.of(left, right);
 
         }
@@ -180,15 +182,19 @@ public class RecipeDisplayUtil {
     }
 
     public static ItemStack getRecipeInputByIndex(ProcessingRecipe pRecipe, int pIndex) {
-        ItemStack toReturn = ItemStack.EMPTY;
+        AtomicReference<ItemStack> toReturn = new AtomicReference<>(ItemStack.EMPTY);
         if (pRecipe instanceof AtomizerRecipe atomizerRecipe) {
             return atomizerRecipe.getOutput();
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
             if (pIndex >= 0 && pIndex < combinerRecipe.getInput().size()) {
-                toReturn = combinerRecipe.getInput().get(pIndex).toStacks().get(0);
+                new Random().ints(0, combinerRecipe.getInput().get(pIndex).toStacks().size())
+                        .findFirst()
+                        .ifPresent(random -> toReturn.set(combinerRecipe.getInput().get(pIndex).toStacks().get(random)));
             }
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
-            return compactorRecipe.getOutput();
+            new Random().ints(0, compactorRecipe.getInput().toStacks().size())
+                    .findFirst()
+                    .ifPresent(random -> toReturn.set(compactorRecipe.getInput().toStacks().get(random)));
         } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
             return !dissolverRecipe.getInput().toStacks().isEmpty() ? dissolverRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
@@ -198,24 +204,24 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
             return liquifierRecipe.getInput().toStacks().isEmpty() ? liquifierRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
         }
-        return toReturn;
+        return toReturn.get();
     }
 
-    public static int getInputSize(ProcessingRecipe pRecipe) {
+    public static int getInputSize(AbstractProcessingBlockEntity pBlockEntity) {
 
-        if (pRecipe instanceof AtomizerRecipe atomizerRecipe) {
+        if (pBlockEntity instanceof AtomizerBlockEntity) {
             return 1;
-        } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
+        } else if (pBlockEntity instanceof CombinerBlockEntity) {
             return 4;
-        } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
+        } else if (pBlockEntity instanceof CompactorBlockEntity) {
             return 1;
-        } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
+        } else if (pBlockEntity instanceof DissolverBlockEntity) {
             return 1;
-        } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
+        } else if (pBlockEntity instanceof FissionControllerBlockEntity) {
             return 1;
-        } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
+        } else if (pBlockEntity instanceof FusionControllerBlockEntity) {
             return 2;
-        } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
+        } else if (pBlockEntity instanceof LiquifierBlockEntity) {
             return 1;
         }
         return 0;

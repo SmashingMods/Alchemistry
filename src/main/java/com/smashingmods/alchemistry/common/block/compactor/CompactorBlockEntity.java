@@ -144,20 +144,9 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeInputHandler() {
-        return new ProcessingSlotHandler(2) {
+        return new ProcessingSlotHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
-                if (level != null && !level.isClientSide() && !isRecipeLocked()) {
-                    if (slot == 1 && !getInputHandler().getStackInSlot(slot).isEmpty()) {
-                        RecipeRegistry.getCompactorRecipes(level).stream()
-                                .filter(recipe -> ItemStack.isSameItemSameTags(initializeInputHandler().getStackInSlot(slot), recipe.getOutput()))
-                                .findFirst()
-                                .ifPresent(recipe -> {
-                                    setRecipe(recipe.copy());
-                                    setTarget(new ItemStack(recipe.getOutput().getItem()));
-                                });
-                    }
-                }
                 updateRecipe();
                 setCanProcess(canProcessRecipe());
                 setChanged();
@@ -168,17 +157,6 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
                 if (level != null && !level.isClientSide()) {
                     if (pSlot == 0 && currentRecipe != null && isRecipeLocked()) {
                         return currentRecipe.getInput().matches(pItemStack);
-                    } else if (pSlot == 1) {
-                        if (!isRecipeLocked()) {
-                            RecipeRegistry.getCompactorRecipes(level).stream()
-                                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.copy().getOutput(), pItemStack.copy()))
-                                    .findFirst()
-                                    .ifPresent(recipe -> {
-                                        setRecipe(recipe.copy());
-                                        setTarget(new ItemStack(pItemStack.getItem()));
-                                    });
-                        }
-                        return false;
                     }
                 }
                 return super.isItemValid(pSlot, pItemStack);

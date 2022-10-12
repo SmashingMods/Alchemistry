@@ -46,7 +46,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     @Override
     protected void init() {
-        recipeSelectorScreen.setTopPos(topPos);
+        recipeSelectorScreen.setTopPos((height - imageHeight) / 2);
         super.init();
     }
 

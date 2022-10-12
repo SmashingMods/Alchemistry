@@ -50,7 +50,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
     private final EditBox searchBox;
 
-    private static final int DISPLAYED_RECIPES = 30;
+    private static final int MAX_DISPLAYED_RECIPES = 30;
     private static final int COLUMNS = 5;
     private static final int RECIPE_BOX_SIZE = 18;
 
@@ -77,6 +77,10 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         this.leftPos = (width - imageWidth) / 2;
         this.recipeBoxLeftPos = leftPos + 58;
         this.recipeBoxTopPos = topPos + 26;
+
+        if (!blockEntity.getSearchText().isEmpty()) {
+            searchBox.setValue(blockEntity.getSearchText());
+        }
         super.init();
     }
 
@@ -87,10 +91,13 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             resetDisplayedRecipes();
             searchBox.setSuggestion(I18n.get("alchemistry.container.search"));
         } else {
-            mouseScrolled(0, 0, 0);
+            if (displayedRecipes.size() < MAX_DISPLAYED_RECIPES) {
+                mouseScrolled(0, 0, 0);
+                scrollOffset = 0.0f;
+            }
             blockEntity.setSearchText(searchBox.getValue());
             searchRecipeList(searchBox.getValue());
-            if (displayedRecipes.size() <= DISPLAYED_RECIPES) {
+            if (displayedRecipes.size() <= MAX_DISPLAYED_RECIPES) {
                 startIndex = 0;
                 scrollOffset = 0;
             }
@@ -128,7 +135,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"));
 
-        int lastDisplayedIndex = startIndex + DISPLAYED_RECIPES;
+        int lastDisplayedIndex = startIndex + MAX_DISPLAYED_RECIPES;
 
         renderScrollbar(pPoseStack);
         renderRecipeButtons(pPoseStack, pMouseX, pMouseY, lastDisplayedIndex);
@@ -308,7 +315,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         }
         scrolling = false;
 
-        int lastDisplayedIndex = startIndex + DISPLAYED_RECIPES;
+        int lastDisplayedIndex = startIndex + MAX_DISPLAYED_RECIPES;
 
         for (int index = startIndex; index < lastDisplayedIndex; index++) {
             int currentIndex = index - startIndex;
@@ -385,7 +392,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private boolean isScrollBarActive() {
-        return displayedRecipes.size() > DISPLAYED_RECIPES;
+        return displayedRecipes.size() > MAX_DISPLAYED_RECIPES;
     }
 
     private boolean isValidRecipeIndex(int pSlot) {
@@ -410,12 +417,14 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                     String keyword = pKeyword.toLowerCase();
 
                     if (keyword.charAt(0) == '@') {
-                        if (keyword.contains(" ") && keyword.split(" ").length > 1) {
-                            String[] splitKeyword = keyword.split(" ");
-                            return registryName.getNamespace().contains(splitKeyword[0].substring(1)) && registryName.getPath().contains(splitKeyword[1]);
-                        } else {
-                            return registryName.getNamespace().contains(keyword.substring(1));
+                        if (keyword.contains(" ")) {
+                            if (keyword.split(" ").length > 1) {
+                                String[] splitKeyword = keyword.split(" ");
+                                return registryName.getNamespace().contains(splitKeyword[0].substring(1)) && registryName.getPath().contains(splitKeyword[1]);
+                            }
+                            return registryName.getNamespace().contains(keyword.substring(1, keyword.length() - 1));
                         }
+                        return registryName.getNamespace().contains(keyword.substring(1));
                     }
                     return description.toLowerCase().contains(keyword);
                 })

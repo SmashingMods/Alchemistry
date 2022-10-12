@@ -32,7 +32,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.dissolverEnergyPerTick.get());
-        setMaxProgress(5);//Config.Common.dissolverTicksPerOperation.get());
+        setMaxProgress(Config.Common.dissolverTicksPerOperation.get());
     }
 
     @Override

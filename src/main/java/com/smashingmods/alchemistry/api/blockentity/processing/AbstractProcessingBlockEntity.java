@@ -1,6 +1,8 @@
 package com.smashingmods.alchemistry.api.blockentity.processing;
 
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SearchPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -168,8 +170,13 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     }
 
     @Override
-    public void setSearchText(String pText) {
-        searchText = pText;
+    public void setSearchText(@Nullable String pText) {
+        if (pText != null && !pText.isEmpty()) {
+            searchText = pText;
+            if (level != null && level.isClientSide()) {
+                PacketHandler.INSTANCE.sendToServer(new SearchPacket(getBlockPos(), searchText));
+            }
+        }
     }
 
     @Override

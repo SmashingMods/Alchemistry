@@ -77,10 +77,6 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         this.leftPos = (width - imageWidth) / 2;
         this.recipeBoxLeftPos = leftPos + 58;
         this.recipeBoxTopPos = topPos + 26;
-
-        if (!blockEntity.getSearchText().isEmpty()) {
-            searchBox.setValue(blockEntity.getSearchText());
-        }
         super.init();
     }
 

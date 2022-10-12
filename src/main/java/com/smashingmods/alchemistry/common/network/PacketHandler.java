@@ -55,6 +55,12 @@ public class PacketHandler {
                 .consumer(CompactorResetPacket::handle)
                 .add();
 
+        INSTANCE.messageBuilder(SearchPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SearchPacket::new)
+                .encoder(SearchPacket::encode)
+                .consumer(SearchPacket::handle)
+                .add();
+
         // JEI recipe transfer packets
 
         INSTANCE.messageBuilder(CombinerTransferPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)

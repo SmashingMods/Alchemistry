@@ -26,8 +26,6 @@ import java.util.LinkedList;
 public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     private CombinerRecipe currentRecipe;
-    private String editBoxText = "";
-    private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -104,14 +102,6 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
         return new LinkedList<>();
     }
 
-    protected String getEditBoxText() {
-        return editBoxText;
-    }
-
-    protected void setEditBoxText(String pText) {
-        editBoxText = pText;
-    }
-
     @Override
     public EnergyStorageHandler initializeEnergyStorage() {
         return new EnergyStorageHandler(Config.Common.combinerEnergyCapacity.get()) {
@@ -157,7 +147,6 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putString("editBoxText", editBoxText);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
@@ -167,7 +156,6 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        editBoxText = pTag.getString("editBoxText");
         if (level != null) {
             RecipeRegistry.getCombinerRecipe(
                     recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),

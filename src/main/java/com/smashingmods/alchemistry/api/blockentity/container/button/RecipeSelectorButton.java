@@ -60,6 +60,6 @@ public class RecipeSelectorButton extends Button {
 
     @Override
     public Component getMessage() {
-        return blockEntity.isRecipeSelectorOpen() ? new TranslatableComponent("alchemistry.container.open_recipe_select") : new TranslatableComponent("alchemistry.container.close_recipe_select");
+        return blockEntity.isRecipeSelectorOpen() ? new TranslatableComponent("alchemistry.container.close_recipe_select") : new TranslatableComponent("alchemistry.container.open_recipe_select");
     }
 }

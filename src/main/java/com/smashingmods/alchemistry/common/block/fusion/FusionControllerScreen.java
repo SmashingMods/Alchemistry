@@ -38,6 +38,14 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
     }
 
     @Override
+    protected void init() {
+        widgets.add(lockButton);
+        widgets.add(pauseButton);
+        widgets.add(autoBalanceButton);
+        super.init();
+    }
+
+    @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
@@ -45,7 +53,6 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
-        renderWidget(autoBalanceButton, leftPos - 24, topPos + 48);
     }
 
     @Override
@@ -68,13 +75,13 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
         if (currentRecipe != null && blockEntity.isRecipeLocked()) {
 
-            int x = leftPos + 44;
-            int y = topPos + 35;
+            int x = leftPos + 48;
+            int y = topPos + 18;
 
             List<ItemStack> inputs = List.of(currentRecipe.getInput1(), currentRecipe.getInput2());
 
             for (int i = 0; i < inputs.size(); i ++) {
-                x = x + (i * 18);
+                y = y + (i * 26);
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(inputs.get(i), x, y, 0.35f);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {

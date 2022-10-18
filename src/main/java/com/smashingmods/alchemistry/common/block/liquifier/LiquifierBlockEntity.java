@@ -15,15 +15,12 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -50,7 +47,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty() && !isRecipeLocked()) {
+        if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty()) {
             RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.getId().equals(recipe.getId())) {
@@ -137,17 +134,13 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         return new ProcessingSlotHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
-                if (!isEmpty() && !isRecipeLocked()) {
+                if (!isEmpty()) {
                     updateRecipe();
                 }
                 setCanProcess(canProcessRecipe());
                 setChanged();
             }
         };
-    }
-
-    public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
-        return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 
     @Override

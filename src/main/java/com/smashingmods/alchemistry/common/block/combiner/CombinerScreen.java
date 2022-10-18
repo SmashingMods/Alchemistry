@@ -47,6 +47,9 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     @Override
     protected void init() {
         recipeSelectorScreen.setTopPos((height - imageHeight) / 2);
+        widgets.add(lockButton);
+        widgets.add(pauseButton);
+        widgets.add(recipeSelector);
         super.init();
     }
 
@@ -57,7 +60,6 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
-        renderWidget(recipeSelector, leftPos - 24, topPos + 48);
     }
 
     @Override

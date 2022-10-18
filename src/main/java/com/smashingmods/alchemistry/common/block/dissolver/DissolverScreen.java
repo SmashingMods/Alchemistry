@@ -36,6 +36,12 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
     }
 
     @Override
+    protected void init() {
+        widgets.add(pauseButton);
+        super.init();
+    }
+
+    @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
@@ -50,7 +56,7 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_gui.png"));
-        this.blit(pPoseStack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight);
+        blit(pPoseStack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

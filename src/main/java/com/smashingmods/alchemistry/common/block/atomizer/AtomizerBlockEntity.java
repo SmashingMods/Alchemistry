@@ -15,15 +15,12 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -49,7 +46,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     public void updateRecipe() {
-        if (level != null && !level.isClientSide() && !getFluidStorage().isEmpty() && !isRecipeLocked()) {
+        if (level != null && !level.isClientSide() && !getFluidStorage().isEmpty()) {
             RecipeRegistry.getAtomizerRecipe(recipe -> recipe.getInput().getFluid().equals(getFluidStorage().getFluidStack().getFluid()), level)
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
@@ -138,10 +135,6 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
                 return false;
             }
         };
-    }
-
-    public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
-        return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 
     @Override

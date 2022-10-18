@@ -24,6 +24,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
     private final AbstractProcessingBlockEntity blockEntity;
     protected final LockButton lockButton;
     protected final PauseButton pauseButton;
+    protected final LinkedList<AbstractWidget> widgets = new LinkedList<>();
 
     public AbstractProcessingScreen(M pMenu, Inventory pPlayerInventory, Component pTitle, String pModId) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -57,8 +59,9 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
         renderBg(pPoseStack, pPartialTick, pMouseX, pMouseY);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        renderWidget(lockButton, leftPos - 24, topPos);
-        renderWidget(pauseButton, leftPos - 24, topPos + 24);
+        for (int index = 0; index < widgets.size(); index++) {
+            renderWidget(widgets.get(index), leftPos - 24, topPos + (index * 24));
+        }
     }
 
     public void drawFluidTank(FluidDisplayData pData) {

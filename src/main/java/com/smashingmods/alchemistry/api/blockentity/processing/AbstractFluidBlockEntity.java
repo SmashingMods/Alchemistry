@@ -6,11 +6,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -67,6 +71,11 @@ public abstract class AbstractFluidBlockEntity extends AbstractProcessingBlockEn
     }
 
     @Override
+    public boolean isRecipeLocked() {
+        return false;
+    }
+
+    @Override
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("item", itemHandler.serializeNBT());
         pTag.put("fluid", fluidStorage.writeToNBT(new CompoundTag()));
@@ -89,5 +98,9 @@ public abstract class AbstractFluidBlockEntity extends AbstractProcessingBlockEn
             }
             Containers.dropContents(level, worldPosition, container);
         }
+    }
+
+    public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
+        return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
     }
 }

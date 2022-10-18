@@ -36,6 +36,12 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
     }
 
     @Override
+    protected void init() {
+        widgets.add(pauseButton);
+        super.init();
+    }
+
+    @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 

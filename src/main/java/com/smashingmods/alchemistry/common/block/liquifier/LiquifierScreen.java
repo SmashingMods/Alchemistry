@@ -31,6 +31,12 @@ public class LiquifierScreen extends AbstractProcessingScreen<LiquifierMenu> {
     }
 
     @Override
+    protected void init() {
+        widgets.add(pauseButton);
+        super.init();
+    }
+
+    @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 

@@ -1,14 +1,14 @@
 {
   "rewards": {
     "recipes": [
-      "chemlib:ethane_fluid"
+      "chemlib:graphite_dust"
     ]
   },
   "criteria": {
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "alchemistry:liquifier/ethane_fluid"
+        "recipe": "chemlib:graphite_dust"
       }
     }
   },

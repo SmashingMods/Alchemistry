@@ -1,15 +1,19 @@
-# Alchemistry 1.18.2-2.0.9 RELEASE
+# Alchemistry 1.18.2-2.1.0 RELEASE
 
-Being fairly new to mod development, there are a lot of ways to introduce bugs with minor mistakes. Trying to be agile, I let users find the bugs for me. This update fixes all of the known bugs and then some.
+This is the much awaited update. With any luck, this adds a ton of polish to the usability of the mod. But importantly, it should also fix some well known bugs!
+
+The biggest change involves updates to the way GUIs look and feel. There is now a new Recipe Selector button that pops open a new gui so you can really easily select the recipe you want to use for the Combiner and Compactor. I also standardized the size, shape, and location of elements in the gui. This should make it easier for us to make changes to any machine in the future.
+
+Bug Fixes:
+- Fix recipes that had duplication glitches such as graphite to diamond.
+- Make sure saved recipes are loading when the processing machine is loaded in the world.
+- Make block entities copy their recipes rather than using values of the current recipe so that any changes made don't break the recipe for the rest of the game session.
 
 Changes:
-- Use new maven to fetch chemlib.
-- Refactor containers to remove container data and sync using update tag only. Container data wasn't syncing correctly if the value was over 16 bits (why?).
--  Refactor combiner recipe match inputs method to a much better functional method.
--  Make sure both lists are the same size when matching input in the combiner recipe.
-- Fix fission and fusion controller block entities resetting progress when they didn't need to by setting the recipe to null if the input was empty.
--  Fix ProbabilitySet with unweighted probability to output air if total probability is below 100. This fixes a number of recipes like carrots which should only give beta carotene 20% of the time and air 80% of the time.
--  Add deceptively simple fix for setting the recipe for a block entity in the jei transfer handler.
-- Fix (again) jei transfer handlers to make sure that max transfer in creative mode didn't try to add more than max stack size of items to slots.
+- Add recipe selector button and screen for the Combiner and Compactor. Use this screen to more easily select the recipe you want to make. The search functionality is improved over previous iterations as well. You can now use '@' to search for namespaced items.
+- Remove locking feature from single input machines.
+- Redo machine gui textures for consistency and refactor screens/menus to account for changes.
+- Make list of recipes linked lists. That combined with their sortability should make them always display the same way and only need to be sorted once.
+- Create LinkedList of widgets and init them per screen. Then render them all in order with a defined x/y placement. This allows each machine to display only the buttons it needs.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

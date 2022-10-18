@@ -124,7 +124,10 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         return new FluidStorageHandler(Config.Common.liquifierFluidCapacity.get(), FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
-                setChanged();
+                if (level != null && !level.isClientSide() && isEmpty()) {
+                    updateRecipe();
+                    setCanProcess(canProcessRecipe());
+                }
             }
         };
     }

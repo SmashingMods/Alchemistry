@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class EnergyDisplayData extends AbstractDisplayData {
 
-    AbstractProcessingBlockEntity blockEntity;
+    private final AbstractProcessingBlockEntity blockEntity;
 
     public EnergyDisplayData(AbstractProcessingBlockEntity pBlockEntity, int pX, int pY, int pWidth, int pHeight) {
         super(pX, pY, pWidth, pHeight);

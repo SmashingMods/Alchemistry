@@ -7,7 +7,6 @@ import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessing
 import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
 import com.smashingmods.alchemistry.api.blockentity.container.RecipeSelectorScreen;
 import com.smashingmods.alchemistry.api.blockentity.container.button.RecipeSelectorButton;
-import com.smashingmods.alchemistry.api.blockentity.container.button.ResetTargetButton;
 import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
 import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
 import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
@@ -28,7 +27,6 @@ import java.util.List;
 public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
-    private final ResetTargetButton resetTargetButton;
 
     private final RecipeSelectorScreen<CompactorScreen, CompactorBlockEntity, CompactorRecipe> recipeSelectorScreen;
     private final RecipeSelectorButton recipeSelector;
@@ -42,10 +40,8 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),78, 54, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),12, 12, 16, 54));
 
-        resetTargetButton = new ResetTargetButton(this, (CompactorBlockEntity) pMenu.getBlockEntity());
-
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CompactorBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCompactorRecipes(pMenu.getLevel()));
-        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen, new TranslatableComponent("alchemistry.container.select_recipe"));
+        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen);
     }
 
     @Override
@@ -65,7 +61,6 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         renderTooltip(pPoseStack, pMouseX, pMouseY);
 
         renderWidget(recipeSelector, leftPos - 24, topPos + 48);
-        renderWidget(resetTargetButton, leftPos - 24, topPos + 72);
     }
 
     @Override
@@ -83,20 +78,23 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
     }
 
     private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        ItemStack target = ((CompactorBlockEntity) this.menu.getBlockEntity()).getTarget();
 
-        int xStart = leftPos + 83;
-        int xEnd = xStart + 18;
-        int yStart = topPos + 15;
-        int yEnd = yStart + 18;
+        if (menu.getBlockEntity().getRecipe() instanceof CompactorRecipe compactorRecipe) {
+            ItemStack target = compactorRecipe.getOutput();
 
-        if (!target.isEmpty()) {
-            itemRenderer.renderAndDecorateItem(target, xStart, yStart);
-            if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
-                List<Component> components = new ArrayList<>();
-                components.add(0, new TranslatableComponent("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
-                components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
-                renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
+            int xStart = leftPos + 83;
+            int xEnd = xStart + 18;
+            int yStart = topPos + 15;
+            int yEnd = yStart + 18;
+
+            if (!target.isEmpty()) {
+                itemRenderer.renderAndDecorateItem(target, xStart, yStart);
+                if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
+                    List<Component> components = new ArrayList<>();
+                    components.add(0, new TranslatableComponent("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
+                    components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
+                    renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
+                }
             }
         }
     }

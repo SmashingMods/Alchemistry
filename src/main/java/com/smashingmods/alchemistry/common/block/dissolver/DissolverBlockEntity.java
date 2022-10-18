@@ -3,9 +3,11 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -27,12 +29,21 @@ import java.util.LinkedList;
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     private DissolverRecipe currentRecipe;
+    private ResourceLocation recipeId;
     private final NonNullList<ItemStack> internalBuffer = NonNullList.createWithCapacity(64);
 
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.dissolverEnergyPerTick.get());
         setMaxProgress(Config.Common.dissolverTicksPerOperation.get());
+    }
+
+    @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
     }
 
     @Override
@@ -100,7 +111,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
             currentRecipe = dissolverRecipe;
         }
@@ -184,6 +195,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         ListTag bufferTag = pTag.getList("buffer", 10);
         bufferTag.stream()
                 .filter(tag -> tag instanceof CompoundTag)
@@ -191,9 +203,13 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 .map(ItemStack::of)
                 .forEach(internalBuffer::add);
 
-        if (level != null) {
-            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
-                    .ifPresent(recipe -> setRecipe(recipe.copy()));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

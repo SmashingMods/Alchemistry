@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 
 public class FusionRecipeProvider {
 
-    Consumer<FinishedRecipe> consumer;
+    private final Consumer<FinishedRecipe> consumer;
 
     public FusionRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
         this.consumer = pConsumer;

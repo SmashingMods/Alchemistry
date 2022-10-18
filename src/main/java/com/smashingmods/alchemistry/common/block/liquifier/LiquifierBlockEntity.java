@@ -3,10 +3,12 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
-import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -30,11 +32,20 @@ import java.util.LinkedList;
 public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     private LiquifierRecipe currentRecipe;
+    private ResourceLocation recipeId;
 
     public LiquifierBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.LIQUIFIER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.liquifierEnergyPerTick.get());
         setMaxProgress(Config.Common.liquifierTicksPerOperation.get());
+    }
+
+    @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
     }
 
     @Override
@@ -79,7 +90,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
             currentRecipe = liquifierRecipe;
         }
@@ -150,9 +161,14 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        if (level != null) {
-            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
-                    .ifPresent(recipe -> setRecipe(recipe.copy()));
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

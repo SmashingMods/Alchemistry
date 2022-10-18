@@ -16,7 +16,6 @@ import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
-import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.chemlib.api.Chemical;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
@@ -38,46 +37,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class RecipeDisplayUtil {
-
-    public static <B extends AbstractProcessingBlockEntity> void setRecipe(B pBlockEntity, ProcessingRecipe pRecipe) {
-        if (pBlockEntity.getLevel() != null) {
-            if (pBlockEntity instanceof AtomizerBlockEntity blockEntity && pRecipe instanceof AtomizerRecipe atomizerRecipe) {
-
-                RecipeRegistry.getAtomizerRecipe(recipe -> recipe.getInput().isFluidEqual(atomizerRecipe.getInput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-
-            } else if (pBlockEntity instanceof CombinerBlockEntity blockEntity && pRecipe instanceof CombinerRecipe combinerRecipe) {
-
-                RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), combinerRecipe.getOutput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-
-            } else if (pBlockEntity instanceof CompactorBlockEntity blockEntity && pRecipe instanceof CompactorRecipe compactorRecipe) {
-
-                RecipeRegistry.getCompactorRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), compactorRecipe.getOutput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-
-            } else if (pBlockEntity instanceof DissolverBlockEntity blockEntity && pRecipe instanceof DissolverRecipe dissolverRecipe) {
-
-                RecipeRegistry.getDissolverRecipe(recipe -> recipe.getInput().equals(dissolverRecipe.getInput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-
-            } else if (pBlockEntity instanceof FissionControllerBlockEntity blockEntity && pRecipe instanceof FissionRecipe fissionRecipe) {
-
-                RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), fissionRecipe.getInput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-
-            } else if (pBlockEntity instanceof FusionControllerBlockEntity blockEntity && pRecipe instanceof FusionRecipe fusionRecipe) {
-
-                RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), fusionRecipe.getOutput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-
-            } else if (pBlockEntity instanceof LiquifierBlockEntity blockEntity && pRecipe instanceof LiquifierRecipe liquifierRecipe) {
-
-                RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getOutput().isFluidEqual(liquifierRecipe.getOutput()), blockEntity.getLevel())
-                        .ifPresent(blockEntity::setRecipe);
-            }
-        }
-    }
 
     public static List<Component> getItemTooltipComponent(ItemStack pItemStack, BaseComponent pComponent) {
         List<Component> components = new ArrayList<>();

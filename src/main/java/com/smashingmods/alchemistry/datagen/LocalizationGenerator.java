@@ -19,8 +19,8 @@ public class LocalizationGenerator extends LanguageProvider {
         super(gen, Alchemistry.MODID, locale);
     }
 
-    @Override
     @SuppressWarnings("deprecation")
+    @Override
     protected void addTranslations() {
         BlockRegistry.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
@@ -48,6 +48,8 @@ public class LocalizationGenerator extends LanguageProvider {
         add("tooltip.alchemistry.requires", "Requires");
 
         add("alchemistry.container.search", "Search...");
+        add("alchemistry.container.open_recipe_select", "Open Recipe Selection");
+        add("alchemistry.container.close_recipe_select", "Close Recipe Selection");
         add("alchemistry.container.select_recipe", "Select recipe:");
         add("alchemistry.container.current_recipe", "Current recipe:");
         add("alchemistry.container.required_input", "Required input item:");

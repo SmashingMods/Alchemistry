@@ -41,7 +41,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CombinerBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCombinerRecipes(pMenu.getLevel()));
-        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen, new TranslatableComponent("alchemistry.container.select_recipe"));
+        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen);
     }
 
     @Override
@@ -63,11 +63,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     @Override
     protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        if (!blockEntity.isRecipeSelectorOpen()) {
-            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        } else {
-            RenderSystem.setShaderColor(0.3f, 0.3f, 0.3f, 1.0f);
-        }
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_gui.png"));
         blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }

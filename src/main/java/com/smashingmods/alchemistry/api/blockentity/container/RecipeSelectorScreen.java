@@ -6,7 +6,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractProcessingBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
@@ -32,7 +35,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B extends AbstractProcessingBlockEntity, R extends ProcessingRecipe> extends Screen {
+public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B extends AbstractProcessingBlockEntity, R extends AbstractProcessingRecipe> extends Screen {
 
     private final int imageWidth = 184;
     private final int imageHeight = 162;
@@ -46,7 +49,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private final P parentScreen;
     private final B blockEntity;
     private final LinkedList<R> recipes;
-    private final LinkedList<ProcessingRecipe> displayedRecipes = new LinkedList<>();
+    private final LinkedList<AbstractProcessingRecipe> displayedRecipes = new LinkedList<>();
 
     private final EditBox searchBox;
 
@@ -102,16 +105,22 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         super.tick();
     }
 
+    @Override
+    public void onClose() {
+        blockEntity.setRecipeSelectorOpen(false);
+        super.onClose();
+    }
+
     // Render methods
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         renderBg(pPoseStack);
-        renderLabels(pPoseStack);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderRecipeBox(pPoseStack, pMouseX, pMouseY);
         renderWidget(searchBox, leftPos + 58, topPos + 11);
+        renderParentTooltips(pPoseStack, pMouseX, pMouseY);
     }
 
     private void renderBg(PoseStack pPoseStack) {
@@ -119,11 +128,6 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"));
         blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
-    }
-
-    private void renderLabels(PoseStack pPoseStack) {
-        Component title = new TranslatableComponent("alchemistry.container.search");
-        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
     private void renderRecipeBox(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -162,7 +166,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private void renderRecipeButtonItems(PoseStack pPoseStack, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
-        LinkedList<ProcessingRecipe> displayedRecipes = getDisplayedRecipes();
+        LinkedList<AbstractProcessingRecipe> displayedRecipes = getDisplayedRecipes();
         for (int index = startIndex; index >= 0 && index < pLastDisplayedIndex && index < displayedRecipes.size(); index++) {
 
             int firstDisplayedIndex = index - startIndex;
@@ -238,8 +242,8 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         int inputSize = RecipeDisplayUtil.getInputSize(blockEntity);
         int totalRows = (inputSize / 2) + (inputSize % 2);
         int totalCols = (inputSize / 2) + (inputSize % 2);
-        int xOrigin = totalRows == 1 ? leftPos + 16 : leftPos + 11;
-        int yOrigin = totalCols == 1 ? topPos + 50 : topPos + 59;
+        int xOrigin = totalRows == 1 ? leftPos + 20 : leftPos + 11;
+        int yOrigin = topPos + 59;
 
         for (int row = 0; row < totalRows; row++) {
             for (int col = 0; col < totalCols; col++) {
@@ -266,6 +270,21 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                 widget.y = pY;
             }
             addRenderableWidget(pWidget);
+        }
+    }
+
+    public void renderParentTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        for (Widget renderable : parentScreen.renderables) {
+            if (renderable instanceof AbstractWidget widget) {
+                int xStart = widget.x;
+                int xEnd = xStart + widget.getWidth();
+                int yStart = widget.y;
+                int yEnd = yStart + widget.getHeight();
+
+                if (pMouseX > xStart && pMouseX < xEnd && pMouseY > yStart && pMouseY < yEnd) {
+                    renderTooltip(pPoseStack, widget.getMessage(), pMouseX, pMouseY);
+                }
+            }
         }
     }
 
@@ -319,7 +338,8 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             double boxY = pMouseY - (double)(recipeBoxTopPos + currentIndex / COLUMNS * RECIPE_BOX_SIZE);
 
             if (boxX > 0 && boxX <= RECIPE_BOX_SIZE + 1 && boxY > 0 && boxY <= RECIPE_BOX_SIZE + 1 && !blockEntity.isRecipeLocked() && isValidRecipeIndex(index)) {
-                RecipeDisplayUtil.setRecipe(blockEntity, getDisplayedRecipes().get(index));
+                AbstractProcessingRecipe recipe = getDisplayedRecipes().get(index);
+                PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(blockEntity.getBlockPos(), recipe.getId(), recipe.getGroup()));
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0f));
                 return true;
             }
@@ -334,14 +354,19 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             }
         }
 
-        int parentXStart = parentScreen.getLeftPos();
-        int parentXEnd = parentXStart - parentScreen.getImageWidth();
-        int parentYStart = parentScreen.getTopPos();
-        int parentYEnd = parentYStart - parentScreen.getImageHeight();
+        for (Widget renderable : parentScreen.renderables) {
+            if (renderable instanceof AbstractWidget widget) {
+                int xStart = widget.x;
+                int xEnd = xStart + widget.getWidth();
+                int yStart = widget.y;
+                int yEnd = yStart + widget.getHeight();
 
-        if (pMouseX < parentXStart && pMouseX > parentXEnd && pMouseY < parentYStart && pMouseY > parentYEnd) {
-            return parentScreen.mouseClicked(pMouseX, pMouseY, pButton);
+                if (pMouseX > xStart && pMouseX < xEnd && pMouseY > yStart && pMouseY < yEnd) {
+                    return parentScreen.mouseClicked(pMouseX, pMouseY, pButton);
+                }
+            }
         }
+
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 
@@ -378,7 +403,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         this.topPos = topPos;
     }
 
-    public LinkedList<ProcessingRecipe> getDisplayedRecipes() {
+    public LinkedList<AbstractProcessingRecipe> getDisplayedRecipes() {
         return displayedRecipes;
     }
 
@@ -400,12 +425,13 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     public void resetDisplayedRecipes() {
         this.displayedRecipes.clear();
         this.displayedRecipes.addAll(recipes);
+        this.displayedRecipes.sort((r1, r2) -> r1.getId().compareNamespaced(r2.getId()));
     }
 
     private void searchRecipeList(String pKeyword) {
         getDisplayedRecipes().clear();
 
-        LinkedList<ProcessingRecipe> recipes = blockEntity.getAllRecipes().stream()
+        LinkedList<AbstractProcessingRecipe> recipes = blockEntity.getAllRecipes().stream()
                 .filter(recipe -> {
                     Pair<ResourceLocation, String> searchablePair = RecipeDisplayUtil.getSearchablePair(recipe);
                     ResourceLocation registryName = searchablePair.getLeft();

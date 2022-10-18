@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.api.blockentity.processing;
 
-import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 
 import javax.annotation.Nullable;
 import java.util.LinkedList;
@@ -19,12 +19,12 @@ public interface ProcessingBlockEntity {
 
     void processRecipe();
 
-    <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe);
+    <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe);
 
     @Nullable
-    <R extends ProcessingRecipe> R getRecipe();
+    <R extends AbstractProcessingRecipe> R getRecipe();
 
-    <R extends ProcessingRecipe> LinkedList<R> getAllRecipes();
+    <R extends AbstractProcessingRecipe> LinkedList<R> getAllRecipes();
 
     int getProgress();
 

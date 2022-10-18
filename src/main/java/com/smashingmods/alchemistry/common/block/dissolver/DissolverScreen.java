@@ -63,8 +63,6 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         DissolverRecipe currentRecipe = blockEntity.getRecipe();
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
-        // Intellij thinks this is never null. Remove this and watch it crash.
-        //noinspection ConstantConditions
         if (currentRecipe != null && handler.getStackInSlot(0).isEmpty() && blockEntity.isRecipeLocked()) {
             ItemStack currentInput = currentRecipe.getInput().toStacks().get(0);
 

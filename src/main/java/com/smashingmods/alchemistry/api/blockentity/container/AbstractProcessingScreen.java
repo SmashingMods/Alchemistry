@@ -253,20 +253,4 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
     public AbstractProcessingBlockEntity getBlockEntity() {
         return blockEntity;
     }
-
-    public int getLeftPos() {
-        return leftPos;
-    }
-
-    public int getTopPos() {
-        return topPos;
-    }
-
-    public int getImageHeight() {
-        return imageHeight;
-    }
-
-    public int getImageWidth() {
-        return imageWidth;
-    }
 }

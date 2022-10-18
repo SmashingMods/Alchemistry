@@ -103,11 +103,11 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
 
     public boolean getCanProcess() {
         return canProcess;
-    };
+    }
 
     public void setCanProcess(boolean pCanProcess) {
         canProcess = pCanProcess;
-    };
+    }
 
     @Override
     public int getMaxProgress() {

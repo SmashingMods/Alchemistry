@@ -1,11 +1,13 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -26,12 +28,21 @@ import java.util.LinkedList;
 public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     private FissionRecipe currentRecipe;
+    private ResourceLocation recipeId;
 
     public FissionControllerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.FISSION_CONTROLLER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setReactorType(ReactorType.FISSION);
         setEnergyPerTick(Config.Common.fissionEnergyPerTick.get());
         setMaxProgress(Config.Common.fissionTicksPerOperation.get());
+    }
+
+    @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getFissionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
     }
 
     @Override
@@ -78,7 +89,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe instanceof FissionRecipe fissionRecipe) {
             currentRecipe = fissionRecipe;
         }
@@ -149,9 +160,14 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        if (level != null) {
-            RecipeRegistry.getFissionRecipe(recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))), level)
-                    .ifPresent(recipe -> setRecipe(recipe.copy()));
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getFissionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

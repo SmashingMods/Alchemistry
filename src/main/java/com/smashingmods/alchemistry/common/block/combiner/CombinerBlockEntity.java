@@ -4,9 +4,11 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
-import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -26,11 +28,20 @@ import java.util.LinkedList;
 public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
 
     private CombinerRecipe currentRecipe;
+    private ResourceLocation recipeId;
 
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.combinerEnergyPerTick.get());
         setMaxProgress(Config.Common.combinerTicksPerOperation.get());
+    }
+
+    @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
     }
 
     @Override
@@ -81,7 +92,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe instanceof CombinerRecipe combinerRecipe) {
             currentRecipe = combinerRecipe;
         }
@@ -156,10 +167,14 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        if (level != null) {
-            RecipeRegistry.getCombinerRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

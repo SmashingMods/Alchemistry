@@ -10,7 +10,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
@@ -67,30 +66,5 @@ public class CombinerMenu extends AbstractProcessingMenu {
     public void resetDisplayedRecipes() {
         displayedRecipes.clear();
         displayedRecipes.addAll(RecipeRegistry.getCombinerRecipes(level));
-    }
-
-    public LinkedList<CombinerRecipe> getDisplayedRecipes() {
-        return displayedRecipes;
-    }
-
-    public void searchRecipeList(String pKeyword) {
-        displayedRecipes.clear();
-        displayedRecipes.addAll(RecipeRegistry.getCombinerRecipes(level).stream()
-                .filter(recipe -> {
-                    Item item = recipe.getOutput().getItem();
-                    if (pKeyword.charAt(0) == '@') {
-                        Objects.requireNonNull(item.getRegistryName());
-                        boolean space = pKeyword.contains(" ");
-                        boolean namespace = item.getRegistryName().getNamespace().contains(space ? pKeyword.split(" ")[0] : pKeyword.substring(1));
-                        boolean path = item.getRegistryName().getPath().contains(pKeyword.split(" ")[1]);
-                        if (space) {
-                            return namespace && path;
-                        } else {
-                            return namespace;
-                        }
-                    }
-                    return recipe.getOutput().getItem().getDescription().getString().toLowerCase().contains(pKeyword.toLowerCase());
-                })
-                .toList());
     }
 }

@@ -9,6 +9,7 @@ import com.smashingmods.alchemistry.common.network.ToggleAutoBalanceButtonPacket
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -53,8 +54,12 @@ public class AutoBalanceButton extends Button {
 
     public void renderButtonToolTip(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         if (pMouseX >= x && pMouseX <= x + width && pMouseY >= y && pMouseY <= y + height) {
-            TranslatableComponent component = blockEntity.isAutoBalanced() ? new TranslatableComponent("alchemistry.container.enable_autobalance") : new TranslatableComponent("alchemistry.container.disable_autobalance");
-            parent.renderTooltip(pPoseStack, component, pMouseX, pMouseY);
+            parent.renderTooltip(pPoseStack, getMessage(), pMouseX, pMouseY);
         }
+    }
+
+    @Override
+    public Component getMessage() {
+        return blockEntity.isAutoBalanced() ? new TranslatableComponent("alchemistry.container.enable_autobalance") : new TranslatableComponent("alchemistry.container.disable_autobalance");
     }
 }

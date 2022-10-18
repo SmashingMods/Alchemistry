@@ -3,11 +3,11 @@ package com.smashingmods.alchemistry.common.block.compactor;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemistry.api.recipe.ProcessingRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -23,12 +23,11 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
-import java.util.List;
 
 public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     private CompactorRecipe currentRecipe;
-    private ItemStack target = ItemStack.EMPTY;
+    private ResourceLocation recipeId;
 
     public CompactorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -37,32 +36,23 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
+    }
+
+    @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
-            if (target.isEmpty()) {
-                List<CompactorRecipe> recipes = RecipeRegistry.getCompactorRecipes(level).stream()
-                        .filter(recipe -> recipe.getInput().matches(getInputHandler().getStackInSlot(0)))
-                        .toList();
-                if (recipes.size() == 1) {
-                    if (currentRecipe == null || !currentRecipe.equals(recipes.get(0))) {
+            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getInput().matches(getInputHandler().getStackInSlot(0)), level)
+                .ifPresent(recipe -> {
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
-                        setRecipe(recipes.get(0));
-                        setTarget(new ItemStack(recipes.get(0).getOutput().getItem()));
+                        setRecipe(recipe);
                     }
-                } else {
-                    setProgress(0);
-                    setRecipe(null);
-                }
-            } else {
-                RecipeRegistry.getCompactorRecipe(recipe -> ItemStack.isSameItemSameTags(target, recipe.getOutput()), level)
-                    .ifPresent(recipe -> {
-                        if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                            setProgress(0);
-                            setRecipe(recipe);
-                            setTarget(new ItemStack(recipe.getOutput().getItem()));
-                        }
-                    });
-            }
+                });
         }
     }
 
@@ -94,15 +84,9 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public <R extends ProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
-        if (pRecipe == null) {
-            currentRecipe = null;
-        } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof CompactorRecipe compactorRecipe) {
             currentRecipe = compactorRecipe;
-            target = compactorRecipe.getOutput();
-            if (level != null && !level.isClientSide()) {
-                PacketHandler.sendToTrackingChunk(new BlockEntityPacket(getBlockPos(), getUpdateTag()), level, getBlockPos());
-            }
         }
     }
 
@@ -119,17 +103,6 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
             return new LinkedList<>(RecipeRegistry.getCompactorRecipes(level));
         }
         return new LinkedList<>();
-    }
-
-    public ItemStack getTarget() {
-        return target;
-    }
-
-    public void setTarget(ItemStack pTarget) {
-        if (level != null && !level.isClientSide() && !isRecipeLocked()) {
-            this.target = pTarget;
-            setCanProcess(canProcessRecipe());
-        }
     }
 
     @Override
@@ -176,7 +149,6 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("target", target.serializeNBT());
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
@@ -186,11 +158,14 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        target = ItemStack.of(pTag.getCompound("target"));
-        if (level != null) {
-            RecipeRegistry.getCompactorRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

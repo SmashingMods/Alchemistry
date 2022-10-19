@@ -102,6 +102,7 @@ dependencies {
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19-${patchouli_version}")
 
 //    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
+    runtimeOnly fg.deobf("curse.maven:mekanism-268560:4020942")
 }
 
 jar {

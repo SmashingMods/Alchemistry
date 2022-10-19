@@ -23,7 +23,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidStack;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -67,9 +66,9 @@ public abstract class AbstractProcessingScreen<M extends AbstractProcessingMenu>
 
     public void drawFluidTank(FluidDisplayData pData) {
         if (pData.getValue() > 0) {
-            FluidStack fluidStack = pData.getFluidHandler().getFluidStack();
-            setShaderColor(IClientFluidTypeExtensions.DEFAULT.getTintColor(fluidStack));
-            TextureAtlasSprite icon = getResourceTexture(IClientFluidTypeExtensions.DEFAULT.getStillTexture(fluidStack));
+            IClientFluidTypeExtensions fluidTypeExtensions = IClientFluidTypeExtensions.of(pData.getFluidHandler().getFluidStack().getFluid().getFluidType());
+            setShaderColor(fluidTypeExtensions.getTintColor());
+            TextureAtlasSprite icon = getResourceTexture(fluidTypeExtensions.getStillTexture());
             drawTexture(pData, icon, leftPos + pData.getX(), topPos + pData.getY());
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }

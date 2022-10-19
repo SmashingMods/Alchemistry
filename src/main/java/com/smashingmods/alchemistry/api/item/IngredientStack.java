@@ -16,12 +16,12 @@ public class IngredientStack {
 
     private final Ingredient ingredient;
     private final int count;
-    private final ResourceLocation id;
+    private final ResourceLocation registryName;
 
     public IngredientStack(Ingredient pIngredient, int pCount) {
         this.ingredient = pIngredient;
         this.count = pCount;
-        this.id = new ResourceLocation(pIngredient.values[0].serialize().has("item") ?
+        this.registryName = new ResourceLocation(pIngredient.values[0].serialize().has("item") ?
                 pIngredient.values[0].serialize().get("item").getAsString()
                 : pIngredient.values[0].serialize().get("tag").getAsString());
     }
@@ -84,8 +84,8 @@ public class IngredientStack {
         return ingredient;
     }
 
-    public ResourceLocation getId() {
-        return id;
+    public ResourceLocation getRegistryName() {
+        return registryName;
     }
 
     public int getCount() {
@@ -102,13 +102,17 @@ public class IngredientStack {
         if (!(o instanceof IngredientStack that)) return false;
 
         if (getCount() != that.getCount()) return false;
-        return getId().equals(that.getId());
+        return getRegistryName().equals(that.getRegistryName());
     }
 
     @Override
     public int hashCode() {
         int result = getCount();
-        result = 31 * result + getId().hashCode();
+        result = 31 * result + getRegistryName().hashCode();
         return result;
+    }
+
+    public IngredientStack copy() {
+        return new IngredientStack(ingredient, count);
     }
 }

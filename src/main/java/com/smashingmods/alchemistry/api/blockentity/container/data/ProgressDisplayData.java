@@ -1,5 +1,6 @@
-package com.smashingmods.alchemistry.api.blockentity.container;
+package com.smashingmods.alchemistry.api.blockentity.container.data;
 
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractProcessingBlockEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;

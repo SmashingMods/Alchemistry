@@ -16,7 +16,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public class PacketHandler {
     private static int PACKET_ID = 0;
     private static final String PROTOCOL_VERSION = "1.0";
-    public static SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
+    public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Alchemistry.MODID, "main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
@@ -53,6 +53,18 @@ public class PacketHandler {
                 .decoder(CompactorResetPacket::new)
                 .encoder(CompactorResetPacket::encode)
                 .consumer(CompactorResetPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(SearchPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SearchPacket::new)
+                .encoder(SearchPacket::encode)
+                .consumer(SearchPacket::handle)
+                .add();
+
+        INSTANCE.messageBuilder(SetRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
+                .decoder(SetRecipePacket::new)
+                .encoder(SetRecipePacket::encode)
+                .consumer(SetRecipePacket::handle)
                 .add();
 
         // JEI recipe transfer packets
@@ -104,6 +116,7 @@ public class PacketHandler {
         INSTANCE.send(PacketDistributor.ALL.noArg(), pMessage);
     }
 
+    @SuppressWarnings("unused")
     public static <MSG> void sendToNear(MSG pMessage, Level pLevel, BlockPos pBlockPos, double pRadius) {
         ResourceKey<Level> dimension = pLevel.dimension();
         double posX = pBlockPos.getX();

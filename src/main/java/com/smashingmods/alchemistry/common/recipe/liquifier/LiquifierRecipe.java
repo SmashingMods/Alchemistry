@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
 import com.smashingmods.alchemistry.api.item.IngredientStack;
-import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -11,8 +11,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 
-public class LiquifierRecipe extends AbstractAlchemistryRecipe {
+public class LiquifierRecipe extends AbstractProcessingRecipe {
 
     private final IngredientStack input;
     private final FluidStack output;
@@ -46,6 +47,16 @@ public class LiquifierRecipe extends AbstractAlchemistryRecipe {
     @Override
     public String toString(){
         return String.format("input=%s, outputs=%s", input, output);
+    }
+
+    @Override
+    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+        return getId().compareNamespaced(pRecipe.getId());
+    }
+
+    @Override
+    public LiquifierRecipe copy() {
+        return new LiquifierRecipe(getId(), getGroup(), input.copy(), output.copy());
     }
 
     public IngredientStack getInput() {

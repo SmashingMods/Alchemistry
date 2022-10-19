@@ -1,4 +1,4 @@
-package com.smashingmods.alchemistry.api.blockentity.container;
+package com.smashingmods.alchemistry.api.blockentity.container.data;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;

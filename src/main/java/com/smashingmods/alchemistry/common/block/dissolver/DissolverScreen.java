@@ -3,7 +3,12 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
+import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import net.minecraft.client.renderer.GameRenderer;
@@ -25,9 +30,15 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
         this.imageWidth = 184;
         this.imageHeight = 200;
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 88, 34, 60, 9, Direction2D.DOWN));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 156, 12, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 69, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         this.blockEntity = (DissolverBlockEntity) pMenu.getBlockEntity();
+    }
+
+    @Override
+    protected void init() {
+        widgets.add(pauseButton);
+        super.init();
     }
 
     @Override
@@ -45,7 +56,7 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_gui.png"));
-        this.blit(pPoseStack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight);
+        blit(pPoseStack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
@@ -58,8 +69,6 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         DissolverRecipe currentRecipe = blockEntity.getRecipe();
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
-        // Intellij thinks this is never null. Remove this and watch it crash.
-        //noinspection ConstantConditions
         if (currentRecipe != null && handler.getStackInSlot(0).isEmpty() && blockEntity.isRecipeLocked()) {
             ItemStack currentInput = currentRecipe.getInput().toStacks().get(0);
 

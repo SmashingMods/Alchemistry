@@ -1,6 +1,8 @@
 package com.smashingmods.alchemistry.api.blockentity.processing;
 
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SearchPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -10,11 +12,8 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.Nameable;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,7 +21,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -31,10 +29,14 @@ import java.util.Objects;
 public abstract class AbstractProcessingBlockEntity extends BlockEntity implements ProcessingBlockEntity, EnergyBlockEntity, MenuProvider, Nameable {
 
     private final Component name;
+    private int energyPerTick = 0;
+    private int maxProgress = 0;
     private int progress = 0;
     private boolean canProcess = false;
     private boolean recipeLocked = false;
     private boolean paused = false;
+    private boolean recipeSelectorOpen = false;
+    private String searchText = "";
 
     private final EnergyStorageHandler energyHandler = initializeEnergyStorage();
     private final LazyOptional<IEnergyStorage> lazyEnergyHandler = LazyOptional.of(() -> energyHandler);
@@ -78,10 +80,6 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
-        return false;
-    }
-
     @Override
     public void tick() {
         if (level != null && !level.isClientSide()) {
@@ -98,11 +96,21 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
 
     public boolean getCanProcess() {
         return canProcess;
-    };
+    }
 
     public void setCanProcess(boolean pCanProcess) {
         canProcess = pCanProcess;
-    };
+    }
+
+    @Override
+    public int getMaxProgress() {
+        return maxProgress;
+    }
+
+    @Override
+    public void setMaxProgress(int pMaxProgress) {
+        maxProgress = pMaxProgress;
+    }
 
     @Override
     public int getProgress() {
@@ -140,13 +148,46 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
     }
 
     @Override
+    public void setRecipeSelectorOpen(boolean pOpen) {
+        this.recipeSelectorOpen = pOpen;
+    }
+
+    @Override
+    public boolean isRecipeSelectorOpen() {
+        return recipeSelectorOpen;
+    }
+
+    @Override
+    public String getSearchText() {
+        return searchText;
+    }
+
+    @Override
+    public void setSearchText(@Nullable String pText) {
+        if (pText != null && !pText.isEmpty()) {
+            searchText = pText;
+            if (level != null && level.isClientSide()) {
+                PacketHandler.INSTANCE.sendToServer(new SearchPacket(getBlockPos(), searchText));
+            }
+        }
+    }
+
+    @Override
     public EnergyStorageHandler getEnergyHandler() {
         return energyHandler;
     }
 
+    public int getEnergyPerTick() {
+        return energyPerTick;
+    }
+
+    public void setEnergyPerTick(int pEnergyPerTick) {
+        energyPerTick = pEnergyPerTick;
+    }
+
     @Override
     @Nonnull
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> pCapability, @Nullable Direction pDirection) {
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> pCapability, @Nullable Direction pDirection) {
         if (pCapability == CapabilityEnergy.ENERGY) {
             return lazyEnergyHandler.cast();
         }
@@ -164,6 +205,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
         pTag.putInt("progress", progress);
         pTag.putBoolean("locked", isRecipeLocked());
         pTag.putBoolean("paused", isProcessingPaused());
+        pTag.putString("searchText", searchText);
         pTag.put("energy", energyHandler.serializeNBT());
         super.saveAdditional(pTag);
     }
@@ -174,6 +216,7 @@ public abstract class AbstractProcessingBlockEntity extends BlockEntity implemen
         setProgress(pTag.getInt("progress"));
         setRecipeLocked(pTag.getBoolean("locked"));
         setPaused(pTag.getBoolean("paused"));
+        setSearchText(pTag.getString("searchText"));
         energyHandler.deserializeNBT(pTag.get("energy"));
     }
 }

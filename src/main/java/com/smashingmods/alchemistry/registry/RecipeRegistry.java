@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.registry;
 
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -14,8 +15,7 @@ import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -24,8 +24,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -65,45 +65,65 @@ public class RecipeRegistry {
     public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
-    private static final Map<RecipeType<? extends Recipe<Inventory>>, List<? extends Recipe<Inventory>>> recipesMap = new HashMap<>();
+    private static final Map<RecipeType<? extends AbstractProcessingRecipe>, LinkedList<? extends AbstractProcessingRecipe>> recipeTypeMap = new LinkedHashMap<>();
+    private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new LinkedHashMap<>();
 
     @SuppressWarnings("unchecked")
-    public static <T extends Recipe<Inventory>> List<T> getRecipesByType(RecipeType<T> pRecipeType, Level pLevel) {
-        if (recipesMap.get(pRecipeType) == null) {
-            List<T> recipes = pLevel.getRecipeManager().getRecipes().stream()
+    public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
+        if (recipeTypeMap.get(pRecipeType) == null) {
+            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
                     .filter(recipe -> recipe.getType().equals(pRecipeType))
-                    .map(recipe -> (T) recipe)
-                    .collect(Collectors.toList());
-            recipesMap.put(pRecipeType, recipes);
+                    .map(recipe -> (R) recipe)
+                    .sorted()
+                    .collect(Collectors.toCollection(LinkedList::new));
+            recipeTypeMap.put(pRecipeType, recipes);
         }
-        return (List<T>) recipesMap.get(pRecipeType);
+        return (LinkedList<R>) recipeTypeMap.get(pRecipeType);
     }
 
-    public static List<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {
+    @SuppressWarnings("unchecked")
+    public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
+        if (recipeGroupMap.get(pGroup) == null) {
+            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
+                .filter(recipe -> recipe.getGroup().equals(pGroup))
+                .map(recipe -> (R) recipe)
+                .sorted()
+                .collect(Collectors.toCollection(LinkedList::new));
+            recipeGroupMap.put(pGroup, recipes);
+        }
+        return (LinkedList<R>) recipeGroupMap.get(pGroup);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <R extends AbstractProcessingRecipe> Optional<R> getRecipeByGroupAndId(String pGroup, ResourceLocation pRecipeId, Level pLevel) {
+        return getRecipesByGroup(pGroup, pLevel).stream().filter(recipe -> recipe.getId().equals(pRecipeId)).findFirst().map(recipe -> (R) recipe);
+    }
+
+    public static LinkedList<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {
         return getRecipesByType(ATOMIZER_TYPE, pLevel);
     }
 
-    public static List<CombinerRecipe> getCombinerRecipes(Level pLevel) {
+    public static LinkedList<CombinerRecipe> getCombinerRecipes(Level pLevel) {
         return getRecipesByType(COMBINER_TYPE, pLevel);
     }
 
-    public static List<CompactorRecipe> getCompactorRecipes(Level pLevel) {
+    public static LinkedList<CompactorRecipe> getCompactorRecipes(Level pLevel) {
         return getRecipesByType(COMPACTOR_TYPE, pLevel);
     }
 
-    public static List<DissolverRecipe> getDissolverRecipes(Level pLevel) {
+    public static LinkedList<DissolverRecipe> getDissolverRecipes(Level pLevel) {
         return getRecipesByType(DISSOLVER_TYPE, pLevel);
     }
 
-    public static List<FissionRecipe> getFissionRecipes(Level pLevel) {
+    public static LinkedList<FissionRecipe> getFissionRecipes(Level pLevel) {
         return getRecipesByType(FISSION_TYPE, pLevel);
     }
 
-    public static List<FusionRecipe> getFusionRecipes(Level pLevel) {
+    public static LinkedList<FusionRecipe> getFusionRecipes(Level pLevel) {
         return getRecipesByType(FUSION_TYPE, pLevel);
     }
 
-    public static List<LiquifierRecipe> getLiquifierRecipes(Level pLevel) {
+    public static LinkedList<LiquifierRecipe> getLiquifierRecipes(Level pLevel) {
         return getRecipesByType(LIQUIFIER_TYPE, pLevel);
     }
 

@@ -3,8 +3,15 @@ package com.smashingmods.alchemistry.common.block.compactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.*;
-import com.smashingmods.alchemistry.api.blockentity.container.button.ResetTargetButton;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemistry.api.blockentity.container.RecipeSelectorScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.button.RecipeSelectorButton;
+import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
+import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
+import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -20,7 +27,9 @@ import java.util.List;
 public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
-    private final ResetTargetButton resetTargetButton;
+
+    private final RecipeSelectorScreen<CompactorScreen, CompactorBlockEntity, CompactorRecipe> recipeSelectorScreen;
+    private final RecipeSelectorButton recipeSelector;
 
     public CompactorScreen(CompactorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
@@ -28,10 +37,20 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         imageWidth = 184;
         imageHeight = 163;
 
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),75, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),78, 54, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),12, 12, 16, 54));
 
-        resetTargetButton = new ResetTargetButton(this, (CompactorBlockEntity) pMenu.getBlockEntity());
+        recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CompactorBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCompactorRecipes(pMenu.getLevel()));
+        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen);
+    }
+
+    @Override
+    protected void init() {
+        recipeSelectorScreen.setTopPos((height - imageHeight) / 2);
+        widgets.add(lockButton);
+        widgets.add(pauseButton);
+        widgets.add(recipeSelector);
+        super.init();
     }
 
     @Override
@@ -43,8 +62,6 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
         renderTarget(pPoseStack, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
-
-        renderWidget(resetTargetButton, leftPos - 24, topPos + 48);
     }
 
     @Override
@@ -62,20 +79,23 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
     }
 
     private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        ItemStack target = ((CompactorBlockEntity) this.menu.getBlockEntity()).getTarget();
 
-        int xStart = leftPos + 80;
-        int xEnd = xStart + 18;
-        int yStart = topPos + 12;
-        int yEnd = yStart + 18;
+        if (menu.getBlockEntity().getRecipe() instanceof CompactorRecipe compactorRecipe) {
+            ItemStack target = compactorRecipe.getOutput();
 
-        if (!target.isEmpty()) {
-            FakeItemRenderer.renderFakeItem(target, xStart, yStart, 0.5f);
-            if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
-                List<Component> components = new ArrayList<>();
-                components.add(0, new TranslatableComponent("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
-                components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
-                renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
+            int xStart = leftPos + 83;
+            int xEnd = xStart + 18;
+            int yStart = topPos + 15;
+            int yEnd = yStart + 18;
+
+            if (!target.isEmpty()) {
+                itemRenderer.renderAndDecorateItem(target, xStart, yStart);
+                if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
+                    List<Component> components = new ArrayList<>();
+                    components.add(0, new TranslatableComponent("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
+                    components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
+                    renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
+                }
             }
         }
     }

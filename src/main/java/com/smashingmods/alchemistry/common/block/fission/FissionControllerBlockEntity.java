@@ -1,11 +1,13 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -17,43 +19,30 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
+
 public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
-    private final int maxProgress = Config.Common.fissionTicksPerOperation.get();
     private FissionRecipe currentRecipe;
+    private ResourceLocation recipeId;
 
     public FissionControllerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.FISSION_CONTROLLER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setReactorType(ReactorType.FISSION);
+        setEnergyPerTick(Config.Common.fissionEnergyPerTick.get());
+        setMaxProgress(Config.Common.fissionTicksPerOperation.get());
     }
 
     @Override
-    public void tick() {
-        if (!isProcessingPaused()) {
-            if (!isRecipeLocked()) {
-                updateRecipe();
-            }
-            if (canProcessRecipe()) {
-                setPowerState(PowerState.ON);
-                processRecipe();
-            } else {
-                if (getEnergyHandler().getEnergyStored() > Config.Common.fissionEnergyPerTick.get()) {
-                    setPowerState(PowerState.STANDBY);
-                } else {
-                    setPowerState(PowerState.OFF);
-                }
-            }
-        } else {
-            if (getPowerState().equals(PowerState.ON)) {
-                setPowerState(PowerState.STANDBY);
-            }
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getFissionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
         }
-        super.tick();
+        super.onLoad();
     }
 
     @Override
@@ -63,7 +52,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
-                        setRecipe(recipe);
+                        setRecipe(recipe.copy());
                     }
                 });
             }
@@ -72,44 +61,53 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
+            FissionRecipe tempRecipe = currentRecipe.copy();
             ItemStack input = getInputHandler().getStackInSlot(0);
             ItemStack output1 = getOutputHandler().getStackInSlot(0);
             ItemStack output2 = getOutputHandler().getStackInSlot(1);
             return getEnergyHandler().getEnergyStored() >= Config.Common.fissionEnergyPerTick.get()
-                    && (ItemStack.isSameItemSameTags(input, currentRecipe.getInput()) && input.getCount() >= currentRecipe.getInput().getCount())
-                    && ((ItemStack.isSameItemSameTags(output1, currentRecipe.getOutput1()) || output1.isEmpty()) && (currentRecipe.getOutput1().getCount() + output1.getCount()) <= currentRecipe.getOutput1().getMaxStackSize())
-                    && ((ItemStack.isSameItemSameTags(output2, currentRecipe.getOutput2()) || output2.isEmpty()) && (currentRecipe.getOutput2().getCount() + output2.getCount()) <= currentRecipe.getOutput2().getMaxStackSize());
+                    && (ItemStack.isSameItemSameTags(input, tempRecipe.getInput()) && input.getCount() >= tempRecipe.getInput().getCount())
+                    && ((ItemStack.isSameItemSameTags(output1, tempRecipe.getOutput1()) || output1.isEmpty()) && (tempRecipe.getOutput1().getCount() + output1.getCount()) <= tempRecipe.getOutput1().getMaxStackSize())
+                    && ((ItemStack.isSameItemSameTags(output2, tempRecipe.getOutput2()) || output2.isEmpty()) && (tempRecipe.getOutput2().getCount() + output2.getCount()) <= tempRecipe.getOutput2().getMaxStackSize());
         }
         return false;
     }
 
     @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            FissionRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getInputHandler().decrementSlot(0, currentRecipe.getInput().getCount());
-            getOutputHandler().setOrIncrement(0, currentRecipe.getOutput1().copy());
-            getOutputHandler().setOrIncrement(1, currentRecipe.getOutput2().copy());
+            getInputHandler().decrementSlot(0, tempRecipe.getInput().getCount());
+            getOutputHandler().setOrIncrement(0, tempRecipe.getOutput1());
+            getOutputHandler().setOrIncrement(1, tempRecipe.getOutput2());
         }
-        getEnergyHandler().extractEnergy(Config.Common.fissionEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
     }
 
     @Override
-    public int getMaxProgress() {
-        return maxProgress;
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof FissionRecipe fissionRecipe) {
+            currentRecipe = fissionRecipe;
+        }
     }
 
-    @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (FissionRecipe) pRecipe;
-    }
-
+    @SuppressWarnings("unchecked")
     @Override
     public FissionRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<FissionRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getFissionRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     @Override
@@ -127,9 +125,6 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
         return new ProcessingSlotHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
-                if (!isEmpty()) {
-                    updateRecipe();
-                }
                 setCanProcess(canProcessRecipe());
                 setChanged();
             }
@@ -156,7 +151,6 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
@@ -166,10 +160,14 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        if (level != null) {
-            RecipeRegistry.getFissionRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getFissionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

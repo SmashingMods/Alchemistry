@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.*;
+import static com.smashingmods.alchemistry.datagen.DatagenUtil.getLocation;
+import static com.smashingmods.alchemistry.datagen.DatagenUtil.toIngredientStack;
 
 public class CombinerRecipeProvider {
 
@@ -82,6 +83,7 @@ public class CombinerRecipeProvider {
         combiner(pOutput, null, pInput);
     }
     
+    @SuppressWarnings("SameParameterValue")
     private void combiner(ItemLike pOutput, @Nullable ICondition pCondition, Object ... pInput) {
         List<IngredientStack> ingredientStackList = new ArrayList<>();
         for (Object obj : pInput) {

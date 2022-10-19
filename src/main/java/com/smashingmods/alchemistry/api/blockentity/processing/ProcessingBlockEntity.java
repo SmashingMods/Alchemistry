@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.api.blockentity.processing;
 
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.crafting.Recipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 
 import javax.annotation.Nullable;
+import java.util.LinkedList;
 
 public interface ProcessingBlockEntity {
 
@@ -19,15 +19,20 @@ public interface ProcessingBlockEntity {
 
     void processRecipe();
 
-    <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe);
+    <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe);
 
-    <T extends Recipe<Inventory>> Recipe<Inventory> getRecipe();
+    @Nullable
+    <R extends AbstractProcessingRecipe> R getRecipe();
+
+    <R extends AbstractProcessingRecipe> LinkedList<R> getAllRecipes();
 
     int getProgress();
 
     void setProgress(int pProgress);
 
     int getMaxProgress();
+
+    void setMaxProgress(int pMaxProgress);
 
     void incrementProgress();
 
@@ -38,6 +43,14 @@ public interface ProcessingBlockEntity {
     boolean isProcessingPaused();
 
     void setPaused(boolean pPaused);
+
+    void setRecipeSelectorOpen(boolean pOpen);
+
+    boolean isRecipeSelectorOpen();
+
+    String getSearchText();
+
+    void setSearchText(String pText);
 
     void dropContents();
 }

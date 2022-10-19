@@ -3,8 +3,13 @@ package com.smashingmods.alchemistry.common.block.fusion;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
 import com.smashingmods.alchemistry.api.blockentity.container.button.AutoBalanceButton;
+import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import net.minecraft.client.renderer.GameRenderer;
@@ -26,11 +31,18 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 92, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
+        blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
+        autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
+    }
 
-        this.blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
-        this.autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
+    @Override
+    protected void init() {
+        widgets.add(lockButton);
+        widgets.add(pauseButton);
+        widgets.add(autoBalanceButton);
+        super.init();
     }
 
     @Override
@@ -41,7 +53,6 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
-        renderWidget(autoBalanceButton, leftPos - 24, topPos + 48);
     }
 
     @Override
@@ -62,17 +73,15 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         FusionRecipe currentRecipe = blockEntity.getRecipe();
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
-        // Intellij thinks this is never null. Remove this and watch it crash.
-        //noinspection ConstantConditions
         if (currentRecipe != null && blockEntity.isRecipeLocked()) {
 
-            int x = leftPos + 44;
-            int y = topPos + 35;
+            int x = leftPos + 48;
+            int y = topPos + 18;
 
             List<ItemStack> inputs = List.of(currentRecipe.getInput1(), currentRecipe.getInput2());
 
             for (int i = 0; i < inputs.size(); i ++) {
-                x = x + (i * 18);
+                y = y + (i * 26);
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(inputs.get(i), x, y, 0.35f);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {

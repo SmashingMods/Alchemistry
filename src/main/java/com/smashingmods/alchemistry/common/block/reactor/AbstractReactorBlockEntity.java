@@ -58,12 +58,31 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                                     0f);
                         }
                     }
-                    case DISABLED -> {
-                        if (getEnergyHandler().getEnergyStored() > 0) {
+                    case OFF, DISABLED -> {
+                        if (getEnergyHandler().getEnergyStored() > getEnergyPerTick()) {
                             setPowerState(PowerState.STANDBY);
                         } else {
                             setPowerState(PowerState.OFF);
                         }
+                    }
+                }
+                if (!isProcessingPaused()) {
+                    if (!getInputHandler().isEmpty()) {
+                        updateRecipe();
+                    }
+                    if (canProcessRecipe()) {
+                        setPowerState(PowerState.ON);
+                        processRecipe();
+                    } else {
+                        if (getEnergyHandler().getEnergyStored() > getEnergyPerTick()) {
+                            setPowerState(PowerState.STANDBY);
+                        } else {
+                            setPowerState(PowerState.OFF);
+                        }
+                    }
+                } else {
+                    if (getPowerState().equals(PowerState.ON)) {
+                        setPowerState(PowerState.STANDBY);
                     }
                 }
             } else {

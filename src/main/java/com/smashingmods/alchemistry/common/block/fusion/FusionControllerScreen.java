@@ -86,7 +86,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(inputs.get(i), x, y, 0.35f);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
-                        renderItemTooltip(pPoseStack, inputs.get(i), new TranslatableComponent("alchemistry.container.current_recipe"), pMouseX, pMouseY);
+                        renderItemTooltip(pPoseStack, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe")), pMouseX, pMouseY);
                     }
                 }
             }

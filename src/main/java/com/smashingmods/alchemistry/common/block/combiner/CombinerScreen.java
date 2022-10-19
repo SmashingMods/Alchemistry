@@ -16,15 +16,11 @@ import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +86,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             itemRenderer.renderAndDecorateItem(currentOutput, leftPos + 152, topPos + 15);
 
             if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
-                renderItemTooltip(pPoseStack, currentOutput, "alchemistry.container.combiner.current_recipe", pMouseX, pMouseY);
+                renderItemTooltip(pPoseStack, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.combiner.current_recipe")), pMouseX, pMouseY);
             }
 
             int xOrigin = leftPos + 48;
@@ -110,7 +106,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
 
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
-                                renderItemTooltip(pPoseStack, itemStack, new TranslatableComponent("alchemistry.container.required_input"), pMouseX, pMouseY);
+                                renderItemTooltip(pPoseStack, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input")), pMouseX, pMouseY);
                             }
                         }
                     }

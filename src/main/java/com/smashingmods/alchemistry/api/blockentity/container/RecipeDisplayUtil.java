@@ -22,11 +22,12 @@ import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -38,30 +39,29 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class RecipeDisplayUtil {
 
-    public static List<Component> getItemTooltipComponent(ItemStack pItemStack, BaseComponent pComponent) {
+    public static List<Component> getItemTooltipComponent(ItemStack pItemStack, MutableComponent pComponent) {
         List<Component> components = new ArrayList<>();
-        Objects.requireNonNull(pItemStack.getItem().getRegistryName());
-        String namespace = StringUtils.capitalize(pItemStack.getItem().getRegistryName().getNamespace());
+        String namespace = StringUtils.capitalize(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItemStack.getItem())).getNamespace());
 
         components.add(pComponent.withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
-        components.add(new TextComponent(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString())));
+        components.add(MutableComponent.create(new LiteralContents(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString()))));
 
         if (pItemStack.getItem() instanceof Chemical chemical) {
 
             String abbreviation = chemical.getAbbreviation();
 
             if (chemical instanceof ElementItem element) {
-                components.add(new TextComponent(String.format("%s (%d)", abbreviation, element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+                components.add(MutableComponent.create(new LiteralContents(String.format("%s (%d)", abbreviation, element.getAtomicNumber()))).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents(element.getGroupName())).withStyle(ChatFormatting.GRAY));
             } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
                 ElementItem element = (ElementItem) chemicalItem.getChemical();
-                components.add(new TextComponent(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber())).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(new TextComponent(element.getGroupName()).withStyle(ChatFormatting.GRAY));
+                components.add(MutableComponent.create(new LiteralContents(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber()))).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents(element.getGroupName())).withStyle(ChatFormatting.GRAY));
             } else if (chemical instanceof CompoundItem) {
-                components.add(new TextComponent(abbreviation).withStyle(ChatFormatting.DARK_AQUA));
+                components.add(MutableComponent.create(new LiteralContents(abbreviation)).withStyle(ChatFormatting.DARK_AQUA));
             }
         }
-        components.add(new TextComponent(namespace).withStyle(ChatFormatting.BLUE));
+        components.add(MutableComponent.create(new LiteralContents((namespace))).withStyle(ChatFormatting.BLUE));
         return components;
     }
 
@@ -69,50 +69,43 @@ public class RecipeDisplayUtil {
 
         if (pRecipe instanceof AtomizerRecipe atomizerRecipe) {
 
-            Objects.requireNonNull(atomizerRecipe.getInput().getFluid().getRegistryName());
-            ResourceLocation left = atomizerRecipe.getInput().getFluid().getRegistryName();
+            ResourceLocation left = ForgeRegistries.FLUIDS.getKey(atomizerRecipe.getInput().getFluid());
             String right = atomizerRecipe.getInput().getDisplayName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
 
-            Objects.requireNonNull(combinerRecipe.getOutput().getItem().getRegistryName());
-            ResourceLocation left = combinerRecipe.getOutput().getItem().getRegistryName();
+            ResourceLocation left = ForgeRegistries.ITEMS.getKey(combinerRecipe.getOutput().getItem());
             String right = combinerRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
 
-            Objects.requireNonNull(compactorRecipe.getOutput().getItem().getRegistryName());
-            ResourceLocation left = compactorRecipe.getOutput().getItem().getRegistryName();
+            ResourceLocation left = ForgeRegistries.ITEMS.getKey(compactorRecipe.getOutput().getItem());
             String right = compactorRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
 
-            Objects.requireNonNull(dissolverRecipe.getInput().getRegistryName());
             ResourceLocation left = dissolverRecipe.getInput().getRegistryName();
             String right = dissolverRecipe.getInput().getRegistryName().getPath().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
 
-            Objects.requireNonNull(fissionRecipe.getInput().getItem().getRegistryName());
-            ResourceLocation left = fissionRecipe.getInput().getItem().getRegistryName();
+            ResourceLocation left = ForgeRegistries.ITEMS.getKey(fissionRecipe.getInput().getItem());
             String right = fissionRecipe.getInput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
 
-            Objects.requireNonNull(fusionRecipe.getOutput().getItem().getRegistryName());
-            ResourceLocation left = fusionRecipe.getOutput().getItem().getRegistryName();
+            ResourceLocation left = ForgeRegistries.ITEMS.getKey(fusionRecipe.getOutput().getItem());
             String right = fusionRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
 
-            Objects.requireNonNull(liquifierRecipe.getInput().getRegistryName());
-            ResourceLocation left = liquifierRecipe.getOutput().getFluid().getRegistryName();
+            ResourceLocation left = ForgeRegistries.FLUIDS.getKey(liquifierRecipe.getOutput().getFluid());
             String right = liquifierRecipe.getOutput().getDisplayName().toString().toLowerCase();
             return Pair.of(left, right);
 

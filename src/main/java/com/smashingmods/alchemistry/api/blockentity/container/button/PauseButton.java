@@ -10,8 +10,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -26,7 +27,7 @@ public class PauseButton extends Button {
                 0,
                 20,
                 20,
-                TextComponent.EMPTY,
+                MutableComponent.create(new LiteralContents("")),
                 pButton -> {
                     boolean togglePause = !pBlockEntity.isProcessingPaused();
                     pBlockEntity.setPaused(!togglePause);
@@ -60,6 +61,6 @@ public class PauseButton extends Button {
 
     @Override
     public Component getMessage() {
-        return blockEntity.isProcessingPaused() ? new TranslatableComponent("alchemistry.container.resume") : new TranslatableComponent("alchemistry.container.pause");
+        return blockEntity.isProcessingPaused() ? MutableComponent.create(new TranslatableContents("alchemistry.container.resume")) : MutableComponent.create(new TranslatableContents("alchemistry.container.pause"));
     }
 }

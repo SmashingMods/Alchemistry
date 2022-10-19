@@ -3,8 +3,8 @@ package com.smashingmods.alchemistry.api.blockentity.container.data;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
 import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -29,7 +29,7 @@ public class FluidDisplayData extends AbstractDisplayData {
     }
 
     public FluidStorageHandler getFluidHandler() {
-        return (FluidStorageHandler) blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).orElseGet(() -> new FluidStorageHandler(0, FluidStack.EMPTY));
+        return (FluidStorageHandler) blockEntity.getCapability(ForgeCapabilities.FLUID_HANDLER).orElseGet(() -> new FluidStorageHandler(0, FluidStack.EMPTY));
     }
 
     @Override

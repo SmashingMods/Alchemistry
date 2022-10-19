@@ -28,31 +28,25 @@ public class PacketHandler {
         INSTANCE.messageBuilder(ToggleLockButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ToggleLockButtonPacket::new)
                 .encoder(ToggleLockButtonPacket::encode)
-                .consumer(ToggleLockButtonPacket::handle)
+                .consumerNetworkThread(ToggleLockButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(TogglePauseButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(TogglePauseButtonPacket::new)
                 .encoder(TogglePauseButtonPacket::encode)
-                .consumer(TogglePauseButtonPacket::handle)
+                .consumerNetworkThread(TogglePauseButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(ToggleAutoBalanceButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(ToggleAutoBalanceButtonPacket::new)
                 .encoder(ToggleAutoBalanceButtonPacket::encode)
-                .consumer(ToggleAutoBalanceButtonPacket::handle)
+                .consumerNetworkThread(ToggleAutoBalanceButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(BlockEntityPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(BlockEntityPacket::new)
                 .encoder(BlockEntityPacket::encode)
                 .consumerNetworkThread(BlockEntityPacket::handle)
-                .add();
-
-        INSTANCE.messageBuilder(ProcessingButtonPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
-                .decoder(ProcessingButtonPacket::new)
-                .encoder(ProcessingButtonPacket::encode)
-                .consumerNetworkThread(ProcessingButtonPacket::handle)
                 .add();
 
         INSTANCE.messageBuilder(CompactorResetPacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
@@ -70,7 +64,7 @@ public class PacketHandler {
         INSTANCE.messageBuilder(SetRecipePacket.class, PACKET_ID++, NetworkDirection.PLAY_TO_SERVER)
                 .decoder(SetRecipePacket::new)
                 .encoder(SetRecipePacket::encode)
-                .consumer(SetRecipePacket::handle)
+                .consumerNetworkThread(SetRecipePacket::handle)
                 .add();
 
         // JEI recipe transfer packets

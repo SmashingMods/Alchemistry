@@ -10,8 +10,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -26,7 +27,7 @@ public class LockButton extends Button {
                 0,
                 20,
                 20,
-                TextComponent.EMPTY,
+                MutableComponent.create(new LiteralContents("")),
                 pButton -> {
                     boolean toggleLock = !pBlockEntity.isRecipeLocked();
                     pBlockEntity.setRecipeLocked(toggleLock);
@@ -60,6 +61,6 @@ public class LockButton extends Button {
 
     @Override
     public Component getMessage() {
-        return blockEntity.isRecipeLocked() ? new TranslatableComponent("alchemistry.container.unlock_recipe") : new TranslatableComponent("alchemistry.container.lock_recipe");
+        return blockEntity.isRecipeLocked() ? MutableComponent.create(new TranslatableContents("alchemistry.container.unlock_recipe")) : MutableComponent.create(new TranslatableContents("alchemistry.container.lock_recipe"));
     }
 }

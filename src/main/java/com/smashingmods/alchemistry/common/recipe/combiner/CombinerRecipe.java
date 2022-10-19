@@ -8,7 +8,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashSet;
@@ -45,11 +44,6 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
     @Override
     public ItemStack getResultItem() {
         return output;
-    }
-
-    @Override
-    public int compareTo(@NotNull CombinerRecipe pRecipe) {
-        return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(output.getItem())).compareNamespaced(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pRecipe.output.getItem())));
     }
 
     @Override

@@ -10,8 +10,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -26,7 +27,7 @@ public class AutoBalanceButton extends Button {
                 0,
                 20,
                 20,
-                TextComponent.EMPTY,
+                MutableComponent.create(new LiteralContents("")),
                 pButton -> {
                     boolean toggleAutoBalance = !pBlockEntity.isAutoBalanced();
                     pBlockEntity.setAutoBalanced(toggleAutoBalance);
@@ -60,6 +61,6 @@ public class AutoBalanceButton extends Button {
 
     @Override
     public Component getMessage() {
-        return blockEntity.isAutoBalanced() ? new TranslatableComponent("alchemistry.container.enable_autobalance") : new TranslatableComponent("alchemistry.container.disable_autobalance");
+        return blockEntity.isAutoBalanced() ? MutableComponent.create(new TranslatableContents("alchemistry.container.enable_autobalance")) : MutableComponent.create(new TranslatableContents("alchemistry.container.disable_autobalance"));
     }
 }

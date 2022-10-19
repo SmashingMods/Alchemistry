@@ -10,8 +10,9 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
@@ -21,7 +22,7 @@ public class RecipeSelectorButton extends Button {
     private final AbstractProcessingBlockEntity blockEntity;
 
     public RecipeSelectorButton(int pX, int pY, AbstractProcessingScreen<?> pParentScreen, Screen pNewScreen) {
-        super(pX, pY, 20, 20, TextComponent.EMPTY, pButton -> {
+        super(pX, pY, 20, 20, MutableComponent.create(new LiteralContents("")), pButton -> {
             if (pParentScreen.getBlockEntity().isRecipeSelectorOpen()) {
                 ForgeHooksClient.popGuiLayer(Minecraft.getInstance());
                 pParentScreen.getBlockEntity().setRecipeSelectorOpen(false);
@@ -60,6 +61,6 @@ public class RecipeSelectorButton extends Button {
 
     @Override
     public Component getMessage() {
-        return blockEntity.isRecipeSelectorOpen() ? new TranslatableComponent("alchemistry.container.close_recipe_select") : new TranslatableComponent("alchemistry.container.open_recipe_select");
+        return blockEntity.isRecipeSelectorOpen() ? MutableComponent.create(new TranslatableContents("alchemistry.container.close_recipe_select")) : MutableComponent.create(new TranslatableContents("alchemistry.container.open_recipe_select"));
     }
 }

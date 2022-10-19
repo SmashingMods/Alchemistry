@@ -41,7 +41,6 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),78, 54, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),12, 12, 16, 54));
 
-        resetTargetButton = new Button(0, 0, 100, 20, MutableComponent.create(new TranslatableContents("alchemistry.container.reset_target")), handleResetTargetButton());
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CompactorBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCompactorRecipes(pMenu.getLevel()));
         recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen);
     }

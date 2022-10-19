@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
 import com.smashingmods.alchemistry.api.item.IngredientStack;
-import com.smashingmods.alchemistry.common.recipe.AbstractAlchemistryRecipe;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,16 +11,17 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Set;
 
-public class CombinerRecipe extends AbstractAlchemistryRecipe implements Comparable<CombinerRecipe> {
+public class CombinerRecipe extends AbstractProcessingRecipe {
 
     private final ItemStack output;
-    private final List<IngredientStack> input = new ArrayList<>();
+    private final Set<IngredientStack> input = new LinkedHashSet<>();
 
-    public CombinerRecipe(ResourceLocation pId, String pGroup, List<IngredientStack> pInputList, ItemStack pOutput) {
+    public CombinerRecipe(ResourceLocation pId, String pGroup, Set<IngredientStack> pInputList, ItemStack pOutput) {
         super(pId, pGroup);
         this.output = pOutput;
         input.addAll(pInputList);
@@ -56,8 +57,18 @@ public class CombinerRecipe extends AbstractAlchemistryRecipe implements Compara
         return String.format("input=[%s],output=[%s]", input, output);
     }
 
+    @Override
+    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+        return getId().compareTo(pRecipe.getId());
+    }
+
+    @Override
+    public CombinerRecipe copy() {
+        return new CombinerRecipe(getId(), getGroup(), Set.copyOf(input), output.copy());
+    }
+
     public List<IngredientStack> getInput() {
-        return input;
+        return new LinkedList<>(input);
     }
 
     public ItemStack getOutput() {

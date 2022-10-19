@@ -1,9 +1,13 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomEnergyStorage;
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
+import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -11,60 +15,65 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.LinkedList;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
-    private final int maxProgress = Config.Common.dissolverTicksPerOperation.get();
     private DissolverRecipe currentRecipe;
+    private ResourceLocation recipeId;
     private final NonNullList<ItemStack> internalBuffer = NonNullList.createWithCapacity(64);
 
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        setEnergyPerTick(Config.Common.dissolverEnergyPerTick.get());
+        setMaxProgress(Config.Common.dissolverTicksPerOperation.get());
+    }
+
+    @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
     }
 
     @Override
     public void tick() {
-        if (level != null && !level.isClientSide()) {
-            if (!isProcessingPaused()) {
-                if (!isRecipeLocked()) {
-                    updateRecipe();
-                }
-                if (canProcessRecipe()) {
-                    processRecipe();
-                }
-                processBuffer();
-            }
+        super.tick();
+        if (!isProcessingPaused()) {
+            processBuffer();
         }
     }
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getRecipesByType(RecipeRegistry.DISSOLVER_TYPE.get(), level).stream()
-                .filter(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)))
-                .findAny()
+        if (level != null && !level.isClientSide() && !isRecipeLocked()) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
-                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                        setProgress(0);
-                        currentRecipe = recipe;
-                    }
-            });
+                   if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                       setProgress(0);
+                       setRecipe(recipe);
+                   }
+                });
         }
     }
 
     @Override
     public boolean canProcessRecipe() {
         if (currentRecipe != null) {
+            DissolverRecipe tempRecipe = currentRecipe.copy();
             ItemStack input = getInputHandler().getStackInSlot(0).copy();
-            return getEnergyHandler().getEnergyStored() >= Config.Common.dissolverEnergyPerTick.get()
-                    && (currentRecipe.matches(input) && input.getCount() >= currentRecipe.getInput().getCount())
+            return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
+                    && (tempRecipe.matches(input) && input.getCount() >= tempRecipe.getInput().getCount())
                     && internalBuffer.isEmpty();
         } else {
             return false;
@@ -73,14 +82,15 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            DissolverRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getInputHandler().decrementSlot(0, currentRecipe.getInput().getCount());
-            internalBuffer.addAll(currentRecipe.getOutput().calculateOutput());
+            getInputHandler().decrementSlot(0, tempRecipe.getInput().getCount());
+            internalBuffer.addAll(tempRecipe.getOutput().calculateOutput());
         }
-        getEnergyHandler().extractEnergy(Config.Common.dissolverEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
     }
 
@@ -96,27 +106,35 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 }
             }
         }
+        setCanProcess(canProcessRecipe());
         setChanged();
     }
 
     @Override
-    public int getMaxProgress() {
-        return maxProgress;
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
+            currentRecipe = dissolverRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (DissolverRecipe) pRecipe;
-    }
-
-    @Override
-    public Recipe<Inventory> getRecipe() {
+    public DissolverRecipe getRecipe() {
         return currentRecipe;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public CustomEnergyStorage initializeEnergyStorage() {
-        return new CustomEnergyStorage(Config.Common.dissolverEnergyCapacity.get()) {
+    public LinkedList<DissolverRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getDissolverRecipes(level));
+        }
+        return new LinkedList<>();
+    }
+
+    @Override
+    public EnergyStorageHandler initializeEnergyStorage() {
+        return new EnergyStorageHandler(Config.Common.dissolverEnergyCapacity.get()) {
             @Override
             protected void onEnergyChanged() {
                 setChanged();
@@ -125,13 +143,30 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public CustomItemStackHandler initializeInputHandler() {
-        return new CustomItemStackHandler(1);
+    public ProcessingSlotHandler initializeInputHandler() {
+        return new ProcessingSlotHandler(1) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                if (!isEmpty()) {
+                    updateRecipe();
+                }
+                setCanProcess(canProcessRecipe());
+                setChanged();
+            }
+
+            @Override
+            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+                if (currentRecipe != null && isRecipeLocked()) {
+                    return currentRecipe.getInput().matches(pItemStack);
+                }
+                return super.isItemValid(pSlot, pItemStack);
+            }
+        };
     }
 
     @Override
-    public CustomItemStackHandler initializeOutputHandler() {
-        return new CustomItemStackHandler(10) {
+    public ProcessingSlotHandler initializeOutputHandler() {
+        return new ProcessingSlotHandler(12) {
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
                 return false;
@@ -146,24 +181,36 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         ListTag bufferTag = new ListTag();
         internalBuffer.stream()
                 .filter(itemStack -> !itemStack.isEmpty())
                 .forEach(itemStack -> bufferTag.add(itemStack.save(new CompoundTag())));
         pTag.put("buffer", bufferTag);
+        if (currentRecipe != null) {
+            pTag.putString("recipeId", currentRecipe.getId().toString());
+        }
         super.saveAdditional(pTag);
     }
 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         ListTag bufferTag = pTag.getList("buffer", 10);
         bufferTag.stream()
                 .filter(tag -> tag instanceof CompoundTag)
                 .map(CompoundTag.class::cast)
                 .map(ItemStack::of)
                 .forEach(internalBuffer::add);
+
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
+        }
     }
 
     @Nullable

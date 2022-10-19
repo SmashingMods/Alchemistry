@@ -1,9 +1,7 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
-import com.smashingmods.alchemistry.common.network.ServerCombinerRecipePacket;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -12,22 +10,19 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-public class CombinerMenu extends AbstractAlchemistryMenu {
+public class CombinerMenu extends AbstractProcessingMenu {
 
     private final Level level;
     private final CombinerBlockEntity blockEntity;
-    private final List<CombinerRecipe> displayedRecipes = new ArrayList<>();
+    private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
         this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
@@ -38,20 +33,14 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
         this.level = pInventory.player.getLevel();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
-        CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-        CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         setupRecipeList();
         // input 2x2 grid
-        addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 12, 63);
+        addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 48, 22);
         // output
-        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 102, 81);
-    }
-
-    @Override
-    public void addPlayerInventorySlots(Inventory pInventory) {
-        addSlots(Slot::new, pInventory, 3, 9, 9, 27,12, 106);
-        addSlots(Slot::new, pInventory, 1, 9, 0,9, 12, 164);
+        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
     }
 
     @Override
@@ -62,26 +51,7 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
 
     @Override
     public boolean clickMenuButton(Player pPlayer, int pId) {
-        if (pPlayer.level.isClientSide()) {
-            if (!getBlockEntity().isRecipeLocked()) {
-                if (this.isValidRecipeIndex(pId)) {
-                    int recipeIndex = blockEntity.getRecipes().indexOf(displayedRecipes.get(pId));
-                    CombinerRecipe recipe = blockEntity.getRecipes().get(recipeIndex);
-                    this.setSelectedRecipeIndex(pId);
-                    this.blockEntity.setRecipe(recipe);
-                    AlchemistryPacketHandler.INSTANCE.sendToServer(new ServerCombinerRecipePacket(getBlockEntity().getBlockPos(), recipeIndex));
-                }
-            }
-        }
-        return true;
-    }
-
-    protected int getSelectedRecipeIndex() {
-        return ((CombinerBlockEntity) getBlockEntity()).getSelectedRecipeIndex();
-    }
-
-    protected void setSelectedRecipeIndex(int pIndex) {
-        ((CombinerBlockEntity) getBlockEntity()).setSelectedRecipeIndex(pIndex);
+        return !getBlockEntity().isRecipeLocked() && isValidRecipeIndex(pId);
     }
 
     private boolean isValidRecipeIndex(int pSlot) {
@@ -89,34 +59,13 @@ public class CombinerMenu extends AbstractAlchemistryMenu {
     }
 
     private void setupRecipeList() {
-        this.blockEntity.getRecipes().clear();
-        List<CombinerRecipe> recipes = level.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getType() == RecipeRegistry.COMBINER_TYPE.get())
-                .map(recipe -> (CombinerRecipe) recipe).sorted()
-                .collect(Collectors.toList());
-
         if (displayedRecipes.isEmpty()) {
-            this.setSelectedRecipeIndex(-1);
-            this.blockEntity.setRecipes(recipes);
-            this.resetDisplayedRecipes();
+            resetDisplayedRecipes();
         }
     }
 
     public void resetDisplayedRecipes() {
-        this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(this.blockEntity.getRecipes());
-    }
-
-    public List<CombinerRecipe> getDisplayedRecipes() {
-        return displayedRecipes;
-    }
-
-    public void searchRecipeList(String pKeyword) {
-        this.displayedRecipes.clear();
-        this.displayedRecipes.addAll(this.blockEntity.getRecipes().stream()
-                .filter(recipe -> Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(recipe.getOutput().getItem()))
-                        .getPath()
-                        .contains(pKeyword.toLowerCase().replace(" ", "_")))
-                .toList());
+        displayedRecipes.clear();
+        displayedRecipes.addAll(RecipeRegistry.getCombinerRecipes(level));
     }
 }

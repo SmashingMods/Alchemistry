@@ -1,10 +1,10 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -58,35 +58,33 @@ public class FissionTransferPacket {
             FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-            CustomItemStackHandler outputHander = blockEntity.getOutputHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHander = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.FISSION_TYPE.get(), player.getLevel()).stream()
-                    .filter(recipe -> ItemStack.isSameItemSameTags(pPacket.input, recipe.getInput()))
-                    .findFirst()
-                    .ifPresent(recipe -> {
+            RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), pPacket.input), player.getLevel())
+                .ifPresent(recipe -> {
 
-                        inputHandler.emptyToInventory(inventory);
-                        outputHander.emptyToInventory(inventory);
+                    inputHandler.emptyToInventory(inventory);
+                    outputHander.emptyToInventory(inventory);
 
-                        boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (inventory.contains(recipe.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
+                    boolean creative = player.gameMode.isCreative();
+                    boolean canTransfer = (inventory.contains(recipe.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
 
-                        if (canTransfer) {
-                            if (creative) {
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), pPacket.maxTransfer);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
-                            } else {
-                                int slot = inventory.findSlotMatchingItem(recipe.getInput());
-                                int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventory.getItem(slot), pPacket.maxTransfer, false);
-                                inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
-                            }
-                            blockEntity.setProgress(0);
-                            blockEntity.setRecipe(recipe);
+                    if (canTransfer) {
+                        if (creative) {
+                            int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), pPacket.maxTransfer);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
+                        } else {
+                            int slot = inventory.findSlotMatchingItem(recipe.getInput());
+                            int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventory.getItem(slot), pPacket.maxTransfer, false);
+                            inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
                         }
-                    });
+                        blockEntity.setProgress(0);
+                        blockEntity.setRecipe(recipe);
+                    }
+                });
         });
         pContext.get().setPacketHandled(true);
     }
@@ -114,7 +112,7 @@ public class FissionTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(FissionControllerMenu pContainer, FissionRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new FissionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new FissionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;
         }

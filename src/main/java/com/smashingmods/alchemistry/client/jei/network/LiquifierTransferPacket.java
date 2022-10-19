@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -56,41 +56,36 @@ public class LiquifierTransferPacket {
         pContext.get().enqueueWork(() -> {
             ServerPlayer player = pContext.get().getSender();
             Objects.requireNonNull(player);
-
             LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
-
-            CustomItemStackHandler inputHandler = blockEntity.getItemHandler();
-
+            ProcessingSlotHandler inputHandler = blockEntity.getSlotHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.LIQUIFIER_TYPE.get(), player.getLevel()).stream()
-                    .filter(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(pPacket.input.getIngredient()))
-                    .findFirst()
-                    .ifPresent(recipe -> {
+            RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(pPacket.input.getIngredient()), player.getLevel())
+                .ifPresent(recipe -> {
 
-                        inputHandler.emptyToInventory(inventory);
+                    inputHandler.emptyToInventory(inventory);
 
-                        ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
-                        ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipe.getInput().getCount());
-                        boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
+                    ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
+                    ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipe.getInput().getCount());
+                    boolean creative = player.gameMode.isCreative();
+                    boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
 
-                        if (canTransfer) {
-                            if (creative) {
-                                ItemStack creativeInput = new ItemStack(recipe.getInput().getIngredient().getItems()[0].getItem(), recipe.getInput().getCount());
-                                int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
-                                inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
-                            } else {
-                                int slot = inventory.findSlotMatchingItem(inventoryInput);
-                                int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), pPacket.maxTransfer, false);
-                                inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipe.getInput().getCount() * maxOperations));
-                            }
-                            blockEntity.setProgress(0);
-                            blockEntity.setRecipe(recipe);
+                    if (canTransfer) {
+                        if (creative) {
+                            ItemStack creativeInput = new ItemStack(recipe.getInput().getIngredient().getItems()[0].getItem(), recipe.getInput().getCount());
+                            int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
+                            inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
+                        } else {
+                            int slot = inventory.findSlotMatchingItem(inventoryInput);
+                            int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), pPacket.maxTransfer, false);
+                            inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                         }
-                    });
+                        blockEntity.setProgress(0);
+                        blockEntity.setRecipe(recipe);
+                    }
+                });
         });
         pContext.get().setPacketHandled(true);
     }
@@ -118,7 +113,7 @@ public class LiquifierTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(LiquifierMenu pContainer, LiquifierRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new LiquifierTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new LiquifierTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }
             return null;
         }

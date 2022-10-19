@@ -48,13 +48,13 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration pRegistration) {
-        pRegistration.addRecipeClickArea(AtomizerScreen.class, 58, 39, 30, 9, RecipeTypes.ATOMIZER);
-        pRegistration.addRecipeClickArea(CombinerScreen.class, 64, 84, 30, 9, RecipeTypes.COMBINER);
-        pRegistration.addRecipeClickArea(CompactorScreen.class, 74, 39, 30, 9, RecipeTypes.COMPACTOR);
-        pRegistration.addRecipeClickArea(DissolverScreen.class, 88, 33, 9, 30, RecipeTypes.DISSOLVER);
-        pRegistration.addRecipeClickArea(FissionControllerScreen.class, 74, 39, 30, 9, RecipeTypes.FISSION);
-        pRegistration.addRecipeClickArea(FusionControllerScreen.class, 91, 39, 30, 9, RecipeTypes.FUSION);
-        pRegistration.addRecipeClickArea(LiquifierScreen.class, 90, 39, 30, 9, RecipeTypes.LIQUIFIER);
+        pRegistration.addRecipeClickArea(AtomizerScreen.class, 78, 35, 30, 9, RecipeTypes.ATOMIZER);
+        pRegistration.addRecipeClickArea(CombinerScreen.class, 87, 35, 30, 9, RecipeTypes.COMBINER);
+        pRegistration.addRecipeClickArea(CompactorScreen.class, 78, 54, 30, 9, RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeClickArea(DissolverScreen.class, 69, 35, 30, 9, RecipeTypes.DISSOLVER);
+        pRegistration.addRecipeClickArea(FissionControllerScreen.class, 74, 35, 30, 9, RecipeTypes.FISSION);
+        pRegistration.addRecipeClickArea(FusionControllerScreen.class, 78, 35, 30, 9, RecipeTypes.FUSION);
+        pRegistration.addRecipeClickArea(LiquifierScreen.class, 79, 35, 30, 9, RecipeTypes.LIQUIFIER);
     }
 
     @Override

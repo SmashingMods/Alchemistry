@@ -2,6 +2,7 @@ package com.smashingmods.alchemistry.api.item;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -15,10 +16,14 @@ public class IngredientStack {
 
     private final Ingredient ingredient;
     private final int count;
+    private final ResourceLocation registryName;
 
     public IngredientStack(Ingredient pIngredient, int pCount) {
         this.ingredient = pIngredient;
         this.count = pCount;
+        this.registryName = new ResourceLocation(pIngredient.values[0].serialize().has("item") ?
+                pIngredient.values[0].serialize().get("item").getAsString()
+                : pIngredient.values[0].serialize().get("tag").getAsString());
     }
 
     public IngredientStack(Ingredient pIngredient) {
@@ -79,11 +84,35 @@ public class IngredientStack {
         return ingredient;
     }
 
+    public ResourceLocation getRegistryName() {
+        return registryName;
+    }
+
     public int getCount() {
         return count;
     }
 
     public boolean isEmpty() {
         return ingredient.isEmpty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IngredientStack that)) return false;
+
+        if (getCount() != that.getCount()) return false;
+        return getRegistryName().equals(that.getRegistryName());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCount();
+        result = 31 * result + getRegistryName().hashCode();
+        return result;
+    }
+
+    public IngredientStack copy() {
+        return new IngredientStack(ingredient, count);
     }
 }

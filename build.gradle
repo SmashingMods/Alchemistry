@@ -30,6 +30,7 @@ sourceSets{
 
 minecraft {
     mappings channel: 'parchment', version: "$parchment_version-$minecraft_version"
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
             workingDirectory project.file('run')
@@ -37,6 +38,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            jvmArgs '-XX:+AllowEnhancedClassRedefinition'
 
             mods {
                 alchemistry {
@@ -51,6 +53,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            jvmArgs '-XX:+AllowEnhancedClassRedefinition'
 
             mods {
                 alchemistry {
@@ -65,6 +68,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            jvmArgs '-XX:+AllowEnhancedClassRedefinition'
 
             args '--mod', "$archivesBaseName", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
 
@@ -81,7 +85,7 @@ repositories {
     maven { url "https://maven.tamaized.com/releases" }
     maven { url "https://www.cursemaven.com" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
-    maven { url 'https://maven.blamejared.com' }
+    maven { url "https://maven.blamejared.com" }
     mavenLocal()
 }
 
@@ -114,6 +118,16 @@ jar {
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
 def secrets = new Properties()
 file('secrets.properties').withInputStream {
     stream -> secrets.load(stream)
@@ -135,6 +149,7 @@ publishing {
         mavenJava(MavenPublication) {
             afterEvaluate {
                 artifact project.jar
+                artifact project.sourcesJar
             }
             setGroupId 'smashingmods'
             setArtifactId 'alchemistry'
@@ -171,4 +186,8 @@ curseforge {
             }
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

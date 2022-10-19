@@ -65,7 +65,6 @@ public class CombinerRecipeProvider {
         combiner(Items.WHITE_WOOL, toIngredientStack("keratin", 2), toIngredientStack("triglyceride", 1));
 
         // gems
-        combiner(Items.DIAMOND, toIngredientStack("graphite", 64), toIngredientStack("graphite", 64));
         combiner(Items.EMERALD, toIngredientStack("beryl", 8), toIngredientStack("chromium", 8), toIngredientStack("vanadium", 4));
         combiner(Items.LAPIS_LAZULI, toIngredientStack("sodium", 6), toIngredientStack("mullite", 3), toIngredientStack("calcium_sulfide", 2), toIngredientStack("silicon", 3));
 
@@ -79,13 +78,13 @@ public class CombinerRecipeProvider {
         combiner(Items.MILK_BUCKET, toIngredientStack("calcium", 4), toIngredientStack("protein", 2), toIngredientStack("water", 16), new ItemStack(Items.BUCKET));
         combiner(Items.REDSTONE_BLOCK, toIngredientStack("iron_oxide", 9), toIngredientStack("strontium_carbonate", 9));
         combiner(Items.REDSTONE, toIngredientStack("iron_oxide"), toIngredientStack("strontium_carbonate"));
-        combiner(Items.PACKED_ICE, toIngredientStack("water", 36), toIngredientStack("water", 36), toIngredientStack("water", 36), toIngredientStack("water", 36));
     }
 
     private void combiner(ItemLike pOutput, Object ... pInput) {
         combiner(pOutput, null, pInput);
     }
     
+    @SuppressWarnings("SameParameterValue")
     private void combiner(ItemLike pOutput, @Nullable ICondition pCondition, Object ... pInput) {
         List<IngredientStack> ingredientStackList = new ArrayList<>();
         for (Object obj : pInput) {

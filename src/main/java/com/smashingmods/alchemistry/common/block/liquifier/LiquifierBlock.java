@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
-import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -23,9 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-public class LiquifierBlock extends AbstractAlchemistryBlock {
+public class LiquifierBlock extends AbstractProcessingBlock {
 
     public LiquifierBlock() {
         super(LiquifierBlockEntity::new);

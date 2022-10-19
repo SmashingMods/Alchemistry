@@ -32,7 +32,7 @@ import java.util.function.Consumer;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.toItemStack;
+import static com.smashingmods.alchemistry.datagen.DatagenUtil.*;
 
 public class DissolverRecipeProvider {
 
@@ -733,11 +733,7 @@ public class DissolverRecipeProvider {
                 toItemStack("cellulose"))
         .build(), true);
 
-        for (Item item : newArrayList(Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS, Items.BEETROOT_SEEDS)) {
-            dissolver(item, createSet()
-                    .addGroup(100, toItemStack("cellulose"))
-                    .build());
-        }
+        dissolver("forge:seeds", createSet().addGroup(100, toItemStack("cellulose")).build());
 
         dissolver(Items.SPIDER_EYE, createSet().addGroup(100,
                                 toItemStack("beta_carotene", 2),
@@ -1168,6 +1164,36 @@ public class DissolverRecipeProvider {
                     });
                 ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(item -> dissolver(item, createSet().addGroup(100, toItemStack(name, 144)).build()));
             });
+
+        //Thermal integration
+        dissolver("forge:slag", createSet().weighted()
+                        .addGroup(20)
+                        .addGroup(20, toItemStack("silicon_dioxide"))
+                        .addGroup(3, toItemStack("magnesium_oxide"))
+                        .addGroup(3, toItemStack("iron_oxide"))
+                        .addGroup(2, toItemStack("manganese_oxide"))
+                        .addGroup(2, toItemStack("aluminum_oxide"))
+                        .addGroup(1, toItemStack("phosphate")).build(),
+                tagNotEmptyCondition("forge:slag"));
+
+        dissolver("forge:gems/apatite", createSet()
+                        .addGroup(33, toItemStack("hydroxylapatite", 1)).build(),
+                tagNotEmptyCondition("forge:gems/apatite"));
+
+        dissolver("forge:dusts/apatite", createSet()
+                        .addGroup(33, toItemStack("hydroxylapatite", 1)).build(),
+                tagNotEmptyCondition("forge:dusts/apatite"));
+
+        dissolver("forge:storage_blocks/apatite", createSet()
+                        .addGroup(100, toItemStack("hydroxylapatite", 3)).build(),
+                tagNotEmptyCondition("forge:storage_blocks/apatite"));
+
+        dissolver("forge:ores/apatite", createSet()
+                        .addGroup(100, toItemStack("hydroxylapatite", 2)).build(),
+                tagNotEmptyCondition("forge:ores/apatite"));
+
+
+
     }
 
     private void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {

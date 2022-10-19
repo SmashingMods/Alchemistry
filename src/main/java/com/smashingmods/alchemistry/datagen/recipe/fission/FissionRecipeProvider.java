@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 public class FissionRecipeProvider {
 
-    Consumer<FinishedRecipe> consumer;
+    private final Consumer<FinishedRecipe> consumer;
 
     public FissionRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
         this.consumer = pConsumer;
@@ -22,8 +22,7 @@ public class FissionRecipeProvider {
 
     private void register() {
         for (int index = 2; index <= 118; index++) {
-            //noinspection OptionalGetWithoutIsPresent
-            fission(ItemRegistry.getElementByAtomicNumber(index).get());
+            ItemRegistry.getElementByAtomicNumber(index).ifPresent(this::fission);
         }
     }
 

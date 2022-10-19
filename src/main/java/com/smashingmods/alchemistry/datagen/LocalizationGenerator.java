@@ -18,8 +18,8 @@ public class LocalizationGenerator extends LanguageProvider {
         super(gen, Alchemistry.MODID, locale);
     }
 
-    @Override
     @SuppressWarnings("deprecation")
+    @Override
     protected void addTranslations() {
         BlockRegistry.BLOCKS.getEntries().stream()
                 .map(RegistryObject::get)
@@ -46,10 +46,12 @@ public class LocalizationGenerator extends LanguageProvider {
         add("tooltip.alchemistry.energy_requirement", "Requires %d FE/t");
         add("tooltip.alchemistry.requires", "Requires");
 
-        add("alchemistry.container.combiner.search", "Search...");
-        add("alchemistry.container.combiner.select_recipe", "Select recipe:");
-        add("alchemistry.container.combiner.current_recipe", "Current recipe:");
-        add("alchemistry.container.combiner.required_input", "Required input item:");
+        add("alchemistry.container.search", "Search...");
+        add("alchemistry.container.open_recipe_select", "Open Recipe Selection");
+        add("alchemistry.container.close_recipe_select", "Close Recipe Selection");
+        add("alchemistry.container.select_recipe", "Select recipe:");
+        add("alchemistry.container.current_recipe", "Current recipe:");
+        add("alchemistry.container.required_input", "Required input item:");
         add("alchemistry.container.unlock_recipe", "Unlock recipe");
         add("alchemistry.container.lock_recipe", "Lock recipe");
         add("alchemistry.container.pause", "Pause");
@@ -57,6 +59,8 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.container.target", "Target");
         add("alchemistry.container.reset_target", "Reset Target");
         add("alchemistry.container.nothing", "Nothing");
+        add("alchemistry.container.enable_autobalance", "Enable Auto-Balance");
+        add("alchemistry.container.disable_autobalance", "Disable Auto-Balance");
 
         add("alchemistry.jei.dissolver.relative", "Relative");
         add("alchemistry.jei.dissolver.absolute", "Absolute");

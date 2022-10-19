@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
-import com.smashingmods.alchemistry.api.container.AbstractAlchemistryMenu;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
@@ -13,7 +13,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.Objects;
 
-public class AtomizerMenu extends AbstractAlchemistryMenu {
+public class AtomizerMenu extends AbstractProcessingMenu {
 
     public AtomizerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
         this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
@@ -22,8 +22,8 @@ public class AtomizerMenu extends AbstractAlchemistryMenu {
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, 0, 1);
         AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
-        CustomItemStackHandler outputHandler = blockEntity.getItemHandler();
-        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 98, 35);
+        ProcessingSlotHandler outputHandler = blockEntity.getSlotHandler();
+        addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
     }
 
     @Override

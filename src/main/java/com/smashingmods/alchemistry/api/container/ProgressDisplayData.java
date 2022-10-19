@@ -1,30 +1,26 @@
 package com.smashingmods.alchemistry.api.container;
 
-import net.minecraft.world.inventory.ContainerData;
+import com.smashingmods.alchemistry.api.blockentity.AbstractProcessingBlockEntity;
 
 public class ProgressDisplayData extends DisplayData {
 
-    private final ContainerData data;
+    private final AbstractProcessingBlockEntity blockEntity;
     private final Direction2D direction2D;
-    private final int valueSlot;
-    private final int maxValueSlot;
 
-    public ProgressDisplayData(ContainerData pData, int pValueSlot, int pMaxValueSlot, int pX, int pY, int pWidth, int pHeight, Direction2D pDirection2D) {
+    public ProgressDisplayData(AbstractProcessingBlockEntity pBlockEntity, int pX, int pY, int pWidth, int pHeight, Direction2D pDirection2D) {
         super(pX, pY, pWidth, pHeight);
-        this.data = pData;
+        this.blockEntity = pBlockEntity;
         this.direction2D = pDirection2D;
-        this.valueSlot = pValueSlot;
-        this.maxValueSlot = pMaxValueSlot;
     }
 
     @Override
     public int getValue() {
-        return data.get(valueSlot);
+        return blockEntity.getProgress();
     }
 
     @Override
     public int getMaxValue() {
-        return data.get(maxValueSlot);
+        return blockEntity.getMaxProgress();
     }
 
     public Direction2D getDirection() {

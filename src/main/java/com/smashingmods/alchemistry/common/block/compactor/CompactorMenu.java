@@ -7,9 +7,7 @@ import com.smashingmods.alchemistry.registry.MenuRegistry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.SimpleContainerData;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
@@ -19,11 +17,11 @@ import java.util.Objects;
 public class CompactorMenu extends AbstractAlchemistryMenu {
 
     public CompactorMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())), new SimpleContainerData(4));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
     }
 
-    protected CompactorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData) {
-        super(MenuRegistry.COMPACTOR_MENU.get(), pContainerId, pInventory, pBlockEntity, pContainerData, 2, 1);
+    protected CompactorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
+        super(MenuRegistry.COMPACTOR_MENU.get(), pContainerId, pInventory, pBlockEntity, 2, 1);
 
         CompactorBlockEntity blockEntity = (CompactorBlockEntity) pBlockEntity;
         CustomItemStackHandler inputHandler = blockEntity.getInputHandler();

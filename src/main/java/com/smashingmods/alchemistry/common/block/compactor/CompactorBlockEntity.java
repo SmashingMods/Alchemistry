@@ -14,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,39 +24,12 @@ import java.util.List;
 
 public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
-    protected final ContainerData data;
     private final int maxProgress = Config.Common.compactorTicksPerOperation.get();
     private CompactorRecipe currentRecipe;
     private ItemStack target = ItemStack.EMPTY;
 
     public CompactorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
-
-        this.data = new ContainerData() {
-            @Override
-            public int get(int pIndex) {
-                return switch(pIndex) {
-                    case 0 -> getProgress();
-                    case 1 -> maxProgress;
-                    case 2 -> getEnergyHandler().getEnergyStored();
-                    case 3 -> getEnergyHandler().getMaxEnergyStored();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> setProgress(pValue);
-                    case 2 -> getEnergyHandler().setEnergy(pValue);
-                }
-            }
-
-            @Override
-            public int getCount() {
-                return 4;
-            }
-        };
     }
 
     @Override
@@ -118,6 +90,11 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
         }
         getEnergyHandler().extractEnergy(Config.Common.compactorEnergyPerTick.get(), false);
         setChanged();
+    }
+
+    @Override
+    public int getMaxProgress() {
+        return maxProgress;
     }
 
     @Override
@@ -203,6 +180,7 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
+        pTag.putInt("maxProgress", maxProgress);
         pTag.put("target", target.serializeNBT());
         super.saveAdditional(pTag);
     }
@@ -216,6 +194,6 @@ public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
-        return new CompactorMenu(pContainerId, pInventory, this, this.data);
+        return new CompactorMenu(pContainerId, pInventory, this);
     }
 }

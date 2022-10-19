@@ -7,7 +7,6 @@ import com.smashingmods.alchemistry.common.network.BlockEntityPacket;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -18,21 +17,18 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
 
     private final AbstractProcessingBlockEntity blockEntity;
     private final Level level;
-    private final ContainerData containerData;
     private final int inputSlots;
     private final int outputSlots;
 
-    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, ContainerData pContainerData, int pInputSlots, int pOutputSlots) {
+    protected AbstractAlchemistryMenu(MenuType<?> pMenuType, int pContainerId, Inventory pInventory, BlockEntity pBlockEntity, int pInputSlots, int pOutputSlots) {
         super(pMenuType, pContainerId);
 
-        this.containerData = pContainerData;
         this.inputSlots = pInputSlots;
         this.outputSlots = pOutputSlots;
         this.blockEntity = ((AbstractProcessingBlockEntity) pBlockEntity);
         this.level = pInventory.player.level;
 
         addPlayerInventorySlots(pInventory);
-        addDataSlots(pContainerData);
     }
 
     @Override
@@ -115,9 +111,5 @@ public abstract class AbstractAlchemistryMenu extends AbstractContainerMenu {
 
     public AbstractProcessingBlockEntity getBlockEntity() {
         return blockEntity;
-    }
-
-    public ContainerData getContainerData() {
-        return containerData;
     }
 }

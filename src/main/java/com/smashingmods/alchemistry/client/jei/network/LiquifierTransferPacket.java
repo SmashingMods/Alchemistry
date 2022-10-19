@@ -78,7 +78,7 @@ public class LiquifierTransferPacket {
 
                         if (canTransfer) {
                             if (creative) {
-                                ItemStack creativeInput = recipe.getInput().getIngredient().getItems()[(int) (Math.random() * recipe.getInput().getIngredient().getItems().length)];
+                                ItemStack creativeInput = new ItemStack(recipe.getInput().getIngredient().getItems()[0].getItem(), recipe.getInput().getCount());
                                 int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
                                 inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
                             } else {

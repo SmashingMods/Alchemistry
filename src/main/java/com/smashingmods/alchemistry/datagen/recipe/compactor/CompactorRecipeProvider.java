@@ -184,6 +184,7 @@ public class CompactorRecipeProvider {
         compactor(pInputTag, 1, pOutput, pCondition);
     }
 
+    @SuppressWarnings("SameParameterValue")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
         compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, pCondition);

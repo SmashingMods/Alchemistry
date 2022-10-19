@@ -82,7 +82,6 @@ public class CompactorTransferPacket {
                         blockEntity.setProgress(0);
                         blockEntity.setRecipe(recipe);
                         blockEntity.setCanProcess(true);
-                        blockEntity.setTarget(recipe.getOutput().copy());
                     }
                 });
         });

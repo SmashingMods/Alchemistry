@@ -8,7 +8,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -27,15 +26,9 @@ public class FusionControllerMenu extends AbstractProcessingMenu {
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
-        addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 44, 35);
-        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 62, 35);
-        addSlots(SlotItemHandler::new, outputHandler, 134, 35);
-    }
-
-    @Override
-    public void addPlayerInventorySlots(Inventory pInventory) {
-        addSlots(Slot::new, pInventory, 3, 9, 9, 27, 8, 84);
-        addSlots(Slot::new, pInventory, 1, 9, 0, 9, 8, 142);
+        addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 48, 18);
+        addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 48, 44);
+        addSlots(SlotItemHandler::new, outputHandler, 120, 31);
     }
 
     @Override

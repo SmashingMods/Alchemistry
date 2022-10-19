@@ -73,7 +73,6 @@ public abstract class AbstractProcessingMenu extends AbstractContainerMenu {
         return copyStack;
     }
 
-    @SuppressWarnings("SameParameterValue")
     protected <T> void addSlots(Function4<T, Integer, Integer, Integer, Slot> pSlotType, T pContainer, int pXOrigin, int pYOrigin) {
         addSlots(pSlotType, pContainer, 1, 1, 0, 1, pXOrigin, pYOrigin);
     }
@@ -99,9 +98,9 @@ public abstract class AbstractProcessingMenu extends AbstractContainerMenu {
 
     public void addPlayerInventorySlots(Inventory pInventory) {
         // player main inventory
-        addSlots(Slot::new, pInventory, 3, 9, 9, 27,8, 86);
+        addSlots(Slot::new, pInventory, 3, 9, 9, 27,12, 76);
         // player hotbar
-        addSlots(Slot::new, pInventory, 1, 9, 0, 9,8, 144);
+        addSlots(Slot::new, pInventory, 1, 9, 0, 9,12, 134);
     }
 
     public AbstractProcessingBlockEntity getBlockEntity() {

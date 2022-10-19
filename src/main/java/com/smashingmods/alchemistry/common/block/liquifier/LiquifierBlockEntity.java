@@ -3,45 +3,56 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.api.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemistry.api.storage.FluidStorageHandler;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedList;
+
 public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
-    private final int maxProgress = Config.Common.liquifierTicksPerOperation.get();
     private LiquifierRecipe currentRecipe;
+    private ResourceLocation recipeId;
 
     public LiquifierBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.LIQUIFIER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
+        setEnergyPerTick(Config.Common.liquifierEnergyPerTick.get());
+        setMaxProgress(Config.Common.liquifierTicksPerOperation.get());
+    }
+
+    @Override
+    public void onLoad() {
+        if (level != null && !level.isClientSide()) {
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        }
+        super.onLoad();
     }
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty() && !isRecipeLocked()) {
+        if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty()) {
             RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
-                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                    if (currentRecipe == null || !currentRecipe.getId().equals(recipe.getId())) {
                         setProgress(0);
-                        setRecipe(recipe);
+                        setRecipe(recipe.copy());
                     }
                 });
         }
@@ -51,10 +62,11 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     public boolean canProcessRecipe() {
         ItemStack input = getSlotHandler().getStackInSlot(0);
         if (currentRecipe != null) {
-            return getEnergyHandler().getEnergyStored() >= Config.Common.liquifierEnergyPerTick.get()
-                    && (getFluidStorage().getFluidStack().isFluidEqual(currentRecipe.getOutput()) || getFluidStorage().isEmpty())
-                    && getFluidStorage().getFluidAmount() <= (getFluidStorage().getFluidAmount() + currentRecipe.getOutput().getAmount())
-                    && (currentRecipe.getInput().matches(input) && input.getCount() >= currentRecipe.getInput().getCount());
+            LiquifierRecipe tempRecipe = currentRecipe.copy();
+            return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
+                    && (getFluidStorage().getFluidStack().isFluidEqual(tempRecipe.getOutput()) || getFluidStorage().isEmpty())
+                    && (getFluidStorage().getFluidAmount() + tempRecipe.getOutput().getAmount()) < getFluidStorage().getCapacity()
+                    && (tempRecipe.getInput().matches(input) && input.getCount() >= tempRecipe.getInput().getCount());
         } else {
             return false;
         }
@@ -62,30 +74,38 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public void processRecipe() {
-        if (getProgress() < maxProgress) {
+        if (getProgress() < getMaxProgress()) {
             incrementProgress();
         } else {
+            LiquifierRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getSlotHandler().decrementSlot(0, currentRecipe.getInput().getCount());
-            getFluidStorage().fill(currentRecipe.getOutput().copy(), IFluidHandler.FluidAction.EXECUTE);
+            getSlotHandler().decrementSlot(0, tempRecipe.getInput().getCount());
+            getFluidStorage().fill(tempRecipe.getOutput(), IFluidHandler.FluidAction.EXECUTE);
         }
-        getEnergyHandler().extractEnergy(Config.Common.liquifierEnergyPerTick.get(), false);
+        getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
         setChanged();
     }
 
     @Override
-    public int getMaxProgress() {
-        return maxProgress;
+    public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
+        if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
+            currentRecipe = liquifierRecipe;
+        }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T extends Recipe<Inventory>> void setRecipe(@Nullable T pRecipe) {
-        currentRecipe = (LiquifierRecipe) pRecipe;
-    }
-
-    @Override
-    public Recipe<Inventory> getRecipe() {
+    public LiquifierRecipe getRecipe() {
         return currentRecipe;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public LinkedList<LiquifierRecipe> getAllRecipes() {
+        if (level != null) {
+            return new LinkedList<>(RecipeRegistry.getLiquifierRecipes(level));
+        }
+        return new LinkedList<>();
     }
 
     @Override
@@ -104,7 +124,10 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         return new FluidStorageHandler(Config.Common.liquifierFluidCapacity.get(), FluidStack.EMPTY) {
             @Override
             protected void onContentsChanged() {
-                setChanged();
+                if (level != null && !level.isClientSide() && isEmpty()) {
+                    updateRecipe();
+                    setCanProcess(canProcessRecipe());
+                }
             }
         };
     }
@@ -114,7 +137,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         return new ProcessingSlotHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
-                if (!isEmpty() && !isRecipeLocked()) {
+                if (!isEmpty()) {
                     updateRecipe();
                 }
                 setCanProcess(canProcessRecipe());
@@ -123,13 +146,8 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         };
     }
 
-    public boolean onBlockActivated(Level pLevel, BlockPos pBlockPos, Player pPlayer, InteractionHand pHand) {
-        return FluidUtil.interactWithFluidHandler(pPlayer, pHand, pLevel, pBlockPos, null);
-    }
-
     @Override
     protected void saveAdditional(CompoundTag pTag) {
-        pTag.putInt("maxProgress", maxProgress);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
@@ -139,10 +157,14 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        if (level != null) {
-            RecipeRegistry.getLiquifierRecipe(
-                    recipe -> recipe.getId().equals(ResourceLocation.tryParse(pTag.getString("recipeId"))),
-                    level).ifPresent(this::setRecipe);
+        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        if (level != null && level.isClientSide()) {
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+                if (!recipe.equals(currentRecipe)) {
+                    setRecipe(recipe);
+                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                }
+            });
         }
     }
 

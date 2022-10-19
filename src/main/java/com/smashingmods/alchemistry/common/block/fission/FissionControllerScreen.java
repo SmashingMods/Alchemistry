@@ -3,7 +3,12 @@ package com.smashingmods.alchemistry.common.block.fission;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
+import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import net.minecraft.client.renderer.GameRenderer;
@@ -24,10 +29,16 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
     public FissionControllerScreen(FissionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 74, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 74, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
 
         this.blockEntity = (FissionControllerBlockEntity) pMenu.getBlockEntity();
+    }
+
+    @Override
+    protected void init() {
+        widgets.add(pauseButton);
+        super.init();
     }
 
     @Override
@@ -59,8 +70,6 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
         FissionRecipe currentRecipe = blockEntity.getRecipe();
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
-        // Intellij thinks this is never null. Remove this and watch it crash.
-        //noinspection ConstantConditions
         if (currentRecipe != null && handler.getStackInSlot(0).isEmpty() && blockEntity.isRecipeLocked()) {
             ItemStack currentInput = currentRecipe.getInput();
 

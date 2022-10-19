@@ -1,5 +1,6 @@
 {
   "alchemistry.container.atomizer": "Atomizer",
+  "alchemistry.container.close_recipe_select": "Close Recipe Selection",
   "alchemistry.container.combiner": "Combiner",
   "alchemistry.container.compactor": "Compactor",
   "alchemistry.container.current_recipe": "Current recipe:",
@@ -11,6 +12,7 @@
   "alchemistry.container.liquifier": "Liquifier",
   "alchemistry.container.lock_recipe": "Lock recipe",
   "alchemistry.container.nothing": "Nothing",
+  "alchemistry.container.open_recipe_select": "Open Recipe Selection",
   "alchemistry.container.pause": "Pause",
   "alchemistry.container.required_input": "Required input item:",
   "alchemistry.container.reset_target": "Reset Target",

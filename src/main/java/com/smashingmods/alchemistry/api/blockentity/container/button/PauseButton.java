@@ -9,6 +9,7 @@ import com.smashingmods.alchemistry.common.network.TogglePauseButtonPacket;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -53,8 +54,12 @@ public class PauseButton extends Button {
 
     public void renderButtonToolTip(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
         if (pMouseX >= x && pMouseX <= x + width && pMouseY >= y && pMouseY <= y + height) {
-            TranslatableComponent component = blockEntity.isProcessingPaused() ? new TranslatableComponent("alchemistry.container.resume") : new TranslatableComponent("alchemistry.container.pause");
-            parent.renderTooltip(pPoseStack, component, pMouseX, pMouseY);
+            parent.renderTooltip(pPoseStack, getMessage(), pMouseX, pMouseY);
         }
+    }
+
+    @Override
+    public Component getMessage() {
+        return blockEntity.isProcessingPaused() ? new TranslatableComponent("alchemistry.container.resume") : new TranslatableComponent("alchemistry.container.pause");
     }
 }

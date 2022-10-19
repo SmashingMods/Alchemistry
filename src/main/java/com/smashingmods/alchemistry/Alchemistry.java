@@ -32,6 +32,7 @@ import org.apache.logging.log4j.Logger;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Alchemistry {
 
+    @SuppressWarnings("unused")
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "alchemistry";
 

@@ -148,6 +148,10 @@ public class ProbabilitySet {
                 .sum();
     }
 
+    public ProbabilitySet copy() {
+        return new ProbabilitySet(List.copyOf(probabilityGroups), weighted, rolls);
+    }
+
     public static class Builder {
         private final List<ProbabilityGroup> groups = new ArrayList<>();
         private boolean weighted = false;

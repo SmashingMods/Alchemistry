@@ -1,0 +1,48 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:dusts/sulfur",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:dusts/sulfur"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 50.0,
+              "results": [
+                {
+                  "item": "chemlib:sulfur"
+                }
+              ]
+            },
+            {
+              "probability": 50.0,
+              "results": [
+                {
+                  "item": "minecraft:air"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

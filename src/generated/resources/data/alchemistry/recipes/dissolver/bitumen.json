@@ -1,0 +1,82 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:storage_block/bitumen",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:bitumen"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": true,
+          "groups": [
+            {
+              "probability": 5.0,
+              "results": [
+                {
+                  "item": "chemlib:carbon",
+                  "count": 26
+                }
+              ]
+            },
+            {
+              "probability": 5.0,
+              "results": [
+                {
+                  "item": "chemlib:oxygen"
+                }
+              ]
+            },
+            {
+              "probability": 5.0,
+              "results": [
+                {
+                  "item": "chemlib:hydrogen",
+                  "count": 32
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:sulfur_dioxide"
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:vanadium"
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:nickel"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

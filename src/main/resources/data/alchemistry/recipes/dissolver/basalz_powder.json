@@ -1,0 +1,56 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "item": "thermal:basalz_powder"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 100,
+              "results": [
+                {
+                  "item": "chemlib:beryl",
+                  "count": 1
+                }
+              ]
+            },
+            {
+              "probability": 100,
+              "results": [
+                {
+                  "item": "chemlib:hydrochloric_acid",
+                  "count": 6
+                }
+              ]
+            },
+            {
+              "probability": 100,
+              "results": [
+                {
+                  "item": "chemlib:nitric_acid",
+                  "count": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

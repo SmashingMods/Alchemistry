@@ -473,6 +473,8 @@ public class DissolverRecipeProvider {
 
         dissolver(Items.CHARCOAL, createSet().addGroup(100, toItemStack("graphite", 2)).build());
 
+        dissolver("forge:storage_blocks/charcoal", createSet().addGroup(100, toItemStack("graphite", 18)).build(), tagNotEmptyCondition("forge:storage_blocks/charcoal"));
+
         for (Item item : newArrayList(Items.EMERALD, Items.EMERALD_BLOCK)) {
             int multiplier = 1;
              if (item == Items.EMERALD_BLOCK) {
@@ -732,6 +734,11 @@ public class DissolverRecipeProvider {
                 toItemStack("cellulose"))
         .build(), true);
 
+        dissolver("forge:storage_blocks/apple", createSet().addGroup(100,
+                        toItemStack("sucrose", 9),
+                        toItemStack("cellulose", 9))
+                .build(), tagNotEmptyCondition("forge:storage_blocks/apple"));
+
         dissolver("forge:seeds", createSet().addGroup(100, toItemStack("cellulose")).build());
 
         dissolver(Items.SPIDER_EYE, createSet().addGroup(100,
@@ -833,6 +840,8 @@ public class DissolverRecipeProvider {
 
         dissolver(Items.SUGAR_CANE, createSet().addGroup(100, toItemStack("sucrose")).build());
 
+        dissolver("forge:storage_blocks/sugar_cane", createSet().addGroup(100, toItemStack("sucrose", 9)).build(), tagNotEmptyCondition("forge:storage_blocks/sugar_cane"));
+
         dissolver(Items.SUGAR, createSet().addGroup(100, toItemStack("sucrose")).build());
 
         dissolver(Items.GUNPOWDER, createSet().addGroup(100,
@@ -840,6 +849,13 @@ public class DissolverRecipeProvider {
                 toItemStack("sulfur", 8),
                 toItemStack("graphite", 2))
         .build(), true);
+
+        dissolver("forge:storage_blocks/gunpowder", createSet().addGroup(100,
+                        toItemStack("potassium_nitrate", 18),
+                        toItemStack("sulfur", 72),
+                        toItemStack("graphite", 18))
+                .build(), tagNotEmptyCondition("forge:storage_blocks/gunpowder"));
+
 
         dissolver(Items.BLAZE_POWDER, createSet().addGroup(100,
                 toItemStack("germanium", 8),
@@ -1008,6 +1024,11 @@ public class DissolverRecipeProvider {
             .build());
         }
 
+        dissolver("forge:storage_blocks/potato", createSet().weighted().rolls(9)
+                .addGroup(10, toItemStack("starch"))
+                .addGroup(25, toItemStack("potassium", 5))
+                .build(), tagNotEmptyCondition("forge:storage_blocks/potato"));
+
         for (Item item : newArrayList(Items.COOKED_PORKCHOP, Items.COOKED_BEEF, Items.COOKED_MUTTON, Items.COOKED_CHICKEN, Items.COOKED_RABBIT)) {
             dissolver(item, createSet().addGroup(100, toItemStack("protein", 4)).build());
         }
@@ -1064,6 +1085,8 @@ public class DissolverRecipeProvider {
 
         dissolver(Items.CARROT, createSet().addGroup(20, toItemStack("beta_carotene")).build());
 
+        dissolver("forge:storage_blocks/carrot", createSet().rolls(9).addGroup(20, toItemStack("beta_carotene")).build(), tagNotEmptyCondition("forge:storage_blocks/carrot"));
+
         dissolver(Items.WITHER_SKELETON_SKULL, createSet().addGroup(100,
                 toItemStack("hydroxylapatite", 8),
                 toItemStack("mendelevium", 32))
@@ -1094,6 +1117,11 @@ public class DissolverRecipeProvider {
                 .addGroup(50, toItemStack("iron_oxide"))
         .build());
 
+        dissolver("forge:storage_blocks/beetroot", createSet().rolls(9)
+                .addGroup(100, toItemStack("sucrose"))
+                .addGroup(50, toItemStack("iron_oxide"))
+                .build(), tagNotEmptyCondition("forge:storage_blocks/beetroot"));
+
         dissolver(Items.BONE, createSet()
                 .addGroup(50, toItemStack("hydroxylapatite", 3))
         .build(), true);
@@ -1123,6 +1151,10 @@ public class DissolverRecipeProvider {
                 .build(), true);
 
         dissolver(Items.BAMBOO, createSet().addGroup(100, toItemStack("cellulose")).build());
+
+        dissolver("forge:storage_blocks/bamboo", createSet().addGroup(100, toItemStack("cellulose", 9)).build(), tagNotEmptyCondition("forge:storage_blocks/bamboo"));
+
+
 
         dissolver(Items.RABBIT_FOOT, createSet()
                 .addGroup(100, toItemStack("protein", 2))
@@ -1175,6 +1207,29 @@ public class DissolverRecipeProvider {
                         .addGroup(1, toItemStack("phosphate")).build(),
                 tagNotEmptyCondition("forge:slag"));
 
+        dissolver("forge:bitumen", createSet().weighted()
+                        .addGroup(5, toItemStack("carbon", 26))
+                        .addGroup(5, toItemStack("oxygen"))
+                        .addGroup(5, toItemStack("hydrogen", 32))
+                        .addGroup(1, toItemStack("sulfur_dioxide"))
+                        .addGroup(1, toItemStack("vanadium"))
+                        .addGroup(1, toItemStack("nickel")).build(),
+                tagNotEmptyCondition("forge:storage_block/bitumen"));
+
+        dissolver("forge:storage_block/bitumen", createSet().weighted().rolls(9)
+                        .addGroup(5, toItemStack("carbon", 26))
+                        .addGroup(5, toItemStack("oxygen"))
+                        .addGroup(5, toItemStack("hydrogen", 32))
+                        .addGroup(1, toItemStack("sulfur_dioxide"))
+                        .addGroup(1, toItemStack("vanadium"))
+                        .addGroup(1, toItemStack("nickel")).build(),
+                tagNotEmptyCondition("forge:storage_block/bitumen"));
+
+        dissolver("thermal:rockwool", createSet()
+                        .addGroup(100, toItemStack("silicon_dioxide", 2))
+                        .addGroup(100, toItemStack("aluminum_oxide")).build(),
+                tagNotEmptyCondition("thermal:rockwool"));
+
         dissolver("forge:gems/apatite", createSet()
                         .addGroup(33, toItemStack("hydroxylapatite", 1)).build(),
                 tagNotEmptyCondition("forge:gems/apatite"));
@@ -1191,6 +1246,70 @@ public class DissolverRecipeProvider {
                         .addGroup(100, toItemStack("hydroxylapatite", 2)).build(),
                 tagNotEmptyCondition("forge:ores/apatite"));
 
+        dissolver("forge:gems/cinnabar", createSet()
+                        .addGroup(100, toItemStack("mercury_sulfide", 1)).build(),
+                tagNotEmptyCondition("forge:gems/cinnabar"));
+
+        dissolver("forge:dusts/cinnabar", createSet()
+                        .addGroup(100, toItemStack("mercury_sulfide", 1)).build(),
+                tagNotEmptyCondition("forge:dusts/cinnabar"));
+
+        dissolver("forge:storage_blocks/cinnabar", createSet()
+                        .addGroup(100, toItemStack("mercury_sulfide", 9)).build(),
+                tagNotEmptyCondition("forge:storage_blocks/cinnabar"));
+
+        dissolver("forge:ores/cinnabar", createSet()
+                        .addGroup(100, toItemStack("mercury_sulfide", 3)).build(),
+                tagNotEmptyCondition("forge:ores/cinnabar"));
+
+        dissolver("forge:gems/niter", createSet()
+                        .addGroup(50, toItemStack("potassium_nitrate", 1)).build(),
+                tagNotEmptyCondition("forge:gems/niter"));
+
+        dissolver("forge:dusts/niter", createSet()
+                        .addGroup(50, toItemStack("potassium_nitrate", 1)).build(),
+                tagNotEmptyCondition("forge:dusts/niter"));
+
+        dissolver("forge:storage_blocks/niter", createSet()
+                        .addGroup(100, toItemStack("potassium_nitrate", 4))
+                        .addGroup(50, toItemStack("potassium_nitrate", 1)).build(),
+                tagNotEmptyCondition("forge:storage_blocks/niter"));
+
+        dissolver("forge:ores/niter", createSet()
+                        .addGroup(100, toItemStack("sulfur", 3)).build(),
+                tagNotEmptyCondition("forge:ores/niter"));
+
+        dissolver("forge:gems/sulfur", createSet()
+                        .addGroup(50, toItemStack("sulfur", 1)).build(),
+                tagNotEmptyCondition("forge:gems/sulfur"));
+
+        dissolver("forge:dusts/sulfur", createSet()
+                        .addGroup(50, toItemStack("sulfur", 1)).build(),
+                tagNotEmptyCondition("forge:dusts/sulfur"));
+
+        dissolver("forge:storage_blocks/sulfur", createSet()
+                        .addGroup(100, toItemStack("sulfur", 4))
+                        .addGroup(50, toItemStack("sulfur", 1)).build(),
+                tagNotEmptyCondition("forge:storage_blocks/sulfur"));
+
+        dissolver("forge:ores/sulfur", createSet()
+                        .addGroup(100, toItemStack("sulfur", 3)).build(),
+                tagNotEmptyCondition("forge:ores/sulfur"));
+
+        dissolver("forge:coal_coke", createSet().addGroup(100, toItemStack("graphite", 2)).build(),
+                tagNotEmptyCondition("forge:coal_coke"));
+
+        dissolver("forge:ores/tin", createSet().addGroup(100, toItemStack("tin", 32)).build(),
+                tagNotEmptyCondition("forge:ores/tin"));
+
+        dissolver("forge:ores/nickel", createSet().addGroup(100, toItemStack("nickel", 32)).build(),
+                tagNotEmptyCondition("forge:ores/nickel"));
+
+        dissolver("forge:ores/lead", createSet().addGroup(100, toItemStack("lead", 32)).build(),
+                tagNotEmptyCondition("forge:ores/lead"));
+
+        dissolver("forge:ores/silver", createSet().addGroup(100, toItemStack("silver", 32)).build(),
+                tagNotEmptyCondition("forge:ores/silver"));
 
 
     }

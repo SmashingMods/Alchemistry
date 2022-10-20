@@ -1,0 +1,49 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:storage_blocks/niter",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:storage_blocks/niter"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 100.0,
+              "results": [
+                {
+                  "item": "chemlib:potassium_nitrate",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "probability": 50.0,
+              "results": [
+                {
+                  "item": "chemlib:potassium_nitrate"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

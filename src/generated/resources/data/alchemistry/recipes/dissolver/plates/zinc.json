@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:plates/zinc",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:plates/zinc"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 100.0,
+              "results": [
+                {
+                  "item": "chemlib:zinc",
+                  "count": 16
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

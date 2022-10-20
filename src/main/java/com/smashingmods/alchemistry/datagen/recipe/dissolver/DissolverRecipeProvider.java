@@ -47,6 +47,7 @@ public class DissolverRecipeProvider {
 
     private void register() {
 
+
         // Add Chemlib recipes
         ItemRegistry.getCompounds().forEach(compoundItem -> {
             List<ItemStack> components = new ArrayList<>();
@@ -67,6 +68,88 @@ public class DissolverRecipeProvider {
                 input.ifPresent(chemicalItem -> dissolver(chemicalItem, createSet().addGroup(components).build(), true));
             }
         }
+
+        // Add tag recipes for elemental ores and blocks
+
+
+        for (ElementItem element : ItemRegistry.getElements()) {
+            List exceptions = newArrayList("sulfur");
+            if (!exceptions.contains(element.getChemicalName())) {
+                List<ItemStack> components = new ArrayList<>();
+                String elementTag = "forge:ingots/" + element.getChemicalName();
+                components.add(new ItemStack(element, 16));
+                dissolver(elementTag, createSet().addGroup(components).build(), tagNotEmptyCondition(elementTag));
+            }
+        }
+
+        for (ElementItem element : ItemRegistry.getElements()) {
+            List exceptions = newArrayList("sulfur");
+            if (!exceptions.contains(element.getChemicalName())) {
+                List<ItemStack> components = new ArrayList<>();
+                String elementTag = "forge:nuggets/" + element.getChemicalName();
+                components.add(new ItemStack(element, 1));
+                dissolver(elementTag, createSet().addGroup(components).build(), tagNotEmptyCondition(elementTag));
+            }
+        }
+
+        for (ElementItem element : ItemRegistry.getElements()) {
+            List exceptions = newArrayList("sulfur");
+            if (!exceptions.contains(element.getChemicalName())) {
+                List<ItemStack> components = new ArrayList<>();
+                String elementTag = "forge:dusts/" + element.getChemicalName();
+                components.add(new ItemStack(element, 16));
+                dissolver(elementTag, createSet().addGroup(components).build(), tagNotEmptyCondition(elementTag));
+            }
+        }
+
+        for (ElementItem element : ItemRegistry.getElements()) {
+            List exceptions = newArrayList();
+            if (!exceptions.contains(element.getChemicalName())) {
+                List<ItemStack> components = new ArrayList<>();
+                String elementTag = "forge:plates/" + element.getChemicalName();
+                components.add(new ItemStack(element, 16));
+                dissolver(elementTag, createSet().addGroup(components).build(), tagNotEmptyCondition(elementTag));
+            }
+        }
+
+        for (ElementItem element : ItemRegistry.getElements()) {
+            List exceptions = newArrayList("sulfur");
+            if (!exceptions.contains(element.getChemicalName())) {
+                List<ItemStack> components = new ArrayList<>();
+                String elementTag = "forge:ores/" + element.getChemicalName();
+                components.add(new ItemStack(element, 32));
+                dissolver(elementTag, createSet().addGroup(components).build(), tagNotEmptyCondition(elementTag));
+            }
+        }
+
+        for (ElementItem element : ItemRegistry.getElements()) {
+            List exceptions = newArrayList("sulfur");
+            if (!exceptions.contains(element.getChemicalName())) {
+                List<ItemStack> components = new ArrayList<>();
+                String elementTag = "forge:storage_blocks/" + element.getChemicalName();
+                components.add(new ItemStack(element, 16 * 9));
+                dissolver(elementTag, createSet().addGroup(components).build(), tagNotEmptyCondition(elementTag));
+            }
+        }
+
+        // Old dust/ingot/plate datagen - left it here in case something else I changed caused problems and I want to put it back fast
+        /*
+        ItemRegistry.getElements().stream()
+                .filter(element -> element.getMetalType().equals(MetalType.METAL) && element.getMatterState().equals(MatterState.SOLID))
+                .forEach(element -> {
+                    String name = element.getChemicalName();
+                    Arrays.stream(ChemicalItemType.values()).sequential()
+                            .filter(type -> !type.equals(ChemicalItemType.COMPOUND))
+                            .forEach(type -> {
+                                int count = switch (type) {
+                                    case DUST, INGOT, PLATE -> 16;
+                                    default -> 1;
+                                };
+                                ItemRegistry.getChemicalItemByNameAndType(name, type).ifPresent(item -> dissolver(item, createSet().addGroup(100, toItemStack(name, count)).build()));
+                            });
+                    ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(item -> dissolver(item, createSet().addGroup(100, toItemStack(name, 144)).build()));
+                });
+        */
 
         // Stones
         for (Item item : newArrayList(Items.STONE, Items.SMOOTH_STONE, Items.STONE_BRICK_SLAB, Items.STONE_BRICKS, Items.CRACKED_STONE_BRICKS, Items.CHISELED_STONE_BRICKS, Items.STONE_SLAB, Items.SMOOTH_STONE_SLAB)) {
@@ -573,7 +656,7 @@ public class DissolverRecipeProvider {
                             toItemStack("iron", multiplier))
                     .build());
         }
-        dissolver("forge:ores/iron", createSet().addGroup(100, toItemStack("iron", 32)).build());
+//        dissolver("forge:ores/iron", createSet().addGroup(100, toItemStack("iron", 32)).build());
 
         for (Item item : newArrayList(Items.GOLD_INGOT, Items.GOLD_NUGGET, Items.GOLD_BLOCK, Items.RAW_GOLD, Items.RAW_GOLD_BLOCK)) {
             int multiplier = 1;
@@ -587,7 +670,7 @@ public class DissolverRecipeProvider {
                             toItemStack("gold", multiplier))
                     .build());
         }
-        dissolver("forge:ores/gold", createSet().addGroup(100, toItemStack("gold", 32)).build());
+//        dissolver("forge:ores/gold", createSet().addGroup(100, toItemStack("gold", 32)).build());
 
         for (Item item : newArrayList(Items.COPPER_INGOT, Items.COPPER_BLOCK, Items.RAW_COPPER, Items.RAW_COPPER_BLOCK, Items.CUT_COPPER)) {
             int multiplier = 1;
@@ -601,7 +684,7 @@ public class DissolverRecipeProvider {
                             toItemStack("copper", multiplier))
                     .build());
         }
-        dissolver("forge:ores/copper", createSet().addGroup(100, toItemStack("copper", 32)).build());
+//        dissolver("forge:ores/copper", createSet().addGroup(100, toItemStack("copper", 32)).build());
 
         for (Item item : newArrayList(Items.EXPOSED_COPPER, Items.EXPOSED_CUT_COPPER, Items.EXPOSED_CUT_COPPER_SLAB, Items.WEATHERED_COPPER, Items.WEATHERED_CUT_COPPER, Items.WEATHERED_CUT_COPPER_SLAB, Items.OXIDIZED_COPPER, Items.OXIDIZED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER_SLAB)) {
             int oxide = 5;
@@ -1180,22 +1263,6 @@ public class DissolverRecipeProvider {
         dissolver(Items.INK_SAC, createSet().addGroup(100, toItemStack("titanium_oxide", 4)).build());
         dissolver(Items.GLOW_INK_SAC, createSet().addGroup(100, toItemStack("copper_chloride", 4), toItemStack("phosphorus", 2)).build(), true);
 
-        ItemRegistry.getElements().stream()
-            .filter(element -> element.getMetalType().equals(MetalType.METAL) && element.getMatterState().equals(MatterState.SOLID))
-            .forEach(element -> {
-                String name = element.getChemicalName();
-                Arrays.stream(ChemicalItemType.values()).sequential()
-                    .filter(type -> !type.equals(ChemicalItemType.COMPOUND))
-                    .forEach(type -> {
-                        int count = switch (type) {
-                            case DUST, INGOT, PLATE -> 16;
-                            default -> 1;
-                        };
-                        ItemRegistry.getChemicalItemByNameAndType(name, type).ifPresent(item -> dissolver(item, createSet().addGroup(100, toItemStack(name, count)).build()));
-                    });
-                ItemRegistry.getChemicalBlockItemByName(String.format("%s_metal_block", name)).ifPresent(item -> dissolver(item, createSet().addGroup(100, toItemStack(name, 144)).build()));
-            });
-
         //Thermal integration
         dissolver("forge:slag", createSet().weighted()
                         .addGroup(20)
@@ -1214,7 +1281,7 @@ public class DissolverRecipeProvider {
                         .addGroup(1, toItemStack("sulfur_dioxide"))
                         .addGroup(1, toItemStack("vanadium"))
                         .addGroup(1, toItemStack("nickel")).build(),
-                tagNotEmptyCondition("forge:storage_block/bitumen"));
+                tagNotEmptyCondition("forge:storage_blocks/bitumen"));
 
         dissolver("forge:storage_block/bitumen", createSet().weighted().rolls(9)
                         .addGroup(5, toItemStack("carbon", 26))
@@ -1299,17 +1366,41 @@ public class DissolverRecipeProvider {
         dissolver("forge:coal_coke", createSet().addGroup(100, toItemStack("graphite", 2)).build(),
                 tagNotEmptyCondition("forge:coal_coke"));
 
-        dissolver("forge:ores/tin", createSet().addGroup(100, toItemStack("tin", 32)).build(),
-                tagNotEmptyCondition("forge:ores/tin"));
+        dissolver("forge:dusts/netherite", createSet()
+                .addGroup(100, toItemStack("tungsten", 16 * 4), toItemStack("carbon", 16 * 4), toItemStack("gold", 16 * 4)).build(),
+                tagNotEmptyCondition("forge:dusts/netherite"));
 
-        dissolver("forge:ores/nickel", createSet().addGroup(100, toItemStack("nickel", 32)).build(),
-                tagNotEmptyCondition("forge:ores/nickel"));
+        dissolver("forge:plates/netherite", createSet()
+                        .addGroup(100, toItemStack("tungsten", 16 * 4), toItemStack("carbon", 16 * 4), toItemStack("gold", 16 * 4)).build(),
+                tagNotEmptyCondition("forge:plates/netherite"));
 
-        dissolver("forge:ores/lead", createSet().addGroup(100, toItemStack("lead", 32)).build(),
-                tagNotEmptyCondition("forge:ores/lead"));
-
-        dissolver("forge:ores/silver", createSet().addGroup(100, toItemStack("silver", 32)).build(),
-                tagNotEmptyCondition("forge:ores/silver"));
+//        // Thermal alloy handler
+//        List metalItems = newArrayList("ingots/", "dusts/", "plates", "nuggets/");
+//
+//        for (Object type : metalItems) {
+//            int rolls = 16;
+//            if (type == "nuggets/") {
+//                rolls = 1;
+//            }
+//            String itemTag = "forge:" + type + "bronze";
+//            dissolver(itemTag, createSet().rolls(rolls)
+//                            .addGroup(75, toItemStack("copper"))
+//                            .addGroup(25, toItemStack("tin")).build(),
+//                    tagNotEmptyCondition(itemTag));
+//        }
+//
+//        for (Object type : metalItems) {
+//            int rolls = 16;
+//            if (type == "nuggets/") {
+//                rolls = 1;
+//            }
+//            String itemTag = "forge:" + type + "invar";
+//            dissolver(itemTag, createSet().rolls(rolls).weighted()
+//                            .addGroup(2, toItemStack("iron"))
+//                            .addGroup(1, toItemStack("nickel")).build(),
+//                    tagNotEmptyCondition(itemTag));
+//        }
+//
 
 
     }

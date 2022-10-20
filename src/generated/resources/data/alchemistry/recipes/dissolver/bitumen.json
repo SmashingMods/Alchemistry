@@ -5,7 +5,7 @@
       "conditions": [
         {
           "value": {
-            "tag": "forge:storage_block/bitumen",
+            "tag": "forge:storage_blocks/bitumen",
             "type": "forge:tag_empty"
           },
           "type": "forge:not"

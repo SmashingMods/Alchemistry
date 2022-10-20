@@ -1,0 +1,48 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:plates/invar",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:plates/invar"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 16,
+          "weighted": true,
+          "groups": [
+            {
+              "probability": 2.0,
+              "results": [
+                {
+                  "item": "chemlib:iron"
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:nickel"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

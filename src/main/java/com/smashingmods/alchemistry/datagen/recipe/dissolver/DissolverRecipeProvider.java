@@ -8,7 +8,6 @@ import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
-import com.smashingmods.chemlib.api.MetalType;
 import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
@@ -73,7 +72,7 @@ public class DissolverRecipeProvider {
 
 
         for (ElementItem element : ItemRegistry.getElements()) {
-            List exceptions = newArrayList("sulfur");
+            List<String> exceptions = newArrayList("sulfur");
             if (!exceptions.contains(element.getChemicalName())) {
                 List<ItemStack> components = new ArrayList<>();
                 String elementTag = "forge:ingots/" + element.getChemicalName();
@@ -83,7 +82,7 @@ public class DissolverRecipeProvider {
         }
 
         for (ElementItem element : ItemRegistry.getElements()) {
-            List exceptions = newArrayList("sulfur");
+            List<String> exceptions = newArrayList("sulfur");
             if (!exceptions.contains(element.getChemicalName())) {
                 List<ItemStack> components = new ArrayList<>();
                 String elementTag = "forge:nuggets/" + element.getChemicalName();
@@ -93,7 +92,7 @@ public class DissolverRecipeProvider {
         }
 
         for (ElementItem element : ItemRegistry.getElements()) {
-            List exceptions = newArrayList("sulfur");
+            List<String> exceptions = newArrayList("sulfur");
             if (!exceptions.contains(element.getChemicalName())) {
                 List<ItemStack> components = new ArrayList<>();
                 String elementTag = "forge:dusts/" + element.getChemicalName();
@@ -103,7 +102,7 @@ public class DissolverRecipeProvider {
         }
 
         for (ElementItem element : ItemRegistry.getElements()) {
-            List exceptions = newArrayList();
+            List<String> exceptions = newArrayList();
             if (!exceptions.contains(element.getChemicalName())) {
                 List<ItemStack> components = new ArrayList<>();
                 String elementTag = "forge:plates/" + element.getChemicalName();
@@ -113,7 +112,7 @@ public class DissolverRecipeProvider {
         }
 
         for (ElementItem element : ItemRegistry.getElements()) {
-            List exceptions = newArrayList("sulfur");
+            List<String> exceptions = newArrayList("sulfur");
             if (!exceptions.contains(element.getChemicalName())) {
                 List<ItemStack> components = new ArrayList<>();
                 String elementTag = "forge:ores/" + element.getChemicalName();
@@ -123,7 +122,7 @@ public class DissolverRecipeProvider {
         }
 
         for (ElementItem element : ItemRegistry.getElements()) {
-            List exceptions = newArrayList("sulfur");
+            List<String> exceptions = newArrayList("sulfur");
             if (!exceptions.contains(element.getChemicalName())) {
                 List<ItemStack> components = new ArrayList<>();
                 String elementTag = "forge:storage_blocks/" + element.getChemicalName();
@@ -1375,33 +1374,123 @@ public class DissolverRecipeProvider {
                 tagNotEmptyCondition("forge:plates/netherite"));
 
 //        // Thermal alloy handler
-//        List metalItems = newArrayList("ingots/", "dusts/", "plates", "nuggets/");
-//
-//        for (Object type : metalItems) {
-//            int rolls = 16;
-//            if (type == "nuggets/") {
-//                rolls = 1;
-//            }
-//            String itemTag = "forge:" + type + "bronze";
-//            dissolver(itemTag, createSet().rolls(rolls)
-//                            .addGroup(75, toItemStack("copper"))
-//                            .addGroup(25, toItemStack("tin")).build(),
-//                    tagNotEmptyCondition(itemTag));
-//        }
-//
-//        for (Object type : metalItems) {
-//            int rolls = 16;
-//            if (type == "nuggets/") {
-//                rolls = 1;
-//            }
-//            String itemTag = "forge:" + type + "invar";
-//            dissolver(itemTag, createSet().rolls(rolls).weighted()
-//                            .addGroup(2, toItemStack("iron"))
-//                            .addGroup(1, toItemStack("nickel")).build(),
-//                    tagNotEmptyCondition(itemTag));
-//        }
-//
+        List<String> metalItems = newArrayList("ingots/", "dusts/", "plates/", "nuggets/", "storage_blocks/");
 
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "bronze";
+            dissolver(itemTag, createSet().rolls(rolls)
+                            .addGroup(75, toItemStack("copper", count))
+                            .addGroup(25, toItemStack("tin", count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
+
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "invar";
+            dissolver(itemTag, createSet().rolls(rolls).weighted()
+                            .addGroup(2, toItemStack("iron", count))
+                            .addGroup(1, toItemStack("nickel", count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
+
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "electrum";
+            dissolver(itemTag, createSet().rolls(rolls).weighted()
+                            .addGroup(1, toItemStack("gold", count))
+                            .addGroup(1, toItemStack("silver", count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
+
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "constantan";
+            dissolver(itemTag, createSet().rolls(rolls).weighted()
+                            .addGroup(1, toItemStack("nickel", count))
+                            .addGroup(1, toItemStack("copper", count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
+
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "signalum";
+            dissolver(itemTag, createSet().rolls(rolls).weighted()
+                            .addGroup(6, toItemStack("copper", count))
+                            .addGroup(2, toItemStack("silver", count))
+                            .addGroup(1, toItemStack("strontium_carbonate", count), toItemStack("iron_oxide", count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
+
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "lumium";
+            dissolver(itemTag, createSet().rolls(rolls).weighted()
+                            .addGroup(3, toItemStack("tin", count))
+                            .addGroup(1, toItemStack("silver", count))
+                            .addGroup(1, toItemStack("phosphorus", count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
+
+        for (Object type : metalItems) {
+            int rolls = 16;
+            int count = 1;
+            if (type == "nuggets/") {
+                rolls = 1;
+            }
+            if (type == "storage_blocks/") {
+                count = 9;
+            }
+            String itemTag = "forge:" + type + "enderium";
+            dissolver(itemTag, createSet().rolls(rolls).weighted()
+                            .addGroup(6, toItemStack("lead", count))
+                            .addGroup(2, toItemStack("graphite", count))
+                            .addGroup(1, toItemStack("mercury", 2 * count))
+                            .addGroup(1, toItemStack("neodymium", 2 * count)).build(),
+                    tagNotEmptyCondition(itemTag));
+        }
 
     }
 

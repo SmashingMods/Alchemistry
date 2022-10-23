@@ -16,7 +16,7 @@
         "group": "alchemistry:dissolver",
         "input": {
           "ingredient": {
-            "tag": "forge:storage_block/bitumen"
+            "tag": "forge:storage_blocks/bitumen"
           },
           "count": 1
         },

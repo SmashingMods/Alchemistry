@@ -1,0 +1,27 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:compactor",
+        "group": "alchemistry:compactor",
+        "input": {
+          "ingredient": {
+            "item": "chemlib:mercury_sulfide"
+          },
+          "count": 1
+        },
+        "result": {
+          "item": "thermal:cinnabar",
+          "count": 1
+        }
+      }
+    }
+  ]
+}

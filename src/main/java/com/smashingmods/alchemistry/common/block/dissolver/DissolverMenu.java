@@ -20,7 +20,7 @@ public class DissolverMenu extends AbstractProcessingMenu {
     }
 
     protected DissolverMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
-        super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, 1, 10);
+        super(MenuRegistry.DISSOLVER_MENU.get(), pContainerId, pInventory, pBlockEntity, 1, 12);
 
         DissolverBlockEntity blockEntity = (DissolverBlockEntity) pBlockEntity;
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();

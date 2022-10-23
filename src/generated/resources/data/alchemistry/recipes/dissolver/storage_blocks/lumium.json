@@ -1,0 +1,59 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:storage_blocks/lumium",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:storage_blocks/lumium"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 16,
+          "weighted": true,
+          "groups": [
+            {
+              "probability": 3.0,
+              "results": [
+                {
+                  "item": "chemlib:tin",
+                  "count": 9
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:silver",
+                  "count": 9
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:phosphorus",
+                  "count": 9
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

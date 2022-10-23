@@ -1,0 +1,56 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "item": "thermal:blizz_powder"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 100,
+              "results": [
+                {
+                  "item": "chemlib:ammonia",
+                  "count": 8
+                }
+              ]
+            },
+            {
+              "probability": 100,
+              "results": [
+                {
+                  "item": "chemlib:propane",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "probability": 100,
+              "results": [
+                {
+                  "item": "chemlib:gallium",
+                  "count": 8
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

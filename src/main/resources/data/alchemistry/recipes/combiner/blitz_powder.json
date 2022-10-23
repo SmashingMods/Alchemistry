@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:combiner",
+        "group": "alchemistry:combiner",
+        "input": [
+          {
+            "ingredient": {
+              "item": "chemlib:helium"
+            },
+            "count": 8
+          },
+          {
+            "ingredient": {
+              "item": "chemlib:methane"
+            },
+            "count": 2
+          },
+          {
+            "ingredient": {
+              "item": "chemlib:hydrogen"
+            },
+            "count": 8
+          }
+        ],
+        "result": {
+          "item": "thermal:blizz_powder",
+          "count": 1
+        }
+      }
+    }
+  ]
+}

@@ -78,6 +78,8 @@ public class CombinerRecipeProvider {
         combiner(Items.MILK_BUCKET, toIngredientStack("calcium", 4), toIngredientStack("protein", 2), toIngredientStack("water", 16), new ItemStack(Items.BUCKET));
         combiner(Items.REDSTONE_BLOCK, toIngredientStack("iron_oxide", 9), toIngredientStack("strontium_carbonate", 9));
         combiner(Items.REDSTONE, toIngredientStack("iron_oxide"), toIngredientStack("strontium_carbonate"));
+
+        // Testing space, if there's anything below this line yell at Tim because he forgot to delete it
     }
 
     private void combiner(ItemLike pOutput, Object ... pInput) {

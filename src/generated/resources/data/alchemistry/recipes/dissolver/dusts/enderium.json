@@ -1,0 +1,66 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:dusts/enderium",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:dusts/enderium"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 16,
+          "weighted": true,
+          "groups": [
+            {
+              "probability": 6.0,
+              "results": [
+                {
+                  "item": "chemlib:lead"
+                }
+              ]
+            },
+            {
+              "probability": 2.0,
+              "results": [
+                {
+                  "item": "chemlib:graphite"
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:mercury",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:neodymium",
+                  "count": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

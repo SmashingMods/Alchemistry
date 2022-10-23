@@ -1,0 +1,50 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:storage_blocks/invar",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:storage_blocks/invar"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 16,
+          "weighted": true,
+          "groups": [
+            {
+              "probability": 2.0,
+              "results": [
+                {
+                  "item": "chemlib:iron",
+                  "count": 9
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:nickel",
+                  "count": 9
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

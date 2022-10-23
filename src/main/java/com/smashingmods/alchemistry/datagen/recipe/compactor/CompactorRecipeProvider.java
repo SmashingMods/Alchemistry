@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.smashingmods.alchemistry.datagen.DatagenUtil.tagNotEmptyCondition;
 
 public class CompactorRecipeProvider {
 

@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:atomizer",
+        "group": "alchemistry:atomizer",
+        "input": {
+          "fluid": "thermal:syrup_fluid",
+          "amount": "500"
+        },
+        "result": {
+          "item": "chemlib:sucrose",
+          "count": 8
+        }
+      }
+    }
+  ]
+}

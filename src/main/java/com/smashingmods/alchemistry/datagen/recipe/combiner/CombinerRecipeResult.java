@@ -10,21 +10,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-import java.util.List;
+import java.util.Set;
 
 public class CombinerRecipeResult implements FinishedRecipe {
     private final String group;
     private final Advancement.Builder advancementBuilder;
     private final ResourceLocation id;
     private final ResourceLocation advancementId;
-    private final List<IngredientStack> input;
+    private final Set<IngredientStack> input;
     private final ItemStack output;
 
     public CombinerRecipeResult(String pGroup,
                                 Advancement.Builder pBuilder,
                                 ResourceLocation pId,
                                 ResourceLocation pAdvancementId,
-                                List<IngredientStack> pInput,
+                                Set<IngredientStack> pInput,
                                 ItemStack pOutput
                                 ) {
         this.group = pGroup;

@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -20,7 +20,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-public class DissolverBlock extends AbstractAlchemistryBlock {
+public class DissolverBlock extends AbstractProcessingBlock {
 
     public DissolverBlock() {
         super(DissolverBlockEntity::new);

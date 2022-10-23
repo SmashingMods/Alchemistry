@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
-import com.smashingmods.alchemistry.api.blockentity.PowerState;
-import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerStateProperty;
+import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class FissionControllerBlock extends AbstractAlchemistryBlock {
+public class FissionControllerBlock extends AbstractReactorBlock {
 
     public FissionControllerBlock() {
         super(FissionControllerBlockEntity::new);

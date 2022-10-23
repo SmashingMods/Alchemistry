@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
-public class ReactorInputBlock extends AbstractAlchemistryBlock {
+public class ReactorInputBlock extends AbstractProcessingBlock {
     public ReactorInputBlock() {
         super(ReactorInputBlockEntity::new);
     }

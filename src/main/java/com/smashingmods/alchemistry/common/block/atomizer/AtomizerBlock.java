@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class AtomizerBlock extends AbstractAlchemistryBlock {
+public class AtomizerBlock extends AbstractProcessingBlock {
 
     public AtomizerBlock() {
         super(AtomizerBlockEntity::new);

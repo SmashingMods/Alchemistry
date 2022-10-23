@@ -48,6 +48,7 @@ public class AtomizerRecipeProvider {
                 .ifPresent(fluidStack -> atomizer(fluidStack, new ItemStack(chemical, 8)));
     }
 
+    @SuppressWarnings("unused")
     private void atomizer(FluidStack pInput, ItemStack pOutput, ICondition pCondition) {
         ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
         ConditionalRecipe.builder()

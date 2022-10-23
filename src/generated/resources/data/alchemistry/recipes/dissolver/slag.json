@@ -1,0 +1,88 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:slag",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:slag"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": true,
+          "groups": [
+            {
+              "probability": 20.0,
+              "results": [
+                {
+                  "item": "minecraft:air"
+                }
+              ]
+            },
+            {
+              "probability": 20.0,
+              "results": [
+                {
+                  "item": "chemlib:silicon_dioxide"
+                }
+              ]
+            },
+            {
+              "probability": 3.0,
+              "results": [
+                {
+                  "item": "chemlib:magnesium_oxide"
+                }
+              ]
+            },
+            {
+              "probability": 3.0,
+              "results": [
+                {
+                  "item": "chemlib:iron_oxide"
+                }
+              ]
+            },
+            {
+              "probability": 2.0,
+              "results": [
+                {
+                  "item": "chemlib:manganese_oxide"
+                }
+              ]
+            },
+            {
+              "probability": 2.0,
+              "results": [
+                {
+                  "item": "chemlib:aluminum_oxide"
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
+                {
+                  "item": "chemlib:phosphate"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

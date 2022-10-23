@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.PowerState;
-import com.smashingmods.alchemistry.api.blockentity.PowerStateProperty;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
+import com.smashingmods.alchemistry.api.blockentity.power.PowerStateProperty;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;

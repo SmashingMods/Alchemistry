@@ -3,26 +3,47 @@ package com.smashingmods.alchemistry.common.block.fusion;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.container.*;
+import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
+import com.smashingmods.alchemistry.api.blockentity.container.button.AutoBalanceButton;
+import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FusionControllerScreen extends AbstractAlchemistryScreen<FusionControllerMenu> {
+public class FusionControllerScreen extends AbstractProcessingScreen<FusionControllerMenu> {
 
-    protected final List<DisplayData> displayData = new ArrayList<>();
+    protected final List<AbstractDisplayData> displayData = new ArrayList<>();
+    private final FusionControllerBlockEntity blockEntity;
+    private final AutoBalanceButton autoBalanceButton;
 
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle);
+        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
 
-        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 92, 39, 60, 9, Direction2D.RIGHT));
-        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 17, 16, 16, 54));
+        displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
+        displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
+        blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
+        autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
+    }
+
+    @Override
+    protected void init() {
+        widgets.add(lockButton);
+        widgets.add(pauseButton);
+        widgets.add(autoBalanceButton);
+        super.init();
     }
 
     @Override
@@ -30,6 +51,7 @@ public class FusionControllerScreen extends AbstractAlchemistryScreen<FusionCont
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
         renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+        renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
         renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
@@ -46,5 +68,28 @@ public class FusionControllerScreen extends AbstractAlchemistryScreen<FusionCont
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fusion_controller"));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
+    }
+
+    private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+        FusionRecipe currentRecipe = blockEntity.getRecipe();
+        ProcessingSlotHandler handler = blockEntity.getInputHandler();
+
+        if (currentRecipe != null && blockEntity.isRecipeLocked()) {
+
+            int x = leftPos + 48;
+            int y = topPos + 18;
+
+            List<ItemStack> inputs = List.of(currentRecipe.getInput1(), currentRecipe.getInput2());
+
+            for (int i = 0; i < inputs.size(); i ++) {
+                y = y + (i * 26);
+                if (handler.getStackInSlot(i).isEmpty()) {
+                    FakeItemRenderer.renderFakeItem(inputs.get(i), x, y, 0.35f);
+                    if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
+                        renderItemTooltip(pPoseStack, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe")), pMouseX, pMouseY);
+                    }
+                }
+            }
+        }
     }
 }

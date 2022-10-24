@@ -1,0 +1,48 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "tag": "forge:ingots/bronze",
+            "type": "forge:tag_empty"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "tag": "forge:ingots/bronze"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 16,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 75.0,
+              "results": [
+                {
+                  "item": "chemlib:copper"
+                }
+              ]
+            },
+            {
+              "probability": 25.0,
+              "results": [
+                {
+                  "item": "chemlib:tin"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.api.item.IngredientStack;
@@ -12,8 +11,8 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class CombinerRecipeSerializer<T extends CombinerRecipe> implements RecipeSerializer<T> {
 
@@ -28,7 +27,7 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
 
         String group = pSerializedRecipe.get("group").getAsString();
         JsonArray inputJson = pSerializedRecipe.getAsJsonArray("input");
-        List<IngredientStack> input = new ArrayList<>();
+        Set<IngredientStack> input = new LinkedHashSet<>();
         ItemStack output;
 
         inputJson.forEach(element -> input.add(IngredientStack.fromJson(element.getAsJsonObject())));
@@ -45,9 +44,9 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
     public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         int inputCount = pBuffer.readInt();
-        List<IngredientStack> inputList = Lists.newArrayList();
+        Set<IngredientStack> inputList = new LinkedHashSet<>();
         for (int i = 0; i < inputCount; i++) {
-            inputList.add(i, IngredientStack.fromNetwork(pBuffer));
+            inputList.add(IngredientStack.fromNetwork(pBuffer));
         }
         ItemStack output = pBuffer.readItem();
         return this.factory.create(pRecipeId, group, inputList, output);
@@ -64,6 +63,6 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {
-        T create(ResourceLocation pId, String pGroup, List<IngredientStack> pInput, ItemStack pOutput);
+        T create(ResourceLocation pId, String pGroup, Set<IngredientStack> pInput, ItemStack pOutput);
     }
 }

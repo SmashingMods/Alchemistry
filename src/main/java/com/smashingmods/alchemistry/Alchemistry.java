@@ -7,7 +7,7 @@ import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.Registry;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -27,6 +27,7 @@ import org.apache.logging.log4j.Logger;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Alchemistry {
 
+    @SuppressWarnings("unused")
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "alchemistry";
 
@@ -54,6 +55,6 @@ public class Alchemistry {
 
     @SubscribeEvent
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
-        AlchemistryPacketHandler.register();
+        PacketHandler.register();
     }
 }

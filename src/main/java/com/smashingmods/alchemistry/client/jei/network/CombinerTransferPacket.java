@@ -1,10 +1,10 @@
 package com.smashingmods.alchemistry.client.jei.network;
 
-import com.smashingmods.alchemistry.api.blockentity.handler.CustomItemStackHandler;
+import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
-import com.smashingmods.alchemistry.common.network.AlchemistryPacketHandler;
+import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -61,60 +61,59 @@ public class CombinerTransferPacket {
             CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.getLevel().getBlockEntity(pPacket.blockPos);
             Objects.requireNonNull(blockEntity);
 
-            CustomItemStackHandler inputHandler = blockEntity.getInputHandler();
-            CustomItemStackHandler outputHandler = blockEntity.getOutputHandler();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
             Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getRecipesByType(RecipeRegistry.COMBINER_TYPE.get(), player.getLevel()).stream()
-                    .filter(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), pPacket.output))
-                    .findFirst()
-                    .ifPresent(recipe -> {
+            RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), pPacket.output), player.getLevel())
+                .ifPresent(recipe -> {
 
-                        inputHandler.emptyToInventory(inventory);
-                        outputHandler.emptyToInventory(inventory);
+                    inputHandler.emptyToInventory(inventory);
+                    outputHandler.emptyToInventory(inventory);
 
-                        List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipe.getInput());
-                        List<ItemStack> recipeInput = new ArrayList<>();
-                        IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipe.getInput().get(i).getCount())));
+                    List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipe.getInput());
+                    List<ItemStack> recipeInput = new ArrayList<>();
+                    IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipe.getInput().get(i).getCount())));
 
-                        boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                    boolean creative = player.gameMode.isCreative();
+                    boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
-                        if (canTransfer) {
-                            if (creative) {
-                                List<ItemStack> creativeInput = new ArrayList<>();
+                    if (canTransfer) {
+                        if (creative) {
+                            List<ItemStack> creativeInput = new ArrayList<>();
 
-                                for (int i = 0; i < recipe.getInput().size(); i++) {
-                                    ItemStack item = new ItemStack(recipe.getInput().get(i).getIngredient().getItems()[0].getItem(), recipe.getInput().get(i).getCount());
-                                    creativeInput.add(i, item);
-                                }
-
-                                int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
-                                for (int i = 0; i < recipe.getInput().size(); i++) {
-                                    inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
-                                }
-                            } else {
-                                List<ItemStack> inventoryStacks = new ArrayList<>();
-                                inventoryInput.stream().map(inventory::findSlotMatchingItem).forEach(slot -> {
-                                    if (slot != -1) {
-                                        inventoryStacks.add(inventory.getItem(slot));
-                                    }
-                                });
-
-                                int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventoryStacks, pPacket.maxTransfer, false);
-                                recipeInput.forEach(itemStack -> {
-                                        int slot = player.getInventory().findSlotMatchingItem(itemStack);
-                                        player.getInventory().removeItem(slot, itemStack.getCount() * maxOperations);
-                                });
-
-                                for (int k = 0; k < recipe.getInput().size(); k++) {
-                                    inputHandler.setOrIncrement(k, new ItemStack(recipeInput.get(k).getItem(), recipe.getInput().get(k).getCount() * maxOperations));
-                                }
+                            for (int i = 0; i < recipe.getInput().size(); i++) {
+                                ItemStack item = new ItemStack(recipe.getInput().get(i).getIngredient().getItems()[0].getItem(), recipe.getInput().get(i).getCount());
+                                creativeInput.add(i, item);
                             }
-                            blockEntity.setProgress(0);
-                            blockEntity.setRecipe(recipe);
+
+                            int maxOperations = TransferUtils.getMaxOperations(creativeInput, pPacket.maxTransfer);
+                            for (int i = 0; i < recipe.getInput().size(); i++) {
+                                inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
+                            }
+                        } else {
+                            List<ItemStack> inventoryStacks = new ArrayList<>();
+                            inventoryInput.stream().map(inventory::findSlotMatchingItem).forEach(slot -> {
+                                if (slot != -1) {
+                                    inventoryStacks.add(inventory.getItem(slot));
+                                }
+                            });
+
+                            int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventoryStacks, pPacket.maxTransfer, false);
+                            recipeInput.forEach(itemStack -> {
+                                int slot = player.getInventory().findSlotMatchingItem(itemStack);
+                                player.getInventory().removeItem(slot, itemStack.getCount() * maxOperations);
+                            });
+
+                            for (int i = 0; i < recipe.getInput().size(); i++) {
+                                inputHandler.setOrIncrement(i, new ItemStack(recipeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
+                            }
                         }
-                    });
+                        blockEntity.setProgress(0);
+                        blockEntity.setRecipe(recipe);
+                        blockEntity.setCanProcess(true);
+                    }
+                });
         });
         pContext.get().setPacketHandled(true);
     }
@@ -142,7 +141,7 @@ public class CombinerTransferPacket {
         public @Nullable IRecipeTransferError transferRecipe(CombinerMenu pContainer, CombinerRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
                 pContainer.getBlockEntity().setRecipe(pRecipe);
-                AlchemistryPacketHandler.INSTANCE.sendToServer(new CombinerTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getOutput(), pMaxTransfer));
+                PacketHandler.INSTANCE.sendToServer(new CombinerTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getOutput(), pMaxTransfer));
             }
             return null;
         }

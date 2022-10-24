@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.block.AbstractAlchemistryBlock;
+import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CompactorBlock extends AbstractAlchemistryBlock {
+public class CompactorBlock extends AbstractProcessingBlock {
     public CompactorBlock() {
         super(CompactorBlockEntity::new);
     }

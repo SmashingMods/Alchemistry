@@ -1,0 +1,56 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "ingredient": {
+            "item": "thermal:rosin"
+          },
+          "count": 1
+        },
+        "output": {
+          "rolls": 1,
+          "weighted": false,
+          "groups": [
+            {
+              "probability": 33.3,
+              "results": [
+                {
+                  "item": "chemlib:carbon",
+                  "count": 20
+                }
+              ]
+            },
+            {
+              "probability": 33.3,
+              "results": [
+                {
+                  "item": "chemlib:hydrogen",
+                  "count": 30
+                }
+              ]
+            },
+            {
+              "probability": 33.4,
+              "results": [
+                {
+                  "item": "chemlib:oxygen",
+                  "count": 2
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

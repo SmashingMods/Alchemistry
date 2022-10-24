@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:combiner",
+        "group": "alchemistry:combiner",
+        "input": [
+          {
+            "ingredient": {
+              "item": "chemlib:ammonia"
+            },
+            "count": 8
+          },
+          {
+            "ingredient": {
+              "item": "chemlib:propane"
+            },
+            "count": 2
+          },
+          {
+            "ingredient": {
+              "item": "chemlib:gallium"
+            },
+            "count": 8
+          }
+        ],
+        "result": {
+          "item": "thermal:blizz_powder",
+          "count": 1
+        }
+      }
+    }
+  ]
+}

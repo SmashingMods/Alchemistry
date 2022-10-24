@@ -1,0 +1,41 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "modid": "thermal",
+          "type": "forge:mod_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:combiner",
+        "group": "alchemistry:combiner",
+        "input": [
+          {
+            "ingredient": {
+              "item": "chemlib:carbon"
+            },
+            "count": 20
+          },
+          {
+            "ingredient": {
+              "item": "chemlib:hydrogen"
+            },
+            "count": 30
+          },
+          {
+            "ingredient": {
+              "item": "chemlib:oxygen"
+            },
+            "count": 2
+          }
+        ],
+        "result": {
+          "item": "thermal:rosin",
+          "count": 3
+        }
+      }
+    }
+  ]
+}

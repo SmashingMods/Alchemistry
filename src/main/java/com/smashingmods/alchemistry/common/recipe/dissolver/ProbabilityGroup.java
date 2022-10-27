@@ -41,11 +41,22 @@ public class ProbabilityGroup {
 
         for (ItemStack itemStack : this.output) {
             Objects.requireNonNull(itemStack.getItem().getRegistryName());
+
+            int count = itemStack.getCount();
+
+            while (count > 64) {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.add("item", new JsonPrimitive(itemStack.getItem().getRegistryName().toString()));
+                jsonObject.add("count", new JsonPrimitive(64));
+                results.add(jsonObject);
+                count -= 64;
+            }
+
             JsonObject jsonObject = new JsonObject();
             jsonObject.add("item", new JsonPrimitive(itemStack.getItem().getRegistryName().toString()));
 
-            if (itemStack.getCount() > 1) {
-                jsonObject.add("count", new JsonPrimitive(itemStack.getCount()));
+            if (count > 1) {
+                jsonObject.add("count", new JsonPrimitive(count));
             }
             results.add(jsonObject);
         }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:lead",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:lead",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:lead",
+                  "count": 16
                 }
               ]
             }

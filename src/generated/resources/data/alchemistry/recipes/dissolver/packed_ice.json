@@ -16,7 +16,15 @@
         "results": [
           {
             "item": "chemlib:water",
-            "count": 144
+            "count": 64
+          },
+          {
+            "item": "chemlib:water",
+            "count": 64
+          },
+          {
+            "item": "chemlib:water",
+            "count": 16
           }
         ]
       }

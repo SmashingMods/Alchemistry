@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:protactinium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:protactinium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:protactinium",
+                  "count": 16
                 }
               ]
             }

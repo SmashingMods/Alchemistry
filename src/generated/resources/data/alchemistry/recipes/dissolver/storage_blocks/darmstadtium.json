@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:darmstadtium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:darmstadtium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:darmstadtium",
+                  "count": 16
                 }
               ]
             }

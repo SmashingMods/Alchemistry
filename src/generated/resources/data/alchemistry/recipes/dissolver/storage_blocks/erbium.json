@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:erbium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:erbium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:erbium",
+                  "count": 16
                 }
               ]
             }

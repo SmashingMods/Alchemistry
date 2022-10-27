@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:seaborgium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:seaborgium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:seaborgium",
+                  "count": 16
                 }
               ]
             }

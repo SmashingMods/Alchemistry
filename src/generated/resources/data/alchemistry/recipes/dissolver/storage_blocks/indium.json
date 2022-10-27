@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:indium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:indium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:indium",
+                  "count": 16
                 }
               ]
             }

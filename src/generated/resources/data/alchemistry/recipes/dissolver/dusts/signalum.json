@@ -45,7 +45,12 @@
               "results": [
                 {
                   "item": "chemlib:strontium_carbonate"
-                },
+                }
+              ]
+            },
+            {
+              "probability": 1.0,
+              "results": [
                 {
                   "item": "chemlib:iron_oxide"
                 }

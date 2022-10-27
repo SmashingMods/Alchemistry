@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:osmium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:osmium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:osmium",
+                  "count": 16
                 }
               ]
             }

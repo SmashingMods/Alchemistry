@@ -16,7 +16,11 @@
         "results": [
           {
             "item": "chemlib:gold",
-            "count": 128
+            "count": 64
+          },
+          {
+            "item": "chemlib:gold",
+            "count": 64
           },
           {
             "item": "chemlib:cellulose"

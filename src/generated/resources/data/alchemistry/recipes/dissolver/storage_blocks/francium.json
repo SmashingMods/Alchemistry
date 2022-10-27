@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:francium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:francium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:francium",
+                  "count": 16
                 }
               ]
             }

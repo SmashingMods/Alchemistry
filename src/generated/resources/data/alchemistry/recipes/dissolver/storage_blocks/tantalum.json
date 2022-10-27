@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:tantalum",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tantalum",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tantalum",
+                  "count": 16
                 }
               ]
             }

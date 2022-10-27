@@ -48,7 +48,7 @@ public class ChemlibRecipes extends DissolverRecipeProvider {
             }
         }
 
-        for (ElementItem element : ItemRegistry.getElements()) {
+        for (ElementItem element : ItemRegistry.getElementsByMatterState(MatterState.SOLID).toList()) {
             String ingotTag = String.format("forge:ingots/%s", element.getChemicalName());
             String nuggetTag = "forge:nuggets/" + element.getChemicalName();
             String dustTag = "forge:dusts/" + element.getChemicalName();

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:curium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:curium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:curium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:strontium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:strontium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:strontium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:plutonium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:plutonium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:plutonium",
+                  "count": 16
                 }
               ]
             }

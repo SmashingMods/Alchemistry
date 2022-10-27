@@ -33,7 +33,11 @@
                 },
                 {
                   "item": "chemlib:sulfur",
-                  "count": 72
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:sulfur",
+                  "count": 8
                 },
                 {
                   "item": "chemlib:graphite",

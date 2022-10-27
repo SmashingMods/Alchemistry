@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:chromium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:chromium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:chromium",
+                  "count": 16
                 }
               ]
             }

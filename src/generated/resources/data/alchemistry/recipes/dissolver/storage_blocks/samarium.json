@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:samarium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:samarium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:samarium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:hassium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:hassium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:hassium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:nobelium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:nobelium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:nobelium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:europium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:europium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:europium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:tungsten",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tungsten",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tungsten",
+                  "count": 16
                 }
               ]
             }

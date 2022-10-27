@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:livermorium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:livermorium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:livermorium",
+                  "count": 16
                 }
               ]
             }

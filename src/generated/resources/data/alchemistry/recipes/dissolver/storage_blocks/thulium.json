@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:thulium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:thulium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:thulium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:polonium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:polonium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:polonium",
+                  "count": 16
                 }
               ]
             }

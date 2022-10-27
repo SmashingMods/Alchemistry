@@ -4,25 +4,23 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/carrot",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/carrot"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/carrot"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 9,
-          "weighted": false,
           "groups": [
             {
               "probability": 20.0,
@@ -40,7 +38,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 9,
+          "weighted": false
         }
       }
     }

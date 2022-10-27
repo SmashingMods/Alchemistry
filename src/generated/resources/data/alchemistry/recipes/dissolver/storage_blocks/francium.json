@@ -4,44 +4,44 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/francium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/francium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/francium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:francium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:francium"
                 },
                 {
-                  "item": "chemlib:francium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:francium"
                 },
                 {
-                  "item": "chemlib:francium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:francium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

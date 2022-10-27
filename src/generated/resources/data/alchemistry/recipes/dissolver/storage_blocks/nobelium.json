@@ -4,44 +4,44 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/nobelium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/nobelium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/nobelium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:nobelium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:nobelium"
                 },
                 {
-                  "item": "chemlib:nobelium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:nobelium"
                 },
                 {
-                  "item": "chemlib:nobelium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:nobelium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

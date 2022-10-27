@@ -4,36 +4,36 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:plates/berkelium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:plates/berkelium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:plates/berkelium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:berkelium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:berkelium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

@@ -4,36 +4,36 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/erbium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/erbium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:ingots/erbium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:erbium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:erbium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

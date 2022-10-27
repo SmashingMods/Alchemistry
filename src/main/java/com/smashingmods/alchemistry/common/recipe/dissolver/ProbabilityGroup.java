@@ -46,7 +46,7 @@ public class ProbabilityGroup {
 
             while (count > 64) {
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.add("item", new JsonPrimitive(itemStack.getItem().getRegistryName().toString()));
+                jsonObject.add("item", new JsonPrimitive(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemStack.getItem())).toString()));
                 jsonObject.add("count", new JsonPrimitive(64));
                 results.add(jsonObject);
                 count -= 64;

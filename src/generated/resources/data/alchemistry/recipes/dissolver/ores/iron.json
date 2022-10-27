@@ -1,25 +1,41 @@
 {
-  "type": "alchemistry:dissolver",
-  "group": "alchemistry:dissolver",
-  "input": {
-    "count": 1,
-    "ingredient": {
-      "tag": "forge:ores/iron"
-    }
-  },
-  "output": {
-    "groups": [
-      {
-        "probability": 100.0,
-        "results": [
-          {
-            "count": 32,
-            "item": "chemlib:iron"
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ores/iron"
           }
-        ]
+        }
+      ],
+      "recipe": {
+        "type": "alchemistry:dissolver",
+        "group": "alchemistry:dissolver",
+        "input": {
+          "count": 1,
+          "ingredient": {
+            "tag": "forge:ores/iron"
+          }
+        },
+        "output": {
+          "groups": [
+            {
+              "probability": 100.0,
+              "results": [
+                {
+                  "count": 32,
+                  "item": "chemlib:iron"
+                }
+              ]
+            }
+          ],
+          "rolls": 1,
+          "weighted": false
+        }
       }
-    ],
-    "rolls": 1,
-    "weighted": false
-  }
+    }
+  ]
 }

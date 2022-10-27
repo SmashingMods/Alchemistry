@@ -4,32 +4,30 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/signalum",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/signalum"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/signalum"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 6.0,
               "results": [
                 {
-                  "item": "chemlib:copper",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:copper"
                 }
               ]
             },
@@ -37,8 +35,8 @@
               "probability": 2.0,
               "results": [
                 {
-                  "item": "chemlib:silver",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:silver"
                 }
               ]
             },
@@ -46,8 +44,8 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:strontium_carbonate",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:strontium_carbonate"
                 }
               ]
             },
@@ -55,12 +53,14 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:iron_oxide",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:iron_oxide"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

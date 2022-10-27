@@ -4,44 +4,44 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/flerovium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/flerovium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/flerovium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:flerovium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:flerovium"
                 },
                 {
-                  "item": "chemlib:flerovium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:flerovium"
                 },
                 {
-                  "item": "chemlib:flerovium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:flerovium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

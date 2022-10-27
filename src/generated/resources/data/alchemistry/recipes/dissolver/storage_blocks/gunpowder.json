@@ -4,48 +4,48 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/gunpowder",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/gunpowder"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/gunpowder"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:potassium_nitrate",
-                  "count": 18
+                  "count": 18,
+                  "item": "chemlib:potassium_nitrate"
                 },
                 {
-                  "item": "chemlib:sulfur",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:sulfur"
                 },
                 {
-                  "item": "chemlib:sulfur",
-                  "count": 8
+                  "count": 8,
+                  "item": "chemlib:sulfur"
                 },
                 {
-                  "item": "chemlib:graphite",
-                  "count": 18
+                  "count": 18,
+                  "item": "chemlib:graphite"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

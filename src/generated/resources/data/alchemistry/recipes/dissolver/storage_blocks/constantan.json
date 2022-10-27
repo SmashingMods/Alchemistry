@@ -4,32 +4,30 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/constantan",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/constantan"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/constantan"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:nickel",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:nickel"
                 }
               ]
             },
@@ -37,12 +35,14 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:copper",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:copper"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

@@ -13,7 +13,35 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 496,
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:iron"
+          },
+          {
+            "count": 48,
             "item": "chemlib:iron"
           }
         ]

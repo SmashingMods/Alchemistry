@@ -13,11 +13,19 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 72,
+            "count": 64,
             "item": "chemlib:beryl"
           },
           {
-            "count": 72,
+            "count": 8,
+            "item": "chemlib:beryl"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:chromium"
+          },
+          {
+            "count": 8,
             "item": "chemlib:chromium"
           },
           {

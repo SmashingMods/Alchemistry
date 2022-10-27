@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:graphite"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:graphite_dust"
+  }
+}

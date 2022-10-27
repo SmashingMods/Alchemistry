@@ -13,15 +13,111 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 576,
+            "count": 64,
             "item": "chemlib:tungsten"
           },
           {
-            "count": 576,
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
             "item": "chemlib:carbon"
           },
           {
-            "count": 576,
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          },
+          {
+            "count": 64,
             "item": "chemlib:gold"
           }
         ]

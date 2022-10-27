@@ -4,25 +4,23 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:plates/invar",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:plates/invar"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:plates/invar"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 2.0,
@@ -40,7 +38,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

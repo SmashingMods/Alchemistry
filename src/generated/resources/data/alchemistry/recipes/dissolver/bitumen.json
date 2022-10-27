@@ -4,32 +4,30 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:bitumen",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:bitumen"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:bitumen"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": true,
           "groups": [
             {
               "probability": 5.0,
               "results": [
                 {
-                  "item": "chemlib:carbon",
-                  "count": 26
+                  "count": 26,
+                  "item": "chemlib:carbon"
                 }
               ]
             },
@@ -45,8 +43,8 @@
               "probability": 5.0,
               "results": [
                 {
-                  "item": "chemlib:hydrogen",
-                  "count": 32
+                  "count": 32,
+                  "item": "chemlib:hydrogen"
                 }
               ]
             },
@@ -74,7 +72,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": true
         }
       }
     }

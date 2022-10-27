@@ -4,25 +4,23 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/bronze",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/bronze"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:ingots/bronze"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": false,
           "groups": [
             {
               "probability": 75.0,
@@ -40,7 +38,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": false
         }
       }
     }

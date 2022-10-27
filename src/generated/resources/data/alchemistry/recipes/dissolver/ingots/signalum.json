@@ -4,25 +4,23 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/signalum",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/signalum"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:ingots/signalum"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 6.0,
@@ -56,7 +54,9 @@
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

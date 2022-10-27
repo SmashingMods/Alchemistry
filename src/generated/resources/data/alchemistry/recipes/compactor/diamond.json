@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 16,
     "ingredient": {
       "item": "chemlib:graphite_dust"
-    },
-    "count": 16
+    }
   },
   "result": {
     "item": "minecraft:diamond"

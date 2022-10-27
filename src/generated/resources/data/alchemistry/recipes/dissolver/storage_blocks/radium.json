@@ -4,44 +4,44 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/radium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/radium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/radium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:radium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:radium"
                 },
                 {
-                  "item": "chemlib:radium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:radium"
                 },
                 {
-                  "item": "chemlib:radium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:radium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

@@ -4,44 +4,44 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/hassium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/hassium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/hassium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:hassium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:hassium"
                 },
                 {
-                  "item": "chemlib:hassium",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:hassium"
                 },
                 {
-                  "item": "chemlib:hassium",
-                  "count": 16
+                  "count": 16,
+                  "item": "chemlib:hassium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

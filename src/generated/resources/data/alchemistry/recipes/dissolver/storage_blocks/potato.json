@@ -4,25 +4,23 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/potato",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/potato"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/potato"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 9,
-          "weighted": true,
           "groups": [
             {
               "probability": 10.0,
@@ -36,12 +34,14 @@
               "probability": 25.0,
               "results": [
                 {
-                  "item": "chemlib:potassium",
-                  "count": 5
+                  "count": 5,
+                  "item": "chemlib:potassium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 9,
+          "weighted": true
         }
       }
     }

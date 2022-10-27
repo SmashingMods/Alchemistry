@@ -4,32 +4,30 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/enderium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/enderium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/enderium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 6.0,
               "results": [
                 {
-                  "item": "chemlib:lead",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:lead"
                 }
               ]
             },
@@ -37,8 +35,8 @@
               "probability": 2.0,
               "results": [
                 {
-                  "item": "chemlib:graphite",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:graphite"
                 }
               ]
             },
@@ -46,8 +44,8 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:mercury",
-                  "count": 18
+                  "count": 18,
+                  "item": "chemlib:mercury"
                 }
               ]
             },
@@ -55,12 +53,14 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:neodymium",
-                  "count": 18
+                  "count": 18,
+                  "item": "chemlib:neodymium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

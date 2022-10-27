@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:berkelium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:berkelium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:berkelium",
+                  "count": 16
                 }
               ]
             }

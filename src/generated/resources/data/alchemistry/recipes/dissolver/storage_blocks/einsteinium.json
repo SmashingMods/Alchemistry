@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:einsteinium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:einsteinium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:einsteinium",
+                  "count": 16
                 }
               ]
             }

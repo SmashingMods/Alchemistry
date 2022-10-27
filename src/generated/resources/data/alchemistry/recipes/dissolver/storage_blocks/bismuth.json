@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:bismuth",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:bismuth",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:bismuth",
+                  "count": 16
                 }
               ]
             }

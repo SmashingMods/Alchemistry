@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:molybdenum",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:molybdenum",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:molybdenum",
+                  "count": 16
                 }
               ]
             }

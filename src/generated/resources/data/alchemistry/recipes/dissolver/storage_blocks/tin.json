@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:tin",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tin",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tin",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:gadolinium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:gadolinium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:gadolinium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:promethium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:promethium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:promethium",
+                  "count": 16
                 }
               ]
             }

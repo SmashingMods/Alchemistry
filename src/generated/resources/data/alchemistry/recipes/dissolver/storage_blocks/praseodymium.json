@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:praseodymium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:praseodymium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:praseodymium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:mendelevium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:mendelevium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:mendelevium",
+                  "count": 16
                 }
               ]
             }

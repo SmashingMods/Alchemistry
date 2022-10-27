@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:aluminum",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:aluminum",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:aluminum",
+                  "count": 16
                 }
               ]
             }

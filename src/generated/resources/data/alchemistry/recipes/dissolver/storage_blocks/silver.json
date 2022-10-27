@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:silver",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:silver",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:silver",
+                  "count": 16
                 }
               ]
             }

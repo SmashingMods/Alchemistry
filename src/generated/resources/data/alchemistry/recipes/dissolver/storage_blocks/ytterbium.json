@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:ytterbium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:ytterbium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:ytterbium",
+                  "count": 16
                 }
               ]
             }

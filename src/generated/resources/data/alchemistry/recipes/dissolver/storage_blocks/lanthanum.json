@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:lanthanum",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:lanthanum",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:lanthanum",
+                  "count": 16
                 }
               ]
             }

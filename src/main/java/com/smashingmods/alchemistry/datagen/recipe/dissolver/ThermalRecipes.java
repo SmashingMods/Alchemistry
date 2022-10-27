@@ -38,7 +38,7 @@ public class ThermalRecipes extends DissolverRecipeProvider {
                         .addGroup(1, toItemStack("sulfur_dioxide"))
                         .addGroup(1, toItemStack("vanadium"))
                         .addGroup(1, toItemStack("nickel")).build(),
-                tagNotEmptyCondition("forge:storage_blocks/bitumen"));
+                tagNotEmptyCondition("forge:bitumen"));
 
         dissolver("forge:storage_blocks/bitumen", createSet().weighted().rolls(9)
                         .addGroup(5, toItemStack("carbon", 26))
@@ -162,7 +162,8 @@ public class ThermalRecipes extends DissolverRecipeProvider {
                     case SIGNALUM -> dissolver(itemTag, createSet().rolls(rolls).weighted()
                                     .addGroup(6, toItemStack("copper", count))
                                     .addGroup(2, toItemStack("silver", count))
-                                    .addGroup(1, toItemStack("strontium_carbonate", count), toItemStack("iron_oxide", count)).build(),
+                                    .addGroup(1, toItemStack("strontium_carbonate", count))
+                                    .addGroup(1, toItemStack("iron_oxide", count)).build(),
                             tagNotEmptyCondition(itemTag));
 
                     case LUMIUM -> dissolver(itemTag, createSet().rolls(rolls).weighted()

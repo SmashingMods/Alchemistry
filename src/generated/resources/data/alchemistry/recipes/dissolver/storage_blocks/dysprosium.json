@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:dysprosium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:dysprosium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:dysprosium",
+                  "count": 16
                 }
               ]
             }

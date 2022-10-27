@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:cesium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:cesium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:cesium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:copper",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:copper",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:copper",
+                  "count": 16
                 }
               ]
             }

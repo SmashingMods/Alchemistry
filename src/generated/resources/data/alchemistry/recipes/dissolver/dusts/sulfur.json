@@ -25,11 +25,18 @@
           "weighted": false,
           "groups": [
             {
-              "probability": 100.0,
+              "probability": 50.0,
               "results": [
                 {
-                  "item": "chemlib:sulfur",
-                  "count": 16
+                  "item": "chemlib:sulfur"
+                }
+              ]
+            },
+            {
+              "probability": 50.0,
+              "results": [
+                {
+                  "item": "minecraft:air"
                 }
               ]
             }

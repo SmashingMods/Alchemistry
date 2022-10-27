@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:beryllium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:beryllium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:beryllium",
+                  "count": 16
                 }
               ]
             }

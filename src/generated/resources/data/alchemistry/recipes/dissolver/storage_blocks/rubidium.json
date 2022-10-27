@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:rubidium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:rubidium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:rubidium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:uranium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:uranium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:uranium",
+                  "count": 16
                 }
               ]
             }

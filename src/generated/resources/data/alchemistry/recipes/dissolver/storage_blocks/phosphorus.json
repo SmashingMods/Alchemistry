@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:phosphorus",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:phosphorus",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:phosphorus",
+                  "count": 16
                 }
               ]
             }

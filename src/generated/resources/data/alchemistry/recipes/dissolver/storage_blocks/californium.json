@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:californium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:californium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:californium",
+                  "count": 16
                 }
               ]
             }

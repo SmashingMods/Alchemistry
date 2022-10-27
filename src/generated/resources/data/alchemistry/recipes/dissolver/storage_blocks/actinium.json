@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:actinium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:actinium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:actinium",
+                  "count": 16
                 }
               ]
             }

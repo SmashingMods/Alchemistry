@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:thallium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:thallium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:thallium",
+                  "count": 16
                 }
               ]
             }

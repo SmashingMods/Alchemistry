@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:hafnium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:hafnium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:hafnium",
+                  "count": 16
                 }
               ]
             }

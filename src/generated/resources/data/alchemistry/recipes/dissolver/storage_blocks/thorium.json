@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:thorium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:thorium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:thorium",
+                  "count": 16
                 }
               ]
             }

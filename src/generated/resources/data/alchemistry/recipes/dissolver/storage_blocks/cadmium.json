@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:cadmium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:cadmium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:cadmium",
+                  "count": 16
                 }
               ]
             }

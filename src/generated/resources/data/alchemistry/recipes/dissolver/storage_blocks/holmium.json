@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:holmium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:holmium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:holmium",
+                  "count": 16
                 }
               ]
             }

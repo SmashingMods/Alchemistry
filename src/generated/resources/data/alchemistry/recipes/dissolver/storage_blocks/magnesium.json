@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:magnesium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:magnesium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:magnesium",
+                  "count": 16
                 }
               ]
             }

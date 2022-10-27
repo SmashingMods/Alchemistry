@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:copernicium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:copernicium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:copernicium",
+                  "count": 16
                 }
               ]
             }

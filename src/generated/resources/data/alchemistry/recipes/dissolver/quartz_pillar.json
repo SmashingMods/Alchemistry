@@ -20,7 +20,11 @@
           },
           {
             "item": "chemlib:silicon_dioxide",
-            "count": 128
+            "count": 64
+          },
+          {
+            "item": "chemlib:silicon_dioxide",
+            "count": 64
           }
         ]
       }

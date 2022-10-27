@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:rhenium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:rhenium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:rhenium",
+                  "count": 16
                 }
               ]
             }

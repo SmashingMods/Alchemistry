@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:niobium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:niobium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:niobium",
+                  "count": 16
                 }
               ]
             }

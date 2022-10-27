@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:neodymium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:neodymium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:neodymium",
+                  "count": 16
                 }
               ]
             }

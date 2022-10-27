@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:roentgenium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:roentgenium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:roentgenium",
+                  "count": 16
                 }
               ]
             }

@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:manganese",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:manganese",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:manganese",
+                  "count": 16
                 }
               ]
             }

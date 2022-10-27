@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:calcium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:calcium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:calcium",
+                  "count": 16
                 }
               ]
             }

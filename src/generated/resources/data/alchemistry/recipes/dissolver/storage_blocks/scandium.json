@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:scandium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:scandium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:scandium",
+                  "count": 16
                 }
               ]
             }

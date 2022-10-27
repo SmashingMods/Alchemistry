@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:tellurium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tellurium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:tellurium",
+                  "count": 16
                 }
               ]
             }

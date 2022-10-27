@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:meitnerium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:meitnerium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:meitnerium",
+                  "count": 16
                 }
               ]
             }

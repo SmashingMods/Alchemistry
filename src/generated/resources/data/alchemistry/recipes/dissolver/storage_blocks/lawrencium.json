@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:lawrencium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:lawrencium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:lawrencium",
+                  "count": 16
                 }
               ]
             }

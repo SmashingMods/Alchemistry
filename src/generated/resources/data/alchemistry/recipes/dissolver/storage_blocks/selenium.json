@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:selenium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:selenium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:selenium",
+                  "count": 16
                 }
               ]
             }

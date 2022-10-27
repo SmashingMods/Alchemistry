@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:palladium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:palladium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:palladium",
+                  "count": 16
                 }
               ]
             }

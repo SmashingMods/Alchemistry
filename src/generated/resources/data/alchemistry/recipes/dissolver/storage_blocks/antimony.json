@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:antimony",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:antimony",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:antimony",
+                  "count": 16
                 }
               ]
             }

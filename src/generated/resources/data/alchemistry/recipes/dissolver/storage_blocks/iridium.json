@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:iridium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:iridium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:iridium",
+                  "count": 16
                 }
               ]
             }

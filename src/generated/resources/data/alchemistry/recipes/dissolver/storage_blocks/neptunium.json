@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:neptunium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:neptunium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:neptunium",
+                  "count": 16
                 }
               ]
             }

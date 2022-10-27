@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:zirconium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:zirconium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:zirconium",
+                  "count": 16
                 }
               ]
             }

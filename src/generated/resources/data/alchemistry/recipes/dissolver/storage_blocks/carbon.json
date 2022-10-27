@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:carbon",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:carbon",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:carbon",
+                  "count": 16
                 }
               ]
             }

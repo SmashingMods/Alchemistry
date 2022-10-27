@@ -29,7 +29,15 @@
               "results": [
                 {
                   "item": "chemlib:bohrium",
-                  "count": 144
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:bohrium",
+                  "count": 64
+                },
+                {
+                  "item": "chemlib:bohrium",
+                  "count": 16
                 }
               ]
             }

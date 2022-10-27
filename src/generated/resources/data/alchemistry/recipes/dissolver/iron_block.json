@@ -16,7 +16,15 @@
         "results": [
           {
             "item": "chemlib:iron",
-            "count": 144
+            "count": 64
+          },
+          {
+            "item": "chemlib:iron",
+            "count": 64
+          },
+          {
+            "item": "chemlib:iron",
+            "count": 16
           }
         ]
       }

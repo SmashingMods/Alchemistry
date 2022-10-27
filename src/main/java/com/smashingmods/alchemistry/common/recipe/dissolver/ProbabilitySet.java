@@ -6,12 +6,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class ProbabilitySet {
 
@@ -19,6 +20,7 @@ public class ProbabilitySet {
     private final boolean weighted;
     private final int rolls;
 
+    @SuppressWarnings("unused")
     public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups) {
         this(pProbabilityGroups, true, 1);
     }
@@ -80,7 +82,7 @@ public class ProbabilitySet {
                     outputProbability += (group.getProbability() / totalProbability);
 
                     if (outputProbability >= targetProbability) {
-                        group.getOutput().forEach(itemStack -> populateReturnList(toReturn, itemStack));
+                        toReturn.addAll(group.getOutput());
                         break;
                     }
                 }
@@ -89,42 +91,13 @@ public class ProbabilitySet {
 
                 for (ProbabilityGroup group : probabilityGroups) {
                     if (group.getProbability() >= random.nextInt(101)) {
-                        group.getOutput().forEach(itemStack -> populateReturnList(toReturn, itemStack));
+                        toReturn.addAll(group.getOutput());
                     }
                 }
             }
         }
         return toReturn;
     }
-
-    private void populateReturnList(NonNullList<ItemStack> pList, ItemStack pItemStack) {
-
-        Item item = pItemStack.copy().getItem();
-        int count = pItemStack.copy().getCount();
-
-        OptionalInt optionalIndex = IntStream.range(0, pList.size())
-                .filter(index -> ItemStack.isSameItemSameTags(pItemStack.copy(), pList.get(index)))
-                .findFirst();
-
-        if (count > 64) {
-            while (count > 0) {
-                if (count >= 64) {
-                    pList.add(new ItemStack(item, 64));
-                    count -= 64;
-                } else {
-                    pList.add(new ItemStack(item, count));
-                    count = 0;
-                }
-            }
-        } else {
-            if (optionalIndex.isPresent()) {
-                pList.get(optionalIndex.getAsInt()).grow(count);
-            } else {
-                pList.add(new ItemStack(item, count));
-            }
-        }
-    }
-
 
     public List<ProbabilityGroup> getProbabilityGroups() {
         return probabilityGroups;
@@ -163,6 +136,7 @@ public class ProbabilitySet {
             return new Builder();
         }
 
+        @SuppressWarnings("unused")
         public Builder addGroup(ProbabilityGroup pGroup) {
             groups.add(pGroup);
             return this;

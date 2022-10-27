@@ -118,7 +118,7 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(graphite, 2), new ItemStack(Items.COAL));
             compactor(new ItemStack(graphite, 2), new ItemStack(Items.CHARCOAL));
         });
-        ItemRegistry.getChemicalItemByNameAndType("graphite", ChemicalItemType.DUST).ifPresent(graphite -> compactor(new ItemStack(graphite, 16), new ItemStack(Items.DIAMOND)));
+        ItemRegistry.getChemicalItemByNameAndType("graphite", ChemicalItemType.COMPOUND).ifPresent(graphite -> compactor(new ItemStack(graphite, 16), Items.DIAMOND));
 
         ItemRegistry.getCompoundByName("phosphorus").ifPresent(phosphorus -> {
             compactor(new ItemStack(phosphorus, 4), new ItemStack(Items.GLOWSTONE_DUST));

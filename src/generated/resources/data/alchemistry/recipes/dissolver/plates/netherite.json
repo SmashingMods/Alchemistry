@@ -4,44 +4,44 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:plates/netherite",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:plates/netherite"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:plates/netherite"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 1,
-          "weighted": false,
           "groups": [
             {
               "probability": 100.0,
               "results": [
                 {
-                  "item": "chemlib:tungsten",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:tungsten"
                 },
                 {
-                  "item": "chemlib:carbon",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:carbon"
                 },
                 {
-                  "item": "chemlib:gold",
-                  "count": 64
+                  "count": 64,
+                  "item": "chemlib:gold"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 1,
+          "weighted": false
         }
       }
     }

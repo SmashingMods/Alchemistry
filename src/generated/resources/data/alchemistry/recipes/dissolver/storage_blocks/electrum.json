@@ -4,32 +4,30 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:storage_blocks/electrum",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:storage_blocks/electrum"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:storage_blocks/electrum"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:gold",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:gold"
                 }
               ]
             },
@@ -37,12 +35,14 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:silver",
-                  "count": 9
+                  "count": 9,
+                  "item": "chemlib:silver"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

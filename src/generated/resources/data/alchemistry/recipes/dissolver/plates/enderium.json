@@ -4,25 +4,23 @@
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:plates/enderium",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:plates/enderium"
+          }
         }
       ],
       "recipe": {
         "type": "alchemistry:dissolver",
         "group": "alchemistry:dissolver",
         "input": {
+          "count": 1,
           "ingredient": {
             "tag": "forge:plates/enderium"
-          },
-          "count": 1
+          }
         },
         "output": {
-          "rolls": 16,
-          "weighted": true,
           "groups": [
             {
               "probability": 6.0,
@@ -44,8 +42,8 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:mercury",
-                  "count": 2
+                  "count": 2,
+                  "item": "chemlib:mercury"
                 }
               ]
             },
@@ -53,12 +51,14 @@
               "probability": 1.0,
               "results": [
                 {
-                  "item": "chemlib:neodymium",
-                  "count": 2
+                  "count": 2,
+                  "item": "chemlib:neodymium"
                 }
               ]
             }
-          ]
+          ],
+          "rolls": 16,
+          "weighted": true
         }
       }
     }

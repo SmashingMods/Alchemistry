@@ -3,15 +3,15 @@ package com.smashingmods.alchemistry.common.block.compactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
-import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
-import com.smashingmods.alchemistry.api.blockentity.container.RecipeSelectorScreen;
-import com.smashingmods.alchemistry.api.blockentity.container.button.RecipeSelectorButton;
-import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
-import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
-import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
+import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemylib.api.blockentity.container.button.RecipeSelectorButton;
+import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -33,7 +33,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
     private final RecipeSelectorButton recipeSelector;
 
     public CompactorScreen(CompactorMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
+        super(pMenu, pPlayerInventory, pTitle);
 
         imageWidth = 184;
         imageHeight = 163;
@@ -42,7 +42,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),12, 12, 16, 54));
 
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CompactorBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCompactorRecipes(pMenu.getLevel()));
-        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen);
+        recipeSelector = new RecipeSelectorButton(this, recipeSelectorScreen);
     }
 
     @Override

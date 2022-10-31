@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.registry;
 
-import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -15,6 +14,7 @@ import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
+import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;

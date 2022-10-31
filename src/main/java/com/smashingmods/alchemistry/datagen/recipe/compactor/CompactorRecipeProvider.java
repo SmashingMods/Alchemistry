@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.api.MetalType;
@@ -31,7 +31,6 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.tagNotEmptyCondition;
 
 public class CompactorRecipeProvider {
 
@@ -163,12 +162,14 @@ public class CompactorRecipeProvider {
         compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.asItem())));
     }
 
+    @SuppressWarnings("unused")
     private void compactor(String pInputTag, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
         Ingredient ingredient = Ingredient.of(tagKey);
         compactor(ingredient, pOutput);
     }
 
+    @SuppressWarnings("unused")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
         compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
@@ -178,6 +179,7 @@ public class CompactorRecipeProvider {
         compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
     }
 
+    @SuppressWarnings("unused")
     private void compactor(String pInputTag, ItemLike pItemLike, ICondition pCondition) {
         compactor(pInputTag, new ItemStack(pItemLike), pCondition);
     }

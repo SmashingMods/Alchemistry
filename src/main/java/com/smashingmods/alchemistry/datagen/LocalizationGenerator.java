@@ -47,15 +47,9 @@ public class LocalizationGenerator extends LanguageProvider {
         add("tooltip.alchemistry.requires", "Requires");
 
         add("alchemistry.container.search", "Search...");
-        add("alchemistry.container.open_recipe_select", "Open Recipe Selection");
-        add("alchemistry.container.close_recipe_select", "Close Recipe Selection");
         add("alchemistry.container.select_recipe", "Select recipe:");
         add("alchemistry.container.current_recipe", "Current recipe:");
         add("alchemistry.container.required_input", "Required input item:");
-        add("alchemistry.container.unlock_recipe", "Unlock recipe");
-        add("alchemistry.container.lock_recipe", "Lock recipe");
-        add("alchemistry.container.pause", "Pause");
-        add("alchemistry.container.resume", "Resume");
         add("alchemistry.container.target", "Target");
         add("alchemistry.container.reset_target", "Reset Target");
         add("alchemistry.container.nothing", "Nothing");

@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.datagen;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
@@ -38,6 +38,7 @@ public class DatagenUtil {
         }
     }
 
+    @SuppressWarnings("unused")
     public static void itemStackListToJson(JsonObject pJson, String pKey, List<ItemStack> pItemStackList) {
         if (!pItemStackList.isEmpty()) {
 
@@ -138,6 +139,7 @@ public class DatagenUtil {
         return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, pFluidStack.getFluid().getRegistryName().getPath()));
     }
 
+    @SuppressWarnings("unused")
     public static ModLoadedCondition modLoadedCondition(String pModId) {
         return new ModLoadedCondition(pModId);
     }
@@ -146,10 +148,12 @@ public class DatagenUtil {
         return new NotCondition(pCondition);
     }
 
+    @SuppressWarnings("unused")
     public static AndCondition andCondition(ICondition pCondition1, ICondition pCondition2) {
         return new AndCondition(pCondition1, pCondition2);
     }
 
+    @SuppressWarnings("unused")
     public static OrCondition orCondition(ICondition pCondition1, ICondition pCondition2) {
         return new OrCondition(pCondition1, pCondition2);
     }

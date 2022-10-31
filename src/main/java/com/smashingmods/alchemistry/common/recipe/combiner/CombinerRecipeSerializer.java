@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.recipe.combiner;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

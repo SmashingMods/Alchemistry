@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
-import com.smashingmods.alchemistry.api.recipe.compatability.ItemTagType;
-import com.smashingmods.alchemistry.api.recipe.compatability.ThermalMetalType;
+import com.smashingmods.alchemylib.api.recipe.compatability.ItemTagType;
+import com.smashingmods.alchemylib.api.recipe.compatability.ThermalMetalType;
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;

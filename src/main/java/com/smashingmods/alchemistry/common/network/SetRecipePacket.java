@@ -1,7 +1,8 @@
 package com.smashingmods.alchemistry.common.network;
 
-import com.smashingmods.alchemistry.api.blockentity.processing.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
+import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -11,9 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.Objects;
-import java.util.function.Supplier;
 
-public class SetRecipePacket {
+public class SetRecipePacket implements AlchemyPacket {
 
     private final BlockPos blockPos;
     private final ResourceLocation recipeId;
@@ -37,24 +37,21 @@ public class SetRecipePacket {
         pBuffer.writeUtf(group);
     }
 
-    public static void handle(final SetRecipePacket pPacket, Supplier<NetworkEvent.Context> pContext) {
-        pContext.get().enqueueWork(() -> {
+    @Override
+    public void handle(NetworkEvent.Context pContext) {
+        Player player = pContext.getSender();
 
-            Player player = pContext.get().getSender();
+        Objects.requireNonNull(player);
+        Objects.requireNonNull(player.getLevel());
 
-            Objects.requireNonNull(player);
-            Objects.requireNonNull(player.getLevel());
-
-            Level level = player.getLevel();
-            BlockEntity blockEntity = player.getLevel().getBlockEntity(pPacket.blockPos);
-            RecipeRegistry.getRecipeByGroupAndId(pPacket.group, pPacket.recipeId, level).ifPresent(recipe -> {
-                if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
-                    processingBlockEntity.setProgress(0);
-                    processingBlockEntity.setRecipe(recipe);
-                    processingBlockEntity.setChanged();
-                }
-            });
+        Level level = player.getLevel();
+        BlockEntity blockEntity = player.getLevel().getBlockEntity(blockPos);
+        RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
+            if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
+                processingBlockEntity.setProgress(0);
+                processingBlockEntity.setRecipe(recipe);
+                processingBlockEntity.setChanged();
+            }
         });
-        pContext.get().setPacketHandled(true);
     }
 }

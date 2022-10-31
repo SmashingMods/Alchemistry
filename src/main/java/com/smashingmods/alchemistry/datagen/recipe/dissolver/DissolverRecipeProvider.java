@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;

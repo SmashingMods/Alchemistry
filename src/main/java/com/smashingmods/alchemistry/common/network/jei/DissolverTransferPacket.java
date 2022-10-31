@@ -1,14 +1,17 @@
 package com.smashingmods.alchemistry.common.network.jei;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
+import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
@@ -16,12 +19,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 public class DissolverTransferPacket implements AlchemyPacket {
 
@@ -98,8 +103,13 @@ public class DissolverTransferPacket implements AlchemyPacket {
         }
 
         @Override
-        public Class<DissolverRecipe> getRecipeClass() {
-            return DissolverRecipe.class;
+        public Optional<MenuType<DissolverMenu>> getMenuType() {
+            return Optional.of(MenuRegistry.DISSOLVER_MENU.get());
+        }
+
+        @Override
+        public RecipeType<DissolverRecipe> getRecipeType() {
+            return RecipeTypes.DISSOLVER;
         }
 
         @Override

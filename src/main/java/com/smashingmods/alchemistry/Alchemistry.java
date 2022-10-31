@@ -32,10 +32,8 @@ public class Alchemistry {
 
     public Alchemistry() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        Registry.register();
         modEventBus.addListener(DataGenerators::gatherData);
         modEventBus.addListener(this::clientSetupEvent);
-        modEventBus.addListener(this::commonSetupEvent);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
         Registry.register();

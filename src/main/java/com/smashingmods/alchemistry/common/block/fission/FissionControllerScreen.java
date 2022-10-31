@@ -62,7 +62,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fission_controller"));
+        MutableComponent title = MutableComponent.create(new TranslatableContents("alchemistry.container.fission_controller"));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 

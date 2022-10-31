@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
-import org.jetbrains.annotations.NotNull;
 
 public class DissolverRecipe extends AbstractProcessingRecipe {
 
@@ -42,7 +41,7 @@ public class DissolverRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+    public int compareTo(AbstractProcessingRecipe pRecipe) {
         return getId().compareNamespaced(pRecipe.getId());
     }
 

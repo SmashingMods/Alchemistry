@@ -12,6 +12,7 @@ buildscript {
 plugins {
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'java'
+    id 'idea'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -24,8 +25,8 @@ archivesBaseName = 'alchemistry'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-sourceSets{
-    main.resources.srcDirs += 'src/generated/resources'
+java {
+    withSourcesJar()
 }
 
 minecraft {
@@ -54,6 +55,7 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             jvmArgs '-XX:+AllowEnhancedClassRedefinition'
+            args 'nogui'
 
             mods {
                 alchemistry {
@@ -81,6 +83,15 @@ minecraft {
     }
 }
 
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 repositories {
     maven { url "https://maven.tamaized.com/releases" }
     maven { url "https://www.cursemaven.com" }
@@ -93,6 +104,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("smashingmods:chemlib:${minecraft_version}-${chemlib_version}")
+    implementation fg.deobf("smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}")
 
     implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
@@ -117,11 +129,6 @@ jar {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-}
-
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
 }
 
 artifacts {
@@ -171,7 +178,7 @@ curseforge {
     apiKey = secrets.getProperty("apiKey")
     project {
         id = '293425'
-        releaseType = 'release'
+        releaseType = 'beta'
         changelogType = 'markdown'
         changelog = file("changelog.md")
         addGameVersion 'Forge'

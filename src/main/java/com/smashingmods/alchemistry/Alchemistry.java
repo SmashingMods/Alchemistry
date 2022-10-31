@@ -8,6 +8,7 @@ import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.datagen.DataGenerators;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -17,7 +18,6 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -29,23 +29,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(Alchemistry.MODID)
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Alchemistry {
 
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "alchemistry";
+    public static final PacketHandler PACKET_HANDLER = new PacketHandler().register();
 
     public Alchemistry() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         Registry.register();
+        modEventBus.addListener(DataGenerators::gatherData);
         modEventBus.addListener(this::clientSetupEvent);
         modEventBus.addListener(this::commonSetupEvent);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
     }
 
-    @SubscribeEvent
     public void clientSetupEvent(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(MenuRegistry.ATOMIZER_MENU.get(), AtomizerScreen::new);
@@ -67,10 +67,7 @@ public class Alchemistry {
         });
     }
 
-    @SubscribeEvent
     public void commonSetupEvent(final FMLCommonSetupEvent event) {
-        PacketHandler.register();
-
         RecipeRegistry.ATOMIZER_TYPE = RecipeType.register(String.format("%s:atomizer", MODID));
         RecipeRegistry.COMPACTOR_TYPE = RecipeType.register(String.format("%s:compactor", MODID));
         RecipeRegistry.COMBINER_TYPE = RecipeType.register(String.format("%s:combiner", MODID));

@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.item.IngredientStack;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -108,6 +108,7 @@ public class CombinerRecipeProvider {
         }
     }
 
+    @SuppressWarnings("unused")
     private void combiner(ItemLike pOutput, List<Object> pInput, @Nullable ICondition pCondition) {
         List<IngredientStack> ingredientStackList = new ArrayList<>();
         for (Object obj : pInput) {

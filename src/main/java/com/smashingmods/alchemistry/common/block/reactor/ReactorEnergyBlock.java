@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import com.smashingmods.alchemistry.api.block.AbstractProcessingBlock;
-import com.smashingmods.alchemistry.api.blockentity.power.PowerState;
-import com.smashingmods.alchemistry.api.blockentity.power.PowerStateProperty;
+import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
+import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
+import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;

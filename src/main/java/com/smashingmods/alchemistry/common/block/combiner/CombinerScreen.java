@@ -3,17 +3,17 @@ package com.smashingmods.alchemistry.common.block.combiner;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
-import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
-import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
-import com.smashingmods.alchemistry.api.blockentity.container.RecipeSelectorScreen;
-import com.smashingmods.alchemistry.api.blockentity.container.button.RecipeSelectorButton;
-import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
-import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
-import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
-import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemylib.api.blockentity.container.FakeItemRenderer;
+import com.smashingmods.alchemylib.api.blockentity.container.button.RecipeSelectorButton;
+import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -33,7 +33,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
     private final RecipeSelectorButton recipeSelector;
 
     public CombinerScreen(CombinerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
+        super(pMenu, pPlayerInventory, pTitle);
         this.imageWidth = 184;
         this.imageHeight = 193;
         this.displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 87, 35, 60, 9, Direction2D.RIGHT));
@@ -41,7 +41,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CombinerBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCombinerRecipes(pMenu.getLevel()));
-        recipeSelector = new RecipeSelectorButton(0, 0, this, recipeSelectorScreen);
+        recipeSelector = new RecipeSelectorButton(this, recipeSelectorScreen);
     }
 
     @Override

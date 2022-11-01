@@ -1,15 +1,14 @@
 package com.smashingmods.alchemistry.common.network;
 
-import com.smashingmods.alchemistry.api.blockentity.processing.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
+import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
-import java.util.function.Supplier;
-
-public class ToggleAutoBalanceButtonPacket {
+public class ToggleAutoBalanceButtonPacket implements AlchemyPacket {
 
     private final BlockPos blockPos;
     private final boolean autoBalance;
@@ -29,22 +28,18 @@ public class ToggleAutoBalanceButtonPacket {
         pBuffer.writeBoolean(autoBalance);
     }
 
+    public void handle(NetworkEvent.Context pContext) {
+        Player player = pContext.getSender();
+        if (player != null) {
+            AbstractProcessingBlockEntity blockEntity = (AbstractProcessingBlockEntity) player.level.getBlockEntity(blockPos);
 
-    public static void handle(final ToggleAutoBalanceButtonPacket pPacket, Supplier<NetworkEvent.Context> pContext) {
-        pContext.get().enqueueWork(() -> {
-            Player player = pContext.get().getSender();
-            if (player != null) {
-                AbstractProcessingBlockEntity blockEntity = (AbstractProcessingBlockEntity) player.level.getBlockEntity(pPacket.blockPos);
-
-                if (blockEntity instanceof FusionControllerBlockEntity fusionController) {
-                    fusionController.setAutoBalanced(pPacket.autoBalance);
-                    fusionController.autoBalance();
-                    fusionController.updateRecipe();
-                    fusionController.setCanProcess(fusionController.canProcessRecipe());
-                    blockEntity.setChanged();
-                }
+            if (blockEntity instanceof FusionControllerBlockEntity fusionController) {
+                fusionController.setAutoBalanced(autoBalance);
+                fusionController.autoBalance();
+                fusionController.updateRecipe();
+                fusionController.setCanProcess(fusionController.canProcessRecipe());
+                blockEntity.setChanged();
             }
-        });
-        pContext.get().setPacketHandled(true);
+        }
     }
 }

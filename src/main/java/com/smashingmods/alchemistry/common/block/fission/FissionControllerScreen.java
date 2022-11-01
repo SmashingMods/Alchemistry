@@ -3,14 +3,14 @@ package com.smashingmods.alchemistry.common.block.fission;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingScreen;
-import com.smashingmods.alchemistry.api.blockentity.container.Direction2D;
-import com.smashingmods.alchemistry.api.blockentity.container.FakeItemRenderer;
-import com.smashingmods.alchemistry.api.blockentity.container.data.AbstractDisplayData;
-import com.smashingmods.alchemistry.api.blockentity.container.data.EnergyDisplayData;
-import com.smashingmods.alchemistry.api.blockentity.container.data.ProgressDisplayData;
-import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
+import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
+import com.smashingmods.alchemylib.api.blockentity.container.FakeItemRenderer;
+import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDisplayData;
+import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayData;
+import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -28,7 +28,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
     private final FissionControllerBlockEntity blockEntity;
 
     public FissionControllerScreen(FissionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
-        super(pMenu, pPlayerInventory, pTitle, Alchemistry.MODID);
+        super(pMenu, pPlayerInventory, pTitle);
 
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 74, 35, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
@@ -62,7 +62,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fission_controller"));
+        MutableComponent title = MutableComponent.create(new TranslatableContents("alchemistry.container.fission_controller"));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 

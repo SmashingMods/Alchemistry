@@ -2,28 +2,28 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
-import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
-import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
+import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
@@ -155,7 +155,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             }
 
             @Override
-            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+            public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
                     return currentRecipe.getInput().matches(pItemStack);
                 }
@@ -207,7 +207,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
-                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
                 }
             });
         }
@@ -217,5 +217,13 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new DissolverMenu(pContainerId, pInventory, this);
+    }
+
+    @Override
+    public void dropContents() {
+        if (level != null && !level.isClientSide()) {
+            Containers.dropContents(level, getBlockPos(), internalBuffer);
+        }
+        super.dropContents();
     }
 }

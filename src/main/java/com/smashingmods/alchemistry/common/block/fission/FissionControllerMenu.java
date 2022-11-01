@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
-import com.smashingmods.alchemistry.api.blockentity.container.AbstractProcessingMenu;
-import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
+import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingMenu;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

@@ -1,16 +1,16 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.api.recipe.AbstractProcessingRecipe;
-import com.smashingmods.alchemistry.api.storage.EnergyStorageHandler;
-import com.smashingmods.alchemistry.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
+import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -252,7 +252,7 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
             RecipeRegistry.getFusionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
-                    PacketHandler.INSTANCE.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
                 }
             });
         }

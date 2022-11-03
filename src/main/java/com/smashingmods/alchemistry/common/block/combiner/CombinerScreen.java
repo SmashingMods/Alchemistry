@@ -104,6 +104,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
                         if (handler.getStackInSlot(index).isEmpty()) {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
+                            itemRenderer.renderGuiItemDecorations(font, itemStack, x, y);
 
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
                                 renderItemTooltip(pPoseStack, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input")), pMouseX, pMouseY);

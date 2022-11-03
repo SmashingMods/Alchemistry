@@ -23,6 +23,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
 
 public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
@@ -60,8 +61,8 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         if (currentRecipe != null) {
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && getFluidStorage().getFluidAmount() >= currentRecipe.getInput().getAmount()
-                    && ((ItemStack.isSameItemSameTags(getSlotHandler().getStackInSlot(0), currentRecipe.getOutput())) || getSlotHandler().getStackInSlot(0).isEmpty())
-                    && (getSlotHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount()) <= currentRecipe.getOutput().getMaxStackSize();
+                    && ((ItemStack.isSameItemSameTags(getOutputHandler().getStackInSlot(0), currentRecipe.getOutput())) || getOutputHandler().getStackInSlot(0).isEmpty())
+                    && (getOutputHandler().getStackInSlot(0).getCount() + currentRecipe.getOutput().getCount()) <= currentRecipe.getOutput().getMaxStackSize();
         }
         return false;
     }
@@ -72,7 +73,7 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
         } else {
             AtomizerRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getSlotHandler().setOrIncrement(0, tempRecipe.getOutput().copy());
+            getOutputHandler().setOrIncrement(0, tempRecipe.getOutput().copy());
             getFluidStorage().drain(tempRecipe.getInput().getAmount(), IFluidHandler.FluidAction.EXECUTE);
         }
         getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
@@ -127,7 +128,17 @@ public class AtomizerBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public ProcessingSlotHandler initializeSlotHandler() {
+    public ProcessingSlotHandler initializeInputHandler() {
+        return new ProcessingSlotHandler(0) {
+            @Override
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                return false;
+            }
+        };
+    }
+
+    @Override
+    public ProcessingSlotHandler initializeOutputHandler() {
         return new ProcessingSlotHandler(1) {
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {

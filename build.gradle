@@ -1,31 +1,17 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url = 'https://maven.parchmentmc.org' }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-    }
-}
-
 plugins {
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'maven-publish'
     id 'java'
-    id 'idea'
 }
-
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: 'maven-publish'
 
 version = "$minecraft_version-$mod_version"
 group = 'com.smashingmods'
-archivesBaseName = 'alchemistry'
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 java {
+    archivesBaseName = 'alchemistry'
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
     withSourcesJar()
 }
 
@@ -64,6 +50,19 @@ minecraft {
             }
         }
 
+        gameTestServer {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', 'alchemistry'
+
+            mods {
+                alchemistry {
+                    source sourceSets.main
+                }
+            }
+        }
+
         data {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
@@ -83,21 +82,11 @@ minecraft {
     }
 }
 
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
 repositories {
     maven { url "https://maven.tamaized.com/releases" }
     maven { url "https://www.cursemaven.com" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url "https://maven.blamejared.com" }
-    mavenLocal()
 }
 
 dependencies {
@@ -150,8 +139,6 @@ fileTree("secrets").matching {
         }
 }
 
-jar.finalizedBy('reobfJar')
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -178,7 +165,7 @@ curseforge {
     apiKey = secrets.getProperty("apiKey")
     project {
         id = '293425'
-        releaseType = 'beta'
+        releaseType = 'release'
         changelogType = 'markdown'
         changelog = file("changelog.md")
         addGameVersion 'Forge'
@@ -188,6 +175,7 @@ curseforge {
             displayName = "Alchemistry - $project.version"
             relations {
                 requiredDependency 'chemlib'
+                requiredDependency 'alchemylib'
                 optionalDependency 'jei'
                 optionalDependency 'patchouli'
 //                optionalDependency 'ctm'
@@ -195,6 +183,10 @@ curseforge {
         }
     }
 }
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+jar.finalizedBy('reobfJar')
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'

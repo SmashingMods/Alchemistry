@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -220,10 +221,10 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    public void dropContents() {
-        if (level != null && !level.isClientSide()) {
-            Containers.dropContents(level, getBlockPos(), internalBuffer);
+    public void dropContents(Level pLevel, BlockPos pBlockPos) {
+        if (!pLevel.isClientSide()) {
+            Containers.dropContents(pLevel, pBlockPos, internalBuffer);
         }
-        super.dropContents();
+        super.dropContents(pLevel, pBlockPos);
     }
 }

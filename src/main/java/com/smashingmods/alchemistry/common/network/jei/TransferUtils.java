@@ -38,6 +38,10 @@ public class TransferUtils {
 
         List<Integer> ints = new ArrayList<>();
         for (int i = 0; i < pRecipeInputList.size(); i++) {
+            if (pRecipeInputList.get(i).getCount() < 1) {
+                ints.add(0);
+                break;
+            }
             int maxCount;
             if (pMaxTransfer) {
                 if (pCreative) {
@@ -57,22 +61,22 @@ public class TransferUtils {
         AtomicReference<ItemStack> atomicItem = new AtomicReference<>();
         boolean test = pItems.stream().anyMatch(itemStack -> {
             boolean matches = pIngredientStack.matches(itemStack);
-            if (matches) {
+            if (matches && itemStack.getCount() >= pIngredientStack.getCount()) {
                 atomicItem.set(itemStack);
                 return true;
             }
             return false;
         });
-        if (test) {
-            return atomicItem.get();
-        }
-        return ItemStack.EMPTY;
+        return test ? atomicItem.get() : ItemStack.EMPTY;
     }
 
     public static List<ItemStack> matchIngredientListToItemStack(NonNullList<ItemStack> pItems, List<IngredientStack> pIngredientStackList) {
         List<ItemStack> toReturn = new ArrayList<>();
         for (IngredientStack ingredientStack : pIngredientStackList) {
-            toReturn.add(matchIngredientToItemStack(pItems, ingredientStack));
+            ItemStack itemStack = matchIngredientToItemStack(pItems, ingredientStack);
+            if (!itemStack.isEmpty()) {
+                toReturn.add(itemStack);
+            }
         }
         return toReturn;
     }

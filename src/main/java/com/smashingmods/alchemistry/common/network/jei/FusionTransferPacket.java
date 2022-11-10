@@ -69,6 +69,8 @@ public class FusionTransferPacket implements AlchemyPacket {
         RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2), player.getLevel())
             .ifPresent(recipe -> {
 
+                FusionRecipe recipeCopy = recipe.copy();
+
                 inputHandler.emptyToInventory(inventory);
                 outputHandler.emptyToInventory(inventory);
 
@@ -77,24 +79,24 @@ public class FusionTransferPacket implements AlchemyPacket {
                 boolean canTransfer = (inventoryContains || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                 if (canTransfer) {
-                    List<ItemStack> recipeInputs = List.of(recipe.getInput1(), recipe.getInput2());
+                    List<ItemStack> recipeInputs = List.of(recipeCopy.getInput1(), recipeCopy.getInput2());
                     if (creative) {
                         int maxOperations = TransferUtils.getMaxOperations(recipeInputs, maxTransfer);
 
-                        inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput1().getItem(), recipe.getInput1().getCount() * maxOperations));
-                        inputHandler.setOrIncrement(1, new ItemStack(recipe.getInput2().getItem(), recipe.getInput2().getCount() * maxOperations));
+                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
+                        inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
                     } else {
-                        int slot1 = inventory.findSlotMatchingItem(recipe.getInput1());
-                        int slot2 = inventory.findSlotMatchingItem(recipe.getInput2());
+                        int slot1 = inventory.findSlotMatchingItem(recipeCopy.getInput1());
+                        int slot2 = inventory.findSlotMatchingItem(recipeCopy.getInput2());
                         List<ItemStack> inventoryInputs = List.of(inventory.getItem(slot1), inventory.getItem(slot2));
 
                         int maxOperations = TransferUtils.getMaxOperations(recipeInputs, inventoryInputs, maxTransfer, false);
 
-                        inventory.removeItem(slot1, recipe.getInput1().getCount() * maxOperations);
-                        inventory.removeItem(slot1, recipe.getInput2().getCount() * maxOperations);
+                        inventory.removeItem(slot1, recipeCopy.getInput1().getCount() * maxOperations);
+                        inventory.removeItem(slot1, recipeCopy.getInput2().getCount() * maxOperations);
 
-                        inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput1().getItem(), recipe.getInput1().getCount() * maxOperations));
-                        inputHandler.setOrIncrement(1, new ItemStack(recipe.getInput2().getItem(), recipe.getInput2().getCount() * maxOperations));
+                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
+                        inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
                     }
                     blockEntity.setProgress(0);
                     blockEntity.setRecipe(recipe);

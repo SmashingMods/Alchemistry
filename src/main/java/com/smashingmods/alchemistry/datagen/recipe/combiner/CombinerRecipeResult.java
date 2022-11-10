@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
+import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -40,8 +40,8 @@ public class CombinerRecipeResult implements FinishedRecipe {
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
-        DatagenUtil.ingredientStackListToJson(pJson, "input", input);
-        DatagenUtil.itemStackToJson(pJson, "result", output);
+        DatagenHelpers.ingredientStackListToJson(pJson, "input", input);
+        DatagenHelpers.itemStackToJson(pJson, "result", output);
     }
 
     @Override

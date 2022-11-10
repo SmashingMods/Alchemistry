@@ -23,7 +23,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.LinkedList;
 
 public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
@@ -148,12 +147,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeOutputHandler() {
-        return new ProcessingSlotHandler(0) {
-            @Override
-            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return false;
-            }
-        };
+        return new ProcessingSlotHandler(0);
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -41,9 +41,9 @@ public class FissionRecipeResult implements FinishedRecipe {
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
-        DatagenUtil.itemStackToJson(pJson, "input", new ItemStack(input));
-        DatagenUtil.itemStackToJson(pJson, "output1", output1);
-        DatagenUtil.itemStackToJson(pJson, "output2", output2);
+        DatagenHelpers.itemStackToJson(pJson, "input", new ItemStack(input));
+        DatagenHelpers.itemStackToJson(pJson, "output1", output1);
+        DatagenHelpers.itemStackToJson(pJson, "output2", output2);
     }
 
     @Override

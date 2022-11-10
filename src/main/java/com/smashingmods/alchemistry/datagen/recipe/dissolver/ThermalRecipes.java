@@ -1,14 +1,14 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
-import com.smashingmods.alchemylib.api.recipe.compatability.ItemTagType;
+import com.smashingmods.alchemylib.api.recipe.compatability.MetalTagType;
 import com.smashingmods.alchemylib.api.recipe.compatability.ThermalMetalType;
 import net.minecraft.data.recipes.FinishedRecipe;
 
 import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.tagNotEmptyCondition;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.toItemStack;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.tagNotEmptyCondition;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toItemStack;
 
 public class ThermalRecipes extends DissolverRecipeProvider {
 
@@ -131,9 +131,9 @@ public class ThermalRecipes extends DissolverRecipeProvider {
                         .addGroup(100, toItemStack("tungsten", 16 * 4), toItemStack("carbon", 16 * 4), toItemStack("gold", 16 * 4)).build(),
                 tagNotEmptyCondition("forge:plates/netherite"));
 
-        for (ItemTagType itemType : ItemTagType.values()) {
-            int rolls = itemType.equals(ItemTagType.NUGGETS) ? 1 : 16;
-            int count = itemType.equals(ItemTagType.STORAGE_BLOCKS) ? 9 : 1;
+        for (MetalTagType itemType : MetalTagType.values()) {
+            int rolls = itemType.equals(MetalTagType.NUGGETS) ? 1 : 16;
+            int count = itemType.equals(MetalTagType.STORAGE_BLOCKS) ? 9 : 1;
 
             for (ThermalMetalType metalType : ThermalMetalType.values()) {
                 String itemTag = String.format("forge:%s/%s", itemType.getSerializedName(), metalType.getSerializedName());

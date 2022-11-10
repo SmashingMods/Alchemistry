@@ -13,13 +13,15 @@ import javax.annotation.Nonnull;
 
 public class AutoBalanceButton extends AbstractAlchemyButton {
 
-    public AutoBalanceButton(AbstractProcessingScreen<?> pParent, FusionControllerBlockEntity pBlockEntity) {
-        super(pParent, pBlockEntity, pButton -> {
-                    boolean toggleAutoBalance = !pBlockEntity.isAutoBalanced();
-                    pBlockEntity.setAutoBalanced(toggleAutoBalance);
-                    pBlockEntity.setChanged();
-                    Alchemistry.PACKET_HANDLER.sendToServer(new ToggleAutoBalanceButtonPacket(pBlockEntity.getBlockPos(), toggleAutoBalance));
-                });
+    public AutoBalanceButton(AbstractProcessingScreen<?> pParent) {
+        super(pParent, pButton -> {
+            if (pParent.getBlockEntity() instanceof FusionControllerBlockEntity fusionControllerBlockEntity) {
+                boolean toggleAutoBalance = !fusionControllerBlockEntity.isAutoBalanced();
+                fusionControllerBlockEntity.setAutoBalanced(toggleAutoBalance);
+                fusionControllerBlockEntity.setChanged();
+                Alchemistry.PACKET_HANDLER.sendToServer(new ToggleAutoBalanceButtonPacket(fusionControllerBlockEntity.getBlockPos(), toggleAutoBalance));
+            }
+        });
     }
 
     @Override

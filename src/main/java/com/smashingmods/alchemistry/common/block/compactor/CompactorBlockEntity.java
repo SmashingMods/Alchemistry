@@ -6,7 +6,7 @@ import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractSearchableBlockEntity;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
@@ -23,7 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
 
-public class CompactorBlockEntity extends AbstractInventoryBlockEntity {
+public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
 
     private CompactorRecipe currentRecipe;
     private ResourceLocation recipeId;

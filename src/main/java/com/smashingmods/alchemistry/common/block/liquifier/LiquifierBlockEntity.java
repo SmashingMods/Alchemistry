@@ -46,8 +46,8 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide() && !getSlotHandler().isEmpty()) {
-            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().matches(getSlotHandler().getStackInSlot(0)), level)
+        if (level != null && !level.isClientSide() && !getInputHandler().isEmpty()) {
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().matches(getInputHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.getId().equals(recipe.getId())) {
                         setProgress(0);
@@ -59,7 +59,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
 
     @Override
     public boolean canProcessRecipe() {
-        ItemStack input = getSlotHandler().getStackInSlot(0);
+        ItemStack input = getInputHandler().getStackInSlot(0);
         if (currentRecipe != null) {
             LiquifierRecipe tempRecipe = currentRecipe.copy();
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
@@ -78,7 +78,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         } else {
             LiquifierRecipe tempRecipe = currentRecipe.copy();
             setProgress(0);
-            getSlotHandler().decrementSlot(0, tempRecipe.getInput().getCount());
+            getInputHandler().decrementSlot(0, tempRecipe.getInput().getCount());
             getFluidStorage().fill(tempRecipe.getOutput(), IFluidHandler.FluidAction.EXECUTE);
         }
         getEnergyHandler().extractEnergy(getEnergyPerTick(), false);
@@ -132,7 +132,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
     }
 
     @Override
-    public ProcessingSlotHandler initializeSlotHandler() {
+    public ProcessingSlotHandler initializeInputHandler() {
         return new ProcessingSlotHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
@@ -143,6 +143,11 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
                 setChanged();
             }
         };
+    }
+
+    @Override
+    public ProcessingSlotHandler initializeOutputHandler() {
+        return new ProcessingSlotHandler(0);
     }
 
     @Override

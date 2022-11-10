@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.api.MatterState;
@@ -30,6 +29,7 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class CompactorRecipeProvider {
 
@@ -199,7 +199,7 @@ public class CompactorRecipeProvider {
                 .addCondition(pCondition)
                 .addRecipe(CompactorRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
                         .group(String.format("%s:compactor", Alchemistry.MODID))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "compactor", Alchemistry.MODID)))
                         ::save)
                 .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", recipeId.getPath())));
     }
@@ -207,7 +207,7 @@ public class CompactorRecipeProvider {
     public void compactor(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {
         CompactorRecipeBuilder.createRecipe(pInput, pOutput, pRecipeId)
                 .group(String.format("%s:compactor", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(DatagenUtil.getLocation(pOutput, "compactor")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "compactor", Alchemistry.MODID)))
                 .save(consumer);
     }
 }

@@ -11,6 +11,7 @@ import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDispla
 import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemylib.client.button.PauseButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -25,6 +26,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final FissionControllerBlockEntity blockEntity;
+    private final PauseButton pauseButton = new PauseButton(this);
 
     public FissionControllerScreen(FissionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

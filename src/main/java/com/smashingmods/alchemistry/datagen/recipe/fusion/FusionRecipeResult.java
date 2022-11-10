@@ -1,8 +1,8 @@
 package com.smashingmods.alchemistry.datagen.recipe.fusion;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -42,9 +42,9 @@ public class FusionRecipeResult implements FinishedRecipe {
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
-        DatagenUtil.itemStackToJson(pJson, "input1", new ItemStack(input1));
-        DatagenUtil.itemStackToJson(pJson, "input2", new ItemStack(input2));
-        DatagenUtil.itemStackToJson(pJson, "output", output);
+        DatagenHelpers.itemStackToJson(pJson, "input1", new ItemStack(input1));
+        DatagenHelpers.itemStackToJson(pJson, "input2", new ItemStack(input2));
+        DatagenHelpers.itemStackToJson(pJson, "output", output);
     }
 
     @Override

@@ -3,9 +3,9 @@ package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilder;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
+import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -62,7 +62,7 @@ public class DissolverRecipeProvider {
                     ingredientStackList.add(new IngredientStack(itemStack));
                 }
 
-                ResourceLocation recipeId = DatagenUtil.getLocation(output, "combiner");
+                ResourceLocation recipeId = DatagenHelpers.getLocation(output, "combiner", Alchemistry.MODID);
                 CombinerRecipeBuilder.createRecipe(output, ingredientStackList, Objects.requireNonNull(output.getItem().getRegistryName()))
                         .group(String.format("%s:combiner", Alchemistry.MODID))
                         .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeId))

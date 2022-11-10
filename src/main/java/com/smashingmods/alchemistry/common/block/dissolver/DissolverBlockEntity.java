@@ -15,10 +15,12 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -216,5 +218,13 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new DissolverMenu(pContainerId, pInventory, this);
+    }
+
+    @Override
+    public void dropContents(Level pLevel, BlockPos pBlockPos) {
+        if (!pLevel.isClientSide()) {
+            Containers.dropContents(pLevel, getBlockPos(), internalBuffer);
+        }
+        super.dropContents(pLevel, pBlockPos);
     }
 }

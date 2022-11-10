@@ -7,8 +7,8 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.tagNotEmptyCondition;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.toItemStack;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.tagNotEmptyCondition;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toItemStack;
 
 public class ThermalRecipes extends DissolverRecipeProvider {
 

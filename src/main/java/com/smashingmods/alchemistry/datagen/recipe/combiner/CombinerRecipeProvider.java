@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.getLocation;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.toIngredientStack;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toIngredientStack;
 
 public class CombinerRecipeProvider {
 
@@ -132,7 +132,7 @@ public class CombinerRecipeProvider {
                 .addCondition(pCondition)
                 .addRecipe(CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(recipeId))
                         .group(String.format("%s:combiner", Alchemistry.MODID))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner")))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner", Alchemistry.MODID)))
                         ::save)
                 .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", recipeId.getPath())));
     }
@@ -140,7 +140,7 @@ public class CombinerRecipeProvider {
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput) {
         CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(pOutput.getItem().getRegistryName()))
                 .group(String.format("%s:combiner", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner", Alchemistry.MODID)))
                 .save(consumer);
     }
 }

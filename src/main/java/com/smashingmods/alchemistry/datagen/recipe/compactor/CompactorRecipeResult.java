@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.google.gson.JsonObject;
-import com.smashingmods.alchemistry.datagen.DatagenUtil;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
+import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -40,7 +40,7 @@ public class CompactorRecipeResult implements FinishedRecipe {
             pJson.addProperty("group", group);
         }
         pJson.add("input", input.toJson());
-        DatagenUtil.itemStackToJson(pJson, "result", result);
+        DatagenHelpers.itemStackToJson(pJson, "result", result);
     }
 
     @Override

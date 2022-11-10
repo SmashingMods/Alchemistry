@@ -30,7 +30,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
     private final FusionControllerBlockEntity blockEntity;
     private final LockButton lockButton = new LockButton(this);
     private final PauseButton pauseButton = new PauseButton(this);
-    private final AutoBalanceButton autoBalanceButton;
+    private final AutoBalanceButton autoBalanceButton = new AutoBalanceButton(this);
 
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -38,7 +38,6 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
-        autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
     }
 
     @Override

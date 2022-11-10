@@ -18,7 +18,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.getLocation;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class AtomizerRecipeProvider {
 
@@ -56,7 +56,7 @@ public class AtomizerRecipeProvider {
                 .addCondition(pCondition)
                 .addRecipe(AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
                         .group(String.format("%s:atomizer", Alchemistry.MODID))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer")))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer", Alchemistry.MODID)))
                         ::save)
                 .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("atomizer/%s", recipeId.getPath())));
     }
@@ -65,7 +65,7 @@ public class AtomizerRecipeProvider {
         ResourceLocation recipeId = pOutput.getItem().getRegistryName();
         AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
                 .group(String.format("%s:atomizer", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer", Alchemistry.MODID)))
                 .save(consumer);
     }
 }

@@ -62,12 +62,14 @@ public class CombinerTransferPacket implements AlchemyPacket {
         RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), output), player.getLevel())
             .ifPresent(recipe -> {
 
+                CombinerRecipe recipeCopy = recipe.copy();
+
                 inputHandler.emptyToInventory(inventory);
                 outputHandler.emptyToInventory(inventory);
 
-                List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipe.getInput());
+                List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeCopy.getInput());
                 List<ItemStack> recipeInput = new ArrayList<>();
-                IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipe.getInput().get(i).getCount())));
+                IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount())));
 
                 boolean creative = player.gameMode.isCreative();
                 boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
@@ -76,14 +78,14 @@ public class CombinerTransferPacket implements AlchemyPacket {
                     if (creative) {
                         List<ItemStack> creativeInput = new ArrayList<>();
 
-                        for (int i = 0; i < recipe.getInput().size(); i++) {
-                            ItemStack item = new ItemStack(recipe.getInput().get(i).getIngredient().getItems()[0].getItem(), recipe.getInput().get(i).getCount());
+                        for (int i = 0; i < recipeCopy.getInput().size(); i++) {
+                            ItemStack item = new ItemStack(recipeCopy.getInput().get(i).getIngredient().getItems()[0].getItem(), recipeCopy.getInput().get(i).getCount());
                             creativeInput.add(i, item);
                         }
 
                         int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
-                        for (int i = 0; i < recipe.getInput().size(); i++) {
-                            inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
+                        for (int i = 0; i < recipeCopy.getInput().size(); i++) {
+                            inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
                         }
                     } else {
                         List<ItemStack> inventoryStacks = new ArrayList<>();
@@ -99,8 +101,8 @@ public class CombinerTransferPacket implements AlchemyPacket {
                             player.getInventory().removeItem(slot, itemStack.getCount() * maxOperations);
                         });
 
-                        for (int i = 0; i < recipe.getInput().size(); i++) {
-                            inputHandler.setOrIncrement(i, new ItemStack(recipeInput.get(i).getItem(), recipe.getInput().get(i).getCount() * maxOperations));
+                        for (int i = 0; i < recipeCopy.getInput().size(); i++) {
+                            inputHandler.setOrIncrement(i, new ItemStack(recipeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
                         }
                     }
                     blockEntity.setProgress(0);

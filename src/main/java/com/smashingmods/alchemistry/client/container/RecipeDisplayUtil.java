@@ -54,9 +54,11 @@ public class RecipeDisplayUtil {
                 components.add(MutableComponent.create(new LiteralContents(String.format("%s (%d)", abbreviation, element.getAtomicNumber()))).withStyle(ChatFormatting.DARK_AQUA));
                 components.add(MutableComponent.create(new LiteralContents(element.getGroupName())).withStyle(ChatFormatting.GRAY));
             } else if (chemical instanceof ChemicalItem chemicalItem && !chemicalItem.getItemType().equals(ChemicalItemType.COMPOUND)) {
-                ElementItem element = (ElementItem) chemicalItem.getChemical();
-                components.add(MutableComponent.create(new LiteralContents(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber()))).withStyle(ChatFormatting.DARK_AQUA));
-                components.add(MutableComponent.create(new LiteralContents(element.getGroupName())).withStyle(ChatFormatting.GRAY));
+                if (chemicalItem.getChemical() instanceof ElementItem element) {
+                    components.add(MutableComponent.create(new LiteralContents(String.format("%s (%d)", chemicalItem.getAbbreviation(), element.getAtomicNumber()))).withStyle(ChatFormatting.DARK_AQUA));
+                    components.add(MutableComponent.create(new LiteralContents(element.getGroupName())).withStyle(ChatFormatting.GRAY));
+                }
+                components.add(MutableComponent.create(new LiteralContents(chemicalItem.getAbbreviation())).withStyle(ChatFormatting.DARK_AQUA));
             } else if (chemical instanceof CompoundItem) {
                 components.add(MutableComponent.create(new LiteralContents(abbreviation)).withStyle(ChatFormatting.DARK_AQUA));
             }

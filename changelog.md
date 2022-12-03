@@ -1,11 +1,8 @@
-# Alchemistry 1.19.2-2.2.2 RELEASE
+# Alchemistry 1.19.2-2.2.3 RELEASE
 
-This quick update includes some minor bug fixes and parity stuff from 1.18.x.
+Whoopsie, the last one had a bug, but I fixed it.
 
 Fixes:
-- Cherrypick 1.18.x branch for fixes.
-- Fix an issue with JEI transfer packets.
-- Fix TransferUtils methods to make sure they are checking the count of an IngredientStack to make sure something matches.
-- Make Dissolver output try to stack in existing slots first.
+- Fix bug with displaying chemical item plates made out of compounds.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

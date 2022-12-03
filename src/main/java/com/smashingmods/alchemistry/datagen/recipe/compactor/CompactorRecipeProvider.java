@@ -144,6 +144,10 @@ public class CompactorRecipeProvider {
             compactor(new ItemStack(keratin, 2), Items.FEATHER);
             compactor(keratin, new ItemStack(Items.STRING, 2));
         });
+
+        ItemRegistry.getCompoundByName("polyvinyl_chloride")
+                .ifPresent(pvc -> ItemRegistry.getChemicalItemByNameAndType("polyvinyl_chloride", ChemicalItemType.PLATE)
+                        .ifPresent(plate -> compactor(new ItemStack(pvc, 8), new ItemStack(plate))));
     }
 
     public void compactor(ItemStack pInput, ItemStack pOutput) {

@@ -22,6 +22,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -101,7 +102,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             for (int j = 0; j < getOutputHandler().getStacks().size(); j++) {
                 ItemStack slotStack = getOutputHandler().getStackInSlot(j).copy();
                 if (slotStack.isEmpty() || (ItemStack.isSameItemSameTags(bufferStack, slotStack) && bufferStack.getCount() + slotStack.getCount() <= slotStack.getMaxStackSize())) {
-                    getOutputHandler().setOrIncrement(j, bufferStack);
+                    ItemHandlerHelper.insertItemStacked(getOutputHandler(), bufferStack, false);
                     internalBuffer.remove(i);
                     break;
                 }
@@ -168,9 +169,21 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     public ProcessingSlotHandler initializeOutputHandler() {
         return new ProcessingSlotHandler(12) {
+
+            private boolean valid = false;
+
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+                valid = true;
+                ItemStack itemStack = super.insertItem(slot, stack, simulate);
+                valid = false;
+                return itemStack;
+            }
+
             @Override
             public boolean isItemValid(int pSlot, ItemStack pItemStack) {
-                return false;
+                return valid;
             }
 
             @Override

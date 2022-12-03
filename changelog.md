@@ -1,9 +1,11 @@
-# Alchemistry 1.19.2-2.2.1 RELEASE
+# Alchemistry 1.19.2-2.2.2 RELEASE
 
-This update doesn't come with any major changes for Alchemistry itself. Most of the changes are with AlchemyLib and making sure it works correctly.
+This quick update includes some minor bug fixes and parity stuff from 1.18.x.
 
-Changes:
-- Update AlchemyLib
-- Double check that the publishing settings are correct so people don't have issues.
+Fixes:
+- Cherrypick 1.18.x branch for fixes.
+- Fix an issue with JEI transfer packets.
+- Fix TransferUtils methods to make sure they are checking the count of an IngredientStack to make sure something matches.
+- Make Dissolver output try to stack in existing slots first.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

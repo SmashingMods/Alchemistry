@@ -64,21 +64,23 @@ public class FissionTransferPacket implements AlchemyPacket {
         RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), input), player.getLevel())
             .ifPresent(recipe -> {
 
+                FissionRecipe recipeCopy = recipe.copy();
+
                 inputHandler.emptyToInventory(inventory);
                 outputHander.emptyToInventory(inventory);
 
                 boolean creative = player.gameMode.isCreative();
-                boolean canTransfer = (inventory.contains(recipe.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
+                boolean canTransfer = (inventory.contains(recipeCopy.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
 
                 if (canTransfer) {
                     if (creative) {
-                        int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), maxTransfer);
-                        inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
+                        int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), maxTransfer);
+                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {
-                        int slot = inventory.findSlotMatchingItem(recipe.getInput());
-                        int maxOperations = TransferUtils.getMaxOperations(recipe.getInput(), inventory.getItem(slot), maxTransfer, false);
-                        inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                        inputHandler.setOrIncrement(0, new ItemStack(recipe.getInput().getItem(), recipe.getInput().getCount() * maxOperations));
+                        int slot = inventory.findSlotMatchingItem(recipeCopy.getInput());
+                        int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), inventory.getItem(slot), maxTransfer, false);
+                        inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
+                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     }
                     blockEntity.setProgress(0);
                     blockEntity.setRecipe(recipe);

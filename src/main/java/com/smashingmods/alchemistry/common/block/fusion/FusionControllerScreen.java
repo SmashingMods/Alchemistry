@@ -12,6 +12,8 @@ import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDispla
 import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemylib.client.button.LockButton;
+import com.smashingmods.alchemylib.client.button.PauseButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -27,7 +29,9 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final FusionControllerBlockEntity blockEntity;
-    private final AutoBalanceButton autoBalanceButton;
+    private final LockButton lockButton = new LockButton(this);
+    private final PauseButton pauseButton = new PauseButton(this);
+    private final AutoBalanceButton autoBalanceButton = new AutoBalanceButton(this);
 
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -35,7 +39,6 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         blockEntity = (FusionControllerBlockEntity) pMenu.getBlockEntity();
-        autoBalanceButton = new AutoBalanceButton(this, (FusionControllerBlockEntity) pMenu.getBlockEntity());
     }
 
     @Override

@@ -53,38 +53,40 @@ public class LiquifierTransferPacket implements AlchemyPacket {
     }
 
     public void handle(NetworkEvent.Context pContext) {
-            ServerPlayer player = pContext.getSender();
-            Objects.requireNonNull(player);
-            LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) player.getLevel().getBlockEntity(blockPos);
-            Objects.requireNonNull(blockEntity);
-            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
-            Inventory inventory = player.getInventory();
+        ServerPlayer player = pContext.getSender();
+        Objects.requireNonNull(player);
+        LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        Objects.requireNonNull(blockEntity);
+        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        Inventory inventory = player.getInventory();
 
-            RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.getLevel())
-                    .ifPresent(recipe -> {
+        RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.getLevel())
+            .ifPresent(recipe -> {
 
-                        inputHandler.emptyToInventory(inventory);
+                LiquifierRecipe recipeCopy = recipe.copy();
 
-                        ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipe.getInput());
-                        ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipe.getInput().getCount());
-                        boolean creative = player.gameMode.isCreative();
-                        boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
+                inputHandler.emptyToInventory(inventory);
 
-                        if (canTransfer) {
-                            if (creative) {
-                                ItemStack creativeInput = new ItemStack(recipe.getInput().getIngredient().getItems()[0].getItem(), recipe.getInput().getCount());
-                                int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
-                                inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipe.getInput().getCount() * maxOperations));
-                            } else {
-                                int slot = inventory.findSlotMatchingItem(inventoryInput);
-                                int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), maxTransfer, false);
-                                inventory.removeItem(slot, recipe.getInput().getCount() * maxOperations);
-                                inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipe.getInput().getCount() * maxOperations));
-                            }
-                            blockEntity.setProgress(0);
-                            blockEntity.setRecipe(recipe);
-                        }
-                    });
+                ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipeCopy.getInput());
+                ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipeCopy.getInput().getCount());
+                boolean creative = player.gameMode.isCreative();
+                boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
+
+                if (canTransfer) {
+                    if (creative) {
+                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().getItems()[0].getItem(), recipeCopy.getInput().getCount());
+                        int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
+                        inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                    } else {
+                        int slot = inventory.findSlotMatchingItem(inventoryInput);
+                        int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), maxTransfer, false);
+                        inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
+                        inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                    }
+                    blockEntity.setProgress(0);
+                    blockEntity.setRecipe(recipe);
+                }
+            });
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<LiquifierMenu, LiquifierRecipe> {

@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.tagNotEmptyCondition;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.tagNotEmptyCondition;
 
 public class ChemlibRecipes extends DissolverRecipeProvider {
 

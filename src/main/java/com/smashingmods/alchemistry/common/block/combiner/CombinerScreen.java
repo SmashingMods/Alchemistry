@@ -9,11 +9,13 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
 import com.smashingmods.alchemylib.api.blockentity.container.FakeItemRenderer;
-import com.smashingmods.alchemylib.api.blockentity.container.button.RecipeSelectorButton;
 import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
+import com.smashingmods.alchemylib.client.button.LockButton;
+import com.smashingmods.alchemylib.client.button.PauseButton;
+import com.smashingmods.alchemylib.client.button.RecipeSelectorButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -29,6 +31,9 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final CombinerBlockEntity blockEntity;
+
+    private final LockButton lockButton = new LockButton(this);
+    private final PauseButton pauseButton = new PauseButton(this);
 
     private final RecipeSelectorScreen<CombinerScreen, CombinerBlockEntity, CombinerRecipe> recipeSelectorScreen;
     private final RecipeSelectorButton recipeSelector;

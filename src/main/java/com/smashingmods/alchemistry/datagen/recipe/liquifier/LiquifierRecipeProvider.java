@@ -24,7 +24,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.smashingmods.alchemistry.datagen.DatagenUtil.getLocation;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class LiquifierRecipeProvider {
 
@@ -72,7 +72,7 @@ public class LiquifierRecipeProvider {
                 .addCondition(pCondition)
                 .addRecipe(LiquifierRecipeBuilder
                         .createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier")))
+                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
                         ::save)
                 .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("liquifier/%s", recipeId.getPath())));
     }
@@ -80,7 +80,7 @@ public class LiquifierRecipeProvider {
     private void liquifier(IngredientStack pInput, FluidStack pOutput) {
         LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(pOutput.getFluid())))
                 .group(String.format("%s:liquifier", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier")))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
                 .save(consumer);
     }
 }

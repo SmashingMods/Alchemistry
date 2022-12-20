@@ -135,10 +135,19 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
                     boolean notContained = this.getStacks().stream().noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
+                    if (!notContained) {
+                        // If the item is already contained, we can permit it if the insertion attempt is into the slot
+                        // that already contains the item and inserting it wouldn't cause the stack to go past the max
+                        // stack size.
+                        ItemStack inSlot = getStackInSlot(pSlot);
+                        if (inSlot == null || !ItemStack.isSameItemSameTags(inSlot, pItemStack) || inSlot.getCount() + pItemStack.getCount() > inSlot.getMaxStackSize()) {
+                            return false;
+                        }
+                    }
                     boolean inputRequired = currentRecipe.getInput().stream()
                             .map(IngredientStack::getIngredient)
                             .anyMatch(ingredient -> ingredient.test(pItemStack));
-                    return notContained && inputRequired;
+                    return inputRequired;
                 }
                 return super.isItemValid(pSlot, pItemStack);
             }

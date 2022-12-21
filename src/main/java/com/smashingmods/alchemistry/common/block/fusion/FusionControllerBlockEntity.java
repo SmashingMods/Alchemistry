@@ -207,7 +207,7 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
                     };
 
                     RecipeRegistry.getFusionRecipe(recipePredicate, level).ifPresent(recipe -> {
-                        if (!currentRecipe.equals(recipe)) {
+                        if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                             setProgress(0);
                             setRecipe(recipe);
                             autoBalance();

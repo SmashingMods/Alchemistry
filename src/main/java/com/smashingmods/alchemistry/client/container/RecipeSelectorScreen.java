@@ -6,8 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
-import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
-import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractSearchableBlockEntity;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.recipe.ProcessingRecipe;
 import net.minecraft.client.Minecraft;
@@ -35,7 +34,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B extends AbstractProcessingBlockEntity, R extends AbstractProcessingRecipe> extends Screen {
+public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B extends AbstractSearchableBlockEntity, R extends AbstractProcessingRecipe> extends Screen {
 
     private final int imageWidth = 184;
     private final int imageHeight = 162;
@@ -197,11 +196,11 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
     private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
         ProcessingRecipe recipe = blockEntity.getRecipe();
-        if (recipe != null && blockEntity instanceof AbstractInventoryBlockEntity inventoryBlockEntity) {
+        if (recipe != null) {
 
             // handle rendering the input slots and required input items
             recipeLooper((pIndex, pInputSize, pX, pY) -> {
-                if (pIndex < pInputSize && inventoryBlockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
+                if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
                     renderSlot(pPoseStack, pX, pY);
                     renderFloatingItem(itemStack, pX + 1, pY + 1);
@@ -210,7 +209,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
             // handle rendering tooltips for recipe inputs, can't be done in previous loop because of rendering order
             recipeLooper((pIndex, pInputSize, pX, pY) -> {
-                if (pIndex < pInputSize && inventoryBlockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
+                if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
 
                     if (pMouseX >= pX - 1 && pMouseX < pX + 17 && pMouseY >= pY - 1 && pMouseY < pY + 17 && !itemStack.isEmpty()) {

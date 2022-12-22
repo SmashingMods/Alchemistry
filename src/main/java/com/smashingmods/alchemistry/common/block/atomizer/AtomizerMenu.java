@@ -22,7 +22,7 @@ public class AtomizerMenu extends AbstractProcessingMenu {
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, 0, 1);
         AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
-        ProcessingSlotHandler outputHandler = blockEntity.getSlotHandler();
+        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
     }
 

@@ -10,6 +10,7 @@ import com.smashingmods.alchemylib.api.blockentity.container.data.EnergyDisplayD
 import com.smashingmods.alchemylib.api.blockentity.container.data.FluidDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractFluidBlockEntity;
+import com.smashingmods.alchemylib.client.button.PauseButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -22,6 +23,7 @@ import java.util.List;
 public class AtomizerScreen extends AbstractProcessingScreen<AtomizerMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
+    private final PauseButton pauseButton = new PauseButton(this);
 
     public AtomizerScreen(AtomizerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

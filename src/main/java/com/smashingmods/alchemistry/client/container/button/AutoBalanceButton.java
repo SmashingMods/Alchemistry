@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 public class AutoBalanceButton extends AbstractAlchemyButton {
 
     public AutoBalanceButton(AbstractProcessingScreen<?> pParent, FusionControllerBlockEntity pBlockEntity) {
-        super(pParent, pBlockEntity, pButton -> {
+        super(pParent, pButton -> {
                     boolean toggleAutoBalance = !pBlockEntity.isAutoBalanced();
                     pBlockEntity.setAutoBalanced(toggleAutoBalance);
                     pBlockEntity.setChanged();

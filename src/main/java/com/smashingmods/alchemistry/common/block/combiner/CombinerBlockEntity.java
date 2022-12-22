@@ -6,7 +6,7 @@ import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
-import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractSearchableBlockEntity;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
@@ -19,12 +19,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
 
-public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
+public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
     private CombinerRecipe currentRecipe;
     private ResourceLocation recipeId;
@@ -132,22 +132,20 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
             }
 
             @Override
-            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+            public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
-                    boolean notContained = this.getStacks().stream().noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
-                    if (!notContained) {
-                        // If the item is already contained, we can permit it if the insertion attempt is into the slot
-                        // that already contains the item and inserting it wouldn't cause the stack to go past the max
-                        // stack size.
+                    boolean contained = getStacks().stream().allMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
+                    if (contained) {
+                        // if the slot already contains the ItemStack, the item will be valid for that slot and can be
+                        // inserted but only so long as the inserted count and existing count summed aren't more than
+                        // the stack's max size.
                         ItemStack inSlot = getStackInSlot(pSlot);
-                        if (inSlot == null || !ItemStack.isSameItemSameTags(inSlot, pItemStack) || inSlot.getCount() + pItemStack.getCount() > inSlot.getMaxStackSize()) {
-                            return false;
-                        }
+                        return !ItemStack.isSameItemSameTags(inSlot, pItemStack) || ((inSlot.getCount() + pItemStack.getCount()) > inSlot.getMaxStackSize());
+                    } else {
+                        return currentRecipe.getInput().stream()
+                                .map(IngredientStack::getIngredient)
+                                .anyMatch(ingredient -> ingredient.test(pItemStack));
                     }
-                    boolean inputRequired = currentRecipe.getInput().stream()
-                            .map(IngredientStack::getIngredient)
-                            .anyMatch(ingredient -> ingredient.test(pItemStack));
-                    return inputRequired;
                 }
                 return super.isItemValid(pSlot, pItemStack);
             }
@@ -158,7 +156,7 @@ public class CombinerBlockEntity extends AbstractInventoryBlockEntity {
     public ProcessingSlotHandler initializeOutputHandler() {
         return new ProcessingSlotHandler( 1) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;
             }
         };

@@ -1,8 +1,12 @@
-# Alchemistry 1.18.2-2.2.0 BETA
+# Alchemistry 1.18.2-2.2.1 Release
 
-This is a fairly substantial update under the hood. It shouldn't change anything with how you play the game. I split the api directory out into its own mod so that it can be used by other mods as a library.
+This should backport features from 1.19.x that were updated in ChemLib and AlchemyLib. There might not be any more updates for 1.18.x moving forward if there are no major issues with this update. Let me know!
 
-- Split the api directory into a separate library and update everything accordingly.
-- Get rid of magic anotations for events.
+Changes:
+- Update Forge, ChemLib, AlchemyLib.
+- Update mods.toml requirements.
+- Refactor to account for AlchemyLib changes.
+- Refactor CombinerBlockEntity#initializeInputHandler#isItemValid from previous PR to be cleaner.
+- Move ru_ru lang file to correct place, PR put it in the wrong spot.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

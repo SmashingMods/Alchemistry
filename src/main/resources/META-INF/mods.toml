@@ -30,7 +30,14 @@ Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to 
 [[dependencies.alchemistry]]
     modId="chemlib"
     mandatory=true
-    versionRange="[1.18.2-2.0.8,)"
+    versionRange="[1.18.2-2.0.16,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.alchemistry]]
+    modId="alchemylib"
+    mandatory=true
+    versionRange="[1.18.2-1.0.20,)"
     ordering="NONE"
     side="BOTH"
 

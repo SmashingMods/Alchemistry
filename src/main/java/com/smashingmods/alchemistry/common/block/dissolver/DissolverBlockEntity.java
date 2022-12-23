@@ -54,15 +54,15 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void tick() {
-        super.tick();
-        if (!isProcessingPaused()) {
+        if (!isProcessingPaused() && !getInputHandler().getStackInSlot(0).isEmpty()) {
+            super.tick();
             processBuffer();
         }
     }
 
     @Override
     public void updateRecipe() {
-        if (level != null && !level.isClientSide() && !isRecipeLocked()) {
+        if (level != null && !level.isClientSide() && !isRecipeLocked() && !getInputHandler().getStackInSlot(0).isEmpty()) {
             RecipeRegistry.getDissolverRecipe(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {

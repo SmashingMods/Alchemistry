@@ -54,7 +54,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void tick() {
-        if (!isProcessingPaused() && !getInputHandler().getStackInSlot(0).isEmpty()) {
+        if (!isProcessingPaused() && (!getInputHandler().getStackInSlot(0).isEmpty() || !internalBuffer.isEmpty())) {
             super.tick();
             processBuffer();
         }
@@ -154,7 +154,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     public ProcessingSlotHandler initializeInputHandler() {
         return new ProcessingSlotHandler(1) {
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onContentsChanged(int pSlot) {
                 updateRecipe();
                 setCanProcess(canProcessRecipe());
                 setChanged();
@@ -176,8 +176,8 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
             @Nonnull
             @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return super.insertItem(slot, stack, simulate);
+            public ItemStack insertItem(int pSlot, @Nonnull ItemStack stack, boolean simulate) {
+                return super.insertItem(pSlot, stack, simulate);
             }
 
             @Override
@@ -186,7 +186,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             }
 
             @Override
-            protected void onContentsChanged(int slot) {
+            protected void onContentsChanged(int pSlot) {
                 setChanged();
             }
         };

@@ -1,5 +1,7 @@
 package com.smashingmods.alchemistry.registry;
 
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -16,21 +18,35 @@ import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.ReloadableServerResources;
+import net.minecraft.server.packs.FolderPackResources;
+import net.minecraft.server.packs.PackResources;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.repository.Pack;
+import net.minecraft.server.packs.resources.*;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import javax.json.JsonObject;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.smashingmods.alchemistry.Alchemistry.LOGGER;
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class RecipeRegistry {
@@ -75,6 +91,39 @@ public class RecipeRegistry {
             @Override
             public String toString() {
                 return pType;
+            }
+        });
+    }
+
+    /**
+     * After reloading resources, clear the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
+     * {@link RecipeRegistry#recipeGroupMap recipeGroupMap} so that data pack reloading takes effect immediately.
+     * @implNote This event handler just clears the internal maps, but a better version might update them in-place.
+     *           That said, datapack reloads don't actually occur that often in regular play, so there is little point
+     *           over-engineering this.
+     * @param event the AddReloadListener event. Unused.
+     */
+    public static void postReload(final AddReloadListenerEvent event) {
+        event.addListener(new SimplePreparableReloadListener<Boolean>() {
+            @Override
+            public String getName() {
+                return "Alchemistry Cache Invalidator";
+            }
+
+            // Runs in the thread pool, figures out whether anything in non-standard Packs changed.
+            @Override
+            protected Boolean prepare(ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+                // Always clear the maps on reload.
+                return true;
+            }
+
+            // Runs on main thread; does the actual cache invalidation.
+            @Override
+            protected void apply(Boolean shouldClear, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+                if (shouldClear) {
+                    recipeTypeMap.clear();
+                    recipeGroupMap.clear();
+                }
             }
         });
     }

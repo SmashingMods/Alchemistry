@@ -96,12 +96,12 @@ public class RecipeRegistry {
     }
 
     /**
-     * After reloading resources, clear the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
+     * Attach a ReloadListener that clears the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
      * {@link RecipeRegistry#recipeGroupMap recipeGroupMap} so that data pack reloading takes effect immediately.
      * @implNote This event handler just clears the internal maps, but a better version might update them in-place.
      *           That said, datapack reloads don't actually occur that often in regular play, so there is little point
      *           over-engineering this.
-     * @param event the AddReloadListener event. Unused.
+     * @param event the AddReloadListener event.
      */
     public static void postReload(final AddReloadListenerEvent event) {
         event.addListener(new SimplePreparableReloadListener<Boolean>() {

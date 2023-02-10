@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.common.block.dissolver;
 
+import javax.annotation.Nonnull;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
@@ -12,6 +13,7 @@ import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
@@ -23,9 +25,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nonnull;
 import java.util.LinkedList;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
@@ -33,11 +39,15 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     private DissolverRecipe currentRecipe;
     private ResourceLocation recipeId;
     private final NonNullList<ItemStack> internalBuffer = NonNullList.createWithCapacity(64);
+    private LazyOptional<IItemHandler> lazyInputHandler;
+    private LazyOptional<IItemHandler> lazyOutputHandler;
 
     public DissolverBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.DISSOLVER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.dissolverEnergyPerTick.get());
         setMaxProgress(Config.Common.dissolverTicksPerOperation.get());
+        this.lazyInputHandler = LazyOptional.of(() -> this.getInputHandler());
+        this.lazyOutputHandler = LazyOptional.of(() -> this.getOutputHandler());
     }
 
     @Override
@@ -164,6 +174,18 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
                 return super.isItemValid(pSlot, pItemStack);
             }
         };
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> pCapability, @Nullable Direction pDirection) {
+        if (pCapability == ForgeCapabilities.ITEM_HANDLER) {
+            if (pDirection == Direction.DOWN)
+                return this.lazyOutputHandler.cast();
+            else if (pDirection == Direction.UP)
+                return this.lazyInputHandler.cast();
+        }
+        return super.getCapability(pCapability, pDirection);
     }
 
     @Override

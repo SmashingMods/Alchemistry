@@ -11,6 +11,7 @@ import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -18,6 +19,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -28,10 +34,15 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
     private CompactorRecipe currentRecipe;
     private ResourceLocation recipeId;
 
+    private LazyOptional<IItemHandler> lazyInputHandler;
+    private LazyOptional<IItemHandler> lazyOutputHandler;
+
     public CompactorBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMPACTOR_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.compactorEnergyPerTick.get());
         setMaxProgress(Config.Common.compactorTicksPerOperation.get());
+        this.lazyInputHandler = LazyOptional.of(() -> this.getInputHandler());
+        this.lazyOutputHandler = LazyOptional.of(() -> this.getOutputHandler());
     }
 
     @Override
@@ -112,6 +123,18 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
                 setChanged();
             }
         };
+    }
+
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> pCapability, @Nullable Direction pDirection) {
+        if (pCapability == ForgeCapabilities.ITEM_HANDLER) {
+            if (pDirection == Direction.DOWN)
+                return this.lazyOutputHandler.cast();
+            else if (pDirection == Direction.UP)
+                return this.lazyInputHandler.cast();
+        }
+        return super.getCapability(pCapability, pDirection);
     }
 
     @Override

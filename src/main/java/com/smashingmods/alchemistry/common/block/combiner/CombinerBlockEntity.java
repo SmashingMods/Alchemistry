@@ -12,6 +12,7 @@ import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -19,20 +20,32 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
     private CombinerRecipe currentRecipe;
     private ResourceLocation recipeId;
 
+    private LazyOptional<IItemHandler> lazyInputHandler;
+    private LazyOptional<IItemHandler> lazyOutputHandler;
+
     public CombinerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, BlockEntityRegistry.COMBINER_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
         setEnergyPerTick(Config.Common.combinerEnergyPerTick.get());
         setMaxProgress(Config.Common.combinerTicksPerOperation.get());
+
+        this.lazyInputHandler = LazyOptional.of(() -> this.getInputHandler());
+        this.lazyOutputHandler = LazyOptional.of(() -> this.getOutputHandler());
     }
 
     @Override
@@ -134,12 +147,23 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
             @Override
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
-                    boolean notContained = this.getStacks().stream().noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
                     boolean inputRequired = currentRecipe.getInput().stream()
                             .map(IngredientStack::getIngredient)
                             .anyMatch(ingredient -> ingredient.test(pItemStack));
-                    return notContained && inputRequired;
+
+                    if (!inputRequired) {
+                        return false;
+                    }
+
+                    boolean notContained = this.getStacks().stream().noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
+                    if (notContained) {
+                        return true;
+                    }
+
+                    boolean sameItemAtSlot = ItemStack.isSameItemSameTags(pItemStack, this.getStacks().get(pSlot));
+                    return sameItemAtSlot;
                 }
+
                 return super.isItemValid(pSlot, pItemStack);
             }
         };
@@ -181,5 +205,18 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory, Player pPlayer) {
         return new CombinerMenu(pContainerId, pInventory, this);
+    }
+
+    // wtf error on nonnuull build
+    @javax.annotation.Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@javax.annotation.Nonnull Capability<T> pCapability, @Nullable Direction pDirection) {
+        if (pCapability == ForgeCapabilities.ITEM_HANDLER) {
+            if (pDirection == Direction.DOWN)
+                return this.lazyOutputHandler.cast();
+            else if (pDirection == Direction.UP)
+                return this.lazyInputHandler.cast();
+        }
+        return super.getCapability(pCapability, pDirection);
     }
 }

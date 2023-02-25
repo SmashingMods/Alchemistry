@@ -134,11 +134,14 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
             @Override
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
-                    boolean notContained = this.getStacks().stream().noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
+                    boolean notContained = this.getStacks().stream()
+                            .noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
                     boolean inputRequired = currentRecipe.getInput().stream()
                             .map(IngredientStack::getIngredient)
                             .anyMatch(ingredient -> ingredient.test(pItemStack));
-                    return notContained && inputRequired;
+                    boolean itemMatchesSlot = ItemStack.isSameItemSameTags(pItemStack, getStackInSlot(pSlot));
+
+                    return itemMatchesSlot || (notContained && inputRequired);
                 }
                 return super.isItemValid(pSlot, pItemStack);
             }

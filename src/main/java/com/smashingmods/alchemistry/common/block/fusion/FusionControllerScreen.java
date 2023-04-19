@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.container.button.AutoBalanceButton;
+import com.smashingmods.alchemistry.client.container.button.ReactorOutputBehaviourButton;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
@@ -32,6 +33,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
     private final LockButton lockButton = new LockButton(this);
     private final PauseButton pauseButton = new PauseButton(this);
     private final AutoBalanceButton autoBalanceButton = new AutoBalanceButton(this);
+    private final ReactorOutputBehaviourButton outputBehaviourButton = new ReactorOutputBehaviourButton(this);
 
     public FusionControllerScreen(FusionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -46,6 +48,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         widgets.add(lockButton);
         widgets.add(pauseButton);
         widgets.add(autoBalanceButton);
+        widgets.add(outputBehaviourButton);
         super.init();
     }
 

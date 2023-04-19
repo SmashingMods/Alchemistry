@@ -24,6 +24,7 @@ public class PacketHandler extends AbstractPacketHandler {
         registerMessage(FissionTransferPacket.class, FissionTransferPacket::new);
         registerMessage(FusionTransferPacket.class, FusionTransferPacket::new);
         registerMessage(LiquifierTransferPacket.class, LiquifierTransferPacket::new);
+        registerMessage(SetReactorIOModePacket.class, SetReactorIOModePacket::new);
         return this;
     }
 

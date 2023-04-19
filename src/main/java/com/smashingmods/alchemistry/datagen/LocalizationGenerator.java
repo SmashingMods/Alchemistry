@@ -56,6 +56,8 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.container.nothing", "Nothing");
         add("alchemistry.container.enable_autobalance", "Enable Auto-Balance");
         add("alchemistry.container.disable_autobalance", "Disable Auto-Balance");
+        add("alchemistry.container.disable_active_pushing", "Currently pushing outputs actively");
+        add("alchemistry.container.enable_active_pushing", "Currently providing outputs passively");
 
         add("alchemistry.jei.dissolver.relative", "Relative");
         add("alchemistry.jei.dissolver.absolute", "Absolute");

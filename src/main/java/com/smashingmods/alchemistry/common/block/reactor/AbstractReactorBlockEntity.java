@@ -1,20 +1,29 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
+import java.util.function.Consumer;
+
 import com.mojang.math.Vector3f;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-
-import java.util.function.Consumer;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockEntity implements ReactorBlockEntity {
 
@@ -28,6 +37,13 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     private boolean energyFound;
     private boolean inputFound;
     private boolean outputFound;
+
+    /**
+     * True if the reactor should actively push it's outputs to a connected
+     * container (such as a chest). Otherwise the reactor will only passively
+     * provide it's outputs.
+     */
+    private boolean pushOutputActively = false;
 
     public AbstractReactorBlockEntity(BlockEntityType<?> pBlockEntityType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, pBlockEntityType, pWorldPosition, pBlockState);
@@ -84,6 +100,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                     if (getPowerState().equals(PowerState.ON)) {
                         setPowerState(PowerState.STANDBY);
                     }
+                }
+                if (isPushingOutputActively()) {
+                    tryPushOutputs();
                 }
             } else {
                 setPowerState(PowerState.DISABLED);
@@ -187,6 +206,10 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         this.outputFound = pOutputFound;
     }
 
+    public void setPushingOutputActively(boolean outputActive) {
+        this.pushOutputActively = outputActive;
+    }
+
     @Override
     public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
@@ -270,6 +293,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         if (reactorOutputBlockEntity != null) {
             pTag.put("reactorOutputPos", blockPosToTag(reactorOutputBlockEntity.getBlockPos()));
         }
+        pTag.putBoolean("pushOutputActively", pushOutputActively);
         super.saveAdditional(pTag);
     }
 
@@ -297,6 +321,8 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                 outputFound = false;
             }
         }
+
+        pushOutputActively = pTag.getBoolean("pushOutputActively");
     }
 
     private CompoundTag blockPosToTag(BlockPos pBlockPos) {
@@ -309,5 +335,41 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
 
     private BlockPos blockPosFromTag(CompoundTag pTag) {
         return new BlockPos(pTag.getInt("x"), pTag.getInt("y"), pTag.getInt("z"));
+    }
+
+    public boolean isPushingOutputActively() {
+        return pushOutputActively;
+    }
+
+    public void tryPushOutputs() {
+        if (reactorOutputBlockEntity == null) {
+            return;
+        }
+
+        Direction outputDirection = reactorOutputBlockEntity.getBlockState().getValue(AbstractProcessingBlock.FACING);
+        BlockEntity target = level.getBlockEntity(reactorOutputBlockEntity.getBlockPos().relative(outputDirection));
+
+        if (target == null) {
+            return; // Output pointing to air or a solid block (that doesn't happen to be a container or something)
+        }
+
+        IItemHandler targetHandler = target.getCapability(ForgeCapabilities.ITEM_HANDLER, outputDirection.getOpposite()).orElse(null);
+
+        if (targetHandler != null) {
+            ProcessingSlotHandler outputHandler = getOutputHandler();
+            for (int i = 0; i < outputHandler.getSlots(); i++) {
+                ItemStack outputStack = outputHandler.getStackInSlot(i);
+                if (outputStack.isEmpty()) {
+                    continue; // No need to transfer an empty itemstack
+                }
+                ItemStack remaining = ItemHandlerHelper.insertItem(targetHandler, outputStack, false);
+                if (remaining.getCount() == outputStack.getCount()) {
+                    // Item not transfered - most likely no other items will be transfered either,
+                    // so we can break completely.
+                    break;
+                }
+                outputHandler.setStackInSlot(i, remaining);
+            }
+        }
     }
 }

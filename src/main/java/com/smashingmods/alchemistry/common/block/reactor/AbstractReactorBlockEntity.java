@@ -43,7 +43,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
      * container (such as a chest). Otherwise the reactor will only passively
      * provide it's outputs.
      */
-    private boolean pushOutputActively = false;
+    private boolean autoeject = false;
 
     public AbstractReactorBlockEntity(BlockEntityType<?> pBlockEntityType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(Alchemistry.MODID, pBlockEntityType, pWorldPosition, pBlockState);
@@ -101,8 +101,8 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         setPowerState(PowerState.STANDBY);
                     }
                 }
-                if (isPushingOutputActively()) {
-                    tryPushOutputs();
+                if (isAutoEject()) {
+                    tryEjectOutputs();
                 }
             } else {
                 setPowerState(PowerState.DISABLED);
@@ -206,8 +206,8 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         this.outputFound = pOutputFound;
     }
 
-    public void setPushingOutputActively(boolean outputActive) {
-        this.pushOutputActively = outputActive;
+    public void setAutoeject(boolean autoeject) {
+        this.autoeject = autoeject;
     }
 
     @Override
@@ -293,7 +293,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         if (reactorOutputBlockEntity != null) {
             pTag.put("reactorOutputPos", blockPosToTag(reactorOutputBlockEntity.getBlockPos()));
         }
-        pTag.putBoolean("pushOutputActively", pushOutputActively);
+        pTag.putBoolean("autoeject", autoeject);
         super.saveAdditional(pTag);
     }
 
@@ -322,7 +322,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             }
         }
 
-        pushOutputActively = pTag.getBoolean("pushOutputActively");
+        autoeject = pTag.getBoolean("autoeject");
     }
 
     private CompoundTag blockPosToTag(BlockPos pBlockPos) {
@@ -337,11 +337,11 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         return new BlockPos(pTag.getInt("x"), pTag.getInt("y"), pTag.getInt("z"));
     }
 
-    public boolean isPushingOutputActively() {
-        return pushOutputActively;
+    public boolean isAutoEject() {
+        return autoeject;
     }
 
-    public void tryPushOutputs() {
+    public void tryEjectOutputs() {
         if (reactorOutputBlockEntity == null) {
             return;
         }

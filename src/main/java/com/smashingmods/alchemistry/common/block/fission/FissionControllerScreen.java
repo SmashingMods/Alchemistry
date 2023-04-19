@@ -3,7 +3,7 @@ package com.smashingmods.alchemistry.common.block.fission;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.client.container.button.ReactorOutputBehaviourButton;
+import com.smashingmods.alchemistry.client.container.button.ReactorAutoejectButton;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
@@ -28,7 +28,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final FissionControllerBlockEntity blockEntity;
     private final PauseButton pauseButton = new PauseButton(this);
-    private final ReactorOutputBehaviourButton outputBehaviourButton = new ReactorOutputBehaviourButton(this);
+    private final ReactorAutoejectButton outputBehaviourButton = new ReactorAutoejectButton(this);
 
     public FissionControllerScreen(FissionControllerMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);

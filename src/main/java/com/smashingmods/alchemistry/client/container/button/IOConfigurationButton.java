@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class SideModeConfigurationButton extends AbstractAlchemyButton {
+public class IOConfigurationButton extends AbstractAlchemyButton {
 
-    public SideModeConfigurationButton(AbstractProcessingScreen<?> pParent) {
+    public IOConfigurationButton(AbstractProcessingScreen<?> pParent) {
         super(pParent, pButton -> {
             BlockEntity entity = pParent.getBlockEntity();
             SideModeConfigurationScreen screen = new SideModeConfigurationScreen(entity);

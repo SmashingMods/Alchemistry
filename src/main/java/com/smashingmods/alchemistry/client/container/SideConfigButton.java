@@ -6,19 +6,24 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetSideConfigurationPacket;
+import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.storage.SideMode;
 
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
 class SideConfigButton extends AbstractWidget {
 
+    private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
     private final SideModeConfigurationScreen parentScreen;
     @Nullable
     private final Direction side;
@@ -55,13 +60,19 @@ class SideConfigButton extends AbstractWidget {
             // No box
             break;
         case ENABLED:
-            fill(pPoseStack, x + 4, y + 4, x + width - 4, y + height - 4, 0xFF_00_FF_00); // Green box
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, ICONS_LOCATION);
+            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
             break;
         case PULL:
-            fill(pPoseStack, x + 4, y + 4, x + width - 4, y + height - 4, 0xFF_FF_FF_00); // Yellow box
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, ICONS_LOCATION);
+            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
             break;
         case PUSH:
-            fill(pPoseStack, x + 4, y + 4, x + width - 4, y + height - 4, 0xFF_00_00_FF); // Blue box
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, ICONS_LOCATION);
+            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
             break;
         default:
             throw new AssertionError("Unexpected mode: " + getCurrentMode());

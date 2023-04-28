@@ -4,16 +4,22 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.blockentity.processing.InventoryBlockEntity;
 import com.smashingmods.alchemylib.api.storage.SidedProcessingSlotWrapper;
 
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class SideModeConfigurationScreen extends Screen {
+
+    private static final ResourceLocation TEXTURE_SOURCE = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
 
     // Side mod configuration screen layout:
     // N: North
@@ -62,7 +68,18 @@ public class SideModeConfigurationScreen extends Screen {
     @Override
     public void renderBackground(PoseStack pPoseStack) {
         super.renderBackground(pPoseStack);
-        fill(pPoseStack, getMinX(), getMinY() - 10, getMaxX(), getMaxY(), 0xFF_30_30_30);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, TEXTURE_SOURCE);
+        // Blitting a Ninepatch to screen by hand - because why not?
+        blit(pPoseStack, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
+        blit(pPoseStack, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner
+        blit(pPoseStack, getMaxX(), getMinY() - 14, 4, 4, 5, 146, 4, 4, 256, 256); // Upper right corner
+        blit(pPoseStack, getMaxX(), getMaxY(), 4, 4, 5, 151, 4, 4, 256, 256); // Lower right corner
+        blit(pPoseStack, getMinX(), getMinY() - 14, getMaxX() - getMinX(), 4, 4, 146, 1, 4, 256, 256); // Upper edge
+        blit(pPoseStack, getMinX(), getMaxY(), getMaxX() - getMinX(), 4, 4, 151, 1, 4, 256, 256); // Lower edge
+        blit(pPoseStack, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256); // Left edge
+        blit(pPoseStack, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256); // Right edge
+        blit(pPoseStack, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256); // Fill
     }
 
     public int getRasterStartX() {
@@ -70,7 +87,7 @@ public class SideModeConfigurationScreen extends Screen {
     }
 
     public int getMinX() {
-        return (width - Math.max(3 * 20 + 4, font.width(title))) / 2;
+        return (width - Math.max(3 * 20, font.width(title)) - 4) / 2;
     }
 
     public int getMinY() {
@@ -78,7 +95,7 @@ public class SideModeConfigurationScreen extends Screen {
     }
 
     public int getMaxX() {
-        return (width + Math.max(3 * 20 + 4, font.width(title))) / 2;
+        return (width + Math.max(3 * 20, font.width(title)) + 4) / 2;
     }
 
     public int getMaxY() {

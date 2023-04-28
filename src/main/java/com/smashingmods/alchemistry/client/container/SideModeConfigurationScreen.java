@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.client.container;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
@@ -37,6 +38,8 @@ public class SideModeConfigurationScreen extends Screen {
     private final BlockEntity owner;
     @Nullable
     private List<Component> drawnTooltip = null;
+    private final List<SideConfigButton> buttons = new ArrayList<>();
+    private int focusedButtonIndex = -1;
 
     public SideModeConfigurationScreen(BlockEntity owner) {
         super(Component.translatable("alchemistry.container.sides.title"));
@@ -45,20 +48,28 @@ public class SideModeConfigurationScreen extends Screen {
 
     @Override
     protected void init() {
-        addRenderableWidget(new SideConfigButton(this, 0, 0, Direction.UP));
-        addRenderableWidget(new SideConfigButton(this, 1, 0, Direction.NORTH));
-        addRenderableWidget(new SideConfigButton(this, 0, 1, Direction.WEST));
-        addRenderableWidget(new SideConfigButton(this, 1, 1, null));
-        addRenderableWidget(new SideConfigButton(this, 2, 1, Direction.EAST));
-        addRenderableWidget(new SideConfigButton(this, 1, 2, Direction.SOUTH));
-        addRenderableWidget(new SideConfigButton(this, 2, 2, Direction.DOWN));
+        buttons.clear();
+        focusedButtonIndex = -1;
+        addChildButton(new SideConfigButton(this, 0, 0, Direction.UP));
+        addChildButton(new SideConfigButton(this, 1, 0, Direction.NORTH));
+        addChildButton(new SideConfigButton(this, 0, 1, Direction.WEST));
+        addChildButton(new SideConfigButton(this, 1, 1, null));
+        addChildButton(new SideConfigButton(this, 2, 1, Direction.EAST));
+        addChildButton(new SideConfigButton(this, 1, 2, Direction.SOUTH));
+        addChildButton(new SideConfigButton(this, 2, 2, Direction.DOWN));
+    }
+
+    private void addChildButton(SideConfigButton button) {
+        addWidget(button);
+        addRenderableWidget(button);
+        buttons.add(button);
     }
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         drawnTooltip = null;
         renderBackground(pPoseStack);
-        drawCenteredString(pPoseStack, font, title, width / 2, getMinY() - 5, 0xFF_FF_FF_FF);
+        drawCenteredString(pPoseStack, font, title, width / 2, getMinY() - 7, 0xFF_FFFFFF);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
         if (drawnTooltip != null) {
             renderComponentTooltip(pPoseStack, drawnTooltip, pMouseX, pMouseY);
@@ -112,5 +123,21 @@ public class SideModeConfigurationScreen extends Screen {
 
     public BlockEntity getOwner() {
         return owner;
+    }
+
+    @Override
+    public boolean changeFocus(boolean pFocus) {
+        if (!pFocus) {
+            return super.changeFocus(pFocus);
+        }
+        if (focusedButtonIndex != -1) {
+            buttons.get(focusedButtonIndex).changeFocus(true); // Revoke focus from the currently focused button
+        }
+        if (++focusedButtonIndex == buttons.size()) {
+            focusedButtonIndex = 0;
+        }
+        setFocused(buttons.get(focusedButtonIndex));
+        buttons.get(focusedButtonIndex).changeFocus(true);
+        return true;
     }
 }

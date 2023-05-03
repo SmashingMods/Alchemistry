@@ -29,9 +29,11 @@ public class ReactorInputBlockEntity extends BlockEntity {
     }
 
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
-        this.controller = pController;
-        //noinspection ConstantConditions
-        this.lazyInputHandler = LazyOptional.of(() -> controller.getInputHandler());
+        if (this.controller != pController) {
+            this.controller = pController;
+            //noinspection ConstantConditions
+            this.lazyInputHandler = LazyOptional.of(() -> controller.getInputHandler());
+        }
     }
 
     public void onControllerRemoved() {

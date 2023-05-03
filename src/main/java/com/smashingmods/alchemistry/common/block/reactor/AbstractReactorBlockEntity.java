@@ -1,7 +1,5 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import java.util.function.Consumer;
-
 import com.mojang.math.Vector3f;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
@@ -9,7 +7,6 @@ import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -21,9 +18,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+
+import java.util.function.Consumer;
 
 public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockEntity implements ReactorBlockEntity {
 
@@ -341,6 +340,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         return autoeject;
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void tryEjectOutputs() {
         if (reactorOutputBlockEntity == null) {
             return;
@@ -353,7 +353,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             return; // Output pointing to air or a solid block (that doesn't happen to be a container or something)
         }
 
-        IItemHandler targetHandler = target.getCapability(ForgeCapabilities.ITEM_HANDLER, outputDirection.getOpposite()).orElse(null);
+        IItemHandler targetHandler = target.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, outputDirection.getOpposite()).orElse(null);
 
         if (targetHandler != null) {
             ProcessingSlotHandler outputHandler = getOutputHandler();

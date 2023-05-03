@@ -29,9 +29,11 @@ public class ReactorEnergyBlockEntity extends BlockEntity {
     }
 
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
-        this.controller = pController;
-        //noinspection ConstantConditions
-        this.lazyEnergyHandler = LazyOptional.of(() -> controller.getEnergyHandler());
+        if (this.controller != pController) {
+            this.controller = pController;
+            //noinspection ConstantConditions
+            this.lazyEnergyHandler = LazyOptional.of(() -> controller.getEnergyHandler());
+        }
     }
 
     @Nonnull

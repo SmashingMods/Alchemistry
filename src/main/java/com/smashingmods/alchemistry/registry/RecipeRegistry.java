@@ -16,9 +16,13 @@ import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -153,6 +157,39 @@ public class RecipeRegistry {
 
     public static Optional<LiquifierRecipe> getLiquifierRecipe(Predicate<LiquifierRecipe> pPredicate, Level pLevel) {
         return getLiquifierRecipes(pLevel).stream().filter(pPredicate).findFirst();
+    }
+
+    /**
+     * Attach a ReloadListener that clears the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
+     * {@link RecipeRegistry#recipeGroupMap recipeGroupMap} so that data pack reloading takes effect immediately.
+     * @implNote This event handler just clears the internal maps, but a better version might update them in-place.
+     *           That said, datapack reloads don't actually occur that often in regular play, so there is little point
+     *           over-engineering this.
+     * @param event the AddReloadListener event.
+     */
+    public static void postReload(final AddReloadListenerEvent event) {
+        event.addListener(new SimplePreparableReloadListener<Boolean>() {
+            @Override
+            public String getName() {
+                return "Alchemistry Cache Invalidator";
+            }
+
+            // Runs in the thread pool, figures out whether anything in non-standard Packs changed.
+            @Override
+            protected Boolean prepare(ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+                // Always clear the maps on reload.
+                return true;
+            }
+
+            // Runs on main thread; does the actual cache invalidation.
+            @Override
+            protected void apply(Boolean pShouldClear, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
+                if (pShouldClear) {
+                    recipeTypeMap.clear();
+                    recipeGroupMap.clear();
+                }
+            }
+        });
     }
 
     public static void register(IEventBus eventBus) {

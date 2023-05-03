@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
+import com.smashingmods.alchemistry.client.container.button.IOConfigurationButton;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
@@ -32,6 +33,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     private final LockButton lockButton = new LockButton(this);
     private final PauseButton pauseButton = new PauseButton(this);
+    private final IOConfigurationButton sideConfigButton = new IOConfigurationButton(this);
 
     private final RecipeSelectorScreen<CompactorScreen, CompactorBlockEntity, CompactorRecipe> recipeSelectorScreen;
     private final RecipeSelectorButton recipeSelector;
@@ -55,6 +57,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         widgets.add(lockButton);
         widgets.add(pauseButton);
         widgets.add(recipeSelector);
+        widgets.add(sideConfigButton);
         super.init();
     }
 

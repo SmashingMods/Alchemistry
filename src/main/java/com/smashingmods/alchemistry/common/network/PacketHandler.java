@@ -11,7 +11,7 @@ public class PacketHandler extends AbstractPacketHandler {
     private final SimpleChannel simpleChannel;
 
     public PacketHandler() {
-        this.simpleChannel = createChannel(new ResourceLocation(Alchemistry.MODID, "main"), "1.0.0");
+        this.simpleChannel = createChannel(new ResourceLocation(Alchemistry.MODID, "main"), "1.1.0");
     }
 
     @Override
@@ -24,6 +24,7 @@ public class PacketHandler extends AbstractPacketHandler {
         registerMessage(FissionTransferPacket.class, FissionTransferPacket::new);
         registerMessage(FusionTransferPacket.class, FusionTransferPacket::new);
         registerMessage(LiquifierTransferPacket.class, LiquifierTransferPacket::new);
+        registerMessage(SetSideConfigurationPacket.class, SetSideConfigurationPacket::new);
         return this;
     }
 

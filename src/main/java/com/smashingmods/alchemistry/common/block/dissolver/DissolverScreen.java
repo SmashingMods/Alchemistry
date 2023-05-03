@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.client.container.button.IOConfigurationButton;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
 import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDisplayData;
@@ -23,6 +24,7 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final PauseButton pauseButton = new PauseButton(this);
+    private final IOConfigurationButton sideConfigButton = new IOConfigurationButton(this);
 
     public DissolverScreen(DissolverMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
@@ -35,6 +37,7 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
     @Override
     protected void init() {
         widgets.add(pauseButton);
+        widgets.add(sideConfigButton);
         super.init();
     }
 

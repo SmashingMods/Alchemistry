@@ -3,13 +3,18 @@ package com.smashingmods.alchemistry.datagen;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
+import com.smashingmods.alchemylib.api.storage.SideMode;
+
+import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
 import org.apache.commons.lang3.text.WordUtils;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class LocalizationGenerator extends LanguageProvider {
@@ -45,6 +50,26 @@ public class LocalizationGenerator extends LanguageProvider {
 
         add("tooltip.alchemistry.energy_requirement", "Requires %d FE/t");
         add("tooltip.alchemistry.requires", "Requires");
+
+        for (Direction direction : Direction.values()) {
+            String key = "alchemistry.container.sides." + direction.getSerializedName();
+            String value;
+            if (direction == Direction.UP) {
+                value = "Top";
+            } else if (direction == Direction.DOWN) {
+                value = "Bottom";
+            } else {
+                value = WordUtils.capitalize(direction.getName());
+            }
+            add(key, value);
+        }
+        add("alchemistry.container.sides.external", "External access");
+        for (SideMode mode : SideMode.values()) {
+            add("alchemistry.container.sides.mode." + mode.name().toLowerCase(Locale.ROOT), WordUtils.capitalize(mode.name().toLowerCase(Locale.ROOT)));
+        }
+        add("alchemistry.container.sides.current", "Currently: ");
+        add("alchemistry.container.sides.title", "Configure Input/Output Sides");
+        add("alchemistry.container.sides.button", "Input/Output Configuration");
 
         add("alchemistry.container.search", "Search...");
         add("alchemistry.container.select_recipe", "Select recipe:");

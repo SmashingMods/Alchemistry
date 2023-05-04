@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import com.mojang.math.Vector3f;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
@@ -139,11 +140,10 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorEnergyBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
-                            BlockState energyState = level.getBlockState(blockPos);
-                            level.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
-                            level.setBlockAndUpdate(blockPos, energyState);
                             setEnergyFound(true);
                             reactorEnergyBlockEntity = (ReactorEnergyBlockEntity) level.getBlockEntity(blockPos);
+                            reactorEnergyBlockEntity.setController(this);
+                            level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_ENERGY.get());
                         });
             } else {
                 reactorEnergyBlockEntity.setController(this);
@@ -154,11 +154,10 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorInputBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
-                            BlockState inputState = level.getBlockState(blockPos);
-                            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 7);
-                            level.setBlock(blockPos, inputState, 7);
                             inputFound = true;
                             reactorInputBlockEntity = (ReactorInputBlockEntity) level.getBlockEntity(blockPos);
+                            reactorInputBlockEntity.setController(this);
+                            level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_INPUT.get());
                         });
             } else {
                 reactorInputBlockEntity.setController(this);
@@ -170,11 +169,10 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .filter(blockPos -> level.getBlockEntity(blockPos) instanceof ReactorOutputBlockEntity)
                         .findFirst()
                         .ifPresent(blockPos -> {
-                            BlockState outputState = level.getBlockState(blockPos);
-                            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), 7);
-                            level.setBlock(blockPos, outputState, 7);
                             outputFound = true;
                             reactorOutputBlockEntity = (ReactorOutputBlockEntity) level.getBlockEntity(blockPos);
+                            reactorOutputBlockEntity.setController(this);
+                            level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_OUTPUT.get());
                         });
             } else {
                 reactorOutputBlockEntity.setController(this);

@@ -29,6 +29,10 @@ public class ReactorOutputBlockEntity extends BlockEntity {
     }
 
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
+        if (this.controller == pController) {
+            // No need to create superfluous LazyOptional instances
+            return;
+        }
         this.controller = pController;
         //noinspection ConstantConditions
         this.lazyOutputHandler = LazyOptional.of(() -> controller.getOutputHandler());

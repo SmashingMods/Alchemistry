@@ -75,12 +75,13 @@ public class RecipeRegistry {
     private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new LinkedHashMap<>();
 
     private static <T extends AbstractProcessingRecipe> RegistryObject<RecipeType<T>> registerRecipeType(String pType) {
-        return RECIPE_TYPES.register(pType, () -> new RecipeType<>() {
+        RecipeType<T> type = new RecipeType<>() {
             @Override
             public String toString() {
                 return pType;
             }
-        });
+        };
+        return RECIPE_TYPES.register(pType, () -> type);
     }
 
     /**

@@ -46,13 +46,14 @@
           ]
         ],
         "mapping": {
-          "X": "alchemistry:fusion_chamber_controller[facing=south]",
+          "X": "alchemistry:fusion_chamber_controller[facing=east]",
           "F": "alchemistry:fusion_core",
-          "E": "alchemistry:reactor_energy",
-          "I": "alchemistry:reactor_input",
-          "O": "alchemistry:reactor_output",
+          "E": "alchemistry:reactor_energy[facing=east]",
+          "I": "alchemistry:reactor_input[facing=east]",
+          "O": "alchemistry:reactor_output[facing=east]",
           "C": "alchemistry:reactor_casing",
-          "G": "alchemistry:reactor_glass"
+          "G": "alchemistry:reactor_glass",
+          "0": "alchemistry:reactor_casing"
         }
       }
     },

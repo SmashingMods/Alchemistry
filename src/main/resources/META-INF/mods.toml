@@ -16,7 +16,7 @@ Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to 
 [[dependencies.alchemistry]]
     modId="forge"
     mandatory=true
-    versionRange="[43.1.1,)"
+    versionRange="[43.2.0,)"
     ordering="NONE"
     side="BOTH"
 
@@ -30,13 +30,13 @@ Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to 
 [[dependencies.alchemistry]]
     modId="chemlib"
     mandatory=true
-    versionRange="[1.19.2-2.0.13,)"
+    versionRange="[1.19.2-2.0.17,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.alchemistry]]
     modId="alchemylib"
     mandatory=true
-    versionRange="[1.19.2-1.0.18,)"
+    versionRange="[1.19.2-1.0.21,)"
     ordering="NONE"
     side="BOTH"

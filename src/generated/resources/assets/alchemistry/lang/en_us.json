@@ -1,5 +1,9 @@
 {
   "alchemistry.container.atomizer": "Atomizer",
+  "alchemistry.container.autoeject.title.disabled": "Auto-eject disabled",
+  "alchemistry.container.autoeject.title.enabled": "Auto-eject enabled",
+  "alchemistry.container.autoeject.tooltip.disabled": "Outputs are currently not inserted in nearby containers",
+  "alchemistry.container.autoeject.tooltip.enabled": "Outputs are put in containers which are next to the output block",
   "alchemistry.container.combiner": "Combiner",
   "alchemistry.container.compactor": "Compactor",
   "alchemistry.container.current_recipe": "Current recipe:",

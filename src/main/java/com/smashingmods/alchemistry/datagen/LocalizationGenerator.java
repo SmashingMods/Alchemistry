@@ -80,6 +80,10 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.container.nothing", "Nothing");
         add("alchemistry.container.enable_autobalance", "Enable Auto-Balance");
         add("alchemistry.container.disable_autobalance", "Disable Auto-Balance");
+        add("alchemistry.container.autoeject.title.enabled", "Auto-eject enabled");
+        add("alchemistry.container.autoeject.title.disabled", "Auto-eject disabled");
+        add("alchemistry.container.autoeject.tooltip.enabled", "Outputs are put in containers which are next to the output block");
+        add("alchemistry.container.autoeject.tooltip.disabled", "Outputs are currently not inserted in nearby containers");
 
         add("alchemistry.jei.dissolver.relative", "Relative");
         add("alchemistry.jei.dissolver.absolute", "Absolute");

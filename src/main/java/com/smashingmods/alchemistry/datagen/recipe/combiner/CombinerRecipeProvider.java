@@ -4,7 +4,7 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -97,7 +97,7 @@ public class CombinerRecipeProvider {
             } else if (obj instanceof IngredientStack ingredientStack) {
                 ingredientStackList.add(ingredientStack);
             } else if (obj instanceof String itemTag) {
-                TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(itemTag));
+                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(itemTag));
                 ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
             }
         }
@@ -116,7 +116,7 @@ public class CombinerRecipeProvider {
             if (obj instanceof ItemStack itemStack) {
                 ingredientStackList.add(new IngredientStack(itemStack));
             } else if (obj instanceof String itemTag) {
-                TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(itemTag));
+                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(itemTag));
                 ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
             }
         }

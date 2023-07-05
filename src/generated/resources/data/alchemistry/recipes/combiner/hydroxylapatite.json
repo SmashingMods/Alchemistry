@@ -9,15 +9,15 @@
       }
     },
     {
-      "count": 6,
-      "ingredient": {
-        "item": "chemlib:phosphate"
-      }
-    },
-    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:hydroxide"
+      }
+    },
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "chemlib:phosphate"
       }
     }
   ],

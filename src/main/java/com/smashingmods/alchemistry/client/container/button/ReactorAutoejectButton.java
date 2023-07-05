@@ -1,18 +1,16 @@
 package com.smashingmods.alchemistry.client.container.button;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.network.ToggleReactorAutoejectPacket;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.button.AbstractAlchemyButton;
-
 import net.minecraft.network.chat.Component;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 
 public class ReactorAutoejectButton extends AbstractAlchemyButton {
 
@@ -40,7 +38,7 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
     @Override
     public void renderButton(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.renderButton(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        blit(pPoseStack, x, y, 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
+        blit(pPoseStack, getX(), getY(), 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
         renderButtonTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
@@ -52,7 +50,7 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
         // forge does. As a workaround we "wrap" manually simply by using a list of components.
         // As such we invoke Screen#renderComponentTooltip directly and give it the list of components.
 
-        if (pMouseX >= x && pMouseX <= x + width && pMouseY >= y && pMouseY <= y + height) {
+        if (pMouseX >= getX() && pMouseX <= getX() + width && pMouseY >= getX() && pMouseY <= getX() + height) {
             boolean autoeject = ((AbstractReactorBlockEntity) blockEntity).isAutoEject();
             parent.renderComponentTooltip(pPoseStack, autoeject ? TOOLTIP_ENABLED : TOOLTIP_DISABLED, pMouseX, pMouseY);
         }

@@ -7,7 +7,7 @@ import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -57,7 +57,7 @@ public class LiquifierRecipeProvider {
 
     @SuppressWarnings("unused")
     private void liquifier(String pItemTag, FluidStack pOutput) {
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pItemTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pItemTag));
         liquifier(new IngredientStack(Ingredient.of(tagKey)), pOutput);
     }
 

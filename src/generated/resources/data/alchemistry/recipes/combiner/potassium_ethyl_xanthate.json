@@ -17,13 +17,13 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:water"
+        "item": "chemlib:carbon_disulfide"
       }
     },
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:carbon_disulfide"
+        "item": "chemlib:water"
       }
     }
   ],

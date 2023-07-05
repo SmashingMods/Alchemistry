@@ -5,7 +5,7 @@
     {
       "count": 8,
       "ingredient": {
-        "item": "chemlib:magnesium_oxide"
+        "item": "chemlib:aluminum_oxide"
       }
     },
     {
@@ -15,15 +15,15 @@
       }
     },
     {
-      "count": 8,
-      "ingredient": {
-        "item": "chemlib:aluminum_oxide"
-      }
-    },
-    {
       "count": 24,
       "ingredient": {
         "item": "chemlib:silicon_dioxide"
+      }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:magnesium_oxide"
       }
     }
   ],

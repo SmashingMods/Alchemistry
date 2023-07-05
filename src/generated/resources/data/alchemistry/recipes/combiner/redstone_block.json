@@ -5,13 +5,13 @@
     {
       "count": 9,
       "ingredient": {
-        "item": "chemlib:iron_oxide"
+        "item": "chemlib:strontium_carbonate"
       }
     },
     {
       "count": 9,
       "ingredient": {
-        "item": "chemlib:strontium_carbonate"
+        "item": "chemlib:iron_oxide"
       }
     }
   ],

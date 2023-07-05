@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "alchemistry:combiner/diamond"
+        "recipe": "alchemistry:compactor/blue_ice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:diamond"
+      "alchemistry:blue_ice"
     ]
   }
 }

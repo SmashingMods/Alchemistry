@@ -4,14 +4,12 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemylib.api.storage.SideMode;
-
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Locale;
@@ -19,8 +17,8 @@ import java.util.Objects;
 
 public class LocalizationGenerator extends LanguageProvider {
 
-    public LocalizationGenerator(DataGenerator gen, String locale) {
-        super(gen, Alchemistry.MODID, locale);
+    public LocalizationGenerator(PackOutput pOutput) {
+        super(pOutput, Alchemistry.MODID, "en_us");
     }
 
     @SuppressWarnings("deprecation")
@@ -42,7 +40,7 @@ public class LocalizationGenerator extends LanguageProvider {
                     path = path.replace("_menu", "");
                     String translation = WordUtils.capitalize(path.replace("_", " "));
                     add(String.format("alchemistry.container.%s", path), translation);
-                    // weird place to put this, but gives all of the stuff we want!
+                    // weird place to put this, but gives all the stuff we want!
                     add(String.format("alchemistry.jei.%s", path), translation);
                 });
 

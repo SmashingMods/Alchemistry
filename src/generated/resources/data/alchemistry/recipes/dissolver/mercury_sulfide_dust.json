@@ -4,7 +4,7 @@
   "input": {
     "count": 1,
     "ingredient": {
-      "item": "minecraft:pumpkin_seeds"
+      "item": "chemlib:mercury_sulfide_dust"
     }
   },
   "output": {
@@ -13,7 +13,8 @@
         "probability": 100.0,
         "results": [
           {
-            "item": "chemlib:cellulose"
+            "count": 8,
+            "item": "chemlib:mercury_sulfide"
           }
         ]
       }

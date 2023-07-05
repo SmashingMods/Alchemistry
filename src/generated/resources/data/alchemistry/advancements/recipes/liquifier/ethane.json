@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "alchemistry:liquifier/methane_fluid"
+        "recipe": "alchemistry:liquifier/ethane_fluid"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "chemlib:methane_fluid"
+      "chemlib:ethane_fluid"
     ]
   }
 }

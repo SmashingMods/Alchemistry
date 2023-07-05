@@ -5,7 +5,7 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
 import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -24,8 +24,8 @@ import java.util.function.Function;
 
 public class BlockStateGenerator extends BlockStateProvider {
 
-    public BlockStateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Alchemistry.MODID, exFileHelper);
+    public BlockStateGenerator(PackOutput pOutput, ExistingFileHelper exFileHelper) {
+        super(pOutput, Alchemistry.MODID, exFileHelper);
     }
 
     @Override
@@ -49,14 +49,7 @@ public class BlockStateGenerator extends BlockStateProvider {
         registerReactorIOModels();
     }
 
-    private void registerSimpleBlock(RegistryObject<Block> pBlock) {
-        simpleBlock(pBlock.get());
-        registerBlockItemModel(pBlock);
-    }
-
     private void registerSimpleBlockWithRenderType(RegistryObject<Block> pBlock, String pRenderType) {
-//        ConfiguredModel.builder().modelFile(models().cubeAll("", blockTexture(pBlock.get())).renderType(pRenderType)).build();
-
         ConfiguredModel[] model = ConfiguredModel.builder().modelFile(models().withExistingParent(pBlock.getId().getPath(), mcLoc("block/cube_all"))
                         .renderType(pRenderType)
                         .texture("all", blockTexture(pBlock.get())))

@@ -3,6 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 16,
+      "ingredient": {
+        "item": "chemlib:water"
+      }
+    },
+    {
       "count": 8,
       "ingredient": {
         "item": "chemlib:kaolinite"
@@ -12,12 +18,6 @@
       "count": 8,
       "ingredient": {
         "item": "chemlib:calcium_carbonate"
-      }
-    },
-    {
-      "count": 16,
-      "ingredient": {
-        "item": "chemlib:water"
       }
     }
   ],

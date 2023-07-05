@@ -5,13 +5,13 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:silicon_dioxide"
+        "item": "chemlib:lead_oxide"
       }
     },
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:lead_oxide"
+        "item": "chemlib:silicon_dioxide"
       }
     }
   ],

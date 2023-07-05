@@ -5,6 +5,12 @@
     {
       "count": 2,
       "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
         "item": "chemlib:carbon"
       }
     },
@@ -12,12 +18,6 @@
       "count": 4,
       "ingredient": {
         "item": "chemlib:hydrogen"
-      }
-    },
-    {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:oxygen"
       }
     }
   ],

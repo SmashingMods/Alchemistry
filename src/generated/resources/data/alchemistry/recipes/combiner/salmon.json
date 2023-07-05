@@ -5,13 +5,13 @@
     {
       "count": 4,
       "ingredient": {
-        "item": "chemlib:protein"
+        "item": "chemlib:selenium"
       }
     },
     {
       "count": 4,
       "ingredient": {
-        "item": "chemlib:selenium"
+        "item": "chemlib:protein"
       }
     }
   ],

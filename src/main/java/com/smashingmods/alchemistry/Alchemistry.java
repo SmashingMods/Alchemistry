@@ -8,7 +8,6 @@ import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
-import com.smashingmods.alchemistry.datagen.DataGenerators;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.registry.Registry;
@@ -34,7 +33,6 @@ public class Alchemistry {
 
     public Alchemistry() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(DataGenerators::gatherData);
         modEventBus.addListener(this::clientSetupEvent);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));

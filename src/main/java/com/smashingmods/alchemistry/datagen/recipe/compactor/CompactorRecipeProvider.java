@@ -10,7 +10,7 @@ import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -168,14 +168,14 @@ public class CompactorRecipeProvider {
 
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, ItemStack pOutput) {
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
         Ingredient ingredient = Ingredient.of(tagKey);
         compactor(ingredient, pOutput);
     }
 
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
         compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
     }
 
@@ -194,7 +194,7 @@ public class CompactorRecipeProvider {
 
     @SuppressWarnings("SameParameterValue")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(pInputTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
         compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, pCondition);
     }
 

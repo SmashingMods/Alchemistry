@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "alchemistry:combiner/packed_ice"
+        "recipe": "alchemistry:compactor/packed_ice"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:packed_ice"
+      "alchemistry:packed_ice"
     ]
   }
 }

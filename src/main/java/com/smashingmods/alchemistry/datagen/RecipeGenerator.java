@@ -11,22 +11,24 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
-public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
-
-    public RecipeProvider(DataGenerator generatorIn) {
-        super(generatorIn);
+public class RecipeGenerator extends RecipeProvider {
+    public RecipeGenerator(PackOutput pOutput) {
+        super(pOutput);
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> pConsumer) {
+    protected void buildRecipes(@Nonnull Consumer<FinishedRecipe> pConsumer) {
         AtomizerRecipeProvider.register(pConsumer);
         CompactorRecipeProvider.register(pConsumer);
         CombinerRecipeProvider.register(pConsumer);
@@ -41,7 +43,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
     private void generateMachineRecipes(Consumer<FinishedRecipe> pConsumer) {
 
         Item atomizer = BlockRegistry.ATOMIZER.get().asItem();
-        ShapedRecipeBuilder.shaped(atomizer)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, atomizer)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('P', Items.PISTON)
@@ -54,7 +56,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item liquifier = BlockRegistry.LIQUIFIER.get().asItem();
-        ShapedRecipeBuilder.shaped(liquifier)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, liquifier)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('P', Items.PISTON)
@@ -68,7 +70,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item combiner = BlockRegistry.COMBINER.get().asItem();
-        ShapedRecipeBuilder.shaped(combiner)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, combiner)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('P', Items.PISTON)
@@ -82,7 +84,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item compactor = BlockRegistry.COMPACTOR.get().asItem();
-        ShapedRecipeBuilder.shaped(compactor)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, compactor)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('P', Items.PISTON)
@@ -95,7 +97,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item dissolver = BlockRegistry.DISSOLVER.get().asItem();
-        ShapedRecipeBuilder.shaped(dissolver)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, dissolver)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('P', Items.PISTON)
@@ -108,7 +110,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item reactorCasing = BlockRegistry.REACTOR_CASING.get().asItem();
-        ShapedRecipeBuilder.shaped(reactorCasing, 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, reactorCasing, 4)
                 .group("machines")
                 .define('O', ItemRegistry.getChemicalItemByNameAndType("osmium", ChemicalItemType.INGOT).get())
                 .define('P', ItemRegistry.getChemicalItemByNameAndType("platinum", ChemicalItemType.INGOT).get())
@@ -120,7 +122,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item reactorInput = BlockRegistry.REACTOR_INPUT.get().asItem();
-        ShapedRecipeBuilder.shaped(reactorInput)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, reactorInput)
                 .group("machines")
                 .define('H', Items.HOPPER)
                 .define('C', reactorCasing)
@@ -131,7 +133,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item reactorOutput = BlockRegistry.REACTOR_OUTPUT.get().asItem();
-        ShapedRecipeBuilder.shaped(reactorOutput)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, reactorOutput)
                 .group("machines")
                 .define('D', Items.DROPPER)
                 .define('C', reactorCasing)
@@ -142,7 +144,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item reactorEnergy = BlockRegistry.REACTOR_ENERGY.get().asItem();
-        ShapedRecipeBuilder.shaped(reactorEnergy)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, reactorEnergy)
                 .group("machines")
                 .define('D', Items.REDSTONE)
                 .define('C', reactorCasing)
@@ -153,7 +155,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item fissionController = BlockRegistry.FISSION_CONTROLLER.get().asItem();
-        ShapedRecipeBuilder.shaped(fissionController)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fissionController)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('R', Items.REDSTONE)
@@ -167,7 +169,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item fusionController = BlockRegistry.FUSION_CONTROLLER.get().asItem();
-        ShapedRecipeBuilder.shaped(fusionController)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fusionController)
                 .group("machines")
                 .define('I', Items.IRON_INGOT)
                 .define('R', Items.REDSTONE)
@@ -181,7 +183,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item fissionCore = BlockRegistry.FISSION_CORE.get().asItem();
-        ShapedRecipeBuilder.shaped(fissionCore)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fissionCore)
                 .group("machines")
                 .define('Y', ItemRegistry.getChemicalItemByNameAndType("yttrium", ChemicalItemType.INGOT).get())
                 .define('B', Items.BLAZE_ROD)
@@ -192,7 +194,7 @@ public class RecipeProvider extends net.minecraft.data.recipes.RecipeProvider {
                 .save(pConsumer);
 
         Item fusionCore = BlockRegistry.FUSION_CORE.get().asItem();
-        ShapedRecipeBuilder.shaped(fusionCore)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, fusionCore)
                 .group("machines")
                 .define('T', ItemRegistry.getChemicalItemByNameAndType("tungsten", ChemicalItemType.INGOT).get())
                 .define('N', Items.NETHERITE_SCRAP)

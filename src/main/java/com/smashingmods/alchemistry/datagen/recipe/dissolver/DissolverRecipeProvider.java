@@ -7,7 +7,7 @@ import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilde
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -74,13 +74,13 @@ public class DissolverRecipeProvider {
 
     public void dissolver(String pItemTag, ProbabilitySet pSet) {
         ResourceLocation itemId = new ResourceLocation(pItemTag);
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, itemId);
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, itemId);
         dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId);
     }
 
     public void dissolver(String pItemTag, ProbabilitySet pSet, ICondition pCondition) {
         ResourceLocation itemId = new ResourceLocation(pItemTag);
-        TagKey<Item> tagKey = TagKey.create(Registry.ITEM_REGISTRY, itemId);
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, itemId);
         dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId, pCondition);
     }
 

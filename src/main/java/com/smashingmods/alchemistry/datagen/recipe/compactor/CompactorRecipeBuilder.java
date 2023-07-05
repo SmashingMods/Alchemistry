@@ -11,10 +11,8 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CompactorRecipeBuilder implements RecipeBuilder {
@@ -56,9 +54,6 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
-
-        Objects.requireNonNull(result.getItem().getItemCategory());
-
         String advancementPath = String.format("recipes/compactor/%s", pRecipeId.getPath());
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", pRecipeId.getPath()));
         ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, advancementPath);

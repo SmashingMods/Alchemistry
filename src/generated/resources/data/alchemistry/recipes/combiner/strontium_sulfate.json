@@ -3,6 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
       "count": 1,
       "ingredient": {
         "item": "chemlib:strontium"
@@ -12,12 +18,6 @@
       "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
-      }
-    },
-    {
-      "count": 4,
-      "ingredient": {
-        "item": "chemlib:oxygen"
       }
     }
   ],

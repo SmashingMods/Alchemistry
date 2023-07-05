@@ -3,15 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 3,
+      "count": 18,
       "ingredient": {
-        "item": "chemlib:beryllium"
-      }
-    },
-    {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:aluminum"
+        "item": "chemlib:oxygen"
       }
     },
     {
@@ -21,9 +15,15 @@
       }
     },
     {
-      "count": 18,
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:aluminum"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "chemlib:beryllium"
       }
     }
   ],

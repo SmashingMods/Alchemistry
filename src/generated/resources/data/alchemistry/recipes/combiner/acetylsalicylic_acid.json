@@ -3,9 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 9,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:carbon"
+        "item": "chemlib:oxygen"
       }
     },
     {
@@ -15,9 +15,9 @@
       }
     },
     {
-      "count": 4,
+      "count": 9,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:carbon"
       }
     }
   ],

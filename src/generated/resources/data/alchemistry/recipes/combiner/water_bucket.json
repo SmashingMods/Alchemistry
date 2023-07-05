@@ -3,15 +3,15 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 16,
-      "ingredient": {
-        "item": "chemlib:water"
-      }
-    },
-    {
       "count": 1,
       "ingredient": {
         "item": "minecraft:bucket"
+      }
+    },
+    {
+      "count": 16,
+      "ingredient": {
+        "item": "chemlib:water"
       }
     }
   ],

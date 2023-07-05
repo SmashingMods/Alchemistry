@@ -5,7 +5,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:water"
+        "item": "chemlib:kaolinite"
       }
     },
     {
@@ -17,7 +17,7 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:kaolinite"
+        "item": "chemlib:water"
       }
     }
   ],

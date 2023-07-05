@@ -5,13 +5,13 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:cadmium"
+        "item": "chemlib:sulfur"
       }
     },
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:cadmium"
       }
     }
   ],

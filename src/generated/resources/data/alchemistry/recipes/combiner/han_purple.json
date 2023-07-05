@@ -3,18 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:barium"
-      }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:copper"
-      }
-    },
-    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:silicon"
@@ -24,6 +12,18 @@
       "count": 6,
       "ingredient": {
         "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:copper"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:barium"
       }
     }
   ],

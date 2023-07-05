@@ -9,6 +9,6 @@
   },
   "result": {
     "amount": "500",
-    "fluid": "chemlib:methane_fluid"
+    "fluid": "chemlib:ethane_fluid"
   }
 }

@@ -1,18 +1,27 @@
 package com.smashingmods.alchemistry.datagen;
 
 import com.smashingmods.alchemistry.registry.BlockRegistry;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
-public class BlockLootTables extends BlockLoot {
+import javax.annotation.Nonnull;
+import java.util.Set;
 
-    @Override
-    protected void addTables() {
-        BlockRegistry.BLOCKS.getEntries().forEach(registryObject -> dropSelf(registryObject.get()));
+public class BlockLootTables extends BlockLootSubProvider {
+
+    public BlockLootTables() {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
     }
 
     @Override
+    protected void generate() {
+        BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(this::dropSelf);
+    }
+
+    @Override
+    @Nonnull
     protected Iterable<Block> getKnownBlocks() {
         return BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
     }

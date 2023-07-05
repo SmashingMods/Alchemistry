@@ -2,10 +2,10 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
+    "count": 9,
     "ingredient": {
       "item": "minecraft:packed_ice"
-    },
-    "count": 9
+    }
   },
   "result": {
     "item": "minecraft:blue_ice"

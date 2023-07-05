@@ -12,7 +12,7 @@ import com.smashingmods.alchemylib.api.recipe.ProcessingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
@@ -263,22 +263,22 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         blit(pPoseStack, pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
     }
 
-    public <W extends GuiEventListener & Widget & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
+    public <W extends GuiEventListener & Renderable & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
         if (!renderables.contains(pWidget)) {
             if (pWidget instanceof AbstractWidget widget) {
-                widget.x = pX;
-                widget.y = pY;
+                widget.setX(pX);
+                widget.setY(pY);
             }
             addRenderableWidget(pWidget);
         }
     }
 
     public void renderParentTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        for (Widget renderable : parentScreen.renderables) {
+        for (Renderable renderable : parentScreen.renderables) {
             if (renderable instanceof AbstractWidget widget) {
-                int xStart = widget.x;
+                int xStart = widget.getX();
                 int xEnd = xStart + widget.getWidth();
-                int yStart = widget.y;
+                int yStart = widget.getY();
                 int yEnd = yStart + widget.getHeight();
 
                 if (pMouseX > xStart && pMouseX < xEnd && pMouseY > yStart && pMouseY < yEnd) {
@@ -354,11 +354,11 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             }
         }
 
-        for (Widget renderable : parentScreen.renderables) {
+        for (Renderable renderable : parentScreen.renderables) {
             if (renderable instanceof AbstractWidget widget) {
-                int xStart = widget.x;
+                int xStart = widget.getX();
                 int xEnd = xStart + widget.getWidth();
-                int yStart = widget.y;
+                int yStart = widget.getY();
                 int yEnd = yStart + widget.getHeight();
 
                 if (pMouseX > xStart && pMouseX < xEnd && pMouseY > yStart && pMouseY < yEnd) {

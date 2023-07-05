@@ -1,8 +1,5 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
-import java.util.function.Consumer;
-
-import com.mojang.math.Vector3f;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
@@ -10,7 +7,6 @@ import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryBlockEntity;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -25,6 +21,9 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.joml.Vector3f;
+
+import java.util.function.Consumer;
 
 public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockEntity implements ReactorBlockEntity {
 
@@ -142,7 +141,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .ifPresent(blockPos -> {
                             setEnergyFound(true);
                             reactorEnergyBlockEntity = (ReactorEnergyBlockEntity) level.getBlockEntity(blockPos);
-                            reactorEnergyBlockEntity.setController(this);
+                            if (reactorEnergyBlockEntity != null) {
+                                reactorEnergyBlockEntity.setController(this);
+                            }
                             level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_ENERGY.get());
                         });
             } else {
@@ -156,7 +157,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .ifPresent(blockPos -> {
                             inputFound = true;
                             reactorInputBlockEntity = (ReactorInputBlockEntity) level.getBlockEntity(blockPos);
-                            reactorInputBlockEntity.setController(this);
+                            if (reactorInputBlockEntity != null) {
+                                reactorInputBlockEntity.setController(this);
+                            }
                             level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_INPUT.get());
                         });
             } else {
@@ -171,7 +174,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                         .ifPresent(blockPos -> {
                             outputFound = true;
                             reactorOutputBlockEntity = (ReactorOutputBlockEntity) level.getBlockEntity(blockPos);
-                            reactorOutputBlockEntity.setController(this);
+                            if (reactorOutputBlockEntity != null) {
+                                reactorOutputBlockEntity.setController(this);
+                            }
                             level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_OUTPUT.get());
                         });
             } else {
@@ -339,6 +344,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         return autoeject;
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void tryEjectOutputs() {
         if (reactorOutputBlockEntity == null) {
             return;

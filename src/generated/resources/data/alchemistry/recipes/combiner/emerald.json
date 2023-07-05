@@ -3,9 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 8,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:beryl"
+        "item": "chemlib:vanadium"
       }
     },
     {
@@ -15,9 +15,9 @@
       }
     },
     {
-      "count": 4,
+      "count": 8,
       "ingredient": {
-        "item": "chemlib:vanadium"
+        "item": "chemlib:beryl"
       }
     }
   ],

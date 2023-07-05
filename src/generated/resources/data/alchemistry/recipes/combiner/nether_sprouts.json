@@ -5,13 +5,13 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:copper_chloride"
       }
     },
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:copper_chloride"
+        "item": "chemlib:cellulose"
       }
     }
   ],

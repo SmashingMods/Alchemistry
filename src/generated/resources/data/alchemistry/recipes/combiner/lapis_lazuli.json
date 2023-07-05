@@ -3,6 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 3,
+      "ingredient": {
+        "item": "chemlib:silicon"
+      }
+    },
+    {
       "count": 6,
       "ingredient": {
         "item": "chemlib:sodium"
@@ -18,12 +24,6 @@
       "count": 2,
       "ingredient": {
         "item": "chemlib:calcium_sulfide"
-      }
-    },
-    {
-      "count": 3,
-      "ingredient": {
-        "item": "chemlib:silicon"
       }
     }
   ],

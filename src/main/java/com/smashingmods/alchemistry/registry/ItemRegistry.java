@@ -1,31 +1,28 @@
 package com.smashingmods.alchemistry.registry;
 
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
+
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class ItemRegistry {
 
-    public static final CreativeModeTab MACHINE_TAB = new CreativeModeTab("alchemistry") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(BlockRegistry.ATOMIZER.get());
-        }
-    };
-
-    public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(MACHINE_TAB);
+    public static final Item.Properties ITEM_PROPERTIES = new Item.Properties();
     private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
     public static <B extends Block> void fromBlock(RegistryObject<B> block) {
         ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_PROPERTIES));
+    }
+
+    public static List<Item> getItems() {
+        return ITEMS.getEntries().stream().map(RegistryObject::get).toList();
     }
 
     public static void register(IEventBus eventBus) {

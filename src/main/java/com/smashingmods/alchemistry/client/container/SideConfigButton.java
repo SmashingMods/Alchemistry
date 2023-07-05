@@ -1,20 +1,11 @@
 package com.smashingmods.alchemistry.client.container;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
-import javax.annotation.Nullable;
-
-import org.lwjgl.glfw.GLFW;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetSideConfigurationPacket;
 import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.storage.SideMode;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
@@ -23,6 +14,12 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.lwjgl.glfw.GLFW;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 class SideConfigButton extends AbstractWidget {
 
@@ -37,7 +34,7 @@ class SideConfigButton extends AbstractWidget {
     private final int baseOffsetY;
 
     SideConfigButton(SideModeConfigurationScreen parentScreen, int rasterX, int rasterY, @Nullable Direction side) {
-        super(0, 0, 16, 16, null);
+        super(0, 0, 16, 16, Component.empty());
         this.parentScreen = parentScreen;
         this.baseOffsetX = 4 + 20 * rasterX;
         this.baseOffsetY = 4 + 20 * rasterY;
@@ -49,46 +46,47 @@ class SideConfigButton extends AbstractWidget {
     }
 
     @Override
-    public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
+    public void updateWidgetNarration(NarrationElementOutput pNarrationElementOutput) {
         pNarrationElementOutput.add(NarratedElementType.TITLE, tooltip.get(0).plainCopy().append(" ").append(tooltip.get(2)));
     }
 
     @Override
     public void renderButton(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        x = baseOffsetX + parentScreen.getRasterStartX();
-        y = baseOffsetY + parentScreen.getMinY();
+        setX(baseOffsetX + parentScreen.getRasterStartX());
+        setY(baseOffsetY + parentScreen.getMinY());
         int backgroundColor;
         if (isHoveredOrFocused()) {
             backgroundColor = 0xFF_FFFFFF;
         } else {
             backgroundColor = 0xFF_D0D0D0;
         }
-        fill(pPoseStack, x, y, x + width, y + width, 0xFF_000000); // outline
-        fill(pPoseStack, x + 1, y + 1, x + width - 1, y + width - 1, backgroundColor);
+        fill(pPoseStack, getX(), getY(), getX() + width, getY() + width, 0xFF_000000); // outline
+        fill(pPoseStack, getX() + 1, getY() + 1, getX() + width - 1, getY() + width - 1, backgroundColor);
+
         switch (getCurrentMode()) {
-        case DISABLED:
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, BARRIER_LOCATION);
-            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16); // Barrier
-            break;
-        case ENABLED:
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, ICONS_LOCATION);
-            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
-            break;
-        case PULL:
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, ICONS_LOCATION);
-            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
-            break;
-        case PUSH:
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, ICONS_LOCATION);
-            blit(pPoseStack, x + 4, y + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
-            break;
-        default:
-            throw new AssertionError("Unexpected mode: " + getCurrentMode());
+            case DISABLED -> {
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, BARRIER_LOCATION);
+                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16); // Barrier
+            }
+            case ENABLED -> {
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, ICONS_LOCATION);
+                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
+            }
+            case PULL -> {
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, ICONS_LOCATION);
+                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
+            }
+            case PUSH -> {
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, ICONS_LOCATION);
+                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
+            }
+            default -> throw new AssertionError("Unexpected mode: " + getCurrentMode());
         }
+
         if (isHovered) {
             parentScreen.setDrawnTooltip(tooltip);
         }

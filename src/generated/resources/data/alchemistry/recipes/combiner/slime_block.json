@@ -5,13 +5,13 @@
     {
       "count": 18,
       "ingredient": {
-        "item": "chemlib:protein"
+        "item": "chemlib:sucrose"
       }
     },
     {
       "count": 18,
       "ingredient": {
-        "item": "chemlib:sucrose"
+        "item": "chemlib:protein"
       }
     }
   ],

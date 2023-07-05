@@ -5,13 +5,13 @@
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:triglyceride"
+        "item": "chemlib:sucrose"
       }
     },
     {
       "count": 1,
       "ingredient": {
-        "item": "chemlib:sucrose"
+        "item": "chemlib:triglyceride"
       }
     }
   ],

@@ -67,7 +67,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        MutableComponent title = MutableComponent.create(new TranslatableContents("alchemistry.container.fission_controller"));
+        MutableComponent title = MutableComponent.create(new TranslatableContents("alchemistry.container.fission_controller", null, TranslatableContents.NO_ARGS));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -84,7 +84,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
 
             FakeItemRenderer.renderFakeItem(currentInput, x, y, 0.35f);
             if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
-                renderItemTooltip(pPoseStack, currentInput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe")), pMouseX, pMouseY);
+                renderItemTooltip(pPoseStack, currentInput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
             }
         }
     }

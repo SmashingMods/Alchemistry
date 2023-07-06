@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "alchemistry:reactor_input"
-  }
+  },
+  "show_notification": true
 }

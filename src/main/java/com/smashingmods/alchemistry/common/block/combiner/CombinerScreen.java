@@ -81,7 +81,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.combiner"));
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.combiner", null, TranslatableContents.NO_ARGS));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -91,10 +91,10 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
         if (currentRecipe != null) {
             ItemStack currentOutput = currentRecipe.getOutput();
-            itemRenderer.renderAndDecorateItem(currentOutput, leftPos + 152, topPos + 15);
+            itemRenderer.renderAndDecorateItem(pPoseStack, currentOutput, leftPos + 152, topPos + 15);
 
             if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
-                renderItemTooltip(pPoseStack, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.combiner.current_recipe")), pMouseX, pMouseY);
+                renderItemTooltip(pPoseStack, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.combiner.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
             }
 
             int xOrigin = leftPos + 48;
@@ -112,10 +112,10 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
                         if (handler.getStackInSlot(index).isEmpty()) {
                             FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
-                            itemRenderer.renderGuiItemDecorations(font, itemStack, x, y);
+                            itemRenderer.renderGuiItemDecorations(pPoseStack, font, itemStack, x, y);
 
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
-                                renderItemTooltip(pPoseStack, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input")), pMouseX, pMouseY);
+                                renderItemTooltip(pPoseStack, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
                             }
                         }
                     }

@@ -26,14 +26,14 @@ public class AutoBalanceButton extends AbstractAlchemyButton {
     }
 
     @Override
-    public void renderButton(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        super.renderButton(pPoseStack, pMouseX, pMouseY, pPartialTick);
+    public void renderWidget(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+        super.renderWidget(pPoseStack, pMouseX, pMouseY, pPartialTick);
         blit(pPoseStack, getX(), getY(), 25 + ((((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? 0 : 1) * 20), 40, width, height);
         renderButtonTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override
     public Component getMessage() {
-        return ((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? MutableComponent.create(new TranslatableContents("alchemistry.container.disable_autobalance")) : MutableComponent.create(new TranslatableContents("alchemistry.container.enable_autobalance"));
+        return ((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? MutableComponent.create(new TranslatableContents("alchemistry.container.disable_autobalance", null, TranslatableContents.NO_ARGS)) : MutableComponent.create(new TranslatableContents("alchemistry.container.enable_autobalance", null, TranslatableContents.NO_ARGS));
     }
 }

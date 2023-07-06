@@ -23,5 +23,6 @@
   ],
   "result": {
     "item": "alchemistry:dissolver"
-  }
+  },
+  "show_notification": true
 }

@@ -83,7 +83,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.compactor"));
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.compactor", null, TranslatableContents.NO_ARGS));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -98,10 +98,10 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
             int yEnd = yStart + 18;
 
             if (!target.isEmpty()) {
-                itemRenderer.renderAndDecorateItem(target, xStart, yStart);
+                itemRenderer.renderAndDecorateItem(pPoseStack, target, xStart, yStart);
                 if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
                     List<Component> components = new ArrayList<>();
-                    components.add(0, MutableComponent.create(new TranslatableContents("alchemistry.container.target")).withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
+                    components.add(0, MutableComponent.create(new TranslatableContents("alchemistry.container.target", null, TranslatableContents.NO_ARGS)).withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
                     components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
                     renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
                 }

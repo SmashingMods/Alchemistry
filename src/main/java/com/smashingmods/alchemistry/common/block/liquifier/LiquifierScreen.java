@@ -56,12 +56,12 @@ public class LiquifierScreen extends AbstractProcessingScreen<LiquifierMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/liquifier_gui.png"));
-        this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.liquifier"));
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.liquifier", null, TranslatableContents.NO_ARGS));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

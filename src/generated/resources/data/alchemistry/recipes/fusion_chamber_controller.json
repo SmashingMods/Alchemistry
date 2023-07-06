@@ -26,5 +26,6 @@
   ],
   "result": {
     "item": "alchemistry:fusion_chamber_controller"
-  }
+  },
+  "show_notification": true
 }

@@ -53,7 +53,7 @@ public class FusionControllerBlock extends AbstractReactorBlock {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", Config.Common.fusionEnergyPerTick.get())));
+        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.fusionEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
     }
 
     @Override

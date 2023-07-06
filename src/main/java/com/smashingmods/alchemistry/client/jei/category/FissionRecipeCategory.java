@@ -30,7 +30,7 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.fission_controller"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.fission_controller", null, TranslatableContents.NO_ARGS));
     }
 
     @Override

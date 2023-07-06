@@ -17,5 +17,6 @@
   ],
   "result": {
     "item": "alchemistry:fission_core"
-  }
+  },
+  "show_notification": true
 }

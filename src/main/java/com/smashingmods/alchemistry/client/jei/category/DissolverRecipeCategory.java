@@ -41,7 +41,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.dissolver"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.dissolver", null, TranslatableContents.NO_ARGS));
     }
 
     @Override
@@ -128,7 +128,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                         } else {
                             pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
                                 list.clear();
-                                list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing")));
+                                list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
                             });
                         }
                     }

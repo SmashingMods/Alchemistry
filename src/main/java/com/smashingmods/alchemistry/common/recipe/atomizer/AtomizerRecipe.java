@@ -3,6 +3,7 @@ package com.smashingmods.alchemistry.common.recipe.atomizer;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -34,12 +35,12 @@ public class AtomizerRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public ItemStack assemble(Inventory pContainer) {
+    public ItemStack assemble(Inventory pContainer, RegistryAccess pRegistryAccess) {
         return output;
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
         return output;
     }
 

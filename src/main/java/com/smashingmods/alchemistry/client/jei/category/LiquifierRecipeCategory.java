@@ -31,7 +31,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.liquifier"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.liquifier", null, TranslatableContents.NO_ARGS));
     }
 
     @Override

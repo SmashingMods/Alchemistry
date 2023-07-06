@@ -67,12 +67,12 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/fusion_gui.png"));
-        this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fusion_controller"));
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fusion_controller", null, TranslatableContents.NO_ARGS));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -92,7 +92,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(inputs.get(i), x, y, 0.35f);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
-                        renderItemTooltip(pPoseStack, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe")), pMouseX, pMouseY);
+                        renderItemTooltip(pPoseStack, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
                     }
                 }
             }

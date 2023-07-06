@@ -29,7 +29,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.atomizer"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.atomizer", null, TranslatableContents.NO_ARGS));
     }
 
     @Override

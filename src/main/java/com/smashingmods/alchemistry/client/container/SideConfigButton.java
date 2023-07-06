@@ -51,7 +51,7 @@ class SideConfigButton extends AbstractWidget {
     }
 
     @Override
-    public void renderButton(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+    public void renderWidget(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         setX(baseOffsetX + parentScreen.getRasterStartX());
         setY(baseOffsetY + parentScreen.getMinY());
         int backgroundColor;

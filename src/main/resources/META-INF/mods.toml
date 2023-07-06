@@ -16,27 +16,27 @@ Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to 
 [[dependencies.alchemistry]]
     modId="forge"
     mandatory=true
-    versionRange="[44.1.0,)"
+    versionRange="[45.1.0,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.alchemistry]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.3,1.19.4)"
+    versionRange="[1.19.4,1.20)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.alchemistry]]
     modId="chemlib"
     mandatory=true
-    versionRange="[1.19.3-2.0.17,)"
+    versionRange="[1.19.4-2.0.17,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.alchemistry]]
     modId="alchemylib"
     mandatory=true
-    versionRange="[1.19.3-1.0.22,)"
+    versionRange="[1.19.4-1.0.22,)"
     ordering="NONE"
     side="BOTH"

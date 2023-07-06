@@ -23,5 +23,6 @@
   ],
   "result": {
     "item": "alchemistry:compactor"
-  }
+  },
+  "show_notification": true
 }

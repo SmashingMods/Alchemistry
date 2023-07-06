@@ -45,8 +45,8 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
 
-        renderDisplayData(displayData, pPoseStack, this.leftPos, this.topPos);
-        renderDisplayTooltip(displayData, pPoseStack, this.leftPos, this.topPos, pMouseX, pMouseY);
+        renderDisplayData(displayData, pPoseStack, leftPos, topPos);
+        renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
         renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
@@ -55,12 +55,12 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_gui.png"));
-        blit(pPoseStack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight);
+        blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.dissolver"));
+        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.dissolver", null, TranslatableContents.NO_ARGS));
         drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

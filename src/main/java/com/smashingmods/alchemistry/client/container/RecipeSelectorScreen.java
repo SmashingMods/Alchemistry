@@ -174,25 +174,19 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             int xStart = recipeBoxLeftPos + firstDisplayedIndex % COLUMNS * RECIPE_BOX_SIZE + 1;
             int yStart = recipeBoxTopPos + (firstDisplayedIndex / COLUMNS) * RECIPE_BOX_SIZE + 3;
 
-            renderFloatingItem(target, xStart, yStart);
+            renderFloatingItem(pPoseStack, target, xStart, yStart);
 
             if (pMouseX >= xStart - 1 && pMouseX <= xStart + 16 && pMouseY >= yStart - 1 && pMouseY <= yStart + 16) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe")));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe", null, TranslatableContents.NO_ARGS)));
                 renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
             }
         }
     }
 
-    private void renderFloatingItem(ItemStack pItemStack, int pX, int pY) {
+    private void renderFloatingItem(PoseStack pPoseStack, ItemStack pItemStack, int pX, int pY) {
         RenderSystem.applyModelViewMatrix();
-        setBlitOffset(2000);
-        itemRenderer.blitOffset = 2000.0f;
-
-        itemRenderer.renderAndDecorateItem(pItemStack, pX, pY);
-        itemRenderer.renderGuiItemDecorations(font, pItemStack, pX, pY, null);
-
-        setBlitOffset(0);
-        itemRenderer.blitOffset = 0.0f;
+        itemRenderer.renderAndDecorateItem(pPoseStack, pItemStack, pX, pY);
+        itemRenderer.renderGuiItemDecorations(pPoseStack, font, pItemStack, pX, pY, null);
     }
 
     private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
@@ -204,7 +198,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                 if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
                     renderSlot(pPoseStack, pX, pY);
-                    renderFloatingItem(itemStack, pX + 1, pY + 1);
+                    renderFloatingItem(pPoseStack, itemStack, pX + 1, pY + 1);
                 }
             });
 
@@ -214,7 +208,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
 
                     if (pMouseX >= pX - 1 && pMouseX < pX + 17 && pMouseY >= pY - 1 && pMouseY < pY + 17 && !itemStack.isEmpty()) {
-                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input")));
+                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)));
                         renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
                     }
                 }
@@ -222,9 +216,9 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
             // Render the target item
             ItemStack target = RecipeDisplayUtil.getTarget(recipe);
-            renderFloatingItem(target, leftPos + 21, topPos + 30);
+            renderFloatingItem(pPoseStack, target, leftPos + 21, topPos + 30);
             if (pMouseX >= leftPos + 17 && pMouseX < leftPos + 41 && pMouseY >= topPos + 27 && pMouseY <= topPos + 50) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe")));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)));
                 renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
             }
         } else {
@@ -295,11 +289,11 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         if (pKeyCode == InputConstants.KEY_E && searchBox.isFocused()) {
             return false;
         } else if (pKeyCode == InputConstants.KEY_TAB && !searchBox.isFocused()) {
-            searchBox.setFocus(true);
+            searchBox.setFocused(true);
             searchBox.setEditable(true);
             searchBox.active = true;
         } else if (pKeyCode == InputConstants.KEY_ESCAPE && searchBox.isFocused()) {
-            searchBox.setFocus(false);
+            searchBox.setFocused(false);
             searchBox.setEditable(false);
             searchBox.active = false;
             return false;
@@ -319,12 +313,12 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         int searchBoxMaxY = searchBoxMinY + 12;
 
         if (pMouseX >= searchBoxMinX && pMouseX < searchBoxMaxX && pMouseY >= searchBoxMinY && pMouseY < searchBoxMaxY) {
-            searchBox.setFocus(true);
+            searchBox.setFocused(true);
             searchBox.setEditable(true);
             searchBox.active = true;
         } else {
             if (searchBox.isFocused() || searchBox.isActive()) {
-                searchBox.setFocus(false);
+                searchBox.setFocused(false);
                 searchBox.active = false;
             }
         }

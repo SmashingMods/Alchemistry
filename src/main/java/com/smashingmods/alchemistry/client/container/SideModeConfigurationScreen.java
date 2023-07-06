@@ -1,22 +1,19 @@
 package com.smashingmods.alchemistry.client.container;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.blockentity.processing.InventoryBlockEntity;
 import com.smashingmods.alchemylib.api.storage.SidedProcessingSlotWrapper;
-
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class SideModeConfigurationScreen extends Screen {
 
@@ -38,8 +35,6 @@ public class SideModeConfigurationScreen extends Screen {
     private final BlockEntity owner;
     @Nullable
     private List<Component> drawnTooltip = null;
-    private final List<SideConfigButton> buttons = new ArrayList<>();
-    private int focusedButtonIndex = -1;
 
     public SideModeConfigurationScreen(BlockEntity owner) {
         super(Component.translatable("alchemistry.container.sides.title"));
@@ -48,8 +43,6 @@ public class SideModeConfigurationScreen extends Screen {
 
     @Override
     protected void init() {
-        buttons.clear();
-        focusedButtonIndex = -1;
         addChildButton(new SideConfigButton(this, 0, 0, Direction.UP));
         addChildButton(new SideConfigButton(this, 1, 0, Direction.NORTH));
         addChildButton(new SideConfigButton(this, 0, 1, Direction.WEST));
@@ -62,7 +55,6 @@ public class SideModeConfigurationScreen extends Screen {
     private void addChildButton(SideConfigButton button) {
         addWidget(button);
         addRenderableWidget(button);
-        buttons.add(button);
     }
 
     @Override
@@ -123,21 +115,5 @@ public class SideModeConfigurationScreen extends Screen {
 
     public BlockEntity getOwner() {
         return owner;
-    }
-
-    @Override
-    public boolean changeFocus(boolean pFocus) {
-        if (!pFocus) {
-            return super.changeFocus(pFocus);
-        }
-        if (focusedButtonIndex != -1) {
-            buttons.get(focusedButtonIndex).changeFocus(true); // Revoke focus from the currently focused button
-        }
-        if (++focusedButtonIndex == buttons.size()) {
-            focusedButtonIndex = 0;
-        }
-        setFocused(buttons.get(focusedButtonIndex));
-        buttons.get(focusedButtonIndex).changeFocus(true);
-        return true;
     }
 }

@@ -26,5 +26,6 @@
   ],
   "result": {
     "item": "alchemistry:fission_chamber_controller"
-  }
+  },
+  "show_notification": true
 }

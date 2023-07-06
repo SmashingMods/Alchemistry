@@ -23,5 +23,6 @@
   ],
   "result": {
     "item": "alchemistry:atomizer"
-  }
+  },
+  "show_notification": true
 }

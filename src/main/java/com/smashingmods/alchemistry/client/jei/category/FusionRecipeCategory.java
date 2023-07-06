@@ -30,7 +30,7 @@ public class FusionRecipeCategory implements IRecipeCategory<FusionRecipe> {
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.fusion_controller"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.fusion_controller", null, TranslatableContents.NO_ARGS));
     }
 
     @Override

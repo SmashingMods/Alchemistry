@@ -36,8 +36,8 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
     }
 
     @Override
-    public void renderButton(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        super.renderButton(pPoseStack, pMouseX, pMouseY, pPartialTick);
+    public void renderWidget(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+        super.renderWidget(pPoseStack, pMouseX, pMouseY, pPartialTick);
         blit(pPoseStack, getX(), getY(), 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
         renderButtonTooltip(pPoseStack, pMouseX, pMouseY);
     }

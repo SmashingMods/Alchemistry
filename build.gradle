@@ -17,7 +17,7 @@ java {
 }
 
 minecraft {
-    mappings channel: 'parchment', version: "$parchment_version-$minecraft_version"
+    mappings channel: 'parchment', version: "1.19.3-$parchment_version-$minecraft_version"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -100,14 +100,16 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
 
 //    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
 //    runtimeOnly fg.deobf("curse.maven:mekanism-268560:4020942")
 
-    runtimeOnly fg.deobf("curse.maven:generatorgalore-691049:4257407")
-    runtimeOnly fg.deobf("curse.maven:pipez-443900:4167539")
+    runtimeOnly fg.deobf("curse.maven:mcjtylib-233105:4516770")
+    runtimeOnly fg.deobf("curse.maven:rftools-base-326041:4474182")
+    runtimeOnly fg.deobf("curse.maven:rftools-power-290209:4462358")
+    runtimeOnly fg.deobf("curse.maven:pipez-443900:4625952")
 }
 
 jar {

@@ -30,7 +30,7 @@ public class CompactorRecipeCategory implements IRecipeCategory<CompactorRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.compactor"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.compactor", null, TranslatableContents.NO_ARGS));
     }
 
     @Override

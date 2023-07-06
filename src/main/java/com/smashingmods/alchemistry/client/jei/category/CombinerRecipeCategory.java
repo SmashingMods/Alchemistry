@@ -30,7 +30,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.combiner"));
+        return MutableComponent.create(new TranslatableContents("alchemistry.jei.combiner", null, TranslatableContents.NO_ARGS));
     }
 
     @Override

@@ -106,14 +106,14 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-//    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api")
-//    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
 
 //    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
 //    runtimeOnly fg.deobf("curse.maven:mekanism-268560:4020942")
 
     runtimeOnly fg.deobf("curse.maven:generatorgalore-691049:4580850")
-    runtimeOnly fg.deobf("curse.maven:pipez-443900:4573304")
+    runtimeOnly fg.deobf("curse.maven:pipez-443900:4629656")
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']

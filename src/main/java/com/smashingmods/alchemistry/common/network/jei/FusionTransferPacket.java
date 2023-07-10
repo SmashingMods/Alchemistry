@@ -59,14 +59,14 @@ public class FusionTransferPacket implements AlchemyPacket {
         ServerPlayer player = pContext.getSender();
         Objects.requireNonNull(player);
 
-        FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) player.level().getBlockEntity(blockPos);
         Objects.requireNonNull(blockEntity);
 
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2), player.getLevel())
+        RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2), player.level())
             .ifPresent(recipe -> {
 
                 FusionRecipe recipeCopy = recipe.copy();

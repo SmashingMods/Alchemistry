@@ -1,16 +1,19 @@
 package com.smashingmods.alchemistry.client.container.button;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.network.ToggleReactorAutoejectPacket;
+import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.button.AbstractAlchemyButton;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ReactorAutoejectButton extends AbstractAlchemyButton {
 
@@ -36,14 +39,13 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
     }
 
     @Override
-    public void renderWidget(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        super.renderWidget(pPoseStack, pMouseX, pMouseY, pPartialTick);
-        blit(pPoseStack, getX(), getY(), 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
-        renderButtonTooltip(pPoseStack, pMouseX, pMouseY);
+    public void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        pGuiGraphics.blit(new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png"), getX(), getY(), 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
+        renderButtonTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 
     @Override
-    public void renderButtonTooltip(@Nonnull PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    public void renderButtonTooltip(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         // You may wonder: Why override #renderButtonTooltip method instead of overriding #getMessage?
         // The answer is simple: For some reason forge doesn't wrap components - especially not on newlines,
         // although according to https://github.com/Darkhax-Minecraft/Enchantment-Descriptions/issues/60#issuecomment-825041462
@@ -52,7 +54,7 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
 
         if (pMouseX >= getX() && pMouseX <= getX() + width && pMouseY >= getX() && pMouseY <= getX() + height) {
             boolean autoeject = ((AbstractReactorBlockEntity) blockEntity).isAutoEject();
-            parent.renderComponentTooltip(pPoseStack, autoeject ? TOOLTIP_ENABLED : TOOLTIP_DISABLED, pMouseX, pMouseY);
+            pGuiGraphics.renderTooltip(Minecraft.getInstance().font, autoeject ? TOOLTIP_ENABLED : TOOLTIP_DISABLED, Optional.empty(), pMouseX, pMouseY);
         }
     }
 }

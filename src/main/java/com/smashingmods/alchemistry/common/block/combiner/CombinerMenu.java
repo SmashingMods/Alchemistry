@@ -13,7 +13,6 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -25,13 +24,13 @@ public class CombinerMenu extends AbstractProcessingMenu {
     private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
     }
 
     protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, 4, 1);
 
-        this.level = pInventory.player.getLevel();
+        this.level = pInventory.player.level();
         this.blockEntity = (CombinerBlockEntity) pBlockEntity;
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();

@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -18,7 +18,7 @@ import java.util.Objects;
 public class ReactorCoreBlock extends RotatedPillarBlock {
 
     public ReactorCoreBlock() {
-        super(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f));
+        super(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0f));
     }
 
     @Override

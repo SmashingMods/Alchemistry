@@ -11,7 +11,7 @@ import com.smashingmods.alchemistry.common.block.reactor.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,7 +32,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> FUSION_CONTROLLER = BLOCKS.register("fusion_chamber_controller", FusionControllerBlock::new);
     public static final RegistryObject<RotatedPillarBlock> FISSION_CORE = BLOCKS.register("fission_core", ReactorCoreBlock::new);
     public static final RegistryObject<RotatedPillarBlock> FUSION_CORE = BLOCKS.register("fusion_core", ReactorCoreBlock::new);
-    public static final RegistryObject<Block> REACTOR_CASING = BLOCKS.register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).strength(2.0f)));
+    public static final RegistryObject<Block> REACTOR_CASING = BLOCKS.register("reactor_casing", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(2.0f)));
     public static final RegistryObject<Block> REACTOR_GLASS = BLOCKS.register("reactor_glass", ReactorGlassBlock::new);
     public static final RegistryObject<Block> REACTOR_ENERGY = BLOCKS.register("reactor_energy", ReactorEnergyBlock::new);
     public static final RegistryObject<Block> REACTOR_INPUT = BLOCKS.register("reactor_input", ReactorInputBlock::new);

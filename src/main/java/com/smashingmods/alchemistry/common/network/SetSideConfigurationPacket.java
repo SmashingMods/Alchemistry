@@ -37,7 +37,7 @@ public class SetSideConfigurationPacket implements AlchemyPacket {
             return;
         }
 
-        Level level = player.getLevel();
+        Level level = player.level();
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof InventoryBlockEntity inventoryEntity) {
             inventoryEntity.getCombinedSlotHandler().setSideModesFromShort(sideConfigurationBits);

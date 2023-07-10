@@ -57,14 +57,14 @@ public class CombinerTransferPacket implements AlchemyPacket {
         ServerPlayer player = pContext.getSender();
         Objects.requireNonNull(player);
 
-        CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        CombinerBlockEntity blockEntity = (CombinerBlockEntity) player.level().getBlockEntity(blockPos);
         Objects.requireNonNull(blockEntity);
 
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), output), player.getLevel())
+        RecipeRegistry.getCombinerRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), output), player.level())
             .ifPresent(recipe -> {
 
                 CombinerRecipe recipeCopy = recipe.copy();

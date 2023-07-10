@@ -1,42 +1,40 @@
 modLoader="javafml"
-loaderVersion="[43,)"
-license="All Rights Reserved"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
 issueTrackerURL="https://github.com/smashingmods/alchemistry/issues"
 
 [[mods]]
-modId="alchemistry"
-version="${file.jarVersion}"
-displayName="Alchemistry"
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
 logoFile="alchemistry-logo.png"
-authors="SmashingMods"
-description='''
-Alchemistry is a tech mod, inspired by the classic Minechem, that allows you to decompose items into their constituent elements, then recombine them to create new items.
-'''
+authors="${mod_authors}"
+description='''${mod_description}'''
 
-[[dependencies.alchemistry]]
+[[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
-    versionRange="[45.1.0,)"
+    versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.alchemistry]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.alchemistry]]
+[[dependencies.${mod_id}]]
     modId="chemlib"
     mandatory=true
-    versionRange="[1.19.4-2.0.17,)"
+    versionRange="[${chemlib_version},)"
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.alchemistry]]
+[[dependencies.${mod_id}]]
     modId="alchemylib"
     mandatory=true
-    versionRange="[1.19.4-1.0.22,)"
+    versionRange="[${alchemylib_version},)"
     ordering="NONE"
     side="BOTH"

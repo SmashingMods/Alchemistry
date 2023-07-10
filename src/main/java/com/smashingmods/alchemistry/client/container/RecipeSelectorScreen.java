@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.client.container;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
@@ -10,6 +9,7 @@ import com.smashingmods.alchemylib.api.blockentity.processing.AbstractSearchable
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.recipe.ProcessingRecipe;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Renderable;
@@ -114,41 +114,34 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     // Render methods
 
     @Override
-    public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBg(pPoseStack);
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
+    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        renderBg(pGuiGraphics);
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
-        renderRecipeBox(pPoseStack, pMouseX, pMouseY);
+        renderRecipeBox(pGuiGraphics, pMouseX, pMouseY);
         renderWidget(searchBox, leftPos + 58, topPos + 11);
-        renderParentTooltips(pPoseStack, pMouseX, pMouseY);
+        renderParentTooltips(pGuiGraphics, pMouseX, pMouseY);
     }
 
-    private void renderBg(PoseStack pPoseStack) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"));
-        blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+    private void renderBg(GuiGraphics pGuiGraphics) {
+        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
-    private void renderRecipeBox(PoseStack pPoseStack, int pMouseX, int pMouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"));
-
+    private void renderRecipeBox(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         int lastDisplayedIndex = startIndex + MAX_DISPLAYED_RECIPES;
 
-        renderScrollbar(pPoseStack);
-        renderRecipeButtons(pPoseStack, pMouseX, pMouseY, lastDisplayedIndex);
-        renderRecipeButtonItems(pPoseStack, pMouseX, pMouseY, lastDisplayedIndex);
-        renderCurrentRecipe(pPoseStack, pMouseX, pMouseY);
+        renderScrollbar(pGuiGraphics);
+        renderRecipeButtons(pGuiGraphics, pMouseX, pMouseY, lastDisplayedIndex);
+        renderRecipeButtonItems(pGuiGraphics, pMouseX, pMouseY, lastDisplayedIndex);
+        renderCurrentRecipe(pGuiGraphics, pMouseX, pMouseY);
     }
 
-    private void renderScrollbar(PoseStack pPoseStack) {
+    private void renderScrollbar(GuiGraphics pGuiGraphics) {
         int scrollPosition = (int) (93.0f * scrollOffset);
-        blit(pPoseStack, leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
+        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
     }
 
-    private void renderRecipeButtons(PoseStack pPoseStack, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
+    private void renderRecipeButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
         for (int index = startIndex; index < pLastDisplayedIndex && index < getDisplayedRecipes().size(); index++) {
             int firstDisplayedIndex = index - startIndex;
             int xStart = recipeBoxLeftPos + firstDisplayedIndex % COLUMNS * RECIPE_BOX_SIZE;
@@ -161,11 +154,11 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             } else if (pMouseX >= xStart && pMouseX < xStart + RECIPE_BOX_SIZE && pMouseY >= yStart && pMouseY < yStart + RECIPE_BOX_SIZE) {
                 vOffset += RECIPE_BOX_SIZE * 2;
             }
-            blit(pPoseStack, xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+            pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
         }
     }
 
-    private void renderRecipeButtonItems(PoseStack pPoseStack, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
+    private void renderRecipeButtonItems(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
         LinkedList<AbstractProcessingRecipe> displayedRecipes = getDisplayedRecipes();
         for (int index = startIndex; index >= 0 && index < pLastDisplayedIndex && index < displayedRecipes.size(); index++) {
 
@@ -174,22 +167,20 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             int xStart = recipeBoxLeftPos + firstDisplayedIndex % COLUMNS * RECIPE_BOX_SIZE + 1;
             int yStart = recipeBoxTopPos + (firstDisplayedIndex / COLUMNS) * RECIPE_BOX_SIZE + 3;
 
-            renderFloatingItem(pPoseStack, target, xStart, yStart);
+            renderFloatingItem(pGuiGraphics, target, xStart, yStart);
 
             if (pMouseX >= xStart - 1 && pMouseX <= xStart + 16 && pMouseY >= yStart - 1 && pMouseY <= yStart + 16) {
                 List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe", null, TranslatableContents.NO_ARGS)));
-                renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
+                pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         }
     }
 
-    private void renderFloatingItem(PoseStack pPoseStack, ItemStack pItemStack, int pX, int pY) {
-        RenderSystem.applyModelViewMatrix();
-        itemRenderer.renderAndDecorateItem(pPoseStack, pItemStack, pX, pY);
-        itemRenderer.renderGuiItemDecorations(pPoseStack, font, pItemStack, pX, pY, null);
+    private void renderFloatingItem(GuiGraphics pGuiGraphics, ItemStack pItemStack, int pX, int pY) {
+        pGuiGraphics.renderFakeItem(pItemStack, pX, pY);
     }
 
-    private void renderCurrentRecipe(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    private void renderCurrentRecipe(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         ProcessingRecipe recipe = blockEntity.getRecipe();
         if (recipe != null) {
 
@@ -197,8 +188,8 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             recipeLooper((pIndex, pInputSize, pX, pY) -> {
                 if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
-                    renderSlot(pPoseStack, pX, pY);
-                    renderFloatingItem(pPoseStack, itemStack, pX + 1, pY + 1);
+                    renderSlot(pGuiGraphics, pX, pY);
+                    renderFloatingItem(pGuiGraphics, itemStack, pX + 1, pY + 1);
                 }
             });
 
@@ -209,21 +200,21 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
                     if (pMouseX >= pX - 1 && pMouseX < pX + 17 && pMouseY >= pY - 1 && pMouseY < pY + 17 && !itemStack.isEmpty()) {
                         List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)));
-                        renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
+                        pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
                     }
                 }
             });
 
             // Render the target item
             ItemStack target = RecipeDisplayUtil.getTarget(recipe);
-            renderFloatingItem(pPoseStack, target, leftPos + 21, topPos + 30);
+            renderFloatingItem(pGuiGraphics, target, leftPos + 21, topPos + 30);
             if (pMouseX >= leftPos + 17 && pMouseX < leftPos + 41 && pMouseY >= topPos + 27 && pMouseY <= topPos + 50) {
                 List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)));
-                renderTooltip(pPoseStack, components, Optional.empty(), pMouseX, pMouseY);
+                pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         } else {
             // if the recipe is empty, we still need to render the slots
-            recipeLooper((pIndex, pInputSize, pX, pY) -> renderSlot(pPoseStack, pX, pY));
+            recipeLooper((pIndex, pInputSize, pX, pY) -> renderSlot(pGuiGraphics, pX, pY));
         }
     }
 
@@ -250,11 +241,10 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         }
     }
 
-    private void renderSlot(PoseStack pPoseStack, int pX, int pY) {
+    private void renderSlot(GuiGraphics pGuiGraphics, int pX, int pY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"));
-        blit(pPoseStack, pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
     }
 
     public <W extends GuiEventListener & Renderable & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
@@ -267,7 +257,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         }
     }
 
-    public void renderParentTooltips(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    public void renderParentTooltips(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         for (Renderable renderable : parentScreen.renderables) {
             if (renderable instanceof AbstractWidget widget) {
                 int xStart = widget.getX();
@@ -276,7 +266,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                 int yEnd = yStart + widget.getHeight();
 
                 if (pMouseX > xStart && pMouseX < xEnd && pMouseY > yStart && pMouseY < yEnd) {
-                    renderTooltip(pPoseStack, widget.getMessage(), pMouseX, pMouseY);
+                    pGuiGraphics.renderTooltip(font, widget.getMessage(), pMouseX, pMouseY);
                 }
             }
         }

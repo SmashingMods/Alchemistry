@@ -1,36 +1,26 @@
 package com.smashingmods.alchemistry.registry;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.CreativeModeTabEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.List;
-
-@Mod.EventBusSubscriber(modid = Alchemistry.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TabRegistry {
 
-    public static CreativeModeTab MACHINE_TAB;
+    public static final DeferredRegister<CreativeModeTab> REGISTRY_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Alchemistry.MODID);
+    public static RegistryObject<CreativeModeTab> MACHINE_TAB;
 
-    @SubscribeEvent
-    public static void registerCreativeModeTabs(CreativeModeTabEvent.Register pEvent) {
-        MACHINE_TAB = pEvent.registerCreativeModeTab(new ResourceLocation(Alchemistry.MODID, "machine_tab"),
-                List.of(),
-                List.of(CreativeModeTabs.SPAWN_EGGS),
-                builder -> builder
-                        .icon(() -> new ItemStack(BlockRegistry.ATOMIZER.get()))
-                        .title(Component.translatable("itemGroup.alchemistry")));
-    }
-
-    @SubscribeEvent
-    public static void addCreativeModeTabs(CreativeModeTabEvent.BuildContents pEvent) {
-        if (pEvent.getTab() == MACHINE_TAB) {
-            ItemRegistry.getItems().forEach(pEvent::accept);
-        }
+    public static void register(IEventBus pEventBus) {
+        MACHINE_TAB = REGISTRY_TABS.register("machine_tab", () -> CreativeModeTab.builder()
+            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+            .icon(() -> BlockRegistry.ATOMIZER.get().asItem().getDefaultInstance())
+            .title(Component.translatable("itemGroup.alchemistry"))
+            .displayItems((pParameters, pOutput) -> ItemRegistry.getItems().forEach(pOutput::accept))
+            .build());
+        REGISTRY_TABS.register(pEventBus);
     }
 }

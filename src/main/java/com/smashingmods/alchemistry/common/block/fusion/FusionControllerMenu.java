@@ -16,7 +16,7 @@ import java.util.Objects;
 public class FusionControllerMenu extends AbstractProcessingMenu {
 
     public FusionControllerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
     }
 
     protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {

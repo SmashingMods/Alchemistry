@@ -56,14 +56,14 @@ public class DissolverTransferPacket implements AlchemyPacket {
         ServerPlayer player = pContext.getSender();
         Objects.requireNonNull(player);
 
-        DissolverBlockEntity blockEntity = (DissolverBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        DissolverBlockEntity blockEntity = (DissolverBlockEntity) player.level().getBlockEntity(blockPos);
         Objects.requireNonNull(blockEntity);
 
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getDissolverRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.getLevel())
+        RecipeRegistry.getDissolverRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
             .ifPresent(recipe -> {
 
                 DissolverRecipe recipeCopy = recipe.copy();

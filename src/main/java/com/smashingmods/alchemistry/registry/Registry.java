@@ -9,6 +9,7 @@ public class Registry {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BlockRegistry.register(modEventBus);
         ItemRegistry.register(modEventBus);
+        TabRegistry.register(modEventBus);
         BlockEntityRegistry.register(modEventBus);
         MenuRegistry.register(modEventBus);
         RecipeRegistry.register(modEventBus);

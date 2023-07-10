@@ -1,7 +1,5 @@
 package com.smashingmods.alchemistry.common.block.compactor;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
 import com.smashingmods.alchemistry.client.container.button.IOConfigurationButton;
@@ -16,7 +14,7 @@ import com.smashingmods.alchemylib.client.button.LockButton;
 import com.smashingmods.alchemylib.client.button.PauseButton;
 import com.smashingmods.alchemylib.client.button.RecipeSelectorButton;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -63,31 +61,28 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
     }
 
     @Override
-    public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
+    public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
 
-        renderDisplayData(displayData, pPoseStack, leftPos, topPos);
-        renderDisplayTooltip(displayData, pPoseStack, leftPos, topPos, pMouseX, pMouseY);
+        renderDisplayData(displayData, pGuiGraphics, leftPos, topPos);
+        renderDisplayTooltip(displayData, pGuiGraphics, leftPos, topPos, pMouseX, pMouseY);
 
-        renderTarget(pPoseStack, pMouseX, pMouseY);
-        renderTooltip(pPoseStack, pMouseX, pMouseY);
+        renderTarget(pGuiGraphics, pMouseX, pMouseY);
+        renderTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, new ResourceLocation(Alchemistry.MODID, "textures/gui/compactor_gui.png"));
-        this.blit(pPoseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+    protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
+        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/compactor_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
-    protected void renderLabels(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.compactor", null, TranslatableContents.NO_ARGS));
-        drawString(pPoseStack, font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
+        pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
-    private void renderTarget(PoseStack pPoseStack, int pMouseX, int pMouseY) {
+    private void renderTarget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
 
         if (menu.getBlockEntity().getRecipe() instanceof CompactorRecipe compactorRecipe) {
             ItemStack target = compactorRecipe.getOutput();
@@ -98,12 +93,12 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
             int yEnd = yStart + 18;
 
             if (!target.isEmpty()) {
-                itemRenderer.renderAndDecorateItem(pPoseStack, target, xStart, yStart);
+                pGuiGraphics.renderItem(target, xStart, yStart);
                 if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
                     List<Component> components = new ArrayList<>();
                     components.add(0, MutableComponent.create(new TranslatableContents("alchemistry.container.target", null, TranslatableContents.NO_ARGS)).withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
                     components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
-                    renderTooltip(pPoseStack, components, target.getTooltipImage(), pMouseX, pMouseY);
+                    pGuiGraphics.renderTooltip(font, components, target.getTooltipImage(), pMouseX, pMouseY);
                 }
             }
         }

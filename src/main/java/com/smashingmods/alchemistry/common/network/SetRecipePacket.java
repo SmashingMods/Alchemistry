@@ -42,10 +42,10 @@ public class SetRecipePacket implements AlchemyPacket {
         Player player = pContext.getSender();
 
         Objects.requireNonNull(player);
-        Objects.requireNonNull(player.getLevel());
+        Objects.requireNonNull(player.level());
 
-        Level level = player.getLevel();
-        BlockEntity blockEntity = player.getLevel().getBlockEntity(blockPos);
+        Level level = player.level();
+        BlockEntity blockEntity = player.level().getBlockEntity(blockPos);
         RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
             if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
                 processingBlockEntity.setProgress(0);

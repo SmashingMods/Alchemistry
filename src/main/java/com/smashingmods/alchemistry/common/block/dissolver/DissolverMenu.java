@@ -16,7 +16,7 @@ import java.util.Objects;
 public class DissolverMenu extends AbstractProcessingMenu {
 
     public DissolverMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
     }
 
     protected DissolverMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {

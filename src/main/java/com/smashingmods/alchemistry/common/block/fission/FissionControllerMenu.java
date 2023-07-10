@@ -16,7 +16,7 @@ import java.util.Objects;
 public class FissionControllerMenu extends AbstractProcessingMenu {
 
     public FissionControllerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level.getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
     }
 
     protected FissionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {

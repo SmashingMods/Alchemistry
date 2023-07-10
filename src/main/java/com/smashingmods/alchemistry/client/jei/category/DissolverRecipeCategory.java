@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.client.jei.category;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
@@ -17,6 +16,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -60,7 +60,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
     }
 
     @Override
-    public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, PoseStack pPoseStack, double pMouseX, double pMouseY) {
+    public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, GuiGraphics pGuiGraphics, double pMouseX, double pMouseY) {
 
         Font font = Minecraft.getInstance().font;
         List<Double> probabilities = new LinkedList<>();
@@ -78,8 +78,8 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         String absoluteString = I18n.get("alchemistry.jei.dissolver.absolute");
         String rollsString = I18n.get("alchemistry.jei.dissolver.rolls");
 
-        font.drawShadow(pPoseStack, String.format("%s: %s", typeString, weighted ? relativeString : absoluteString), 0, 0, 0xFFFFFFFF);
-        font.drawShadow(pPoseStack, String.format("%s: %s", rollsString, rolls), 0, 24, 0xFFFFFFFF);
+        pGuiGraphics.drawString(font, String.format("%s: %s", typeString, weighted ? relativeString : absoluteString), 0, 0, 0xFFFFFFFF, true);
+        pGuiGraphics.drawString(font, String.format("%s: %s", rollsString, rolls), 0, 24, 0xFFFFFFFF, true);
 
         int xOrigin = 43;
         int yOrigin = 52;
@@ -94,7 +94,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                     NumberFormat numberFormat = NumberFormat.getInstance();
                     numberFormat.setMaximumFractionDigits(2);
                     double percent = (probabilities.get(index) / totalProbability) * 100;
-                    font.drawShadow(pPoseStack, numberFormat.format(percent) + "%", x, y, 0xFFFFFFFF);
+                    pGuiGraphics.drawString(font, numberFormat.format(percent) + "%", x, y, 0xFFFFFFFF, true);
                 }
             }
         }

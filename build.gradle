@@ -1,10 +1,15 @@
 plugins {
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'java'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
     id 'maven-publish'
-    id 'java'
 }
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: 'maven-publish'
 
 version = "$minecraft_version-$mod_version"
 group = 'com.smashingmods'
@@ -17,7 +22,8 @@ java {
 }
 
 minecraft {
-    mappings channel: 'parchment', version: "1.19.3-$parchment_version-$minecraft_version"
+    mappings channel: "$mapping_channel", version: "$mapping_version-1.20.1"
+    copyIdeResources = true
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -100,16 +106,32 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
+//    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api")
+//    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
 
 //    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
 //    runtimeOnly fg.deobf("curse.maven:mekanism-268560:4020942")
 
-    runtimeOnly fg.deobf("curse.maven:mcjtylib-233105:4516770")
-    runtimeOnly fg.deobf("curse.maven:rftools-base-326041:4474182")
-    runtimeOnly fg.deobf("curse.maven:rftools-power-290209:4462358")
-    runtimeOnly fg.deobf("curse.maven:pipez-443900:4625952")
+    runtimeOnly fg.deobf("curse.maven:generatorgalore-691049:4580850")
+    runtimeOnly fg.deobf("curse.maven:pipez-443900:4573304")
+}
+
+def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
+def replaceProperties = [
+        minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+        forge_version: forge_version, forge_version_range: forge_version_range,
+        loader_version_range: loader_version_range,
+        mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+        mod_authors: mod_authors, mod_description: mod_description,
+        chemlib_version: chemlib_version, alchemylib_version: alchemylib_version
+]
+processResources {
+    inputs.properties replaceProperties
+    replaceProperties.put 'project', project
+
+    filesMatching(resourceTargets) {
+        expand replaceProperties
+    }
 }
 
 jar {

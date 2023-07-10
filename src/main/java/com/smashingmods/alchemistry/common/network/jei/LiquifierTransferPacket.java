@@ -55,12 +55,12 @@ public class LiquifierTransferPacket implements AlchemyPacket {
     public void handle(NetworkEvent.Context pContext) {
         ServerPlayer player = pContext.getSender();
         Objects.requireNonNull(player);
-        LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) player.level().getBlockEntity(blockPos);
         Objects.requireNonNull(blockEntity);
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.getLevel())
+        RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
             .ifPresent(recipe -> {
 
                 LiquifierRecipe recipeCopy = recipe.copy();

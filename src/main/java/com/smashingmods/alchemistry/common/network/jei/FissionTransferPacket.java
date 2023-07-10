@@ -54,14 +54,14 @@ public class FissionTransferPacket implements AlchemyPacket {
         ServerPlayer player = pContext.getSender();
         Objects.requireNonNull(player);
 
-        FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) player.level().getBlockEntity(blockPos);
         Objects.requireNonNull(blockEntity);
 
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHander = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), input), player.getLevel())
+        RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), input), player.level())
             .ifPresent(recipe -> {
 
                 FissionRecipe recipeCopy = recipe.copy();

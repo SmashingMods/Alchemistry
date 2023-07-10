@@ -1,16 +1,14 @@
 package com.smashingmods.alchemistry.client.container;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetSideConfigurationPacket;
 import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.storage.SideMode;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -51,7 +49,7 @@ class SideConfigButton extends AbstractWidget {
     }
 
     @Override
-    public void renderWidget(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
+    public void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         setX(baseOffsetX + parentScreen.getRasterStartX());
         setY(baseOffsetY + parentScreen.getMinY());
         int backgroundColor;
@@ -60,30 +58,14 @@ class SideConfigButton extends AbstractWidget {
         } else {
             backgroundColor = 0xFF_D0D0D0;
         }
-        fill(pPoseStack, getX(), getY(), getX() + width, getY() + width, 0xFF_000000); // outline
-        fill(pPoseStack, getX() + 1, getY() + 1, getX() + width - 1, getY() + width - 1, backgroundColor);
+        pGuiGraphics.fill(getX(), getY(), getX() + width, getY() + width, 0xFF_000000); // outline
+        pGuiGraphics.fill(getX() + 1, getY() + 1, getX() + width - 1, getY() + width - 1, backgroundColor);
 
         switch (getCurrentMode()) {
-            case DISABLED -> {
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, BARRIER_LOCATION);
-                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16); // Barrier
-            }
-            case ENABLED -> {
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, ICONS_LOCATION);
-                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
-            }
-            case PULL -> {
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, ICONS_LOCATION);
-                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
-            }
-            case PUSH -> {
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, ICONS_LOCATION);
-                blit(pPoseStack, getX() + 4, getY() + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
-            }
+            case DISABLED -> pGuiGraphics.blit(BARRIER_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16); // Barrier
+            case ENABLED -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
+            case PULL -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
+            case PUSH -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
             default -> throw new AssertionError("Unexpected mode: " + getCurrentMode());
         }
 

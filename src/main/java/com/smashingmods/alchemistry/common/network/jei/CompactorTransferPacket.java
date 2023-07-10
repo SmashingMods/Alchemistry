@@ -54,14 +54,14 @@ public class CompactorTransferPacket implements AlchemyPacket {
         ServerPlayer player = pContext.getSender();
         Objects.requireNonNull(player);
 
-        CompactorBlockEntity blockEntity = (CompactorBlockEntity) player.getLevel().getBlockEntity(blockPos);
+        CompactorBlockEntity blockEntity = (CompactorBlockEntity) player.level().getBlockEntity(blockPos);
         Objects.requireNonNull(blockEntity);
 
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getCompactorRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), output), player.getLevel())
+        RecipeRegistry.getCompactorRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getOutput(), output), player.level())
             .ifPresent(recipe -> {
 
                 CompactorRecipe recipeCopy = recipe.copy();

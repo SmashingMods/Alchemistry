@@ -5,6 +5,7 @@ import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -59,7 +60,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, AtomizerRecipe pRecipe, IFocusGroup pFocusGroup) {
-        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addIngredient(VanillaTypes.FLUID, pRecipe.getInput());
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addIngredient(ForgeTypes.FLUID_STACK, pRecipe.getInput());
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addItemStack(pRecipe.getOutput());
     }
 }

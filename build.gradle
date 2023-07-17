@@ -27,6 +27,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 java {
     withSourcesJar()
+    withJavadocJar()
 }
 
 minecraft {
@@ -83,13 +84,6 @@ minecraft {
     }
 }
 
-idea {
-    module {
-        downloadJavadoc = true
-        downloadSources = true
-    }
-}
-
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
@@ -106,8 +100,9 @@ dependencies {
     implementation fg.deobf("smashingmods:chemlib:${minecraft_version}-${chemlib_version}")
     implementation fg.deobf("smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}")
 
-    implementation fg.deobf("mezz.jei:jei-${jei_version}:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}")

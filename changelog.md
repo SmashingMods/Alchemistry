@@ -1,4 +1,4 @@
-# Alchemistry 1.18.2-2.2.1 Release
+# Alchemistry 1.18.2-2.2.2 Release
 
 This release backports the 1.19.x sided configuration feature. Barring any major issues, this should be the last version to be released for 1.18.
 

@@ -17,6 +17,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -44,6 +45,9 @@ public class Alchemistry {
         modEventBus.addListener(this::commonSetupEvent);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
+
+        // Make sure that `/reload` and world loading wipe the machine recipe cache.
+        MinecraftForge.EVENT_BUS.addListener(RecipeRegistry::postReload);
     }
 
     public void clientSetupEvent(final FMLClientSetupEvent event) {

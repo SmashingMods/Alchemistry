@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:argon"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

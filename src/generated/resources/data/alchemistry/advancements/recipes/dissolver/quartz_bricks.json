@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:quartz_bricks"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

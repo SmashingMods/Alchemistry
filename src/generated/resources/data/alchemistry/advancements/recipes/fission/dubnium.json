@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:dubnium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

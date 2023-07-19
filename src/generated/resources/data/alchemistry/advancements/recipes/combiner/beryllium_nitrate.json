@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:beryllium_nitrate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

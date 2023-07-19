@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:rabbit_hide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

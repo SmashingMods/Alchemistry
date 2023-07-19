@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:lily_pad"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

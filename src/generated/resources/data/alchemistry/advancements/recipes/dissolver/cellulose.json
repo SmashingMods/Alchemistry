@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:cellulose"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

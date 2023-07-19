@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:hydrochloric_acid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:beryllium_oxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

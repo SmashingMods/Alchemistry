@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:coal_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

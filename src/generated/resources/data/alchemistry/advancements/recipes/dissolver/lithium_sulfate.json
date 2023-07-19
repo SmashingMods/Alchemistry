@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:lithium_sulfate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

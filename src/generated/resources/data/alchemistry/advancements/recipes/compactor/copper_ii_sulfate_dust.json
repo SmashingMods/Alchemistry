@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:copper_ii_sulfate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

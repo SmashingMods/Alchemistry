@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:exposed_cut_copper_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

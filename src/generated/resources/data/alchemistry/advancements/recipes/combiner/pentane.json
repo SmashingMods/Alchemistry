@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:pentane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

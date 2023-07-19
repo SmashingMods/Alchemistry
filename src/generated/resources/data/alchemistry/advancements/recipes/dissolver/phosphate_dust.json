@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:phosphate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

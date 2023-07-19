@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:fire_coral_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:manganese_nitrate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

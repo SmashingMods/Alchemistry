@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:string"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

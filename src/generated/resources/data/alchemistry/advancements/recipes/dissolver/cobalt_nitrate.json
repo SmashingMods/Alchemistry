@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:cobalt_nitrate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

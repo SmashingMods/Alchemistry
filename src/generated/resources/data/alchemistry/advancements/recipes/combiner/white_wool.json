@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:white_wool"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

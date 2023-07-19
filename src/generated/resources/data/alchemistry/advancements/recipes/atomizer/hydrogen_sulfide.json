@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:hydrogen_sulfide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

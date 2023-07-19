@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:iron_door"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:soul_soil"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

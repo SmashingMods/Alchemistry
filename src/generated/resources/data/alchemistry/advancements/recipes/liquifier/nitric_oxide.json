@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:nitric_oxide_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

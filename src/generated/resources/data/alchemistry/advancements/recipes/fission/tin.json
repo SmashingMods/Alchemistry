@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:tin"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

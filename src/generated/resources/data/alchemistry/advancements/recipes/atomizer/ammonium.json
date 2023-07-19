@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:ammonium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

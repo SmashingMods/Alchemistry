@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:dried_kelp_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

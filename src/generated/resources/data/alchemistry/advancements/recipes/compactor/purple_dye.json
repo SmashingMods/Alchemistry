@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:purple_dye"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

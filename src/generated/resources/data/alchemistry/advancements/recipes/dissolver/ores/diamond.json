@@ -16,5 +16,6 @@
     "recipes": [
       "forge:ores/diamond"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

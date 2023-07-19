@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:thallium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

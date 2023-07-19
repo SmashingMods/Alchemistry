@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:grass_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

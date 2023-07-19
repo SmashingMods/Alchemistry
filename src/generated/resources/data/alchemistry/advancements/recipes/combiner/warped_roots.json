@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:warped_roots"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

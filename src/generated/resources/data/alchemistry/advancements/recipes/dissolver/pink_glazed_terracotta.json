@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:pink_glazed_terracotta"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

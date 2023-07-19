@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:phosphorus"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

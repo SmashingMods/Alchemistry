@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:methane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

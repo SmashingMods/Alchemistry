@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:platinum_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

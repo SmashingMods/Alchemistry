@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:cobalt_aluminate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:lithium_nitrate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

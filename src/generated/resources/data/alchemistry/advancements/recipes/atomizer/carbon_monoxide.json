@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:carbon_monoxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

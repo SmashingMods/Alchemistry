@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:redstone"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

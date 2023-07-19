@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:deepslate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:iron_ii_oxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

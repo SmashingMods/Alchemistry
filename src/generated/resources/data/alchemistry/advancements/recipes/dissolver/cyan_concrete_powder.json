@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:cyan_concrete_powder"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:sodium_sulfate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

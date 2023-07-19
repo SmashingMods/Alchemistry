@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:cadmium_hydroxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

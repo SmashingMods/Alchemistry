@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:chorus_flower"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

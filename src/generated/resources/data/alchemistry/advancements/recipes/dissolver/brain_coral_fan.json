@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:brain_coral_fan"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

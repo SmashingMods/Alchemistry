@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:emerald"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:sodium_nitrate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

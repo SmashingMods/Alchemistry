@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:indium_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

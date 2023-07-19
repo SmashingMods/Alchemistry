@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:ruthenium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:magnesium_oxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

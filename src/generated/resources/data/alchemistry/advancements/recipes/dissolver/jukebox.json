@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:jukebox"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

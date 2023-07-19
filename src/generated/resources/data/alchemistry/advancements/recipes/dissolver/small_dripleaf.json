@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:small_dripleaf"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

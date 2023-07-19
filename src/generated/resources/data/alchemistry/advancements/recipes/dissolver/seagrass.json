@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:seagrass"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

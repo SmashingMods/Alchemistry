@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:amethyst_shard"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

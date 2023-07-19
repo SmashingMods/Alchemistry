@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:sucrose_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:spore_blossom"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:chlorine"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:cobblestone"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

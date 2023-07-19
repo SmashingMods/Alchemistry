@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:carrot"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

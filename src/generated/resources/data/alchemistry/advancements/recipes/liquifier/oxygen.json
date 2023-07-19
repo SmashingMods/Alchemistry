@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:oxygen_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

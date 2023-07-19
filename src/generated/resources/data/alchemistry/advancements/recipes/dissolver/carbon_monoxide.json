@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:carbon_monoxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

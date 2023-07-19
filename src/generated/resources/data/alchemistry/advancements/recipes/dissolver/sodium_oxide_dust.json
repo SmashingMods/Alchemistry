@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:sodium_oxide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

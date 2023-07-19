@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:snow"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

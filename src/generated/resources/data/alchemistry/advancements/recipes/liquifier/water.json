@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:water"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

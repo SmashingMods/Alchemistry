@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:barium_oxide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:rubidium_hydroxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

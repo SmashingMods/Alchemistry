@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:propane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:kelp"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

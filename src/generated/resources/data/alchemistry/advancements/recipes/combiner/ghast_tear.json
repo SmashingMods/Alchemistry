@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:ghast_tear"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:calcium_carbonate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

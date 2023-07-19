@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:flint"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

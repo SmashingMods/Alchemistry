@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:wither_skeleton_skull"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

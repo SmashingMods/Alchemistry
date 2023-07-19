@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:sodium_nitrate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

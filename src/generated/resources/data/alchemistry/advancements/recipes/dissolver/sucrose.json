@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:sucrose"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

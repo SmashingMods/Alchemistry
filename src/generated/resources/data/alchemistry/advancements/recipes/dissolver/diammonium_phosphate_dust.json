@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:diammonium_phosphate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:beryl_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

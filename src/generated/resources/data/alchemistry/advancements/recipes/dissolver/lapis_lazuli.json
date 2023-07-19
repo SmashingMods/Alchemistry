@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:lapis_lazuli"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

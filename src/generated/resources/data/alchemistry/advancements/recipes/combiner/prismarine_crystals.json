@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:prismarine_crystals"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

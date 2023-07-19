@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:meitnerium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:strontium_hydroxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

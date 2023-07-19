@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:sea_pickle"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

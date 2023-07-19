@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:dead_brain_coral_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

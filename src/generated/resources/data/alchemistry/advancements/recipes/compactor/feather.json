@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:feather"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

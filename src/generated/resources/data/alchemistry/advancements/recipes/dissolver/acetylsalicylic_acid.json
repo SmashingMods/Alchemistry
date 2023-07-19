@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:acetylsalicylic_acid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

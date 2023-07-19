@@ -16,5 +16,6 @@
     "recipes": [
       "forge:ores/coal"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

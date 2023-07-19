@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:barium_nitrate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

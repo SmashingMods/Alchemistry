@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:shulker_shell"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

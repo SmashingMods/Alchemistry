@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:terbium_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

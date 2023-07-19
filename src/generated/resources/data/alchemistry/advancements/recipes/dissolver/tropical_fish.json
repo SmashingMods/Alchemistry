@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:tropical_fish"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

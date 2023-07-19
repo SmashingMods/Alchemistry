@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:rabbit"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

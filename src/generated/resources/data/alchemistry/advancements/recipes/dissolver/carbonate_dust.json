@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:carbonate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:gravel"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

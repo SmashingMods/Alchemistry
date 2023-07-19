@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:fluorine_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

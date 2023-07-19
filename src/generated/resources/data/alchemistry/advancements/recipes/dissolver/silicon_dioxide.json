@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:silicon_dioxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

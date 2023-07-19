@@ -16,5 +16,6 @@
     "recipes": [
       "forge:dyes/cyan"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

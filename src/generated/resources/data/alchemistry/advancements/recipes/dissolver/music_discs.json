@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:music_discs"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

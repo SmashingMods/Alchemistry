@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:dead_fire_coral"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

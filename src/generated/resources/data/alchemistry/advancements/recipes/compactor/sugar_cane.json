@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:sugar_cane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

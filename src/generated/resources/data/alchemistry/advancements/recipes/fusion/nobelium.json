@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:nobelium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

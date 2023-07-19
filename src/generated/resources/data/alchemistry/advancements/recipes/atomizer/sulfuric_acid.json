@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:sulfuric_acid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

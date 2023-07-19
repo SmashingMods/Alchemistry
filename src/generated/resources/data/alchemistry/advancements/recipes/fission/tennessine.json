@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:tennessine"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

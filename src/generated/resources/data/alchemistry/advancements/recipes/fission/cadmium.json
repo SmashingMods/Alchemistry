@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:cadmium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

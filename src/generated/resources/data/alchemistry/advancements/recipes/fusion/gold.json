@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:gold"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:hassium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

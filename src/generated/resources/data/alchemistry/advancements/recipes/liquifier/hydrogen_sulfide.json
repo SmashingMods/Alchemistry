@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:hydrogen_sulfide_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

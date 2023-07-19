@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:hexane_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

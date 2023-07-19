@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:gadolinium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

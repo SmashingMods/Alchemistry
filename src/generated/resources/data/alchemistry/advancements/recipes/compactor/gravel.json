@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:gravel"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:crimson_roots"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

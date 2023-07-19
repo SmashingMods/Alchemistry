@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:mossy_cobblestone_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

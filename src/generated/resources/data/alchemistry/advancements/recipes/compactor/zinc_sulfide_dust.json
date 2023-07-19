@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:zinc_sulfide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

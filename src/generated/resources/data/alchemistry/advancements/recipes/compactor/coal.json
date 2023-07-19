@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:coal"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

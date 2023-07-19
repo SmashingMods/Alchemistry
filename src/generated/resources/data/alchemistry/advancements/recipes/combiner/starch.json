@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:starch"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:chromium_oxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

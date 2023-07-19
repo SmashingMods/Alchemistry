@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:copper_ii_hydroxide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:roentgenium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

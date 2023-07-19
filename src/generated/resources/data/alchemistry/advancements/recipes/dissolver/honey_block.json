@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:honey_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

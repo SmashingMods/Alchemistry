@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:barium_sulfide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

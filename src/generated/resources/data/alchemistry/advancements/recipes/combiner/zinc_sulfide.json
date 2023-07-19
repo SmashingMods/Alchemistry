@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:zinc_sulfide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

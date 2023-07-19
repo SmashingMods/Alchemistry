@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:amide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

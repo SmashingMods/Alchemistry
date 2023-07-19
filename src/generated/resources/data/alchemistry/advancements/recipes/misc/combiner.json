@@ -30,5 +30,6 @@
     "recipes": [
       "alchemistry:combiner"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

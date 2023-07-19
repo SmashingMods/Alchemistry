@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:oxygen"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

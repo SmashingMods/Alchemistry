@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:crimson_nylium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

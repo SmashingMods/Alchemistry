@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:strontium_oxide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:acetylene"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

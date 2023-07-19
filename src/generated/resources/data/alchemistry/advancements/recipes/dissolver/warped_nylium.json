@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:warped_nylium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

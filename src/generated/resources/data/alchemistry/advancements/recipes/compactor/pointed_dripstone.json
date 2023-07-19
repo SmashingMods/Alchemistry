@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:pointed_dripstone"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

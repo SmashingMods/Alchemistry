@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:copper_i_sulfide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

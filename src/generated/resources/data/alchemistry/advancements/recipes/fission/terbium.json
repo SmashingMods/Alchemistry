@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:terbium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

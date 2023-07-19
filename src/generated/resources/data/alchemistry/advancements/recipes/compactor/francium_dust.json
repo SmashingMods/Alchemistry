@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:francium_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

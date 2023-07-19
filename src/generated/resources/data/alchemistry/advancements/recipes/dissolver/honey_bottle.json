@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:honey_bottle"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

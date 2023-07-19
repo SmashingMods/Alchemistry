@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:polyvinyl_chloride"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

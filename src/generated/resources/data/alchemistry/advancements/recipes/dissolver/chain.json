@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:chain"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

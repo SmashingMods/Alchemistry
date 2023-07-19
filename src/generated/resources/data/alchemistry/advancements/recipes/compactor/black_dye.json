@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:black_dye"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

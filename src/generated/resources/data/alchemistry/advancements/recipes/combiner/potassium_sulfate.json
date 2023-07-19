@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:potassium_sulfate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

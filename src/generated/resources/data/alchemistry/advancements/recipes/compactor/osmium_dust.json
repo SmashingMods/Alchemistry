@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:osmium_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

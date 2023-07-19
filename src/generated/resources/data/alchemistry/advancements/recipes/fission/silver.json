@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:silver"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

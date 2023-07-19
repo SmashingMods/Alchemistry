@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:sulfur"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

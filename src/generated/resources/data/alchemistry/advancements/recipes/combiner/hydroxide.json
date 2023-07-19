@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:hydroxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

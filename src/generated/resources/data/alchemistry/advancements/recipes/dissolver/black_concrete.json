@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:black_concrete"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

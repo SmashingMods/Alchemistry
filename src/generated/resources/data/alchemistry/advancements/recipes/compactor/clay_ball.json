@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:clay_ball"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

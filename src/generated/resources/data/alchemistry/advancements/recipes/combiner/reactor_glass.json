@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:reactor_glass"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

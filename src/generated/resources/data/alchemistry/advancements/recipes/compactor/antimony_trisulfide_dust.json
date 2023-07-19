@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:antimony_trisulfide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

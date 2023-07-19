@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:yttrium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

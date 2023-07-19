@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:pentane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

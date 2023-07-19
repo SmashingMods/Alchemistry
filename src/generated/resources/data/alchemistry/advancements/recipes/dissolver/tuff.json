@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:tuff"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

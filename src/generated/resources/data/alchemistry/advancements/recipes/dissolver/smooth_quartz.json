@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:smooth_quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

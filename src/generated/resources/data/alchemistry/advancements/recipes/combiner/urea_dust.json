@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:urea_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

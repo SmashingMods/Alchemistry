@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:radon"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

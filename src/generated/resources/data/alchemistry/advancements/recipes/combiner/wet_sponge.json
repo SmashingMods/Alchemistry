@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:wet_sponge"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

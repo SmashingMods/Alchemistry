@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:cooked_beef"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

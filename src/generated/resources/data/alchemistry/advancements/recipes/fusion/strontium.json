@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:strontium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

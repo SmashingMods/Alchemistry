@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:tungsten"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:beryllium_nitrate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

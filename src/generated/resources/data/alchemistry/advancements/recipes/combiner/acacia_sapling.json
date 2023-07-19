@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:acacia_sapling"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

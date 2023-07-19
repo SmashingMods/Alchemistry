@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:cellulose_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

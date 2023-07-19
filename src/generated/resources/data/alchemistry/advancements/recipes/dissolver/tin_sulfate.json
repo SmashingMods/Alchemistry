@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:tin_sulfate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

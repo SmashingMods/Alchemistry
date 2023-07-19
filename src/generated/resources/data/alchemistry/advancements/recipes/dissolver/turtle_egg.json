@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:turtle_egg"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

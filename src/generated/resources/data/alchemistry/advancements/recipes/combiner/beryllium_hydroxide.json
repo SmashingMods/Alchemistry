@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:beryllium_hydroxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

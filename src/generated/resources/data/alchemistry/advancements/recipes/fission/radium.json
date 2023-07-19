@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:radium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

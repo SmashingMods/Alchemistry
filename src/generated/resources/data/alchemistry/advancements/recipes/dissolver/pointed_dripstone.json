@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:pointed_dripstone"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

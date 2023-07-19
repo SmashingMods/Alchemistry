@@ -16,5 +16,6 @@
     "recipes": [
       "forge:storage_blocks/quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

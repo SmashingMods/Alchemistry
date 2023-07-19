@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:yellow_concrete"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:iodine"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

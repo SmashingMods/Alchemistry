@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:ethane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

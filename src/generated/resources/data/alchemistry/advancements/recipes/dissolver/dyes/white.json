@@ -16,5 +16,6 @@
     "recipes": [
       "forge:dyes/white"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:lawrencium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

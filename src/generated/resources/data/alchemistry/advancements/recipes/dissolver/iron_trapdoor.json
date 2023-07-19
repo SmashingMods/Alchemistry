@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:iron_trapdoor"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

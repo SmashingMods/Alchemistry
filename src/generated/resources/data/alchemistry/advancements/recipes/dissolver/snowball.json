@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:snowball"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

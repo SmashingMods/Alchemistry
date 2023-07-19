@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:acetylene"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:antimony_trisulfide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

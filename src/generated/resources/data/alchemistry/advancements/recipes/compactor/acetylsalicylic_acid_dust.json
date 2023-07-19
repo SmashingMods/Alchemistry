@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:acetylsalicylic_acid_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

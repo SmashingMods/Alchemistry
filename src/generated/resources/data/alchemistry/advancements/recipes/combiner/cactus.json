@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:cactus"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

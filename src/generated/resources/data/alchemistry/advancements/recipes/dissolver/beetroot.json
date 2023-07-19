@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:beetroot"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

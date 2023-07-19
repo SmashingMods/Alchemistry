@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:calcium_nitrate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

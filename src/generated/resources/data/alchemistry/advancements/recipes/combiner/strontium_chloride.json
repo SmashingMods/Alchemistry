@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:strontium_chloride"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:copper_i_oxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

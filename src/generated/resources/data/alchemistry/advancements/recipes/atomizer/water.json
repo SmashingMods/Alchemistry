@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:water"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

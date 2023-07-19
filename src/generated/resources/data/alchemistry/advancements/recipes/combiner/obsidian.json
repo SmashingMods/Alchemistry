@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:obsidian"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

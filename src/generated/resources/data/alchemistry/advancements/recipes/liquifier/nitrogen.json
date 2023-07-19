@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:nitrogen_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

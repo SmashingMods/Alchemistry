@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:yellow_dye"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

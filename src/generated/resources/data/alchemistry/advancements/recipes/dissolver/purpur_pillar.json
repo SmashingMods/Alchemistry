@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:purpur_pillar"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

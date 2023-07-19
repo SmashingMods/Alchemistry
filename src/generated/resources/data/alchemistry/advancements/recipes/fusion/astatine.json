@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:astatine"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

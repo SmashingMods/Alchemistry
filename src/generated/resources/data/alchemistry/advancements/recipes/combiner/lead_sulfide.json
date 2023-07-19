@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:lead_sulfide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

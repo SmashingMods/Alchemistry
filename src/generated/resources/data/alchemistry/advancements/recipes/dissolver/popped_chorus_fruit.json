@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:popped_chorus_fruit"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:crying_obsidian"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

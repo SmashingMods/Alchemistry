@@ -30,5 +30,6 @@
     "recipes": [
       "alchemistry:reactor_casing"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

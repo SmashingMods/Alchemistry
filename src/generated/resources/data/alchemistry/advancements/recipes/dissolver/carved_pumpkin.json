@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:carved_pumpkin"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

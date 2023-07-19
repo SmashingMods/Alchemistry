@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:cut_copper"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

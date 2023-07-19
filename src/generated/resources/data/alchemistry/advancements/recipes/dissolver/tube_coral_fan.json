@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:tube_coral_fan"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

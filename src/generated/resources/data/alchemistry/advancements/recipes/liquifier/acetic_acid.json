@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:acetic_acid_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

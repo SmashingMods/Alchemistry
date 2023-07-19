@@ -16,5 +16,6 @@
     "recipes": [
       "forge:dyes/black"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

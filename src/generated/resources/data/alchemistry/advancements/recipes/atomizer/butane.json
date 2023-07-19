@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:butane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

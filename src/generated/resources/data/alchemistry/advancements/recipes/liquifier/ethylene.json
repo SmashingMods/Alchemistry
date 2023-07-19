@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:ethylene_fluid"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

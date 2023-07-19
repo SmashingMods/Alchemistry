@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:carbon_dioxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:rubidium_sulfate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

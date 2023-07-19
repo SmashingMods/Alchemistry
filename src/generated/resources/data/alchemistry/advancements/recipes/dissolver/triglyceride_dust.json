@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:triglyceride_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:sodium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

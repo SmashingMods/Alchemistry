@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:dark_oak_log"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

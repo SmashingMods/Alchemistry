@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:deepslate_tiles"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

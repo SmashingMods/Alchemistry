@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:calcium_oxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

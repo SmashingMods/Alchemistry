@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:beta_carotene"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

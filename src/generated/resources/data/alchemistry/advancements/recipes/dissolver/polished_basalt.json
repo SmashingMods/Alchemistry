@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:polished_basalt"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

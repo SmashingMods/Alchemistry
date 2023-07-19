@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:calcium_carbonate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

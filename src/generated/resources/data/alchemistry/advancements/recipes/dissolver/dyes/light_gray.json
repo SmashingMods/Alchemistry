@@ -16,5 +16,6 @@
     "recipes": [
       "forge:dyes/light_gray"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

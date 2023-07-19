@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:sand"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

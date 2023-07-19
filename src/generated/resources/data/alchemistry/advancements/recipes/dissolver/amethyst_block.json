@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:amethyst_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

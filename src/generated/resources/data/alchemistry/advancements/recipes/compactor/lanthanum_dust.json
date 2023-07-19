@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:lanthanum_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

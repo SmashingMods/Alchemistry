@@ -16,5 +16,6 @@
     "recipes": [
       "forge:dyes/yellow"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

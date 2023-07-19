@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:iron_iii_nitrate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

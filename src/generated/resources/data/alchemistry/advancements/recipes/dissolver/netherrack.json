@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:netherrack"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

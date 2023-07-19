@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:iron_nugget"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

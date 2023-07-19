@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:strontium_chloride_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

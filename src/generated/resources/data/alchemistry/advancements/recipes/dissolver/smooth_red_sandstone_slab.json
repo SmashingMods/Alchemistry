@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:smooth_red_sandstone_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:methane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:mercury_sulfide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

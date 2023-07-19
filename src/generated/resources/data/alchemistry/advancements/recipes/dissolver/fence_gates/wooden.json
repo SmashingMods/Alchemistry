@@ -16,5 +16,6 @@
     "recipes": [
       "forge:fence_gates/wooden"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

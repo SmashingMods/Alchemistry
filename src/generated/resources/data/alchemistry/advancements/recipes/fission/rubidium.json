@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:rubidium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

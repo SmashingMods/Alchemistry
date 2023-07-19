@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:protactinium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

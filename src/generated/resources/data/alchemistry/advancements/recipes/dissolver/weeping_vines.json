@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:weeping_vines"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

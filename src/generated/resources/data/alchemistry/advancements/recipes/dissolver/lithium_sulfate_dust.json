@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:lithium_sulfate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

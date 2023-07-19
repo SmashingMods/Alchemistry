@@ -16,5 +16,6 @@
     "recipes": [
       "forge:dyes/green"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

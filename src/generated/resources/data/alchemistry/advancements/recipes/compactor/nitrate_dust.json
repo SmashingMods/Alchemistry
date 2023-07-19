@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:nitrate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

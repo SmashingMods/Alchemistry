@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:potassium_carbonate"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

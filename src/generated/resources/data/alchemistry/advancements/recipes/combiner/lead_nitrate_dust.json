@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:lead_nitrate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

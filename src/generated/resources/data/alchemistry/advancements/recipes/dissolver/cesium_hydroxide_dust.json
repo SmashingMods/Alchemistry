@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:cesium_hydroxide_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

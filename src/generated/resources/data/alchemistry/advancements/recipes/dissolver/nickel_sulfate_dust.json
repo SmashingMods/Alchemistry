@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:nickel_sulfate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

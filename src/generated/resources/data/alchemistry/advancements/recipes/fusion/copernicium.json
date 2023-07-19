@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:copernicium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

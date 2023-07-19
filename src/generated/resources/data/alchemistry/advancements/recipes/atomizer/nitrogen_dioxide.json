@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:nitrogen_dioxide"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

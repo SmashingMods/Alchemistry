@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:netherite_scrap"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:copper_ingot"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

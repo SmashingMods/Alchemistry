@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:polished_andesite"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

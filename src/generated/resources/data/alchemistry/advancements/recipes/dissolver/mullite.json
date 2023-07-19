@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:mullite"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

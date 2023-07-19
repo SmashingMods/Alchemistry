@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:mercury"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

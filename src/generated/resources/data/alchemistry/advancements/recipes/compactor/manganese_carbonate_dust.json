@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:manganese_carbonate_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

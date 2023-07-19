@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:cooked_porkchop"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "forge:ores/quartz"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:oxidized_cut_copper"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

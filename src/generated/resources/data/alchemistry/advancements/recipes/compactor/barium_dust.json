@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:barium_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

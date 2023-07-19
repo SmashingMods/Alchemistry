@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:blackstone_slab"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

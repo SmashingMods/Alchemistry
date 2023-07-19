@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:graphite"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

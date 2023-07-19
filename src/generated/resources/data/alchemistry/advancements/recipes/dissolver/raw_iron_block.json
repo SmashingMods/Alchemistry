@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:raw_iron_block"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

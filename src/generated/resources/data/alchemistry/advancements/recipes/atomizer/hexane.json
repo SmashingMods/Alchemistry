@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:hexane"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:beef"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

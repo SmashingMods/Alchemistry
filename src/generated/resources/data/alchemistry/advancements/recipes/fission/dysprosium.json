@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:dysprosium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

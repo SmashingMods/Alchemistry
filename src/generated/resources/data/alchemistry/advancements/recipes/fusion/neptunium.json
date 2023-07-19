@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:neptunium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

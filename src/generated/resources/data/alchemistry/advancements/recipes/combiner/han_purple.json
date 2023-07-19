@@ -16,5 +16,6 @@
     "recipes": [
       "chemlib:han_purple"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

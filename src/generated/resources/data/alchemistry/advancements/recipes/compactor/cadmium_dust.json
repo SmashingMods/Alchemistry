@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:cadmium_dust"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

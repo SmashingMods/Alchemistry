@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:nether_sprouts"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

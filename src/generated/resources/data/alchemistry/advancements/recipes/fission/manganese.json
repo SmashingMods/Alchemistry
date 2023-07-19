@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:manganese"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:mutton"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

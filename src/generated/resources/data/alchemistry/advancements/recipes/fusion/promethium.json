@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:promethium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

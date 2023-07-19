@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:blaze_powder"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

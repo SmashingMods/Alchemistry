@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:milk_bucket"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

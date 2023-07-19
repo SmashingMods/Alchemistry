@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:shroomlight"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

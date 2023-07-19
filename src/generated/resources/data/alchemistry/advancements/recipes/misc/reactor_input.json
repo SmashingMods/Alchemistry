@@ -30,5 +30,6 @@
     "recipes": [
       "alchemistry:reactor_input"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

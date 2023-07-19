@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:chicken"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

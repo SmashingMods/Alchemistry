@@ -16,5 +16,6 @@
     "recipes": [
       "alchemistry:beryllium"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

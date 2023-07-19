@@ -16,5 +16,6 @@
     "recipes": [
       "minecraft:soul_sand"
     ]
-  }
+  },
+  "sends_telemetry_event": true
 }

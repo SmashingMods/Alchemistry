@@ -1,30 +1,30 @@
 package com.smashingmods.alchemistry.client.container.button;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.network.ToggleReactorAutoejectPacket;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.button.AbstractAlchemyButton;
-
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 
 public class ReactorAutoejectButton extends AbstractAlchemyButton {
 
     private static final List<Component> TOOLTIP_ENABLED = Arrays.asList(
-            Component.translatable("alchemistry.container.autoeject.title.enabled"),
-            Component.empty(),
-            Component.translatable("alchemistry.container.autoeject.tooltip.enabled"));
+            new TranslatableComponent("alchemistry.container.autoeject.title.enabled"),
+            new TextComponent(""),
+            new TranslatableComponent("alchemistry.container.autoeject.tooltip.enabled"));
 
     private static final List<Component> TOOLTIP_DISABLED = Arrays.asList(
-            Component.translatable("alchemistry.container.autoeject.title.disabled"),
-            Component.empty(),
-            Component.translatable("alchemistry.container.autoeject.tooltip.disabled"));
+            new TranslatableComponent("alchemistry.container.autoeject.title.disabled"),
+            new TextComponent(""),
+            new TranslatableComponent("alchemistry.container.autoeject.tooltip.disabled"));
 
     public ReactorAutoejectButton(AbstractProcessingScreen<?> pParent) {
         super(pParent, pButton -> {

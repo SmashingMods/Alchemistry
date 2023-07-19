@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.block.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
-import com.smashingmods.alchemistry.client.container.button.IOConfigurationButton;
+import com.smashingmods.alchemistry.client.container.SideModeScreen;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
@@ -15,6 +15,7 @@ import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemylib.client.button.LockButton;
 import com.smashingmods.alchemylib.client.button.PauseButton;
 import com.smashingmods.alchemylib.client.button.RecipeSelectorButton;
+import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -33,8 +34,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     private final LockButton lockButton = new LockButton(this);
     private final PauseButton pauseButton = new PauseButton(this);
-    private final IOConfigurationButton sideConfigButton = new IOConfigurationButton(this);
-
+    private final SideModeButton sideModeButton;
     private final RecipeSelectorScreen<CombinerScreen, CombinerBlockEntity, CombinerRecipe> recipeSelectorScreen;
     private final RecipeSelectorButton recipeSelector;
 
@@ -46,6 +46,9 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         this.displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         this.blockEntity = (CombinerBlockEntity) pMenu.getBlockEntity();
 
+        SideModeScreen<CombinerScreen> sideModeScreen = new SideModeScreen<>(this);
+        sideModeButton = new SideModeButton(this, sideModeScreen);
+
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CombinerBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCombinerRecipes(pMenu.getLevel()));
         recipeSelector = new RecipeSelectorButton(this, recipeSelectorScreen);
     }
@@ -56,7 +59,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         widgets.add(lockButton);
         widgets.add(pauseButton);
         widgets.add(recipeSelector);
-        widgets.add(sideConfigButton);
+        widgets.add(sideModeButton);
         super.init();
     }
 
@@ -89,7 +92,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             pGuiGraphics.renderItem(currentOutput, leftPos + 152, topPos + 15);
 
             if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
-                renderItemTooltip(pGuiGraphics, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                renderItemTooltip(pGuiGraphics, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", "Current recipe:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
             }
 
             int xOrigin = leftPos + 48;
@@ -105,12 +108,16 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
                         ItemStack itemStack = currentRecipe.getInput().get(index).getIngredient().getItems()[(int) (Math.random() * currentRecipe.getInput().get(index).getIngredient().getItems().length)];
 
-                        if (handler.getStackInSlot(index).isEmpty()) {
-                            FakeItemRenderer.renderFakeItem(itemStack, x, y, 0.35F);
-                            pGuiGraphics.renderItemDecorations(font, itemStack, x, y);
+                        boolean required = handler.getStacks().stream().noneMatch(handlerItem -> {
+                            boolean sameItem = ItemStack.isSameItemSameTags(itemStack, handlerItem);
+                            boolean minCount = handlerItem.getCount() >= itemStack.getCount();
+                            return sameItem && minCount;
+                        });
 
+                        if (handler.getStackInSlot(index).isEmpty() && required) {
+                            FakeItemRenderer.renderFakeItem(pGuiGraphics, itemStack, x, y, true);
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
-                                renderItemTooltip(pGuiGraphics, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                                renderItemTooltip(pGuiGraphics, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", "Required input item:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
                             }
                         }
                     }

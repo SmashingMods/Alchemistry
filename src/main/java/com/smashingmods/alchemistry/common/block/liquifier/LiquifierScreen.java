@@ -1,7 +1,7 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.client.container.button.IOConfigurationButton;
+import com.smashingmods.alchemistry.client.container.SideModeScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
 import com.smashingmods.alchemylib.api.blockentity.container.Direction2D;
 import com.smashingmods.alchemylib.api.blockentity.container.data.AbstractDisplayData;
@@ -10,6 +10,7 @@ import com.smashingmods.alchemylib.api.blockentity.container.data.FluidDisplayDa
 import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDisplayData;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractFluidBlockEntity;
 import com.smashingmods.alchemylib.client.button.PauseButton;
+import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -24,19 +25,22 @@ public class LiquifierScreen extends AbstractProcessingScreen<LiquifierMenu> {
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final PauseButton pauseButton = new PauseButton(this);
-    private final IOConfigurationButton sideConfigButton = new IOConfigurationButton(this);
+    private final SideModeButton sideModeButton;
 
     public LiquifierScreen(LiquifierMenu pMenu, Inventory pPlayerInventory, Component pTitle) {
         super(pMenu, pPlayerInventory, pTitle);
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
         displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 120, 12, 16, 54));
+
+        SideModeScreen<LiquifierScreen> sideModeScreen = new SideModeScreen<>(this);
+        sideModeButton = new SideModeButton(this, sideModeScreen);
     }
 
     @Override
     protected void init() {
         widgets.add(pauseButton);
-        widgets.add(sideConfigButton);
+        widgets.add(sideModeButton);
         super.init();
     }
 

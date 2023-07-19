@@ -23,7 +23,7 @@ class SideConfigButton extends AbstractWidget {
 
     private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
     private static final ResourceLocation BARRIER_LOCATION = new ResourceLocation("minecraft", "textures/item/barrier.png");
-    private final SideModeConfigurationScreen parentScreen;
+    private final SideModeScreen<?> parentScreen;
     @Nullable
     private final Direction side;
     private final List<Component> tooltip;
@@ -31,7 +31,7 @@ class SideConfigButton extends AbstractWidget {
     private final int baseOffsetX;
     private final int baseOffsetY;
 
-    SideConfigButton(SideModeConfigurationScreen parentScreen, int rasterX, int rasterY, @Nullable Direction side) {
+    SideConfigButton(SideModeScreen<?> parentScreen, int rasterX, int rasterY, @Nullable Direction side) {
         super(0, 0, 16, 16, Component.empty());
         this.parentScreen = parentScreen;
         this.baseOffsetX = 4 + 20 * rasterX;
@@ -91,7 +91,7 @@ class SideConfigButton extends AbstractWidget {
         }
         SideMode newMode = SideMode.getFromOrdinal(ordinal);
         parentScreen.getInventory().setSideMode(side, newMode);
-        Alchemistry.PACKET_HANDLER.sendToServer(new SetSideConfigurationPacket(parentScreen.getOwner().getBlockPos(), parentScreen.getInventory().sideModesToShort()));
+        Alchemistry.PACKET_HANDLER.sendToServer(new SetSideConfigurationPacket(parentScreen.getBlockEntity().getBlockPos(), parentScreen.getInventory().sideModesToShort()));
         tooltip.set(2, getCurrentModeComponent());
     }
 

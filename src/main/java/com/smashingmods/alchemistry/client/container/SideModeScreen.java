@@ -1,20 +1,22 @@
 package com.smashingmods.alchemistry.client.container;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.smashingmods.alchemylib.AlchemyLib;
+import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemylib.api.blockentity.processing.InventoryBlockEntity;
 import com.smashingmods.alchemylib.api.storage.SidedProcessingSlotWrapper;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SideModeConfigurationScreen extends Screen {
+public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Screen {
 
     private static final ResourceLocation TEXTURE_SOURCE = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
 
@@ -31,13 +33,14 @@ public class SideModeConfigurationScreen extends Screen {
     // W | X | E
     // _ | S | D
 
-    private final BlockEntity owner;
+    private final P parentScreen;
+
     @Nullable
     private List<Component> drawnTooltip = null;
 
-    public SideModeConfigurationScreen(BlockEntity owner) {
+    public SideModeScreen(P pParentScreen) {
         super(Component.translatable("alchemistry.container.sides.title"));
-        this.owner = owner;
+        this.parentScreen = pParentScreen;
     }
 
     @Override
@@ -69,7 +72,6 @@ public class SideModeConfigurationScreen extends Screen {
 
     @Override
     public void renderBackground(GuiGraphics pGuiGraphics) {
-        super.renderBackground(pGuiGraphics);
         // Blitting a Ninepatch to screen by hand - because why not?
         pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
         pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner
@@ -80,6 +82,12 @@ public class SideModeConfigurationScreen extends Screen {
         pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256); // Left edge
         pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256); // Right edge
         pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256); // Fill
+    }
+
+    @Override
+    public void onClose() {
+        parentScreen.getBlockEntity().setSideConfigScreenState(false);
+        super.onClose();
     }
 
     public int getRasterStartX() {
@@ -107,10 +115,34 @@ public class SideModeConfigurationScreen extends Screen {
     }
 
     public SidedProcessingSlotWrapper getInventory() {
-        return ((InventoryBlockEntity) owner).getCombinedSlotHandler();
+        return ((InventoryBlockEntity) parentScreen.getBlockEntity()).getCombinedSlotHandler();
     }
 
-    public BlockEntity getOwner() {
-        return owner;
+    public AbstractProcessingBlockEntity getBlockEntity() {
+        return parentScreen.getBlockEntity();
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
+    public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
+
+        for (Renderable renderable : parentScreen.renderables) {
+            if (renderable instanceof AbstractWidget widget) {
+                int xStart = widget.getX();
+                int xEnd = xStart + widget.getWidth();
+                int yStart = widget.getY();
+                int yEnd = yStart + widget.getHeight();
+
+                if (pMouseX > xStart && pMouseX < xEnd && pMouseY > yStart && pMouseY < yEnd) {
+                    return parentScreen.mouseClicked(pMouseX, pMouseY, pButton);
+                }
+            }
+        }
+
+        return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 }

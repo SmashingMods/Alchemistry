@@ -85,7 +85,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
             for (int i = 0; i < inputs.size(); i ++) {
                 y = y + (i * 26);
                 if (handler.getStackInSlot(i).isEmpty()) {
-                    FakeItemRenderer.renderFakeItem(inputs.get(i), x, y, 0.35f);
+                    FakeItemRenderer.renderFakeItem(pGuiGraphics, inputs.get(i), x, y);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
                         renderItemTooltip(pGuiGraphics, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
                     }

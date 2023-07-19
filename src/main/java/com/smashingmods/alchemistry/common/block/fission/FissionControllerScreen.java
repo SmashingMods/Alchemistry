@@ -77,7 +77,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
             int x = leftPos + 44;
             int y = topPos + 35;
 
-            FakeItemRenderer.renderFakeItem(currentInput, x, y, 0.35f);
+            FakeItemRenderer.renderFakeItem(pGuiGraphics, currentInput, x, y);
             if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
                 renderItemTooltip(pGuiGraphics, currentInput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
             }

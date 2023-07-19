@@ -2,7 +2,7 @@ package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
-import com.smashingmods.alchemistry.client.container.button.IOConfigurationButton;
+import com.smashingmods.alchemistry.client.container.SideModeScreen;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
@@ -13,6 +13,7 @@ import com.smashingmods.alchemylib.api.blockentity.container.data.ProgressDispla
 import com.smashingmods.alchemylib.client.button.LockButton;
 import com.smashingmods.alchemylib.client.button.PauseButton;
 import com.smashingmods.alchemylib.client.button.RecipeSelectorButton;
+import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
@@ -32,7 +33,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     private final LockButton lockButton = new LockButton(this);
     private final PauseButton pauseButton = new PauseButton(this);
-    private final IOConfigurationButton sideConfigButton = new IOConfigurationButton(this);
+    private final SideModeButton sideModeButton;
 
     private final RecipeSelectorScreen<CompactorScreen, CompactorBlockEntity, CompactorRecipe> recipeSelectorScreen;
     private final RecipeSelectorButton recipeSelector;
@@ -46,6 +47,9 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(),78, 54, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(),12, 12, 16, 54));
 
+        SideModeScreen<CompactorScreen> sideModeScreen = new SideModeScreen<>(this);
+        sideModeButton = new SideModeButton(this, sideModeScreen);
+
         recipeSelectorScreen = new RecipeSelectorScreen<>(this, (CompactorBlockEntity) getMenu().getBlockEntity(), RecipeRegistry.getCompactorRecipes(pMenu.getLevel()));
         recipeSelector = new RecipeSelectorButton(this, recipeSelectorScreen);
     }
@@ -56,7 +60,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         widgets.add(lockButton);
         widgets.add(pauseButton);
         widgets.add(recipeSelector);
-        widgets.add(sideConfigButton);
+        widgets.add(sideModeButton);
         super.init();
     }
 

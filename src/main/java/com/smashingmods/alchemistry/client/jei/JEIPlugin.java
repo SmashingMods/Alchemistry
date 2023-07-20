@@ -10,16 +10,15 @@ import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
 import com.smashingmods.alchemistry.common.network.jei.*;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeManager;
 
 import java.util.Objects;
@@ -78,5 +77,16 @@ public class JEIPlugin implements IModPlugin {
         pRegistration.addRecipeTransferHandler(new FissionTransferPacket.TransferHandler(), RecipeTypes.FISSION);
         pRegistration.addRecipeTransferHandler(new FusionTransferPacket.TransferHandler(), RecipeTypes.FUSION);
         pRegistration.addRecipeTransferHandler(new LiquifierTransferPacket.TransferHandler(), RecipeTypes.LIQUIFIER);
+    }
+
+    @Override
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration pRegistration) {
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.ATOMIZER.get().asItem()), RecipeTypes.ATOMIZER);
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.COMBINER.get().asItem()), RecipeTypes.COMBINER);
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.COMPACTOR.get().asItem()), RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.DISSOLVER.get().asItem()), RecipeTypes.DISSOLVER);
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.FISSION_CONTROLLER.get().asItem()), RecipeTypes.FISSION);
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.FUSION_CONTROLLER.get().asItem()), RecipeTypes.FUSION);
+        pRegistration.addRecipeCatalyst(new ItemStack(BlockRegistry.LIQUIFIER.get().asItem()), RecipeTypes.LIQUIFIER);
     }
 }

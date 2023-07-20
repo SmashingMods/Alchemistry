@@ -4,5 +4,7 @@
   "book_texture": "patchouli:textures/gui/book_blue.png",
   "model": "patchouli:book_blue",
   "show_progress": false,
-  "version": 1
+  "version": 1,
+  "use_resource_pack": true,
+  "creative_tab": "alchemistry:machine_tab"
 }

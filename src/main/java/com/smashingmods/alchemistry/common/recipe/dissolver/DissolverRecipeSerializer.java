@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> implements Rec
 
             for (JsonElement stack : jsonObject.getAsJsonArray("results")) {
                 try {
-                    output.add(CraftingHelper.getItemStack(stack.getAsJsonObject(), false, false));
+                    output.add(CraftingHelper.getItemStack(stack.getAsJsonObject(), true, false));
                 } catch (JsonSyntaxException exception) {
                     exception.printStackTrace();
                 }

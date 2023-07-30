@@ -9,6 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.LinkedHashSet;
@@ -33,9 +34,9 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
         inputJson.forEach(element -> input.add(IngredientStack.fromJson(element.getAsJsonObject())));
 
         if (pSerializedRecipe.get("result").isJsonObject()) {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), false, true);
+            output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
         } else {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("item"), false, true);
+            output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("item"));
         }
         return this.factory.create(pRecipeId, group, input, output);
     }

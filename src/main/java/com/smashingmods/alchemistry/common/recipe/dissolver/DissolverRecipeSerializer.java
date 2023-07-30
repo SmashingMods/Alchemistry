@@ -12,7 +12,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.ArrayList;

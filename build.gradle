@@ -40,7 +40,6 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition'
 
             mods {
                 alchemistry {
@@ -55,7 +54,6 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition'
             args 'nogui'
 
             mods {
@@ -71,7 +69,6 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            jvmArgs '-XX:+AllowEnhancedClassRedefinition'
 
             args '--mod', "$archivesBaseName", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
 
@@ -108,7 +105,11 @@ dependencies {
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}")
 
     runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
-    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3743835")
+    runtimeOnly fg.deobf("curse.maven:mekanism-268560:3875976")
+    //Used for testing mekanism compatibility.
+    //runtimeOnly fg.deobf("curse.maven:mekanism-generators-268566:3875978")
+    //runtimeOnly fg.deobf("curse.maven:mekanism-tools-268567:3875979")
+    //runtimeOnly fg.deobf("curse.maven:mekanism-additions-345425:3875980")
     runtimeOnly fg.deobf("curse.maven:pipez-443900:3819249")
 }
 

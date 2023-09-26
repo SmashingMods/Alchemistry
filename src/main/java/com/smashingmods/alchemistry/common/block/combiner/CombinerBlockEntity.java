@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
+import java.util.List;
 
 public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
@@ -131,22 +132,22 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
                 setChanged();
             }
 
-            @Override
             public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
-                    boolean contained = getStacks().stream().allMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
-                    if (contained) {
-                        // if the slot already contains the ItemStack, the item will be valid for that slot and can be
-                        // inserted but only so long as the inserted count and existing count summed aren't more than
-                        // the stack's max size.
-                        ItemStack inSlot = getStackInSlot(pSlot);
-                        return !ItemStack.isSameItemSameTags(inSlot, pItemStack) || ((inSlot.getCount() + pItemStack.getCount()) > inSlot.getMaxStackSize());
+                    List<IngredientStack> ingredients = currentRecipe.getInput();
+                    // Assume slots are 0-indexed and go in order from left to right, top to bottom
+                    if (pSlot < ingredients.size()) {
+                        // If there's a corresponding ingredient for this slot in the recipe
+                        IngredientStack expectedIngredient = ingredients.get(pSlot);
+                        // Allow the item to be inserted into this slot, as long as it does not exceed the max stack size
+                        return expectedIngredient.matches(pItemStack) &&
+                                (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= getStackInSlot(pSlot).getMaxStackSize());
                     } else {
-                        return currentRecipe.getInput().stream()
-                                .map(IngredientStack::getIngredient)
-                                .anyMatch(ingredient -> ingredient.test(pItemStack));
+                        // If there's no corresponding ingredient for this slot in the recipe, do not allow any items to be inserted
+                        return pItemStack.isEmpty();
                     }
                 }
+
                 return super.isItemValid(pSlot, pItemStack);
             }
         };

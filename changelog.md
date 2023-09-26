@@ -1,6 +1,6 @@
-# Alchemistry 1.19.2-2.3.1 RELEASE
+# Alchemistry 1.19.2-2.3.2 RELEASE
 
 Changes:
-- Add JEI catalyst registration for Alchemistry blocks. That means now you can press 'U' on a block in your inventory, creative tab, or jei to get all of the recipes you can make in the machine.
+- Allow NBT when checking item stacks for the dissolver and combiner recipe serializers. For closed PR #321.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

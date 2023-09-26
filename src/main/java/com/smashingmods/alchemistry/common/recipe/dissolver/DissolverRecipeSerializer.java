@@ -44,7 +44,7 @@ public class DissolverRecipeSerializer<T extends DissolverRecipe> extends ForgeR
 
             for (JsonElement stack : jsonObject.getAsJsonArray("results")) {
                 try {
-                    output.add(CraftingHelper.getItemStack(stack.getAsJsonObject(), false, false));
+                    output.add(CraftingHelper.getItemStack(stack.getAsJsonObject(), true, false));
                 } catch (JsonSyntaxException exception) {
                     exception.printStackTrace();
                 }

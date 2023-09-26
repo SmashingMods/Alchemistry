@@ -19,10 +19,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
+import java.util.List;
 
 public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
@@ -131,18 +132,22 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
                 setChanged();
             }
 
-            @Override
-            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+            public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
-                    boolean notContained = this.getStacks().stream()
-                            .noneMatch(itemStack -> ItemStack.isSameItemSameTags(itemStack, pItemStack));
-                    boolean inputRequired = currentRecipe.getInput().stream()
-                            .map(IngredientStack::getIngredient)
-                            .anyMatch(ingredient -> ingredient.test(pItemStack));
-                    boolean itemMatchesSlot = ItemStack.isSameItemSameTags(pItemStack, getStackInSlot(pSlot));
-
-                    return itemMatchesSlot || (notContained && inputRequired);
+                    List<IngredientStack> ingredients = currentRecipe.getInput();
+                    // Assume slots are 0-indexed and go in order from left to right, top to bottom
+                    if (pSlot < ingredients.size()) {
+                        // If there's a corresponding ingredient for this slot in the recipe
+                        IngredientStack expectedIngredient = ingredients.get(pSlot);
+                        // Allow the item to be inserted into this slot, as long as it does not exceed the max stack size
+                        return expectedIngredient.matches(pItemStack) &&
+                                (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= getStackInSlot(pSlot).getMaxStackSize());
+                    } else {
+                        // If there's no corresponding ingredient for this slot in the recipe, do not allow any items to be inserted
+                        return pItemStack.isEmpty();
+                    }
                 }
+
                 return super.isItemValid(pSlot, pItemStack);
             }
         };
@@ -152,7 +157,7 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     public ProcessingSlotHandler initializeOutputHandler() {
         return new ProcessingSlotHandler( 1) {
             @Override
-            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+            public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;
             }
         };

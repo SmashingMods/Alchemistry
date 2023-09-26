@@ -192,7 +192,9 @@ curseforge {
         releaseType = 'release'
         changelogType = 'markdown'
         changelog = file("changelog.md")
+        addGameVersion 'Forge'
         addGameVersion 'Java 17'
+        addGameVersion "$minecraft_version"
         mainArtifact(jar) {
             displayName = "Alchemistry - $project.version"
             relations {

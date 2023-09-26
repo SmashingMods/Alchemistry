@@ -33,9 +33,9 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
         inputJson.forEach(element -> input.add(IngredientStack.fromJson(element.getAsJsonObject())));
 
         if (pSerializedRecipe.get("result").isJsonObject()) {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), false, true);
+            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), true, true);
         } else {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("item"), false, true);
+            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("item"), true, true);
         }
         return this.factory.create(pRecipeId, group, input, output);
     }

@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.common.block.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.client.container.RecipeDisplayUtil;
 import com.smashingmods.alchemistry.client.container.RecipeSelectorScreen;
 import com.smashingmods.alchemistry.client.container.SideModeScreen;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
@@ -92,7 +94,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             pGuiGraphics.renderItem(currentOutput, leftPos + 152, topPos + 15);
 
             if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
-                renderItemTooltip(pGuiGraphics, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", "Current recipe:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                var components = RecipeDisplayUtil.getItemTooltipComponent(currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", "Current recipe:", TranslatableContents.NO_ARGS)));
+                pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
 
             int xOrigin = leftPos + 48;
@@ -117,7 +120,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                         if (handler.getStackInSlot(index).isEmpty() && required) {
                             FakeItemRenderer.renderFakeItem(pGuiGraphics, itemStack, x, y, true);
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
-                                renderItemTooltip(pGuiGraphics, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", "Required input item:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                                var components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", "Required input item:", TranslatableContents.NO_ARGS)));
+                                pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
                             }
                         }
                     }

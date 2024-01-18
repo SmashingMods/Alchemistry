@@ -53,7 +53,7 @@ public class FissionControllerBlock extends AbstractReactorBlock {
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.fissionEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", null, new Object[]{Config.Common.fissionEnergyPerTick.get()})));
     }
 
     @Override

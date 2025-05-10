@@ -18,7 +18,7 @@
           "count": 8
         },
         "result": {
-          "fluid": "thermal:syrup_fluid",
+          "fluid": "thermal:syrup",
           "amount": "500"
         }
       }

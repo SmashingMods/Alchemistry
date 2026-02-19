@@ -55,7 +55,7 @@ public class AtomizerScreen extends AbstractProcessingScreen<AtomizerMenu> {
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/atomizer_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

@@ -15,7 +15,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
@@ -57,7 +56,7 @@ public class FissionControllerScreen extends AbstractProcessingScreen<FissionCon
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/fission_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/fission_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

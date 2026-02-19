@@ -1,12 +1,11 @@
 package com.smashingmods.alchemistry.registry;
 
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import net.neoforged.bus.api.IEventBus;
 
 public class Registry {
 
-    public static void register() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public static void register(IEventBus modEventBus) {
         BlockRegistry.register(modEventBus);
         ItemRegistry.register(modEventBus);
         TabRegistry.register(modEventBus);

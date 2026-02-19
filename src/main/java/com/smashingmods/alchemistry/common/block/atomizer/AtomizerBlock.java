@@ -6,10 +6,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -23,8 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -39,40 +37,37 @@ public class AtomizerBlock extends AbstractProcessingBlock {
     public static final VoxelShape SHAPE = Shapes.or(base, rest);
 
     @Override
-    @SuppressWarnings("deprecation")
     public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return SHAPE;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.atomizerEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        tooltipComponents.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.atomizerEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!level.isClientSide()) {
+            BlockEntity blockEntity = level.getBlockEntity(pos);
             boolean interactionSuccessful = true;
 
             if (blockEntity instanceof AtomizerBlockEntity) {
-                interactionSuccessful = ((AtomizerBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
+                interactionSuccessful = ((AtomizerBlockEntity) blockEntity).onBlockActivated(level, pos, player, hand);
             }
 
             if (!interactionSuccessful) {
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (AtomizerBlockEntity) blockEntity, pPos);
+                player.openMenu((AtomizerBlockEntity) blockEntity, pos);
             }
-            return InteractionResult.CONSUME;
+            return ItemInteractionResult.CONSUME;
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override

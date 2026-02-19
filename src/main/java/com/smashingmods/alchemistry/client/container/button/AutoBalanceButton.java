@@ -10,7 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class AutoBalanceButton extends AbstractAlchemyButton {
 
@@ -20,14 +20,14 @@ public class AutoBalanceButton extends AbstractAlchemyButton {
                 boolean toggleAutoBalance = !fusionControllerBlockEntity.isAutoBalanced();
                 fusionControllerBlockEntity.setAutoBalanced(toggleAutoBalance);
                 fusionControllerBlockEntity.setChanged();
-                Alchemistry.PACKET_HANDLER.sendToServer(new ToggleAutoBalanceButtonPacket(fusionControllerBlockEntity.getBlockPos(), toggleAutoBalance));
+                PacketDistributor.sendToServer(new ToggleAutoBalanceButtonPacket(fusionControllerBlockEntity.getBlockPos(), toggleAutoBalance));
             }
         });
     }
 
     @Override
     public void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        pGuiGraphics.blit(new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png"), getX(), getY(), 25 + ((((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? 0 : 1) * 20), 40, width, height);
+        pGuiGraphics.blit(AlchemyLib.modLoc("textures/gui/widgets.png"), getX(), getY(), 25 + ((((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? 0 : 1) * 20), 40, width, height);
         renderButtonTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 

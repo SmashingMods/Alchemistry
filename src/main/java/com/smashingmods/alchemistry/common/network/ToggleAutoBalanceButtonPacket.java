@@ -1,45 +1,46 @@
 package com.smashingmods.alchemistry.common.network;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
-import com.smashingmods.alchemylib.api.network.AlchemyPacket;
+import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public class ToggleAutoBalanceButtonPacket implements AlchemyPacket {
+public record ToggleAutoBalanceButtonPacket(BlockPos blockPos, boolean autoBalance) implements CustomPacketPayload {
+    public static final Type<ToggleAutoBalanceButtonPacket> TYPE = new Type<>(Alchemistry.modLoc("toogle_auto_balance_button"));
 
-    private final BlockPos blockPos;
-    private final boolean autoBalance;
+    public static final StreamCodec<ByteBuf, ToggleAutoBalanceButtonPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC,
+            ToggleAutoBalanceButtonPacket::blockPos,
 
-    public ToggleAutoBalanceButtonPacket(BlockPos pBlockPos, boolean pBalance) {
-        this.blockPos = pBlockPos;
-        this.autoBalance = pBalance;
-    }
+            ByteBufCodecs.BOOL,
+            ToggleAutoBalanceButtonPacket::autoBalance,
 
-    public ToggleAutoBalanceButtonPacket(FriendlyByteBuf pBuffer) {
-        this.blockPos = pBuffer.readBlockPos();
-        this.autoBalance = pBuffer.readBoolean();
-    }
+            ToggleAutoBalanceButtonPacket::new
+    );
 
-    public void encode(FriendlyByteBuf pBuffer) {
-        pBuffer.writeBlockPos(blockPos);
-        pBuffer.writeBoolean(autoBalance);
-    }
-
-    public void handle(NetworkEvent.Context pContext) {
-        Player player = pContext.getSender();
-        if (player != null) {
-            AbstractProcessingBlockEntity blockEntity = (AbstractProcessingBlockEntity) player.level().getBlockEntity(blockPos);
+    public static void handle(ToggleAutoBalanceButtonPacket packet, IPayloadContext pContext) {
+        pContext.enqueueWork(() -> {
+            Player player = pContext.player();
+            AbstractProcessingBlockEntity blockEntity = (AbstractProcessingBlockEntity) player.level().getBlockEntity(packet.blockPos);
 
             if (blockEntity instanceof FusionControllerBlockEntity fusionController) {
-                fusionController.setAutoBalanced(autoBalance);
+                fusionController.setAutoBalanced(packet.autoBalance);
                 fusionController.autoBalance();
                 fusionController.updateRecipe();
                 fusionController.setCanProcess(fusionController.canProcessRecipe());
                 blockEntity.setChanged();
             }
-        }
+        });
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 }

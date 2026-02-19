@@ -15,7 +15,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
@@ -35,7 +34,7 @@ public class CombinerRecipeCategory implements IRecipeCategory<CombinerRecipe> {
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_jei.png"), 0, 0, 150, 75);
+        return guiHelper.createDrawable(Alchemistry.modLoc("textures/gui/combiner_jei.png"), 0, 0, 150, 75);
     }
 
     @Override

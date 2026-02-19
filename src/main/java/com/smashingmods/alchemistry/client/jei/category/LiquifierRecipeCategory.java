@@ -5,10 +5,10 @@ import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -16,7 +16,6 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe> {
@@ -36,7 +35,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/liquifier_jei.png"), 0, 0, 150, 75);
+        return guiHelper.createDrawable(Alchemistry.modLoc("textures/gui/liquifier_jei.png"), 0, 0, 150, 75);
     }
 
     @Override
@@ -52,6 +51,6 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, LiquifierRecipe pRecipe, IFocusGroup pFocusGroup) {
         pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStacks(pRecipe.getInput().toStacks());
-        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(ForgeTypes.FLUID_STACK, pRecipe.getOutput());
+        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(NeoForgeTypes.FLUID_STACK, pRecipe.getOutput());
     }
 }

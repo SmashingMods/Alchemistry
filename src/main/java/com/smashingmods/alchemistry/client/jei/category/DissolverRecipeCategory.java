@@ -21,7 +21,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -46,7 +45,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
+        return guiHelper.createDrawable(Alchemistry.modLoc("textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
     }
 
     @Override

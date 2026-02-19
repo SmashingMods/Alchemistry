@@ -12,6 +12,8 @@ val parchmentMappingsVersion: String by extra
 val parchmentMinecraftVersion: String by extra
 val neoforgeVersionRange: String by extra
 val jeiVersion: String by extra
+val chemlibVersion: String by extra
+val chemlibVersionRange: String by extra
 
 val localRuntime: Configuration by configurations.creating
 
@@ -24,6 +26,15 @@ group = "com.smashingmods.chemlib"
 
 repositories {
     maven("https://maven.blamejared.com/")
+    exclusiveContent {
+        forRepository {
+            maven("https://api.modrinth.com/maven")
+        }
+
+        filter {
+            includeGroup("maven.modrinth")
+        }
+    }
 }
 
 base {
@@ -39,6 +50,8 @@ neoForge {
         mappingsVersion = parchmentMappingsVersion
         minecraftVersion = parchmentMinecraftVersion
     }
+
+    accessTransformers.from("src/main/resources/META-INF/accesstransformer.cfg")
 
     runs {
         create("client") {
@@ -85,6 +98,7 @@ dependencies {
     compileOnly("mezz.jei:jei-$minecraftVersion-common-api:${jeiVersion}")
     compileOnly("mezz.jei:jei-$minecraftVersion-neoforge-api:${jeiVersion}")
     implementation(files("libs/alchemylib-1.21.1-1.0.30.jar"))
+    implementation("maven.modrinth:chemlib-updated:${chemlibVersion}")
     localRuntime("mezz.jei:jei-$minecraftVersion-neoforge:${jeiVersion}")
 }
 

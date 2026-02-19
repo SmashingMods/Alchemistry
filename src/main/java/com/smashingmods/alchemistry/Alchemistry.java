@@ -12,14 +12,14 @@ import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.registry.Registry;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,15 +31,14 @@ public class Alchemistry {
     public static final String MODID = "alchemistry";
     public static final PacketHandler PACKET_HANDLER = new PacketHandler().register();
 
-    public Alchemistry() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public Alchemistry(ModContainer modContainer, IEventBus modEventBus) {
         modEventBus.addListener(this::clientSetupEvent);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
-        Registry.register();
+        Registry.register(modEventBus);
 
         // Make sure that `/reload` and world loading wipe the machine recipe cache.
-        MinecraftForge.EVENT_BUS.addListener(RecipeRegistry::postReload);
+        NeoForge.EVENT_BUS.addListener(RecipeRegistry::postReload);
     }
 
     public void clientSetupEvent(final FMLClientSetupEvent event) {
@@ -52,5 +51,9 @@ public class Alchemistry {
             MenuScreens.register(MenuRegistry.FISSION_CONTROLLER_MENU.get(), FissionControllerScreen::new);
             MenuScreens.register(MenuRegistry.FUSION_CONTROLLER_MENU.get(), FusionControllerScreen::new);
         });
+    }
+    
+    public static ResourceLocation modLoc(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

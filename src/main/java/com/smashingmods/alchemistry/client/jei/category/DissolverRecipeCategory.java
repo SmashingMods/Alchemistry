@@ -64,13 +64,13 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         Font font = Minecraft.getInstance().font;
         List<Double> probabilities = new LinkedList<>();
 
-        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> probabilities.add(group.getProbability())));
+        pRecipe.getOutput().probabilityGroups().forEach(group -> group.output().forEach(itemStack -> probabilities.add(group.probability())));
         Collections.sort(probabilities);
         Collections.reverse(probabilities);
 
-        double totalProbability = pRecipe.getOutput().getProbabilityGroups().stream().mapToDouble(ProbabilityGroup::getProbability).sum();
-        boolean weighted = pRecipe.getOutput().isWeighted();
-        int rolls = pRecipe.getOutput().getRolls();
+        double totalProbability = pRecipe.getOutput().probabilityGroups().stream().mapToDouble(ProbabilityGroup::probability).sum();
+        boolean weighted = pRecipe.getOutput().weighted();
+        int rolls = pRecipe.getOutput().rolls();
 
         String typeString = I18n.get("alchemistry.jei.dissolver.type");
         String relativeString = I18n.get("alchemistry.jei.dissolver.relative");
@@ -107,7 +107,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         int yOrigin = 46;
 
         Map<ItemStack, Double> itemProbabilityMap = new HashMap<>();
-        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> itemProbabilityMap.put(itemStack, group.getProbability())));
+        pRecipe.getOutput().probabilityGroups().forEach(group -> group.output().forEach(itemStack -> itemProbabilityMap.put(itemStack, group.probability())));
 
         List<ItemStack> items = itemProbabilityMap.entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry<ItemStack, Double>::getValue).reversed())

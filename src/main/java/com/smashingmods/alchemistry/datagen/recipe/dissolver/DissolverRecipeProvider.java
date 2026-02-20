@@ -53,7 +53,7 @@ public class DissolverRecipeProvider {
             ItemStack output = new ItemStack(pItemLike);
             List<ItemStack> items = new ArrayList<>();
 
-            pSet.getProbabilityGroups().stream().map(ProbabilityGroup::getOutput).forEach(items::addAll);
+            pSet.probabilityGroups().stream().map(ProbabilityGroup::output).forEach(items::addAll);
 
             if (items.size() <= 4) {
                 items = items.stream().filter(itemStack -> !itemStack.isEmpty()).toList();

@@ -1,11 +1,12 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -14,57 +15,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class ProbabilitySet {
+public record ProbabilitySet(List<ProbabilityGroup> probabilityGroups, boolean weighted, int rolls) {
+    public static final StreamCodec<RegistryFriendlyByteBuf, ProbabilitySet> STREAM_CODEC = StreamCodec.composite(
+            ProbabilityGroup.LIST_STREAM_CODEC,
+            ProbabilitySet::probabilityGroups,
 
-    private final List<ProbabilityGroup> probabilityGroups;
-    private final boolean weighted;
-    private final int rolls;
+            ByteBufCodecs.BOOL,
+            ProbabilitySet::weighted,
+            
+            ByteBufCodecs.INT,
+            ProbabilitySet::rolls,
+            
+            ProbabilitySet::new
+    );
+    public static final MapCodec<ProbabilitySet> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+            ProbabilityGroup.CODEC.codec().listOf().fieldOf("groups").forGetter(ProbabilitySet::probabilityGroups),
+            Codec.BOOL.fieldOf("weighted").forGetter(ProbabilitySet::weighted),
+            Codec.INT.fieldOf("rolls").forGetter(ProbabilitySet::rolls)).apply(inst, ProbabilitySet::new)
+    );
+
 
     @SuppressWarnings("unused")
     public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups) {
         this(pProbabilityGroups, true, 1);
-    }
-
-    public ProbabilitySet(List<ProbabilityGroup> pProbabilityGroups, boolean pWeighted, int pRolls) {
-        this.probabilityGroups = pProbabilityGroups;
-        this.weighted = pWeighted;
-        this.rolls = pRolls;
-    }
-
-    public JsonElement serialize() {
-        JsonObject toReturn = new JsonObject();
-        JsonArray jsonArray = new JsonArray();
-
-        toReturn.add("rolls", new JsonPrimitive(rolls));
-        toReturn.add("weighted", new JsonPrimitive(weighted));
-
-        for (ProbabilityGroup group : probabilityGroups) {
-            jsonArray.add(group.serialize());
-        }
-        toReturn.add("groups", jsonArray);
-
-        return toReturn;
-    }
-
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        pBuffer.writeInt(probabilityGroups.size());
-        pBuffer.writeInt(rolls);
-        pBuffer.writeBoolean(weighted);
-        for (ProbabilityGroup group : probabilityGroups) {
-            group.toNetwork(pBuffer);
-        }
-    }
-
-    public static ProbabilitySet fromNetwork(FriendlyByteBuf pbuffer) {
-        List<ProbabilityGroup> groupArrayList = new ArrayList<>();
-        int size = pbuffer.readInt();
-        int rolls = pbuffer.readInt();
-        boolean weighted = pbuffer.readBoolean();
-
-        for (int index = 0; index < size; index++) {
-            groupArrayList.add(ProbabilityGroup.fromNetwork(pbuffer));
-        }
-        return new ProbabilitySet(groupArrayList, weighted, rolls);
     }
 
     public NonNullList<ItemStack> calculateOutput() {
@@ -79,10 +52,10 @@ public class ProbabilitySet {
                 double outputProbability = 0.0;
 
                 for (ProbabilityGroup group : probabilityGroups) {
-                    outputProbability += (group.getProbability() / totalProbability);
+                    outputProbability += (group.probability() / totalProbability);
 
                     if (outputProbability >= targetProbability) {
-                        toReturn.addAll(group.getOutput());
+                        toReturn.addAll(group.output());
                         break;
                     }
                 }
@@ -90,25 +63,13 @@ public class ProbabilitySet {
                 if ((totalProbability / 100) < targetProbability) return toReturn;
 
                 for (ProbabilityGroup group : probabilityGroups) {
-                    if (group.getProbability() >= random.nextInt(101)) {
-                        toReturn.addAll(group.getOutput());
+                    if (group.probability() >= random.nextInt(101)) {
+                        toReturn.addAll(group.output());
                     }
                 }
             }
         }
         return toReturn;
-    }
-
-    public List<ProbabilityGroup> getProbabilityGroups() {
-        return probabilityGroups;
-    }
-
-    public boolean isWeighted() {
-        return weighted;
-    }
-
-    public int getRolls() {
-        return rolls;
     }
 
     private double getTotalProbability() {
@@ -117,7 +78,7 @@ public class ProbabilitySet {
 
     private static double getTotalProbability(List<ProbabilityGroup> pGroups) {
         return pGroups.stream()
-                .mapToDouble(ProbabilityGroup::getProbability)
+                .mapToDouble(ProbabilityGroup::probability)
                 .sum();
     }
 
@@ -130,7 +91,8 @@ public class ProbabilitySet {
         private boolean weighted = false;
         private int rolls = 1;
 
-        public Builder() {}
+        public Builder() {
+        }
 
         public static Builder createSet() {
             return new Builder();

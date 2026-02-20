@@ -7,7 +7,6 @@ import com.smashingmods.alchemistry.common.block.dissolver.DissolverScreen;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
-import com.smashingmods.alchemistry.common.network.PacketHandler;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.registry.Registry;
@@ -29,7 +28,6 @@ public class Alchemistry {
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "alchemistry";
-    public static final PacketHandler PACKET_HANDLER = new PacketHandler().register();
 
     public Alchemistry(ModContainer modContainer, IEventBus modEventBus) {
         modEventBus.addListener(this::clientSetupEvent);

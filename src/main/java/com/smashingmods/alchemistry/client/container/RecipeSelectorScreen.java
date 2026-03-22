@@ -438,6 +438,9 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                     String description = searchablePair.getRight();
                     String keyword = pKeyword.toLowerCase();
 
+                    // НОВИЙ РЯДОК: Отримуємо перекладену назву результату рецепту
+                    String localizedName = RecipeDisplayUtil.getTarget(recipe).getHoverName().getString().toLowerCase();
+
                     if (keyword.charAt(0) == '@') {
                         if (keyword.contains(" ")) {
                             if (keyword.split(" ").length > 1) {
@@ -448,7 +451,9 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                         }
                         return registryName.getNamespace().contains(keyword.substring(1));
                     }
-                    return description.toLowerCase().contains(keyword);
+
+                    // ЗМІНЕНИЙ РЯДОК: Тепер шукає і по старій логіці, і по перекладеній назві!
+                    return description.toLowerCase().contains(keyword) || localizedName.contains(keyword);
                 })
                 .collect(Collectors.toCollection(LinkedList::new));
 

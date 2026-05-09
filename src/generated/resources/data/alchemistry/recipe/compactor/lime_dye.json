@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 4,
+    "ingredient": {
+      "item": "chemlib:chromium_oxide"
+    }
+  },
+  "result": {
+    "id": "minecraft:lime_dye"
+  }
+}

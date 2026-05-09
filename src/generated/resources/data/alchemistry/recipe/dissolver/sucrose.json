@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:sucrose"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 12,
+            "id": "chemlib:carbon"
+          },
+          {
+            "count": 22,
+            "id": "chemlib:hydrogen"
+          },
+          {
+            "count": 11,
+            "id": "chemlib:oxygen"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

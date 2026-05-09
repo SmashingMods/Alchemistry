@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:beryllium_sulfate"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:beryllium_sulfate_dust"
+  }
+}

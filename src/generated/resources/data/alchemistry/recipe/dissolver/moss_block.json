@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:moss_block"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:water"
+          }
+        ]
+      },
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

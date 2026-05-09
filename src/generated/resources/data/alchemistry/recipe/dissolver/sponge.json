@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:sponge"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 8,
+            "id": "chemlib:kaolinite"
+          },
+          {
+            "count": 8,
+            "id": "chemlib:calcium_carbonate"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

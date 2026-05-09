@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:neon"
+  },
+  "output1": {
+    "id": "chemlib:boron"
+  },
+  "output2": {
+    "id": "chemlib:boron"
+  }
+}

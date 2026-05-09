@@ -1,0 +1,39 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:dusts/apatite"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 33,
+        "results": [
+          {
+            "id": "chemlib:hydroxylapatite"
+          }
+        ]
+      },
+      {
+        "probability": 67,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/apatite"
+      }
+    }
+  ]
+}

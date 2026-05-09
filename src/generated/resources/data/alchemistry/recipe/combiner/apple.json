@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sucrose"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      }
+    }
+  ],
+  "result": {
+    "id": "minecraft:apple"
+  }
+}

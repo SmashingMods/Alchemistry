@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:red_sand"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 4,
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 10,
+        "results": [
+          {
+            "id": "chemlib:iron_oxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

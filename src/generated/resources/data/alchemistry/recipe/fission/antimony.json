@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:antimony"
+  },
+  "output1": {
+    "id": "chemlib:iron"
+  },
+  "output2": {
+    "id": "chemlib:manganese"
+  }
+}

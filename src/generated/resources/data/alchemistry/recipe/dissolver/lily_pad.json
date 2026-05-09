@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:lily_pad"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 25,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 75,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:rubidium"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:carbonate"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:rubidium_carbonate"
+  }
+}

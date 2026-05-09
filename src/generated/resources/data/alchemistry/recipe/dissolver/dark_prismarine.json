@@ -1,0 +1,37 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:dark_prismarine"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 32,
+            "id": "chemlib:beryl"
+          },
+          {
+            "count": 24,
+            "id": "chemlib:niobium"
+          },
+          {
+            "count": 8,
+            "id": "chemlib:selenium"
+          },
+          {
+            "count": 4,
+            "id": "chemlib:titanium_oxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

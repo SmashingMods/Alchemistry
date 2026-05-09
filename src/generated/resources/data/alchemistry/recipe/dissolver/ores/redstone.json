@@ -1,0 +1,29 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:ores/redstone"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 6,
+            "id": "chemlib:iron_oxide"
+          },
+          {
+            "count": 6,
+            "id": "chemlib:strontium_carbonate"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

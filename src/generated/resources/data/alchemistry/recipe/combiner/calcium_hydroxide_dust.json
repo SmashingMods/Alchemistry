@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:calcium_hydroxide"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:calcium_hydroxide_dust"
+  }
+}

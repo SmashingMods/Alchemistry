@@ -1,0 +1,31 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:urea"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:carbon"
+          },
+          {
+            "id": "chemlib:oxygen"
+          },
+          {
+            "count": 2,
+            "id": "chemlib:amide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "id": "chemlib:chromium"
+  },
+  "input2": {
+    "id": "chemlib:antimony"
+  },
+  "output": {
+    "id": "chemlib:rhenium"
+  }
+}

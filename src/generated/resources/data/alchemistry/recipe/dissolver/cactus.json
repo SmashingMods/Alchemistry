@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:cactus"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          },
+          {
+            "id": "chemlib:sucrose"
+          },
+          {
+            "id": "chemlib:nitrate"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

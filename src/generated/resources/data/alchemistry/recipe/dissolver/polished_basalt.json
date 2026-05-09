@@ -1,0 +1,80 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:polished_basalt"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 49,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:sodium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:potassium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:titanium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 7,
+        "results": [
+          {
+            "id": "chemlib:iron_ii_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 15,
+        "results": [
+          {
+            "id": "chemlib:aluminum_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 10,
+        "results": [
+          {
+            "id": "chemlib:calcium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 10,
+        "results": [
+          {
+            "id": "chemlib:magnesium_oxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

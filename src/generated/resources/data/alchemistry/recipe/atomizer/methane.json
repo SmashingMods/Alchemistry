@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "amount": 500,
+    "id": "chemlib:methane_fluid"
+  },
+  "result": {
+    "count": 8,
+    "id": "chemlib:methane"
+  }
+}

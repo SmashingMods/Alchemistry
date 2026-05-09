@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "machines",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_powder"
+    },
+    "O": {
+      "item": "chemlib:osmium_ingot"
+    },
+    "P": {
+      "item": "chemlib:platinum_ingot"
+    }
+  },
+  "pattern": [
+    "OPO",
+    "PBP",
+    "OPO"
+  ],
+  "result": {
+    "count": 4,
+    "id": "alchemistry:reactor_casing"
+  },
+  "show_notification": true
+}

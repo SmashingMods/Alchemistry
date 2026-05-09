@@ -1,68 +1,47 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.common.crafting.CraftingHelper;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class CombinerRecipeSerializer<T extends CombinerRecipe> implements RecipeSerializer<T> {
 
     private final IFactory<T> factory;
+    private final MapCodec<T> codec;
+    private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
-    public CombinerRecipeSerializer(CombinerRecipeSerializer.IFactory<T> pFactory) {
+    public CombinerRecipeSerializer(IFactory<T> pFactory) {
         this.factory = pFactory;
+        this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "combiner").forGetter(CombinerRecipe::getGroup),
+                IngredientStack.CODEC.listOf().fieldOf("input").forGetter(CombinerRecipe::getInput),
+                ItemStack.CODEC.fieldOf("result").forGetter(CombinerRecipe::getOutput)
+        ).apply(instance, factory::create));
+        this.streamCodec = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, CombinerRecipe::getGroup,
+                IngredientStack.STREAM_CODEC.apply(ByteBufCodecs.list()), CombinerRecipe::getInput,
+                ItemStack.STREAM_CODEC, CombinerRecipe::getOutput,
+                factory::create
+        );
     }
 
     @Override
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-
-        String group = pSerializedRecipe.get("group").getAsString();
-        JsonArray inputJson = pSerializedRecipe.getAsJsonArray("input");
-        Set<IngredientStack> input = new LinkedHashSet<>();
-        ItemStack output;
-
-        inputJson.forEach(element -> input.add(IngredientStack.fromJson(element.getAsJsonObject())));
-
-        if (pSerializedRecipe.get("result").isJsonObject()) {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), true, true);
-        } else {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("item"), true, true);
-        }
-        return this.factory.create(pRecipeId, group, input, output);
+    public MapCodec<T> codec() {
+        return codec;
     }
 
     @Override
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-        String group = pBuffer.readUtf(Short.MAX_VALUE);
-        int inputCount = pBuffer.readInt();
-        Set<IngredientStack> inputList = new LinkedHashSet<>();
-        for (int i = 0; i < inputCount; i++) {
-            inputList.add(IngredientStack.fromNetwork(pBuffer));
-        }
-        ItemStack output = pBuffer.readItem();
-        return this.factory.create(pRecipeId, group, inputList, output);
+    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+        return streamCodec;
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
-        pBuffer.writeUtf(pRecipe.getGroup());
-        pBuffer.writeInt(pRecipe.getInput().size());
-        for (int i = 0; i < pRecipe.getInput().size(); i++) {
-            pRecipe.getInput().get(i).toNetwork(pBuffer);
-        }
-        pBuffer.writeItemStack(pRecipe.getOutput(), true);
-    }
-
-    public interface IFactory<T extends Recipe<Inventory>> {
-        T create(ResourceLocation pId, String pGroup, Set<IngredientStack> pInput, ItemStack pOutput);
+    public interface IFactory<T extends CombinerRecipe> {
+        T create(String group, java.util.List<IngredientStack> input, ItemStack output);
     }
 }

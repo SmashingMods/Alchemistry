@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:magnesium_oxide"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:magnesium_oxide_dust"
+  }
+}

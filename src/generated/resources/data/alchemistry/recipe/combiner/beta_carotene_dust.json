@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:beta_carotene"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:beta_carotene_dust"
+  }
+}

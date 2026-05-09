@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:rubidium"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:rubidium_hydroxide"
+  }
+}

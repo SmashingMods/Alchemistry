@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:vanadium"
+  },
+  "output1": {
+    "id": "chemlib:magnesium"
+  },
+  "output2": {
+    "id": "chemlib:sodium"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:thallium"
+  },
+  "output1": {
+    "id": "chemlib:niobium"
+  },
+  "output2": {
+    "id": "chemlib:zirconium"
+  }
+}

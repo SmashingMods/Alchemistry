@@ -8,11 +8,11 @@ import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingS
 import com.smashingmods.alchemylib.api.blockentity.container.button.AbstractAlchemyButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 
 public class AutoBalanceButton extends AbstractAlchemyButton {
+
+    private static final ResourceLocation WIDGETS = ResourceLocation.fromNamespaceAndPath(AlchemyLib.MODID, "textures/gui/widgets.png");
 
     public AutoBalanceButton(AbstractProcessingScreen<?> pParent) {
         super(pParent, pButton -> {
@@ -27,15 +27,14 @@ public class AutoBalanceButton extends AbstractAlchemyButton {
 
     @Override
     public void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        pGuiGraphics.blit(new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png"), getX(), getY(), 25 + ((((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? 0 : 1) * 20), 40, width, height);
+        pGuiGraphics.blit(WIDGETS, getX(), getY(), 25 + ((((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ? 0 : 1) * 20), 40, width, height);
         renderButtonTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 
     @Override
     public Component getMessage() {
-        return ((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ?
-                MutableComponent.create(new TranslatableContents("alchemistry.container.disable_autobalance", "Disable Auto-Balance", TranslatableContents.NO_ARGS))
-                :
-                MutableComponent.create(new TranslatableContents("alchemistry.container.enable_autobalance", "Enable Auto-Balance", TranslatableContents.NO_ARGS));
+        return ((FusionControllerBlockEntity) blockEntity).isAutoBalanced()
+                ? Component.translatable("alchemistry.container.disable_autobalance")
+                : Component.translatable("alchemistry.container.enable_autobalance");
     }
 }

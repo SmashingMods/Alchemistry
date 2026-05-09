@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:samarium"
+  },
+  "output1": {
+    "id": "chemlib:gallium"
+  },
+  "output2": {
+    "id": "chemlib:gallium"
+  }
+}

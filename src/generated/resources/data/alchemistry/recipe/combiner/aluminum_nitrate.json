@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:aluminum"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "chemlib:nitrate"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:aluminum_nitrate"
+  }
+}

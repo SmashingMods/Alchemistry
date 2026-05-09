@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:zinc_carbonate"
+    }
+  },
+  "result": {
+    "id": "chemlib:zinc_carbonate_dust"
+  }
+}

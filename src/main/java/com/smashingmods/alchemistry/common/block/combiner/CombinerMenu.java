@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -36,9 +36,7 @@ public class CombinerMenu extends AbstractProcessingMenu {
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
 
         setupRecipeList();
-        // input 2x2 grid
         addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 48, 22);
-        // output
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
     }
 

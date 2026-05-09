@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:sea_pickle"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          },
+          {
+            "count": 2,
+            "id": "chemlib:cadmium_sulfide"
+          },
+          {
+            "count": 2,
+            "id": "chemlib:chromium_oxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

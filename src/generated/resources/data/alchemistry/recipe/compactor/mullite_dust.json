@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:mullite"
+    }
+  },
+  "result": {
+    "id": "chemlib:mullite_dust"
+  }
+}

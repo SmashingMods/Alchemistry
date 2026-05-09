@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:lithium_sulfate"
+    }
+  },
+  "result": {
+    "id": "chemlib:lithium_sulfate_dust"
+  }
+}

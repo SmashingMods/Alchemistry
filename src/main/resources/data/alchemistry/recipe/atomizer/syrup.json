@@ -1,0 +1,18 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "amount": 500,
+    "id": "thermal:syrup_fluid"
+  },
+  "result": {
+    "count": 8,
+    "id": "chemlib:sucrose"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

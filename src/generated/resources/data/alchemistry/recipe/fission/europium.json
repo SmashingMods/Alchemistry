@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:europium"
+  },
+  "output1": {
+    "id": "chemlib:germanium"
+  },
+  "output2": {
+    "id": "chemlib:gallium"
+  }
+}

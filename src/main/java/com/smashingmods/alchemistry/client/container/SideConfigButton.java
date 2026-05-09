@@ -21,8 +21,8 @@ import java.util.Locale;
 
 class SideConfigButton extends AbstractWidget {
 
-    private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
-    private static final ResourceLocation BARRIER_LOCATION = new ResourceLocation("minecraft", "textures/item/barrier.png");
+    private static final ResourceLocation ICONS_LOCATION = ResourceLocation.fromNamespaceAndPath(AlchemyLib.MODID, "textures/gui/widgets.png");
+    private static final ResourceLocation BARRIER_LOCATION = ResourceLocation.withDefaultNamespace("textures/item/barrier.png");
     private final SideModeScreen<?> parentScreen;
     @Nullable
     private final Direction side;
@@ -58,14 +58,14 @@ class SideConfigButton extends AbstractWidget {
         } else {
             backgroundColor = 0xFF_D0D0D0;
         }
-        pGuiGraphics.fill(getX(), getY(), getX() + width, getY() + width, 0xFF_000000); // outline
+        pGuiGraphics.fill(getX(), getY(), getX() + width, getY() + width, 0xFF_000000);
         pGuiGraphics.fill(getX() + 1, getY() + 1, getX() + width - 1, getY() + width - 1, backgroundColor);
 
         switch (getCurrentMode()) {
-            case DISABLED -> pGuiGraphics.blit(BARRIER_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16); // Barrier
-            case ENABLED -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
-            case PULL -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
-            case PUSH -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
+            case DISABLED -> pGuiGraphics.blit(BARRIER_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16);
+            case ENABLED -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256);
+            case PULL -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256);
+            case PUSH -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256);
             default -> throw new AssertionError("Unexpected mode: " + getCurrentMode());
         }
 
@@ -108,7 +108,7 @@ class SideConfigButton extends AbstractWidget {
             }
             changeMode(delta);
             return true;
-         }
+        }
         return false;
     }
 

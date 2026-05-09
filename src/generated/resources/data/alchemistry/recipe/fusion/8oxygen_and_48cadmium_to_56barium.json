@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "id": "chemlib:oxygen"
+  },
+  "input2": {
+    "id": "chemlib:cadmium"
+  },
+  "output": {
+    "id": "chemlib:barium"
+  }
+}

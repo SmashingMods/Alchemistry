@@ -11,6 +11,7 @@ import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -36,8 +37,8 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
 
     @Override
     public void onLoad() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        if (level != null && !level.isClientSide() && recipeId != null) {
+            RecipeRegistry.getCompactorRecipe(recipe -> recipeId.equals(recipe.getId()), level).ifPresent(this::setRecipe);
         }
         super.onLoad();
     }
@@ -63,7 +64,7 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && (currentRecipe.getInput().matches(input) && input.getCount() >= currentRecipe.getInput().getCount())
                     && (currentRecipe.getOutput().getCount() + output.getCount()) <= currentRecipe.getOutput().getMaxStackSize()
-                    && (ItemStack.isSameItemSameTags(output, currentRecipe.getOutput()) || output.isEmpty());
+                    && (ItemStack.isSameItemSameComponents(output, currentRecipe.getOutput()) || output.isEmpty());
         }
         return false;
     }
@@ -147,19 +148,19 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        if (currentRecipe != null) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pProvider) {
+        if (currentRecipe != null && currentRecipe.getId() != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, pProvider);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pProvider) {
+        super.loadAdditional(pTag, pProvider);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
-        if (level != null && level.isClientSide()) {
-            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+        if (level != null && level.isClientSide() && recipeId != null) {
+            RecipeRegistry.getCompactorRecipe(recipe -> recipeId.equals(recipe.getId()), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
                     Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));

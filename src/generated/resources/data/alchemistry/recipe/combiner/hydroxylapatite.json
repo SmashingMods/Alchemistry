@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 5,
+      "ingredient": {
+        "item": "chemlib:calcium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
+    },
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "chemlib:phosphate"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:hydroxylapatite"
+  }
+}

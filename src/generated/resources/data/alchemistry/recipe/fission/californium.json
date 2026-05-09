@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:californium"
+  },
+  "output1": {
+    "id": "chemlib:indium"
+  },
+  "output2": {
+    "id": "chemlib:indium"
+  }
+}

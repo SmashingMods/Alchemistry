@@ -1,0 +1,75 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "c:bitumen"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 5,
+        "results": [
+          {
+            "count": 26,
+            "id": "chemlib:carbon"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:oxygen"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "count": 32,
+            "id": "chemlib:hydrogen"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:sulfur_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:vanadium"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:nickel"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:bitumen"
+      }
+    }
+  ]
+}

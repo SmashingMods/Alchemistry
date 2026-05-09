@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:fences/wooden"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 33.3334,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 66.6666,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

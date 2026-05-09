@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:rubidium_carbonate"
+    }
+  },
+  "result": {
+    "id": "chemlib:rubidium_carbonate_dust"
+  }
+}

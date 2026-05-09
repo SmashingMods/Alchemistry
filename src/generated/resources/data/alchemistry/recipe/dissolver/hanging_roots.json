@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:hanging_roots"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 50,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 50,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

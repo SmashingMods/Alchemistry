@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "id": "chemlib:neon"
+  },
+  "input2": {
+    "id": "chemlib:europium"
+  },
+  "output": {
+    "id": "chemlib:tantalum"
+  }
+}

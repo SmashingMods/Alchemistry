@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:rubidium"
+  },
+  "output1": {
+    "id": "chemlib:potassium"
+  },
+  "output2": {
+    "id": "chemlib:argon"
+  }
+}

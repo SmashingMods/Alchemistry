@@ -1,0 +1,14 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:acetylene"
+    }
+  },
+  "result": {
+    "amount": 500,
+    "id": "chemlib:acetylene_fluid"
+  }
+}

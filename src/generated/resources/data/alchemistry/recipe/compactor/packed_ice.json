@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 9,
+    "ingredient": {
+      "item": "minecraft:ice"
+    }
+  },
+  "result": {
+    "id": "minecraft:packed_ice"
+  }
+}

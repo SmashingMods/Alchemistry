@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:nickel_sulfate"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:nickel_sulfate_dust"
+  }
+}

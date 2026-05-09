@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "chemlib:mendelevium"
+      }
+    },
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "chemlib:titanium"
+      }
+    },
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "chemlib:lutetium"
+      }
+    },
+    {
+      "count": 64,
+      "ingredient": {
+        "item": "chemlib:dysprosium"
+      }
+    }
+  ],
+  "result": {
+    "id": "minecraft:nether_star"
+  }
+}

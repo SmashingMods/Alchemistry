@@ -18,20 +18,7 @@ import java.util.List;
 
 public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Screen {
 
-    private static final ResourceLocation TEXTURE_SOURCE = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
-
-    // Side mod configuration screen layout:
-    // N: North
-    // E: East
-    // S: South
-    // W: West
-    // U: Up
-    // D: Down
-    // X: Null/External
-
-    // U | N | _
-    // W | X | E
-    // _ | S | D
+    private static final ResourceLocation TEXTURE_SOURCE = ResourceLocation.fromNamespaceAndPath(AlchemyLib.MODID, "textures/gui/widgets.png");
 
     private final P parentScreen;
 
@@ -62,7 +49,7 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         drawnTooltip = null;
-        renderBackground(pGuiGraphics);
+        renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         pGuiGraphics.drawCenteredString(font, title, width / 2, getMinY() - 7, 0xFF_FFFFFF);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         if (drawnTooltip != null) {
@@ -71,17 +58,17 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     }
 
     @Override
-    public void renderBackground(GuiGraphics pGuiGraphics) {
-        // Blitting a Ninepatch to screen by hand - because why not?
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 14, 4, 4, 5, 146, 4, 4, 256, 256); // Upper right corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMaxY(), 4, 4, 5, 151, 4, 4, 256, 256); // Lower right corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 14, getMaxX() - getMinX(), 4, 4, 146, 1, 4, 256, 256); // Upper edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMaxY(), getMaxX() - getMinX(), 4, 4, 151, 1, 4, 256, 256); // Lower edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256); // Left edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256); // Right edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256); // Fill
+    public void renderBackground(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        super.renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 14, 4, 4, 5, 146, 4, 4, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMaxY(), 4, 4, 5, 151, 4, 4, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 14, getMaxX() - getMinX(), 4, 4, 146, 1, 4, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMaxY(), getMaxX() - getMinX(), 4, 4, 151, 1, 4, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256);
+        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256);
     }
 
     @Override
@@ -129,7 +116,6 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
 
     @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
-
         for (Renderable renderable : parentScreen.renderables) {
             if (renderable instanceof AbstractWidget widget) {
                 int xStart = widget.getX();
@@ -142,7 +128,6 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
                 }
             }
         }
-
         return super.mouseClicked(pMouseX, pMouseY, pButton);
     }
 }

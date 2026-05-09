@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:spore_blossom"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 66.6,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 33.400000000000006,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:purpur_slab"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 2,
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 25,
+        "results": [
+          {
+            "id": "chemlib:lutetium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:raw_copper_block"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 64,
+            "id": "chemlib:copper"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:copper"
+          },
+          {
+            "count": 16,
+            "id": "chemlib:copper"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

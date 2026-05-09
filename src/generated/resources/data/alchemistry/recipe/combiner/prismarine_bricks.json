@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 36,
+      "ingredient": {
+        "item": "chemlib:beryl"
+      }
+    },
+    {
+      "count": 27,
+      "ingredient": {
+        "item": "chemlib:niobium"
+      }
+    },
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
+    }
+  ],
+  "result": {
+    "id": "minecraft:prismarine_bricks"
+  }
+}

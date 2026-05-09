@@ -19,8 +19,10 @@ import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 
+import java.util.List;
 import java.util.Objects;
 
 @JeiPlugin
@@ -28,7 +30,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Alchemistry.MODID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "jei_plugin");
     }
 
     @Override
@@ -60,13 +62,17 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration pRegistration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        pRegistration.addRecipes(RecipeTypes.ATOMIZER, recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE.get()));
-        pRegistration.addRecipes(RecipeTypes.COMBINER, recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE.get()));
-        pRegistration.addRecipes(RecipeTypes.COMPACTOR, recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE.get()));
-        pRegistration.addRecipes(RecipeTypes.DISSOLVER, recipeManager.getAllRecipesFor(RecipeRegistry.DISSOLVER_TYPE.get()));
-        pRegistration.addRecipes(RecipeTypes.FISSION, recipeManager.getAllRecipesFor(RecipeRegistry.FISSION_TYPE.get()));
-        pRegistration.addRecipes(RecipeTypes.FUSION, recipeManager.getAllRecipesFor(RecipeRegistry.FUSION_TYPE.get()));
-        pRegistration.addRecipes(RecipeTypes.LIQUIFIER, recipeManager.getAllRecipesFor(RecipeRegistry.LIQUIFIER_TYPE.get()));
+        pRegistration.addRecipes(RecipeTypes.ATOMIZER, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE.get())));
+        pRegistration.addRecipes(RecipeTypes.COMBINER, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE.get())));
+        pRegistration.addRecipes(RecipeTypes.COMPACTOR, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE.get())));
+        pRegistration.addRecipes(RecipeTypes.DISSOLVER, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.DISSOLVER_TYPE.get())));
+        pRegistration.addRecipes(RecipeTypes.FISSION, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.FISSION_TYPE.get())));
+        pRegistration.addRecipes(RecipeTypes.FUSION, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.FUSION_TYPE.get())));
+        pRegistration.addRecipes(RecipeTypes.LIQUIFIER, unwrap(recipeManager.getAllRecipesFor(RecipeRegistry.LIQUIFIER_TYPE.get())));
+    }
+
+    private static <R extends net.minecraft.world.item.crafting.Recipe<?>> List<R> unwrap(List<RecipeHolder<R>> holders) {
+        return holders.stream().map(RecipeHolder::value).toList();
     }
 
     @Override

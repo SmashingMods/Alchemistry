@@ -1,0 +1,86 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:crimson_nylium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 10,
+        "results": [
+          {}
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 4,
+        "results": [
+          {
+            "id": "chemlib:zinc_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:phosphorus"
+          }
+        ]
+      },
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:sulfur"
+          }
+        ]
+      },
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:germanium"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:silicon"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:selenium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

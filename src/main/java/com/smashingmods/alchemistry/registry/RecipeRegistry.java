@@ -15,18 +15,19 @@ import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -39,42 +40,42 @@ import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class RecipeRegistry {
 
-    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MODID);
-    private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
+    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, MODID);
+    private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, MODID);
 
-    public static RegistryObject<RecipeType<AtomizerRecipe>> ATOMIZER_TYPE = registerRecipeType("atomizer");
-    public static RegistryObject<RecipeType<CompactorRecipe>> COMPACTOR_TYPE = registerRecipeType("compactor");
-    public static RegistryObject<RecipeType<CombinerRecipe>> COMBINER_TYPE = registerRecipeType("combiner");
-    public static RegistryObject<RecipeType<DissolverRecipe>> DISSOLVER_TYPE = registerRecipeType("dissolver");
-    public static RegistryObject<RecipeType<FissionRecipe>> FISSION_TYPE = registerRecipeType("fission");
-    public static RegistryObject<RecipeType<FusionRecipe>> FUSION_TYPE = registerRecipeType("fusion");
-    public static RegistryObject<RecipeType<LiquifierRecipe>> LIQUIFIER_TYPE = registerRecipeType("liquifier");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<AtomizerRecipe>> ATOMIZER_TYPE = registerRecipeType("atomizer");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CompactorRecipe>> COMPACTOR_TYPE = registerRecipeType("compactor");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<CombinerRecipe>> COMBINER_TYPE = registerRecipeType("combiner");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<DissolverRecipe>> DISSOLVER_TYPE = registerRecipeType("dissolver");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FissionRecipe>> FISSION_TYPE = registerRecipeType("fission");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<FusionRecipe>> FUSION_TYPE = registerRecipeType("fusion");
+    public static final DeferredHolder<RecipeType<?>, RecipeType<LiquifierRecipe>> LIQUIFIER_TYPE = registerRecipeType("liquifier");
 
-    public static final RegistryObject<AtomizerRecipeSerializer<AtomizerRecipe>> ATOMIZER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, AtomizerRecipeSerializer<AtomizerRecipe>> ATOMIZER_SERIALIZER
             = SERIALIZERS.register("atomizer", () -> new AtomizerRecipeSerializer<>(AtomizerRecipe::new));
 
-    public static final RegistryObject<CompactorRecipeSerializer<CompactorRecipe>> COMPACTOR_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, CompactorRecipeSerializer<CompactorRecipe>> COMPACTOR_SERIALIZER
             = SERIALIZERS.register("compactor", () -> new CompactorRecipeSerializer<>(CompactorRecipe::new));
 
-    public static final RegistryObject<CombinerRecipeSerializer<CombinerRecipe>> COMBINER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, CombinerRecipeSerializer<CombinerRecipe>> COMBINER_SERIALIZER
             = SERIALIZERS.register("combiner", () -> new CombinerRecipeSerializer<>(CombinerRecipe::new));
 
-    public static final RegistryObject<DissolverRecipeSerializer<DissolverRecipe>> DISSOLVER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, DissolverRecipeSerializer<DissolverRecipe>> DISSOLVER_SERIALIZER
             = SERIALIZERS.register("dissolver", () -> new DissolverRecipeSerializer<>(DissolverRecipe::new));
 
-    public static final RegistryObject<FissionRecipeSerializer<FissionRecipe>> FISSION_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, FissionRecipeSerializer<FissionRecipe>> FISSION_SERIALIZER
             = SERIALIZERS.register("fission", () -> new FissionRecipeSerializer<>(FissionRecipe::new));
 
-    public static final RegistryObject<FusionRecipeSerializer<FusionRecipe>> FUSION_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, FusionRecipeSerializer<FusionRecipe>> FUSION_SERIALIZER
             = SERIALIZERS.register("fusion", () -> new FusionRecipeSerializer<>(FusionRecipe::new));
 
-    public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
     private static final Map<RecipeType<? extends AbstractProcessingRecipe>, LinkedList<? extends AbstractProcessingRecipe>> recipeTypeMap = new LinkedHashMap<>();
     private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new LinkedHashMap<>();
 
-    private static <T extends AbstractProcessingRecipe> RegistryObject<RecipeType<T>> registerRecipeType(String pType) {
+    private static <T extends AbstractProcessingRecipe> DeferredHolder<RecipeType<?>, RecipeType<T>> registerRecipeType(String pType) {
         RecipeType<T> type = new RecipeType<>() {
             @Override
             public String toString() {
@@ -85,12 +86,7 @@ public class RecipeRegistry {
     }
 
     /**
-     * Attach a ReloadListener that clears the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
-     * {@link RecipeRegistry#recipeGroupMap recipeGroupMap} so that data pack reloading takes effect immediately.
-     * This event handler just clears the internal maps, but a better version might update them in-place.
-     * That said, datapack reloads don't actually occur that often in regular play, so there is little point
-     * over-engineering this.
-     * @param event the AddReloadListener event.
+     * Reload listener that wipes the recipe cache so that data-pack changes take effect immediately.
      */
     public static void postReload(final AddReloadListenerEvent event) {
         event.addListener(new SimplePreparableReloadListener<Boolean>() {
@@ -99,14 +95,11 @@ public class RecipeRegistry {
                 return "Alchemistry Cache Invalidator";
             }
 
-            // Runs in the thread pool, figures out whether anything in non-standard Packs changed.
             @Override
             protected Boolean prepare(ResourceManager pResourceManager, ProfilerFiller pProfiler) {
-                // Always clear the maps on reload.
                 return true;
             }
 
-            // Runs on main thread; does the actual cache invalidation.
             @Override
             protected void apply(Boolean pShouldClear, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
                 if (pShouldClear) {
@@ -121,8 +114,12 @@ public class RecipeRegistry {
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
         if (recipeTypeMap.get(pRecipeType) == null) {
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                    .filter(recipe -> recipe.getType().equals(pRecipeType))
-                    .map(recipe -> (R) recipe)
+                    .filter(holder -> holder.value() instanceof AbstractProcessingRecipe r && r.getType().equals(pRecipeType))
+                    .map(holder -> {
+                        R recipe = (R) holder.value();
+                        recipe.setId(holder.id());
+                        return recipe;
+                    })
                     .sorted()
                     .collect(Collectors.toCollection(LinkedList::new));
             recipeTypeMap.put(pRecipeType, recipes);
@@ -134,10 +131,14 @@ public class RecipeRegistry {
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
         if (recipeGroupMap.get(pGroup) == null) {
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getGroup().equals(pGroup))
-                .map(recipe -> (R) recipe)
-                .sorted()
-                .collect(Collectors.toCollection(LinkedList::new));
+                    .filter(holder -> holder.value() instanceof AbstractProcessingRecipe r && r.getGroup().equals(pGroup))
+                    .map(holder -> {
+                        R recipe = (R) holder.value();
+                        recipe.setId(holder.id());
+                        return recipe;
+                    })
+                    .sorted()
+                    .collect(Collectors.toCollection(LinkedList::new));
             recipeGroupMap.put(pGroup, recipes);
         }
         return (LinkedList<R>) recipeGroupMap.get(pGroup);
@@ -145,7 +146,11 @@ public class RecipeRegistry {
 
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> Optional<R> getRecipeByGroupAndId(String pGroup, ResourceLocation pRecipeId, Level pLevel) {
-        return getRecipesByGroup(pGroup, pLevel).stream().filter(recipe -> recipe.getId().equals(pRecipeId)).findFirst().map(recipe -> (R) recipe);
+        return pLevel.getRecipeManager().getRecipes().stream()
+                .filter(holder -> holder.id().equals(pRecipeId))
+                .map(holder -> (R) holder.value())
+                .filter(recipe -> recipe.getGroup().equals(pGroup))
+                .findFirst();
     }
 
     public static LinkedList<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {

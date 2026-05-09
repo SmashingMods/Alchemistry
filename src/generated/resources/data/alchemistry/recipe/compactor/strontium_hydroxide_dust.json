@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:strontium_hydroxide"
+    }
+  },
+  "result": {
+    "id": "chemlib:strontium_hydroxide_dust"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:prismarine_crystals"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 4,
+            "id": "chemlib:silicon_dioxide"
+          },
+          {
+            "count": 3,
+            "id": "chemlib:phosphorus"
+          },
+          {
+            "id": "chemlib:selenium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

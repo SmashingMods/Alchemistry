@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:helium"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:methane"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "thermal:blizz_powder"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

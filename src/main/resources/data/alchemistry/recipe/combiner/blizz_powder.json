@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:ammonia"
+      },
+      "count": 8
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:propane"
+      },
+      "count": 2
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:gallium"
+      },
+      "count": 8
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "thermal:blizz_powder"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

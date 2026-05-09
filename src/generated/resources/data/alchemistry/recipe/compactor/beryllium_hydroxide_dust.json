@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:beryllium_hydroxide"
+    }
+  },
+  "result": {
+    "id": "chemlib:beryllium_hydroxide_dust"
+  }
+}

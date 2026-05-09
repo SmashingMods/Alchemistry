@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 16,
+            "id": "chemlib:silicon"
+          },
+          {
+            "count": 16,
+            "id": "chemlib:mercury"
+          },
+          {
+            "count": 16,
+            "id": "chemlib:neodymium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

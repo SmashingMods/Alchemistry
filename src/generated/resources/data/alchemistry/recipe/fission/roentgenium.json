@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:roentgenium"
+  },
+  "output1": {
+    "id": "chemlib:barium"
+  },
+  "output2": {
+    "id": "chemlib:cesium"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:beryl"
+      },
+      "count": 1
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:hydrochloric_acid"
+      },
+      "count": 6
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:nitric_acid"
+      },
+      "count": 2
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "thermal:blizz_powder"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

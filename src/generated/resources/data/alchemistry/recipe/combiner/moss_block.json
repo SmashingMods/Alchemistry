@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:water"
+      }
+    }
+  ],
+  "result": {
+    "id": "minecraft:moss_block"
+  }
+}

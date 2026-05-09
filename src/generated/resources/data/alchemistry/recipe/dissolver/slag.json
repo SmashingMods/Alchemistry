@@ -1,0 +1,79 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "c:slag"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 20,
+        "results": [
+          {}
+        ]
+      },
+      {
+        "probability": 20,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:magnesium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:iron_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:manganese_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:aluminum_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:phosphate"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:slag"
+      }
+    }
+  ]
+}

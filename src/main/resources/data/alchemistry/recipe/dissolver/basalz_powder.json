@@ -1,0 +1,49 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "item": "thermal:basalz_powder"
+    },
+    "count": 1
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 1,
+            "id": "chemlib:beryl"
+          }
+        ]
+      },
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 6,
+            "id": "chemlib:hydrochloric_acid"
+          }
+        ]
+      },
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 2,
+            "id": "chemlib:nitric_acid"
+          }
+        ]
+      }
+    ]
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:ingots/lumium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:tin"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:silver"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:phosphorus"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ingots/lumium"
+      }
+    }
+  ]
+}

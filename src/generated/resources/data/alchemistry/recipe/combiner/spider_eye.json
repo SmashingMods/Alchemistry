@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:beta_carotene"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:chitin"
+      }
+    }
+  ],
+  "result": {
+    "id": "minecraft:spider_eye"
+  }
+}

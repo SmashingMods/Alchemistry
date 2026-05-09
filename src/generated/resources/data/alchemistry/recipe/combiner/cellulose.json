@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 5,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    },
+    {
+      "count": 10,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:cellulose"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 16,
+    "ingredient": {
+      "item": "chemlib:scandium"
+    }
+  },
+  "result": {
+    "id": "chemlib:scandium_dust"
+  }
+}

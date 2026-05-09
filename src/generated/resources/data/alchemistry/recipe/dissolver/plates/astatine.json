@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:plates/astatine"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 16,
+            "id": "chemlib:astatine"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:plates/astatine"
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:cucurbitacin"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 32,
+            "id": "chemlib:carbon"
+          },
+          {
+            "count": 44,
+            "id": "chemlib:hydrogen"
+          },
+          {
+            "count": 8,
+            "id": "chemlib:oxygen"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

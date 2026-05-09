@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "machines",
+  "key": {
+    "C": {
+      "item": "alchemistry:reactor_casing"
+    },
+    "D": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "D",
+    "C",
+    "D"
+  ],
+  "result": {
+    "id": "alchemistry:reactor_energy"
+  },
+  "show_notification": true
+}

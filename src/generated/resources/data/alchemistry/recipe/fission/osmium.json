@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:osmium"
+  },
+  "output1": {
+    "id": "chemlib:strontium"
+  },
+  "output2": {
+    "id": "chemlib:strontium"
+  }
+}

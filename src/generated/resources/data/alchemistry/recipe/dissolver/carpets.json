@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "minecraft:carpets"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 66.66666666666666,
+        "results": [
+          {
+            "count": 2,
+            "id": "chemlib:keratin"
+          },
+          {
+            "id": "chemlib:triglyceride"
+          }
+        ]
+      },
+      {
+        "probability": 33.33333333333334,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

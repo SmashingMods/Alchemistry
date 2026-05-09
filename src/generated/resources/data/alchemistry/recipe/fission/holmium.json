@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:holmium"
+  },
+  "output1": {
+    "id": "chemlib:selenium"
+  },
+  "output2": {
+    "id": "chemlib:arsenic"
+  }
+}

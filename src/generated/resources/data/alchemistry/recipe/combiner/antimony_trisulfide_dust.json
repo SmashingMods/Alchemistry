@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:antimony_trisulfide"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:antimony_trisulfide_dust"
+  }
+}

@@ -30,7 +30,7 @@ public class ReactorEnergyBlock extends AbstractProcessingBlock {
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+    protected void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockEntity(pPos) instanceof ReactorEnergyBlockEntity blockEntity) {
                 if (blockEntity.getController() != null) {
@@ -41,4 +41,3 @@ public class ReactorEnergyBlock extends AbstractProcessingBlock {
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
 }
-

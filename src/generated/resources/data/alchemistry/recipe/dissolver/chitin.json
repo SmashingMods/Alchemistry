@@ -1,0 +1,36 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:chitin"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 8,
+            "id": "chemlib:carbon"
+          },
+          {
+            "count": 13,
+            "id": "chemlib:hydrogen"
+          },
+          {
+            "count": 5,
+            "id": "chemlib:oxygen"
+          },
+          {
+            "id": "chemlib:nitrogen"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

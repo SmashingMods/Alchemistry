@@ -1,0 +1,42 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:dusts/netherite"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 64,
+            "id": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:gold"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/netherite"
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:polished_deepslate"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 40,
+        "results": [
+          {}
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:osmium"
+          }
+        ]
+      },
+      {
+        "probability": 4,
+        "results": [
+          {
+            "id": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:aluminum"
+          }
+        ]
+      },
+      {
+        "probability": 20,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:silver"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:terbium"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:europium"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:scandium"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:yttrium"
+          }
+        ]
+      }
+    ],
+    "rolls": 2,
+    "weighted": true
+  }
+}

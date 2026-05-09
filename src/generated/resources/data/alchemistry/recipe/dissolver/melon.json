@@ -1,0 +1,43 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:melon"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 15,
+        "results": [
+          {
+            "id": "chemlib:cucurbitacin"
+          }
+        ]
+      },
+      {
+        "probability": 30,
+        "results": [
+          {
+            "count": 4,
+            "id": "chemlib:water"
+          },
+          {
+            "count": 2,
+            "id": "chemlib:sucrose"
+          }
+        ]
+      },
+      {
+        "probability": 55,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 9,
+    "weighted": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:cesium"
+  },
+  "output1": {
+    "id": "chemlib:nickel"
+  },
+  "output2": {
+    "id": "chemlib:cobalt"
+  }
+}

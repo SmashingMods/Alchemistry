@@ -1,0 +1,35 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 64,
+            "id": "chemlib:gold"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:gold"
+          },
+          {
+            "id": "chemlib:cellulose"
+          },
+          {
+            "id": "chemlib:sucrose"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

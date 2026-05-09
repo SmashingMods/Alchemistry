@@ -12,6 +12,7 @@ import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -38,8 +39,8 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
     @Override
     public void onLoad() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        if (level != null && !level.isClientSide() && recipeId != null) {
+            RecipeRegistry.getCombinerRecipe(recipe -> recipeId.equals(recipe.getId()), level).ifPresent(this::setRecipe);
         }
         super.onLoad();
     }
@@ -64,7 +65,7 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
             ItemStack output = getOutputHandler().getStackInSlot(0).copy();
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && (tempRecipe.getOutput().getCount() + output.getCount()) <= tempRecipe.getOutput().getMaxStackSize()
-                    && (ItemStack.isSameItemSameTags(output, tempRecipe.getOutput()) || output.isEmpty())
+                    && (ItemStack.isSameItemSameComponents(output, tempRecipe.getOutput()) || output.isEmpty())
                     && tempRecipe.matchInputs(getInputHandler().getStacks());
         }
         return false;
@@ -132,18 +133,15 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
                 setChanged();
             }
 
+            @Override
             public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
                     List<IngredientStack> ingredients = currentRecipe.getInput();
-                    // Assume slots are 0-indexed and go in order from left to right, top to bottom
                     if (pSlot < ingredients.size()) {
-                        // If there's a corresponding ingredient for this slot in the recipe
                         IngredientStack expectedIngredient = ingredients.get(pSlot);
-                        // Allow the item to be inserted into this slot, as long as it does not exceed the max stack size
-                        return expectedIngredient.matches(pItemStack) &&
-                                (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= getStackInSlot(pSlot).getMaxStackSize());
+                        return expectedIngredient.matches(pItemStack)
+                                && (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= pItemStack.getMaxStackSize());
                     } else {
-                        // If there's no corresponding ingredient for this slot in the recipe, do not allow any items to be inserted
                         return pItemStack.isEmpty();
                     }
                 }
@@ -154,7 +152,7 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
     @Override
     public ProcessingSlotHandler initializeOutputHandler() {
-        return new ProcessingSlotHandler( 1) {
+        return new ProcessingSlotHandler(1) {
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 return false;
@@ -163,19 +161,19 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        if (currentRecipe != null) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pProvider) {
+        if (currentRecipe != null && currentRecipe.getId() != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, pProvider);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pProvider) {
+        super.loadAdditional(pTag, pProvider);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
-        if (level != null && level.isClientSide()) {
-            RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+        if (level != null && level.isClientSide() && recipeId != null) {
+            RecipeRegistry.getCombinerRecipe(recipe -> recipeId.equals(recipe.getId()), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
                     Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));

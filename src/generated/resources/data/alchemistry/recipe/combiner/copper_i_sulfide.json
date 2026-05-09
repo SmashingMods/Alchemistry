@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:copper"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:copper_i_sulfide"
+  }
+}

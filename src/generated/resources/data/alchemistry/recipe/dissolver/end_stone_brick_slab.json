@@ -1,0 +1,62 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:end_stone_brick_slab"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 350,
+        "results": [
+          {}
+        ]
+      },
+      {
+        "probability": 50,
+        "results": [
+          {
+            "id": "chemlib:mercury"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:neodymium"
+          }
+        ]
+      },
+      {
+        "probability": 250,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 50,
+        "results": [
+          {
+            "id": "chemlib:lithium"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:thorium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

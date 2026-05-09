@@ -2,8 +2,8 @@ package com.smashingmods.alchemistry;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.nio.file.Path;
@@ -11,10 +11,10 @@ import java.nio.file.Path;
 public class Config {
 
     public static final Common COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
 
     static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        final Pair<Common, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Common::new);
         COMMON = specPair.getLeft();
         COMMON_SPEC = specPair.getRight();
     }
@@ -59,130 +59,77 @@ public class Config {
         public static IntValue fusionEnergyPerTick;
         public static IntValue fusionTicksPerOperation;
 
-        public Common(ForgeConfigSpec.Builder builder) {
+        public Common(ModConfigSpec.Builder builder) {
 
             builder.comment("Chemical Atomizer").push(categoryAtomizer);
-            atomizerEnergyCapacity = builder
-                    .comment("Maximum energy capacity for the Atomizer.")
-                    .comment("Default: 100000 (100k FE)")
+            atomizerEnergyCapacity = builder.comment("Maximum energy capacity for the Atomizer.", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            atomizerEnergyPerTick = builder
-                    .comment("Energy consumed per tick when Atomizer is processing.")
-                    .comment("Default: 50 FE")
+            atomizerEnergyPerTick = builder.comment("Energy consumed per tick when Atomizer is processing.", "Default: 50 FE")
                     .defineInRange("energyPerTick", 50, 0, Integer.MAX_VALUE);
-            atomizerTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Atomizer.")
-                    .comment("Default: 50 ticks")
+            atomizerTicksPerOperation = builder.comment("Ticks per operation when using the Atomizer.", "Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
-            atomizerFluidCapacity = builder
-                    .comment("Fluid capacity in Atomizer tank.")
-                    .comment("Default: 16000 (16 buckets)")
+            atomizerFluidCapacity = builder.comment("Fluid capacity in Atomizer tank.", "Default: 16000 (16 buckets)")
                     .defineInRange("fluidCapacity", 16000, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Chemical Compactor").push(categoryCompactor);
-            compactorEnergyCapacity = builder
-                    .comment("Maximum energy capacity for the Compactor.")
-                    .comment("Default: 100000 (100k FE)")
+            compactorEnergyCapacity = builder.comment("Maximum energy capacity for the Compactor.", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            compactorEnergyPerTick = builder
-                    .comment("Energy consumed per tick when Compactor is processing.")
-                    .comment("Default: 50 FE")
+            compactorEnergyPerTick = builder.comment("Energy consumed per tick when Compactor is processing.", "Default: 50 FE")
                     .defineInRange("energyPerTick", 50, 0, Integer.MAX_VALUE);
-            compactorTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Compactor.")
-                    .comment("Default: 50 ticks")
+            compactorTicksPerOperation = builder.comment("Ticks per operation when using the Compactor.", "Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Chemical Combiner").push(categoryCombiner);
-            combinerEnergyCapacity = builder
-                    .comment("Maximum energy capacity for the Combiner.")
-                    .comment("Default: 100000 (100k FE)")
+            combinerEnergyCapacity = builder.comment("Maximum energy capacity for the Combiner.", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            combinerEnergyPerTick = builder
-                    .comment("Energy consumed per tick when Combiner is processing.")
-                    .comment("Default: 200 FE")
+            combinerEnergyPerTick = builder.comment("Energy consumed per tick when Combiner is processing.", "Default: 200 FE")
                     .defineInRange("energyPerTick", 200, 0, Integer.MAX_VALUE);
-            combinerTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Combiner.")
-                    .comment("Default: 50 ticks")
+            combinerTicksPerOperation = builder.comment("Ticks per operation when using the Combiner.", "Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Chemical Dissolver").push(categoryDissolver);
-            dissolverEnergyCapacity = builder
-                    .comment("Maximum energy capacity for the Dissolver.")
-                    .comment("Default: 100000 (100k FE)")
+            dissolverEnergyCapacity = builder.comment("Maximum energy capacity for the Dissolver.", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            dissolverEnergyPerTick = builder
-                    .comment("Energy consumed per tick when Dissolver is processing.")
-                    .comment("Default: 100 FE")
+            dissolverEnergyPerTick = builder.comment("Energy consumed per tick when Dissolver is processing.", "Default: 100 FE")
                     .defineInRange("energyPerTick", 100, 0, Integer.MAX_VALUE);
-            dissolverTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Dissolver.")
-                    .comment("Default: 50 ticks")
+            dissolverTicksPerOperation = builder.comment("Ticks per operation when using the Dissolver.", "Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Chemical Liquifier").push(categoryLiquifier);
-            liquifierEnergyCapacity = builder
-                    .comment("Maximum energy capacity for the Liquifier.")
-                    .comment("Default: 100000 (100k FE)")
+            liquifierEnergyCapacity = builder.comment("Maximum energy capacity for the Liquifier.", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            liquifierEnergyPerTick = builder
-                    .comment("Energy consumed per tick when Liquifier is processing")
-                    .comment("Default: 50 FE")
+            liquifierEnergyPerTick = builder.comment("Energy consumed per tick when Liquifier is processing", "Default: 50 FE")
                     .defineInRange("energyPerTick", 50, 0, Integer.MAX_VALUE);
-            liquifierTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Liquifier.")
-                    .comment("Default: 100 ticks")
+            liquifierTicksPerOperation = builder.comment("Ticks per operation when using the Liquifier.", "Default: 100 ticks")
                     .defineInRange("ticksPerOperation", 100, 1, Integer.MAX_VALUE);
-            liquifierFluidCapacity = builder
-                    .comment("Fluid capacity in Liquifier tank.")
-                    .comment("Default: 16000 (16 buckets)")
+            liquifierFluidCapacity = builder.comment("Fluid capacity in Liquifier tank.", "Default: 16000 (16 buckets)")
                     .defineInRange("fluidCapacity", 16000, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Fission").push(categoryFission);
-            fissionEnergyCapacity = builder
-                    .comment("Maximum energy capacity of the Fission multiblock.")
-                    .comment("Default: 100000 (100k FE)")
+            fissionEnergyCapacity = builder.comment("Maximum energy capacity of the Fission multiblock.", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            fissionEnergyPerTick = builder
-                    .comment("Energy consumed per tick when the Fission multiblock is processing.")
-                    .comment("Default: 300 FE")
+            fissionEnergyPerTick = builder.comment("Energy consumed per tick when the Fission multiblock is processing.", "Default: 300 FE")
                     .defineInRange("energyPerTick", 300, 0, Integer.MAX_VALUE);
-            fissionTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Fission multiblock")
-                    .comment("Default: 50 ticks")
+            fissionTicksPerOperation = builder.comment("Ticks per operation when using the Fission multiblock", "Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.comment("Fusion").push(categoryFusion);
-            fusionEnergyCapacity = builder
-                    .comment("Maximum energy capacity of the Fusion multiblock")
-                    .comment("Default: 100000 (100k FE)")
+            fusionEnergyCapacity = builder.comment("Maximum energy capacity of the Fusion multiblock", "Default: 100000 (100k FE)")
                     .defineInRange("energyCapacity", 100000, 0, Integer.MAX_VALUE);
-            fusionEnergyPerTick = builder
-                    .comment("Energy consumed per tick when the Fusion multiblock is processing")
-                    .comment("Default: 300 FE")
+            fusionEnergyPerTick = builder.comment("Energy consumed per tick when the Fusion multiblock is processing", "Default: 300 FE")
                     .defineInRange("energyPerTick", 300, 0, Integer.MAX_VALUE);
-            fusionTicksPerOperation = builder
-                    .comment("Ticks per operation when using the Fusion multiblock")
-                    .comment("Default: 50 ticks")
+            fusionTicksPerOperation = builder.comment("Ticks per operation when using the Fusion multiblock", "Default: 50 ticks")
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
             builder.pop();
         }
     }
 
-    public static void loadConfig(ForgeConfigSpec spec, Path path) {
-        final CommentedFileConfig configData = CommentedFileConfig.builder(path)
-                .sync()
-                .autosave()
-                .writingMode(WritingMode.REPLACE)
-                .build();
-        configData.load();
-        spec.setConfig(configData);
+    public static void loadConfig(ModConfigSpec spec, Path path) {
     }
 }

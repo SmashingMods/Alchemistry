@@ -1,0 +1,41 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:nuggets/bronze"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 75,
+        "results": [
+          {
+            "id": "chemlib:copper"
+          }
+        ]
+      },
+      {
+        "probability": 25,
+        "results": [
+          {
+            "id": "chemlib:tin"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:nuggets/bronze"
+      }
+    }
+  ]
+}

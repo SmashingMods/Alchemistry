@@ -1,0 +1,38 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:hay_block"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:starch"
+          }
+        ]
+      },
+      {
+        "probability": 25,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 70,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 9,
+    "weighted": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:mercury"
+  },
+  "output1": {
+    "id": "chemlib:zirconium"
+  },
+  "output2": {
+    "id": "chemlib:zirconium"
+  }
+}

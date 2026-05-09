@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:lead_carbonate"
+    }
+  },
+  "result": {
+    "id": "chemlib:lead_carbonate_dust"
+  }
+}

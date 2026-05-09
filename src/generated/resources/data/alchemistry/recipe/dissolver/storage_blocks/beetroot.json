@@ -1,0 +1,41 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/beetroot"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:sucrose"
+          }
+        ]
+      },
+      {
+        "probability": 50,
+        "results": [
+          {
+            "id": "chemlib:iron_oxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 9,
+    "weighted": false
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/beetroot"
+      }
+    }
+  ]
+}

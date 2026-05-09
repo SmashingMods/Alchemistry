@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:cellulose"
+    }
+  },
+  "result": {
+    "id": "minecraft:paper"
+  }
+}

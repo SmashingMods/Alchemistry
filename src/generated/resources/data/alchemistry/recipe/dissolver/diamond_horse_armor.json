@@ -1,0 +1,53 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:diamond_horse_armor"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          },
+          {
+            "count": 64,
+            "id": "chemlib:graphite"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

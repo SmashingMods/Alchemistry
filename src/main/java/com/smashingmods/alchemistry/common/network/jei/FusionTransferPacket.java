@@ -14,102 +14,91 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-public class FusionTransferPacket implements AlchemyPacket {
+public record FusionTransferPacket(BlockPos blockPos, ItemStack input1, ItemStack input2, boolean maxTransfer) implements AlchemyPacket {
 
-    private final BlockPos blockPos;
-    private final ItemStack input1;
-    private final ItemStack input2;
-    private final boolean maxTransfer;
+    public static final Type<FusionTransferPacket> TYPE = new Type<>(
+            ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "fusion_transfer"));
 
-    public FusionTransferPacket(BlockPos pBlockPos, ItemStack pInput1, ItemStack pInput2, boolean pMaxTransfer) {
-        this.blockPos = pBlockPos;
-        this.input1 = pInput1;
-        this.input2 = pInput2;
-        this.maxTransfer = pMaxTransfer;
+    public static final StreamCodec<RegistryFriendlyByteBuf, FusionTransferPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, FusionTransferPacket::blockPos,
+            ItemStack.OPTIONAL_STREAM_CODEC, FusionTransferPacket::input1,
+            ItemStack.OPTIONAL_STREAM_CODEC, FusionTransferPacket::input2,
+            ByteBufCodecs.BOOL, FusionTransferPacket::maxTransfer,
+            FusionTransferPacket::new
+    );
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    public FusionTransferPacket(FriendlyByteBuf pBuffer) {
-        this.blockPos = pBuffer.readBlockPos();
-        this.input1 = pBuffer.readItem();
-        this.input2 = pBuffer.readItem();
-        this.maxTransfer = pBuffer.readBoolean();
-    }
+    @Override
+    public void handle(IPayloadContext pContext) {
+        pContext.enqueueWork(() -> {
+            if (!(pContext.player() instanceof ServerPlayer player)) return;
+            if (!(player.level().getBlockEntity(blockPos) instanceof FusionControllerBlockEntity blockEntity)) return;
 
-    public void encode(FriendlyByteBuf pBuffer) {
-        pBuffer.writeBlockPos(blockPos);
-        pBuffer.writeItem(input1);
-        pBuffer.writeItem(input2);
-        pBuffer.writeBoolean(maxTransfer);
-    }
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
+            Inventory inventory = player.getInventory();
 
-    public void handle(NetworkEvent.Context pContext) {
-        ServerPlayer player = pContext.getSender();
-        Objects.requireNonNull(player);
+            RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameComponents(recipe.getInput1(), input1) && ItemStack.isSameItemSameComponents(recipe.getInput2(), input2), player.level())
+                .ifPresent(recipe -> {
+                    FusionRecipe recipeCopy = recipe.copy();
 
-        FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) player.level().getBlockEntity(blockPos);
-        Objects.requireNonNull(blockEntity);
+                    inputHandler.emptyToInventory(inventory);
+                    outputHandler.emptyToInventory(inventory);
 
-        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
-        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
-        Inventory inventory = player.getInventory();
+                    boolean creative = player.gameMode.isCreative();
+                    boolean inventoryContains = inventory.contains(input1) && inventory.contains(input2);
+                    boolean canTransfer = (inventoryContains || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
-        RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput1(), input1) && ItemStack.isSameItemSameTags(recipe.getInput2(), input2), player.level())
-            .ifPresent(recipe -> {
+                    if (canTransfer) {
+                        List<ItemStack> recipeInputs = List.of(recipeCopy.getInput1(), recipeCopy.getInput2());
+                        if (creative) {
+                            int maxOperations = TransferUtils.getMaxOperations(recipeInputs, maxTransfer);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
+                            inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
+                        } else {
+                            int slot1 = inventory.findSlotMatchingItem(recipeCopy.getInput1());
+                            int slot2 = inventory.findSlotMatchingItem(recipeCopy.getInput2());
+                            List<ItemStack> inventoryInputs = List.of(inventory.getItem(slot1), inventory.getItem(slot2));
 
-                FusionRecipe recipeCopy = recipe.copy();
+                            int maxOperations = TransferUtils.getMaxOperations(recipeInputs, inventoryInputs, maxTransfer, false);
 
-                inputHandler.emptyToInventory(inventory);
-                outputHandler.emptyToInventory(inventory);
+                            inventory.removeItem(slot1, recipeCopy.getInput1().getCount() * maxOperations);
+                            inventory.removeItem(slot1, recipeCopy.getInput2().getCount() * maxOperations);
 
-                boolean creative = player.gameMode.isCreative();
-                boolean inventoryContains = inventory.contains(input1) && inventory.contains(input2);
-                boolean canTransfer = (inventoryContains || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
-
-                if (canTransfer) {
-                    List<ItemStack> recipeInputs = List.of(recipeCopy.getInput1(), recipeCopy.getInput2());
-                    if (creative) {
-                        int maxOperations = TransferUtils.getMaxOperations(recipeInputs, maxTransfer);
-
-                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
-                        inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
-                    } else {
-                        int slot1 = inventory.findSlotMatchingItem(recipeCopy.getInput1());
-                        int slot2 = inventory.findSlotMatchingItem(recipeCopy.getInput2());
-                        List<ItemStack> inventoryInputs = List.of(inventory.getItem(slot1), inventory.getItem(slot2));
-
-                        int maxOperations = TransferUtils.getMaxOperations(recipeInputs, inventoryInputs, maxTransfer, false);
-
-                        inventory.removeItem(slot1, recipeCopy.getInput1().getCount() * maxOperations);
-                        inventory.removeItem(slot1, recipeCopy.getInput2().getCount() * maxOperations);
-
-                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
-                        inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
+                            inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
+                            inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
+                        }
+                        blockEntity.setProgress(0);
+                        blockEntity.setRecipe(recipe);
                     }
-                    blockEntity.setProgress(0);
-                    blockEntity.setRecipe(recipe);
-                }
-            });
+                });
+        });
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<FusionControllerMenu, FusionRecipe> {
 
-        public TransferHandler() {}
-
         @Override
-        public Class<FusionControllerMenu> getContainerClass() {
+        public Class<? extends FusionControllerMenu> getContainerClass() {
             return FusionControllerMenu.class;
         }
 

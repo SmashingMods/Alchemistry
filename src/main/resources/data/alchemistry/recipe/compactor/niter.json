@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:mercury_sulfide"
+    },
+    "count": 1
+  },
+  "result": {
+    "count": 2,
+    "id": "thermal:niter"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

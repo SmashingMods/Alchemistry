@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:carbonate"
+    }
+  },
+  "result": {
+    "id": "chemlib:carbonate_dust"
+  }
+}

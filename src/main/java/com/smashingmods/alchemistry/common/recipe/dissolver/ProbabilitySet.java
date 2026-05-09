@@ -1,11 +1,11 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -15,6 +15,19 @@ import java.util.List;
 import java.util.Random;
 
 public class ProbabilitySet {
+
+    public static final Codec<ProbabilitySet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ProbabilityGroup.CODEC.listOf().fieldOf("groups").forGetter(ProbabilitySet::getProbabilityGroups),
+            Codec.BOOL.fieldOf("weighted").forGetter(ProbabilitySet::isWeighted),
+            Codec.INT.fieldOf("rolls").forGetter(ProbabilitySet::getRolls)
+    ).apply(instance, ProbabilitySet::new));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, ProbabilitySet> STREAM_CODEC = StreamCodec.composite(
+            ProbabilityGroup.STREAM_CODEC.apply(ByteBufCodecs.list()), ProbabilitySet::getProbabilityGroups,
+            ByteBufCodecs.BOOL, ProbabilitySet::isWeighted,
+            ByteBufCodecs.VAR_INT, ProbabilitySet::getRolls,
+            ProbabilitySet::new
+    );
 
     private final List<ProbabilityGroup> probabilityGroups;
     private final boolean weighted;
@@ -31,42 +44,6 @@ public class ProbabilitySet {
         this.rolls = pRolls;
     }
 
-    public JsonElement serialize() {
-        JsonObject toReturn = new JsonObject();
-        JsonArray jsonArray = new JsonArray();
-
-        toReturn.add("rolls", new JsonPrimitive(rolls));
-        toReturn.add("weighted", new JsonPrimitive(weighted));
-
-        for (ProbabilityGroup group : probabilityGroups) {
-            jsonArray.add(group.serialize());
-        }
-        toReturn.add("groups", jsonArray);
-
-        return toReturn;
-    }
-
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        pBuffer.writeInt(probabilityGroups.size());
-        pBuffer.writeInt(rolls);
-        pBuffer.writeBoolean(weighted);
-        for (ProbabilityGroup group : probabilityGroups) {
-            group.toNetwork(pBuffer);
-        }
-    }
-
-    public static ProbabilitySet fromNetwork(FriendlyByteBuf pbuffer) {
-        List<ProbabilityGroup> groupArrayList = new ArrayList<>();
-        int size = pbuffer.readInt();
-        int rolls = pbuffer.readInt();
-        boolean weighted = pbuffer.readBoolean();
-
-        for (int index = 0; index < size; index++) {
-            groupArrayList.add(ProbabilityGroup.fromNetwork(pbuffer));
-        }
-        return new ProbabilitySet(groupArrayList, weighted, rolls);
-    }
-
     public NonNullList<ItemStack> calculateOutput() {
         NonNullList<ItemStack> toReturn = NonNullList.create();
         Random random = new Random();
@@ -77,10 +54,8 @@ public class ProbabilitySet {
 
             if (weighted) {
                 double outputProbability = 0.0;
-
                 for (ProbabilityGroup group : probabilityGroups) {
                     outputProbability += (group.getProbability() / totalProbability);
-
                     if (outputProbability >= targetProbability) {
                         toReturn.addAll(group.getOutput());
                         break;
@@ -88,7 +63,6 @@ public class ProbabilitySet {
                 }
             } else {
                 if ((totalProbability / 100) < targetProbability) return toReturn;
-
                 for (ProbabilityGroup group : probabilityGroups) {
                     if (group.getProbability() >= random.nextInt(101)) {
                         toReturn.addAll(group.getOutput());
@@ -99,26 +73,16 @@ public class ProbabilitySet {
         return toReturn;
     }
 
-    public List<ProbabilityGroup> getProbabilityGroups() {
-        return probabilityGroups;
-    }
-
-    public boolean isWeighted() {
-        return weighted;
-    }
-
-    public int getRolls() {
-        return rolls;
-    }
+    public List<ProbabilityGroup> getProbabilityGroups() { return probabilityGroups; }
+    public boolean isWeighted() { return weighted; }
+    public int getRolls() { return rolls; }
 
     private double getTotalProbability() {
         return getTotalProbability(probabilityGroups);
     }
 
     private static double getTotalProbability(List<ProbabilityGroup> pGroups) {
-        return pGroups.stream()
-                .mapToDouble(ProbabilityGroup::getProbability)
-                .sum();
+        return pGroups.stream().mapToDouble(ProbabilityGroup::getProbability).sum();
     }
 
     public ProbabilitySet copy() {

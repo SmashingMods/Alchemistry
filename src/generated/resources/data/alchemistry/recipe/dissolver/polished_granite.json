@@ -1,0 +1,72 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:polished_granite"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:aluminum_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:potassium_chloride"
+          }
+        ]
+      },
+      {
+        "probability": 10,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:technetium"
+          }
+        ]
+      },
+      {
+        "probability": 1.5,
+        "results": [
+          {
+            "id": "chemlib:manganese"
+          }
+        ]
+      },
+      {
+        "probability": 1.5,
+        "results": [
+          {
+            "id": "chemlib:radium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

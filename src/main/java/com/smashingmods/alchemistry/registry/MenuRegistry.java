@@ -7,30 +7,31 @@ import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierMenu;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.common.extensions.IForgeMenuType;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.network.IContainerFactory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
+import net.neoforged.neoforge.network.IContainerFactory;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class MenuRegistry {
-    public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, MODID);
+    public static final DeferredRegister<MenuType<?>> MENU_TYPES =
+            DeferredRegister.create(BuiltInRegistries.MENU, MODID);
 
-    public static final RegistryObject<MenuType<AtomizerMenu>> ATOMIZER_MENU = registerMenuType(AtomizerMenu::new, "atomizer_menu");
-    public static final RegistryObject<MenuType<CompactorMenu>> COMPACTOR_MENU = registerMenuType(CompactorMenu::new, "compactor_menu");
-    public static final RegistryObject<MenuType<CombinerMenu>> COMBINER_MENU = registerMenuType(CombinerMenu::new, "combiner_menu");
-    public static final RegistryObject<MenuType<DissolverMenu>> DISSOLVER_MENU = registerMenuType(DissolverMenu::new, "dissolver_menu");
-    public static final RegistryObject<MenuType<LiquifierMenu>> LIQUIFIER_MENU = registerMenuType(LiquifierMenu::new, "liquifier_menu");
-    public static final RegistryObject<MenuType<FissionControllerMenu>> FISSION_CONTROLLER_MENU = registerMenuType(FissionControllerMenu::new, "fission_controller_menu");
-    public static final RegistryObject<MenuType<FusionControllerMenu>> FUSION_CONTROLLER_MENU = registerMenuType(FusionControllerMenu::new, "fusion_controller_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<AtomizerMenu>> ATOMIZER_MENU = registerMenuType(AtomizerMenu::new, "atomizer_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<CompactorMenu>> COMPACTOR_MENU = registerMenuType(CompactorMenu::new, "compactor_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<CombinerMenu>> COMBINER_MENU = registerMenuType(CombinerMenu::new, "combiner_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<DissolverMenu>> DISSOLVER_MENU = registerMenuType(DissolverMenu::new, "dissolver_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<LiquifierMenu>> LIQUIFIER_MENU = registerMenuType(LiquifierMenu::new, "liquifier_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<FissionControllerMenu>> FISSION_CONTROLLER_MENU = registerMenuType(FissionControllerMenu::new, "fission_controller_menu");
+    public static final DeferredHolder<MenuType<?>, MenuType<FusionControllerMenu>> FUSION_CONTROLLER_MENU = registerMenuType(FusionControllerMenu::new, "fusion_controller_menu");
 
-    private static <T extends AbstractContainerMenu> RegistryObject<MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
-        return MENU_TYPES.register(name, () -> IForgeMenuType.create(factory));
+    private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(IContainerFactory<T> factory, String name) {
+        return MENU_TYPES.register(name, () -> IMenuTypeExtension.create(factory));
     }
 
     public static void register(IEventBus eventBus) {

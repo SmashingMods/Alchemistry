@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:antimony"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:antimony_trioxide"
+  }
+}

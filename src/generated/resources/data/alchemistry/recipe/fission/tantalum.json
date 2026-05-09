@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:tantalum"
+  },
+  "output1": {
+    "id": "chemlib:rubidium"
+  },
+  "output2": {
+    "id": "chemlib:krypton"
+  }
+}

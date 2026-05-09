@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:carrot"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 20,
+        "results": [
+          {
+            "id": "chemlib:beta_carotene"
+          }
+        ]
+      },
+      {
+        "probability": 80,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

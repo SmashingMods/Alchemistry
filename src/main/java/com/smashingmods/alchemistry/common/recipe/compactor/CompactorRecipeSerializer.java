@@ -1,49 +1,47 @@
 package com.smashingmods.alchemistry.common.recipe.compactor;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import org.jetbrains.annotations.Nullable;
 
 public class CompactorRecipeSerializer<T extends CompactorRecipe> implements RecipeSerializer<T> {
 
-    private final CompactorRecipeSerializer.IFactory<T> factory;
+    private final IFactory<T> factory;
+    private final MapCodec<T> codec;
+    private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
-    public CompactorRecipeSerializer(CompactorRecipeSerializer.IFactory<T> pFactory) {
+    public CompactorRecipeSerializer(IFactory<T> pFactory) {
         this.factory = pFactory;
+        this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "compactor").forGetter(CompactorRecipe::getGroup),
+                IngredientStack.CODEC.fieldOf("input").forGetter(CompactorRecipe::getInput),
+                ItemStack.CODEC.fieldOf("result").forGetter(CompactorRecipe::getOutput)
+        ).apply(instance, factory::create));
+        this.streamCodec = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, CompactorRecipe::getGroup,
+                IngredientStack.STREAM_CODEC, CompactorRecipe::getInput,
+                ItemStack.STREAM_CODEC, CompactorRecipe::getOutput,
+                factory::create
+        );
     }
 
     @Override
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-        String group = pSerializedRecipe.has("group") ? pSerializedRecipe.get("group").getAsString() : "compactor";
-        IngredientStack input = IngredientStack.fromJson(pSerializedRecipe.getAsJsonObject("input"));
-        ItemStack output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
-        return this.factory.create(pRecipeId, group, input, output);
-    }
-
-    @Nullable
-    @Override
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-        String group = pBuffer.readUtf(Short.MAX_VALUE);
-        IngredientStack input = IngredientStack.fromNetwork(pBuffer);
-        ItemStack output = pBuffer.readItem();
-        return this.factory.create(pRecipeId, group, input, output);
+    public MapCodec<T> codec() {
+        return codec;
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
-        pBuffer.writeUtf(pRecipe.getGroup());
-        pRecipe.getInput().toNetwork(pBuffer);
-        pBuffer.writeItem(pRecipe.getOutput());
+    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+        return streamCodec;
     }
 
-    public interface IFactory<T extends Recipe<Inventory>> {
-        T create(ResourceLocation pId, String pGroup, IngredientStack pInput, ItemStack pOutput);
+    public interface IFactory<T extends CompactorRecipe> {
+        T create(String group, IngredientStack input, ItemStack output);
     }
 }

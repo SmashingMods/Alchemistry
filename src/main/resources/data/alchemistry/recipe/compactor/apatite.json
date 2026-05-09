@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:hydroxylapatite"
+    },
+    "count": 1
+  },
+  "result": {
+    "count": 3,
+    "id": "thermal:apatite"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

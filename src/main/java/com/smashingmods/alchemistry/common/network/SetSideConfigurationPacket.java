@@ -1,48 +1,44 @@
 package com.smashingmods.alchemistry.common.network;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemylib.api.blockentity.processing.InventoryBlockEntity;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-public class SetSideConfigurationPacket implements AlchemyPacket {
+public record SetSideConfigurationPacket(BlockPos blockPos, short sideConfigurationBits) implements AlchemyPacket {
 
-    private final BlockPos blockPos;
-    private final short sideConfigurationBits;
+    public static final Type<SetSideConfigurationPacket> TYPE = new Type<>(
+            ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "set_side_configuration"));
 
-    public SetSideConfigurationPacket(FriendlyByteBuf buffer) {
-        this(buffer.readBlockPos(), buffer.readShort());
-    }
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetSideConfigurationPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, SetSideConfigurationPacket::blockPos,
+            ByteBufCodecs.SHORT, SetSideConfigurationPacket::sideConfigurationBits,
+            SetSideConfigurationPacket::new
+    );
 
-    public SetSideConfigurationPacket(BlockPos blockPos, short sideConfigurationBits) {
-        this.blockPos = blockPos;
-        this.sideConfigurationBits = sideConfigurationBits;
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     @Override
-    public void encode(FriendlyByteBuf pBuffer) {
-        pBuffer.writeBlockPos(blockPos);
-        pBuffer.writeShort(sideConfigurationBits);
+    public void handle(IPayloadContext pContext) {
+        pContext.enqueueWork(() -> {
+            Player player = pContext.player();
+            if (player == null) return;
+            BlockEntity blockEntity = player.level().getBlockEntity(blockPos);
+            if (blockEntity instanceof InventoryBlockEntity inventoryEntity) {
+                inventoryEntity.getCombinedSlotHandler().setSideModesFromShort(sideConfigurationBits);
+                blockEntity.setChanged();
+            }
+        });
     }
-
-    @Override
-    public void handle(Context pContext) {
-        Player player = pContext.getSender();
-        if (player == null) {
-            return;
-        }
-
-        Level level = player.level();
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        if (blockEntity instanceof InventoryBlockEntity inventoryEntity) {
-            inventoryEntity.getCombinedSlotHandler().setSideModesFromShort(sideConfigurationBits);
-            blockEntity.setChanged();
-        }
-    }
-
 }

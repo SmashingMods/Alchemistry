@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "ingredient": {
+        "item": "chemlib:carbon"
+      },
+      "count": 20
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      },
+      "count": 30
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      },
+      "count": 2
+    }
+  ],
+  "result": {
+    "count": 3,
+    "id": "thermal:rosin"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

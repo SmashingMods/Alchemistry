@@ -1,0 +1,94 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:stone"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 20,
+        "results": [
+          {}
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:aluminum"
+          }
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 0.7,
+        "results": [
+          {
+            "id": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 0.3,
+        "results": [
+          {
+            "id": "chemlib:dysprosium"
+          }
+        ]
+      },
+      {
+        "probability": 0.6,
+        "results": [
+          {
+            "id": "chemlib:zirconium"
+          }
+        ]
+      },
+      {
+        "probability": 0.5,
+        "results": [
+          {
+            "id": "chemlib:tungsten"
+          }
+        ]
+      },
+      {
+        "probability": 0.5,
+        "results": [
+          {
+            "id": "chemlib:nickel"
+          }
+        ]
+      },
+      {
+        "probability": 0.5,
+        "results": [
+          {
+            "id": "chemlib:gallium"
+          }
+        ]
+      }
+    ],
+    "rolls": 2,
+    "weighted": true
+  }
+}

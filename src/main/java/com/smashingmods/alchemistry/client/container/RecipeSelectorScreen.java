@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.client.container;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
@@ -16,13 +15,9 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.LiteralContents;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -36,6 +31,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B extends AbstractSearchableBlockEntity, R extends AbstractProcessingRecipe> extends Screen {
+
+    private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png");
 
     private final int imageWidth = 184;
     private final int imageHeight = 162;
@@ -62,18 +59,16 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private int startIndex;
 
     public RecipeSelectorScreen(P pParentScreen, B pBlockEntity, LinkedList<R> pRecipes) {
-        super(MutableComponent.create(new LiteralContents("")));
+        super(Component.empty());
         this.parentScreen = pParentScreen;
         this.blockEntity = pBlockEntity;
         this.recipes = pRecipes;
-        this.searchBox = new EditBox(Minecraft.getInstance().font, 0, 0, 92, 12, MutableComponent.create(new LiteralContents("")));
+        this.searchBox = new EditBox(Minecraft.getInstance().font, 0, 0, 92, 12, Component.empty());
         if (!blockEntity.getSearchText().isEmpty()) {
             searchBox.setValue(blockEntity.getSearchText());
             searchRecipeList(blockEntity.getSearchText());
         }
     }
-
-    // Lifecycle methods
 
     @Override
     protected void init() {
@@ -91,7 +86,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             searchBox.setSuggestion(I18n.get("alchemistry.container.search"));
         } else {
             if (displayedRecipes.size() < MAX_DISPLAYED_RECIPES) {
-                mouseScrolled(0, 0, 0);
+                mouseScrolled(0, 0, 0, 0);
                 scrollOffset = 0.0f;
             }
             blockEntity.setSearchText(searchBox.getValue());
@@ -111,8 +106,6 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         super.onClose();
     }
 
-    // Render methods
-
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         renderBg(pGuiGraphics);
@@ -124,7 +117,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private void renderBg(GuiGraphics pGuiGraphics) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(BG, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     private void renderRecipeBox(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
@@ -138,7 +131,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
     private void renderScrollbar(GuiGraphics pGuiGraphics) {
         int scrollPosition = (int) (93.0f * scrollOffset);
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
+        pGuiGraphics.blit(BG, leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
     }
 
     private void renderRecipeButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
@@ -154,7 +147,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             } else if (pMouseX >= xStart && pMouseX < xStart + RECIPE_BOX_SIZE && pMouseY >= yStart && pMouseY < yStart + RECIPE_BOX_SIZE) {
                 vOffset += RECIPE_BOX_SIZE * 2;
             }
-            pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+            pGuiGraphics.blit(BG, xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
         }
     }
 
@@ -170,7 +163,8 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             renderFloatingItem(pGuiGraphics, target, xStart, yStart);
 
             if (pMouseX >= xStart - 1 && pMouseX <= xStart + 16 && pMouseY >= yStart - 1 && pMouseY <= yStart + 16) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe", null, TranslatableContents.NO_ARGS)));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target,
+                        Component.translatable("alchemistry.container.select_recipe").copy());
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         }
@@ -183,8 +177,6 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private void renderCurrentRecipe(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
         ProcessingRecipe recipe = blockEntity.getRecipe();
         if (recipe != null) {
-
-            // handle rendering the input slots and required input items
             recipeLooper((pIndex, pInputSize, pX, pY) -> {
                 if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
@@ -193,27 +185,26 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                 }
             });
 
-            // handle rendering tooltips for recipe inputs, can't be done in previous loop because of rendering order
             recipeLooper((pIndex, pInputSize, pX, pY) -> {
                 if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
 
                     if (pMouseX >= pX - 1 && pMouseX < pX + 17 && pMouseY >= pY - 1 && pMouseY < pY + 17 && !itemStack.isEmpty()) {
-                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)));
+                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack,
+                                Component.translatable("alchemistry.container.required_input").copy());
                         pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
                     }
                 }
             });
 
-            // Render the target item
             ItemStack target = RecipeDisplayUtil.getTarget(recipe);
             renderFloatingItem(pGuiGraphics, target, leftPos + 21, topPos + 30);
             if (pMouseX >= leftPos + 17 && pMouseX < leftPos + 41 && pMouseY >= topPos + 27 && pMouseY <= topPos + 50) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target,
+                        Component.translatable("alchemistry.container.current_recipe").copy());
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         } else {
-            // if the recipe is empty, we still need to render the slots
             recipeLooper((pIndex, pInputSize, pX, pY) -> renderSlot(pGuiGraphics, pX, pY));
         }
     }
@@ -242,9 +233,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private void renderSlot(GuiGraphics pGuiGraphics, int pX, int pY) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+        pGuiGraphics.blit(BG, pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
     }
 
     public <W extends GuiEventListener & Renderable & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
@@ -271,8 +260,6 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             }
         }
     }
-
-    // Input methods
 
     @Override
     public boolean keyPressed(int pKeyCode, int pScanCode, int pModifiers) {
@@ -318,8 +305,8 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
         for (int index = startIndex; index < lastDisplayedIndex; index++) {
             int currentIndex = index - startIndex;
-            double boxX = pMouseX - (double)(recipeBoxLeftPos + currentIndex % COLUMNS * RECIPE_BOX_SIZE);
-            double boxY = pMouseY - (double)(recipeBoxTopPos + currentIndex / COLUMNS * RECIPE_BOX_SIZE);
+            double boxX = pMouseX - (double) (recipeBoxLeftPos + currentIndex % COLUMNS * RECIPE_BOX_SIZE);
+            double boxY = pMouseY - (double) (recipeBoxTopPos + currentIndex / COLUMNS * RECIPE_BOX_SIZE);
 
             if (boxX > 0 && boxX <= RECIPE_BOX_SIZE + 1 && boxY > 0 && boxY <= RECIPE_BOX_SIZE + 1 && !blockEntity.isRecipeLocked() && isValidRecipeIndex(index)) {
                 AbstractProcessingRecipe recipe = getDisplayedRecipes().get(index);
@@ -369,15 +356,13 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     @Override
-    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
+    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDeltaX, double pDeltaY) {
         if (pMouseX >= leftPos && pMouseX < leftPos + imageWidth && pMouseY >= topPos && pMouseY < topPos + imageHeight && isScrollBarActive()) {
-            scrollOffset = Mth.clamp(scrollOffset - (float) pDelta / (float) getOffscreenRows(), 0.0f, 1.0f);
+            scrollOffset = Mth.clamp(scrollOffset - (float) pDeltaY / (float) getOffscreenRows(), 0.0f, 1.0f);
             startIndex = (int) ((double) (scrollOffset * (float) getOffscreenRows()) + 0.5d) * COLUMNS;
         }
         return true;
     }
-
-    // getters and setters
 
     private int getOffscreenRows() {
         return (displayedRecipes.size() + 6 - 1) / 6 - 3;
@@ -404,12 +389,10 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         return pSlot >= 0 && pSlot < getDisplayedRecipes().size();
     }
 
-    // Utility methods
-
     public void resetDisplayedRecipes() {
         this.displayedRecipes.clear();
         this.displayedRecipes.addAll(recipes);
-        this.displayedRecipes.sort((r1, r2) -> r1.getId().compareNamespaced(r2.getId()));
+        this.displayedRecipes.sort((r1, r2) -> AbstractProcessingRecipe.compareIds(r1.getId(), r2.getId()));
     }
 
     private void searchRecipeList(String pKeyword) {

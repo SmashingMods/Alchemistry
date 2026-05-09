@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:fermium"
+  },
+  "output1": {
+    "id": "chemlib:tin"
+  },
+  "output2": {
+    "id": "chemlib:tin"
+  }
+}

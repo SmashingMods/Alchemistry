@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:germanium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:graphite"
+      }
+    }
+  ],
+  "result": {
+    "id": "minecraft:blaze_powder"
+  }
+}

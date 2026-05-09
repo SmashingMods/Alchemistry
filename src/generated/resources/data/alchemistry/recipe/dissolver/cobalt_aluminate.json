@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:cobalt_aluminate"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "id": "chemlib:cobalt"
+          },
+          {
+            "count": 2,
+            "id": "chemlib:aluminum"
+          },
+          {
+            "count": 4,
+            "id": "chemlib:oxygen"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

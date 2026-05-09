@@ -1,0 +1,20 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "ingredient": {
+      "item": "chemlib:sucrose"
+    },
+    "count": 8
+  },
+  "result": {
+    "amount": 500,
+    "id": "thermal:syrup_fluid"
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

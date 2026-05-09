@@ -11,21 +11,20 @@ import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -46,8 +45,8 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
     @Override
     public void onLoad() {
-        if (level != null && !level.isClientSide()) {
-            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
+        if (level != null && !level.isClientSide() && recipeId != null) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipeId.equals(recipe.getId()), level).ifPresent(this::setRecipe);
         }
         super.onLoad();
     }
@@ -65,10 +64,10 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
         if (level != null && !level.isClientSide() && !isRecipeLocked() && !getInputHandler().getStackInSlot(0).isEmpty()) {
             RecipeRegistry.getDissolverRecipe(recipe -> recipe.matches(getInputHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
-                   if (currentRecipe == null || !currentRecipe.equals(recipe)) {
-                       setProgress(0);
-                       setRecipe(recipe);
-                   }
+                    if (currentRecipe == null || !currentRecipe.equals(recipe)) {
+                        setProgress(0);
+                        setRecipe(recipe);
+                    }
                 });
         }
     }
@@ -81,9 +80,8 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && (tempRecipe.matches(input) && input.getCount() >= tempRecipe.getInput().getCount())
                     && internalBuffer.isEmpty();
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -105,7 +103,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             ItemStack bufferStack = internalBuffer.get(i).copy();
             for (int j = 0; j < getOutputHandler().getStacks().size(); j++) {
                 ItemStack slotStack = getOutputHandler().getStackInSlot(j).copy();
-                if (slotStack.isEmpty() || (ItemStack.isSameItemSameTags(bufferStack, slotStack) && bufferStack.getCount() + slotStack.getCount() <= slotStack.getMaxStackSize())) {
+                if (slotStack.isEmpty() || (ItemStack.isSameItemSameComponents(bufferStack, slotStack) && bufferStack.getCount() + slotStack.getCount() <= slotStack.getMaxStackSize())) {
                     valid = true;
                     ItemHandlerHelper.insertItemStacked(getOutputHandler(), bufferStack, false);
                     valid = false;
@@ -193,31 +191,35 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pProvider) {
         ListTag bufferTag = new ListTag();
-        internalBuffer.stream()
-                .filter(itemStack -> !itemStack.isEmpty())
-                .forEach(itemStack -> bufferTag.add(itemStack.save(new CompoundTag())));
+        for (ItemStack itemStack : internalBuffer) {
+            if (!itemStack.isEmpty()) {
+                Tag saved = itemStack.save(pProvider);
+                if (saved instanceof CompoundTag compoundTag) {
+                    bufferTag.add(compoundTag);
+                }
+            }
+        }
         pTag.put("buffer", bufferTag);
-        if (currentRecipe != null) {
+        if (currentRecipe != null && currentRecipe.getId() != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, pProvider);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pProvider) {
+        super.loadAdditional(pTag, pProvider);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
-        ListTag bufferTag = pTag.getList("buffer", 10);
-        bufferTag.stream()
-                .filter(tag -> tag instanceof CompoundTag)
-                .map(CompoundTag.class::cast)
-                .map(ItemStack::of)
-                .forEach(internalBuffer::add);
+        ListTag bufferTag = pTag.getList("buffer", Tag.TAG_COMPOUND);
+        for (int i = 0; i < bufferTag.size(); i++) {
+            CompoundTag entry = bufferTag.getCompound(i);
+            ItemStack.parse(pProvider, entry).ifPresent(internalBuffer::add);
+        }
 
-        if (level != null && level.isClientSide()) {
-            RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
+        if (level != null && level.isClientSide() && recipeId != null) {
+            RecipeRegistry.getDissolverRecipe(recipe -> recipeId.equals(recipe.getId()), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
                     Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));

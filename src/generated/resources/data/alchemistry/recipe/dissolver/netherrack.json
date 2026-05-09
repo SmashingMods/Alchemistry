@@ -1,0 +1,70 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:netherrack"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 15,
+        "results": [
+          {}
+        ]
+      },
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:zinc_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:phosphorus"
+          }
+        ]
+      },
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:sulfur"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:germanium"
+          }
+        ]
+      },
+      {
+        "probability": 4,
+        "results": [
+          {
+            "id": "chemlib:silicon"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

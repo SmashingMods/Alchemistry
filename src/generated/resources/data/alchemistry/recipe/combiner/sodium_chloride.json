@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sodium"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:chlorine"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:sodium_chloride"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:uranium"
+  },
+  "output1": {
+    "id": "chemlib:palladium"
+  },
+  "output2": {
+    "id": "chemlib:palladium"
+  }
+}

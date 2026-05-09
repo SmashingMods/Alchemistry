@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:baked_potato"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 10,
+        "results": [
+          {
+            "id": "chemlib:starch"
+          }
+        ]
+      },
+      {
+        "probability": 25,
+        "results": [
+          {
+            "count": 5,
+            "id": "chemlib:potassium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

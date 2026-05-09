@@ -3,7 +3,6 @@ package com.smashingmods.alchemistry.common.block.dissolver;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -17,7 +16,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class DissolverBlock extends AbstractProcessingBlock {
@@ -28,26 +26,24 @@ public class DissolverBlock extends AbstractProcessingBlock {
 
     public static final VoxelShape A = Block.box(0.0, 0.0, 0.0, 16.0, 4.0, 16.0);
     public static final VoxelShape B = Block.box(2.0, 4.0, 2.0, 14, 14.0, 14);
-    public static final VoxelShape SHAPE = Shapes.or(A,B);
+    public static final VoxelShape SHAPE = Shapes.or(A, B);
 
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    protected VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return SHAPE;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            NetworkHooks.openScreen(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer serverPlayer) {
+            if (pLevel.getBlockEntity(pPos) instanceof DissolverBlockEntity be) {
+                serverPlayer.openMenu(be, pPos);
+            }
             return InteractionResult.CONSUME;
         }
         return InteractionResult.SUCCESS;
@@ -57,8 +53,8 @@ public class DissolverBlock extends AbstractProcessingBlock {
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
-                if (blockEntity instanceof DissolverBlockEntity) {
-                    ((DissolverBlockEntity) blockEntity).tick();
+                if (blockEntity instanceof DissolverBlockEntity be) {
+                    be.tick();
                 }
             };
         }

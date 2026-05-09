@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:sodium_oxide"
+    }
+  },
+  "result": {
+    "id": "chemlib:sodium_oxide_dust"
+  }
+}

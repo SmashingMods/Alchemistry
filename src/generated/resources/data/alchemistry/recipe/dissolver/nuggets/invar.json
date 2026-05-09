@@ -1,0 +1,41 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:nuggets/invar"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 2,
+        "results": [
+          {
+            "id": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:nickel"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:nuggets/invar"
+      }
+    }
+  ]
+}

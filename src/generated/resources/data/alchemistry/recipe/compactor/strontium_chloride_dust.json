@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:strontium_chloride"
+    }
+  },
+  "result": {
+    "id": "chemlib:strontium_chloride_dust"
+  }
+}

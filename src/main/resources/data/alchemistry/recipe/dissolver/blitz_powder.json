@@ -1,0 +1,49 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "item": "thermal:blitz_powder"
+    },
+    "count": 1
+  },
+  "output": {
+    "rolls": 1,
+    "weighted": false,
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 8,
+            "id": "chemlib:helium"
+          }
+        ]
+      },
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 8,
+            "id": "chemlib:hydrogen"
+          }
+        ]
+      },
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 2,
+            "id": "chemlib:methane"
+          }
+        ]
+      }
+    ]
+  },
+  "neoforge:conditions": [
+    {
+      "modid": "thermal",
+      "type": "neoforge:mod_loaded"
+    }
+  ]
+}

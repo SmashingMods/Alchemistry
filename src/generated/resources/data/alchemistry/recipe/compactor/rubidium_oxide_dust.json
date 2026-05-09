@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:rubidium_oxide"
+    }
+  },
+  "result": {
+    "id": "chemlib:rubidium_oxide_dust"
+  }
+}

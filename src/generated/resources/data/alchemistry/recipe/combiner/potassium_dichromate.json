@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:chromium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:potassium"
+      }
+    },
+    {
+      "count": 7,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:potassium_dichromate"
+  }
+}

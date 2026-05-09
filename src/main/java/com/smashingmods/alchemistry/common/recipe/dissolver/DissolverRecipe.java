@@ -4,24 +4,25 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import org.jetbrains.annotations.NotNull;
 
 public class DissolverRecipe extends AbstractProcessingRecipe {
 
     private final IngredientStack input;
     private final ProbabilitySet output;
 
-    public DissolverRecipe(ResourceLocation pId, String pGroup, IngredientStack pInput, ProbabilitySet pOutput) {
-        super(pId, pGroup);
+    public DissolverRecipe(String pGroup, IngredientStack pInput, ProbabilitySet pOutput) {
+        super(pGroup);
         this.input = pInput;
         this.output = pOutput;
     }
 
     @Override
-    public DissolverRecipeSerializer<DissolverRecipe> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return RecipeRegistry.DISSOLVER_SERIALIZER.get();
     }
 
@@ -36,27 +37,24 @@ public class DissolverRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("input=%s, outputs=%s", input, output);
     }
 
     @Override
-    public int compareTo(AbstractProcessingRecipe pRecipe) {
-        return getId().compareNamespaced(pRecipe.getId());
+    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+        return AbstractProcessingRecipe.compareIds(getId(), pRecipe.getId());
     }
 
     @Override
     public DissolverRecipe copy() {
-        return new DissolverRecipe(getId(), getGroup(), input.copy(), output.copy());
+        DissolverRecipe c = new DissolverRecipe(getGroup(), input.copy(), output.copy());
+        c.setId(getId());
+        return c;
     }
 
-    public IngredientStack getInput() {
-        return input;
-    }
-
-    public ProbabilitySet getOutput() {
-        return output;
-    }
+    public IngredientStack getInput() { return input; }
+    public ProbabilitySet getOutput() { return output; }
 
     public boolean matches(ItemStack pItemStack) {
         return input.matches(pItemStack);

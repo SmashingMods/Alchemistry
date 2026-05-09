@@ -1,0 +1,52 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/lumium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 3,
+        "results": [
+          {
+            "count": 9,
+            "id": "chemlib:tin"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "count": 9,
+            "id": "chemlib:silver"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "count": 9,
+            "id": "chemlib:phosphorus"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/lumium"
+      }
+    }
+  ]
+}

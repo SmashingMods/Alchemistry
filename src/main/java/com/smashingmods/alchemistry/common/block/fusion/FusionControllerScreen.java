@@ -15,8 +15,6 @@ import com.smashingmods.alchemylib.client.button.LockButton;
 import com.smashingmods.alchemylib.client.button.PauseButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FusionControllerScreen extends AbstractProcessingScreen<FusionControllerMenu> {
+
+    private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/fusion_gui.png");
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final FusionControllerBlockEntity blockEntity;
@@ -62,12 +62,12 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/fusion_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(BG, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fusion_controller", null, TranslatableContents.NO_ARGS));
+        Component title = Component.translatable("alchemistry.container.fusion_controller");
         pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -82,12 +82,14 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
             List<ItemStack> inputs = List.of(currentRecipe.getInput1(), currentRecipe.getInput2());
 
-            for (int i = 0; i < inputs.size(); i ++) {
+            for (int i = 0; i < inputs.size(); i++) {
                 y = y + (i * 26);
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(pGuiGraphics, inputs.get(i), x, y);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
-                        renderItemTooltip(pGuiGraphics, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                        renderItemTooltip(pGuiGraphics, inputs.get(i),
+                                Component.translatable("alchemistry.container.current_recipe").copy(),
+                                pMouseX, pMouseY);
                     }
                 }
             }

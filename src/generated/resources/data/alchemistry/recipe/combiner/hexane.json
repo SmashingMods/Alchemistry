@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 14,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:hexane"
+  }
+}

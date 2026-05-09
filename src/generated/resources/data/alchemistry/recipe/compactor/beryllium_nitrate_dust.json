@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:beryllium_nitrate"
+    }
+  },
+  "result": {
+    "id": "chemlib:beryllium_nitrate_dust"
+  }
+}

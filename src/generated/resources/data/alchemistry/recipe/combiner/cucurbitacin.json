@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 32,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 44,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:cucurbitacin"
+  }
+}

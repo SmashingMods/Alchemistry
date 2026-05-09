@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:rhodium"
+  },
+  "output1": {
+    "id": "chemlib:vanadium"
+  },
+  "output2": {
+    "id": "chemlib:titanium"
+  }
+}

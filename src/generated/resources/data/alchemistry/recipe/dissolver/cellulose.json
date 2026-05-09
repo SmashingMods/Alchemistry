@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:cellulose"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100,
+        "results": [
+          {
+            "count": 6,
+            "id": "chemlib:carbon"
+          },
+          {
+            "count": 10,
+            "id": "chemlib:hydrogen"
+          },
+          {
+            "count": 5,
+            "id": "chemlib:oxygen"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

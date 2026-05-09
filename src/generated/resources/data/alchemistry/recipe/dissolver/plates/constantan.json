@@ -1,0 +1,41 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:plates/constantan"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:nickel"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:copper"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:plates/constantan"
+      }
+    }
+  ]
+}

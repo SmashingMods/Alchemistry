@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:cesium"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:chlorine"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:cesium_chloride"
+  }
+}

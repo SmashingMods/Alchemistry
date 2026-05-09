@@ -3,28 +3,24 @@ package com.smashingmods.alchemistry.common.recipe.combiner;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class CombinerRecipe extends AbstractProcessingRecipe {
 
     private final ItemStack output;
-    private final Set<IngredientStack> input = new LinkedHashSet<>();
+    private final List<IngredientStack> input;
 
-    public CombinerRecipe(ResourceLocation pId, String pGroup, Set<IngredientStack> pInputList, ItemStack pOutput) {
-        super(pId, pGroup);
+    public CombinerRecipe(String pGroup, List<IngredientStack> pInputList, ItemStack pOutput) {
+        super(pGroup);
         this.output = pOutput;
-        input.addAll(pInputList);
+        this.input = new ArrayList<>(pInputList);
     }
 
     @Override
@@ -38,12 +34,7 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public ItemStack assemble(Inventory pContainer, RegistryAccess pRegistryAccess) {
-        return output;
-    }
-
-    @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider pProvider) {
         return output;
     }
 
@@ -54,16 +45,18 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
 
     @Override
     public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
-        return getId().compareTo(pRecipe.getId());
+        return AbstractProcessingRecipe.compareIds(getId(), pRecipe.getId());
     }
 
     @Override
     public CombinerRecipe copy() {
-        return new CombinerRecipe(getId(), getGroup(), Set.copyOf(input), output.copy());
+        CombinerRecipe c = new CombinerRecipe(getGroup(), List.copyOf(input), output.copy());
+        c.setId(getId());
+        return c;
     }
 
     public List<IngredientStack> getInput() {
-        return new LinkedList<>(input);
+        return input;
     }
 
     public ItemStack getOutput() {
@@ -72,10 +65,6 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
 
     public boolean matchInputs(List<ItemStack> pStacks) {
         List<ItemStack> inputStacks = pStacks.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
-
-        // Iterate over all recipe input IngredientStacks to make sure that all match the contents of the ItemStack input list.
-        // Each ingredient must match to *any* of the input item stacks, have an equal or greater count, and both lists must be the same size.
-
         return input.stream().allMatch(ingredientStack -> inputStacks.stream()
                         .anyMatch(itemStack -> itemStack.getCount() >= ingredientStack.getCount() && ingredientStack.matches(itemStack)))
                 && input.size() == inputStacks.size();

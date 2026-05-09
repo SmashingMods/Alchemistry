@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:barium"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:barium_hydroxide"
+  }
+}

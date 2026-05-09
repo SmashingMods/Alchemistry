@@ -26,7 +26,7 @@ public class ReactorOutputBlock extends AbstractProcessingBlock {
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
+    protected void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockEntity(pPos) instanceof ReactorOutputBlockEntity blockEntity) {
                 if (blockEntity.getController() != null) {

@@ -1,0 +1,56 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:mycelium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:water"
+          }
+        ]
+      },
+      {
+        "probability": 5,
+        "results": [
+          {
+            "id": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 1,
+        "results": [
+          {
+            "id": "chemlib:kaolinite"
+          }
+        ]
+      },
+      {
+        "probability": 3,
+        "results": [
+          {
+            "id": "chemlib:chitin"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:cadmium"
+  },
+  "output1": {
+    "id": "chemlib:chromium"
+  },
+  "output2": {
+    "id": "chemlib:chromium"
+  }
+}

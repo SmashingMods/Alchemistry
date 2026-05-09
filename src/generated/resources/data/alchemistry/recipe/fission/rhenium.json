@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:rhenium"
+  },
+  "output1": {
+    "id": "chemlib:strontium"
+  },
+  "output2": {
+    "id": "chemlib:rubidium"
+  }
+}

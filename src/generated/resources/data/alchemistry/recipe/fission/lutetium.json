@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "id": "chemlib:lutetium"
+  },
+  "output1": {
+    "id": "chemlib:krypton"
+  },
+  "output2": {
+    "id": "chemlib:bromine"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:string"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 50,
+        "results": [
+          {
+            "id": "chemlib:keratin"
+          }
+        ]
+      },
+      {
+        "probability": 50,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

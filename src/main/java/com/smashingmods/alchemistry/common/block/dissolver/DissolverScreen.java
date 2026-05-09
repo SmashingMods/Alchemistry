@@ -11,8 +11,6 @@ import com.smashingmods.alchemylib.client.button.PauseButton;
 import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -20,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
+
+    private static final ResourceLocation BG = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/dissolver_gui.png");
 
     protected final List<AbstractDisplayData> displayData = new ArrayList<>();
     private final PauseButton pauseButton = new PauseButton(this);
@@ -54,12 +54,12 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(BG, leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.dissolver", null, TranslatableContents.NO_ARGS));
+        Component title = Component.translatable("alchemistry.container.dissolver");
         pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

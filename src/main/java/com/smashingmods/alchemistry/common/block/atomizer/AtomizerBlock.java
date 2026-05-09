@@ -4,12 +4,12 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -23,8 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -39,38 +37,37 @@ public class AtomizerBlock extends AbstractProcessingBlock {
     public static final VoxelShape SHAPE = Shapes.or(base, rest);
 
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    protected VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
         return SHAPE;
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+    protected VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.atomizerEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
+        pTooltip.add(Component.translatable("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.atomizerEnergyPerTick.get())));
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            boolean interactionSuccessful = true;
-
-            if (blockEntity instanceof AtomizerBlockEntity) {
-                interactionSuccessful = ((AtomizerBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
+            if (pLevel.getBlockEntity(pPos) instanceof AtomizerBlockEntity be && be.onBlockActivated(pLevel, pPos, pPlayer, pHand)) {
+                return ItemInteractionResult.SUCCESS;
             }
+        }
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
 
-            if (!interactionSuccessful) {
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (AtomizerBlockEntity) blockEntity, pPos);
+    @Override
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer serverPlayer) {
+            if (pLevel.getBlockEntity(pPos) instanceof AtomizerBlockEntity be) {
+                serverPlayer.openMenu(be, pPos);
             }
-            return InteractionResult.CONSUME;
         }
         return InteractionResult.SUCCESS;
     }

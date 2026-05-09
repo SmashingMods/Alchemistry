@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:tin_sulfate"
+      }
+    }
+  ],
+  "result": {
+    "id": "chemlib:tin_sulfate_dust"
+  }
+}

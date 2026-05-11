@@ -9,7 +9,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = "${mod_id}-neoforged"
+    archivesName = "${mod_id}"
 }
 
 java {
@@ -73,8 +73,8 @@ repositories {
 }
 
 dependencies {
-    implementation "me.f0x.chemlib:chemlib:${chemlib_version}"
-    implementation "me.f0x.alchemylib:alchemylib:${alchemylib_version}"
+    implementation "com.smashingmods.chemlib:chemlib:${chemlib_version}"
+    implementation "com.smashingmods.alchemylib:alchemylib:${alchemylib_version}"
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
@@ -125,7 +125,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            groupId = 'smashingmods'
+            groupId = project.group
             artifactId = mod_id
         }
     }

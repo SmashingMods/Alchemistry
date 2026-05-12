@@ -146,11 +146,7 @@ public class RecipeRegistry {
 
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> Optional<R> getRecipeByGroupAndId(String pGroup, ResourceLocation pRecipeId, Level pLevel) {
-        return pLevel.getRecipeManager().getRecipes().stream()
-                .filter(holder -> holder.id().equals(pRecipeId))
-                .map(holder -> (R) holder.value())
-                .filter(recipe -> recipe.getGroup().equals(pGroup))
-                .findFirst();
+        return getRecipesByGroup(pGroup, pLevel).stream().filter(recipe -> recipe.getId().equals(pRecipeId)).findFirst().map(recipe -> (R) recipe);
     }
 
     public static LinkedList<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {

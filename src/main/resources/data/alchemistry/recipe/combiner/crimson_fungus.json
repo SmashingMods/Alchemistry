@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:phosphoric_acid"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:chitin"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:crimson_fungus"
+  }
+}

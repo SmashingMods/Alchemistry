@@ -9,7 +9,6 @@ import com.smashingmods.alchemylib.api.blockentity.container.button.AbstractAlch
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class AutoBalanceButton extends AbstractAlchemyButton {
@@ -34,8 +33,9 @@ public class AutoBalanceButton extends AbstractAlchemyButton {
     @Override
     public Component getMessage() {
         return ((FusionControllerBlockEntity) blockEntity).isAutoBalanced() ?
-                MutableComponent.create(new TranslatableContents("alchemistry.container.disable_autobalance", "Disable Auto-Balance", TranslatableContents.NO_ARGS))
+                Component.translatable("alchemistry.container.disable_autobalance")
                 :
-                MutableComponent.create(new TranslatableContents("alchemistry.container.enable_autobalance", "Enable Auto-Balance", TranslatableContents.NO_ARGS));
+                Component.translatable("alchemistry.container.enable_autobalance");
     }
 }
+

@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:sucrose"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:protein"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:slime_ball"
+  }
+}

@@ -22,7 +22,7 @@
     "IPI"
   ],
   "result": {
-    "item": "alchemistry:atomizer"
+    "id": "alchemistry:atomizer"
   },
   "show_notification": true
 }

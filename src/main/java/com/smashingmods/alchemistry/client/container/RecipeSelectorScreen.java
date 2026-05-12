@@ -22,11 +22,11 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.PlainTextContents;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.LinkedList;
@@ -170,7 +170,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             renderFloatingItem(pGuiGraphics, target, xStart, yStart);
 
             if (pMouseX >= xStart - 1 && pMouseX <= xStart + 16 && pMouseY >= yStart - 1 && pMouseY <= yStart + 16) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe", null, TranslatableContents.NO_ARGS)));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, Component.translatable("alchemistry.container.select_recipe"));
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         }
@@ -199,7 +199,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
 
                     if (pMouseX >= pX - 1 && pMouseX < pX + 17 && pMouseY >= pY - 1 && pMouseY < pY + 17 && !itemStack.isEmpty()) {
-                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)));
+                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, Component.translatable("alchemistry.container.required_input"));
                         pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
                     }
                 }
@@ -209,7 +209,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             ItemStack target = RecipeDisplayUtil.getTarget(recipe);
             renderFloatingItem(pGuiGraphics, target, leftPos + 21, topPos + 30);
             if (pMouseX >= leftPos + 17 && pMouseX < leftPos + 41 && pMouseY >= topPos + 27 && pMouseY <= topPos + 50) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, Component.translatable("alchemistry.container.current_recipe"));
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         } else {
@@ -323,7 +323,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
             if (boxX > 0 && boxX <= RECIPE_BOX_SIZE + 1 && boxY > 0 && boxY <= RECIPE_BOX_SIZE + 1 && !blockEntity.isRecipeLocked() && isValidRecipeIndex(index)) {
                 AbstractProcessingRecipe recipe = getDisplayedRecipes().get(index);
-                Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(blockEntity.getBlockPos(), recipe.getId(), recipe.getGroup()));
+                PacketDistributor.sendToServer(new SetRecipePacket(blockEntity.getBlockPos(), recipe.getId(), recipe.getGroup()));
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0f));
                 return true;
             }
@@ -439,3 +439,4 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         getDisplayedRecipes().addAll(recipes);
     }
 }
+

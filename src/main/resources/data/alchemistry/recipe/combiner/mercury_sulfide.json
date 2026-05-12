@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:mercury"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:mercury_sulfide"
+  }
+}

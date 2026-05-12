@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 64,
+            "item": "chemlib:tungsten"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:gold"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

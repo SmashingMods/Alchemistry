@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 6,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:ethane"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:smooth_sandstone"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 4,
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:gold"
+          }
+        ]
+      }
+    ],
+    "rolls": 4,
+    "weighted": true
+  }
+}

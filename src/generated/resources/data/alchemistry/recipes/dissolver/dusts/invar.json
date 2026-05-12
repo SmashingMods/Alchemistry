@@ -1,48 +1,41 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:dusts/invar"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:dusts/invar"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 2.0,
-              "results": [
-                {
-                  "item": "chemlib:iron"
-                }
-              ]
-            },
-            {
-              "probability": 1.0,
-              "results": [
-                {
-                  "item": "chemlib:nickel"
-                }
-              ]
-            }
-          ],
-          "rolls": 16,
-          "weighted": true
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/invar"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:dusts/invar"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:nickel"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  }
 }

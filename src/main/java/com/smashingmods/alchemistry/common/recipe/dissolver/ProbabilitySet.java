@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,8 +29,16 @@ public record ProbabilitySet(List<ProbabilityGroup> probabilityGroups, boolean w
             
             ProbabilitySet::new
     );
+    // Accepts both a single ProbabilityGroup object and an array of ProbabilityGroups for the "groups" field
+    private static final Codec<List<ProbabilityGroup>> GROUPS_CODEC = Codec.either(
+            ProbabilityGroup.CODEC.codec(),
+            ProbabilityGroup.CODEC.codec().listOf()
+    ).xmap(
+            e -> e.map(List::of, list -> list),
+            list -> list.size() == 1 ? Either.left(list.get(0)) : Either.right(list)
+    );
     public static final MapCodec<ProbabilitySet> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            ProbabilityGroup.CODEC.codec().listOf().fieldOf("groups").forGetter(ProbabilitySet::probabilityGroups),
+            GROUPS_CODEC.fieldOf("groups").forGetter(ProbabilitySet::probabilityGroups),
             Codec.BOOL.fieldOf("weighted").forGetter(ProbabilitySet::weighted),
             Codec.INT.fieldOf("rolls").forGetter(ProbabilitySet::rolls)).apply(inst, ProbabilitySet::new)
     );

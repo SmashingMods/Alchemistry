@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:nitrogen"
+  },
+  "input2": {
+    "item": "chemlib:fluorine"
+  },
+  "output": {
+    "item": "chemlib:sulfur"
+  }
+}

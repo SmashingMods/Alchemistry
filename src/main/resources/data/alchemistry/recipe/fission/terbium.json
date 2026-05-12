@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:terbium"
+  },
+  "output1": {
+    "item": "chemlib:arsenic"
+  },
+  "output2": {
+    "item": "chemlib:germanium"
+  }
+}

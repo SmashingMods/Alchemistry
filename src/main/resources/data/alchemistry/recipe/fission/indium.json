@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:indium"
+  },
+  "output1": {
+    "item": "chemlib:manganese"
+  },
+  "output2": {
+    "item": "chemlib:chromium"
+  }
+}

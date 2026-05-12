@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.common.block.fission;
 
+import com.mojang.serialization.MapCodec;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlock;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
@@ -7,11 +8,11 @@ import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -21,11 +22,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,8 +34,19 @@ import java.util.List;
 
 public class FissionControllerBlock extends AbstractReactorBlock {
 
+    public static final MapCodec<FissionControllerBlock> CODEC = simpleCodec(FissionControllerBlock::new);
+
     public FissionControllerBlock() {
         super(FissionControllerBlockEntity::new);
+    }
+
+    private FissionControllerBlock(BlockBehaviour.Properties pProperties) {
+        this();
+    }
+
+    @Override
+    public MapCodec<FissionControllerBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -51,23 +63,27 @@ public class FissionControllerBlock extends AbstractReactorBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.fissionEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
+        pTooltip.add(Component.translatable("tooltip.alchemistry.energy_requirement", Config.Common.fissionEnergyPerTick.get()));
     }
 
     @Override
-    @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (!pLevel.isClientSide()) {
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (pPlayer.isSpectator()) {
+            return ItemInteractionResult.SUCCESS;
+        }
+        if (!pLevel.isClientSide() && pPlayer instanceof ServerPlayer serverPlayer) {
             if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.DISABLED) {
                 BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (FissionControllerBlockEntity) blockEntity, pPos);
-                return InteractionResult.SUCCESS;
+                if (blockEntity instanceof FissionControllerBlockEntity fissionControllerBlockEntity) {
+                    serverPlayer.openMenu(fissionControllerBlockEntity, buf -> buf.writeBlockPos(pPos));
+                }
+                return ItemInteractionResult.SUCCESS;
             }
-            return InteractionResult.FAIL;
+            return ItemInteractionResult.FAIL;
         }
-        return InteractionResult.SUCCESS;
+        return ItemInteractionResult.SUCCESS;
     }
 
     @Override
@@ -82,3 +98,4 @@ public class FissionControllerBlock extends AbstractReactorBlock {
         return null;
     }
 }
+

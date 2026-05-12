@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,14 +34,14 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
                 boolean autoeject = !reactorControllerBlockEntity.isAutoEject();
                 reactorControllerBlockEntity.setAutoeject(autoeject);
                 reactorControllerBlockEntity.setChanged();
-                Alchemistry.PACKET_HANDLER.sendToServer(new ToggleReactorAutoejectPacket(reactorControllerBlockEntity.getBlockPos(), autoeject));
+                PacketDistributor.sendToServer(new ToggleReactorAutoejectPacket(reactorControllerBlockEntity.getBlockPos(), autoeject));
             }
         });
     }
 
     @Override
     public void renderWidget(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        pGuiGraphics.blit(new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png"), getX(), getY(), 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(AlchemyLib.MODID, "textures/gui/widgets.png"), getX(), getY(), 65 + ((((AbstractReactorBlockEntity) blockEntity).isAutoEject() ? 1 : 0) * 20), 0, width, height);
         renderButtonTooltip(pGuiGraphics, pMouseX, pMouseY);
     }
 

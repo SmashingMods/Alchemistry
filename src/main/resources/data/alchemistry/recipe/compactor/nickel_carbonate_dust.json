@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:nickel_carbonate"
+    }
+  },
+  "result": {
+    "item": "chemlib:nickel_carbonate_dust"
+  }
+}

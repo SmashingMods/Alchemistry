@@ -15,7 +15,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.item.ItemStack;
 
 public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe> {
@@ -30,7 +29,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.liquifier", null, TranslatableContents.NO_ARGS));
+        return Component.translatable("alchemistry.jei.liquifier");
     }
 
     @Override
@@ -54,3 +53,4 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(NeoForgeTypes.FLUID_STACK, pRecipe.getOutput());
     }
 }
+

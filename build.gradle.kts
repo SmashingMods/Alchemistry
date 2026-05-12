@@ -11,9 +11,11 @@ val neoVersion: String by extra
 val parchmentMappingsVersion: String by extra
 val parchmentMinecraftVersion: String by extra
 val neoforgeVersionRange: String by extra
+val loaderVersionRange: String by extra
 val jeiVersion: String by extra
 val chemlibVersion: String by extra
 val chemlibVersionRange: String by extra
+val alchemylibVersionRange: String by extra
 
 val localRuntime: Configuration by configurations.creating
 
@@ -22,7 +24,7 @@ tasks.wrapper {
 }
 
 version = modVersion
-group = "com.smashingmods.chemlib"
+group = "com.smashingmods.alchemistry"
 
 repositories {
     maven("https://maven.blamejared.com/")
@@ -38,7 +40,7 @@ repositories {
 }
 
 base {
-    archivesName = "chemlib"
+    archivesName = "alchemistry"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -56,23 +58,23 @@ neoForge {
     runs {
         create("client") {
             client()
-            systemProperty("neoforge.enabledGameTestNamespaces", "chemlib")
+            systemProperty("neoforge.enabledGameTestNamespaces", "alchemistry")
         }
 
         create("server") {
             server()
             programArgument("--nogui")
-            systemProperty("neoforge.enabledGameTestNamespaces", "chemlib")
+            systemProperty("neoforge.enabledGameTestNamespaces", "alchemistry")
         }
 
         create("gameTestServer") {
             type = "gameTestServer"
-            systemProperty("neoforge.enabledGameTestNamespaces", "chemlib")
+            systemProperty("neoforge.enabledGameTestNamespaces", "alchemistry")
         }
 
         create("data") {
             data()
-            programArguments.addAll("--mod", "chemlib", "--all", "--output", file("src/generated/resources/").absolutePath, "--existing", file("src/main/resources/").absolutePath)
+            programArguments.addAll("--mod", "alchemistry", "--all", "--output", file("src/generated/resources/").absolutePath, "--existing", file("src/main/resources/").absolutePath)
         }
 
         configureEach {
@@ -82,7 +84,7 @@ neoForge {
     }
 
     mods {
-        create("chemlib") {
+        create("alchemistry") {
             sourceSet(sourceSets.main.get())
         }
     }
@@ -97,14 +99,20 @@ configurations {
 dependencies {
     compileOnly("mezz.jei:jei-$minecraftVersion-common-api:${jeiVersion}")
     compileOnly("mezz.jei:jei-$minecraftVersion-neoforge-api:${jeiVersion}")
-    implementation(files("libs/alchemylib-1.21.1-1.0.30.jar"))
-    implementation("maven.modrinth:chemlib-updated:${chemlibVersion}")
+    implementation(files("../AlchemyLib-1211/build/libs/alchemylib-1.21.1-1.0.30.jar"))
+    implementation(files("../ChemLib-1211/build/libs/chemlib-${chemlibVersion}.jar"))
     localRuntime("mezz.jei:jei-$minecraftVersion-neoforge:${jeiVersion}")
 }
 
 tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     var replaceProperties = mapOf("minecraftVersion" to minecraftVersion, "neoVersion" to neoVersion,
-        "neoforgeVersionRange" to neoforgeVersionRange, "modVersion" to modVersion
+        "neoforgeVersionRange" to neoforgeVersionRange,
+        "loader_version_range" to loaderVersionRange,
+        "chemlibVersionRange" to chemlibVersionRange,
+        "alchemylibVersionRange" to alchemylibVersionRange,
+        "modVersion" to modVersion
     )
 
     inputs.properties(replaceProperties)
@@ -130,6 +138,7 @@ publishing {
 */
 tasks.withType<JavaCompile>().configureEach {
     options.encoding = "UTF-8"
+    exclude("com/smashingmods/alchemistry/datagen/**")
 }
 
 idea {

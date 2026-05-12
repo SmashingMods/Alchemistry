@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:bromine"
+  },
+  "input2": {
+    "item": "chemlib:indium"
+  },
+  "output": {
+    "item": "chemlib:polonium"
+  }
+}

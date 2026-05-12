@@ -1,11 +1,12 @@
 package com.smashingmods.alchemistry.common.block.atomizer;
 
+import com.mojang.serialization.MapCodec;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -28,13 +30,24 @@ import java.util.List;
 
 public class AtomizerBlock extends AbstractProcessingBlock {
 
+    public static final MapCodec<AtomizerBlock> CODEC = simpleCodec(AtomizerBlock::new);
+
     public AtomizerBlock() {
         super(AtomizerBlockEntity::new);
+    }
+
+    private AtomizerBlock(BlockBehaviour.Properties pProperties) {
+        this();
     }
 
     public static final VoxelShape base = Block.box(0, 0, 0, 16, 1, 16);
     public static final VoxelShape rest = Block.box(2, 1, 2, 14, 16, 14);
     public static final VoxelShape SHAPE = Shapes.or(base, rest);
+
+    @Override
+    public MapCodec<AtomizerBlock> codec() {
+        return CODEC;
+    }
 
     @Override
     public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
@@ -49,12 +62,15 @@ public class AtomizerBlock extends AbstractProcessingBlock {
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        tooltipComponents.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.atomizerEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+        tooltipComponents.add(Component.translatable("tooltip.alchemistry.energy_requirement", Config.Common.atomizerEnergyPerTick.get()));
     }
 
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!level.isClientSide()) {
+        if (player.isSpectator()) {
+            return ItemInteractionResult.SUCCESS;
+        }
+        if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             boolean interactionSuccessful = true;
 
@@ -62,8 +78,8 @@ public class AtomizerBlock extends AbstractProcessingBlock {
                 interactionSuccessful = ((AtomizerBlockEntity) blockEntity).onBlockActivated(level, pos, player, hand);
             }
 
-            if (!interactionSuccessful) {
-                player.openMenu((AtomizerBlockEntity) blockEntity, pos);
+            if (!interactionSuccessful && blockEntity instanceof AtomizerBlockEntity atomizerBlockEntity) {
+                serverPlayer.openMenu(atomizerBlockEntity, buf -> buf.writeBlockPos(pos));
             }
             return ItemInteractionResult.CONSUME;
         }
@@ -82,3 +98,4 @@ public class AtomizerBlock extends AbstractProcessingBlock {
         return null;
     }
 }
+

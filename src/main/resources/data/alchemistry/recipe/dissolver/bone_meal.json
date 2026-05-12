@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:bone_meal"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "chemlib:hydroxylapatite"
+          }
+        ]
+      },
+      {
+        "probability": 50.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

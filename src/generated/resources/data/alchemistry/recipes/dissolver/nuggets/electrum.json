@@ -1,48 +1,41 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:nuggets/electrum"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:nuggets/electrum"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 1.0,
-              "results": [
-                {
-                  "item": "chemlib:gold"
-                }
-              ]
-            },
-            {
-              "probability": 1.0,
-              "results": [
-                {
-                  "item": "chemlib:silver"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": true
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:nuggets/electrum"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:nuggets/electrum"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:silver"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
 }

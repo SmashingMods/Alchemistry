@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:flerovium"
+  },
+  "output1": {
+    "item": "chemlib:lanthanum"
+  },
+  "output2": {
+    "item": "chemlib:lanthanum"
+  }
+}

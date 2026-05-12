@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "machines",
+  "key": {
+    "C": {
+      "item": "alchemistry:reactor_casing"
+    },
+    "D": {
+      "item": "minecraft:dropper"
+    }
+  },
+  "pattern": [
+    "D",
+    "C",
+    "D"
+  ],
+  "result": {
+    "item": "alchemistry:reactor_output"
+  },
+  "show_notification": true
+}

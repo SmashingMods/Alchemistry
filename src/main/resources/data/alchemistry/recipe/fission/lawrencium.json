@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:lawrencium"
+  },
+  "output1": {
+    "item": "chemlib:tellurium"
+  },
+  "output2": {
+    "item": "chemlib:antimony"
+  }
+}

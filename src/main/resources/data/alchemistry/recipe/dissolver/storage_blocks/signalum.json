@@ -1,0 +1,52 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/signalum"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 6.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:copper"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:silver"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:strontium_carbonate"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:iron_oxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  }
+}

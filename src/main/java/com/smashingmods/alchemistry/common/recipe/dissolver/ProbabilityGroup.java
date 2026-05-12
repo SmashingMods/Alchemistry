@@ -1,8 +1,10 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
+import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.smashingmods.alchemistry.common.recipe.RecipeCodecs;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -11,10 +13,23 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record ProbabilityGroup(List<ItemStack> output, double probability) {
+    private static final Codec<ItemStack> ITEM_STACK_COMPAT_CODEC = Codec.either(
+            RecipeCodecs.LEGACY_ITEM_STACK_CODEC,
+            ItemStack.CODEC
+    ).xmap(either -> either.map(stack -> stack, stack -> stack), Either::right);
+
+    // Stream codec that filters out empty ItemStacks before encoding (1.20.1 recipes use minecraft:air for "no result")
+    private static final StreamCodec<RegistryFriendlyByteBuf, List<ItemStack>> NON_EMPTY_ITEM_LIST_STREAM_CODEC =
+            StreamCodec.of(
+                    (buf, list) -> ItemStack.LIST_STREAM_CODEC.encode(buf, list.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList())),
+                    ItemStack.LIST_STREAM_CODEC::decode
+            );
+
     public static final StreamCodec<RegistryFriendlyByteBuf, ProbabilityGroup> STREAM_CODEC = StreamCodec.composite(
-            ItemStack.LIST_STREAM_CODEC,
+            NON_EMPTY_ITEM_LIST_STREAM_CODEC,
             ProbabilityGroup::output,
 
             ByteBufCodecs.DOUBLE,
@@ -22,7 +37,13 @@ public record ProbabilityGroup(List<ItemStack> output, double probability) {
             
             ProbabilityGroup::new);
     public static final MapCodec<ProbabilityGroup> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            ItemStack.CODEC.listOf().fieldOf("results").forGetter(ProbabilityGroup::output), 
+                // Filter empty ItemStacks (minecraft:air used in 1.20.1 as "no result")
+                ITEM_STACK_COMPAT_CODEC.listOf()
+                    .xmap(
+                        list -> list.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList()),
+                        list -> list
+                    )
+                    .fieldOf("results").forGetter(ProbabilityGroup::output),
             Codec.DOUBLE.fieldOf("probability").forGetter(ProbabilityGroup::probability)).apply(inst, ProbabilityGroup::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, List<ProbabilityGroup>> LIST_STREAM_CODEC = STREAM_CODEC.apply(ByteBufCodecs.collection(NonNullList::createWithCapacity));
 

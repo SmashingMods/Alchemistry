@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:caffeine"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:caffeine_dust"
+  }
+}

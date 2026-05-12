@@ -1,50 +1,43 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:storage_blocks/bronze"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:storage_blocks/bronze"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 75.0,
-              "results": [
-                {
-                  "count": 9,
-                  "item": "chemlib:copper"
-                }
-              ]
-            },
-            {
-              "probability": 25.0,
-              "results": [
-                {
-                  "count": 9,
-                  "item": "chemlib:tin"
-                }
-              ]
-            }
-          ],
-          "rolls": 16,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/bronze"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/bronze"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 75.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:copper"
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:tin"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": false
+  }
 }

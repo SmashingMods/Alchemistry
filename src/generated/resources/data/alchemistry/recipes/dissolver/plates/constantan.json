@@ -1,48 +1,41 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:plates/constantan"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:plates/constantan"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 1.0,
-              "results": [
-                {
-                  "item": "chemlib:nickel"
-                }
-              ]
-            },
-            {
-              "probability": 1.0,
-              "results": [
-                {
-                  "item": "chemlib:copper"
-                }
-              ]
-            }
-          ],
-          "rolls": 16,
-          "weighted": true
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:plates/constantan"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:plates/constantan"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:nickel"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "item": "chemlib:copper"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  }
 }

@@ -13,6 +13,7 @@ import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -20,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +50,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
-            RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), getInputHandler().getStackInSlot(0)), level)
+            RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameComponents(recipe.getInput(), getInputHandler().getStackInSlot(0)), level)
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
@@ -66,9 +68,9 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
             ItemStack output1 = getOutputHandler().getStackInSlot(0);
             ItemStack output2 = getOutputHandler().getStackInSlot(1);
             return getEnergyHandler().getEnergyStored() >= Config.Common.fissionEnergyPerTick.get()
-                    && (ItemStack.isSameItemSameTags(input, tempRecipe.getInput()) && input.getCount() >= tempRecipe.getInput().getCount())
-                    && ((ItemStack.isSameItemSameTags(output1, tempRecipe.getOutput1()) || output1.isEmpty()) && (tempRecipe.getOutput1().getCount() + output1.getCount()) <= tempRecipe.getOutput1().getMaxStackSize())
-                    && ((ItemStack.isSameItemSameTags(output2, tempRecipe.getOutput2()) || output2.isEmpty()) && (tempRecipe.getOutput2().getCount() + output2.getCount()) <= tempRecipe.getOutput2().getMaxStackSize());
+                    && (ItemStack.isSameItemSameComponents(input, tempRecipe.getInput()) && input.getCount() >= tempRecipe.getInput().getCount())
+                    && ((ItemStack.isSameItemSameComponents(output1, tempRecipe.getOutput1()) || output1.isEmpty()) && (tempRecipe.getOutput1().getCount() + output1.getCount()) <= tempRecipe.getOutput1().getMaxStackSize())
+                    && ((ItemStack.isSameItemSameComponents(output2, tempRecipe.getOutput2()) || output2.isEmpty()) && (tempRecipe.getOutput2().getCount() + output2.getCount()) <= tempRecipe.getOutput2().getMaxStackSize());
         }
         return false;
     }
@@ -132,7 +134,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
             @Override
             public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
-                    return ItemStack.isSameItemSameTags(currentRecipe.getInput(), pItemStack);
+                    return ItemStack.isSameItemSameComponents(currentRecipe.getInput(), pItemStack);
                 }
                 return pItemStack.getItem() instanceof ElementItem;
             }
@@ -150,22 +152,22 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, registries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.loadAdditional(pTag, registries);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         if (level != null && level.isClientSide()) {
             RecipeRegistry.getFissionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
-                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                    PacketDistributor.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
                 }
             });
         }

@@ -1,53 +1,46 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:storage_blocks/gunpowder"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:storage_blocks/gunpowder"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 100.0,
-              "results": [
-                {
-                  "count": 18,
-                  "item": "chemlib:potassium_nitrate"
-                },
-                {
-                  "count": 64,
-                  "item": "chemlib:sulfur"
-                },
-                {
-                  "count": 8,
-                  "item": "chemlib:sulfur"
-                },
-                {
-                  "count": 18,
-                  "item": "chemlib:graphite"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/gunpowder"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/gunpowder"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 18,
+            "item": "chemlib:potassium_nitrate"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:sulfur"
+          },
+          {
+            "count": 8,
+            "item": "chemlib:sulfur"
+          },
+          {
+            "count": 18,
+            "item": "chemlib:graphite"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
 }

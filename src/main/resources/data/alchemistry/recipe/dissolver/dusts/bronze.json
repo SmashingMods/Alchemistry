@@ -1,0 +1,32 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:dusts/bronze"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 75.0,
+        "results": [
+          {
+            "item": "chemlib:copper"
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "item": "chemlib:tin"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": false
+  }
+}

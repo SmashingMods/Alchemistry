@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "machines",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "minecraft:stone_pressure_plate"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "SRS",
+    "IPI"
+  ],
+  "result": {
+    "item": "alchemistry:compactor"
+  },
+  "show_notification": true
+}

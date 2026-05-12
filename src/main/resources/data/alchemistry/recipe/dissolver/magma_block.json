@@ -1,0 +1,100 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:magma_block"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "count": 2,
+            "item": "chemlib:manganese"
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "item": "chemlib:aluminum_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 20.0,
+        "results": [
+          {
+            "item": "chemlib:magnesium_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:potassium_chloride"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "count": 2,
+            "item": "chemlib:silicon_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 20.0,
+        "results": [
+          {
+            "count": 2,
+            "item": "chemlib:sulfur"
+          }
+        ]
+      },
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:iron_oxide"
+          }
+        ]
+      },
+      {
+        "probability": 8.0,
+        "results": [
+          {
+            "count": 2,
+            "item": "chemlib:lead"
+          }
+        ]
+      },
+      {
+        "probability": 4.0,
+        "results": [
+          {
+            "item": "chemlib:fluorine"
+          }
+        ]
+      },
+      {
+        "probability": 4.0,
+        "results": [
+          {
+            "item": "chemlib:bromine"
+          }
+        ]
+      }
+    ],
+    "rolls": 2,
+    "weighted": true
+  }
+}

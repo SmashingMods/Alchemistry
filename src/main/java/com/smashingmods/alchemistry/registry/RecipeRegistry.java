@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -74,6 +75,11 @@ public class RecipeRegistry {
     private static final Map<RecipeType<? extends AbstractProcessingRecipe>, LinkedList<? extends AbstractProcessingRecipe>> recipeTypeMap = new LinkedHashMap<>();
     private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new LinkedHashMap<>();
 
+    public static void clearCaches() {
+        recipeTypeMap.clear();
+        recipeGroupMap.clear();
+    }
+
     private static <T extends AbstractProcessingRecipe> DeferredHolder<RecipeType<?>, RecipeType<T>> registerRecipeType(String pType) {
         RecipeType<T> type = new RecipeType<>() {
             @Override
@@ -120,12 +126,23 @@ public class RecipeRegistry {
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
         if (recipeTypeMap.get(pRecipeType) == null) {
-            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                    .filter(recipe -> recipe.getType().equals(pRecipeType))
-                    .map(recipe -> (R) recipe)
+            LinkedList<R> recipes = pLevel.getRecipeManager().getAllRecipesFor(pRecipeType).stream()
+                    .peek(holder -> holder.value().setId(holder.id()))
+                    .map(RecipeHolder::value)
                     .sorted()
                     .collect(Collectors.toCollection(LinkedList::new));
-            recipeTypeMap.put(pRecipeType, recipes);
+            if (recipes.isEmpty()) {
+                recipes = pLevel.getRecipeManager().getRecipes().stream()
+                        .filter(holder -> holder.value().getType() == pRecipeType || holder.value().getType().equals(pRecipeType))
+                        .peek(holder -> { if (holder.value() instanceof AbstractProcessingRecipe r) r.setId(holder.id()); })
+                        .map(holder -> (R) holder.value())
+                        .sorted()
+                        .collect(Collectors.toCollection(LinkedList::new));
+            }
+            if (!recipes.isEmpty()) {
+                recipeTypeMap.put(pRecipeType, recipes);
+            }
+            return recipes;
         }
         return (LinkedList<R>) recipeTypeMap.get(pRecipeType);
     }
@@ -134,18 +151,22 @@ public class RecipeRegistry {
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
         if (recipeGroupMap.get(pGroup) == null) {
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                .filter(recipe -> recipe.getGroup().equals(pGroup))
-                .map(recipe -> (R) recipe)
+                .filter(holder -> holder.value().getGroup().equals(pGroup))
+                .peek(holder -> { if (holder.value() instanceof AbstractProcessingRecipe r) r.setId(holder.id()); })
+                .map(holder -> (R) holder.value())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedList::new));
-            recipeGroupMap.put(pGroup, recipes);
+            if (!recipes.isEmpty()) {
+                recipeGroupMap.put(pGroup, recipes);
+            }
+            return recipes;
         }
         return (LinkedList<R>) recipeGroupMap.get(pGroup);
     }
 
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> Optional<R> getRecipeByGroupAndId(String pGroup, ResourceLocation pRecipeId, Level pLevel) {
-        return getRecipesByGroup(pGroup, pLevel).stream().filter(recipe -> recipe.getId().equals(pRecipeId)).findFirst().map(recipe -> (R) recipe);
+        return getRecipesByGroup(pGroup, pLevel).stream().filter(recipe -> pRecipeId != null && pRecipeId.equals(recipe.getId())).findFirst().map(recipe -> (R) recipe);
     }
 
     public static LinkedList<AtomizerRecipe> getAtomizerRecipes(Level pLevel) {
@@ -207,5 +228,6 @@ public class RecipeRegistry {
     public static void register(IEventBus eventBus) {
         RECIPE_TYPES.register(eventBus);
         SERIALIZERS.register(eventBus);
+        org.apache.logging.log4j.LogManager.getLogger("Alchemistry").info("[Alchemistry] RecipeRegistry.register() called - types={} serializers={}", RECIPE_TYPES.getEntries().size(), SERIALIZERS.getEntries().size());
     }
 }

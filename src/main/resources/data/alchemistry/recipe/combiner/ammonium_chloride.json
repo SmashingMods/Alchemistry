@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:nitrogen"
+      }
+    },
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:chlorine"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:ammonium_chloride"
+  }
+}

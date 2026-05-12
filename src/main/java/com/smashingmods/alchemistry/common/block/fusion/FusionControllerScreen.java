@@ -16,7 +16,6 @@ import com.smashingmods.alchemylib.client.button.PauseButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
@@ -66,7 +65,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.fusion_controller", null, TranslatableContents.NO_ARGS));
+        Component title = Component.translatable("alchemistry.container.fusion_controller");
         pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -86,10 +85,11 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(pGuiGraphics, inputs.get(i), x, y);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
-                        renderItemTooltip(pGuiGraphics, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                        renderItemTooltip(pGuiGraphics, inputs.get(i), Component.translatable("alchemistry.container.current_recipe"), pMouseX, pMouseY);
                     }
                 }
             }
         }
     }
 }
+

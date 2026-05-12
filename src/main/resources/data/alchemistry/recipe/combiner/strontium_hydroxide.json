@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:strontium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:strontium_hydroxide"
+  }
+}

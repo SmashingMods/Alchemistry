@@ -1,0 +1,45 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:crying_obsidian"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 8,
+            "item": "chemlib:magnesium_oxide"
+          },
+          {
+            "count": 8,
+            "item": "chemlib:potassium_chloride"
+          },
+          {
+            "count": 8,
+            "item": "chemlib:aluminum_oxide"
+          },
+          {
+            "count": 24,
+            "item": "chemlib:silicon_dioxide"
+          },
+          {
+            "count": 8,
+            "item": "chemlib:phosphorus"
+          },
+          {
+            "count": 8,
+            "item": "chemlib:iridium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

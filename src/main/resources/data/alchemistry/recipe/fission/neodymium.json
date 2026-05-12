@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:neodymium"
+  },
+  "output1": {
+    "item": "chemlib:zinc"
+  },
+  "output2": {
+    "item": "chemlib:zinc"
+  }
+}

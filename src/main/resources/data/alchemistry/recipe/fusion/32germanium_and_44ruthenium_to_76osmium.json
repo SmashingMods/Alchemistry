@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:germanium"
+  },
+  "input2": {
+    "item": "chemlib:ruthenium"
+  },
+  "output": {
+    "item": "chemlib:osmium"
+  }
+}

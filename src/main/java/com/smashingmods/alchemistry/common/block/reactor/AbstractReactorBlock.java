@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.BiFunction;
 
-public class AbstractReactorBlock extends AbstractProcessingBlock {
+public abstract class AbstractReactorBlock extends AbstractProcessingBlock {
 
     public AbstractReactorBlock(BiFunction<BlockPos, BlockState, BlockEntity> pBlockEntity) {
         super(pBlockEntity);

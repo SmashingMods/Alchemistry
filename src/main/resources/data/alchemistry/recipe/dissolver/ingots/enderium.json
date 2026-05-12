@@ -1,0 +1,50 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:ingots/enderium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 6.0,
+        "results": [
+          {
+            "item": "chemlib:lead"
+          }
+        ]
+      },
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "item": "chemlib:graphite"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 2,
+            "item": "chemlib:mercury"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 2,
+            "item": "chemlib:neodymium"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  }
+}

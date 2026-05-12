@@ -16,7 +16,7 @@ import java.util.Objects;
 public class FissionControllerMenu extends AbstractProcessingMenu {
 
     public FissionControllerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition()))));
     }
 
     protected FissionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
@@ -33,6 +33,7 @@ public class FissionControllerMenu extends AbstractProcessingMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
+        if (pPlayer.isSpectator()) return false;
         return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(this.getBlockEntity().getLevel()), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.FISSION_CONTROLLER.get());
     }
 }

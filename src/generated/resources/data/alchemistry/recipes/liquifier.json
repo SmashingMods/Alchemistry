@@ -25,7 +25,7 @@
     "ICI"
   ],
   "result": {
-    "item": "alchemistry:liquifier"
+    "id": "alchemistry:liquifier"
   },
   "show_notification": true
 }

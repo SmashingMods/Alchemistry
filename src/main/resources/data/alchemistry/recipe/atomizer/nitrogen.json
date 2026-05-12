@@ -1,0 +1,12 @@
+{
+  "type": "alchemistry:atomizer",
+  "group": "alchemistry:atomizer",
+  "input": {
+    "amount": "500",
+    "fluid": "chemlib:nitrogen_fluid"
+  },
+  "result": {
+    "count": 8,
+    "item": "chemlib:nitrogen"
+  }
+}

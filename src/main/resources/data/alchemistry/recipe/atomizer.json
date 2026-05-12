@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "machines",
+  "key": {
+    "C": {
+      "item": "minecraft:cauldron"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "IPI",
+    "CRC",
+    "IPI"
+  ],
+  "result": {
+    "item": "alchemistry:atomizer"
+  },
+  "show_notification": true
+}

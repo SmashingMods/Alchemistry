@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:zirconium"
+  },
+  "input2": {
+    "item": "chemlib:ytterbium"
+  },
+  "output": {
+    "item": "chemlib:darmstadtium"
+  }
+}

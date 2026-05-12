@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:sodium"
+  },
+  "output1": {
+    "item": "chemlib:carbon"
+  },
+  "output2": {
+    "item": "chemlib:boron"
+  }
+}

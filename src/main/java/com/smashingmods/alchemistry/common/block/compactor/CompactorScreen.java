@@ -18,7 +18,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -82,7 +81,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.compactor", null, TranslatableContents.NO_ARGS));
+        Component title = Component.translatable("alchemistry.container.compactor");
         pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -100,7 +99,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
                 pGuiGraphics.renderItem(target, xStart, yStart);
                 if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
                     List<Component> components = new ArrayList<>();
-                    components.add(0, MutableComponent.create(new TranslatableContents("alchemistry.container.target", null, TranslatableContents.NO_ARGS)).withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
+                    components.add(0, Component.translatable("alchemistry.container.target").withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
                     components.addAll(target.getTooltipLines(Item.TooltipContext.EMPTY, getMinecraft().player, TooltipFlag.Default.NORMAL));
                     pGuiGraphics.renderTooltip(font, components, target.getTooltipImage(), pMouseX, pMouseY);
                 }
@@ -108,3 +107,4 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
         }
     }
 }
+

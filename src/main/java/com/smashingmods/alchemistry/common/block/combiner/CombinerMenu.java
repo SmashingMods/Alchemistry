@@ -24,7 +24,7 @@ public class CombinerMenu extends AbstractProcessingMenu {
     private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition()))));
     }
 
     protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
@@ -44,6 +44,7 @@ public class CombinerMenu extends AbstractProcessingMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
+        if (pPlayer.isSpectator()) return false;
         Objects.requireNonNull(this.getBlockEntity().getLevel());
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, BlockRegistry.COMBINER.get());
     }

@@ -16,7 +16,7 @@ import java.util.Objects;
 public class CompactorMenu extends AbstractProcessingMenu {
 
     public CompactorMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition()))));
     }
 
     protected CompactorMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
@@ -32,6 +32,7 @@ public class CompactorMenu extends AbstractProcessingMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
+        if (pPlayer.isSpectator()) return false;
         Objects.requireNonNull(this.getBlockEntity().getLevel());
         return stillValid(ContainerLevelAccess.create(getBlockEntity().getLevel(), getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.COMPACTOR.get());
     }

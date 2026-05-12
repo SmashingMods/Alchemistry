@@ -22,7 +22,7 @@
     "IPI"
   ],
   "result": {
-    "item": "alchemistry:dissolver"
+    "id": "alchemistry:dissolver"
   },
   "show_notification": true
 }

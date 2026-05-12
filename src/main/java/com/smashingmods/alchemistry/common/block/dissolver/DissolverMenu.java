@@ -16,7 +16,7 @@ import java.util.Objects;
 public class DissolverMenu extends AbstractProcessingMenu {
 
     public DissolverMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition()))));
     }
 
     protected DissolverMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
@@ -34,6 +34,7 @@ public class DissolverMenu extends AbstractProcessingMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
+        if (pPlayer.isSpectator()) return false;
         return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(getBlockEntity().getLevel()), getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.DISSOLVER.get());
     }
 }

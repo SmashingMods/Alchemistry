@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:zinc"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:zinc_hydroxide"
+  }
+}

@@ -12,6 +12,7 @@ import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -25,7 +26,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -105,7 +107,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
             ItemStack bufferStack = internalBuffer.get(i).copy();
             for (int j = 0; j < getOutputHandler().getStacks().size(); j++) {
                 ItemStack slotStack = getOutputHandler().getStackInSlot(j).copy();
-                if (slotStack.isEmpty() || (ItemStack.isSameItemSameTags(bufferStack, slotStack) && bufferStack.getCount() + slotStack.getCount() <= slotStack.getMaxStackSize())) {
+                if (slotStack.isEmpty() || (ItemStack.isSameItemSameComponents(bufferStack, slotStack) && bufferStack.getCount() + slotStack.getCount() <= slotStack.getMaxStackSize())) {
                     valid = true;
                     ItemHandlerHelper.insertItemStacked(getOutputHandler(), bufferStack, false);
                     valid = false;
@@ -193,34 +195,35 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
         ListTag bufferTag = new ListTag();
         internalBuffer.stream()
                 .filter(itemStack -> !itemStack.isEmpty())
-                .forEach(itemStack -> bufferTag.add(itemStack.save(new CompoundTag())));
+                .forEach(itemStack -> bufferTag.add(itemStack.save(registries, new CompoundTag())));
         pTag.put("buffer", bufferTag);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, registries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.loadAdditional(pTag, registries);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        internalBuffer.clear();
         ListTag bufferTag = pTag.getList("buffer", 10);
         bufferTag.stream()
                 .filter(tag -> tag instanceof CompoundTag)
                 .map(CompoundTag.class::cast)
-                .map(ItemStack::of)
+                .map(tag -> ItemStack.parseOptional(registries, tag))
                 .forEach(internalBuffer::add);
 
         if (level != null && level.isClientSide()) {
             RecipeRegistry.getDissolverRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {
                     setRecipe(recipe);
-                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
+                    PacketDistributor.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
                 }
             });
         }

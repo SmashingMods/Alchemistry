@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "minecraft:warped_wart_block"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:chitin"
+          },
+          {
+            "count": 4,
+            "item": "chemlib:neodymium"
+          },
+          {
+            "count": 4,
+            "item": "chemlib:mercury"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

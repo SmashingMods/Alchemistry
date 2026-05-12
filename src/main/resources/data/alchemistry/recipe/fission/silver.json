@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:silver"
+  },
+  "output1": {
+    "item": "chemlib:chromium"
+  },
+  "output2": {
+    "item": "chemlib:vanadium"
+  }
+}

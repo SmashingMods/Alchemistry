@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:platinum"
+  },
+  "output1": {
+    "item": "chemlib:yttrium"
+  },
+  "output2": {
+    "item": "chemlib:yttrium"
+  }
+}

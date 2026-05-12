@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:potassium"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:starch"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:potato"
+  }
+}

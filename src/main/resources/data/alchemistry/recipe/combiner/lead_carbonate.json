@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:lead"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:carbonate"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:lead_carbonate"
+  }
+}

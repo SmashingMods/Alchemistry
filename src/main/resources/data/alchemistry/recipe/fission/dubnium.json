@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:dubnium"
+  },
+  "output1": {
+    "item": "chemlib:iodine"
+  },
+  "output2": {
+    "item": "chemlib:tellurium"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:selenium"
+  },
+  "input2": {
+    "item": "chemlib:rhenium"
+  },
+  "output": {
+    "item": "chemlib:meitnerium"
+  }
+}

@@ -16,7 +16,7 @@
     "TNT"
   ],
   "result": {
-    "item": "alchemistry:fusion_core"
+    "id": "alchemistry:fusion_core"
   },
   "show_notification": true
 }

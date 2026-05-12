@@ -20,7 +20,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -40,7 +39,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.dissolver", null, TranslatableContents.NO_ARGS));
+        return Component.translatable("alchemistry.jei.dissolver");
     }
 
     @Override
@@ -127,7 +126,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                         } else {
                             pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
                                 list.clear();
-                                list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
+                                list.add(Component.translatable("alchemistry.container.nothing"));
                             });
                         }
                     }
@@ -136,3 +135,4 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         });
     }
 }
+

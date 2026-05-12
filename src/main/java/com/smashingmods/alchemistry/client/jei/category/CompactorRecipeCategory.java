@@ -14,7 +14,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.item.ItemStack;
 
 public class CompactorRecipeCategory implements IRecipeCategory<CompactorRecipe> {
@@ -29,7 +28,7 @@ public class CompactorRecipeCategory implements IRecipeCategory<CompactorRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.compactor", null, TranslatableContents.NO_ARGS));
+        return Component.translatable("alchemistry.jei.compactor");
     }
 
     @Override
@@ -53,3 +52,4 @@ public class CompactorRecipeCategory implements IRecipeCategory<CompactorRecipe>
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addItemStack(pRecipe.getOutput());
     }
 }
+

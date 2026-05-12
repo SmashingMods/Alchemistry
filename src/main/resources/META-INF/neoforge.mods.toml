@@ -43,3 +43,10 @@ required=true
 versionRange="${alchemylibVersionRange}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.alchemistry]]
+modId="jei"
+required=false
+versionRange="[19.27,)"
+ordering="NONE"
+side="CLIENT"

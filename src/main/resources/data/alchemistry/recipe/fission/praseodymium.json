@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:praseodymium"
+  },
+  "output1": {
+    "item": "chemlib:zinc"
+  },
+  "output2": {
+    "item": "chemlib:copper"
+  }
+}

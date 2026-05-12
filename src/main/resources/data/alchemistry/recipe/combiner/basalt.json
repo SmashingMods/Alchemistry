@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:aluminum_oxide"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:basalt"
+  }
+}

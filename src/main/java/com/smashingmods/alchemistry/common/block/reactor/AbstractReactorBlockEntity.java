@@ -9,6 +9,7 @@ import com.smashingmods.alchemylib.api.blockentity.processing.AbstractInventoryB
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -18,9 +19,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.joml.Vector3f;
 
 import java.util.function.Consumer;
@@ -286,7 +287,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
         if (reactorEnergyBlockEntity != null) {
             pTag.put("reactorEnergyPos", blockPosToTag(reactorEnergyBlockEntity.getBlockPos()));
         }
@@ -297,12 +298,12 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             pTag.put("reactorOutputPos", blockPosToTag(reactorOutputBlockEntity.getBlockPos()));
         }
         pTag.putBoolean("autoeject", autoeject);
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, registries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider registries) {
+        super.loadAdditional(pTag, registries);
 
         if (level != null && !level.isClientSide()) {
             if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorEnergyPos"))) instanceof ReactorEnergyBlockEntity blockEntity) {
@@ -351,13 +352,14 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         }
 
         Direction outputDirection = reactorOutputBlockEntity.getBlockState().getValue(AbstractProcessingBlock.FACING);
-        BlockEntity target = level.getBlockEntity(reactorOutputBlockEntity.getBlockPos().relative(outputDirection));
+        BlockPos targetPos = reactorOutputBlockEntity.getBlockPos().relative(outputDirection);
+        BlockEntity target = level.getBlockEntity(targetPos);
 
         if (target == null) {
             return; // Output pointing to air or a solid block (that doesn't happen to be a container or something)
         }
 
-        IItemHandler targetHandler = target.getCapability(ForgeCapabilities.ITEM_HANDLER, outputDirection.getOpposite()).orElse(null);
+        IItemHandler targetHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, targetPos, outputDirection.getOpposite());
 
         if (targetHandler != null) {
             ProcessingSlotHandler outputHandler = getOutputHandler();

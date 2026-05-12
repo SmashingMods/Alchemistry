@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:cobalt"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:cobalt_sulfate"
+  }
+}

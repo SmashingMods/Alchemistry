@@ -19,7 +19,6 @@ import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -79,7 +78,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        Component title = MutableComponent.create(new TranslatableContents("alchemistry.container.combiner", null, TranslatableContents.NO_ARGS));
+        Component title = Component.translatable("alchemistry.container.combiner");
         pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 
@@ -92,7 +91,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
             pGuiGraphics.renderItem(currentOutput, leftPos + 152, topPos + 15);
 
             if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
-                renderItemTooltip(pGuiGraphics, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", "Current recipe:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                renderItemTooltip(pGuiGraphics, currentOutput, Component.translatable("alchemistry.container.current_recipe"), pMouseX, pMouseY);
             }
 
             int xOrigin = leftPos + 48;
@@ -109,7 +108,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                         ItemStack itemStack = currentRecipe.getInput().get(index).getIngredient().getItems()[(int) (Math.random() * currentRecipe.getInput().get(index).getIngredient().getItems().length)];
 
                         boolean required = handler.getStacks().stream().noneMatch(handlerItem -> {
-                            boolean sameItem = ItemStack.isSameItemSameTags(itemStack, handlerItem);
+                            boolean sameItem = ItemStack.isSameItemSameComponents(itemStack, handlerItem);
                             boolean minCount = handlerItem.getCount() >= itemStack.getCount();
                             return sameItem && minCount;
                         });
@@ -117,7 +116,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                         if (handler.getStackInSlot(index).isEmpty() && required) {
                             FakeItemRenderer.renderFakeItem(pGuiGraphics, itemStack, x, y, true);
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
-                                renderItemTooltip(pGuiGraphics, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", "Required input item:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                                renderItemTooltip(pGuiGraphics, itemStack, Component.translatable("alchemistry.container.required_input"), pMouseX, pMouseY);
                             }
                         }
                     }
@@ -126,3 +125,4 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         }
     }
 }
+

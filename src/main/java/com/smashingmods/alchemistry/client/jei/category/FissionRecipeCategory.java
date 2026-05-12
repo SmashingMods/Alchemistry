@@ -14,7 +14,6 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -30,7 +29,7 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.fission_controller", null, TranslatableContents.NO_ARGS));
+        return Component.translatable("alchemistry.jei.fission_controller");
     }
 
     @Override
@@ -55,3 +54,4 @@ public class FissionRecipeCategory implements IRecipeCategory<FissionRecipe> {
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 42).addItemStack(pRecipe.getOutput2());
     }
 }
+

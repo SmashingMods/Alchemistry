@@ -54,7 +54,7 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
 
     @Override
     public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
-        return getId().compareTo(pRecipe.getId());
+        return safeCompareIds(pRecipe);
     }
 
     @Override

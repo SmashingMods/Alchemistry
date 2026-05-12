@@ -54,7 +54,7 @@ public class FissionRecipe extends AbstractProcessingRecipe {
 
     @Override
     public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
-        return getId().compareNamespaced(pRecipe.getId());
+        return safeCompareIds(pRecipe);
     }
 
     @Override

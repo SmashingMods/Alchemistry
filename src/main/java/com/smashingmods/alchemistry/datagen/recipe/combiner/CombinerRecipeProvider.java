@@ -1,0 +1,104 @@
+package com.smashingmods.alchemistry.datagen.recipe.combiner;
+
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toIngredientStack;
+
+public class CombinerRecipeProvider {
+
+    private final RecipeOutput consumer;
+
+    public CombinerRecipeProvider(RecipeOutput pConsumer) {
+        this.consumer = pConsumer;
+    }
+
+    public static void register(RecipeOutput pConsumer) {
+        new CombinerRecipeProvider(pConsumer).register();
+    }
+
+    private void register() {
+
+        // Reactor Glass
+        combiner(BlockRegistry.REACTOR_GLASS.get().asItem(), toIngredientStack("silicon_dioxide"), toIngredientStack("lead_oxide"));
+
+        // saplings
+        combiner(Items.OAK_SAPLING, toIngredientStack("oxygen"), toIngredientStack("cellulose", 2));
+        combiner(Items.SPRUCE_SAPLING, toIngredientStack("oxygen"), toIngredientStack("cellulose", 2));
+        combiner(Items.JUNGLE_SAPLING, toIngredientStack("oxygen"), toIngredientStack("cellulose", 2));
+        combiner(Items.ACACIA_SAPLING, toIngredientStack("oxygen"), toIngredientStack("cellulose", 2));
+        combiner(Items.DARK_OAK_SAPLING, toIngredientStack("oxygen"), toIngredientStack("cellulose", 2));
+        combiner(Items.BIRCH_SAPLING, toIngredientStack("oxygen"), toIngredientStack("cellulose", 2));
+
+        // food
+        combiner(Items.CARROT, toIngredientStack("cellulose"), toIngredientStack("beta_carotene"));
+        combiner(Items.POTATO, toIngredientStack("starch"), toIngredientStack("potassium", 4));
+        combiner(Items.WHEAT_SEEDS, toIngredientStack("triglyceride"), toIngredientStack("sucrose"));
+        combiner(Items.PUMPKIN_SEEDS, toIngredientStack("triglyceride"), toIngredientStack("sucrose"));
+        combiner(Items.MELON_SEEDS, toIngredientStack("triglyceride"), toIngredientStack("sucrose"));
+        combiner(Items.BEETROOT_SEEDS, toIngredientStack("triglyceride"), toIngredientStack("sucrose"), toIngredientStack("iron_oxide"));
+        combiner(Items.BEETROOT, toIngredientStack("sucrose"), toIngredientStack("iron_oxide"));
+
+        // mob drops
+        combiner(Items.NETHER_STAR, toIngredientStack("lutetium", 64), toIngredientStack("titanium", 64), toIngredientStack("dysprosium", 64), toIngredientStack("mendelevium", 64));
+        combiner(Items.WHITE_WOOL, toIngredientStack("keratin", 2), toIngredientStack("triglyceride", 1));
+
+        // gems
+        combiner(Items.EMERALD, toIngredientStack("beryl", 8), toIngredientStack("chromium", 8), toIngredientStack("vanadium", 4));
+        combiner(Items.LAPIS_LAZULI, toIngredientStack("sodium", 6), toIngredientStack("mullite", 3), toIngredientStack("calcium_sulfide", 2), toIngredientStack("silicon", 3));
+
+        // misc, everything else
+        combiner(Items.DIRT, toIngredientStack("water"), toIngredientStack("cellulose"), toIngredientStack("kaolinite"));
+        combiner(Items.DEEPSLATE, toIngredientStack("silicon_dioxide", 1), toIngredientStack("aluminum", 1), toIngredientStack("iron", 1));
+        combiner(Items.BASALT, toIngredientStack("silicon_dioxide", 1), toIngredientStack("aluminum_oxide", 1));
+        combiner(Items.GRASS_BLOCK, toIngredientStack("water"), toIngredientStack("cellulose"), toIngredientStack("kaolinite"));
+        combiner(Items.MYCELIUM, toIngredientStack("water"), toIngredientStack("chitin"), toIngredientStack("kaolinite"), toIngredientStack("silicon_dioxide"));
+        combiner(Items.WATER_BUCKET, toIngredientStack("water", 16), new ItemStack(Items.BUCKET));
+        combiner(Items.MILK_BUCKET, toIngredientStack("calcium", 4), toIngredientStack("protein", 2), toIngredientStack("water", 16), new ItemStack(Items.BUCKET));
+        combiner(Items.REDSTONE_BLOCK, toIngredientStack("iron_oxide", 9), toIngredientStack("strontium_carbonate", 9));
+        combiner(Items.REDSTONE, toIngredientStack("iron_oxide"), toIngredientStack("strontium_carbonate"));
+    }
+
+    private void combiner(ItemLike pOutput, Object... pInput) {
+        List<IngredientStack> ingredientStackList = new ArrayList<>();
+        for (Object obj : pInput) {
+            if (obj instanceof ItemLike itemLike) {
+                ingredientStackList.add(new IngredientStack(itemLike));
+            } else if (obj instanceof ItemStack itemStack) {
+                ingredientStackList.add(new IngredientStack(itemStack));
+            } else if (obj instanceof IngredientStack ingredientStack) {
+                ingredientStackList.add(ingredientStack);
+            } else if (obj instanceof String itemTag) {
+                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(itemTag));
+                ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
+            }
+        }
+        combiner(new ItemStack(pOutput), ingredientStackList);
+    }
+
+    private void combiner(ItemStack pOutput, List<IngredientStack> pInput) {
+        ResourceLocation itemId = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem()));
+        ResourceLocation fullId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("combiner/%s", itemId.getPath()));
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput, itemId)
+                .group(String.format("%s:combiner", Alchemistry.MODID))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner", Alchemistry.MODID)))
+                .save(consumer, fullId);
+    }
+}

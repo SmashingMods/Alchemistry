@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:potato"
     }
@@ -10,15 +9,16 @@
   "output": {
     "groups": [
       {
-        "probability": 10,
+        "probability": 10.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:starch"
           }
         ]
       },
       {
-        "probability": 25,
+        "probability": 25.0,
         "results": [
           {
             "count": 5,

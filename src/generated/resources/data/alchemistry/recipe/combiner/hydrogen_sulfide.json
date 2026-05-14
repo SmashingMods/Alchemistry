@@ -9,13 +9,13 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:hydrogen_sulfide"
   }
 }

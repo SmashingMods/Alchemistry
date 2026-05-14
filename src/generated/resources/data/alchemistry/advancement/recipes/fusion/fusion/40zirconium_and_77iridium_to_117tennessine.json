@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "alchemistry:fusion/tennessine"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:fusion/40zirconium_and_77iridium_to_117tennessine"
+    ]
+  },
+  "sends_telemetry_event": true
+}

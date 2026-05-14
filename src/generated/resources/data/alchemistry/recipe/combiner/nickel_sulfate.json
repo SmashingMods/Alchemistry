@@ -3,9 +3,13 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nickel"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:sulfur"
       }
     },
     {
@@ -13,15 +17,10 @@
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:nickel_sulfate"
   }
 }

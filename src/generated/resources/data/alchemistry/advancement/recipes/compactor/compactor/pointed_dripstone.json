@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "alchemistry:compactor/pointed_dripstone"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:compactor/pointed_dripstone"
+    ]
+  },
+  "sends_telemetry_event": true
+}

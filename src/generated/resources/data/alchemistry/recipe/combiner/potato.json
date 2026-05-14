@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:starch"
+      }
+    },
+    {
       "count": 4,
       "ingredient": {
         "item": "chemlib:potassium"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:starch"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:potato"
   }
 }

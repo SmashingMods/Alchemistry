@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/electrum"
+      }
+    }
+  ],
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "c:storage_blocks/electrum"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:dissolver/storage_blocks/electrum"
+    ]
+  },
+  "sends_telemetry_event": true
+}

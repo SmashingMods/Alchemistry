@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:silicon"
+      }
+    },
+    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:silicon"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:silicon_dioxide"
   }
 }

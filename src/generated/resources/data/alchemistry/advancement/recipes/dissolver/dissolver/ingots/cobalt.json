@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/cobalt"
+      }
+    }
+  ],
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "c:ingots/cobalt"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:dissolver/ingots/cobalt"
+    ]
+  },
+  "sends_telemetry_event": true
+}

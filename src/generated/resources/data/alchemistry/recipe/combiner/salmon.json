@@ -5,17 +5,18 @@
     {
       "count": 4,
       "ingredient": {
-        "item": "chemlib:selenium"
+        "item": "chemlib:protein"
       }
     },
     {
       "count": 4,
       "ingredient": {
-        "item": "chemlib:protein"
+        "item": "chemlib:selenium"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:salmon"
   }
 }

@@ -3,19 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:phosphorus"
-      }
-    },
-    {
       "count": 4,
       "ingredient": {
         "item": "chemlib:copper_chloride"
       }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:phosphorus"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:glow_ink_sac"
   }
 }

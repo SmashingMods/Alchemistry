@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "alchemistry:fusion/beryllium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:fusion/2helium_and_2helium_to_4beryllium"
+    ]
+  },
+  "sends_telemetry_event": true
+}

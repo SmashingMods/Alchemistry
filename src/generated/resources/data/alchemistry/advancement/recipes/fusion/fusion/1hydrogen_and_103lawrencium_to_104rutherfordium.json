@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "alchemistry:fusion/rutherfordium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:fusion/1hydrogen_and_103lawrencium_to_104rutherfordium"
+    ]
+  },
+  "sends_telemetry_event": true
+}

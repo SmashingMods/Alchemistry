@@ -1,0 +1,21 @@
+{
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "alchemistry:fusion/cerium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:fusion/9fluorine_and_49indium_to_58cerium"
+    ]
+  },
+  "sends_telemetry_event": true
+}

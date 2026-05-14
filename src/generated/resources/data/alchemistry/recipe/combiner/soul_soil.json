@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:thulium"
+      }
+    },
+    {
       "count": 4,
       "ingredient": {
         "item": "chemlib:silicon_dioxide"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:thulium"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:soul_soil"
   }
 }

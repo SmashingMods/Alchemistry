@@ -1,26 +1,36 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/bronze"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:dusts/bronze"
+      "tag": "c:dusts/bronze"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 75,
+        "probability": 75.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:copper"
           }
         ]
       },
       {
-        "probability": 25,
+        "probability": 25.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:tin"
           }
         ]
@@ -28,14 +38,5 @@
     ],
     "rolls": 16,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/bronze"
-      }
-    }
-  ]
+  }
 }

@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:vanadium"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:rhenium"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:californium"
   }
 }

@@ -3,25 +3,25 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
       "count": 3,
       "ingredient": {
         "item": "chemlib:hydrogen"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:phosphorus"
+      }
+    },
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:phosphoric_acid"
   }
 }

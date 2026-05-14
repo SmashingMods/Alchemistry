@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "minecraft:dirt"
     }
@@ -10,33 +9,37 @@
   "output": {
     "groups": [
       {
-        "probability": 3,
+        "probability": 3.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:water"
           }
         ]
       },
       {
-        "probability": 5,
+        "probability": 5.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silicon_dioxide"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:cellulose"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:kaolinite"
           }
         ]

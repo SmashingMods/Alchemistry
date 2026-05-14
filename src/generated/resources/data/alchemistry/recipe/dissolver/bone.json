@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:bone"
     }
@@ -10,7 +9,7 @@
   "output": {
     "groups": [
       {
-        "probability": 50,
+        "probability": 50.0,
         "results": [
           {
             "count": 3,
@@ -19,7 +18,7 @@
         ]
       },
       {
-        "probability": 50,
+        "probability": 50.0,
         "results": [
           {}
         ]

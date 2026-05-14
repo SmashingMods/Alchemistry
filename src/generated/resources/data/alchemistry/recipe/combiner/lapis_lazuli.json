@@ -3,12 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 3,
-      "ingredient": {
-        "item": "chemlib:silicon"
-      }
-    },
-    {
       "count": 6,
       "ingredient": {
         "item": "chemlib:sodium"
@@ -25,9 +19,16 @@
       "ingredient": {
         "item": "chemlib:calcium_sulfide"
       }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "chemlib:silicon"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:lapis_lazuli"
   }
 }

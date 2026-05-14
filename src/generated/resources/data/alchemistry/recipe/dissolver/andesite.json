@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:andesite"
     }
@@ -10,49 +9,55 @@
   "output": {
     "groups": [
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:aluminum_oxide"
           }
         ]
       },
       {
-        "probability": 3,
+        "probability": 3.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:iron"
           }
         ]
       },
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:potassium_chloride"
           }
         ]
       },
       {
-        "probability": 10,
+        "probability": 10.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silicon_dioxide"
           }
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:platinum"
           }
         ]
       },
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:calcium"
           }
         ]

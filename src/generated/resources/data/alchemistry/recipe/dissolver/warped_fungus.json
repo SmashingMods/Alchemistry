@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:warped_fungus"
     }
@@ -10,15 +9,18 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:chitin"
           },
           {
+            "count": 1,
             "id": "chemlib:phosphoric_acid"
           },
           {
+            "count": 1,
             "id": "chemlib:mercury"
           }
         ]

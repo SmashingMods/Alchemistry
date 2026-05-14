@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:iron"
+        "item": "chemlib:silicon_dioxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:silicon_dioxide"
+        "item": "chemlib:iron"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:amethyst_shard"
   }
 }

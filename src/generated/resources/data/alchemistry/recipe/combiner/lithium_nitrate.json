@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:nitrate"
+        "item": "chemlib:lithium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:lithium"
+        "item": "chemlib:nitrate"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:lithium_nitrate"
   }
 }

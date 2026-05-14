@@ -9,19 +9,20 @@
       }
     },
     {
-      "count": 8,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
       "count": 44,
       "ingredient": {
         "item": "chemlib:hydrogen"
       }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cucurbitacin"
   }
 }

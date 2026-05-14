@@ -3,9 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
+      "count": 9,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:carbon"
       }
     },
     {
@@ -15,13 +15,14 @@
       }
     },
     {
-      "count": 9,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:carbon"
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:acetylsalicylic_acid"
   }
 }

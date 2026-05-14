@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:lead_oxide"
+        "item": "chemlib:silicon_dioxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:silicon_dioxide"
+        "item": "chemlib:lead_oxide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "alchemistry:reactor_glass"
   }
 }

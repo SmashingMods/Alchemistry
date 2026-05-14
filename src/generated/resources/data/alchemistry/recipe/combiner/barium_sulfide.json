@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:barium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:barium"
+        "item": "chemlib:sulfur"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:barium_sulfide"
   }
 }

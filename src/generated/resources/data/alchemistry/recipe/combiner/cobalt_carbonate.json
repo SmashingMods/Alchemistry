@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cobalt"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cobalt_carbonate"
   }
 }

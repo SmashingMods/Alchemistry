@@ -3,25 +3,25 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    },
+    {
       "count": 5,
       "ingredient": {
         "item": "chemlib:hydrogen"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydroxide"
-      }
-    },
-    {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:carbon"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:ethanol"
   }
 }

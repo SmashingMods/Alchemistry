@@ -1,8 +1,16 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:coal_coke"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "c:coal_coke"
     }
@@ -10,7 +18,7 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
             "count": 2,
@@ -21,14 +29,5 @@
     ],
     "rolls": 1,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "c:coal_coke"
-      }
-    }
-  ]
+  }
 }

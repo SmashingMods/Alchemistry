@@ -3,19 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:protein"
-      }
-    },
-    {
       "count": 8,
       "ingredient": {
         "item": "chemlib:calcium_carbonate"
       }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:protein"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:egg"
   }
 }

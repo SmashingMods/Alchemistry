@@ -1,16 +1,24 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/bitumen"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:storage_blocks/bitumen"
+      "tag": "c:storage_blocks/bitumen"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 5,
+        "probability": 5.0,
         "results": [
           {
             "count": 26,
@@ -19,15 +27,16 @@
         ]
       },
       {
-        "probability": 5,
+        "probability": 5.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:oxygen"
           }
         ]
       },
       {
-        "probability": 5,
+        "probability": 5.0,
         "results": [
           {
             "count": 32,
@@ -36,25 +45,28 @@
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:sulfur_dioxide"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:vanadium"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:nickel"
           }
         ]
@@ -62,14 +74,5 @@
     ],
     "rolls": 9,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:storage_block/bitumen"
-      }
-    }
-  ]
+  }
 }

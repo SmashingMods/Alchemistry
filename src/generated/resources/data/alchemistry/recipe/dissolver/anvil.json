@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:anvil"
     }
@@ -10,38 +9,30 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:iron"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:iron"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:iron"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:iron"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:iron"
           },
           {
-            "count": 64,
-            "id": "chemlib:iron"
-          },
-          {
-            "count": 64,
-            "id": "chemlib:iron"
-          },
-          {
-            "count": 48,
+            "count": 1,
             "id": "chemlib:iron"
           }
         ]

@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:nuggets/francium"
+      }
+    }
+  ],
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "c:nuggets/francium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:dissolver/nuggets/francium"
+    ]
+  },
+  "sends_telemetry_event": true
+}

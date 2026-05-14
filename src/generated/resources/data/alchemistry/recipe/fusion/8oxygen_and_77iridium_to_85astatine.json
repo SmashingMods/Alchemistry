@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:oxygen"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:iridium"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:astatine"
   }
 }

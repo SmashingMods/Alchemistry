@@ -1,16 +1,24 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/manganese"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:ingots/manganese"
+      "tag": "c:ingots/manganese"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
             "count": 16,
@@ -21,14 +29,5 @@
     ],
     "rolls": 1,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/manganese"
-      }
-    }
-  ]
+  }
 }

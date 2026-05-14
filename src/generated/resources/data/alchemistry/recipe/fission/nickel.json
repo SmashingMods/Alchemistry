@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fission",
-  "group": "fission",
   "input": {
+    "count": 1,
     "id": "chemlib:nickel"
   },
   "output1": {
+    "count": 1,
     "id": "chemlib:silicon"
   },
   "output2": {
+    "count": 1,
     "id": "chemlib:silicon"
   }
 }

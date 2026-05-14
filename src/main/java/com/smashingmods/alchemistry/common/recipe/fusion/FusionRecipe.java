@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
@@ -38,6 +39,11 @@ public class FusionRecipe extends AbstractProcessingRecipe {
     @Override
     public ItemStack getResultItem(HolderLookup.Provider pProvider) {
         return output;
+    }
+
+    @Override
+    public ItemStack assemble(RecipeInput pInput, HolderLookup.Provider pProvider) {
+        return output.copy();
     }
 
     @Override

@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:carbon"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:nickel"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:selenium"
   }
 }

@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:potassium"
       }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:potassium_oxide"
   }
 }

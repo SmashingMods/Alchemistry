@@ -1,26 +1,36 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/constantan"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:ingots/constantan"
+      "tag": "c:ingots/constantan"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:nickel"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:copper"
           }
         ]
@@ -28,14 +38,5 @@
     ],
     "rolls": 16,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/constantan"
-      }
-    }
-  ]
+  }
 }

@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:copper_chloride"
+        "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:copper_chloride"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:warped_roots"
   }
 }

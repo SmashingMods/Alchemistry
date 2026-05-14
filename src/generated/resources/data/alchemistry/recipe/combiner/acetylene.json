@@ -5,17 +5,18 @@
     {
       "count": 2,
       "ingredient": {
-        "item": "chemlib:hydrogen"
+        "item": "chemlib:carbon"
       }
     },
     {
       "count": 2,
       "ingredient": {
-        "item": "chemlib:carbon"
+        "item": "chemlib:hydrogen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:acetylene"
   }
 }

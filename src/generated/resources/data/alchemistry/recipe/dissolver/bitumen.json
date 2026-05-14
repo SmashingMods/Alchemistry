@@ -1,68 +1,4 @@
 {
-  "type": "alchemistry:dissolver",
-  "group": "alchemistry:dissolver",
-  "input": {
-    "count": 1,
-    "ingredient": {
-      "tag": "c:bitumen"
-    }
-  },
-  "output": {
-    "groups": [
-      {
-        "probability": 5,
-        "results": [
-          {
-            "count": 26,
-            "id": "chemlib:carbon"
-          }
-        ]
-      },
-      {
-        "probability": 5,
-        "results": [
-          {
-            "id": "chemlib:oxygen"
-          }
-        ]
-      },
-      {
-        "probability": 5,
-        "results": [
-          {
-            "count": 32,
-            "id": "chemlib:hydrogen"
-          }
-        ]
-      },
-      {
-        "probability": 1,
-        "results": [
-          {
-            "id": "chemlib:sulfur_dioxide"
-          }
-        ]
-      },
-      {
-        "probability": 1,
-        "results": [
-          {
-            "id": "chemlib:vanadium"
-          }
-        ]
-      },
-      {
-        "probability": 1,
-        "results": [
-          {
-            "id": "chemlib:nickel"
-          }
-        ]
-      }
-    ],
-    "rolls": 1,
-    "weighted": true
-  },
   "neoforge:conditions": [
     {
       "type": "neoforge:not",
@@ -71,5 +7,72 @@
         "tag": "c:bitumen"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "tag": "c:bitumen"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "count": 26,
+            "id": "chemlib:carbon"
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "count": 1,
+            "id": "chemlib:oxygen"
+          }
+        ]
+      },
+      {
+        "probability": 5.0,
+        "results": [
+          {
+            "count": 32,
+            "id": "chemlib:hydrogen"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 1,
+            "id": "chemlib:sulfur_dioxide"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 1,
+            "id": "chemlib:vanadium"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 1,
+            "id": "chemlib:nickel"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": true
+  }
 }

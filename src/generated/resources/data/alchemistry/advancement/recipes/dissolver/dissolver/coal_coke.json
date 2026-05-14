@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:coal_coke"
+      }
+    }
+  ],
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "c:coal_coke"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:dissolver/coal_coke"
+    ]
+  },
+  "sends_telemetry_event": true
+}

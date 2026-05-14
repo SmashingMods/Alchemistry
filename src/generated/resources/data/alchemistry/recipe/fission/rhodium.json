@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fission",
-  "group": "fission",
   "input": {
+    "count": 1,
     "id": "chemlib:rhodium"
   },
   "output1": {
+    "count": 1,
     "id": "chemlib:vanadium"
   },
   "output2": {
+    "count": 1,
     "id": "chemlib:titanium"
   }
 }

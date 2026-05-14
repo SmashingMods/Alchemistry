@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:beryllium"
+      }
+    },
+    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:hydroxide"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:beryllium"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:beryllium_hydroxide"
   }
 }

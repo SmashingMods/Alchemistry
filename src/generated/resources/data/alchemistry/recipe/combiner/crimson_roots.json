@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:mercury_sulfide"
+        "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:mercury_sulfide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:crimson_roots"
   }
 }

@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:manganese"
+      }
+    },
+    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:hydroxide"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:manganese"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:manganese_hydroxide"
   }
 }

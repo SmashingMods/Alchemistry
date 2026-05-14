@@ -1,34 +1,45 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/lumium"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:dusts/lumium"
+      "tag": "c:dusts/lumium"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 3,
+        "probability": 3.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:tin"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silver"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:phosphorus"
           }
         ]
@@ -36,14 +47,5 @@
     ],
     "rolls": 16,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/lumium"
-      }
-    }
-  ]
+  }
 }

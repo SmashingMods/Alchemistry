@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:potassium_carbonate"
     }
@@ -10,13 +9,14 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
             "count": 2,
             "id": "chemlib:potassium"
           },
           {
+            "count": 1,
             "id": "chemlib:carbonate"
           }
         ]

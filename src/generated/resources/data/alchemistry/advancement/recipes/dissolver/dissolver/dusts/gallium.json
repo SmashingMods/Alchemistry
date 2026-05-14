@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/gallium"
+      }
+    }
+  ],
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "c:dusts/gallium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "alchemistry:dissolver/dusts/gallium"
+    ]
+  },
+  "sends_telemetry_event": true
+}

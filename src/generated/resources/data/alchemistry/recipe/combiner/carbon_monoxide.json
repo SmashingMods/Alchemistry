@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbon"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:carbon_monoxide"
   }
 }

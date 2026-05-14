@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:mossy_cobblestone"
     }
@@ -10,23 +9,25 @@
   "output": {
     "groups": [
       {
-        "probability": 697,
+        "probability": 697.0,
         "results": [
           {}
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:aluminum"
           }
         ]
       },
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:iron"
           }
         ]
@@ -35,22 +36,25 @@
         "probability": 1.5,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:gold"
           }
         ]
       },
       {
-        "probability": 10,
+        "probability": 10.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silicon_dioxide"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:dysprosium"
           }
         ]
@@ -59,38 +63,43 @@
         "probability": 1.5,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:zirconium"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:nickel"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:gallium"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:tungsten"
           }
         ]
       },
       {
-        "probability": 3,
+        "probability": 3.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:cellulose"
           }
         ]

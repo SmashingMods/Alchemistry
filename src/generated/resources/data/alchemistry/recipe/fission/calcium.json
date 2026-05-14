@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fission",
-  "group": "fission",
   "input": {
+    "count": 1,
     "id": "chemlib:calcium"
   },
   "output1": {
+    "count": 1,
     "id": "chemlib:neon"
   },
   "output2": {
+    "count": 1,
     "id": "chemlib:neon"
   }
 }

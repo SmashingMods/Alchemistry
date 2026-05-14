@@ -1,16 +1,24 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/bronze"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:storage_blocks/bronze"
+      "tag": "c:storage_blocks/bronze"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 75,
+        "probability": 75.0,
         "results": [
           {
             "count": 9,
@@ -19,7 +27,7 @@
         ]
       },
       {
-        "probability": 25,
+        "probability": 25.0,
         "results": [
           {
             "count": 9,
@@ -30,14 +38,5 @@
     ],
     "rolls": 16,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/bronze"
-      }
-    }
-  ]
+  }
 }

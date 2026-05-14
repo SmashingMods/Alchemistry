@@ -3,9 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sodium"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:sulfur"
       }
     },
     {
@@ -13,21 +22,10 @@
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:hydrogen"
-      }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:sodium_bisulfate"
   }
 }

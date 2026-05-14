@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:spore_blossom"
     }
@@ -13,6 +12,7 @@
         "probability": 66.6,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:cellulose"
           }
         ]

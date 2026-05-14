@@ -3,25 +3,23 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:mercury"
+        "item": "chemlib:chitin"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:phosphoric_acid"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:chitin"
+        "item": "chemlib:mercury"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:warped_fungus"
   }
 }

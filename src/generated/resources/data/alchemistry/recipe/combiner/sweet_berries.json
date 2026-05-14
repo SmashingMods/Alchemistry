@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:sucrose"
+        "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:sucrose"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:sweet_berries"
   }
 }

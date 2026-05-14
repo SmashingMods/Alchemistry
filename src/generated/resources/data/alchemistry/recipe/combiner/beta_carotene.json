@@ -3,19 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 56,
-      "ingredient": {
-        "item": "chemlib:hydrogen"
-      }
-    },
-    {
       "count": 40,
       "ingredient": {
         "item": "chemlib:carbon"
       }
+    },
+    {
+      "count": 56,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:beta_carotene"
   }
 }

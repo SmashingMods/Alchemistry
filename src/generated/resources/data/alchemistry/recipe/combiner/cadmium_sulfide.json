@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:cadmium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:cadmium"
+        "item": "chemlib:sulfur"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cadmium_sulfide"
   }
 }

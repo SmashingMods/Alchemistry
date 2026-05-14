@@ -3,15 +3,15 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": {
-        "item": "chemlib:titanium_oxide"
-      }
-    },
-    {
       "count": 32,
       "ingredient": {
         "item": "chemlib:beryl"
+      }
+    },
+    {
+      "count": 24,
+      "ingredient": {
+        "item": "chemlib:niobium"
       }
     },
     {
@@ -21,13 +21,14 @@
       }
     },
     {
-      "count": 24,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:niobium"
+        "item": "chemlib:titanium_oxide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:dark_prismarine"
   }
 }

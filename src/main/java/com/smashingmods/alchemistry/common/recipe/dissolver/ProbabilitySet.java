@@ -107,17 +107,17 @@ public class ProbabilitySet {
         }
 
         public Builder addGroup(List<ItemStack> itemStacks) {
-            groups.add(new ProbabilityGroup(itemStacks));
+            groups.add(new ProbabilityGroup(splitOversizedStacks(itemStacks)));
             return this;
         }
 
         public Builder addGroup(List<ItemStack> itemStacks, double pProbability) {
-            groups.add(new ProbabilityGroup(itemStacks, pProbability));
+            groups.add(new ProbabilityGroup(splitOversizedStacks(itemStacks), pProbability));
             return this;
         }
 
         public Builder addGroup(ItemStack... pItemStacks) {
-            groups.add(new ProbabilityGroup(Arrays.asList(pItemStacks)));
+            groups.add(new ProbabilityGroup(splitOversizedStacks(Arrays.asList(pItemStacks))));
             return this;
         }
 
@@ -125,9 +125,28 @@ public class ProbabilitySet {
             if (pItemStacks.length == 0) {
                 groups.add(new ProbabilityGroup(List.of(ItemStack.EMPTY), pProbability));
             } else {
-                groups.add(new ProbabilityGroup(Arrays.asList(pItemStacks), pProbability));
+                groups.add(new ProbabilityGroup(splitOversizedStacks(Arrays.asList(pItemStacks)), pProbability));
             }
             return this;
+        }
+
+        private static List<ItemStack> splitOversizedStacks(List<ItemStack> stacks) {
+            List<ItemStack> result = new ArrayList<>(stacks.size());
+            for (ItemStack stack : stacks) {
+                int remaining = stack.getCount();
+                if (remaining <= 99) {
+                    result.add(stack);
+                    continue;
+                }
+                while (remaining > 0) {
+                    int chunk = Math.min(remaining, 99);
+                    ItemStack copy = stack.copy();
+                    copy.setCount(chunk);
+                    result.add(copy);
+                    remaining -= chunk;
+                }
+            }
+            return result;
         }
 
         public Builder rolls(int rolls) {

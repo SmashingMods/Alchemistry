@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:copper"
+      }
+    },
+    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:nitrate"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:copper"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:copper_nitrate"
   }
 }

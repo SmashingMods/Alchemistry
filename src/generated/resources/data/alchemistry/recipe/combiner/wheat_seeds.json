@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:sucrose"
+        "item": "chemlib:triglyceride"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:triglyceride"
+        "item": "chemlib:sucrose"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:wheat_seeds"
   }
 }

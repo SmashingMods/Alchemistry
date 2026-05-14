@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cesium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:chlorine"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cesium_chloride"
   }
 }

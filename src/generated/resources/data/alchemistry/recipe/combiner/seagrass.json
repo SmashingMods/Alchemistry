@@ -3,13 +3,13 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:seagrass"
   }
 }

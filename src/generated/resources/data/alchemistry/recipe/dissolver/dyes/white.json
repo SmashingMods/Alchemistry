@@ -2,17 +2,17 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:dyes/white"
+      "tag": "c:dyes/white"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:hydroxylapatite"
           }
         ]

@@ -3,6 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 12,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    },
+    {
       "count": 22,
       "ingredient": {
         "item": "chemlib:hydrogen"
@@ -13,15 +19,10 @@
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 12,
-      "ingredient": {
-        "item": "chemlib:carbon"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:sucrose"
   }
 }

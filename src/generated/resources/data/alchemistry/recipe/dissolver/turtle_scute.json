@@ -1,0 +1,24 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "item": "minecraft:turtle_scute"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 2,
+            "id": "chemlib:protein"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

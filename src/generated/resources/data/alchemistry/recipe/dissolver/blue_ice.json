@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:blue_ice"
     }
@@ -10,42 +9,30 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:water"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:water"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:water"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:water"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:water"
           },
           {
-            "count": 64,
-            "id": "chemlib:water"
-          },
-          {
-            "count": 64,
-            "id": "chemlib:water"
-          },
-          {
-            "count": 64,
-            "id": "chemlib:water"
-          },
-          {
-            "count": 64,
+            "count": 81,
             "id": "chemlib:water"
           }
         ]

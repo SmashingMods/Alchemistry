@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:tellurium"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:xenon"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:seaborgium"
   }
 }

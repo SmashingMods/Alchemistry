@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:strontium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:strontium"
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:strontium_oxide"
   }
 }

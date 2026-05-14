@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "minecraft:planks"
     }
@@ -10,15 +9,16 @@
   "output": {
     "groups": [
       {
-        "probability": 25,
+        "probability": 25.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:cellulose"
           }
         ]
       },
       {
-        "probability": 75,
+        "probability": 75.0,
         "results": [
           {}
         ]

@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:carved_pumpkin"
     }
@@ -10,15 +9,16 @@
   "output": {
     "groups": [
       {
-        "probability": 50,
+        "probability": 50.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:cucurbitacin"
           }
         ]
       },
       {
-        "probability": 50,
+        "probability": 50.0,
         "results": [
           {}
         ]

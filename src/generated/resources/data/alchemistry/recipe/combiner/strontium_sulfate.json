@@ -3,25 +3,24 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:strontium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
+      }
+    },
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:strontium_sulfate"
   }
 }

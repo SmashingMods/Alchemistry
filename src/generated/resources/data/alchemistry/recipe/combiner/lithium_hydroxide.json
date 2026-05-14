@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:hydroxide"
+        "item": "chemlib:lithium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:lithium"
+        "item": "chemlib:hydroxide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:lithium_hydroxide"
   }
 }

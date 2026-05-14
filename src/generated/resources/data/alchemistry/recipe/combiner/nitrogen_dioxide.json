@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:nitrogen"
+      }
+    },
+    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:nitrogen"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:nitrogen_dioxide"
   }
 }

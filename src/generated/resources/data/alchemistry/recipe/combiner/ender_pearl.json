@@ -11,17 +11,18 @@
     {
       "count": 16,
       "ingredient": {
-        "item": "chemlib:neodymium"
+        "item": "chemlib:mercury"
       }
     },
     {
       "count": 16,
       "ingredient": {
-        "item": "chemlib:mercury"
+        "item": "chemlib:neodymium"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:ender_pearl"
   }
 }

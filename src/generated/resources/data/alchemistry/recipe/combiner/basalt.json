@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:silicon_dioxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:aluminum_oxide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:basalt"
   }
 }

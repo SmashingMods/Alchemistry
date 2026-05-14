@@ -1,42 +1,54 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:ingots/signalum"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:ingots/signalum"
+      "tag": "c:ingots/signalum"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 6,
+        "probability": 6.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:copper"
           }
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silver"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:strontium_carbonate"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:iron_oxide"
           }
         ]
@@ -44,14 +56,5 @@
     ],
     "rolls": 16,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/signalum"
-      }
-    }
-  ]
+  }
 }

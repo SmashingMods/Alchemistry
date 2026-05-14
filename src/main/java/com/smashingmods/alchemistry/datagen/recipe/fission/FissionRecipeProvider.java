@@ -1,0 +1,35 @@
+package com.smashingmods.alchemistry.datagen.recipe.fission;
+
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.chemlib.common.items.ElementItem;
+import com.smashingmods.chemlib.registry.ItemRegistry;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.data.recipes.RecipeOutput;
+
+import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
+
+public class FissionRecipeProvider {
+
+    private final RecipeOutput consumer;
+
+    public FissionRecipeProvider(RecipeOutput pConsumer) {
+        this.consumer = pConsumer;
+    }
+
+    public static void register(RecipeOutput pConsumer) {
+        new FissionRecipeProvider(pConsumer).register();
+    }
+
+    private void register() {
+        for (int index = 2; index <= 118; index++) {
+            ItemRegistry.getElementByAtomicNumber(index).ifPresent(this::fission);
+        }
+    }
+
+    private void fission(ElementItem pInput) {
+        FissionRecipeBuilder.createRecipe(pInput)
+                .group("fission")
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pInput, "fission", Alchemistry.MODID)))
+                .save(consumer);
+    }
+}

@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:red_nether_bricks"
     }
@@ -10,55 +9,61 @@
   "output": {
     "groups": [
       {
-        "probability": 5,
+        "probability": 5.0,
         "results": [
           {}
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:zinc_oxide"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:gold"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:phosphorus"
           }
         ]
       },
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:sulfur"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:germanium"
           }
         ]
       },
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silicon"
           }
         ]

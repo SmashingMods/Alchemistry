@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:melon_slice"
     }
@@ -10,15 +9,16 @@
   "output": {
     "groups": [
       {
-        "probability": 15,
+        "probability": 15.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:cucurbitacin"
           }
         ]
       },
       {
-        "probability": 30,
+        "probability": 30.0,
         "results": [
           {
             "count": 4,
@@ -31,7 +31,7 @@
         ]
       },
       {
-        "probability": 55,
+        "probability": 55.0,
         "results": [
           {}
         ]

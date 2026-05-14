@@ -5,12 +5,6 @@
     {
       "count": 8,
       "ingredient": {
-        "item": "chemlib:sulfur"
-      }
-    },
-    {
-      "count": 8,
-      "ingredient": {
         "item": "chemlib:germanium"
       }
     },
@@ -19,9 +13,16 @@
       "ingredient": {
         "item": "chemlib:graphite"
       }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:blaze_powder"
   }
 }

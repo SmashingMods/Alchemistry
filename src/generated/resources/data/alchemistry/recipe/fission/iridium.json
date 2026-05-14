@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fission",
-  "group": "fission",
   "input": {
+    "count": 1,
     "id": "chemlib:iridium"
   },
   "output1": {
+    "count": 1,
     "id": "chemlib:yttrium"
   },
   "output2": {
+    "count": 1,
     "id": "chemlib:strontium"
   }
 }

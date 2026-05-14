@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:packed_ice"
     }
@@ -10,18 +9,14 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:water"
           },
           {
-            "count": 64,
-            "id": "chemlib:water"
-          },
-          {
-            "count": 16,
+            "count": 45,
             "id": "chemlib:water"
           }
         ]

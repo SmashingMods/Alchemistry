@@ -3,21 +3,15 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:protein"
-      }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "minecraft:bucket"
-      }
-    },
-    {
       "count": 4,
       "ingredient": {
         "item": "chemlib:calcium"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:protein"
       }
     },
     {
@@ -25,9 +19,15 @@
       "ingredient": {
         "item": "chemlib:water"
       }
+    },
+    {
+      "ingredient": {
+        "item": "minecraft:bucket"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:milk_bucket"
   }
 }

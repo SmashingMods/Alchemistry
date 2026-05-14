@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:chiseled_quartz_block"
     }
@@ -10,18 +9,18 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
             "count": 64,
             "id": "chemlib:barium"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:silicon_dioxide"
           },
           {
-            "count": 64,
+            "count": 29,
             "id": "chemlib:silicon_dioxide"
           }
         ]

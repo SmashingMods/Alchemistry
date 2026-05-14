@@ -1,27 +1,31 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/niobium"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:storage_blocks/niobium"
+      "tag": "c:storage_blocks/niobium"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:niobium"
           },
           {
-            "count": 64,
-            "id": "chemlib:niobium"
-          },
-          {
-            "count": 16,
+            "count": 45,
             "id": "chemlib:niobium"
           }
         ]
@@ -29,14 +33,5 @@
     ],
     "rolls": 1,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/niobium"
-      }
-    }
-  ]
+  }
 }

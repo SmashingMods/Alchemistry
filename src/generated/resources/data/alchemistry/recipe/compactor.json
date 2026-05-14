@@ -22,7 +22,7 @@
     "IPI"
   ],
   "result": {
+    "count": 1,
     "id": "alchemistry:compactor"
-  },
-  "show_notification": true
+  }
 }

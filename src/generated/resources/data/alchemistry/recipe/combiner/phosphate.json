@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:phosphorus"
+      }
+    },
+    {
       "count": 4,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:phosphorus"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:phosphate"
   }
 }

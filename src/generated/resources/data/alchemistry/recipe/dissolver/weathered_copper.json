@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:weathered_copper"
     }
@@ -10,7 +9,7 @@
   "output": {
     "groups": [
       {
-        "probability": 85,
+        "probability": 85.0,
         "results": [
           {
             "count": 9,
@@ -19,7 +18,7 @@
         ]
       },
       {
-        "probability": 15,
+        "probability": 15.0,
         "results": [
           {
             "count": 9,

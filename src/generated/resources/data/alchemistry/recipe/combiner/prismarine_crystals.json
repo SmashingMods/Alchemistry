@@ -9,19 +9,19 @@
       }
     },
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:selenium"
-      }
-    },
-    {
       "count": 3,
       "ingredient": {
         "item": "chemlib:phosphorus"
       }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:prismarine_crystals"
   }
 }

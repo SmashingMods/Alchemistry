@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:iron_ingot"
-            ]
+            "items": "minecraft:iron_ingot"
           }
         ]
       },
@@ -22,14 +20,13 @@
   },
   "requirements": [
     [
-      "has_item",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_item"
     ]
   ],
   "rewards": {
     "recipes": [
       "alchemistry:compactor"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "ingredient": {
+        "item": "chemlib:sulfur"
+      }
+    },
+    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:sulfur_dioxide"
   }
 }

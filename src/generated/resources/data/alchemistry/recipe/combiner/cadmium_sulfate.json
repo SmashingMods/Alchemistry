@@ -3,25 +3,24 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:cadmium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
       }
     },
     {
-      "count": 1,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:cadmium"
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cadmium_sulfate"
   }
 }

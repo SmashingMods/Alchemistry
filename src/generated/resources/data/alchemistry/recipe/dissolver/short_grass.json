@@ -1,0 +1,30 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "item": "minecraft:short_grass"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "count": 1,
+            "id": "chemlib:cellulose"
+          }
+        ]
+      },
+      {
+        "probability": 75.0,
+        "results": [
+          {}
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

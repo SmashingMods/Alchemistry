@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:lithium"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:tin"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:iodine"
   }
 }

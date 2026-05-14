@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:shroomlight"
     }
@@ -10,16 +9,18 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
             "count": 16,
             "id": "chemlib:phosphorus"
           },
           {
+            "count": 1,
             "id": "chemlib:chitin"
           },
           {
+            "count": 1,
             "id": "chemlib:phosphoric_acid"
           }
         ]

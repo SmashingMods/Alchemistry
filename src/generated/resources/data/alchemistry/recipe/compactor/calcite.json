@@ -2,12 +2,12 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:calcium_carbonate"
     }
   },
   "result": {
+    "count": 1,
     "id": "minecraft:calcite"
   }
 }

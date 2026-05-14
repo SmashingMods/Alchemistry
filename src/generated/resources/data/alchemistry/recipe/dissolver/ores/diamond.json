@@ -2,30 +2,25 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:ores/diamond"
+      "tag": "c:ores/diamond"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:graphite"
           },
           {
-            "count": 64,
+            "count": 99,
             "id": "chemlib:graphite"
           },
           {
-            "count": 64,
-            "id": "chemlib:graphite"
-          },
-          {
-            "count": 64,
+            "count": 58,
             "id": "chemlib:graphite"
           }
         ]

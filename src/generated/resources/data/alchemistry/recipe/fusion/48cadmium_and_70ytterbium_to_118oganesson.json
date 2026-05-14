@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:cadmium"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:ytterbium"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:oganesson"
   }
 }

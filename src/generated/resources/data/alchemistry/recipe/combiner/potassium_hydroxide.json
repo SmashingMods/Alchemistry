@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:potassium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydroxide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:potassium_hydroxide"
   }
 }

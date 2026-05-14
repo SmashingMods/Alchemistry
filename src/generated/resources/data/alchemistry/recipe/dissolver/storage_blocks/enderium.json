@@ -1,16 +1,24 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/enderium"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:storage_blocks/enderium"
+      "tag": "c:storage_blocks/enderium"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 6,
+        "probability": 6.0,
         "results": [
           {
             "count": 9,
@@ -19,7 +27,7 @@
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
             "count": 9,
@@ -28,7 +36,7 @@
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
             "count": 18,
@@ -37,7 +45,7 @@
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
             "count": 18,
@@ -48,14 +56,5 @@
     ],
     "rolls": 16,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/enderium"
-      }
-    }
-  ]
+  }
 }

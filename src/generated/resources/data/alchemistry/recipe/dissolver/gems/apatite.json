@@ -1,24 +1,33 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:gems/apatite"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:gems/apatite"
+      "tag": "c:gems/apatite"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 33,
+        "probability": 33.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:hydroxylapatite"
           }
         ]
       },
       {
-        "probability": 67,
+        "probability": 67.0,
         "results": [
           {}
         ]
@@ -26,14 +35,5 @@
     ],
     "rolls": 1,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:gems/apatite"
-      }
-    }
-  ]
+  }
 }

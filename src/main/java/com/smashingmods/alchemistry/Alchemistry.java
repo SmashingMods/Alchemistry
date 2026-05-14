@@ -15,7 +15,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -38,7 +37,6 @@ public class Alchemistry {
         modEventBus.addListener(BlockEntityRegistry::registerCapabilities);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-        Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
 
         Registry.register(modEventBus);
 

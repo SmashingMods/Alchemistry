@@ -3,19 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 14,
-      "ingredient": {
-        "item": "chemlib:hydrogen"
-      }
-    },
-    {
       "count": 6,
       "ingredient": {
         "item": "chemlib:carbon"
       }
+    },
+    {
+      "count": 14,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:hexane"
   }
 }

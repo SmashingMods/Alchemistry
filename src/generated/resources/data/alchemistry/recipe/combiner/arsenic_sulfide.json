@@ -5,17 +5,18 @@
     {
       "count": 4,
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:arsenic"
       }
     },
     {
       "count": 4,
       "ingredient": {
-        "item": "chemlib:arsenic"
+        "item": "chemlib:sulfur"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:arsenic_sulfide"
   }
 }

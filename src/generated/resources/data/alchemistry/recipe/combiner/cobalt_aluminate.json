@@ -3,9 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:cobalt"
       }
     },
     {
@@ -15,13 +14,14 @@
       }
     },
     {
-      "count": 1,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:cobalt"
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cobalt_aluminate"
   }
 }

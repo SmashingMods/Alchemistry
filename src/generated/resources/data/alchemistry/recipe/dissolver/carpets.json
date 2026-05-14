@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "minecraft:carpets"
     }
@@ -17,6 +16,7 @@
             "id": "chemlib:keratin"
           },
           {
+            "count": 1,
             "id": "chemlib:triglyceride"
           }
         ]

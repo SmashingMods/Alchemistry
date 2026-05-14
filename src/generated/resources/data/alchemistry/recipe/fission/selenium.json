@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fission",
-  "group": "fission",
   "input": {
+    "count": 1,
     "id": "chemlib:selenium"
   },
   "output1": {
+    "count": 1,
     "id": "chemlib:chlorine"
   },
   "output2": {
+    "count": 1,
     "id": "chemlib:chlorine"
   }
 }

@@ -1,24 +1,33 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/potato"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:storage_blocks/potato"
+      "tag": "c:storage_blocks/potato"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 10,
+        "probability": 10.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:starch"
           }
         ]
       },
       {
-        "probability": 25,
+        "probability": 25.0,
         "results": [
           {
             "count": 5,
@@ -29,14 +38,5 @@
     ],
     "rolls": 9,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/potato"
-      }
-    }
-  ]
+  }
 }

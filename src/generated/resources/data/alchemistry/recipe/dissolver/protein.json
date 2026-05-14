@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:protein"
     }
@@ -10,18 +9,22 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:ammonia"
           },
           {
+            "count": 1,
             "id": "chemlib:carbon_dioxide"
           },
           {
+            "count": 1,
             "id": "chemlib:ethylene"
           },
           {
+            "count": 1,
             "id": "chemlib:sulfur"
           }
         ]

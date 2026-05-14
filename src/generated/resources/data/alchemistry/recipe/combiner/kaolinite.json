@@ -3,15 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
       "ingredient": {
-        "item": "chemlib:silicon_dioxide"
+        "item": "chemlib:aluminum_oxide"
       }
     },
     {
-      "count": 1,
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:aluminum_oxide"
+        "item": "chemlib:silicon_dioxide"
       }
     },
     {
@@ -22,6 +21,7 @@
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:kaolinite"
   }
 }

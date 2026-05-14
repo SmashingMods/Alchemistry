@@ -9,13 +9,13 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:triglyceride"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:honeycomb"
   }
 }

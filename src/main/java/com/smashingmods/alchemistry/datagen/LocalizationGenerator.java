@@ -1,0 +1,95 @@
+package com.smashingmods.alchemistry.datagen;
+
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.registry.BlockRegistry;
+import com.smashingmods.alchemistry.registry.MenuRegistry;
+import com.smashingmods.alchemylib.api.storage.SideMode;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import org.apache.commons.lang3.text.WordUtils;
+
+import java.util.Locale;
+import java.util.Objects;
+
+public class LocalizationGenerator extends LanguageProvider {
+
+    public LocalizationGenerator(PackOutput pOutput) {
+        super(pOutput, Alchemistry.MODID, "en_us");
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    protected void addTranslations() {
+        BlockRegistry.BLOCKS.getEntries().stream()
+                .map(DeferredHolder::get)
+                .map(BuiltInRegistries.BLOCK::getKey)
+                .filter(Objects::nonNull)
+                .map(ResourceLocation::getPath)
+                .forEach(path -> add(String.format("block.alchemistry.%s", path), WordUtils.capitalize(path.replace("_", " "))));
+
+        MenuRegistry.MENU_TYPES.getEntries().stream()
+                .map(DeferredHolder::get)
+                .map(BuiltInRegistries.MENU::getKey)
+                .filter(Objects::nonNull)
+                .map(ResourceLocation::getPath)
+                .forEach(path -> {
+                    path = path.replace("_menu", "");
+                    String translation = WordUtils.capitalize(path.replace("_", " "));
+                    add(String.format("alchemistry.container.%s", path), translation);
+                    // weird place to put this, but gives all the stuff we want!
+                    add(String.format("alchemistry.jei.%s", path), translation);
+                });
+
+        add("itemGroup.alchemistry", "Alchemistry");
+
+        add("tooltip.alchemistry.energy_requirement", "Requires %d FE/t");
+        add("tooltip.alchemistry.requires", "Requires");
+
+        for (Direction direction : Direction.values()) {
+            String key = "alchemistry.container.sides." + direction.getSerializedName();
+            String value;
+            if (direction == Direction.UP) {
+                value = "Top";
+            } else if (direction == Direction.DOWN) {
+                value = "Bottom";
+            } else {
+                value = WordUtils.capitalize(direction.getName());
+            }
+            add(key, value);
+        }
+        add("alchemistry.container.sides.external", "External access");
+        for (SideMode mode : SideMode.values()) {
+            add("alchemistry.container.sides.mode." + mode.name().toLowerCase(Locale.ROOT), WordUtils.capitalize(mode.name().toLowerCase(Locale.ROOT)));
+        }
+        add("alchemistry.container.sides.current", "Currently: ");
+        add("alchemistry.container.sides.title", "Configure Input/Output Sides");
+        add("alchemistry.container.sides.button", "Input/Output Configuration");
+
+        add("alchemistry.container.search", "Search...");
+        add("alchemistry.container.select_recipe", "Select recipe:");
+        add("alchemistry.container.current_recipe", "Current recipe:");
+        add("alchemistry.container.required_input", "Required input item:");
+        add("alchemistry.container.target", "Target");
+        add("alchemistry.container.reset_target", "Reset Target");
+        add("alchemistry.container.nothing", "Nothing");
+        add("alchemistry.container.enable_autobalance", "Enable Auto-Balance");
+        add("alchemistry.container.disable_autobalance", "Disable Auto-Balance");
+        add("alchemistry.container.autoeject.title.enabled", "Auto-eject enabled");
+        add("alchemistry.container.autoeject.title.disabled", "Auto-eject disabled");
+        add("alchemistry.container.autoeject.tooltip.enabled", "Outputs are put in containers which are next to the output block");
+        add("alchemistry.container.autoeject.tooltip.disabled", "Outputs are currently not inserted in nearby containers");
+
+        add("alchemistry.jei.dissolver.relative", "Relative");
+        add("alchemistry.jei.dissolver.absolute", "Absolute");
+        add("alchemistry.jei.dissolver.type", "Type");
+        add("alchemistry.jei.dissolver.rolls", "Rolls");
+        add("alchemistry.jei.elements.description", "All elements (except Hydrogen) can be created with the Fusion Chamber multiblock.\\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers.\"");
+
+        add("alchemistry.patchouli.book_name", "Alchemistry Labs Catalogue");
+        add("alchemistry.patchouli.landing_text", "Looking to smash some atoms together? This catalogue will outline the machines you can manufacture in your progression through Alchemistry.");
+    }
+}

@@ -3,19 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": {
-        "item": "chemlib:selenium"
-      }
-    },
-    {
       "count": 4,
       "ingredient": {
         "item": "chemlib:protein"
       }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:selenium"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:tropical_fish"
   }
 }

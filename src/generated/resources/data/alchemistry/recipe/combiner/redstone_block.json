@@ -5,17 +5,18 @@
     {
       "count": 9,
       "ingredient": {
-        "item": "chemlib:strontium_carbonate"
+        "item": "chemlib:iron_oxide"
       }
     },
     {
       "count": 9,
       "ingredient": {
-        "item": "chemlib:iron_oxide"
+        "item": "chemlib:strontium_carbonate"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:redstone_block"
   }
 }

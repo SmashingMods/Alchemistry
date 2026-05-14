@@ -3,25 +3,23 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
+      "ingredient": {
+        "item": "chemlib:triglyceride"
+      }
+    },
+    {
       "ingredient": {
         "item": "chemlib:sucrose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:iron_oxide"
-      }
-    },
-    {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:triglyceride"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:beetroot_seeds"
   }
 }

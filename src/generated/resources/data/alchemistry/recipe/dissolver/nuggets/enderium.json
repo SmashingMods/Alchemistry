@@ -1,32 +1,42 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:nuggets/enderium"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:nuggets/enderium"
+      "tag": "c:nuggets/enderium"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 6,
+        "probability": 6.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:lead"
           }
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:graphite"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
             "count": 2,
@@ -35,7 +45,7 @@
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
             "count": 2,
@@ -46,14 +56,5 @@
     ],
     "rolls": 1,
     "weighted": true
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:nuggets/enderium"
-      }
-    }
-  ]
+  }
 }

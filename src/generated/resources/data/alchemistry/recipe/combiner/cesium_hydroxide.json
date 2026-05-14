@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:hydroxide"
+        "item": "chemlib:cesium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:cesium"
+        "item": "chemlib:hydroxide"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:cesium_hydroxide"
   }
 }

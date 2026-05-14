@@ -3,25 +3,24 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:hydrogen"
-      }
-    },
-    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:ammonium"
       }
     },
     {
-      "count": 1,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
       "ingredient": {
         "item": "chemlib:phosphate"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:diammonium_phosphate"
   }
 }

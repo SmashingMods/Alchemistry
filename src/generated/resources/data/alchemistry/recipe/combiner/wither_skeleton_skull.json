@@ -3,19 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 32,
-      "ingredient": {
-        "item": "chemlib:mendelevium"
-      }
-    },
-    {
       "count": 8,
       "ingredient": {
         "item": "chemlib:hydroxylapatite"
       }
+    },
+    {
+      "count": 32,
+      "ingredient": {
+        "item": "chemlib:mendelevium"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:wither_skeleton_skull"
   }
 }

@@ -1,24 +1,33 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:dusts/sulfur"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:dusts/sulfur"
+      "tag": "c:dusts/sulfur"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 50,
+        "probability": 50.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:sulfur"
           }
         ]
       },
       {
-        "probability": 50,
+        "probability": 50.0,
         "results": [
           {}
         ]
@@ -26,14 +35,5 @@
     ],
     "rolls": 1,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:dusts/sulfur"
-      }
-    }
-  ]
+  }
 }

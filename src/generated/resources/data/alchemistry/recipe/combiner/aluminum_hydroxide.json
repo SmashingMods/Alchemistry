@@ -3,7 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:aluminum"
       }
@@ -16,6 +15,7 @@
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:aluminum_hydroxide"
   }
 }

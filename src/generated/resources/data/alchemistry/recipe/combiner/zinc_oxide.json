@@ -3,19 +3,18 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:zinc"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:zinc"
+        "item": "chemlib:oxygen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:zinc_oxide"
   }
 }

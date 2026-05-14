@@ -1,13 +1,15 @@
 {
   "type": "alchemistry:fusion",
-  "group": "fusion",
   "input1": {
+    "count": 1,
     "id": "chemlib:potassium"
   },
   "input2": {
+    "count": 1,
     "id": "chemlib:potassium"
   },
   "output": {
+    "count": 1,
     "id": "chemlib:strontium"
   }
 }

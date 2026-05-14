@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:triglyceride"
-      }
-    },
-    {
       "count": 2,
       "ingredient": {
         "item": "chemlib:keratin"
       }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:triglyceride"
+      }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:white_wool"
   }
 }

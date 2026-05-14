@@ -3,31 +3,28 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:ethylene"
-      }
-    },
-    {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:ammonia"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:sulfur"
+        "item": "chemlib:carbon_dioxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
-        "item": "chemlib:carbon_dioxide"
+        "item": "chemlib:ethylene"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:sulfur"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:protein"
   }
 }

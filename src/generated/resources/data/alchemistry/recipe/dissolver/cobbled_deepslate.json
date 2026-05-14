@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:cobbled_deepslate"
     }
@@ -10,87 +9,97 @@
   "output": {
     "groups": [
       {
-        "probability": 40,
+        "probability": 40.0,
         "results": [
           {}
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:osmium"
           }
         ]
       },
       {
-        "probability": 4,
+        "probability": 4.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:iron"
           }
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:gold"
           }
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:aluminum"
           }
         ]
       },
       {
-        "probability": 20,
+        "probability": 20.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silicon_dioxide"
           }
         ]
       },
       {
-        "probability": 2,
+        "probability": 2.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:silver"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:terbium"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:europium"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:scandium"
           }
         ]
       },
       {
-        "probability": 1,
+        "probability": 1.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:yttrium"
           }
         ]

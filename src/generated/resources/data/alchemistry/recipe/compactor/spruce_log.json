@@ -2,12 +2,12 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:cellulose"
     }
   },
   "result": {
+    "count": 1,
     "id": "minecraft:spruce_log"
   }
 }

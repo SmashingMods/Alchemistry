@@ -3,25 +3,23 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:sucrose"
-      }
-    },
-    {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sucrose"
+      }
+    },
+    {
       "ingredient": {
         "item": "chemlib:nitrate"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:cactus"
   }
 }

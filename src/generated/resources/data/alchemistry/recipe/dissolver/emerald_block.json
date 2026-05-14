@@ -2,7 +2,6 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:emerald_block"
     }
@@ -10,22 +9,14 @@
   "output": {
     "groups": [
       {
-        "probability": 100,
+        "probability": 100.0,
         "results": [
           {
-            "count": 64,
+            "count": 72,
             "id": "chemlib:beryl"
           },
           {
-            "count": 8,
-            "id": "chemlib:beryl"
-          },
-          {
-            "count": 64,
-            "id": "chemlib:chromium"
-          },
-          {
-            "count": 8,
+            "count": 72,
             "id": "chemlib:chromium"
           },
           {

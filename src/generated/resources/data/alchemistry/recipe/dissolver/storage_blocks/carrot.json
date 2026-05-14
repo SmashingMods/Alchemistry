@@ -1,24 +1,33 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/carrot"
+      }
+    }
+  ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "count": 1,
     "ingredient": {
-      "tag": "forge:storage_blocks/carrot"
+      "tag": "c:storage_blocks/carrot"
     }
   },
   "output": {
     "groups": [
       {
-        "probability": 20,
+        "probability": 20.0,
         "results": [
           {
+            "count": 1,
             "id": "chemlib:beta_carotene"
           }
         ]
       },
       {
-        "probability": 80,
+        "probability": 80.0,
         "results": [
           {}
         ]
@@ -26,14 +35,5 @@
     ],
     "rolls": 9,
     "weighted": false
-  },
-  "neoforge:conditions": [
-    {
-      "type": "neoforge:not",
-      "value": {
-        "type": "neoforge:tag_empty",
-        "tag": "forge:storage_blocks/carrot"
-      }
-    }
-  ]
+  }
 }

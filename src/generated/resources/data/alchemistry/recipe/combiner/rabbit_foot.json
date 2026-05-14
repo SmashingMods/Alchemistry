@@ -9,13 +9,13 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:keratin"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "minecraft:rabbit_foot"
   }
 }

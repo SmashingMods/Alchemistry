@@ -3,25 +3,23 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 1,
-      "ingredient": {
-        "item": "chemlib:carbon"
-      }
-    },
-    {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:potassium"
       }
     },
     {
-      "count": 1,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    },
+    {
       "ingredient": {
         "item": "chemlib:nitrogen"
       }
     }
   ],
   "result": {
+    "count": 1,
     "id": "chemlib:potassium_cyanide"
   }
 }

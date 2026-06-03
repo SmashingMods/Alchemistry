@@ -182,6 +182,9 @@ publishing {
     }
 }
 
+// CurseForge publishing DISABLED for the NeoForge port (2026-06-03). No remote publishing during the port;
+// re-enable at release once credentials/game-versions are updated. cursegradle plugin left applied but dormant. See PORTING_LOG.
+/*
 curseforge {
     apiKey = secrets.getProperty("apiKey")
     project {
@@ -204,6 +207,7 @@ curseforge {
         }
     }
 }
+*/
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 

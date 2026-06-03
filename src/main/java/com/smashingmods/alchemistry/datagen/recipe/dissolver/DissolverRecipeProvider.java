@@ -39,7 +39,6 @@ public class DissolverRecipeProvider {
     private void register() {
         ChemlibRecipes.register(consumer);
         MinecraftRecipes.register(consumer);
-        ThermalRecipes.register(consumer);
     }
 
     public void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {

@@ -52,6 +52,18 @@ legacyForge {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+// Silent dev client: stamp a sound-off options.txt into the runClient game directory before every launch
+// so client runs never blast audio while working. Overwrites each run on purpose - these are throwaway test runs.
+tasks.register('prepareSilentClientOptions', Copy) {
+    description = 'Copies the sound-off options.txt template into the runClient game directory.'
+    from 'run-config/options.txt'
+    into tasks.named('runClient').flatMap { it.gameDirectory }
+}
+
+tasks.named('runClient') {
+    dependsOn 'prepareSilentClientOptions'
+}
+
 repositories {
     mavenLocal()
     maven { url "https://maven.blamejared.com" }

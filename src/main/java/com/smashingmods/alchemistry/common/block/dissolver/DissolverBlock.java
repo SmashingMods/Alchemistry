@@ -18,7 +18,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.network.NetworkHooks;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class DissolverBlock extends AbstractProcessingBlock {
 
@@ -54,7 +54,7 @@ public class DissolverBlock extends AbstractProcessingBlock {
     }
 
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@Nonnull Level pLevel, @Nonnull BlockState pState, @Nonnull BlockEntityType<T> pBlockEntityType) {
         if (!pLevel.isClientSide()) {
             return (level, pos, blockState, blockEntity) -> {
                 if (blockEntity instanceof DissolverBlockEntity) {

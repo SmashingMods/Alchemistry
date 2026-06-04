@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -53,7 +53,7 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+    public int compareTo(@Nonnull AbstractProcessingRecipe pRecipe) {
         return getId().compareTo(pRecipe.getId());
     }
 

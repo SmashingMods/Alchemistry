@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class FusionRecipeSerializer<T extends FusionRecipe> implements RecipeSerializer<T> {
 

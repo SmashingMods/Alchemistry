@@ -9,7 +9,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 public class CompactorRecipeResult implements FinishedRecipe {
 

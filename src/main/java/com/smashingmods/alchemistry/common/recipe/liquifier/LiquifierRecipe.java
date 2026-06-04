@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class LiquifierRecipe extends AbstractProcessingRecipe {
 
@@ -50,7 +50,7 @@ public class LiquifierRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+    public int compareTo(@Nonnull AbstractProcessingRecipe pRecipe) {
         return getId().compareNamespaced(pRecipe.getId());
     }
 

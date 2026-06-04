@@ -20,8 +20,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.LinkedList;
 
@@ -130,7 +130,7 @@ public class FissionControllerBlockEntity extends AbstractReactorBlockEntity {
             }
 
             @Override
-            public boolean isItemValid(int pSlot, @NotNull ItemStack pItemStack) {
+            public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
                     return ItemStack.isSameItemSameTags(currentRecipe.getInput(), pItemStack);
                 }

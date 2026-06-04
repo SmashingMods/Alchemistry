@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class CompactorRecipe extends AbstractProcessingRecipe {
 
@@ -55,7 +55,7 @@ public class CompactorRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
+    public int compareTo(@Nonnull AbstractProcessingRecipe pRecipe) {
         return getId().compareNamespaced(pRecipe.getId());
     }
 

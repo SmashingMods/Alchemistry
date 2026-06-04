@@ -1,116 +1,82 @@
 plugins {
     id 'java'
     id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.91'
     id 'com.matthewprenger.cursegradle' version '1.4.0'
-    id 'maven-publish'
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 apply plugin: 'maven-publish'
 
 version = "$minecraft_version-$mod_version"
 group = 'com.smashingmods'
+archivesBaseName = 'alchemistry'
 
-java {
-    archivesBaseName = 'alchemistry'
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
-    withSourcesJar()
-    withJavadocJar()
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-minecraft {
-    mappings channel: "$mapping_channel", version: "$mapping_version-1.20.1"
-    copyIdeResources = true
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+legacyForge {
+    enable {
+        neoForgeVersion = "${minecraft_version}-${forge_version}"
+    }
+
+    parchment {
+        minecraftVersion = mapping_version_minecraft
+        mappingsVersion = mapping_version
+    }
+
     runs {
         client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            mods {
-                alchemistry {
-                    source sourceSets.main
-                }
-            }
+            client()
         }
 
         server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            args 'nogui'
-
-            mods {
-                alchemistry {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        gameTestServer {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'alchemistry'
-
-            mods {
-                alchemistry {
-                    source sourceSets.main
-                }
-            }
+            server()
         }
 
         data {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            data()
+            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
 
-            args '--mod', "$archivesBaseName", '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
 
-            mods {
-                alchemistry {
-                    source sourceSets.main
-                }
-            }
+    mods {
+        alchemistry {
+            sourceSet sourceSets.main
         }
     }
 }
 
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 repositories {
-    maven { url "https://maven.tamaized.com/releases" }
-    maven { url "https://www.cursemaven.com" }
-    maven { url "https://dvs1.progwml6.com/files/maven/" }
+    mavenLocal()
     maven { url "https://maven.blamejared.com" }
+    maven { url "https://maven.tamaized.com/releases" }
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    modImplementation "smashingmods:chemlib:${minecraft_version}-${chemlib_version}"
+    modImplementation "smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}"
 
-    implementation fg.deobf("smashingmods:chemlib:${minecraft_version}-${chemlib_version}")
-    implementation fg.deobf("smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}")
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}"
+    modRuntimeOnly "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    modCompileOnly "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api"
+    modRuntimeOnly "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE"
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FORGE")
-
-//    runtimeOnly fg.deobf("curse.maven:ctm-267602:3737369")
-//    runtimeOnly fg.deobf("curse.maven:mekanism-268560:4020942")
-
-    runtimeOnly fg.deobf("curse.maven:generatorgalore-691049:4580850")
-    runtimeOnly fg.deobf("curse.maven:pipez-443900:4629656")
+//    modRuntimeOnly "curse.maven:ctm-267602:3737369"
+//    modRuntimeOnly "curse.maven:mekanism-268560:4020942"
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
@@ -157,6 +123,11 @@ fileTree("secrets").matching {
         file.withInputStream {
             stream -> secrets.load(stream)
         }
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 publishing {
@@ -208,10 +179,6 @@ curseforge {
     }
 }
 */
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-jar.finalizedBy('reobfJar')
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'

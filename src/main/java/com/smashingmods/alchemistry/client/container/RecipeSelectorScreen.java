@@ -91,7 +91,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             searchBox.setSuggestion(I18n.get("alchemistry.container.search"));
         } else {
             if (displayedRecipes.size() < MAX_DISPLAYED_RECIPES) {
-                mouseScrolled(0, 0, 0);
+                mouseScrolled(0, 0, 0, 0);
                 scrollOffset = 0.0f;
             }
             blockEntity.setSearchText(searchBox.getValue());
@@ -369,9 +369,9 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     @Override
-    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
+    public boolean mouseScrolled(double pMouseX, double pMouseY, double pScrollX, double pScrollY) {
         if (pMouseX >= leftPos && pMouseX < leftPos + imageWidth && pMouseY >= topPos && pMouseY < topPos + imageHeight && isScrollBarActive()) {
-            scrollOffset = Mth.clamp(scrollOffset - (float) pDelta / (float) getOffscreenRows(), 0.0f, 1.0f);
+            scrollOffset = Mth.clamp(scrollOffset - (float) pScrollY / (float) getOffscreenRows(), 0.0f, 1.0f);
             startIndex = (int) ((double) (scrollOffset * (float) getOffscreenRows()) + 0.5d) * COLUMNS;
         }
         return true;

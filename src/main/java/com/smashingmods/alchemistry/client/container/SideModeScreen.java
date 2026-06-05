@@ -62,7 +62,7 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         drawnTooltip = null;
-        renderBackground(pGuiGraphics);
+        renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         pGuiGraphics.drawCenteredString(font, title, width / 2, getMinY() - 7, 0xFF_FFFFFF);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         if (drawnTooltip != null) {
@@ -71,7 +71,7 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     }
 
     @Override
-    public void renderBackground(GuiGraphics pGuiGraphics) {
+    public void renderBackground(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         // Blitting a Ninepatch to screen by hand - because why not?
         pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
         pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner

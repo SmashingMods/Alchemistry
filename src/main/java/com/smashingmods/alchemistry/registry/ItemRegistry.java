@@ -21,7 +21,7 @@ public class ItemRegistry {
     }
 
     public static List<Item> getItems() {
-        return ITEMS.getEntries().stream().map(DeferredHolder::get).toList();
+        return ITEMS.getEntries().stream().<Item>map(DeferredHolder::get).toList();
     }
 
     public static void register(IEventBus eventBus) {

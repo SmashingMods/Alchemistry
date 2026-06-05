@@ -5,7 +5,6 @@ import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -52,6 +51,8 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, LiquifierRecipe pRecipe, IFocusGroup pFocusGroup) {
         pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addItemStacks(pRecipe.getInput().toStacks());
-        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addIngredient(ForgeTypes.FLUID_STACK, pRecipe.getOutput());
+        // JEI is dormant on NeoForge 1.20.2 (no NeoForge-flavored JEI yet, so this category never renders).
+        // The fluid output slot relied on the Forge-only ForgeTypes.FLUID_STACK; the JEI common-api exposes no
+        // usable platform-neutral fluid ingredient type here. Re-add the fluid slot when JEI ships a NeoForge build (1.20.4+).
     }
 }

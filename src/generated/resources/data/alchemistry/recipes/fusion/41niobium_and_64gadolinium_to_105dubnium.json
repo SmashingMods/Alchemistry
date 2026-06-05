@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/41niobium_and_64gadolinium_to_105dubnium",
   "input1": {
     "item": "chemlib:niobium"
   },

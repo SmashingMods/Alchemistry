@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/red_nether_brick_slab",
   "input": {
     "count": 1,
     "ingredient": {

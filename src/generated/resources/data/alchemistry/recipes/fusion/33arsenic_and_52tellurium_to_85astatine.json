@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/33arsenic_and_52tellurium_to_85astatine",
   "input1": {
     "item": "chemlib:arsenic"
   },

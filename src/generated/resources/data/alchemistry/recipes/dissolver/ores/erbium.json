@@ -1,41 +1,35 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ores/erbium"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:ores/erbium"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 100.0,
-              "results": [
-                {
-                  "count": 32,
-                  "item": "chemlib:erbium"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:ores/erbium"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/ores/erbium",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:ores/erbium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 32,
+            "item": "chemlib:erbium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
 }

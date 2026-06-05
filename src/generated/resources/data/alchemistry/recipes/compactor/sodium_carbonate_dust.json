@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/sodium_carbonate_dust",
   "input": {
     "count": 8,
     "ingredient": {

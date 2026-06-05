@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/30zinc_and_78platinum_to_108hassium",
   "input1": {
     "item": "chemlib:zinc"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/5boron_and_109meitnerium_to_114flerovium",
   "input1": {
     "item": "chemlib:boron"
   },

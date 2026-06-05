@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/melon_seeds",
   "input": [
     {
       "count": 1,

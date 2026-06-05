@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/45rhodium_and_68erbium_to_113nihonium",
   "input1": {
     "item": "chemlib:rhodium"
   },

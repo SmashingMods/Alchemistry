@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/31gallium_and_74tungsten_to_105dubnium",
   "input1": {
     "item": "chemlib:gallium"
   },

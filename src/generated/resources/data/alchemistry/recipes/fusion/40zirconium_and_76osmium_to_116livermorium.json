@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/40zirconium_and_76osmium_to_116livermorium",
   "input1": {
     "item": "chemlib:zirconium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/25manganese_and_36krypton_to_61promethium",
   "input1": {
     "item": "chemlib:manganese"
   },

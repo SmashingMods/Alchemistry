@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/popped_chorus_fruit",
   "input": {
     "count": 1,
     "ingredient": {

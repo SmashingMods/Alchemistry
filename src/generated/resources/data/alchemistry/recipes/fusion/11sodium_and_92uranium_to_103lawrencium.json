@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/11sodium_and_92uranium_to_103lawrencium",
   "input1": {
     "item": "chemlib:sodium"
   },

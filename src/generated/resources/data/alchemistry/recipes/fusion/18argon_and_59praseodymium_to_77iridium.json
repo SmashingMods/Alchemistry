@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_59praseodymium_to_77iridium",
   "input1": {
     "item": "chemlib:argon"
   },

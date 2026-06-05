@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/32germanium_and_49indium_to_81thallium",
   "input1": {
     "item": "chemlib:germanium"
   },

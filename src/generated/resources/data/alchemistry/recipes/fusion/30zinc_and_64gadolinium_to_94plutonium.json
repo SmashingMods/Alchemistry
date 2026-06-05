@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/30zinc_and_64gadolinium_to_94plutonium",
   "input1": {
     "item": "chemlib:zinc"
   },

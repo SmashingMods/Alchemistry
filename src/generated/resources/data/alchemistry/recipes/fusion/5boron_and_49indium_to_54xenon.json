@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/5boron_and_49indium_to_54xenon",
   "input1": {
     "item": "chemlib:boron"
   },

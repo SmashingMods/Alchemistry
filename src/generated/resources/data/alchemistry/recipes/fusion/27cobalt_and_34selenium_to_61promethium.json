@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/27cobalt_and_34selenium_to_61promethium",
   "input1": {
     "item": "chemlib:cobalt"
   },

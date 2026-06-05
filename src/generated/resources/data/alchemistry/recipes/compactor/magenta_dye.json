@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/magenta_dye",
   "input": {
     "count": 4,
     "ingredient": {

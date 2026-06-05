@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/chromium_oxide",
   "input": [
     {
       "count": 2,

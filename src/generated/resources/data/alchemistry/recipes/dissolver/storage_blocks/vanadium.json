@@ -1,49 +1,43 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:storage_blocks/vanadium"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:storage_blocks/vanadium"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 100.0,
-              "results": [
-                {
-                  "count": 64,
-                  "item": "chemlib:vanadium"
-                },
-                {
-                  "count": 64,
-                  "item": "chemlib:vanadium"
-                },
-                {
-                  "count": 16,
-                  "item": "chemlib:vanadium"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/vanadium"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/storage_blocks/vanadium",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/vanadium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 64,
+            "item": "chemlib:vanadium"
+          },
+          {
+            "count": 64,
+            "item": "chemlib:vanadium"
+          },
+          {
+            "count": 16,
+            "item": "chemlib:vanadium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
 }

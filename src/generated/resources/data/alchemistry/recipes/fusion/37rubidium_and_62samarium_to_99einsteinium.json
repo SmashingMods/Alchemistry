@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/37rubidium_and_62samarium_to_99einsteinium",
   "input1": {
     "item": "chemlib:rubidium"
   },

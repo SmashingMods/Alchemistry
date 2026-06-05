@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
+  "id": "alchemistry:fission/ytterbium",
   "input": {
     "item": "chemlib:ytterbium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
+  "id": "alchemistry:fission/holmium",
   "input": {
     "item": "chemlib:holmium"
   },

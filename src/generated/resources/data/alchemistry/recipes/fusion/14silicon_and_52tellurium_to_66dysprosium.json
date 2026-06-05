@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_52tellurium_to_66dysprosium",
   "input1": {
     "item": "chemlib:silicon"
   },

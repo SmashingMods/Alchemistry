@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/beta_carotene_dust",
   "input": [
     {
       "count": 8,

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
+  "id": "alchemistry:fission/platinum",
   "input": {
     "item": "chemlib:platinum"
   },

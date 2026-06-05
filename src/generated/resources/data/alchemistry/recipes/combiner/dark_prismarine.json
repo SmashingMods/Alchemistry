@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/dark_prismarine",
   "input": [
     {
       "count": 4,

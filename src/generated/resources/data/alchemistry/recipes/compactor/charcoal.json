@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/charcoal",
   "input": {
     "count": 2,
     "ingredient": {

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/9fluorine_and_44ruthenium_to_53iodine",
   "input1": {
     "item": "chemlib:fluorine"
   },

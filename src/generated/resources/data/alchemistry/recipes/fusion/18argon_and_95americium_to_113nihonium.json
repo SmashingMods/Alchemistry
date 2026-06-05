@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_95americium_to_113nihonium",
   "input1": {
     "item": "chemlib:argon"
   },

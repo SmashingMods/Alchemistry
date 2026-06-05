@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/24chromium_and_69thulium_to_93neptunium",
   "input1": {
     "item": "chemlib:chromium"
   },

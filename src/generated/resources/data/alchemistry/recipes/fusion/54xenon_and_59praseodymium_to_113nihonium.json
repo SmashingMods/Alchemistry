@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/54xenon_and_59praseodymium_to_113nihonium",
   "input1": {
     "item": "chemlib:xenon"
   },

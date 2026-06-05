@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/mullite_dust",
   "input": {
     "count": 1,
     "ingredient": {

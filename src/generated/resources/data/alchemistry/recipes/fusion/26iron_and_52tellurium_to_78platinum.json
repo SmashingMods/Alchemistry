@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_52tellurium_to_78platinum",
   "input1": {
     "item": "chemlib:iron"
   },

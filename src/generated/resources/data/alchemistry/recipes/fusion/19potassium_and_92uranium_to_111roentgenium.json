@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/19potassium_and_92uranium_to_111roentgenium",
   "input1": {
     "item": "chemlib:potassium"
   },

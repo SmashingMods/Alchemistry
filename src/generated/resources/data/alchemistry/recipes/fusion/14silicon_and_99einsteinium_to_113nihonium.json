@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_99einsteinium_to_113nihonium",
   "input1": {
     "item": "chemlib:silicon"
   },

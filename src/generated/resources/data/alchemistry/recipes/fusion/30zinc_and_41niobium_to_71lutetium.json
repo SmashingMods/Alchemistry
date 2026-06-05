@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/30zinc_and_41niobium_to_71lutetium",
   "input1": {
     "item": "chemlib:zinc"
   },

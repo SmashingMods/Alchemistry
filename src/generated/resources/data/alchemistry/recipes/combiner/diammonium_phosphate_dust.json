@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/diammonium_phosphate_dust",
   "input": [
     {
       "count": 8,

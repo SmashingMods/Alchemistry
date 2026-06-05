@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_92uranium_to_106seaborgium",
   "input1": {
     "item": "chemlib:silicon"
   },

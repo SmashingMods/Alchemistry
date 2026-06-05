@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/23vanadium_and_23vanadium_to_46palladium",
   "input1": {
     "item": "chemlib:vanadium"
   },

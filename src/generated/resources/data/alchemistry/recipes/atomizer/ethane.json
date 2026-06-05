@@ -1,8 +1,9 @@
 {
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
+  "id": "alchemistry:atomizer/ethane",
   "input": {
-    "amount": "500",
+    "amount": 500,
     "fluid": "chemlib:methane_fluid"
   },
   "result": {

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_41niobium_to_67holmium",
   "input1": {
     "item": "chemlib:iron"
   },

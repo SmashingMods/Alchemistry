@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/30zinc_and_80mercury_to_110darmstadtium",
   "input1": {
     "item": "chemlib:zinc"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_34selenium_to_60neodymium",
   "input1": {
     "item": "chemlib:iron"
   },

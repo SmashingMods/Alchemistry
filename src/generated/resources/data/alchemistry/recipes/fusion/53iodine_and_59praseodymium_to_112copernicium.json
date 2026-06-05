@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/53iodine_and_59praseodymium_to_112copernicium",
   "input1": {
     "item": "chemlib:iodine"
   },

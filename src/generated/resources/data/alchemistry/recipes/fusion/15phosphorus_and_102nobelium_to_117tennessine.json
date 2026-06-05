@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/15phosphorus_and_102nobelium_to_117tennessine",
   "input1": {
     "item": "chemlib:phosphorus"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/49indium_and_51antimony_to_100fermium",
   "input1": {
     "item": "chemlib:indium"
   },

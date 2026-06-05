@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_31gallium_to_57lanthanum",
   "input1": {
     "item": "chemlib:iron"
   },

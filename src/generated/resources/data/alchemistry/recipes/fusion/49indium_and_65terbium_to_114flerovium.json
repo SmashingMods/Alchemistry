@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/49indium_and_65terbium_to_114flerovium",
   "input1": {
     "item": "chemlib:indium"
   },

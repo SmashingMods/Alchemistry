@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/30zinc_and_86radon_to_116livermorium",
   "input1": {
     "item": "chemlib:zinc"
   },

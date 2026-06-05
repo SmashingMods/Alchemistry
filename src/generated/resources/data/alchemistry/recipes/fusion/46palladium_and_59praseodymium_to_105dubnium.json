@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/46palladium_and_59praseodymium_to_105dubnium",
   "input1": {
     "item": "chemlib:palladium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/15phosphorus_and_24chromium_to_39yttrium",
   "input1": {
     "item": "chemlib:phosphorus"
   },

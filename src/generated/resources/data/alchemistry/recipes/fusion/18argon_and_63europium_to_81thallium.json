@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_63europium_to_81thallium",
   "input1": {
     "item": "chemlib:argon"
   },

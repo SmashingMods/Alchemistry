@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/2helium_and_37rubidium_to_39yttrium",
   "input1": {
     "item": "chemlib:helium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/49indium_and_66dysprosium_to_115moscovium",
   "input1": {
     "item": "chemlib:indium"
   },

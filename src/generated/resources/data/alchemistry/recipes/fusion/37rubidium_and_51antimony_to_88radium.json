@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/37rubidium_and_51antimony_to_88radium",
   "input1": {
     "item": "chemlib:rubidium"
   },

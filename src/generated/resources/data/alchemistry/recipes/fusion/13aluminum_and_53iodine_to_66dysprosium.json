@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/13aluminum_and_53iodine_to_66dysprosium",
   "input1": {
     "item": "chemlib:aluminum"
   },

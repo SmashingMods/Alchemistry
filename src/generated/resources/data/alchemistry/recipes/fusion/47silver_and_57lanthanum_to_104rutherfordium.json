@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/47silver_and_57lanthanum_to_104rutherfordium",
   "input1": {
     "item": "chemlib:silver"
   },

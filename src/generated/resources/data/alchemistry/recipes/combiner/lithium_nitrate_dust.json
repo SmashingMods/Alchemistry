@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/lithium_nitrate_dust",
   "input": [
     {
       "count": 8,

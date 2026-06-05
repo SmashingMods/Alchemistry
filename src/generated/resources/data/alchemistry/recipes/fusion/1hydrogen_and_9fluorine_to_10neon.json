@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_9fluorine_to_10neon",
   "input1": {
     "item": "chemlib:hydrogen"
   },

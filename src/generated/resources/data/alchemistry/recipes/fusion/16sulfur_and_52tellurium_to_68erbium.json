@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/16sulfur_and_52tellurium_to_68erbium",
   "input1": {
     "item": "chemlib:sulfur"
   },

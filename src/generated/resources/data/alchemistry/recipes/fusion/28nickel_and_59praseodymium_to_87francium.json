@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/28nickel_and_59praseodymium_to_87francium",
   "input1": {
     "item": "chemlib:nickel"
   },

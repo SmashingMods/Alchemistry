@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/9fluorine_and_45rhodium_to_54xenon",
   "input1": {
     "item": "chemlib:fluorine"
   },

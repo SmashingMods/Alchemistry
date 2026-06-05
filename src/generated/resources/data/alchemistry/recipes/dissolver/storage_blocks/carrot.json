@@ -1,48 +1,42 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:storage_blocks/carrot"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:storage_blocks/carrot"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 20.0,
-              "results": [
-                {
-                  "item": "chemlib:beta_carotene"
-                }
-              ]
-            },
-            {
-              "probability": 80.0,
-              "results": [
-                {
-                  "item": "minecraft:air"
-                }
-              ]
-            }
-          ],
-          "rolls": 9,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/carrot"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/storage_blocks/carrot",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/carrot"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 20.0,
+        "results": [
+          {
+            "item": "chemlib:beta_carotene"
+          }
+        ]
+      },
+      {
+        "probability": 80.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      }
+    ],
+    "rolls": 9,
+    "weighted": false
+  }
 }

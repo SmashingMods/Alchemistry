@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/4beryllium_and_49indium_to_53iodine",
   "input1": {
     "item": "chemlib:beryllium"
   },

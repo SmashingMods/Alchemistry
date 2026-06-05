@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/17chlorine_and_69thulium_to_86radon",
   "input1": {
     "item": "chemlib:chlorine"
   },

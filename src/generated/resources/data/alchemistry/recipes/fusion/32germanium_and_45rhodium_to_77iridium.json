@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/32germanium_and_45rhodium_to_77iridium",
   "input1": {
     "item": "chemlib:germanium"
   },

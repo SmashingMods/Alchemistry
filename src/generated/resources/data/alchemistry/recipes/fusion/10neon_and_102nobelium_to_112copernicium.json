@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/10neon_and_102nobelium_to_112copernicium",
   "input1": {
     "item": "chemlib:neon"
   },

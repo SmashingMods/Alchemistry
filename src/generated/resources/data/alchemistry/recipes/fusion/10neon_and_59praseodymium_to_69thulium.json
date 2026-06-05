@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/10neon_and_59praseodymium_to_69thulium",
   "input1": {
     "item": "chemlib:neon"
   },

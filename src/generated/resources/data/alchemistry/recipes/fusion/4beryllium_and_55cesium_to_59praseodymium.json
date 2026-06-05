@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/4beryllium_and_55cesium_to_59praseodymium",
   "input1": {
     "item": "chemlib:beryllium"
   },

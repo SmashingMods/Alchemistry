@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_84polonium_to_98californium",
   "input1": {
     "item": "chemlib:silicon"
   },

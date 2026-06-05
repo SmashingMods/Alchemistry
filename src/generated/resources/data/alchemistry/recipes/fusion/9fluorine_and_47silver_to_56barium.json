@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/9fluorine_and_47silver_to_56barium",
   "input1": {
     "item": "chemlib:fluorine"
   },

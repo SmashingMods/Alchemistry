@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/52tellurium_and_63europium_to_115moscovium",
   "input1": {
     "item": "chemlib:tellurium"
   },

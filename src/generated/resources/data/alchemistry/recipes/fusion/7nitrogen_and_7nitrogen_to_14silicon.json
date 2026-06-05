@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/7nitrogen_and_7nitrogen_to_14silicon",
   "input1": {
     "item": "chemlib:nitrogen"
   },

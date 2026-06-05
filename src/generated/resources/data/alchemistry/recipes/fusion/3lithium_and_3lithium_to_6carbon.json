@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/3lithium_and_3lithium_to_6carbon",
   "input1": {
     "item": "chemlib:lithium"
   },

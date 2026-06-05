@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/magenta_concrete_powder",
   "input": {
     "count": 1,
     "ingredient": {

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/5boron_and_98californium_to_103lawrencium",
   "input1": {
     "item": "chemlib:boron"
   },

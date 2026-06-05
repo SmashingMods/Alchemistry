@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/cobalt_aluminate",
   "input": {
     "count": 1,
     "ingredient": {

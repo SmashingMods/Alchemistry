@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/5boron_and_7nitrogen_to_12magnesium",
   "input1": {
     "item": "chemlib:boron"
   },

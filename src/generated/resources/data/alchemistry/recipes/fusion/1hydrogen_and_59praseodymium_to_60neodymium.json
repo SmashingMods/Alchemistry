@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_59praseodymium_to_60neodymium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

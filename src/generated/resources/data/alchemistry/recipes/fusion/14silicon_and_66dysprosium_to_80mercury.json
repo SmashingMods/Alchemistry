@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_66dysprosium_to_80mercury",
   "input1": {
     "item": "chemlib:silicon"
   },

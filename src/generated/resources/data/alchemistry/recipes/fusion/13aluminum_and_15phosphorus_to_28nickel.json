@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/13aluminum_and_15phosphorus_to_28nickel",
   "input1": {
     "item": "chemlib:aluminum"
   },

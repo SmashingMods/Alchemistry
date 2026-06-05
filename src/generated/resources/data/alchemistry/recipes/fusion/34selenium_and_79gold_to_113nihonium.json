@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/34selenium_and_79gold_to_113nihonium",
   "input1": {
     "item": "chemlib:selenium"
   },

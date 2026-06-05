@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/big_dripleaf",
   "input": {
     "count": 1,
     "ingredient": {

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/pink_glazed_terracotta",
   "input": {
     "count": 1,
     "ingredient": {

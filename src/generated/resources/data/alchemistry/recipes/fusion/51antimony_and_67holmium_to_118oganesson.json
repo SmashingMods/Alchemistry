@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/51antimony_and_67holmium_to_118oganesson",
   "input1": {
     "item": "chemlib:antimony"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/19potassium_and_59praseodymium_to_78platinum",
   "input1": {
     "item": "chemlib:potassium"
   },

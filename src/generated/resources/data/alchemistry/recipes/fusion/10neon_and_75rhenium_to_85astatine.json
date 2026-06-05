@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/10neon_and_75rhenium_to_85astatine",
   "input1": {
     "item": "chemlib:neon"
   },

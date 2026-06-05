@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/20calcium_and_40zirconium_to_60neodymium",
   "input1": {
     "item": "chemlib:calcium"
   },

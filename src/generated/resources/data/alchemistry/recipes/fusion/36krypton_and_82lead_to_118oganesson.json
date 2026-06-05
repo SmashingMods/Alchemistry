@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/36krypton_and_82lead_to_118oganesson",
   "input1": {
     "item": "chemlib:krypton"
   },

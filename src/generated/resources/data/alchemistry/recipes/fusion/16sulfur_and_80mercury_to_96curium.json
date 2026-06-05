@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/16sulfur_and_80mercury_to_96curium",
   "input1": {
     "item": "chemlib:sulfur"
   },

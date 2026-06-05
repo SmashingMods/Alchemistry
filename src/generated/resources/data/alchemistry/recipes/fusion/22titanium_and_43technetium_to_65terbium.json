@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/22titanium_and_43technetium_to_65terbium",
   "input1": {
     "item": "chemlib:titanium"
   },

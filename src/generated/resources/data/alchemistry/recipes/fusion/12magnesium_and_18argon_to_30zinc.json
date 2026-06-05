@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/12magnesium_and_18argon_to_30zinc",
   "input1": {
     "item": "chemlib:magnesium"
   },

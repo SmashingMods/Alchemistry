@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_104rutherfordium_to_105dubnium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

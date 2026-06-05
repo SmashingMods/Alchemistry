@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_78platinum_to_104rutherfordium",
   "input1": {
     "item": "chemlib:iron"
   },

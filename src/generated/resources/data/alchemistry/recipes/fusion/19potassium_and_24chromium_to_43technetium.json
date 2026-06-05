@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/19potassium_and_24chromium_to_43technetium",
   "input1": {
     "item": "chemlib:potassium"
   },

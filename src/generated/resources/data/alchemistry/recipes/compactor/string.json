@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/string",
   "input": {
     "count": 1,
     "ingredient": {

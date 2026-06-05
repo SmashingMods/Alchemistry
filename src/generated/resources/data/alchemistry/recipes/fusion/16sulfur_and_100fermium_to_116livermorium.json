@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/16sulfur_and_100fermium_to_116livermorium",
   "input1": {
     "item": "chemlib:sulfur"
   },

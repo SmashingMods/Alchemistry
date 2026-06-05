@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/dead_fire_coral",
   "input": {
     "count": 1,
     "ingredient": {

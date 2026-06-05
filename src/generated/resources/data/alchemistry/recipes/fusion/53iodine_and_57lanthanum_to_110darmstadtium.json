@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/53iodine_and_57lanthanum_to_110darmstadtium",
   "input1": {
     "item": "chemlib:iodine"
   },

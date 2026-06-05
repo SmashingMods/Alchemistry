@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/28nickel_and_55cesium_to_83bismuth",
   "input1": {
     "item": "chemlib:nickel"
   },

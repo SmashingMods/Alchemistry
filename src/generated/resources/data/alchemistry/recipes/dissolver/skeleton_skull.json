@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/skeleton_skull",
   "input": {
     "count": 1,
     "ingredient": {

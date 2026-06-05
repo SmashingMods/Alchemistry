@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_107bohrium_to_108hassium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

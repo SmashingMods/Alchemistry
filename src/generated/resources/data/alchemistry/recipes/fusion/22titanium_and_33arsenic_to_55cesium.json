@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/22titanium_and_33arsenic_to_55cesium",
   "input1": {
     "item": "chemlib:titanium"
   },

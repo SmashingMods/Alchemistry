@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/16sulfur_and_72hafnium_to_88radium",
   "input1": {
     "item": "chemlib:sulfur"
   },

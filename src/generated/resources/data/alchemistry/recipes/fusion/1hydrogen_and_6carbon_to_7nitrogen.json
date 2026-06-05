@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_6carbon_to_7nitrogen",
   "input1": {
     "item": "chemlib:hydrogen"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/12magnesium_and_19potassium_to_31gallium",
   "input1": {
     "item": "chemlib:magnesium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/49indium_and_68erbium_to_117tennessine",
   "input1": {
     "item": "chemlib:indium"
   },

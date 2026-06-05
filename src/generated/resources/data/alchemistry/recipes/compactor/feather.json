@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/feather",
   "input": {
     "count": 2,
     "ingredient": {

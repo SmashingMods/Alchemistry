@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_38strontium_to_52tellurium",
   "input1": {
     "item": "chemlib:silicon"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/3lithium_and_6carbon_to_9fluorine",
   "input1": {
     "item": "chemlib:lithium"
   },

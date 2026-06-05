@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/32germanium_and_34selenium_to_66dysprosium",
   "input1": {
     "item": "chemlib:germanium"
   },

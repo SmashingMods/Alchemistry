@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_19potassium_to_20calcium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

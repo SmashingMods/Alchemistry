@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/17chlorine_and_52tellurium_to_69thulium",
   "input1": {
     "item": "chemlib:chlorine"
   },

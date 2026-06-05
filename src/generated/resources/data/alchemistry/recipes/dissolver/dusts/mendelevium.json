@@ -1,41 +1,35 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:dusts/mendelevium"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:dusts/mendelevium"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 100.0,
-              "results": [
-                {
-                  "count": 16,
-                  "item": "chemlib:mendelevium"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/mendelevium"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/dusts/mendelevium",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:dusts/mendelevium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 16,
+            "item": "chemlib:mendelevium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
 }

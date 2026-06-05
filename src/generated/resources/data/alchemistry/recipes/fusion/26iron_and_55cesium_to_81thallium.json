@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_55cesium_to_81thallium",
   "input1": {
     "item": "chemlib:iron"
   },

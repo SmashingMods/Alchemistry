@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_64gadolinium_to_90thorium",
   "input1": {
     "item": "chemlib:iron"
   },

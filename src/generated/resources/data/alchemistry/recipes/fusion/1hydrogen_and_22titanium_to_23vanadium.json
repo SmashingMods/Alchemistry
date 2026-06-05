@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_22titanium_to_23vanadium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

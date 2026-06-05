@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/dyes/purple",
   "input": {
     "count": 1,
     "ingredient": {

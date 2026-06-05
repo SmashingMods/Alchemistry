@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/gilded_blackstone",
   "input": {
     "count": 1,
     "ingredient": {

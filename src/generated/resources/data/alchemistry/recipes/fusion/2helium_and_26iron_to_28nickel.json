@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/2helium_and_26iron_to_28nickel",
   "input1": {
     "item": "chemlib:helium"
   },

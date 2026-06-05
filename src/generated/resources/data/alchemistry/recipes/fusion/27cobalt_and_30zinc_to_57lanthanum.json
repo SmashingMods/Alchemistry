@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/27cobalt_and_30zinc_to_57lanthanum",
   "input1": {
     "item": "chemlib:cobalt"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
+  "id": "alchemistry:fission/carbon",
   "input": {
     "item": "chemlib:carbon"
   },

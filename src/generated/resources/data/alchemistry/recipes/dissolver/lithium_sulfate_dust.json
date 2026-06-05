@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/lithium_sulfate_dust",
   "input": {
     "count": 1,
     "ingredient": {

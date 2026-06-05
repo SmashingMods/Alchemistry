@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/39yttrium_and_73tantalum_to_112copernicium",
   "input1": {
     "item": "chemlib:yttrium"
   },

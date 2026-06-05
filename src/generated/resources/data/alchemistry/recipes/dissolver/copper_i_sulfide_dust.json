@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/copper_i_sulfide_dust",
   "input": {
     "count": 1,
     "ingredient": {

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_83bismuth_to_101mendelevium",
   "input1": {
     "item": "chemlib:argon"
   },

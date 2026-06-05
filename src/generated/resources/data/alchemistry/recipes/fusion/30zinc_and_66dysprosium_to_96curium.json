@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/30zinc_and_66dysprosium_to_96curium",
   "input1": {
     "item": "chemlib:zinc"
   },

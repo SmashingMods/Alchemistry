@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_29copper_to_47silver",
   "input1": {
     "item": "chemlib:argon"
   },

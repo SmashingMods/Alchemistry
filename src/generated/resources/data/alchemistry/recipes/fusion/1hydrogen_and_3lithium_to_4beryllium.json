@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_3lithium_to_4beryllium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

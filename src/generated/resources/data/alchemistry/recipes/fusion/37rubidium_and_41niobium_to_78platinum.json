@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/37rubidium_and_41niobium_to_78platinum",
   "input1": {
     "item": "chemlib:rubidium"
   },

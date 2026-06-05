@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/25manganese_and_60neodymium_to_85astatine",
   "input1": {
     "item": "chemlib:manganese"
   },

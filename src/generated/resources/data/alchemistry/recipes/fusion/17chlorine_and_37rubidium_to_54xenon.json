@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/17chlorine_and_37rubidium_to_54xenon",
   "input1": {
     "item": "chemlib:chlorine"
   },

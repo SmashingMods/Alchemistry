@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/31gallium_and_52tellurium_to_83bismuth",
   "input1": {
     "item": "chemlib:gallium"
   },

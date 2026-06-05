@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/13aluminum_and_23vanadium_to_36krypton",
   "input1": {
     "item": "chemlib:aluminum"
   },

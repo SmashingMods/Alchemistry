@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/red_nether_bricks",
   "input": {
     "count": 1,
     "ingredient": {

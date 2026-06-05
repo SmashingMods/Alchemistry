@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/13aluminum_and_81thallium_to_94plutonium",
   "input1": {
     "item": "chemlib:aluminum"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/16sulfur_and_98californium_to_114flerovium",
   "input1": {
     "item": "chemlib:sulfur"
   },

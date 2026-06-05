@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/light_gray_dye",
   "input": {
     "count": 4,
     "ingredient": {

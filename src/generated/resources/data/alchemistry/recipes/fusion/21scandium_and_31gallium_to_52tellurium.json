@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/21scandium_and_31gallium_to_52tellurium",
   "input1": {
     "item": "chemlib:scandium"
   },

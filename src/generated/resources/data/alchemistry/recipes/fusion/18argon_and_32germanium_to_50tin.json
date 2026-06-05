@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_32germanium_to_50tin",
   "input1": {
     "item": "chemlib:argon"
   },

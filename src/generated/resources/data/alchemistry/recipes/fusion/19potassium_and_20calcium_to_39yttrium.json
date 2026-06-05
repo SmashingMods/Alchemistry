@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/19potassium_and_20calcium_to_39yttrium",
   "input1": {
     "item": "chemlib:potassium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_19potassium_to_33arsenic",
   "input1": {
     "item": "chemlib:silicon"
   },

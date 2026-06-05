@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_71lutetium_to_85astatine",
   "input1": {
     "item": "chemlib:silicon"
   },

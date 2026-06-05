@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/29copper_and_32germanium_to_61promethium",
   "input1": {
     "item": "chemlib:copper"
   },

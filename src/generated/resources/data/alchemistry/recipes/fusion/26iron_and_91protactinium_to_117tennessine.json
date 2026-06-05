@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_91protactinium_to_117tennessine",
   "input1": {
     "item": "chemlib:iron"
   },

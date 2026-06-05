@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/35bromine_and_59praseodymium_to_94plutonium",
   "input1": {
     "item": "chemlib:bromine"
   },

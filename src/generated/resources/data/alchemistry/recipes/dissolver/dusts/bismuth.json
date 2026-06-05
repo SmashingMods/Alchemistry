@@ -1,41 +1,35 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:dusts/bismuth"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:dusts/bismuth"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 100.0,
-              "results": [
-                {
-                  "count": 16,
-                  "item": "chemlib:bismuth"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:dusts/bismuth"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/dusts/bismuth",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:dusts/bismuth"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 16,
+            "item": "chemlib:bismuth"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
 }

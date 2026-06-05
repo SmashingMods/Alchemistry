@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/5boron_and_29copper_to_34selenium",
   "input1": {
     "item": "chemlib:boron"
   },

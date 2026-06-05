@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/19potassium_and_91protactinium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:potassium"
   },

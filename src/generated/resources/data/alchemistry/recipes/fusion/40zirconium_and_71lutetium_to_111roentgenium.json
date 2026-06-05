@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/40zirconium_and_71lutetium_to_111roentgenium",
   "input1": {
     "item": "chemlib:zirconium"
   },

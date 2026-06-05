@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/10neon_and_76osmium_to_86radon",
   "input1": {
     "item": "chemlib:neon"
   },

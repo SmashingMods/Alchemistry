@@ -1,41 +1,35 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "neoforge:conditions": [
     {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:plates/sodium"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "alchemistry:dissolver",
-        "group": "alchemistry:dissolver",
-        "input": {
-          "count": 1,
-          "ingredient": {
-            "tag": "forge:plates/sodium"
-          }
-        },
-        "output": {
-          "groups": [
-            {
-              "probability": 100.0,
-              "results": [
-                {
-                  "count": 16,
-                  "item": "chemlib:sodium"
-                }
-              ]
-            }
-          ],
-          "rolls": 1,
-          "weighted": false
-        }
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:plates/sodium"
       }
     }
-  ]
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/plates/sodium",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:plates/sodium"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 16,
+            "item": "chemlib:sodium"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
 }

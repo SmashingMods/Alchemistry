@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_82lead_to_96curium",
   "input1": {
     "item": "chemlib:silicon"
   },

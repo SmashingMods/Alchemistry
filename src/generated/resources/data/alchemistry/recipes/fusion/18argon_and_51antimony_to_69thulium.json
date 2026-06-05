@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_51antimony_to_69thulium",
   "input1": {
     "item": "chemlib:argon"
   },

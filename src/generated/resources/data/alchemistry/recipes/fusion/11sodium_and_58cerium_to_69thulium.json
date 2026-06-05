@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/11sodium_and_58cerium_to_69thulium",
   "input1": {
     "item": "chemlib:sodium"
   },

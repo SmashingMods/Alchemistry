@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_26iron_to_40zirconium",
   "input1": {
     "item": "chemlib:silicon"
   },

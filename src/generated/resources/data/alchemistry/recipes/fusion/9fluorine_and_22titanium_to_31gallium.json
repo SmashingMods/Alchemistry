@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/9fluorine_and_22titanium_to_31gallium",
   "input1": {
     "item": "chemlib:fluorine"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_40zirconium_to_54xenon",
   "input1": {
     "item": "chemlib:silicon"
   },

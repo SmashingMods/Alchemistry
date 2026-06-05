@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
+  "id": "alchemistry:combiner/potassium_carbonate_dust",
   "input": [
     {
       "count": 8,

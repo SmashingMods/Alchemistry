@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/21scandium_and_89actinium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:scandium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/19potassium_and_50tin_to_69thulium",
   "input1": {
     "item": "chemlib:potassium"
   },

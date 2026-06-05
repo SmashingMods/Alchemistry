@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/20calcium_and_20calcium_to_40zirconium",
   "input1": {
     "item": "chemlib:calcium"
   },

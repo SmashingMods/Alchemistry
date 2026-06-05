@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_54xenon_to_68erbium",
   "input1": {
     "item": "chemlib:silicon"
   },

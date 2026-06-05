@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_88radium_to_102nobelium",
   "input1": {
     "item": "chemlib:silicon"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/42molybdenum_and_74tungsten_to_116livermorium",
   "input1": {
     "item": "chemlib:molybdenum"
   },

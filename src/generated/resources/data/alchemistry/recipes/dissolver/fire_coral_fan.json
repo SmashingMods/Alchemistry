@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/fire_coral_fan",
   "input": {
     "count": 1,
     "ingredient": {

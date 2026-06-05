@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_13aluminum_to_14silicon",
   "input1": {
     "item": "chemlib:hydrogen"
   },

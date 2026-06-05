@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/26iron_and_26iron_to_52tellurium",
   "input1": {
     "item": "chemlib:iron"
   },

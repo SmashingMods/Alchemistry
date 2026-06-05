@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/35bromine_and_82lead_to_117tennessine",
   "input1": {
     "item": "chemlib:bromine"
   },

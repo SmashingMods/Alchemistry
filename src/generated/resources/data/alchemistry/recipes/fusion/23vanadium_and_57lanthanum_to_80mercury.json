@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/23vanadium_and_57lanthanum_to_80mercury",
   "input1": {
     "item": "chemlib:vanadium"
   },

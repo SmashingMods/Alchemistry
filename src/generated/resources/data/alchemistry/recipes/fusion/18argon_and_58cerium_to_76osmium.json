@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_58cerium_to_76osmium",
   "input1": {
     "item": "chemlib:argon"
   },

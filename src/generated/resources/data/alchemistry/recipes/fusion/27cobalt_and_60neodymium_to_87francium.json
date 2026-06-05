@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/27cobalt_and_60neodymium_to_87francium",
   "input1": {
     "item": "chemlib:cobalt"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/4beryllium_and_19potassium_to_23vanadium",
   "input1": {
     "item": "chemlib:beryllium"
   },

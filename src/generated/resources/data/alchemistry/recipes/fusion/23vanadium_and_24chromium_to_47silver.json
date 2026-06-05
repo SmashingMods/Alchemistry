@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/23vanadium_and_24chromium_to_47silver",
   "input1": {
     "item": "chemlib:vanadium"
   },

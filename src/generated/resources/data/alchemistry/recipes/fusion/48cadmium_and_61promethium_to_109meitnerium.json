@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/48cadmium_and_61promethium_to_109meitnerium",
   "input1": {
     "item": "chemlib:cadmium"
   },

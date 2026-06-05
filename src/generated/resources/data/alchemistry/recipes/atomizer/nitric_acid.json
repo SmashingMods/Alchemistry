@@ -1,8 +1,9 @@
 {
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
+  "id": "alchemistry:atomizer/nitric_acid",
   "input": {
-    "amount": "500",
+    "amount": 500,
     "fluid": "chemlib:nitric_acid_fluid"
   },
   "result": {

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_33arsenic_to_47silver",
   "input1": {
     "item": "chemlib:silicon"
   },

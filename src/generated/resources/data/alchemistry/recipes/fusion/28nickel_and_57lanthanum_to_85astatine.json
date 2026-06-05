@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/28nickel_and_57lanthanum_to_85astatine",
   "input1": {
     "item": "chemlib:nickel"
   },

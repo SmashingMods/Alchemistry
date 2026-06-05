@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/2helium_and_21scandium_to_23vanadium",
   "input1": {
     "item": "chemlib:helium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/18argon_and_57lanthanum_to_75rhenium",
   "input1": {
     "item": "chemlib:argon"
   },

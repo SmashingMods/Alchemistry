@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/32germanium_and_40zirconium_to_72hafnium",
   "input1": {
     "item": "chemlib:germanium"
   },

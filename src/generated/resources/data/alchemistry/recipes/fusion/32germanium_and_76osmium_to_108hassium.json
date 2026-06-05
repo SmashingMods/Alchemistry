@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/32germanium_and_76osmium_to_108hassium",
   "input1": {
     "item": "chemlib:germanium"
   },

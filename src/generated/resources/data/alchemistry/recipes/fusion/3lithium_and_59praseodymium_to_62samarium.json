@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/3lithium_and_59praseodymium_to_62samarium",
   "input1": {
     "item": "chemlib:lithium"
   },

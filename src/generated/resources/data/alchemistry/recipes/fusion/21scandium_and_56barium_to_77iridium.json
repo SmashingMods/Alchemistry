@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/21scandium_and_56barium_to_77iridium",
   "input1": {
     "item": "chemlib:scandium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/22titanium_and_62samarium_to_84polonium",
   "input1": {
     "item": "chemlib:titanium"
   },

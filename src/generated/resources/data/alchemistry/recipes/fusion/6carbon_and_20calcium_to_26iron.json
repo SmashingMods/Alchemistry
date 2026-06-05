@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/6carbon_and_20calcium_to_26iron",
   "input1": {
     "item": "chemlib:carbon"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/9fluorine_and_79gold_to_88radium",
   "input1": {
     "item": "chemlib:fluorine"
   },

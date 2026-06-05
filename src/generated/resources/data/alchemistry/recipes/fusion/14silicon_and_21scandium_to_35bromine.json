@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_21scandium_to_35bromine",
   "input1": {
     "item": "chemlib:silicon"
   },

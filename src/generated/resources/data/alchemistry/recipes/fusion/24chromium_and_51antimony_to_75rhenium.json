@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/24chromium_and_51antimony_to_75rhenium",
   "input1": {
     "item": "chemlib:chromium"
   },

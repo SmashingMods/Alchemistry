@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/15phosphorus_and_33arsenic_to_48cadmium",
   "input1": {
     "item": "chemlib:phosphorus"
   },

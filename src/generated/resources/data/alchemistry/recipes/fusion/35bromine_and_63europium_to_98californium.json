@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/35bromine_and_63europium_to_98californium",
   "input1": {
     "item": "chemlib:bromine"
   },

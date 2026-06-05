@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/6carbon_and_36krypton_to_42molybdenum",
   "input1": {
     "item": "chemlib:carbon"
   },

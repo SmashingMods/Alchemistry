@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
+  "id": "alchemistry:compactor/magnesium_oxide_dust",
   "input": {
     "count": 8,
     "ingredient": {

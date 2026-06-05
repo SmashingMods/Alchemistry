@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/27cobalt_and_82lead_to_109meitnerium",
   "input1": {
     "item": "chemlib:cobalt"
   },

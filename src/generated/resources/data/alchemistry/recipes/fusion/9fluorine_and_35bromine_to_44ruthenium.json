@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/9fluorine_and_35bromine_to_44ruthenium",
   "input1": {
     "item": "chemlib:fluorine"
   },

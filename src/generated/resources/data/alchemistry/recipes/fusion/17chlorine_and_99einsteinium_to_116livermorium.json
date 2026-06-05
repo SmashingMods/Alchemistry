@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/17chlorine_and_99einsteinium_to_116livermorium",
   "input1": {
     "item": "chemlib:chlorine"
   },

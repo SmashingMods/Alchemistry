@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/3lithium_and_46palladium_to_49indium",
   "input1": {
     "item": "chemlib:lithium"
   },

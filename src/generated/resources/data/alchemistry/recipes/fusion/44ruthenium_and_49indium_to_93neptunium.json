@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/44ruthenium_and_49indium_to_93neptunium",
   "input1": {
     "item": "chemlib:ruthenium"
   },

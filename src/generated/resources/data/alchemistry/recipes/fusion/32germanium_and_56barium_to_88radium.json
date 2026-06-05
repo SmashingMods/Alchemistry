@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/32germanium_and_56barium_to_88radium",
   "input1": {
     "item": "chemlib:germanium"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_30zinc_to_31gallium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/1hydrogen_and_72hafnium_to_73tantalum",
   "input1": {
     "item": "chemlib:hydrogen"
   },

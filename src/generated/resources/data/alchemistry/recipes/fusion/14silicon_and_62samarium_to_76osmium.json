@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_62samarium_to_76osmium",
   "input1": {
     "item": "chemlib:silicon"
   },

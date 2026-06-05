@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/11sodium_and_33arsenic_to_44ruthenium",
   "input1": {
     "item": "chemlib:sodium"
   },

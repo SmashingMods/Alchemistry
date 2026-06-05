@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_55cesium_to_69thulium",
   "input1": {
     "item": "chemlib:silicon"
   },

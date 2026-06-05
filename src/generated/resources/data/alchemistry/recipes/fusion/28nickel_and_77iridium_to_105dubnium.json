@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/28nickel_and_77iridium_to_105dubnium",
   "input1": {
     "item": "chemlib:nickel"
   },

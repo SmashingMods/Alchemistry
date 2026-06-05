@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
+  "id": "alchemistry:dissolver/carbon_dioxide",
   "input": {
     "count": 1,
     "ingredient": {

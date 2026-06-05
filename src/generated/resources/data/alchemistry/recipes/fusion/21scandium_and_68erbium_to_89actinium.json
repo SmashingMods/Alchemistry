@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/21scandium_and_68erbium_to_89actinium",
   "input1": {
     "item": "chemlib:scandium"
   },

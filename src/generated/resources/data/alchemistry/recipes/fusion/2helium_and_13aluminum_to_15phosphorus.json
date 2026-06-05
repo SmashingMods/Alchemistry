@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/2helium_and_13aluminum_to_15phosphorus",
   "input1": {
     "item": "chemlib:helium"
   },

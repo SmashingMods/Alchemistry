@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/14silicon_and_96curium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:silicon"
   },

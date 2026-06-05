@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
+  "id": "alchemistry:liquifier/ethane",
   "input": {
     "count": 8,
     "ingredient": {
@@ -8,7 +9,7 @@
     }
   },
   "result": {
-    "amount": "500",
+    "amount": 500,
     "fluid": "chemlib:ethane_fluid"
   }
 }

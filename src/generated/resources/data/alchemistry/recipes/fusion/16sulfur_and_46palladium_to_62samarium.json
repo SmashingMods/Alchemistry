@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/16sulfur_and_46palladium_to_62samarium",
   "input1": {
     "item": "chemlib:sulfur"
   },

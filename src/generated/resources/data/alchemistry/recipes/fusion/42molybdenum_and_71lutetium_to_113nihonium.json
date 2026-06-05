@@ -1,6 +1,7 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
+  "id": "alchemistry:fusion/42molybdenum_and_71lutetium_to_113nihonium",
   "input1": {
     "item": "chemlib:molybdenum"
   },

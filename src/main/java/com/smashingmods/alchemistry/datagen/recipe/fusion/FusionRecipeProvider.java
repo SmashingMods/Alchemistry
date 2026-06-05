@@ -4,23 +4,22 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class FusionRecipeProvider {
 
-    private final Consumer<FinishedRecipe> consumer;
+    private final RecipeOutput consumer;
 
-    public FusionRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
+    public FusionRecipeProvider(RecipeOutput pConsumer) {
         this.consumer = pConsumer;
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new FusionRecipeProvider(pConsumer).register();
     }
 

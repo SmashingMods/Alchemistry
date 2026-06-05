@@ -6,24 +6,23 @@ import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.tagNotEmptyCondition;
 
 public class ChemlibRecipes extends DissolverRecipeProvider {
 
-    public ChemlibRecipes(Consumer<FinishedRecipe> pConsumer) {
+    public ChemlibRecipes(RecipeOutput pConsumer) {
         super(pConsumer);
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new ChemlibRecipes(pConsumer).register();
     }
 

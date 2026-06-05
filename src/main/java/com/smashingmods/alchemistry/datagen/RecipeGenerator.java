@@ -11,24 +11,25 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.chemlib.api.ChemicalItemType;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import javax.annotation.Nonnull;
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class RecipeGenerator extends RecipeProvider {
-    public RecipeGenerator(PackOutput pOutput) {
-        super(pOutput);
+    public RecipeGenerator(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> pLookupProvider) {
+        super(pOutput, pLookupProvider);
     }
 
     @Override
-    protected void buildRecipes(@Nonnull Consumer<FinishedRecipe> pConsumer) {
+    protected void buildRecipes(@Nonnull RecipeOutput pConsumer) {
         AtomizerRecipeProvider.register(pConsumer);
         CompactorRecipeProvider.register(pConsumer);
         CombinerRecipeProvider.register(pConsumer);
@@ -40,7 +41,7 @@ public class RecipeGenerator extends RecipeProvider {
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    private void generateMachineRecipes(Consumer<FinishedRecipe> pConsumer) {
+    private void generateMachineRecipes(RecipeOutput pConsumer) {
 
         Item atomizer = BlockRegistry.ATOMIZER.get().asItem();
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, atomizer)

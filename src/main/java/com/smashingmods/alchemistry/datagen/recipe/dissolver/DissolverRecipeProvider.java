@@ -8,31 +8,29 @@ import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class DissolverRecipeProvider {
 
-    private final Consumer<FinishedRecipe> consumer;
+    private final RecipeOutput consumer;
 
-    public DissolverRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
+    public DissolverRecipeProvider(RecipeOutput pConsumer) {
         this.consumer = pConsumer;
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new DissolverRecipeProvider(pConsumer).register();
     }
 
@@ -84,13 +82,10 @@ public class DissolverRecipeProvider {
     }
 
     public void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId, ICondition pCondition) {
-        ConditionalRecipe.builder()
-                .addCondition(pCondition)
-                .addRecipe(DissolverRecipeBuilder.createRecipe(pIngredient, pSet, pRecipeId)
-                        .group(String.format("%s:dissolver", Alchemistry.MODID))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
-                        ::save)
-                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath())));
+        DissolverRecipeBuilder.createRecipe(pIngredient, pSet, pRecipeId)
+                .group(String.format("%s:dissolver", Alchemistry.MODID))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(pRecipeId))
+                .save(consumer.withConditions(pCondition), pRecipeId);
     }
 
     public void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId) {

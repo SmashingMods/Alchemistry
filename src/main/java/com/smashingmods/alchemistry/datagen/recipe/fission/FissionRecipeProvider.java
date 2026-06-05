@@ -4,21 +4,19 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.data.recipes.FinishedRecipe;
-
-import java.util.function.Consumer;
+import net.minecraft.data.recipes.RecipeOutput;
 
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class FissionRecipeProvider {
 
-    private final Consumer<FinishedRecipe> consumer;
+    private final RecipeOutput consumer;
 
-    public FissionRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
+    public FissionRecipeProvider(RecipeOutput pConsumer) {
         this.consumer = pConsumer;
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new FissionRecipeProvider(pConsumer).register();
     }
 

@@ -4,6 +4,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
@@ -15,6 +17,16 @@ import java.util.List;
 import java.util.Random;
 
 public class ProbabilitySet {
+
+    /**
+     * Codec mirroring the JSON written by {@link #serialize()}: the list of {@link ProbabilityGroup groups}
+     * plus the {@code weighted} flag and {@code rolls} count.
+     */
+    public static final Codec<ProbabilitySet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            ProbabilityGroup.CODEC.listOf().fieldOf("groups").forGetter(ProbabilitySet::getProbabilityGroups),
+            Codec.BOOL.fieldOf("weighted").forGetter(ProbabilitySet::isWeighted),
+            Codec.INT.fieldOf("rolls").forGetter(ProbabilitySet::getRolls)
+    ).apply(instance, ProbabilitySet::new));
 
     private final List<ProbabilityGroup> probabilityGroups;
     private final boolean weighted;

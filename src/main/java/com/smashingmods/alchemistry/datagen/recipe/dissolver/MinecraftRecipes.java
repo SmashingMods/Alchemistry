@@ -1,11 +1,10 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import static com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet.Builder.createSet;
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.tagNotEmptyCondition;
@@ -13,11 +12,11 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toItemStack;
 
 public class MinecraftRecipes extends DissolverRecipeProvider {
 
-    public MinecraftRecipes(Consumer<FinishedRecipe> pConsumer) {
+    public MinecraftRecipes(RecipeOutput pConsumer) {
         super(pConsumer);
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new MinecraftRecipes(pConsumer).register();
     }
 

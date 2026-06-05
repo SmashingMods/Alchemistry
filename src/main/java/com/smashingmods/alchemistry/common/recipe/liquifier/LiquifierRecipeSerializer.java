@@ -1,56 +1,49 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class LiquifierRecipeSerializer<T extends LiquifierRecipe> implements RecipeSerializer<T> {
 
     private final IFactory<T> factory;
+    private final Codec<T> codec;
 
     public LiquifierRecipeSerializer(IFactory<T> factory) {
         this.factory = factory;
+        this.codec = RecordCodecBuilder.create(instance -> instance.group(
+                ResourceLocation.CODEC.fieldOf("id").forGetter(LiquifierRecipe::getId),
+                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "liquifier").forGetter(LiquifierRecipe::getGroup),
+                AlchemistryRecipeCodecs.INGREDIENT_STACK.fieldOf("input").forGetter(LiquifierRecipe::getInput),
+                AlchemistryRecipeCodecs.FLUID_STACK.fieldOf("result").forGetter(LiquifierRecipe::getOutput)
+        ).apply(instance, factory::create));
     }
 
     @Override
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-        String group = pSerializedRecipe.has("group") ? pSerializedRecipe.get("group").getAsString() : "liquifier";
-
-        if (!pSerializedRecipe.has("input")) {
-            throw new JsonSyntaxException("Missing input, expected to find an object.");
-        }
-
-        IngredientStack input = IngredientStack.fromJson(pSerializedRecipe.getAsJsonObject("input"));
-
-        if (!pSerializedRecipe.has("result")) {
-            throw new JsonSyntaxException("Missing result, expected to find an object.");
-        }
-
-        JsonObject outputObject = pSerializedRecipe.getAsJsonObject("result");
-        ResourceLocation fluidLocation = new ResourceLocation(outputObject.get("fluid").getAsString());
-        int fluidAmount = outputObject.has("amount") ? outputObject.get("amount").getAsInt() : 1000;
-        FluidStack output = new FluidStack(BuiltInRegistries.FLUID.getOptional(fluidLocation).orElseThrow(), fluidAmount);
-
-        return this.factory.create(pRecipeId, group, input, output);
+    public Codec<T> codec() {
+        return codec;
     }
 
     @Override
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public T fromNetwork(FriendlyByteBuf pBuffer) {
+        ResourceLocation id = pBuffer.readResourceLocation();
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         IngredientStack input = IngredientStack.fromNetwork(pBuffer);
         FluidStack output = pBuffer.readFluidStack();
-        return this.factory.create(pRecipeId, group, input, output);
+        return this.factory.create(id, group, input, output);
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
+        pBuffer.writeResourceLocation(pRecipe.getId());
         pBuffer.writeUtf(pRecipe.getGroup());
         pRecipe.getInput().toNetwork(pBuffer);
         pBuffer.writeFluidStack(pRecipe.getOutput());

@@ -3,11 +3,11 @@ package com.smashingmods.alchemistry.datagen.recipe.fusion;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.CriterionTriggerInstance;
-import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,7 +15,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import javax.annotation.Nullable;
 
 import java.util.Objects;
-import java.util.function.Consumer;
 
 public class FusionRecipeBuilder implements RecipeBuilder {
 
@@ -36,10 +35,10 @@ public class FusionRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
+    public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
                 .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath())))
-                .requirements(RequirementsStrategy.OR);
+                .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
 
@@ -55,7 +54,7 @@ public class FusionRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
+    public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
         String input1String = String.format("%s%s", input1.getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input1)).getPath());
         String input2String = String.format("%s%s", input2.getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input2)).getPath());
         String outputString = String.format("%s%s", ((ElementItem) output.getItem()).getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath());
@@ -63,7 +62,7 @@ public class FusionRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fusion/%s_and_%s_to_%s", input1String, input2String, outputString));
         ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fusion/%s", pRecipeId.getPath()));
 
-        pFinishedRecipeConsumer.accept(new FusionRecipeResult(
+        pRecipeOutput.accept(new FusionRecipeResult(
                 group,
                 advancementBuilder,
                 recipeId,

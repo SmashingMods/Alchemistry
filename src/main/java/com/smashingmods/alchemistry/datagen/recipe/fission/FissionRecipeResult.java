@@ -5,10 +5,12 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import javax.annotation.Nullable;
 
 public class FissionRecipeResult implements FinishedRecipe {
 
@@ -38,6 +40,7 @@ public class FissionRecipeResult implements FinishedRecipe {
 
     @Override
     public void serializeRecipeData(JsonObject pJson) {
+        pJson.addProperty("id", recipeId.toString());
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
@@ -47,22 +50,18 @@ public class FissionRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    public ResourceLocation getId() {
+    public ResourceLocation id() {
         return recipeId;
     }
 
     @Override
-    public RecipeSerializer<?> getType() {
+    public RecipeSerializer<?> type() {
         return RecipeRegistry.FISSION_SERIALIZER.get();
     }
 
+    @Nullable
     @Override
-    public JsonObject serializeAdvancement() {
-        return advancementBuilder.serializeToJson();
-    }
-
-    @Override
-    public ResourceLocation getAdvancementId() {
-        return advancementId;
+    public AdvancementHolder advancement() {
+        return advancementBuilder.build(advancementId);
     }
 }

@@ -5,10 +5,12 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import javax.annotation.Nullable;
 
 import java.util.Set;
 
@@ -37,6 +39,7 @@ public class CombinerRecipeResult implements FinishedRecipe {
 
     @Override
     public void serializeRecipeData(JsonObject pJson) {
+        pJson.addProperty("id", id.toString());
         if (!group.isEmpty()) {
             pJson.addProperty("group", group);
         }
@@ -45,22 +48,18 @@ public class CombinerRecipeResult implements FinishedRecipe {
     }
 
     @Override
-    public ResourceLocation getId() {
+    public ResourceLocation id() {
         return this.id;
     }
 
     @Override
-    public RecipeSerializer<?> getType() {
+    public RecipeSerializer<?> type() {
         return RecipeRegistry.COMBINER_SERIALIZER.get();
     }
 
+    @Nullable
     @Override
-    public JsonObject serializeAdvancement() {
-        return advancementBuilder.serializeToJson();
-    }
-
-    @Override
-    public ResourceLocation getAdvancementId() {
-        return advancementId;
+    public AdvancementHolder advancement() {
+        return advancementBuilder.build(advancementId);
     }
 }

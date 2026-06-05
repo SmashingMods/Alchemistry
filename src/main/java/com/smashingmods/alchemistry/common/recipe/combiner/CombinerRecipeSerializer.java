@@ -1,15 +1,16 @@
 package com.smashingmods.alchemistry.common.recipe.combiner;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraftforge.common.crafting.CraftingHelper;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -17,31 +18,26 @@ import java.util.Set;
 public class CombinerRecipeSerializer<T extends CombinerRecipe> implements RecipeSerializer<T> {
 
     private final IFactory<T> factory;
+    private final Codec<T> codec;
 
     public CombinerRecipeSerializer(CombinerRecipeSerializer.IFactory<T> pFactory) {
         this.factory = pFactory;
+        this.codec = RecordCodecBuilder.create(instance -> instance.group(
+                ResourceLocation.CODEC.fieldOf("id").forGetter(CombinerRecipe::getId),
+                Codec.STRING.fieldOf("group").forGetter(CombinerRecipe::getGroup),
+                AlchemistryRecipeCodecs.INGREDIENT_STACK.listOf().fieldOf("input").forGetter(CombinerRecipe::getInput),
+                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(CombinerRecipe::getOutput)
+        ).apply(instance, (id, group, input, output) -> pFactory.create(id, group, new LinkedHashSet<>(input), output)));
     }
 
     @Override
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-
-        String group = pSerializedRecipe.get("group").getAsString();
-        JsonArray inputJson = pSerializedRecipe.getAsJsonArray("input");
-        Set<IngredientStack> input = new LinkedHashSet<>();
-        ItemStack output;
-
-        inputJson.forEach(element -> input.add(IngredientStack.fromJson(element.getAsJsonObject())));
-
-        if (pSerializedRecipe.get("result").isJsonObject()) {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("result"), true, true);
-        } else {
-            output = CraftingHelper.getItemStack(pSerializedRecipe.getAsJsonObject("item"), true, true);
-        }
-        return this.factory.create(pRecipeId, group, input, output);
+    public Codec<T> codec() {
+        return codec;
     }
 
     @Override
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
+    public T fromNetwork(FriendlyByteBuf pBuffer) {
+        ResourceLocation id = pBuffer.readResourceLocation();
         String group = pBuffer.readUtf(Short.MAX_VALUE);
         int inputCount = pBuffer.readInt();
         Set<IngredientStack> inputList = new LinkedHashSet<>();
@@ -49,11 +45,12 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
             inputList.add(IngredientStack.fromNetwork(pBuffer));
         }
         ItemStack output = pBuffer.readItem();
-        return this.factory.create(pRecipeId, group, inputList, output);
+        return this.factory.create(id, group, inputList, output);
     }
 
     @Override
     public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
+        pBuffer.writeResourceLocation(pRecipe.getId());
         pBuffer.writeUtf(pRecipe.getGroup());
         pBuffer.writeInt(pRecipe.getInput().size());
         for (int i = 0; i < pRecipe.getInput().size(); i++) {

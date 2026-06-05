@@ -11,7 +11,7 @@ import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -19,14 +19,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -34,13 +32,13 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class CompactorRecipeProvider {
 
-    private final Consumer<FinishedRecipe> consumer;
+    private final RecipeOutput consumer;
 
-    public CompactorRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
+    public CompactorRecipeProvider(RecipeOutput pConsumer) {
         this.consumer = pConsumer;
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new CompactorRecipeProvider(pConsumer).register();
     }
 
@@ -200,13 +198,10 @@ public class CompactorRecipeProvider {
 
     private void compactor(IngredientStack pInput, ItemStack pOutput, ICondition pCondition) {
         ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem()));
-        ConditionalRecipe.builder()
-                .addCondition(pCondition)
-                .addRecipe(CompactorRecipeBuilder.createRecipe(pInput, pOutput, recipeId)
-                        .group(String.format("%s:compactor", Alchemistry.MODID))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "compactor", Alchemistry.MODID)))
-                        ::save)
-                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", recipeId.getPath())));
+        CompactorRecipeBuilder.createRecipe(pInput, pOutput, recipeId)
+                .group(String.format("%s:compactor", Alchemistry.MODID))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "compactor", Alchemistry.MODID)))
+                .save(consumer.withConditions(pCondition), recipeId);
     }
 
     public void compactor(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {

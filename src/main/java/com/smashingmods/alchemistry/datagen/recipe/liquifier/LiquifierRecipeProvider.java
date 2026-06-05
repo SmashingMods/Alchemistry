@@ -8,15 +8,14 @@ import com.smashingmods.chemlib.registry.FluidRegistry;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -28,13 +27,13 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
 public class LiquifierRecipeProvider {
 
-    private final Consumer<FinishedRecipe> consumer;
+    private final RecipeOutput consumer;
 
-    public LiquifierRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
+    public LiquifierRecipeProvider(RecipeOutput pConsumer) {
         this.consumer = pConsumer;
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new LiquifierRecipeProvider(pConsumer).register();
     }
 
@@ -67,14 +66,11 @@ public class LiquifierRecipeProvider {
 
     @SuppressWarnings("unused")
     private void liquifier(IngredientStack pInput, FluidStack pOutput, ICondition pCondition) {
-        ResourceLocation recipeId = BuiltInRegistries.FLUID.getKey(pOutput.getFluid());
-        ConditionalRecipe.builder()
-                .addCondition(pCondition)
-                .addRecipe(LiquifierRecipeBuilder
-                        .createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
-                        ::save)
-                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("liquifier/%s", recipeId.getPath())));
+        ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pOutput.getFluid()));
+        LiquifierRecipeBuilder
+                .createRecipe(pInput, pOutput, recipeId)
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
+                .save(consumer.withConditions(pCondition), recipeId);
     }
 
     private void liquifier(IngredientStack pInput, FluidStack pOutput) {

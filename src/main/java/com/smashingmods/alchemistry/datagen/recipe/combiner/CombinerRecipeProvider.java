@@ -5,7 +5,7 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -13,28 +13,26 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toIngredientStack;
 
 public class CombinerRecipeProvider {
 
-    private final Consumer<FinishedRecipe> consumer;
+    private final RecipeOutput consumer;
 
-    public CombinerRecipeProvider(Consumer<FinishedRecipe> pConsumer) {
+    public CombinerRecipeProvider(RecipeOutput pConsumer) {
         this.consumer = pConsumer;
     }
 
-    public static void register(Consumer<FinishedRecipe> pConsumer) {
+    public static void register(RecipeOutput pConsumer) {
         new CombinerRecipeProvider(pConsumer).register();
     }
 
@@ -128,14 +126,11 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput, ICondition pCondition) {
-        ResourceLocation recipeId = BuiltInRegistries.ITEM.getKey(pOutput.getItem());
-        ConditionalRecipe.builder()
-                .addCondition(pCondition)
-                .addRecipe(CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(recipeId))
-                        .group(String.format("%s:combiner", Alchemistry.MODID))
-                        .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner", Alchemistry.MODID)))
-                        ::save)
-                .build(consumer, new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", recipeId.getPath())));
+        ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem()));
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput, recipeId)
+                .group(String.format("%s:combiner", Alchemistry.MODID))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner", Alchemistry.MODID)))
+                .save(consumer.withConditions(pCondition), recipeId);
     }
 
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput) {

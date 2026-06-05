@@ -5,6 +5,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,6 +16,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class ProbabilityGroup {
+
+    /**
+     * Codec mirroring the JSON written by {@link #serialize()}: an array of item stacks under
+     * {@code results} (which may include {@code minecraft:air} for weighted "nothing" rolls) plus the
+     * group's {@code probability}.
+     */
+    public static final Codec<ProbabilityGroup> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            AlchemistryRecipeCodecs.ITEM_STACK_RESULT.listOf().fieldOf("results").forGetter(ProbabilityGroup::getOutput),
+            Codec.DOUBLE.fieldOf("probability").forGetter(ProbabilityGroup::getProbability)
+    ).apply(instance, ProbabilityGroup::new));
 
     private final List<ItemStack> output;
     private final double probability;

@@ -115,8 +115,8 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
-        renderBg(pGuiGraphics);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        renderBg(pGuiGraphics);
 
         renderRecipeBox(pGuiGraphics, pMouseX, pMouseY);
         renderWidget(searchBox, leftPos + 58, topPos + 11);

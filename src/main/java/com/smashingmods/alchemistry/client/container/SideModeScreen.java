@@ -62,9 +62,8 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         drawnTooltip = null;
-        renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-        pGuiGraphics.drawCenteredString(font, title, width / 2, getMinY() - 7, 0xFF_FFFFFF);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+        pGuiGraphics.drawCenteredString(font, title, width / 2, getMinY() - 7, 0xFF_FFFFFF);
         if (drawnTooltip != null) {
             pGuiGraphics.renderComponentTooltip(font, drawnTooltip, pMouseX, pMouseY);
         }

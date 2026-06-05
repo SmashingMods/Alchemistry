@@ -8,8 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.Locale;
@@ -25,15 +25,15 @@ public class LocalizationGenerator extends LanguageProvider {
     @Override
     protected void addTranslations() {
         BlockRegistry.BLOCKS.getEntries().stream()
-                .map(RegistryObject::get)
-                .map(ForgeRegistries.BLOCKS::getKey)
+                .map(DeferredHolder::get)
+                .map(BuiltInRegistries.BLOCK::getKey)
                 .filter(Objects::nonNull)
                 .map(ResourceLocation::getPath)
                 .forEach(path -> add(String.format("block.alchemistry.%s", path), WordUtils.capitalize(path.replace("_", " "))));
 
         MenuRegistry.MENU_TYPES.getEntries().stream()
-                .map(RegistryObject::get)
-                .map(ForgeRegistries.MENU_TYPES::getKey)
+                .map(DeferredHolder::get)
+                .map(BuiltInRegistries.MENU::getKey)
                 .filter(Objects::nonNull)
                 .map(ResourceLocation::getPath)
                 .forEach(path -> {

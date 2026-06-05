@@ -12,7 +12,7 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import javax.annotation.Nullable;
 
 import java.util.Objects;
@@ -44,7 +44,7 @@ public class FissionRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(input)).getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input)).getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
     }

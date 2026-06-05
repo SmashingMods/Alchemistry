@@ -21,7 +21,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.List;
 import java.util.Objects;
@@ -151,19 +151,19 @@ public class CompactorRecipeProvider {
     }
 
     public void compactor(ItemStack pInput, ItemStack pOutput) {
-        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
     public void compactor(ItemLike pInput, ItemStack pOutput) {
-        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
     public void compactor(ItemLike pInput, ItemLike pOutput) {
-        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.asItem())));
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.asItem())));
     }
 
     public void compactor(ItemStack pInput, ItemLike pOutput) {
-        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.asItem())));
+        compactor(new IngredientStack(pInput), new ItemStack(pOutput), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.asItem())));
     }
 
     @SuppressWarnings("unused")
@@ -176,11 +176,11 @@ public class CompactorRecipeProvider {
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
-        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
+        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
     public void compactor(Ingredient pInput, ItemStack pOutput) {
-        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())));
+        compactor(new IngredientStack(pInput), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
     @SuppressWarnings("unused")
@@ -199,7 +199,7 @@ public class CompactorRecipeProvider {
     }
 
     private void compactor(IngredientStack pInput, ItemStack pOutput, ICondition pCondition) {
-        ResourceLocation recipeId = Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem()));
+        ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem()));
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(CompactorRecipeBuilder.createRecipe(pInput, pOutput, recipeId)

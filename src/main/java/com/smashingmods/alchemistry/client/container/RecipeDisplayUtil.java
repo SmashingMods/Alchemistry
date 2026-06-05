@@ -27,7 +27,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.LiteralContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -41,7 +41,7 @@ public class RecipeDisplayUtil {
 
     public static List<Component> getItemTooltipComponent(ItemStack pItemStack, MutableComponent pComponent) {
         List<Component> components = new ArrayList<>();
-        String namespace = StringUtils.capitalize(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItemStack.getItem())).getNamespace());
+        String namespace = StringUtils.capitalize(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pItemStack.getItem())).getNamespace());
 
         components.add(pComponent.withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
         components.add(MutableComponent.create(new LiteralContents(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString()))));
@@ -71,19 +71,19 @@ public class RecipeDisplayUtil {
 
         if (pRecipe instanceof AtomizerRecipe atomizerRecipe) {
 
-            ResourceLocation left = ForgeRegistries.FLUIDS.getKey(atomizerRecipe.getInput().getFluid());
+            ResourceLocation left = BuiltInRegistries.FLUID.getKey(atomizerRecipe.getInput().getFluid());
             String right = atomizerRecipe.getInput().getDisplayName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
 
-            ResourceLocation left = ForgeRegistries.ITEMS.getKey(combinerRecipe.getOutput().getItem());
+            ResourceLocation left = BuiltInRegistries.ITEM.getKey(combinerRecipe.getOutput().getItem());
             String right = combinerRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
 
-            ResourceLocation left = ForgeRegistries.ITEMS.getKey(compactorRecipe.getOutput().getItem());
+            ResourceLocation left = BuiltInRegistries.ITEM.getKey(compactorRecipe.getOutput().getItem());
             String right = compactorRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
@@ -95,19 +95,19 @@ public class RecipeDisplayUtil {
 
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
 
-            ResourceLocation left = ForgeRegistries.ITEMS.getKey(fissionRecipe.getInput().getItem());
+            ResourceLocation left = BuiltInRegistries.ITEM.getKey(fissionRecipe.getInput().getItem());
             String right = fissionRecipe.getInput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
 
-            ResourceLocation left = ForgeRegistries.ITEMS.getKey(fusionRecipe.getOutput().getItem());
+            ResourceLocation left = BuiltInRegistries.ITEM.getKey(fusionRecipe.getOutput().getItem());
             String right = fusionRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
 
-            ResourceLocation left = ForgeRegistries.FLUIDS.getKey(liquifierRecipe.getOutput().getFluid());
+            ResourceLocation left = BuiltInRegistries.FLUID.getKey(liquifierRecipe.getOutput().getFluid());
             String right = liquifierRecipe.getOutput().getDisplayName().toString().toLowerCase();
             return Pair.of(left, right);
 

@@ -18,8 +18,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -46,8 +46,8 @@ public class LiquifierRecipeProvider {
 
     private Consumer<? super Chemical> fluidToChemicalRecipe() {
         return chemical -> FluidRegistry.FLUIDS.getEntries().stream()
-                .map(RegistryObject::get)
-                .filter(fluid -> Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid))
+                .map(DeferredHolder::get)
+                .filter(fluid -> Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(fluid))
                         .getPath()
                         .contentEquals(String.format("%s_fluid", chemical.getChemicalName())))
                 .findFirst()
@@ -67,7 +67,7 @@ public class LiquifierRecipeProvider {
 
     @SuppressWarnings("unused")
     private void liquifier(IngredientStack pInput, FluidStack pOutput, ICondition pCondition) {
-        ResourceLocation recipeId = ForgeRegistries.FLUIDS.getKey(pOutput.getFluid());
+        ResourceLocation recipeId = BuiltInRegistries.FLUID.getKey(pOutput.getFluid());
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(LiquifierRecipeBuilder
@@ -78,7 +78,7 @@ public class LiquifierRecipeProvider {
     }
 
     private void liquifier(IngredientStack pInput, FluidStack pOutput) {
-        LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(pOutput.getFluid())))
+        LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pOutput.getFluid())))
                 .group(String.format("%s:liquifier", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
                 .save(consumer);

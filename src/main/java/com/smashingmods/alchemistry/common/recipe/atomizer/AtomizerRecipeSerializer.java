@@ -9,10 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Objects;
 
 public class AtomizerRecipeSerializer<T extends AtomizerRecipe> implements RecipeSerializer<T> {
 
@@ -34,7 +32,7 @@ public class AtomizerRecipeSerializer<T extends AtomizerRecipe> implements Recip
         JsonObject inputObject = pSerializedRecipe.getAsJsonObject("input");
         ResourceLocation fluidLocation = new ResourceLocation(inputObject.get("fluid").getAsString());
         int fluidAmount = inputObject.has("amount") ? inputObject.get("amount").getAsInt() : 1000;
-        FluidStack input = new FluidStack(Objects.requireNonNull(ForgeRegistries.FLUIDS.getValue(fluidLocation)), fluidAmount);
+        FluidStack input = new FluidStack(BuiltInRegistries.FLUID.getOptional(fluidLocation).orElseThrow(), fluidAmount);
 
         if (!pSerializedRecipe.has("result")) {
             throw new JsonSyntaxException("Missing result, expected to find a string or object.");

@@ -9,8 +9,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -28,8 +28,10 @@ public class RecipeUtils {
         Optional<ElementItem> optionalElement = ItemRegistry.getElementByName(pString);
         Optional<CompoundItem> optionalCompound = ItemRegistry.getCompoundByName(pString.replace(" ", "_"));
 
-        Item outputItem = ForgeRegistries.ITEMS.getValue(resourceLocation);
-        Block outputBlock = ForgeRegistries.BLOCKS.getValue(resourceLocation);
+        // BuiltInRegistries.{ITEM,BLOCK} are DefaultedRegistries: an unknown id resolves to AIR, never null.
+        // Use getOptional so the null fall-through below still distinguishes "not registered" from a real entry.
+        Item outputItem = BuiltInRegistries.ITEM.getOptional(resourceLocation).orElse(null);
+        Block outputBlock = BuiltInRegistries.BLOCK.getOptional(resourceLocation).orElse(null);
 
         if (optionalElement.isPresent()) {
             return new ItemStack(optionalElement.get(), pCount);
@@ -49,10 +51,10 @@ public class RecipeUtils {
     }
 
     public static ResourceLocation getLocation(Item pItem, String pType) {
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pItem)).getPath()));
+        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pItem)).getPath()));
     }
 
     public static ResourceLocation getLocation(FluidStack pFluidStack, String pType) {
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(pFluidStack.getFluid())).getPath()));
+        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pFluidStack.getFluid())).getPath()));
     }
 }

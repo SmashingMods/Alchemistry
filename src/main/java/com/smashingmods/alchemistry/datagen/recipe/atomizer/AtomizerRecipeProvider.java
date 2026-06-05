@@ -13,8 +13,8 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -41,8 +41,8 @@ public class AtomizerRecipeProvider {
 
     private Consumer<? super Chemical> chemicalToFluidRecipe() {
         return chemical -> FluidRegistry.FLUIDS.getEntries().stream()
-                .map(RegistryObject::get)
-                .filter(fluid -> Objects.requireNonNull(ForgeRegistries.FLUIDS.getKey(fluid)).getPath().contains(chemical.getChemicalName()))
+                .map(DeferredHolder::get)
+                .filter(fluid -> Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(fluid)).getPath().contains(chemical.getChemicalName()))
                 .findFirst()
                 .map(fluid -> new FluidStack(fluid, 500))
                 .ifPresent(fluidStack -> atomizer(fluidStack, new ItemStack(chemical, 8)));
@@ -50,7 +50,7 @@ public class AtomizerRecipeProvider {
 
     @SuppressWarnings("unused")
     private void atomizer(FluidStack pInput, ItemStack pOutput, ICondition pCondition) {
-        ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
+        ResourceLocation recipeId = BuiltInRegistries.ITEM.getKey(pOutput.getItem());
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
@@ -61,7 +61,7 @@ public class AtomizerRecipeProvider {
     }
 
     private void atomizer(FluidStack pInput, ItemStack pOutput) {
-        ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
+        ResourceLocation recipeId = BuiltInRegistries.ITEM.getKey(pOutput.getItem());
         AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
                 .group(String.format("%s:atomizer", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer", Alchemistry.MODID)))

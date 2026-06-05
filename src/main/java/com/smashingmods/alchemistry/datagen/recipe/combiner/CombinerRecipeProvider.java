@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -128,7 +128,7 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput, ICondition pCondition) {
-        ResourceLocation recipeId = ForgeRegistries.ITEMS.getKey(pOutput.getItem());
+        ResourceLocation recipeId = BuiltInRegistries.ITEM.getKey(pOutput.getItem());
         ConditionalRecipe.builder()
                 .addCondition(pCondition)
                 .addRecipe(CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(recipeId))
@@ -139,7 +139,7 @@ public class CombinerRecipeProvider {
     }
 
     private void combiner(ItemStack pOutput, List<IngredientStack> pInput) {
-        CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(pOutput.getItem())))
+        CombinerRecipeBuilder.createRecipe(pOutput, pInput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())))
                 .group(String.format("%s:combiner", Alchemistry.MODID))
                 .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "combiner", Alchemistry.MODID)))
                 .save(consumer);

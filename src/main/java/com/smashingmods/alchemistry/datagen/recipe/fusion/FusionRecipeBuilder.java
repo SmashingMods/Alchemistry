@@ -11,7 +11,7 @@ import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import javax.annotation.Nullable;
 
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class FusionRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, CriterionTriggerInstance pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(output.getItem())).getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath())))
                 .requirements(RequirementsStrategy.OR);
         return this;
     }
@@ -56,9 +56,9 @@ public class FusionRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ResourceLocation pRecipeId) {
-        String input1String = String.format("%s%s", input1.getAtomicNumber(), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(input1)).getPath());
-        String input2String = String.format("%s%s", input2.getAtomicNumber(), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(input2)).getPath());
-        String outputString = String.format("%s%s", ((ElementItem) output.getItem()).getAtomicNumber(), Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(output.getItem())).getPath());
+        String input1String = String.format("%s%s", input1.getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input1)).getPath());
+        String input2String = String.format("%s%s", input2.getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input2)).getPath());
+        String outputString = String.format("%s%s", ((ElementItem) output.getItem()).getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath());
 
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fusion/%s_and_%s_to_%s", input1String, input2String, outputString));
         ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fusion/%s", pRecipeId.getPath()));

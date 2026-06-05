@@ -8,10 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Objects;
 
 public class LiquifierRecipeSerializer<T extends LiquifierRecipe> implements RecipeSerializer<T> {
 
@@ -38,7 +36,7 @@ public class LiquifierRecipeSerializer<T extends LiquifierRecipe> implements Rec
         JsonObject outputObject = pSerializedRecipe.getAsJsonObject("result");
         ResourceLocation fluidLocation = new ResourceLocation(outputObject.get("fluid").getAsString());
         int fluidAmount = outputObject.has("amount") ? outputObject.get("amount").getAsInt() : 1000;
-        FluidStack output = new FluidStack(Objects.requireNonNull(ForgeRegistries.FLUIDS.getValue(fluidLocation)), fluidAmount);
+        FluidStack output = new FluidStack(BuiltInRegistries.FLUID.getOptional(fluidLocation).orElseThrow(), fluidAmount);
 
         return this.factory.create(pRecipeId, group, input, output);
     }

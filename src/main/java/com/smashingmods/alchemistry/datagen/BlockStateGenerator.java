@@ -16,8 +16,8 @@ import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Objects;
 import java.util.function.Function;
@@ -49,7 +49,7 @@ public class BlockStateGenerator extends BlockStateProvider {
         registerReactorIOModels();
     }
 
-    private void registerSimpleBlockWithRenderType(RegistryObject<Block> pBlock, String pRenderType) {
+    private void registerSimpleBlockWithRenderType(DeferredBlock<Block> pBlock, String pRenderType) {
         ConfiguredModel[] model = ConfiguredModel.builder().modelFile(models().withExistingParent(pBlock.getId().getPath(), mcLoc("block/cube_all"))
                         .renderType(pRenderType)
                         .texture("all", blockTexture(pBlock.get())))
@@ -58,16 +58,16 @@ public class BlockStateGenerator extends BlockStateProvider {
         registerBlockItemModel(pBlock);
     }
 
-    private void registerAxisBlock(RegistryObject<RotatedPillarBlock> pBlock) {
+    private void registerAxisBlock(DeferredBlock<RotatedPillarBlock> pBlock) {
         axisBlock(pBlock.get());
         registerBlockItemModel(pBlock);
     }
 
-    private <T extends Block> void registerBlockItemModel(RegistryObject<T> pBlock) {
+    private <T extends Block> void registerBlockItemModel(DeferredBlock<T> pBlock) {
         itemModels().withExistingParent(pBlock.getId().getPath(), modLoc(String.format("block/%s", pBlock.getId().getPath())));
     }
 
-    private void registerMachineModel(RegistryObject<Block> pBlock, ModelFile pModelFile) {
+    private void registerMachineModel(DeferredBlock<Block> pBlock, ModelFile pModelFile) {
         getVariantBuilder(pBlock.get()).forAllStates(blockState -> {
             Direction direction = blockState.getValue(HorizontalDirectionalBlock.FACING);
             return ConfiguredModel.builder()
@@ -79,12 +79,12 @@ public class BlockStateGenerator extends BlockStateProvider {
         registerBlockItemModel(pBlock);
     }
 
-    private void registerControllerModel(RegistryObject<Block> pBlock) {
+    private void registerControllerModel(DeferredBlock<Block> pBlock) {
         Block controller = pBlock.get();
 
         getVariantBuilder(controller).forAllStates(blockState -> {
             Direction direction = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
-            String path = Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(controller)).getPath();
+            String path = Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(controller)).getPath();
             String type = path.split("_")[0];
             String modelName = String.format("block/%s_%s", path, blockState.getValue(PowerStateProperty.POWER_STATE).getSerializedName());
             ResourceLocation face = modLoc(modelName);
@@ -119,7 +119,7 @@ public class BlockStateGenerator extends BlockStateProvider {
         registerPoweredFaceBlock(BlockRegistry.REACTOR_ENERGY, energy, side);
     }
 
-    private void registerFaceBlock(RegistryObject<Block> pBlock, ResourceLocation pFace, ResourceLocation pSide) {
+    private void registerFaceBlock(DeferredBlock<Block> pBlock, ResourceLocation pFace, ResourceLocation pSide) {
         String path = pBlock.getId().getPath();
         getVariantBuilder(pBlock.get()).forAllStates(blockState -> {
             Direction direction = blockState.getValue(HorizontalDirectionalBlock.FACING);
@@ -142,7 +142,7 @@ public class BlockStateGenerator extends BlockStateProvider {
     }
 
     @SuppressWarnings("SameParameterValue")
-    private void registerPoweredFaceBlock(RegistryObject<Block> pBlock, ResourceLocation pFace, ResourceLocation pSide) {
+    private void registerPoweredFaceBlock(DeferredBlock<Block> pBlock, ResourceLocation pFace, ResourceLocation pSide) {
         String path = pBlock.getId().getPath();
 
         Function<PowerState, BlockModelBuilder> modelFunction = (state) -> {

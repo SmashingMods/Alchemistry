@@ -18,7 +18,6 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,12 +30,11 @@ public class Alchemistry {
     public static final String MODID = "alchemistry";
     public static final PacketHandler PACKET_HANDLER = new PacketHandler().register();
 
-    public Alchemistry() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public Alchemistry(IEventBus modEventBus) {
         modEventBus.addListener(this::clientSetupEvent);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
-        Registry.register();
+        Registry.register(modEventBus);
 
         // Make sure that `/reload` and world loading wipe the machine recipe cache.
         NeoForge.EVENT_BUS.addListener(RecipeRegistry::postReload);

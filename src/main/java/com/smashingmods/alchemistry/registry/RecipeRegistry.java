@@ -19,14 +19,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -39,42 +39,42 @@ import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class RecipeRegistry {
 
-    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, MODID);
-    private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, MODID);
+    private static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, MODID);
+    private static final DeferredRegister<RecipeSerializer<?>> SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, MODID);
 
-    public static RegistryObject<RecipeType<AtomizerRecipe>> ATOMIZER_TYPE = registerRecipeType("atomizer");
-    public static RegistryObject<RecipeType<CompactorRecipe>> COMPACTOR_TYPE = registerRecipeType("compactor");
-    public static RegistryObject<RecipeType<CombinerRecipe>> COMBINER_TYPE = registerRecipeType("combiner");
-    public static RegistryObject<RecipeType<DissolverRecipe>> DISSOLVER_TYPE = registerRecipeType("dissolver");
-    public static RegistryObject<RecipeType<FissionRecipe>> FISSION_TYPE = registerRecipeType("fission");
-    public static RegistryObject<RecipeType<FusionRecipe>> FUSION_TYPE = registerRecipeType("fusion");
-    public static RegistryObject<RecipeType<LiquifierRecipe>> LIQUIFIER_TYPE = registerRecipeType("liquifier");
+    public static DeferredHolder<RecipeType<?>, RecipeType<AtomizerRecipe>> ATOMIZER_TYPE = registerRecipeType("atomizer");
+    public static DeferredHolder<RecipeType<?>, RecipeType<CompactorRecipe>> COMPACTOR_TYPE = registerRecipeType("compactor");
+    public static DeferredHolder<RecipeType<?>, RecipeType<CombinerRecipe>> COMBINER_TYPE = registerRecipeType("combiner");
+    public static DeferredHolder<RecipeType<?>, RecipeType<DissolverRecipe>> DISSOLVER_TYPE = registerRecipeType("dissolver");
+    public static DeferredHolder<RecipeType<?>, RecipeType<FissionRecipe>> FISSION_TYPE = registerRecipeType("fission");
+    public static DeferredHolder<RecipeType<?>, RecipeType<FusionRecipe>> FUSION_TYPE = registerRecipeType("fusion");
+    public static DeferredHolder<RecipeType<?>, RecipeType<LiquifierRecipe>> LIQUIFIER_TYPE = registerRecipeType("liquifier");
 
-    public static final RegistryObject<AtomizerRecipeSerializer<AtomizerRecipe>> ATOMIZER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, AtomizerRecipeSerializer<AtomizerRecipe>> ATOMIZER_SERIALIZER
             = SERIALIZERS.register("atomizer", () -> new AtomizerRecipeSerializer<>(AtomizerRecipe::new));
 
-    public static final RegistryObject<CompactorRecipeSerializer<CompactorRecipe>> COMPACTOR_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, CompactorRecipeSerializer<CompactorRecipe>> COMPACTOR_SERIALIZER
             = SERIALIZERS.register("compactor", () -> new CompactorRecipeSerializer<>(CompactorRecipe::new));
 
-    public static final RegistryObject<CombinerRecipeSerializer<CombinerRecipe>> COMBINER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, CombinerRecipeSerializer<CombinerRecipe>> COMBINER_SERIALIZER
             = SERIALIZERS.register("combiner", () -> new CombinerRecipeSerializer<>(CombinerRecipe::new));
 
-    public static final RegistryObject<DissolverRecipeSerializer<DissolverRecipe>> DISSOLVER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, DissolverRecipeSerializer<DissolverRecipe>> DISSOLVER_SERIALIZER
             = SERIALIZERS.register("dissolver", () -> new DissolverRecipeSerializer<>(DissolverRecipe::new));
 
-    public static final RegistryObject<FissionRecipeSerializer<FissionRecipe>> FISSION_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, FissionRecipeSerializer<FissionRecipe>> FISSION_SERIALIZER
             = SERIALIZERS.register("fission", () -> new FissionRecipeSerializer<>(FissionRecipe::new));
 
-    public static final RegistryObject<FusionRecipeSerializer<FusionRecipe>> FUSION_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, FusionRecipeSerializer<FusionRecipe>> FUSION_SERIALIZER
             = SERIALIZERS.register("fusion", () -> new FusionRecipeSerializer<>(FusionRecipe::new));
 
-    public static final RegistryObject<LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
+    public static final DeferredHolder<RecipeSerializer<?>, LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
     private static final Map<RecipeType<? extends AbstractProcessingRecipe>, LinkedList<? extends AbstractProcessingRecipe>> recipeTypeMap = new LinkedHashMap<>();
     private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new LinkedHashMap<>();
 
-    private static <T extends AbstractProcessingRecipe> RegistryObject<RecipeType<T>> registerRecipeType(String pType) {
+    private static <T extends AbstractProcessingRecipe> DeferredHolder<RecipeType<?>, RecipeType<T>> registerRecipeType(String pType) {
         RecipeType<T> type = new RecipeType<>() {
             @Override
             public String toString() {

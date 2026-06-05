@@ -18,9 +18,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.joml.Vector3f;
 
 import java.util.function.Consumer;
@@ -357,7 +357,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             return; // Output pointing to air or a solid block (that doesn't happen to be a container or something)
         }
 
-        IItemHandler targetHandler = target.getCapability(ForgeCapabilities.ITEM_HANDLER, outputDirection.getOpposite()).orElse(null);
+        IItemHandler targetHandler = target.getCapability(Capabilities.ITEM_HANDLER, outputDirection.getOpposite()).orElse(null);
 
         if (targetHandler != null) {
             ProcessingSlotHandler outputHandler = getOutputHandler();

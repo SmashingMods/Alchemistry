@@ -4,7 +4,7 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.jei.*;
 import com.smashingmods.alchemylib.api.network.AbstractPacketHandler;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.simple.SimpleChannel;
 
 public class PacketHandler extends AbstractPacketHandler {
 

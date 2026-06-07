@@ -1,15 +1,24 @@
 package com.smashingmods.alchemistry.gametest;
 
+import com.mojang.authlib.GameProfile;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
+import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
+import com.smashingmods.alchemistry.common.network.jei.FusionTransferPacket;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
+import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
@@ -20,15 +29,18 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * In-world behaviour tests for the Alchemistry machines, starting with the dissolver ({@code ReactorGameTests}
  * covers the reactor multiblock). Every test here is {@code required=true}
  * (the {@code @GameTest} default), so a failure fails the {@code gameTestServer} gate alongside the full-chain
- * load-smoke in {@link AlchemistryGameTests}. Because a failure is now a gate failure, each assertion is written
+ * load-smoke in {@link AlchemistryGameTests}. Because a failure is a gate failure, each assertion is written
  * to pass reliably -- membership in the resolved recipe's outputs, or a deterministic non-weighted recipe --
  * rather than chase an exact probabilistic roll.
  *
@@ -44,6 +56,10 @@ public class MachineGameTests {
 
     // Centre of the 3x3x3 structure, well clear of the structure block, so the placed machine ticks in isolation.
     private static final BlockPos MACHINE_POS = new BlockPos(1, 1, 1);
+
+    // Extra count seeded above each fusion input's per-operation debit, so the post-transfer slot count is an exact
+    // expectation rather than an emptied slot. Kept small so both inputs still fit in a single inventory slot.
+    private static final int SLACK = 3;
 
     // A vanilla item with a deterministic dissolver recipe: minecraft:iron_ingot -> chemlib:iron x16, a single
     // non-weighted group at probability 100. Because the group is non-weighted and totals 100 the builder adds no
@@ -172,6 +188,82 @@ public class MachineGameTests {
         helper.succeed();
     }
 
+    /**
+     * Drives {@link FusionTransferPacket}'s server handler down its non-creative branch and asserts it debits the
+     * two distinct recipe inputs from the right inventory slots while filling both machine input slots. The handler
+     * resolves a fusion recipe, locates each input's inventory slot independently, and removes that input's count
+     * from each -- so the two debits must hit the two distinct slots, not the same slot twice. With one input
+     * removed from {@code slot1} and the other from {@code slot2}, both inventory stacks shrink by their recipe
+     * count; debiting {@code slot1} for both inputs instead would over-drain the first input and leave the second
+     * untouched, which the per-slot count assertions pin.
+     *
+     * <p>The branch needs a non-creative {@link ServerPlayer} whose inventory holds both inputs: the mock player from
+     * {@link GameTestHelper#makeMockPlayer()} is a plain creative {@code Player}, which the handler's
+     * {@code instanceof ServerPlayer} check rejects and whose creativity would route to the no-inventory-debit
+     * creative branch. So a real {@code ServerPlayer} is built directly on the gametest level -- not placed onto the
+     * network -- and its default {@code SURVIVAL} game mode is the non-creative path. {@code maxTransfer=false} pins
+     * one operation, so each debit equals exactly the recipe input's count.</p>
+     *
+     * <p>A bare controller suffices: the handler resolves the block-entity by position and mutates its handlers
+     * directly, independent of the reactor multiblock being formed. The recipe is whichever loaded fusion recipe has
+     * two distinct inputs, so the two inputs occupy two distinct inventory slots -- the precondition that makes the
+     * single-slot bug observable.</p>
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void fusionTransferDebitsBothInputs(GameTestHelper helper) {
+        FusionControllerBlockEntity controller = placeFusionController(helper);
+
+        // A loaded fusion recipe whose two inputs differ, so input1 and input2 land in distinct inventory slots --
+        // the only arrangement under which debiting the same slot twice is distinguishable from debiting each once.
+        FusionRecipe recipe = RecipeRegistry.getFusionRecipe(
+                        r -> !ItemStack.isSameItemSameTags(r.getInput1(), r.getInput2()), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no fusion recipe with two distinct inputs loaded"));
+
+        ItemStack input1 = recipe.getInput1();
+        ItemStack input2 = recipe.getInput2();
+
+        // Seed each input with a count safely above its single-operation debit, so the post-handle count is an exact
+        // expectation rather than an emptied slot whose debit could not be measured.
+        int seeded1 = input1.getCount() + SLACK;
+        int seeded2 = input2.getCount() + SLACK;
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.add(new ItemStack(input1.getItem(), seeded1));
+        inventory.add(new ItemStack(input2.getItem(), seeded2));
+
+        int slot1 = inventory.findSlotMatchingItem(input1);
+        int slot2 = inventory.findSlotMatchingItem(input2);
+        helper.assertTrue(slot1 != slot2,
+                "the two distinct inputs must occupy distinct inventory slots, both resolved to " + slot1);
+
+        // Drive the production receive path: build the packet JEI would send and invoke its handler with a real
+        // server-bound context carrying the non-creative player. maxTransfer=false pins exactly one operation.
+        PlayPayloadContext context = new PlayPayloadContext(
+                null, null, null, PacketFlow.SERVERBOUND, null, Optional.of(player));
+        new FusionTransferPacket(controller.getBlockPos(), input1, input2, false).handle(context);
+
+        // Both machine input slots filled with the recipe inputs at one operation's count.
+        ProcessingSlotHandler machineInputs = controller.getInputHandler();
+        ItemStack machineSlot0 = machineInputs.getStackInSlot(0);
+        ItemStack machineSlot1 = machineInputs.getStackInSlot(1);
+        helper.assertTrue(ItemStack.isSameItemSameTags(machineSlot0, input1) && machineSlot0.getCount() == input1.getCount(),
+                "machine input slot 0 expected " + input1.getItem() + " x" + input1.getCount() + ", found " + machineSlot0);
+        helper.assertTrue(ItemStack.isSameItemSameTags(machineSlot1, input2) && machineSlot1.getCount() == input2.getCount(),
+                "machine input slot 1 expected " + input2.getItem() + " x" + input2.getCount() + ", found " + machineSlot1);
+
+        // Each inventory slot debited by exactly its own input's count -- input1's slot by input1's count, input2's
+        // slot by input2's count. Debiting slot1 twice would leave slot2 at its seed and over-drain slot1.
+        int remaining1 = inventory.getItem(slot1).getCount();
+        int remaining2 = inventory.getItem(slot2).getCount();
+        helper.assertTrue(remaining1 == seeded1 - input1.getCount(),
+                "input1 slot debited wrong: expected " + (seeded1 - input1.getCount()) + ", found " + remaining1);
+        helper.assertTrue(remaining2 == seeded2 - input2.getCount(),
+                "input2 slot was not debited (single-slot bug): expected " + (seeded2 - input2.getCount()) + ", found " + remaining2);
+        helper.succeed();
+    }
+
     // Places a dissolver at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts
     // to the absolute world position for us.
@@ -184,6 +276,31 @@ public class MachineGameTests {
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return dissolver;
+    }
+
+    // Places a fusion controller at the structure centre and returns its block-entity, failing the test if either the
+    // block or its block-entity is missing. The transfer handler addresses it by position and never needs the reactor
+    // multiblock formed, so a bare controller is enough.
+    private static FusionControllerBlockEntity placeFusionController(GameTestHelper helper) {
+        helper.setBlock(MACHINE_POS, BlockRegistry.FUSION_CONTROLLER.get());
+        BlockEntity blockEntity = helper.getBlockEntity(MACHINE_POS);
+        if (!(blockEntity instanceof FusionControllerBlockEntity controller)) {
+            helper.fail("expected a FusionControllerBlockEntity at " + MACHINE_POS + ", got "
+                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), MACHINE_POS);
+            throw new IllegalStateException("unreachable -- helper.fail throws");
+        }
+        return controller;
+    }
+
+    // A real non-creative ServerPlayer on the gametest level. The transfer handler rejects a non-ServerPlayer and
+    // routes a creative player to a branch that never touches the inventory, so neither the helper's creative mock
+    // player nor its deprecated creative server-player mock fits; this builds a ServerPlayer directly whose default
+    // SURVIVAL game mode is the non-creative path. It is not placed onto the network -- the handler runs synchronously
+    // on the server thread a gametest already executes on, so no connection is needed.
+    private static ServerPlayer makeServerPlayer(GameTestHelper helper) {
+        GameProfile profile = new GameProfile(UUID.randomUUID(), "test-fusion-player");
+        return new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(), profile,
+                CommonListenerCookie.createInitial(profile).clientInformation());
     }
 
     // The set of every item the resolved recipe can output, flattened across its probability groups. Used as the

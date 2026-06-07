@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/lead_iodide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:lead"
       }

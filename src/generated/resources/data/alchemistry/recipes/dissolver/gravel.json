@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/gravel",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:gravel"
     }

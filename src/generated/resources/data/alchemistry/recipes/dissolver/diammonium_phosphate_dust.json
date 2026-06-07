@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/diammonium_phosphate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:diammonium_phosphate_dust"
     }

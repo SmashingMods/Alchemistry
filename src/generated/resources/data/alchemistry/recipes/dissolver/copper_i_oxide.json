@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/copper_i_oxide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:copper_i_oxide"
     }

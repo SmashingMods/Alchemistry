@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/manganese_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:manganese"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

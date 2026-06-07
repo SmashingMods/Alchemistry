@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/lead_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:lead"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

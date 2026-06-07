@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/magnesium_sulfate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:magnesium_sulfate"
     }

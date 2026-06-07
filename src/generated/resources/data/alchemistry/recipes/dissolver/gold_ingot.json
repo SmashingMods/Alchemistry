@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/gold_ingot",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:gold_ingot"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/copper_chloride",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:copper_chloride"
     }

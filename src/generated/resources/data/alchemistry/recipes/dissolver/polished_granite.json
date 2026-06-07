@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/polished_granite",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:polished_granite"
     }

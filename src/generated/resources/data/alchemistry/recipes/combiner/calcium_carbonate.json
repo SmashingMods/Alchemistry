@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/calcium_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:calcium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

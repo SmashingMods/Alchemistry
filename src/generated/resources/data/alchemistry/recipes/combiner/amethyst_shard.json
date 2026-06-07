@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/amethyst_shard",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:iron"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:silicon_dioxide"
       }

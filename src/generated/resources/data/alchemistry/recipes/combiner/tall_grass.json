@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/tall_grass",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }

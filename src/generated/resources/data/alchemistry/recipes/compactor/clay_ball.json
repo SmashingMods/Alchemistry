@@ -3,7 +3,6 @@
   "group": "alchemistry:compactor",
   "id": "alchemistry:compactor/clay_ball",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:kaolinite"
     }

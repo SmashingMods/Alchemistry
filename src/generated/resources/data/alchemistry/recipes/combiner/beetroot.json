@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/beetroot",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sucrose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:iron_oxide"
       }

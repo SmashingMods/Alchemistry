@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dyes/brown",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:dyes/brown"
     }

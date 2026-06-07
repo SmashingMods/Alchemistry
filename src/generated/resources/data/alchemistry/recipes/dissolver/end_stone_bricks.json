@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/end_stone_bricks",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:end_stone_bricks"
     }

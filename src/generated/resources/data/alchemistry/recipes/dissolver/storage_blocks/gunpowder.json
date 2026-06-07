@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/storage_blocks/gunpowder",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:storage_blocks/gunpowder"
     }
@@ -27,11 +26,7 @@
             "item": "chemlib:potassium_nitrate"
           },
           {
-            "count": 64,
-            "item": "chemlib:sulfur"
-          },
-          {
-            "count": 8,
+            "count": 72,
             "item": "chemlib:sulfur"
           },
           {

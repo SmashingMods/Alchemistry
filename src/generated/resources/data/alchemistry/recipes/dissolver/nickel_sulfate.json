@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nickel_sulfate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:nickel_sulfate"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/smooth_red_sandstone",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:smooth_red_sandstone"
     }

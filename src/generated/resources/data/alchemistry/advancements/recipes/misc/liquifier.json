@@ -30,6 +30,5 @@
     "recipes": [
       "alchemistry:liquifier"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

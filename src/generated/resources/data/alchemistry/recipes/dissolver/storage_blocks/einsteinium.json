@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/storage_blocks/einsteinium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:storage_blocks/einsteinium"
     }
@@ -23,15 +22,7 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 64,
-            "item": "chemlib:einsteinium"
-          },
-          {
-            "count": 64,
-            "item": "chemlib:einsteinium"
-          },
-          {
-            "count": 16,
+            "count": 144,
             "item": "chemlib:einsteinium"
           }
         ]

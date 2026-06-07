@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/graphite_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:graphite_dust"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:compactor",
   "id": "alchemistry:compactor/sugar",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:sucrose"
     }

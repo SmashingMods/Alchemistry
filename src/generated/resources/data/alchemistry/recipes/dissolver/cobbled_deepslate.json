@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cobbled_deepslate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:cobbled_deepslate"
     }
@@ -14,6 +13,7 @@
         "probability": 40.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

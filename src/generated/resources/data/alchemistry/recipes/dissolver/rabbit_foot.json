@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/rabbit_foot",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:rabbit_foot"
     }

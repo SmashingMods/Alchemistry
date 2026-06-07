@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/copper_nitrate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:copper_nitrate_dust"
     }

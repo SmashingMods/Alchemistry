@@ -4,19 +4,16 @@
   "id": "alchemistry:combiner/dirt",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:kaolinite"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:water"
       }

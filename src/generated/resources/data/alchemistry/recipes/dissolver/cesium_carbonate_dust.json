@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cesium_carbonate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:cesium_carbonate_dust"
     }

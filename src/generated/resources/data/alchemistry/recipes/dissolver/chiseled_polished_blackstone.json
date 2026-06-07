@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/chiseled_polished_blackstone",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:chiseled_polished_blackstone"
     }

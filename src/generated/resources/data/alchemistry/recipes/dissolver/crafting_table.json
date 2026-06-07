@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/crafting_table",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:crafting_table"
     }

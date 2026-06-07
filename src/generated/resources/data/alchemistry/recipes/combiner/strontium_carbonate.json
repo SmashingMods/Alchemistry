@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/strontium_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:strontium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

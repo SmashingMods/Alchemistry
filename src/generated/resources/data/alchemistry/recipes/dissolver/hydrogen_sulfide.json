@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/hydrogen_sulfide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:hydrogen_sulfide"
     }

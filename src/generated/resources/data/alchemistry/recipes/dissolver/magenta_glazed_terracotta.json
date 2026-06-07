@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/magenta_glazed_terracotta",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:magenta_glazed_terracotta"
     }

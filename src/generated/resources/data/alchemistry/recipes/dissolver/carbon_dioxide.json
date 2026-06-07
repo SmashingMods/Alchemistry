@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/carbon_dioxide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:carbon_dioxide"
     }

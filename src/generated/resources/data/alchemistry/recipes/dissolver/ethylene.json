@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ethylene",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:ethylene"
     }

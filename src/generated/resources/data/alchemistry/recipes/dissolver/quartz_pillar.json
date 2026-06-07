@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/quartz_pillar",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:quartz_pillar"
     }
@@ -18,11 +17,7 @@
             "item": "chemlib:barium"
           },
           {
-            "count": 64,
-            "item": "chemlib:silicon_dioxide"
-          },
-          {
-            "count": 64,
+            "count": 128,
             "item": "chemlib:silicon_dioxide"
           }
         ]

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/weathered_cut_copper",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:weathered_cut_copper"
     }

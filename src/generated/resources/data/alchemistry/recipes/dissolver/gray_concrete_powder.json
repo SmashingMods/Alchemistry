@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/gray_concrete_powder",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:gray_concrete_powder"
     }

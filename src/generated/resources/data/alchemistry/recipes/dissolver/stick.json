@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/stick",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:stick"
     }
@@ -22,6 +21,7 @@
         "probability": 90.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

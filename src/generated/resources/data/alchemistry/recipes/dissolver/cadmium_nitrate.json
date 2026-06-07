@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cadmium_nitrate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:cadmium_nitrate"
     }

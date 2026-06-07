@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ingots/thallium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ingots/thallium"
     }

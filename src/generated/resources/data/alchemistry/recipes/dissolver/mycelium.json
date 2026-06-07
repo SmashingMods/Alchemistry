@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/mycelium",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:mycelium"
     }

@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/barium_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:barium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

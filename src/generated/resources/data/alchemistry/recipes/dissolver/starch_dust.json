@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/starch_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:starch_dust"
     }

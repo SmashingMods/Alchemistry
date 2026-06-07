@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/glowstone",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:glowstone"
     }

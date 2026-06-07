@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/cadmium_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cadmium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

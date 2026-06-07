@@ -4,19 +4,16 @@
   "id": "alchemistry:combiner/glow_berries",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sucrose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:phosphorus"
       }

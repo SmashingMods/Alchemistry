@@ -4,19 +4,16 @@
   "id": "alchemistry:combiner/crimson_fungus",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:selenium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:phosphoric_acid"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:chitin"
       }

@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/potassium_permanganate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:potassium"
       }
@@ -16,7 +15,6 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:manganese"
       }

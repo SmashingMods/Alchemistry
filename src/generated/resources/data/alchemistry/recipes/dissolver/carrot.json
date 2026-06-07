@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/carrot",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:carrot"
     }
@@ -22,6 +21,7 @@
         "probability": 80.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

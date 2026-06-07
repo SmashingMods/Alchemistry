@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/caffeine",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:caffeine"
     }

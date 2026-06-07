@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/carrot",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:beta_carotene"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }

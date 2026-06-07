@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/jungle_sapling",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }

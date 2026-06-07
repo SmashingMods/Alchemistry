@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/antimony_trisulfide_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:antimony_trisulfide_dust"
     }

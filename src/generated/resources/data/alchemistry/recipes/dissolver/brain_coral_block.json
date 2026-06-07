@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/brain_coral_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:brain_coral_block"
     }

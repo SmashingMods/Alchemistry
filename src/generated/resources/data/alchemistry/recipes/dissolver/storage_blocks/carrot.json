@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/storage_blocks/carrot",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:storage_blocks/carrot"
     }
@@ -31,6 +30,7 @@
         "probability": 80.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

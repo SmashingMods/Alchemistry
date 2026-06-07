@@ -1,11 +1,10 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/grass",
+  "id": "alchemistry:dissolver/short_grass",
   "input": {
-    "count": 1,
     "ingredient": {
-      "item": "minecraft:grass"
+      "item": "minecraft:short_grass"
     }
   },
   "output": {
@@ -22,6 +21,7 @@
         "probability": 75.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cobalt_sulfate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:cobalt_sulfate_dust"
     }

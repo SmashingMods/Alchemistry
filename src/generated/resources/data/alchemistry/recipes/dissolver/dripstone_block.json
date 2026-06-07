@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dripstone_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:dripstone_block"
     }
@@ -14,6 +13,7 @@
         "probability": 10.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

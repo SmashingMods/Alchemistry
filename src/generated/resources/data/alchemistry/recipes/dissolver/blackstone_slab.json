@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/blackstone_slab",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:blackstone_slab"
     }

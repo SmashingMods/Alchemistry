@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/quartz",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:quartz"
     }

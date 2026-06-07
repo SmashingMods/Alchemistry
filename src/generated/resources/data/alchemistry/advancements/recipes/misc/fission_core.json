@@ -30,6 +30,5 @@
     "recipes": [
       "alchemistry:fission_core"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

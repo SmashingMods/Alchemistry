@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/melon",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:melon"
     }
@@ -35,6 +34,7 @@
         "probability": 55.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

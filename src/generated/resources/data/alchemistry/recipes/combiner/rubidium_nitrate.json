@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/rubidium_nitrate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:rubidium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nitrate"
       }

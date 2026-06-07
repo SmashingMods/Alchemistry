@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/cesium_chloride",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cesium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:chlorine"
       }

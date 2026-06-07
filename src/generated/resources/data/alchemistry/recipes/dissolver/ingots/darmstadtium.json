@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ingots/darmstadtium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ingots/darmstadtium"
     }

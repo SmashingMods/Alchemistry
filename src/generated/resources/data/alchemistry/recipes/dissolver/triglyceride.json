@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/triglyceride",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:triglyceride"
     }

@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ores/niobium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ores/niobium"
     }

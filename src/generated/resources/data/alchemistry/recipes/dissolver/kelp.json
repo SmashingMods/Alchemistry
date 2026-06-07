@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/kelp",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:kelp"
     }
@@ -31,6 +30,7 @@
         "probability": 5.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

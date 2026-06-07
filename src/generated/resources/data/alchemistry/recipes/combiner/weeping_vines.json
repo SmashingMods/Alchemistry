@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/weeping_vines",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:mercury_sulfide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }

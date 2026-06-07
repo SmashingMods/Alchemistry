@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/mossy_cobblestone_slab",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:mossy_cobblestone_slab"
     }
@@ -14,6 +13,7 @@
         "probability": 1394.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

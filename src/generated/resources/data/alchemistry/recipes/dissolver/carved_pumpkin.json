@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/carved_pumpkin",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:carved_pumpkin"
     }
@@ -22,6 +21,7 @@
         "probability": 50.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

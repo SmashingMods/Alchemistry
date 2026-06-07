@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/iron_ii_oxide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:iron_ii_oxide"
     }

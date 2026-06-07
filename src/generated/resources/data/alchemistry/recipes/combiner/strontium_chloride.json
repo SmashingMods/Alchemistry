@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/strontium_chloride",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:strontium"
       }

@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/ammonium_chloride",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nitrogen"
       }
@@ -16,7 +15,6 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:chlorine"
       }

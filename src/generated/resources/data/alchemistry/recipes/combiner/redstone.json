@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/redstone",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:iron_oxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:strontium_carbonate"
       }

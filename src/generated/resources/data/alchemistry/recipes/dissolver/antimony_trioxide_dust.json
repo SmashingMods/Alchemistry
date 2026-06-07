@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/antimony_trioxide_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:antimony_trioxide_dust"
     }

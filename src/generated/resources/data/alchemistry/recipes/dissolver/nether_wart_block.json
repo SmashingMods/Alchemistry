@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nether_wart_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:nether_wart_block"
     }

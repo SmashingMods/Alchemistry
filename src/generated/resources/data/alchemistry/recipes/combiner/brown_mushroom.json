@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/brown_mushroom",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:phosphoric_acid"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:chitin"
       }

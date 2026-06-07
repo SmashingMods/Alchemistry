@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cracked_polished_blackstone_bricks",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:cracked_polished_blackstone_bricks"
     }

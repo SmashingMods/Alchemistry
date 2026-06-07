@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.fission;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.Advancement;
@@ -69,14 +70,7 @@ public class FissionRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fission/%s", pRecipeId.getPath()));
         ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fission/%s", pRecipeId.getPath()));
 
-        pRecipeOutput.accept(new FissionRecipeResult(
-                group,
-                advancementBuilder,
-                recipeId,
-                advancementId,
-                input,
-                output1,
-                output2
-        ));
+        FissionRecipe recipe = new FissionRecipe(recipeId, group, new ItemStack(input), output1, output2);
+        pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));
     }
 }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dyes/light_gray",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:dyes/light_gray"
     }

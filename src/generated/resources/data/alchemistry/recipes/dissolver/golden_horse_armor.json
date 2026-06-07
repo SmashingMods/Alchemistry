@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/golden_horse_armor",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:golden_horse_armor"
     }

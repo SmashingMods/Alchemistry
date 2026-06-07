@@ -30,6 +30,5 @@
     "recipes": [
       "alchemistry:fusion_chamber_controller"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

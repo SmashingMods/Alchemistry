@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/lead_oxide_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:lead_oxide_dust"
     }

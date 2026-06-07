@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/bubble_coral_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:bubble_coral_block"
     }

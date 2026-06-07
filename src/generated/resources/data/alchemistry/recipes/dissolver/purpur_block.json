@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/purpur_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:purpur_block"
     }

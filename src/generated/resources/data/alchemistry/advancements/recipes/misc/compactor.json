@@ -30,6 +30,5 @@
     "recipes": [
       "alchemistry:compactor"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

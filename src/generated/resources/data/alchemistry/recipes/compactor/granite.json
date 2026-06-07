@@ -3,7 +3,6 @@
   "group": "alchemistry:compactor",
   "id": "alchemistry:compactor/granite",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:silicon_dioxide"
     }

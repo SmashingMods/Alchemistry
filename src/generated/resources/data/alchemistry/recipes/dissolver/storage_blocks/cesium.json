@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/storage_blocks/cesium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:storage_blocks/cesium"
     }
@@ -23,15 +22,7 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 64,
-            "item": "chemlib:cesium"
-          },
-          {
-            "count": 64,
-            "item": "chemlib:cesium"
-          },
-          {
-            "count": 16,
+            "count": 144,
             "item": "chemlib:cesium"
           }
         ]

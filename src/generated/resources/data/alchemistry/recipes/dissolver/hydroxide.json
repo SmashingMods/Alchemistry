@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/hydroxide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:hydroxide"
     }

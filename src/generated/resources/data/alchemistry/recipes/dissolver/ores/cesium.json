@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ores/cesium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ores/cesium"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/hay_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:hay_block"
     }
@@ -30,6 +29,7 @@
         "probability": 70.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

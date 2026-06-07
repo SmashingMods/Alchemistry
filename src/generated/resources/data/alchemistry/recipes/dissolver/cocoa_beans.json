@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cocoa_beans",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:cocoa_beans"
     }

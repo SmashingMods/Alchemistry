@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/lead_iodide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:lead_iodide"
     }

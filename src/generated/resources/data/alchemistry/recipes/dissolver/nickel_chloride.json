@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nickel_chloride",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:nickel_chloride"
     }

@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/plates/terbium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:plates/terbium"
     }

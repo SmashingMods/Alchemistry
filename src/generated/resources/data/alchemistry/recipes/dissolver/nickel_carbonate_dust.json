@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nickel_carbonate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:nickel_carbonate_dust"
     }

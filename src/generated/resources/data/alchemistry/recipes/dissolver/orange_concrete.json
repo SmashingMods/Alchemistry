@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/orange_concrete",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:orange_concrete"
     }

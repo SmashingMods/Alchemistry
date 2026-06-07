@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/chiseled_red_sandstone",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:chiseled_red_sandstone"
     }

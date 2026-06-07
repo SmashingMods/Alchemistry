@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nuggets/manganese",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:nuggets/manganese"
     }

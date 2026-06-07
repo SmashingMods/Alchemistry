@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/prismarine_crystals",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:prismarine_crystals"
     }

@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.fusion;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -62,14 +63,7 @@ public class FusionRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fusion/%s_and_%s_to_%s", input1String, input2String, outputString));
         ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fusion/%s", pRecipeId.getPath()));
 
-        pRecipeOutput.accept(new FusionRecipeResult(
-                group,
-                advancementBuilder,
-                recipeId,
-                advancementId,
-                input1,
-                input2,
-                output
-        ));
+        FusionRecipe recipe = new FusionRecipe(recipeId, group, new ItemStack(input1), new ItemStack(input2), output);
+        pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));
     }
 }

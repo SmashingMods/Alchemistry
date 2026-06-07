@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/scute",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:scute"
     }

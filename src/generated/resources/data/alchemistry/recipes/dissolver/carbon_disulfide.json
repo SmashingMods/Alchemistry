@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/carbon_disulfide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:carbon_disulfide"
     }

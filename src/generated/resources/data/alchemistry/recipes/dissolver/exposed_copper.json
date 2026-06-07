@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/exposed_copper",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:exposed_copper"
     }

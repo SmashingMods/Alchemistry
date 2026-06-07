@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/crimson_roots",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:mercury_sulfide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }

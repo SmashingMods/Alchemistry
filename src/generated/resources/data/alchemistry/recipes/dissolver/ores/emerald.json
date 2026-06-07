@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ores/emerald",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ores/emerald"
     }

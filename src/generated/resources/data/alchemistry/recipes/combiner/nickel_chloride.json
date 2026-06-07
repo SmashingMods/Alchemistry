@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/nickel_chloride",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nickel"
       }

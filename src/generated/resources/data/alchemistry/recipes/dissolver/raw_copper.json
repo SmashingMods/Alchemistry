@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/raw_copper",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:raw_copper"
     }

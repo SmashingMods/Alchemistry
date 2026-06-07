@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/beta_carotene_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:beta_carotene_dust"
     }

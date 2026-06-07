@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/honeycomb_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:honeycomb_block"
     }

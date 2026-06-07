@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/sodium_hydroxide_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:sodium_hydroxide_dust"
     }

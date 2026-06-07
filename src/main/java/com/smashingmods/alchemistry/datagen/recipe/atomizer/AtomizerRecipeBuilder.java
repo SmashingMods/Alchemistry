@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.atomizer;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -57,13 +58,7 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("atomizer/%s", pRecipeId.getPath()));
         ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);
 
-        pRecipeOutput.accept(new AtomizerRecipeResult(
-                group,
-                advancementBuilder,
-                recipeLocation,
-                advancementLocation,
-                input,
-                result
-        ));
+        AtomizerRecipe recipe = new AtomizerRecipe(recipeLocation, group, input, result);
+        pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));
     }
 }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/lithium_chloride",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:lithium_chloride"
     }

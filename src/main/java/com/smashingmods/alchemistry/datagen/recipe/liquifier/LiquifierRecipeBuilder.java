@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -56,13 +57,7 @@ public class LiquifierRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("liquifier/%s", pRecipeId.getPath()));
         ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, String.format("recipes/liquifier/%s", pRecipeId.getPath()));
 
-        pRecipeOutput.accept(new LiquifierRecipeResult(
-                group,
-                advancementBuilder,
-                recipeLocation,
-                advancementLocation,
-                input,
-                output
-        ));
+        LiquifierRecipe recipe = new LiquifierRecipe(recipeLocation, group, input, output);
+        pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));
     }
 }

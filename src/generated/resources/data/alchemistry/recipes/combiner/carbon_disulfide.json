@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/carbon_disulfide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbon"
       }

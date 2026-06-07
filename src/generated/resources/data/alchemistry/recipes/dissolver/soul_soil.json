@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/soul_soil",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:soul_soil"
     }

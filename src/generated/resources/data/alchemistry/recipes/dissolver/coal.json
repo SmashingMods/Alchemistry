@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/coal",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:coal"
     }

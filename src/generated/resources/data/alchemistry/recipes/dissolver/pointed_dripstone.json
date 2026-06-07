@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/pointed_dripstone",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:pointed_dripstone"
     }
@@ -14,6 +13,7 @@
         "probability": 10.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

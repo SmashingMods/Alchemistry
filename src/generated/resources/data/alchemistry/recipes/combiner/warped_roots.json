@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/warped_roots",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:copper_chloride"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }

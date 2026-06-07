@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/moss_block",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:water"
       }

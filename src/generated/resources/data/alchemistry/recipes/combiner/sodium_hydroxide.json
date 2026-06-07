@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/sodium_hydroxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sodium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydroxide"
       }

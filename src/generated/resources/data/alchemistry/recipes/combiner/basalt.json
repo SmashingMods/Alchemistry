@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/basalt",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:silicon_dioxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:aluminum_oxide"
       }

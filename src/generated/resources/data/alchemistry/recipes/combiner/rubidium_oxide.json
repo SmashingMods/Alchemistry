@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/rubidium_oxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }

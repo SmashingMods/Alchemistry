@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/carbon_monoxide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:carbon_monoxide"
     }

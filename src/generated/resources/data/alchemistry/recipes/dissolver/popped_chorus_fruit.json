@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/popped_chorus_fruit",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:popped_chorus_fruit"
     }

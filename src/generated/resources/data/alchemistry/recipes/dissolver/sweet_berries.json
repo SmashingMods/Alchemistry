@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/sweet_berries",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:sweet_berries"
     }

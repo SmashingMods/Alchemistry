@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dyes/orange",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:dyes/orange"
     }

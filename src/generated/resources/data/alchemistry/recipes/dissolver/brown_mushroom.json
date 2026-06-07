@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/brown_mushroom",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:brown_mushroom"
     }

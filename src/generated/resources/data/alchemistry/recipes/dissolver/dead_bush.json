@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dead_bush",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:dead_bush"
     }
@@ -22,6 +21,7 @@
         "probability": 75.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

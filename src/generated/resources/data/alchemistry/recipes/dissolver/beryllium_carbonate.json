@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/beryllium_carbonate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:beryllium_carbonate"
     }

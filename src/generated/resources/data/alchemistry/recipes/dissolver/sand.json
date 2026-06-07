@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/sand",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:sand"
     }

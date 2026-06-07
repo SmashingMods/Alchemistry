@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ingots/rhodium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ingots/rhodium"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/fences/wooden",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:fences/wooden"
     }
@@ -22,6 +21,7 @@
         "probability": 66.6666,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

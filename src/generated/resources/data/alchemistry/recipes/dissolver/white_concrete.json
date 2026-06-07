@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/white_concrete",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:white_concrete"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dark_prismarine",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:dark_prismarine"
     }

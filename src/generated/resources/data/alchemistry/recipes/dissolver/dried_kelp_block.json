@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dried_kelp_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:dried_kelp_block"
     }
@@ -18,6 +17,7 @@
             "item": "chemlib:sodium_carbonate"
           },
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

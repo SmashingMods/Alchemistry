@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/crimson_fungus",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:crimson_fungus"
     }

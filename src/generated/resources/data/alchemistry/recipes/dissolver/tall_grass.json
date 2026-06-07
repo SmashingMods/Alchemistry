@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/tall_grass",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:tall_grass"
     }
@@ -22,6 +21,7 @@
         "probability": 75.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

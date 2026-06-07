@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nautilus_shell",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:nautilus_shell"
     }

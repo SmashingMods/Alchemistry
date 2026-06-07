@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/sodium_bisulfate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sodium"
       }
@@ -16,13 +15,11 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydrogen"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
       }

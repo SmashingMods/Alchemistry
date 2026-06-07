@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/cobalt_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cobalt"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

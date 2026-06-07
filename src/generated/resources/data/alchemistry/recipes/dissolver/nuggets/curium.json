@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/nuggets/curium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:nuggets/curium"
     }

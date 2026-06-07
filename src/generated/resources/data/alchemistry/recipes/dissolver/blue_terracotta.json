@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/blue_terracotta",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:blue_terracotta"
     }

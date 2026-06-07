@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/obsidian",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:obsidian"
     }

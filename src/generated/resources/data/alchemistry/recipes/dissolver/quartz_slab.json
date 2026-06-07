@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/quartz_slab",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:quartz_slab"
     }

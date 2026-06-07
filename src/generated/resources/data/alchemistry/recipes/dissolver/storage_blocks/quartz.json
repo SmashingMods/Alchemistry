@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/storage_blocks/quartz",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:storage_blocks/quartz"
     }
@@ -18,11 +17,7 @@
             "item": "chemlib:barium"
           },
           {
-            "count": 64,
-            "item": "chemlib:silicon_dioxide"
-          },
-          {
-            "count": 64,
+            "count": 128,
             "item": "chemlib:silicon_dioxide"
           }
         ]

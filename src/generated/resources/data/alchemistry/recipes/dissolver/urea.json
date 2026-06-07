@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/urea",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:urea"
     }

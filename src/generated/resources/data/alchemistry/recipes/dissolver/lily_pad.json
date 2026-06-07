@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/lily_pad",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:lily_pad"
     }
@@ -22,6 +21,7 @@
         "probability": 75.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

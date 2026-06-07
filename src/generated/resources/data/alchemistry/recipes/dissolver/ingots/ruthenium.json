@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ingots/ruthenium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ingots/ruthenium"
     }

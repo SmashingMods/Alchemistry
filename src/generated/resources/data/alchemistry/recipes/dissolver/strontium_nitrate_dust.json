@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/strontium_nitrate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:strontium_nitrate_dust"
     }

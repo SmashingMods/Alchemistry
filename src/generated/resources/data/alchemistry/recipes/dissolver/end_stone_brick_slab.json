@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/end_stone_brick_slab",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:end_stone_brick_slab"
     }
@@ -14,6 +13,7 @@
         "probability": 350.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

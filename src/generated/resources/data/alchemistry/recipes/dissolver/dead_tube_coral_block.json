@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dead_tube_coral_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:dead_tube_coral_block"
     }

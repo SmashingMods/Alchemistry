@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/sandstone_slab",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:sandstone_slab"
     }

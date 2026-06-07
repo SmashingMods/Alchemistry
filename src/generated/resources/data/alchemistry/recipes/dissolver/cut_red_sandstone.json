@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cut_red_sandstone",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:cut_red_sandstone"
     }

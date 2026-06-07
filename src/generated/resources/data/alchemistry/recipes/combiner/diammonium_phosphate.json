@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/diammonium_phosphate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydrogen"
       }
@@ -16,7 +15,6 @@
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:phosphate"
       }

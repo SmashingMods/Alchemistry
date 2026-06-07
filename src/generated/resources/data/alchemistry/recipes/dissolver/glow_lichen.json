@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/glow_lichen",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:glow_lichen"
     }

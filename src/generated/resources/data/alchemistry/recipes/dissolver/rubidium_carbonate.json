@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/rubidium_carbonate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:rubidium_carbonate"
     }

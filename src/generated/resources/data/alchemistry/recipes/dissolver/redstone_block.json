@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/redstone_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:redstone_block"
     }

@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilitySet;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
@@ -55,13 +56,7 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath()));
         ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, String.format("recipes/dissolver/%s", pRecipeId.getPath()));
 
-        pRecipeOutput.accept(new DissolverRecipeResult(
-                group,
-                advancementBuilder,
-                recipeLocation,
-                advancementLocation,
-                input,
-                result
-        ));
+        DissolverRecipe recipe = new DissolverRecipe(recipeLocation, group, input, result);
+        pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));
     }
 }

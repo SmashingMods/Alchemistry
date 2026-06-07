@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/potassium_hydroxide_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:potassium_hydroxide_dust"
     }

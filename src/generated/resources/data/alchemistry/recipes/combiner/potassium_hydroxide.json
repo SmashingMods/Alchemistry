@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/potassium_hydroxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:potassium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydroxide"
       }

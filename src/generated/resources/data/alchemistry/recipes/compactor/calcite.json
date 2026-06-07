@@ -3,7 +3,6 @@
   "group": "alchemistry:compactor",
   "id": "alchemistry:compactor/calcite",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:calcium_carbonate"
     }

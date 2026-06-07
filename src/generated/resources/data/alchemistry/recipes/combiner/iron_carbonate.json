@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/iron_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:iron"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

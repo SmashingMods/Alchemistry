@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/copper_carbonate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:copper"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbonate"
       }

@@ -1,16 +1,15 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/grass",
+  "id": "alchemistry:combiner/short_grass",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }
     }
   ],
   "result": {
-    "item": "minecraft:grass"
+    "item": "minecraft:short_grass"
   }
 }

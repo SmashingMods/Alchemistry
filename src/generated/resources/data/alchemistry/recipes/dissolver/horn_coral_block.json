@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/horn_coral_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:horn_coral_block"
     }

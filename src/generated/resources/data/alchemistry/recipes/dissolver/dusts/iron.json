@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dusts/iron",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:dusts/iron"
     }

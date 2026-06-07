@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/sodium_oxide_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:sodium_oxide_dust"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/snow_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:snow_block"
     }

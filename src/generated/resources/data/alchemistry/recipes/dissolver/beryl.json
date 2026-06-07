@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/beryl",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:beryl"
     }

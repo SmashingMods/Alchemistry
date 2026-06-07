@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -61,13 +62,7 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.getPath()));
         ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);
 
-        pRecipeOutput.accept(new CombinerRecipeResult(
-                group,
-                advancementBuilder,
-                recipeLocation,
-                advancementLocation,
-                input,
-                result
-        ));
+        CombinerRecipe recipe = new CombinerRecipe(recipeLocation, group, input, result);
+        pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));
     }
 }

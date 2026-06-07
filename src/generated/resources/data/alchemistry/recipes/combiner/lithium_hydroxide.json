@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/lithium_hydroxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydroxide"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:lithium"
       }

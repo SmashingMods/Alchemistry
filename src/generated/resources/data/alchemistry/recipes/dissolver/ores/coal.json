@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ores/coal",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ores/coal"
     }

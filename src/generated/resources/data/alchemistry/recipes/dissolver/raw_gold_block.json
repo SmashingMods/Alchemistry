@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/raw_gold_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:raw_gold_block"
     }
@@ -14,15 +13,7 @@
         "probability": 100.0,
         "results": [
           {
-            "count": 64,
-            "item": "chemlib:gold"
-          },
-          {
-            "count": 64,
-            "item": "chemlib:gold"
-          },
-          {
-            "count": 16,
+            "count": 144,
             "item": "chemlib:gold"
           }
         ]

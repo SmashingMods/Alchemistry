@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ghast_tear",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:ghast_tear"
     }

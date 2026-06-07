@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/carbon_monoxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbon"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }

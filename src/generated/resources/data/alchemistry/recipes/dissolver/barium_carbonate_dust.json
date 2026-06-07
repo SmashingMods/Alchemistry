@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/barium_carbonate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:barium_carbonate_dust"
     }

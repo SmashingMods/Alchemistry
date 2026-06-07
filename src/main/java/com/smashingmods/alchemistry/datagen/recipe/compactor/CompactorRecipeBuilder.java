@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.datagen.recipe.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -56,13 +57,7 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
         ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", pRecipeId.getPath()));
         ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, advancementPath);
 
-        pRecipeOutput.accept(new CompactorRecipeResult(
-                group,
-                advancementBuilder,
-                recipeId,
-                advancementId,
-                input,
-                result
-        ));
+        CompactorRecipe recipe = new CompactorRecipe(recipeId, group, input, result);
+        pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));
     }
 }

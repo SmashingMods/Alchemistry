@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/spore_blossom",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:spore_blossom"
     }
@@ -22,6 +21,7 @@
         "probability": 33.400000000000006,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

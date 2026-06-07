@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/zinc_sulfide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:zinc"
       }

@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/dark_oak_sapling",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }

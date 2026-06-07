@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/hydroxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:hydrogen"
       }

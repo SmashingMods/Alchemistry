@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/dusts/carbon",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:dusts/carbon"
     }

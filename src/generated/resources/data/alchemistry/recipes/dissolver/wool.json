@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/wool",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "minecraft:wool"
     }

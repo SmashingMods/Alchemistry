@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/nickel_sulfide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nickel"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
       }

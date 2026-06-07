@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/sea_pickle",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:sea_pickle"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/cooked_rabbit",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:cooked_rabbit"
     }

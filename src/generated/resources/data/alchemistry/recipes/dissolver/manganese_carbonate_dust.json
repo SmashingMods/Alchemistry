@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/manganese_carbonate_dust",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:manganese_carbonate_dust"
     }

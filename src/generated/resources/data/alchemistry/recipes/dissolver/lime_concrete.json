@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/lime_concrete",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:lime_concrete"
     }

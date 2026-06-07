@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/acetylsalicylic_acid",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:acetylsalicylic_acid"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/smooth_stone_slab",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:smooth_stone_slab"
     }
@@ -14,6 +13,7 @@
         "probability": 20.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

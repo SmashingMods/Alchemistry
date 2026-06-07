@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/lithium_nitrate",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nitrate"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:lithium"
       }

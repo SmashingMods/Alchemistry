@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/barium_oxide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:oxygen"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:barium"
       }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/iron_door",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:iron_door"
     }

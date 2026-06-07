@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/carpets",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "minecraft:carpets"
     }
@@ -26,6 +25,7 @@
         "probability": 33.33333333333334,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/wheat",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:wheat"
     }
@@ -30,6 +29,7 @@
         "probability": 70.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

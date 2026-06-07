@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/fire_coral_fan",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:fire_coral_fan"
     }

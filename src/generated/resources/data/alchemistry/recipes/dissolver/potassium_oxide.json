@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/potassium_oxide",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:potassium_oxide"
     }

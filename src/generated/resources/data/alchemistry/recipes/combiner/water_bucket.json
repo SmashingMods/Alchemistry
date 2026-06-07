@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/water_bucket",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "minecraft:bucket"
       }

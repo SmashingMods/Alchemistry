@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/tin_sulfate",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:tin_sulfate"
     }

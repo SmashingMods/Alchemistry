@@ -4,13 +4,11 @@
   "id": "alchemistry:combiner/mercury_sulfide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:mercury"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:sulfur"
       }

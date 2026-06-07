@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/slime_block",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:slime_block"
     }

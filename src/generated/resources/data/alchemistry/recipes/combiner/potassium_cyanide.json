@@ -4,19 +4,16 @@
   "id": "alchemistry:combiner/potassium_cyanide",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:carbon"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:potassium"
       }
     },
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:nitrogen"
       }

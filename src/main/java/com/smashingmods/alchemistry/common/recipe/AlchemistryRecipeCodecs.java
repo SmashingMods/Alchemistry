@@ -42,10 +42,12 @@ public final class AlchemistryRecipeCodecs {
     /**
      * Item stack codec for dissolver probability results. Unlike {@code CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC}
      * this permits {@code minecraft:air}, which weighted dissolver groups use to represent a "nothing" roll.
-     * Reads {@code item} plus an optional {@code count} that defaults to 1.
+     * Reads {@code item} plus an optional {@code count} that defaults to 1. The count is
+     * {@linkplain ExtraCodecs#NON_NEGATIVE_INT non-negative} rather than positive so the {@code minecraft:air}
+     * "nothing" stack, whose count is 0, round-trips through datagen instead of failing to encode.
      */
     public static final Codec<ItemStack> ITEM_STACK_RESULT = RecordCodecBuilder.create(instance -> instance.group(
             BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(ItemStack::getItem),
-            ExtraCodecs.strictOptionalField(ExtraCodecs.POSITIVE_INT, "count", 1).forGetter(ItemStack::getCount)
+            ExtraCodecs.strictOptionalField(ExtraCodecs.NON_NEGATIVE_INT, "count", 1).forGetter(ItemStack::getCount)
     ).apply(instance, ItemStack::new));
 }

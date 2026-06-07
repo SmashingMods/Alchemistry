@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/honey_bottle",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:honey_bottle"
     }

@@ -4,7 +4,6 @@
   "id": "alchemistry:combiner/dead_bush",
   "input": [
     {
-      "count": 1,
       "ingredient": {
         "item": "chemlib:cellulose"
       }

@@ -3,7 +3,6 @@
   "group": "alchemistry:compactor",
   "id": "alchemistry:compactor/jungle_log",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "chemlib:cellulose"
     }

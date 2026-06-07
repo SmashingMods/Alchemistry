@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/netherrack",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:netherrack"
     }
@@ -14,6 +13,7 @@
         "probability": 15.0,
         "results": [
           {
+            "count": 0,
             "item": "minecraft:air"
           }
         ]

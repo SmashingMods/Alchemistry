@@ -12,7 +12,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/ingots/plutonium",
   "input": {
-    "count": 1,
     "ingredient": {
       "tag": "forge:ingots/plutonium"
     }

@@ -3,7 +3,6 @@
   "group": "alchemistry:dissolver",
   "id": "alchemistry:dissolver/bricks",
   "input": {
-    "count": 1,
     "ingredient": {
       "item": "minecraft:bricks"
     }

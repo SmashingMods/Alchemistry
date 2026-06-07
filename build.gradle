@@ -111,6 +111,75 @@ runs {
             into run.workingDirectory.dir('gameteststructures')
         }
         run.dependsOn gameTestStructures.get()
+
+        // Close the gate-hole: fail the build when the gametest run does NOT genuinely load the chain and pass
+        // every required test. NeoGradle creates runGameTestServer as a plain JavaExec, and a JavaExec normally
+        // fails on a non-zero forked exit. But on a mod-load crash the forked JVM still exits 0: vanilla's
+        // net.minecraft.server.Main wraps the whole startup in a try/catch that only logs "Failed to start the
+        // minecraft server" and returns, so the ModLoadingException never propagates to an exit code. The only
+        // non-zero exit comes from GameTestServer.onServerExit (System.exit(failedRequiredCount)), which never
+        // runs if the crash happens before the test server starts ticking. The exit code is therefore unreliable
+        // for the crash-before-tests case, so we verify by scanning the run's own console output instead.
+        //
+        // The run task is referenced by its NeoGradle-generated name (runGameTestServer) because, as noted above,
+        // NeoGradle 7.1 no longer resolves the run by name via runs.named('gameTestServer'). NeoGradle creates the
+        // run tasks lazily during project evaluation, so the lookup is deferred into afterEvaluate -- the task does
+        // not exist yet while this run block is being configured.
+        def gameTestLog = layout.buildDirectory.file('runGameTestServer.log')
+        project.afterEvaluate {
+            project.tasks.named('runGameTestServer', JavaExec).configure { task ->
+                task.outputs.file(gameTestLog)
+                // Capture the forked server's console output to a log file the verify step below scans. The stream
+                // is a single plain FileOutputStream (not a tee back to the Gradle console): JavaExec pumps the
+                // process output on a dedicated thread, and a wrapper that fans out to two sinks can deadlock the
+                // forked JVM if either leg stalls -- a file sink never blocks. A developer still gets a live copy
+                // via the server's own log4j appender at build/gametest/logs/latest.log; this captured file is the
+                // machine-readable copy the gate reads. Opened in doFirst so it exists only when the run executes,
+                // and stashed on the task so doLast can flush + close it deterministically.
+                task.doFirst {
+                    def logFile = gameTestLog.get().asFile
+                    logFile.parentFile.mkdirs()
+                    def fileOut = new BufferedOutputStream(new FileOutputStream(logFile))
+                    task.ext.gameTestLogStream = fileOut
+                    task.standardOutput = fileOut
+                    task.errorOutput = fileOut
+                }
+                // doLast runs after the exec action. On a mod-load crash the exec action "succeeds" (exit 0) so this
+                // still runs and fails the build; on a genuine non-zero exit the exec action fails first, which also
+                // fails the build -- either way an unhealthy run never reports BUILD SUCCESSFUL.
+                task.doLast {
+                    (task.ext.has('gameTestLogStream') ? task.ext.gameTestLogStream : null)?.with { it.flush(); it.close() }
+                    def log = gameTestLog.get().asFile
+                    def text = log.exists() ? log.getText('UTF-8') : ''
+
+                    // Any of these means the chain crashed at (or before) mod load -- the exact failures this gate
+                    // exists to catch. "required tests failed" covers a booted run where a required gametest failed.
+                    def crashMarkers = ['ModLoadingException', 'Failed to start the minecraft server',
+                                        'invalid dist', 'LoadingFailed', 'required tests failed']
+                    def hit = crashMarkers.find { text.contains(it) }
+                    if (hit != null) {
+                        throw new GradleException("runGameTestServer FAILED: crash marker '${hit}' found in ${log}. " +
+                                "The chain did not load cleanly / a required test failed. See the log for the stack trace.")
+                    }
+
+                    // The chain must have booted far enough to actually run the gametests...
+                    if (!text.contains('Started game test server') || !(text =~ /\d+ tests are now running/)) {
+                        throw new GradleException("runGameTestServer FAILED: the gametest batch never started " +
+                                "(no 'Started game test server' / 'N tests are now running' in ${log}). " +
+                                "The server exited before reaching the in-world test phase.")
+                    }
+
+                    // ...and every required test must have passed (GameTestServer logs this once all tests finish).
+                    if (!(text =~ /All \d+ required tests passed/)) {
+                        throw new GradleException("runGameTestServer FAILED: success marker 'All N required tests " +
+                                "passed' not found in ${log}. The run did not complete with all required tests green.")
+                    }
+
+                    def passLine = (text =~ /All \d+ required tests passed/)[0]
+                    logger.lifecycle("runGameTestServer verified: chain loaded and ${passLine}.")
+                }
+            }
+        }
     }
 
     data {

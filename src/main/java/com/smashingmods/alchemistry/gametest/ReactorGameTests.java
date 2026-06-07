@@ -6,11 +6,14 @@ import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEnt
 import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorShape;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
+import com.smashingmods.alchemistry.common.network.ToggleReactorAutoejectPacket;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -19,11 +22,13 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * In-world test for the fission reactor multiblock -- the reactor half of P4.alchemistry.5 ({@code MachineGameTests}
@@ -94,6 +99,63 @@ public class ReactorGameTests {
             helper.assertTrue(proxied != null, "reactor energy port did not expose an ENERGY capability");
             helper.assertTrue(proxied == controller.getEnergyHandler(),
                     "reactor energy port capability is not proxied to the controller's energy handler");
+        });
+    }
+
+    /**
+     * The send-&gt;handle runtime proof for the networking rewrite (audit B1). The encode/decode unit round-trips prove
+     * the wire format survives a trip, and the full-chain boot smoke proves the packets register; nothing automated
+     * proved that a server-bound packet's {@code handle} body runs on the server and mutates the right block-entity.
+     * This drives {@link ToggleReactorAutoejectPacket} through its production receive path and asserts the reactor
+     * controller's {@code autoeject} flag flips.
+     *
+     * <p><b>Context approach (b) of the ticket:</b> the packet is constructed and its production
+     * {@link ToggleReactorAutoejectPacket#handle(PlayPayloadContext) handle(PlayPayloadContext)} is invoked directly
+     * with a minimal-but-real {@link PlayPayloadContext} record. The handler reads only {@code player()} (then
+     * {@code player.level().getBlockEntity(pos)}), so the context carries {@link PacketFlow#SERVERBOUND} -- the real
+     * server-bound flow -- and {@code Optional.of(}a {@link GameTestHelper#makeMockPlayer() mock player}{@code )},
+     * whose {@code level()} is the gametest {@link net.minecraft.server.level.ServerLevel}; the four unused handlers
+     * (reply/packet/work/channel) are {@code null}. This is the production handler logic, executed server-side against
+     * the real block-entity, so it proves the handler body, its block-entity effect, and the side. <b>Limitation:</b>
+     * it does not exercise the registrar's decoder-and-side binding -- that the id is wired server-bound to this
+     * handler with this decoder -- which is covered by the boot smoke ({@code fullChainLoaded}) plus the encode/decode
+     * round-trip unit tests; nor the network-thread-to-main-thread {@code workHandler().execute(...)} hop, which
+     * {@link com.smashingmods.alchemylib.api.network.AbstractPacketHandler} performs and which a gametest already runs
+     * on the server main thread.</p>
+     *
+     * <p>A bare controller suffices: its {@code autoeject} field defaults {@code false}, and the handler's
+     * {@code tryEjectOutputs()} call (only on a {@code true} toggle) early-returns while no output port is adopted, so
+     * the assertable effect is purely the flag flip. The test captures the initial value, sends the opposite, ticks
+     * once, and asserts the controller's {@link AbstractReactorBlockEntity#isAutoEject()} changed to match.</p>
+     */
+    @GameTest(required = false, template = "reactor_space")
+    @PrefixGameTestTemplate(false)
+    public void autoejectPacketTogglesReactor(GameTestHelper helper) {
+        FissionControllerBlockEntity controller = placeController(helper);
+
+        // Capture the starting flag and target its opposite so the assertion is a genuine change, not a coincidental
+        // match with the field's default.
+        boolean initial = controller.isAutoEject();
+        boolean target = !initial;
+
+        // The controller's absolute world position -- the handler resolves the block-entity by this exact key off the
+        // player's level, so it must be the absolute position, not the structure-relative CONTROLLER_POS.
+        BlockPos controllerWorldPos = controller.getBlockPos();
+
+        // Drive the production receive path: build the packet the client would send, then invoke its handler with a
+        // real server-bound context whose player lives in the gametest level. See the class/method docs for why the
+        // four unused context handlers are null.
+        Player player = helper.makeMockPlayer();
+        PlayPayloadContext context = new PlayPayloadContext(
+                null, null, null, PacketFlow.SERVERBOUND, null, Optional.of(player));
+        new ToggleReactorAutoejectPacket(controllerWorldPos, target).handle(context);
+
+        // One tick to settle, then assert the handler applied the flip to the block-entity it was addressed to.
+        helper.runAfterDelay(1, () -> {
+            helper.assertTrue(controller.isAutoEject() == target,
+                    "ToggleReactorAutoejectPacket handler did not flip autoeject: expected " + target
+                            + ", found " + controller.isAutoEject());
+            helper.succeed();
         });
     }
 

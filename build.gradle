@@ -129,6 +129,12 @@ runs {
         project.afterEvaluate {
             project.tasks.named('runGameTestServer', JavaExec).configure { task ->
                 task.outputs.file(gameTestLog)
+                // Declaring an output above makes Gradle's incremental engine eligible to skip the whole task
+                // (server run + the doFirst/doLast gate) as UP-TO-DATE on a second run with unchanged inputs --
+                // which would report BUILD SUCCESSFUL with no verification ever happening. A run task is a smoke
+                // gate, never up-to-date: force it to always execute so the verify step runs every time. The
+                // outputs.file declaration stays purely so `clean` tracks and wipes the captured log.
+                task.outputs.upToDateWhen { false }
                 // Capture the forked server's console output to a log file the verify step below scans. The stream
                 // is a single plain FileOutputStream (not a tee back to the Gradle console): JavaExec pumps the
                 // process output on a dedicated thread, and a wrapper that fans out to two sinks can deadlock the

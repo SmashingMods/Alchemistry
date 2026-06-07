@@ -13,28 +13,28 @@ description='''${mod_description}'''
 
 [[dependencies.${mod_id}]]
     modId="neoforge"
-    mandatory=true
+    type="required"
     versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
     modId="minecraft"
-    mandatory=true
+    type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
     modId="chemlib"
-    mandatory=true
+    type="required"
     versionRange="[${chemlib_version},)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
     modId="alchemylib"
-    mandatory=true
+    type="required"
     versionRange="[${alchemylib_version},)"
     ordering="NONE"
     side="BOTH"

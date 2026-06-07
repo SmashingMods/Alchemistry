@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
 
@@ -101,17 +102,22 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     private void processBuffer() {
-        for (int i = 0; i < internalBuffer.size(); i++) {
-            ItemStack bufferStack = internalBuffer.get(i).copy();
-            for (int j = 0; j < getOutputHandler().getStacks().size(); j++) {
-                ItemStack slotStack = getOutputHandler().getStackInSlot(j).copy();
-                if (slotStack.isEmpty() || (ItemStack.isSameItemSameTags(bufferStack, slotStack) && bufferStack.getCount() + slotStack.getCount() <= slotStack.getMaxStackSize())) {
-                    valid = true;
-                    ItemHandlerHelper.insertItemStacked(getOutputHandler(), bufferStack, false);
-                    valid = false;
-                    internalBuffer.remove(i);
-                    break;
-                }
+        // Drain the buffer into the output handler. A single buffered stack can exceed a slot's max size --
+        // the recipe data stores >64 outputs (e.g. iron_block -> chemlib:iron x144) as one oversized stack --
+        // so insertItemStacked may only place part of it when the output is full or the count overflows the
+        // handler's capacity. Retain whatever it could not insert in the buffer so it is delivered on a later
+        // tick once the output drains; never drop the remainder. A ListIterator lets us remove or replace the
+        // current entry in place without the index skip a remove() inside a for(i++) loop would cause.
+        ListIterator<ItemStack> iterator = internalBuffer.listIterator();
+        while (iterator.hasNext()) {
+            ItemStack bufferStack = iterator.next();
+            valid = true;
+            ItemStack remainder = ItemHandlerHelper.insertItemStacked(getOutputHandler(), bufferStack.copy(), false);
+            valid = false;
+            if (remainder.isEmpty()) {
+                iterator.remove();
+            } else {
+                iterator.set(remainder);
             }
         }
         setCanProcess(canProcessRecipe());

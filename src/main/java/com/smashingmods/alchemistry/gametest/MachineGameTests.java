@@ -50,6 +50,13 @@ public class MachineGameTests {
     // within the operation's tick budget, keeping the processing test non-flaky.
     private static final Item DISSOLVABLE = Items.IRON_INGOT;
 
+    // A vanilla item whose deterministic dissolver recipe yields a single oversized output stack: minecraft:iron_block
+    // -> chemlib:iron x144 (16 * 9), one non-weighted group at probability 100. The 144 count exceeds a slot's 64-stack
+    // limit, so the recipe data stores it as one >64 stack and the block-entity's buffer drains it across multiple
+    // output slots. 144 fits comfortably inside the 12-slot (768-item) output handler, so a single operation settles
+    // fully in one drain -- the deterministic no-loss case the >64 buffer-overflow fix protects.
+    private static final Item DISSOLVABLE_BULK = Items.IRON_BLOCK;
+
     /**
      * Drives one full dissolve operation end-to-end: place the dissolver, seed it with energy and a dissolvable
      * input stack, let the block-entity tick (its block's server ticker calls {@link DissolverBlockEntity#tick()}
@@ -74,6 +81,42 @@ public class MachineGameTests {
             ItemStack produced = firstOutput(dissolver);
             helper.assertFalse(produced.isEmpty(), "dissolver produced no output");
             assertOutputsAreMembers(helper, dissolver, allowedOutputs);
+        });
+    }
+
+    /**
+     * The no-loss regression for the dissolver buffer: a recipe whose output exceeds a single 64-stack slot must be
+     * delivered in full, never silently truncated. Seeds one {@link #DISSOLVABLE_BULK} (iron_block -> chemlib:iron
+     * x144), runs the operation, then asserts the output handler holds the full 144 summed across its slots and that
+     * every non-empty slot is the expected output item -- i.e. nothing was dropped on the >64 buffer transfer.
+     *
+     * <p>The recipe is deterministic (one non-weighted group at probability 100, a single result item), so the
+     * expected count is exactly the group's stack count; this is asserted to be {@code > 64} so the test genuinely
+     * exercises the oversized-stack path rather than a single ordinary stack. A single iron_block (input count 1) is
+     * seeded, and {@code canProcessRecipe} blocks a second operation once the input is consumed and while the buffer
+     * is non-empty, so the total settles at exactly one operation's output. 144 fits inside the 12-slot (768-item)
+     * output, so it drains in one pass; a recipe larger than the output (e.g. diamond_block -> graphite x1152) would
+     * instead buffer the remainder and need the output drained across several ticks, which the fix also handles but
+     * which is left out here to keep the assertion deterministic.</p>
+     */
+    @GameTest(required = false, template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void dissolverProcessingNoLoss(GameTestHelper helper) {
+        DissolverBlockEntity dissolver = placeDissolver(helper);
+
+        dissolver.getEnergyHandler().setEnergy(Integer.MAX_VALUE);
+        dissolver.getInputHandler().setStackInSlot(0, new ItemStack(DISSOLVABLE_BULK));
+
+        Set<Item> allowedOutputs = possibleOutputs(helper, new ItemStack(DISSOLVABLE_BULK));
+        int expected = expectedDeterministicOutputCount(helper, new ItemStack(DISSOLVABLE_BULK));
+        helper.assertTrue(expected > 64,
+                "no-loss test must use a >64 output to exercise the oversized-stack path, got " + expected);
+
+        helper.succeedWhen(() -> {
+            assertOutputsAreMembers(helper, dissolver, allowedOutputs);
+            int total = totalOutputCount(dissolver);
+            helper.assertTrue(total == expected,
+                    "dissolver dropped output on the >64 buffer transfer: expected " + expected + ", found " + total);
         });
     }
 
@@ -179,5 +222,34 @@ public class MachineGameTests {
                         "dissolver output " + stack.getItem() + " is not a declared recipe output");
             }
         }
+    }
+
+    // Total item count held across every output slot. A >64 recipe output spans several 64-stack slots, so the
+    // no-loss check sums them rather than reading a single slot.
+    private static int totalOutputCount(DissolverBlockEntity dissolver) {
+        IItemHandler output = dissolver.getOutputHandler();
+        int total = 0;
+        for (int slot = 0; slot < output.getSlots(); slot++) {
+            total += output.getStackInSlot(slot).getCount();
+        }
+        return total;
+    }
+
+    // Expected item count for a deterministic recipe -- the sum of every result-stack count across the recipe's
+    // probability groups. Only meaningful for a non-weighted, probability-100 recipe with no "nothing" group (every
+    // group always rolls), which is the case for the bulk no-loss input; for a probabilistic recipe this would not
+    // be a fixed expectation.
+    private static int expectedDeterministicOutputCount(GameTestHelper helper, ItemStack input) {
+        DissolverRecipe recipe = RecipeRegistry.getDissolverRecipe(r -> r.matches(input), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no dissolver recipe matched " + input));
+        int total = 0;
+        for (ProbabilityGroup group : recipe.getOutput().getProbabilityGroups()) {
+            for (ItemStack stack : group.getOutput()) {
+                if (!stack.isEmpty()) {
+                    total += stack.getCount();
+                }
+            }
+        }
+        return total;
     }
 }

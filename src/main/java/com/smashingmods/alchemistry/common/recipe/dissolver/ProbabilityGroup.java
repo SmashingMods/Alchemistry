@@ -1,26 +1,19 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
 import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.registries.BuiltInRegistries;
 
 import java.util.List;
-import java.util.Objects;
 
 public class ProbabilityGroup {
 
     /**
-     * Codec mirroring the JSON written by {@link #serialize()}: an array of item stacks under
-     * {@code results} (which may include {@code minecraft:air} for weighted "nothing" rolls) plus the
-     * group's {@code probability}.
+     * Codec for the on-disk group shape: an array of item stacks under {@code results} (which may include
+     * {@code minecraft:air} for weighted "nothing" rolls) plus the group's {@code probability}.
      */
     public static final Codec<ProbabilityGroup> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             AlchemistryRecipeCodecs.ITEM_STACK_RESULT.listOf().fieldOf("results").forGetter(ProbabilityGroup::getOutput),
@@ -46,35 +39,6 @@ public class ProbabilityGroup {
 
     public double getProbability() {
         return this.probability;
-    }
-
-    public JsonElement serialize() {
-        JsonObject output = new JsonObject();
-        output.add("probability", new JsonPrimitive(probability));
-        JsonArray results = new JsonArray();
-
-        for (ItemStack itemStack : this.output) {
-
-            int count = itemStack.getCount();
-
-            while (count > 64) {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.add("item", new JsonPrimitive(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemStack.getItem())).toString()));
-                jsonObject.add("count", new JsonPrimitive(64));
-                results.add(jsonObject);
-                count -= 64;
-            }
-
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.add("item", new JsonPrimitive(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(itemStack.getItem())).toString()));
-
-            if (count > 1) {
-                jsonObject.add("count", new JsonPrimitive(count));
-            }
-            results.add(jsonObject);
-        }
-        output.add("results", results);
-        return output;
     }
 
     public void toNetwork(FriendlyByteBuf buf) {

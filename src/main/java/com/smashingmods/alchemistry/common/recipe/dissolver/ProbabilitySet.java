@@ -1,9 +1,5 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
@@ -19,8 +15,8 @@ import java.util.List;
 public class ProbabilitySet {
 
     /**
-     * Codec mirroring the JSON written by {@link #serialize()}: the list of {@link ProbabilityGroup groups}
-     * plus the {@code weighted} flag and {@code rolls} count.
+     * Codec for the on-disk dissolver output: the list of {@link ProbabilityGroup groups} plus the
+     * {@code weighted} flag and {@code rolls} count.
      */
     public static final Codec<ProbabilitySet> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             ProbabilityGroup.CODEC.listOf().fieldOf("groups").forGetter(ProbabilitySet::getProbabilityGroups),
@@ -41,21 +37,6 @@ public class ProbabilitySet {
         this.probabilityGroups = pProbabilityGroups;
         this.weighted = pWeighted;
         this.rolls = pRolls;
-    }
-
-    public JsonElement serialize() {
-        JsonObject toReturn = new JsonObject();
-        JsonArray jsonArray = new JsonArray();
-
-        toReturn.add("rolls", new JsonPrimitive(rolls));
-        toReturn.add("weighted", new JsonPrimitive(weighted));
-
-        for (ProbabilityGroup group : probabilityGroups) {
-            jsonArray.add(group.serialize());
-        }
-        toReturn.add("groups", jsonArray);
-
-        return toReturn;
     }
 
     public void toNetwork(FriendlyByteBuf pBuffer) {

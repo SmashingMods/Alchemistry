@@ -159,6 +159,29 @@ public class ReactorGameTests {
         });
     }
 
+    /**
+     * Removing a reactor controller before it has ticked once must not throw. A controller builds its
+     * {@link ReactorShape} lazily on its first server tick, so a controller placed and removed within the same tick
+     * still has a {@code null} shape when {@link AbstractReactorBlockEntity#onRemove()} runs. That path dereferences
+     * the shape twice -- once via {@code resetIO() -> setMultiblockHandlers()} and again in {@code onRemove()}'s own
+     * core-block sweep -- so each site is guarded against a null shape; without those guards the removal throws a
+     * {@link NullPointerException}. This drives {@code onRemove()} directly on a never-ticked controller -- the
+     * {@code reactorShape == null} state the guards exist for -- and asserts it returns normally.
+     */
+    @GameTest(template = "reactor_space")
+    @PrefixGameTestTemplate(false)
+    public void removalBeforeTickDoesNotThrow(GameTestHelper helper) {
+        FissionControllerBlockEntity controller = placeController(helper);
+
+        // The controller has not ticked, so its lazily-built shape is still null -- the exact state onRemove's null
+        // guards protect. Fail explicitly if that precondition ever changes, otherwise the test would pass vacuously.
+        helper.assertTrue(controller.getReactorShape() == null,
+                "controller already built its reactor shape; removal test needs the pre-tick null-shape state");
+
+        controller.onRemove();
+        helper.succeed();
+    }
+
     // Places the fission controller at CONTROLLER_POS with a fixed horizontal facing and returns its block-entity,
     // failing the test if either the block or its block-entity is missing. The FissionControllerBlockEntity constructor
     // sets reactorType=FISSION, so no manual setReactorType is needed; we assert it as a guard against that changing.

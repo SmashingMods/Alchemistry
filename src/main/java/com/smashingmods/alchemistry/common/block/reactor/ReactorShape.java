@@ -40,10 +40,13 @@ public class ReactorShape {
     private final BoundingBox rearRightCornerBorder;
 
     public ReactorShape(BlockPos pBlockPos, ReactorType pReactorType, Level pLevel) {
+        this(pBlockPos, pReactorType, facingOf(pLevel, pBlockPos));
+    }
+
+    public ReactorShape(BlockPos pBlockPos, ReactorType pReactorType, Direction facing) {
 
         reactorType = pReactorType;
 
-        Direction facing = pLevel.getBlockState(pBlockPos).getValue(BlockStateProperties.HORIZONTAL_FACING);
         Direction oppositeFacing = facing.getOpposite();
         Direction rightFacing = facing.getCounterClockWise();
         Direction leftFacing = facing.getClockWise();
@@ -136,6 +139,10 @@ public class ReactorShape {
         reactorShapeMap.put(innerRightPlane, List.of(BlockRegistry.REACTOR_CASING.get(), BlockRegistry.REACTOR_GLASS.get()));
 
         return reactorShapeMap;
+    }
+
+    private static Direction facingOf(Level pLevel, BlockPos pBlockPos) {
+        return pLevel.getBlockState(pBlockPos).getValue(BlockStateProperties.HORIZONTAL_FACING);
     }
 
     private static BoundingBox fromCorners(BlockPos pStart, BlockPos pEnd) {

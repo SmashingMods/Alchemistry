@@ -3,34 +3,22 @@ package com.smashingmods.alchemistry.common.network;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.jei.*;
 import com.smashingmods.alchemylib.api.network.AbstractPacketHandler;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
 
 public class PacketHandler extends AbstractPacketHandler {
 
-    private final SimpleChannel simpleChannel;
-
-    public PacketHandler() {
-        this.simpleChannel = createChannel(new ResourceLocation(Alchemistry.MODID, "main"), "1.1.0");
-    }
-
     @Override
-    public PacketHandler register() {
-        registerMessage(ToggleAutoBalanceButtonPacket.class, ToggleAutoBalanceButtonPacket::new);
-        registerMessage(SetRecipePacket.class, SetRecipePacket::new);
-        registerMessage(CombinerTransferPacket.class, CombinerTransferPacket::new);
-        registerMessage(CompactorTransferPacket.class, CompactorTransferPacket::new);
-        registerMessage(DissolverTransferPacket.class, DissolverTransferPacket::new);
-        registerMessage(FissionTransferPacket.class, FissionTransferPacket::new);
-        registerMessage(FusionTransferPacket.class, FusionTransferPacket::new);
-        registerMessage(LiquifierTransferPacket.class, LiquifierTransferPacket::new);
-        registerMessage(ToggleReactorAutoejectPacket.class, ToggleReactorAutoejectPacket::new);
-        registerMessage(SetSideConfigurationPacket.class, SetSideConfigurationPacket::new);
-        return this;
-    }
-
-    @Override
-    protected SimpleChannel getChannel() {
-        return simpleChannel;
+    public void register(RegisterPayloadHandlerEvent pEvent) {
+        registrar(pEvent, Alchemistry.MODID);
+        registerServerBound(ToggleAutoBalanceButtonPacket.ID, ToggleAutoBalanceButtonPacket::new);
+        registerServerBound(SetRecipePacket.ID, SetRecipePacket::new);
+        registerServerBound(CombinerTransferPacket.ID, CombinerTransferPacket::new);
+        registerServerBound(CompactorTransferPacket.ID, CompactorTransferPacket::new);
+        registerServerBound(DissolverTransferPacket.ID, DissolverTransferPacket::new);
+        registerServerBound(FissionTransferPacket.ID, FissionTransferPacket::new);
+        registerServerBound(FusionTransferPacket.ID, FusionTransferPacket::new);
+        registerServerBound(LiquifierTransferPacket.ID, LiquifierTransferPacket::new);
+        registerServerBound(ToggleReactorAutoejectPacket.ID, ToggleReactorAutoejectPacket::new);
+        registerServerBound(SetSideConfigurationPacket.ID, SetSideConfigurationPacket::new);
     }
 }

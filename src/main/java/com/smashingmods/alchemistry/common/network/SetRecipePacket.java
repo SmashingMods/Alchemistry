@@ -1,19 +1,19 @@
 package com.smashingmods.alchemistry.common.network;
 
+import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.NetworkEvent;
-
-import java.util.Objects;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
 
 public class SetRecipePacket implements AlchemyPacket {
+
+    public static final ResourceLocation ID = new ResourceLocation(Alchemistry.MODID, "set_recipe");
 
     private final BlockPos blockPos;
     private final ResourceLocation recipeId;
@@ -31,27 +31,30 @@ public class SetRecipePacket implements AlchemyPacket {
         this.group = pBuffer.readUtf();
     }
 
-    public void encode(FriendlyByteBuf pBuffer) {
+    @Override
+    public void write(FriendlyByteBuf pBuffer) {
         pBuffer.writeBlockPos(blockPos);
         pBuffer.writeResourceLocation(recipeId);
         pBuffer.writeUtf(group);
     }
 
     @Override
-    public void handle(NetworkEvent.Context pContext) {
-        Player player = pContext.getSender();
+    public ResourceLocation id() {
+        return ID;
+    }
 
-        Objects.requireNonNull(player);
-        Objects.requireNonNull(player.level());
-
-        Level level = player.level();
-        BlockEntity blockEntity = player.level().getBlockEntity(blockPos);
-        RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
-            if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
-                processingBlockEntity.setProgress(0);
-                processingBlockEntity.setRecipe(recipe);
-                processingBlockEntity.setChanged();
-            }
+    @Override
+    public void handle(PlayPayloadContext pContext) {
+        pContext.player().ifPresent(player -> {
+            Level level = player.level();
+            BlockEntity blockEntity = level.getBlockEntity(blockPos);
+            RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
+                if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
+                    processingBlockEntity.setProgress(0);
+                    processingBlockEntity.setRecipe(recipe);
+                    processingBlockEntity.setChanged();
+                }
+            });
         });
     }
 }

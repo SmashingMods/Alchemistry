@@ -15,18 +15,20 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.NetworkEvent;
+import net.neoforged.neoforge.network.handling.PlayPayloadContext;
 import javax.annotation.Nullable;
 
-import java.util.Objects;
 import java.util.Optional;
 
 public class FissionTransferPacket implements AlchemyPacket {
+
+    public static final ResourceLocation ID = new ResourceLocation(Alchemistry.MODID, "fission_transfer");
 
     private final BlockPos blockPos;
     private final ItemStack input;
@@ -44,48 +46,58 @@ public class FissionTransferPacket implements AlchemyPacket {
         this.maxTransfer = pBuffer.readBoolean();
     }
 
-    public void encode(FriendlyByteBuf pBuffer) {
+    @Override
+    public void write(FriendlyByteBuf pBuffer) {
         pBuffer.writeBlockPos(blockPos);
         pBuffer.writeItem(input);
         pBuffer.writeBoolean(maxTransfer);
     }
 
-    public void handle(NetworkEvent.Context pContext) {
-        ServerPlayer player = pContext.getSender();
-        Objects.requireNonNull(player);
+    @Override
+    public ResourceLocation id() {
+        return ID;
+    }
 
-        FissionControllerBlockEntity blockEntity = (FissionControllerBlockEntity) player.level().getBlockEntity(blockPos);
-        Objects.requireNonNull(blockEntity);
+    @Override
+    public void handle(PlayPayloadContext pContext) {
+        pContext.player().ifPresent(sender -> {
+            if (!(sender instanceof ServerPlayer player)) {
+                return;
+            }
+            if (!(player.level().getBlockEntity(blockPos) instanceof FissionControllerBlockEntity blockEntity)) {
+                return;
+            }
 
-        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
-        ProcessingSlotHandler outputHander = blockEntity.getOutputHandler();
-        Inventory inventory = player.getInventory();
+            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+            ProcessingSlotHandler outputHander = blockEntity.getOutputHandler();
+            Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), input), player.level())
-            .ifPresent(recipe -> {
+            RecipeRegistry.getFissionRecipe(recipe -> ItemStack.isSameItemSameTags(recipe.getInput(), input), player.level())
+                .ifPresent(recipe -> {
 
-                FissionRecipe recipeCopy = recipe.copy();
+                    FissionRecipe recipeCopy = recipe.copy();
 
-                inputHandler.emptyToInventory(inventory);
-                outputHander.emptyToInventory(inventory);
+                    inputHandler.emptyToInventory(inventory);
+                    outputHander.emptyToInventory(inventory);
 
-                boolean creative = player.gameMode.isCreative();
-                boolean canTransfer = (inventory.contains(recipeCopy.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
+                    boolean creative = player.gameMode.isCreative();
+                    boolean canTransfer = (inventory.contains(recipeCopy.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
 
-                if (canTransfer) {
-                    if (creative) {
-                        int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), maxTransfer);
-                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
-                    } else {
-                        int slot = inventory.findSlotMatchingItem(recipeCopy.getInput());
-                        int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), inventory.getItem(slot), maxTransfer, false);
-                        inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
-                        inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                    if (canTransfer) {
+                        if (creative) {
+                            int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), maxTransfer);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                        } else {
+                            int slot = inventory.findSlotMatchingItem(recipeCopy.getInput());
+                            int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), inventory.getItem(slot), maxTransfer, false);
+                            inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
+                            inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                        }
+                        blockEntity.setProgress(0);
+                        blockEntity.setRecipe(recipe);
                     }
-                    blockEntity.setProgress(0);
-                    blockEntity.setRecipe(recipe);
-                }
-            });
+                });
+        });
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<FissionControllerMenu, FissionRecipe> {

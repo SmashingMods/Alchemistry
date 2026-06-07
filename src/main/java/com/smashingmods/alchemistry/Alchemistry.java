@@ -32,11 +32,12 @@ public class Alchemistry {
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "alchemistry";
-    public static final PacketHandler PACKET_HANDLER = new PacketHandler().register();
+    public static final PacketHandler PACKET_HANDLER = new PacketHandler();
 
     public Alchemistry(IEventBus modEventBus) {
         modEventBus.addListener(this::clientSetupEvent);
         modEventBus.addListener(this::registerCapabilities);
+        modEventBus.addListener(PACKET_HANDLER::register);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
         Registry.register(modEventBus);

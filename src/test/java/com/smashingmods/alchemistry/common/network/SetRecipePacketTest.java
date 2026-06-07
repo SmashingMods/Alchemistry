@@ -26,7 +26,7 @@ class SetRecipePacketTest {
 
         // Encode, then decode via the buffer constructor, then re-encode the decoded copy.
         FriendlyByteBuf encoded = new FriendlyByteBuf(Unpooled.buffer());
-        original.encode(encoded);
+        original.write(encoded);
         byte[] encodedBytes = readableBytes(encoded);
 
         // The encode order is blockPos, recipeId, group -- re-read it to assert the field values survive the trip.
@@ -37,7 +37,7 @@ class SetRecipePacketTest {
 
         SetRecipePacket decoded = new SetRecipePacket(new FriendlyByteBuf(Unpooled.wrappedBuffer(encodedBytes)));
         FriendlyByteBuf reEncoded = new FriendlyByteBuf(Unpooled.buffer());
-        decoded.encode(reEncoded);
+        decoded.write(reEncoded);
 
         assertArrayEquals(encodedBytes, readableBytes(reEncoded));
     }

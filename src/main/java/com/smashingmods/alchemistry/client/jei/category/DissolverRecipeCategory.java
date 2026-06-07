@@ -115,25 +115,23 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                 .map(Map.Entry::getKey)
                 .toList();
 
-        items.forEach(itemStack -> {
-            for (int row = 0; row <= items.size() / 2; row++) {
-                for (int column = 0; column < 2; column++) {
-                    int itemIndex = column + row * 2;
-                    int x = xOrigin + column * 52;
-                    int y = yOrigin + row * 18;
+        for (int row = 0; row <= items.size() / 2; row++) {
+            for (int column = 0; column < 2; column++) {
+                int itemIndex = column + row * 2;
+                int x = xOrigin + column * 52;
+                int y = yOrigin + row * 18;
 
-                    if (items.size() > itemIndex) {
-                        if (!items.get(itemIndex).isEmpty()) {
-                            pBuilder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(items.get(itemIndex));
-                        } else {
-                            pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
-                                list.clear();
-                                list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
-                            });
-                        }
+                if (items.size() > itemIndex) {
+                    if (!items.get(itemIndex).isEmpty()) {
+                        pBuilder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(items.get(itemIndex));
+                    } else {
+                        pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
+                            list.clear();
+                            list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
+                        });
                     }
                 }
             }
-        });
+        }
     }
 }

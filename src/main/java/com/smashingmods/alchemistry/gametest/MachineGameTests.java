@@ -25,8 +25,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * In-world behaviour tests for the Alchemistry machines, starting with the dissolver. These are the machine
- * half of P4.alchemistry.5 -- the reactor half lands separately (.5b). Every test here is {@code required=true}
+ * In-world behaviour tests for the Alchemistry machines, starting with the dissolver ({@code ReactorGameTests}
+ * covers the reactor multiblock). Every test here is {@code required=true}
  * (the {@code @GameTest} default), so a failure fails the {@code gameTestServer} gate alongside the full-chain
  * load-smoke in {@link AlchemistryGameTests}. Because a failure is now a gate failure, each assertion is written
  * to pass reliably -- membership in the resolved recipe's outputs, or a deterministic non-weighted recipe --
@@ -36,8 +36,8 @@ import java.util.Set;
  * {@code gameTestServer} run, but the {@code jar} task excludes the {@code gametest} package so it never ships.
  * Each test pins {@code template = "loadsemptytemplate"} (the staged 3x3x3 air structure) with
  * {@code @PrefixGameTestTemplate(false)} so the id resolves un-prefixed to {@code alchemistry:loadsemptytemplate};
- * a single machine block plus a mock player fits inside it. Bodies stay as thin plain helpers -- forward-compat
- * for the Phase-10 (1.21.5) gametest rewrite.</p>
+ * a single machine block plus a mock player fits inside it. Bodies stay as thin plain helpers so the
+ * {@code @GameTest} methods stay thin.</p>
  */
 @GameTestHolder(Alchemistry.MODID)
 public class MachineGameTests {
@@ -55,7 +55,7 @@ public class MachineGameTests {
     // -> chemlib:iron x144 (16 * 9), one non-weighted group at probability 100. The 144 count exceeds a slot's 64-stack
     // limit, so the recipe data stores it as one >64 stack and the block-entity's buffer drains it across multiple
     // output slots. 144 fits comfortably inside the 12-slot (768-item) output handler, so a single operation settles
-    // fully in one drain -- the deterministic no-loss case the >64 buffer-overflow fix protects.
+    // fully in one drain -- the deterministic no-loss case for an oversized >64 stack.
     private static final Item DISSOLVABLE_BULK = Items.IRON_BLOCK;
 
     /**
@@ -86,7 +86,7 @@ public class MachineGameTests {
     }
 
     /**
-     * The no-loss regression for the dissolver buffer: a recipe whose output exceeds a single 64-stack slot must be
+     * No-loss guarantee for the dissolver buffer: an output exceeding a single 64-stack slot must be
      * delivered in full, never silently truncated. Seeds one {@link #DISSOLVABLE_BULK} (iron_block -> chemlib:iron
      * x144), runs the operation, then asserts the output handler holds the full 144 summed across its slots and that
      * every non-empty slot is the expected output item -- i.e. nothing was dropped on the >64 buffer transfer.
@@ -97,8 +97,8 @@ public class MachineGameTests {
      * seeded, and {@code canProcessRecipe} blocks a second operation once the input is consumed and while the buffer
      * is non-empty, so the total settles at exactly one operation's output. 144 fits inside the 12-slot (768-item)
      * output, so it drains in one pass; a recipe larger than the output (e.g. diamond_block -> graphite x1152) would
-     * instead buffer the remainder and need the output drained across several ticks, which the fix also handles but
-     * which is left out here to keep the assertion deterministic.</p>
+     * instead buffer the remainder and need the output drained across several ticks (also supported, but omitted
+     * here to keep the assertion deterministic).</p>
      */
     @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)

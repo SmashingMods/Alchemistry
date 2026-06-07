@@ -31,8 +31,8 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * In-world test for the fission reactor multiblock -- the reactor half of P4.alchemistry.5 ({@code MachineGameTests}
- * is the machine half). Like the other holders this class lives in {@code src/main} so the mod scan registers it for
+ * In-world test for the fission reactor multiblock ({@code MachineGameTests} covers the standalone machines). Like
+ * the other holders this class lives in {@code src/main} so the mod scan registers it for
  * the {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar} tasks exclude the {@code gametest} package so
  * it never ships. Both tests are {@code required=true} (the {@code @GameTest} default), so a failure fails the
  * {@code gameTestServer} gate alongside the full-chain load-smoke in {@link AlchemistryGameTests}.
@@ -40,7 +40,7 @@ import java.util.Optional;
  * <p>Unlike the dissolver tests this one needs room for a 5x5x5 reactor shell, so it pins {@code template =
  * "reactor_space"} -- a staged 9x9x9 all-air structure -- rather than the 3x3x3 {@code loadsemptytemplate}. The
  * structure is sized so the whole shell plus the controller fit with margin to spare. Bodies stay as thin plain
- * helpers, matching the other holders (forward-compat for the Phase-10 1.21.5 gametest rewrite).</p>
+ * helpers, matching the other holders, so the {@code @GameTest} methods stay thin.</p>
  */
 @GameTestHolder(Alchemistry.MODID)
 public class ReactorGameTests {
@@ -103,13 +103,13 @@ public class ReactorGameTests {
     }
 
     /**
-     * The send-&gt;handle runtime proof for the networking rewrite (audit B1). The encode/decode unit round-trips prove
-     * the wire format survives a trip, and the full-chain boot smoke proves the packets register; nothing automated
-     * proved that a server-bound packet's {@code handle} body runs on the server and mutates the right block-entity.
-     * This drives {@link ToggleReactorAutoejectPacket} through its production receive path and asserts the reactor
+     * Proves that a server-bound packet's {@code handle} body runs on the server and mutates the addressed
+     * block-entity. The encode/decode unit round-trips prove the wire format survives a trip, and the full-chain
+     * boot smoke proves the packets register; this is the only check that exercises the handler body itself. It
+     * drives {@link ToggleReactorAutoejectPacket} through its production receive path and asserts the reactor
      * controller's {@code autoeject} flag flips.
      *
-     * <p><b>Context approach (b) of the ticket:</b> the packet is constructed and its production
+     * <p>The packet is constructed and its production
      * {@link ToggleReactorAutoejectPacket#handle(PlayPayloadContext) handle(PlayPayloadContext)} is invoked directly
      * with a minimal-but-real {@link PlayPayloadContext} record. The handler reads only {@code player()} (then
      * {@code player.level().getBlockEntity(pos)}), so the context carries {@link PacketFlow#SERVERBOUND} -- the real
@@ -185,8 +185,8 @@ public class ReactorGameTests {
     // works because in this gametest absolutePos() is a pure translation (no rotation): the controller's own tick()
     // builds its shape from the controller's ABSOLUTE position with world facing NORTH, and translation commutes with
     // relative(), so our relative-space shell maps cell-for-cell onto the absolute shell the controller validates
-    // against. We deliberately avoid relativePos(): on NeoForge 20.2.93 it does not round-trip absolutePos() (it
-    // mishandles the X/Z axes), and an earlier relativePos()-based fill scattered the shell so it never validated.
+    // against. We deliberately avoid relativePos(): on NeoForge 20.2.x it does not round-trip absolutePos() (it
+    // mishandles the X/Z axes), so the shell is built entirely in relative space.
     private static List<BlockPos> buildShellAndPlacePorts(GameTestHelper helper) {
         ReactorShape shape = new ReactorShape(CONTROLLER_POS, ReactorType.FISSION, FACING);
         Map<BoundingBox, List<Block>> shapeMap = shape.createShapeMap();

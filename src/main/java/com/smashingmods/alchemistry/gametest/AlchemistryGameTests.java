@@ -16,12 +16,12 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
  * the {@code jar} task excludes the {@code gametest} package so the tests never ship in the published jar.
  *
  * <p>The test here is the chain load-smoke: a {@code required=true} check that asserts the full ChemLib ->
- * AlchemyLib -> Alchemistry chain registered before the server reached the in-world phase. It is one of nine
- * gametests across the holders in this package -- the richer per-machine and guidebook behaviour tests in
- * {@link MachineGameTests}, {@link ReactorGameTests}, and {@link GuidebookGameTests} -- and every one of them
- * is now {@code required=true}, so a failure in any (including a behavioural regression) drives a non-zero
- * {@code gameTestServer} exit and fails the gate. This load-smoke is the broadest of the nine: it is the first
- * to break if the chain does not register at all.</p>
+ * AlchemyLib -> Alchemistry chain registered before the server reached the in-world phase. Every gametest in
+ * this package -- this load-smoke plus the richer per-machine and guidebook behaviour tests in
+ * {@link MachineGameTests}, {@link ReactorGameTests}, and {@link GuidebookGameTests} -- is {@code required=true},
+ * so a failure in any (including a behavioural regression) drives a non-zero {@code gameTestServer} exit and
+ * fails the gate. This load-smoke is the broadest check: it is the first to break if the chain does not register
+ * at all.</p>
  */
 @GameTestHolder(Alchemistry.MODID)
 public class AlchemistryGameTests {
@@ -41,8 +41,7 @@ public class AlchemistryGameTests {
         assertChainLoaded(helper);
     }
 
-    // Body kept as a plain helper so the @GameTest methods stay thin -- forward-compat for the Phase-10
-    // (1.21.5) gametest rewrite, where the per-machine assertions land in helpers like this one.
+    // Body kept as a plain helper so the @GameTest methods stay thin.
     //
     // Each check is a static built-in registry lookup against a known id from one rung of the chain: a ChemLib
     // element (hydrogen, element #1, always present), an Alchemistry machine block, its block-entity type, and

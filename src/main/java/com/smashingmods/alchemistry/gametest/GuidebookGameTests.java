@@ -32,11 +32,11 @@ import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 /**
- * In-world validation of the Patchouli guidebook's item references -- the in-world half of P4.alchemistry.6 (the
- * other half is the {@code guidebook_allParse} Tier-0 JUnit test, which proves every book JSON parses). This must
+ * In-world validation of the Patchouli guidebook's item references (the companion {@code guidebook_allParse} JUnit
+ * test proves every book JSON parses). This must
  * run in-world rather than as a unit test because the references resolve against {@link BuiltInRegistries#ITEM},
  * which only carries the ChemLib -> AlchemyLib -> Alchemistry chain once the server has loaded it; a unit JVM has
- * only vanilla after {@code Bootstrap} (OQ-2).
+ * only vanilla after {@code Bootstrap}.
  *
  * <p>Like the other holders this class lives in {@code src/main} so the mod scan registers it for the
  * {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar}/{@code javadoc} tasks exclude the
@@ -45,8 +45,8 @@ import java.util.stream.Stream;
  * {@link AlchemistryGameTests}. It pins {@code template = "loadsemptytemplate"} with
  * {@code @PrefixGameTestTemplate(false)} (the staged 3x3x3 air structure, id resolved un-prefixed to
  * {@code alchemistry:loadsemptytemplate}) like the other data-only checks; nothing is placed in-world, the
- * template just gives the framework a structure to run against. Bodies stay as thin plain helpers -- forward-compat
- * for the Phase-10 (1.21.5) gametest rewrite.</p>
+ * template just gives the framework a structure to run against. Bodies stay as thin plain helpers so the
+ * {@code @GameTest} methods stay thin.</p>
  */
 @GameTestHolder(Alchemistry.MODID)
 public class GuidebookGameTests {
@@ -59,7 +59,7 @@ public class GuidebookGameTests {
 
     // Patchouli fields that hold an item reference. icon is on categories/entries and spotlight pages; item is on
     // spotlight pages. The recipe field is deliberately NOT here -- it is a RECIPE id (resolved against recipes,
-    // not BuiltInRegistries.ITEM), so treating it as an item ref would be a false failure (audit U1/U2).
+    // not BuiltInRegistries.ITEM), so treating it as an item ref would be a false failure.
     private static final List<String> ITEM_REF_KEYS = List.of("icon", "item");
 
     /**
@@ -87,7 +87,7 @@ public class GuidebookGameTests {
             try (BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
                 root = JsonParser.parseReader(reader);
             } catch (Exception e) {
-                // Parse failures are the Tier-0 test's job; surface here too so this never silently skips a file.
+                // Parse failures are the GuidebookParseTest's job; surface here too so this never silently skips a file.
                 helper.fail(file.getFileName() + ": failed to parse -- " + e.getMessage());
                 throw new IllegalStateException("unreachable -- helper.fail throws", e);
             }
@@ -158,10 +158,9 @@ public class GuidebookGameTests {
         return ResourceLocation.tryParse(id.trim());
     }
 
-    // Walks a classpath directory for *.json. The gameTestServer run always uses the exploded-directory (file:)
-    // layout under build/resources/main, so in practice only the file: branch below executes. The jar: branch is
-    // defensive cover should the book ever be run from a packaged jar -- correct, but UNTESTED here. Mirrors the
-    // enumeration in the Tier-0 GuidebookParseTest so both tiers sweep the same files.
+    // Walks a classpath directory for *.json. The gameTestServer run uses the exploded-directory (file:)
+    // layout under build/resources/main, so the file: branch below executes; the jar: branch covers the book
+    // being run from a packaged jar. Mirrors the enumeration in GuidebookParseTest so both sweep the same files.
     private static List<Path> walkJsonResources(String classpathDir) throws IOException, URISyntaxException {
         List<Path> result = new ArrayList<>();
         for (URL url : Collections.list(GuidebookGameTests.class.getClassLoader().getResources(classpathDir))) {

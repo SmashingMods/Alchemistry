@@ -130,7 +130,7 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
             return fusionRecipe.getOutput();
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
-            return liquifierRecipe.getInput().toStacks().isEmpty() ? liquifierRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
+            return !liquifierRecipe.getInput().toStacks().isEmpty() ? liquifierRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
         }
         return ItemStack.EMPTY;
     }
@@ -156,7 +156,7 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
             return fusionRecipe.getOutput();
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
-            return liquifierRecipe.getInput().toStacks().isEmpty() ? liquifierRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
+            return !liquifierRecipe.getInput().toStacks().isEmpty() ? liquifierRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
         }
         return toReturn.get();
     }

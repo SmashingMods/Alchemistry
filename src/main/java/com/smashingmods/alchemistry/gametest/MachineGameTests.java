@@ -26,10 +26,11 @@ import java.util.Set;
 
 /**
  * In-world behaviour tests for the Alchemistry machines, starting with the dissolver. These are the machine
- * half of P4.alchemistry.5 -- the reactor half lands separately (.5b). Every test here is {@code required=false}
- * so it can never gate the {@code gameTestServer} exit code; the lone {@code required=true} gate stays the
- * full-chain load-smoke in {@link AlchemistryGameTests}. A {@code required=false} failure still prints noise to
- * the log, so each assertion is written to pass reliably rather than chase an exact probabilistic roll.
+ * half of P4.alchemistry.5 -- the reactor half lands separately (.5b). Every test here is {@code required=true}
+ * (the {@code @GameTest} default), so a failure fails the {@code gameTestServer} gate alongside the full-chain
+ * load-smoke in {@link AlchemistryGameTests}. Because a failure is now a gate failure, each assertion is written
+ * to pass reliably -- membership in the resolved recipe's outputs, or a deterministic non-weighted recipe --
+ * rather than chase an exact probabilistic roll.
  *
  * <p>Like {@link AlchemistryGameTests} this class lives in {@code src/main} so the mod scan registers it for the
  * {@code gameTestServer} run, but the {@code jar} task excludes the {@code gametest} package so it never ships.
@@ -64,7 +65,7 @@ public class MachineGameTests {
      * recipe's declared possible outputs. Membership -- not an exact roll -- because the dissolver output is
      * probabilistic. The default 50-tick operation plus buffer transfer completes inside the 100-tick timeout.
      */
-    @GameTest(required = false, template = "loadsemptytemplate")
+    @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void dissolverProcessing(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
@@ -99,7 +100,7 @@ public class MachineGameTests {
      * instead buffer the remainder and need the output drained across several ticks, which the fix also handles but
      * which is left out here to keep the assertion deterministic.</p>
      */
-    @GameTest(required = false, template = "loadsemptytemplate")
+    @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void dissolverProcessingNoLoss(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
@@ -125,7 +126,7 @@ public class MachineGameTests {
      * dissolver-type recipe list from {@link RecipeRegistry} -- not the server's "Loaded N recipes" log line, which
      * counts recipe types rather than entries and would be misleading here.
      */
-    @GameTest(required = false, template = "loadsemptytemplate")
+    @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void recipeResolution(GameTestHelper helper) {
         int count = RecipeRegistry.getDissolverRecipes(helper.getLevel()).size();
@@ -139,7 +140,7 @@ public class MachineGameTests {
      * {@code level.getCapability(Capabilities.ItemHandler.BLOCK, pos, side)}, which returns a plain nullable
      * {@link IItemHandler} rather than a wrapped optional. The handler must be present and expose at least one slot.
      */
-    @GameTest(required = false, template = "loadsemptytemplate")
+    @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void machineCapability(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
@@ -158,7 +159,7 @@ public class MachineGameTests {
      * {@link DissolverBlockEntity#createMenu(int, net.minecraft.world.entity.player.Inventory, Player)} returns a
      * {@link DissolverMenu}. A mock player supplies the inventory the menu constructor needs.
      */
-    @GameTest(required = false, template = "loadsemptytemplate")
+    @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void menuOpens(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);

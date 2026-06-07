@@ -15,11 +15,13 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
  * exits non-zero if any fails. This class is compiled into {@code src/main} so the mod scan discovers it, but
  * the {@code jar} task excludes the {@code gametest} package so the tests never ship in the published jar.
  *
- * <p>The lone test here is the standing port gate: a {@code required=true} load-smoke that asserts the full
- * ChemLib -> AlchemyLib -> Alchemistry chain registered before the server reached the in-world phase. Because
- * it is the only {@code required} test, a non-zero {@code gameTestServer} exit means the chain failed to load,
- * which is exactly the signal a Phase-5+ port wants. The richer per-machine behaviour tests land as
- * {@code required=false} in later Phase-4 tickets, so this stays the single must-pass gate.</p>
+ * <p>The test here is the chain load-smoke: a {@code required=true} check that asserts the full ChemLib ->
+ * AlchemyLib -> Alchemistry chain registered before the server reached the in-world phase. It is one of nine
+ * gametests across the holders in this package -- the richer per-machine and guidebook behaviour tests in
+ * {@link MachineGameTests}, {@link ReactorGameTests}, and {@link GuidebookGameTests} -- and every one of them
+ * is now {@code required=true}, so a failure in any (including a behavioural regression) drives a non-zero
+ * {@code gameTestServer} exit and fails the gate. This load-smoke is the broadest of the nine: it is the first
+ * to break if the chain does not register at all.</p>
  */
 @GameTestHolder(Alchemistry.MODID)
 public class AlchemistryGameTests {

@@ -34,8 +34,8 @@ import java.util.Optional;
  * In-world test for the fission reactor multiblock -- the reactor half of P4.alchemistry.5 ({@code MachineGameTests}
  * is the machine half). Like the other holders this class lives in {@code src/main} so the mod scan registers it for
  * the {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar} tasks exclude the {@code gametest} package so
- * it never ships. The single test is {@code required=false} so it can never gate the {@code gameTestServer} exit code;
- * the lone {@code required=true} gate stays the full-chain load-smoke in {@link AlchemistryGameTests}.
+ * it never ships. Both tests are {@code required=true} (the {@code @GameTest} default), so a failure fails the
+ * {@code gameTestServer} gate alongside the full-chain load-smoke in {@link AlchemistryGameTests}.
  *
  * <p>Unlike the dissolver tests this one needs room for a 5x5x5 reactor shell, so it pins {@code template =
  * "reactor_space"} -- a staged 9x9x9 all-air structure -- rather than the 3x3x3 {@code loadsemptytemplate}. The
@@ -75,7 +75,7 @@ public class ReactorGameTests {
      * port its registered resolver proxies to the controller's own {@code getEnergyHandler()} -- the proxy target --
      * so the queried instance must be identical to it.</p>
      */
-    @GameTest(required = false, template = "reactor_space")
+    @GameTest(template = "reactor_space")
     @PrefixGameTestTemplate(false)
     public void reactorFormsAndProxiesEnergyCap(GameTestHelper helper) {
         FissionControllerBlockEntity controller = placeController(helper);
@@ -128,7 +128,7 @@ public class ReactorGameTests {
      * the assertable effect is purely the flag flip. The test captures the initial value, sends the opposite, ticks
      * once, and asserts the controller's {@link AbstractReactorBlockEntity#isAutoEject()} changed to match.</p>
      */
-    @GameTest(required = false, template = "reactor_space")
+    @GameTest(template = "reactor_space")
     @PrefixGameTestTemplate(false)
     public void autoejectPacketTogglesReactor(GameTestHelper helper) {
         FissionControllerBlockEntity controller = placeController(helper);

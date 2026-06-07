@@ -40,8 +40,8 @@ import java.util.stream.Stream;
  *
  * <p>Like the other holders this class lives in {@code src/main} so the mod scan registers it for the
  * {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar}/{@code javadoc} tasks exclude the
- * {@code gametest} package so it never ships. The single test is {@code required=false} so it can never gate the
- * {@code gameTestServer} exit code; the lone {@code required=true} gate stays the full-chain load-smoke in
+ * {@code gametest} package so it never ships. The single test is {@code required=true} (the {@code @GameTest}
+ * default), so a failure fails the {@code gameTestServer} gate alongside the full-chain load-smoke in
  * {@link AlchemistryGameTests}. It pins {@code template = "loadsemptytemplate"} with
  * {@code @PrefixGameTestTemplate(false)} (the staged 3x3x3 air structure, id resolved un-prefixed to
  * {@code alchemistry:loadsemptytemplate}) like the other data-only checks; nothing is placed in-world, the
@@ -68,7 +68,7 @@ public class GuidebookGameTests {
      * succeeds; reports the number of refs checked. Because this runs against a fully-booted server the ChemLib and
      * Alchemistry items are registered, so the machine/block icons resolve via their {@code BlockItem}s.
      */
-    @GameTest(required = false, template = "loadsemptytemplate")
+    @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void guidebook_itemRefsResolve(GameTestHelper helper) {
         List<Path> jsonFiles;

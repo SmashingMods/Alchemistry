@@ -12,11 +12,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -65,10 +64,11 @@ public class ReactorGameTests {
      * shape stays valid while {@link AbstractReactorBlockEntity#setMultiblockHandlers()} (driven by the controller's
      * server ticker each tick) discovers them and sets {@code energyFound/inputFound/outputFound}.</p>
      *
-     * <p>The capability check mirrors {@code MachineGameTests#machineCapability}: NeoForge 20.2 still uses the legacy
-     * {@link net.neoforged.neoforge.common.util.LazyOptional} capability system, and once the controller adopts the
-     * energy port {@link ReactorEnergyBlockEntity#getCapability} resolves to the controller's own
-     * {@code getEnergyHandler()} -- the proxy target -- so the resolved instance must be identical to it.</p>
+     * <p>The capability check mirrors {@code MachineGameTests#machineCapability}: NeoForge 20.4 uses the
+     * object-capability system, so the energy port's capability is queried off the level with
+     * {@code level.getCapability(Capabilities.EnergyStorage.BLOCK, pos, side)}. Once the controller adopts the energy
+     * port its registered resolver proxies to the controller's own {@code getEnergyHandler()} -- the proxy target --
+     * so the queried instance must be identical to it.</p>
      */
     @GameTest(required = false, template = "reactor_space")
     @PrefixGameTestTemplate(false)
@@ -81,28 +81,19 @@ public class ReactorGameTests {
         // placed block's facing) then calls setMultiblockHandlers() (adopting the ports) and isValidMultiblock();
         // succeedWhen re-runs the criterion each tick until it returns without throwing -- i.e. until the multiblock
         // validates and the energy port's capability resolves to the controller's handler -- then marks the test
-        // succeeded, so the criterion (and the controller removal at its end) runs exactly once on the passing tick. We
-        // gate on the shape being built first because isValidMultiblock() dereferences it unguarded -- on the very first
-        // tick the criterion can run before the block-entity ticker has, so the shape may briefly be null.
+        // succeeded. We gate on the shape being built first because isValidMultiblock() dereferences it unguarded --
+        // on the very first tick the criterion can run before the block-entity ticker has, so the shape may briefly
+        // be null.
         helper.succeedWhen(() -> {
             helper.assertTrue(controller.getReactorShape() != null, "controller has not built its reactor shape yet");
             helper.assertTrue(controller.isValidMultiblock(), "fission reactor multiblock did not validate");
 
             ReactorEnergyBlockEntity energy = energyBlockEntity(helper, energyPos);
-            IEnergyStorage proxied = energy.getCapability(Capabilities.ENERGY, null).resolve().orElse(null);
+            BlockPos energyWorldPos = energy.getBlockPos();
+            IEnergyStorage proxied = helper.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, energyWorldPos, null);
             helper.assertTrue(proxied != null, "reactor energy port did not expose an ENERGY capability");
             helper.assertTrue(proxied == controller.getEnergyHandler(),
                     "reactor energy port capability is not proxied to the controller's energy handler");
-
-            // All assertions passed, so this is the single tick on which the test succeeds: remove the controller now,
-            // while its ReactorShape is live. The gameTestServer working directory persists between runs, and on the
-            // next run StructureUtils clears the test area, reloading any leftover blocks first. A FissionController
-            // block-entity reloaded from disk has a null (transient) ReactorShape, and AbstractReactorBlock.onRemove ->
-            // resetIO -> setMultiblockHandlers dereferences it unguarded -- so a persisted controller would crash the
-            // next run's batch setup (an SUT NPE, not a test bug). Removing it here keeps the run repeatable; the
-            // energy/input/output ports null-check their controller in onRemove, so the ones resetIO leaves behind are
-            // safe to clear on the next run.
-            helper.setBlock(CONTROLLER_POS, Blocks.AIR);
         });
     }
 

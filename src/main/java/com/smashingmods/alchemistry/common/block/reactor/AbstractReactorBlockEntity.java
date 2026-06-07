@@ -14,11 +14,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
 import org.joml.Vector3f;
@@ -131,7 +130,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     }
 
     public void setMultiblockHandlers() {
-        if (level != null && !level.isClientSide()) {
+        if (level != null && !level.isClientSide() && getReactorShape() != null) {
             BoundingBox reactorBox = getReactorShape().getFullBoundingBox();
 
             if (reactorEnergyBlockEntity == null || !energyFound) {
@@ -275,6 +274,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     public void onRemove() {
         if (level != null && !level.isClientSide()) {
             resetIO();
+            if (reactorShape == null) {
+                return;
+            }
             BlockPos.betweenClosedStream(reactorShape.getCoreBoundingBox()).forEach(blockPos -> {
                 BlockState blockState = level.getBlockState(blockPos);
                 if (blockState.getBlock() instanceof ReactorCoreBlock) {
@@ -351,13 +353,10 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         }
 
         Direction outputDirection = reactorOutputBlockEntity.getBlockState().getValue(AbstractProcessingBlock.FACING);
-        BlockEntity target = level.getBlockEntity(reactorOutputBlockEntity.getBlockPos().relative(outputDirection));
+        BlockPos targetPos = reactorOutputBlockEntity.getBlockPos().relative(outputDirection);
 
-        if (target == null) {
-            return; // Output pointing to air or a solid block (that doesn't happen to be a container or something)
-        }
-
-        IItemHandler targetHandler = target.getCapability(Capabilities.ITEM_HANDLER, outputDirection.getOpposite()).orElse(null);
+        // null when the output points to air or a block (without a block-entity) that doesn't expose an item handler.
+        IItemHandler targetHandler = level.getCapability(Capabilities.ItemHandler.BLOCK, targetPos, outputDirection.getOpposite());
 
         if (targetHandler != null) {
             ProcessingSlotHandler outputHandler = getOutputHandler();

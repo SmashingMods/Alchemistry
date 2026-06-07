@@ -2,22 +2,15 @@ package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.capabilities.Capability;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
-import net.neoforged.neoforge.common.util.LazyOptional;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ReactorEnergyBlockEntity extends BlockEntity {
 
     @Nullable
     private AbstractReactorBlockEntity controller;
-    private LazyOptional<IEnergyStorage> lazyEnergyHandler;
 
     public ReactorEnergyBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(BlockEntityRegistry.REACTOR_ENERGY_BLOCK_ENTITY.get(), pWorldPosition, pBlockState);
@@ -29,24 +22,6 @@ public class ReactorEnergyBlockEntity extends BlockEntity {
     }
 
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
-        if (this.controller == pController) {
-            // No need to create superfluous LazyOptional instances
-            return;
-        }
         this.controller = pController;
-        //noinspection ConstantConditions
-        this.lazyEnergyHandler = LazyOptional.of(() -> controller.getEnergyHandler());
-    }
-
-    @Nonnull
-    @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> pCapability, @Nullable Direction pDirection) {
-        if (pCapability == Capabilities.ENERGY) {
-            if (controller != null) {
-                return lazyEnergyHandler.cast();
-            }
-            return LazyOptional.empty();
-        }
-        return super.getCapability(pCapability, pDirection);
     }
 }

@@ -16,7 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.common.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -91,20 +91,17 @@ public class MachineGameTests {
     }
 
     /**
-     * Asserts the dissolver block-entity exposes a working item handler capability. NeoForge 20.2 still uses the
-     * legacy capability system ({@link Capabilities#ITEM_HANDLER} resolved through
-     * {@code BlockEntity#getCapability} returning a {@code LazyOptional}); the newer
-     * {@code level.getCapability(pos, ...)} object-capability API does not exist on this version. The handler must
-     * be present and expose at least one slot.
+     * Asserts the dissolver block-entity exposes a working item handler capability. NeoForge 20.4 uses the
+     * object-capability system: the handler is queried off the level with
+     * {@code level.getCapability(Capabilities.ItemHandler.BLOCK, pos, side)}, which returns a plain nullable
+     * {@link IItemHandler} rather than a wrapped optional. The handler must be present and expose at least one slot.
      */
     @GameTest(required = false, template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void machineCapability(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
 
-        IItemHandler handler = dissolver.getCapability(Capabilities.ITEM_HANDLER, null)
-                .resolve()
-                .orElse(null);
+        IItemHandler handler = helper.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, dissolver.getBlockPos(), null);
 
         helper.assertTrue(handler != null, "dissolver did not expose an item handler capability");
         helper.assertTrue(handler.getSlots() > 0, "dissolver item handler exposed no slots");

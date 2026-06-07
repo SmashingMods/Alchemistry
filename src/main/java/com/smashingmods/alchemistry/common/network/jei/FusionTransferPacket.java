@@ -104,7 +104,7 @@ public class FusionTransferPacket implements AlchemyPacket {
                             int maxOperations = TransferUtils.getMaxOperations(recipeInputs, inventoryInputs, maxTransfer, false);
 
                             inventory.removeItem(slot1, recipeCopy.getInput1().getCount() * maxOperations);
-                            inventory.removeItem(slot1, recipeCopy.getInput2().getCount() * maxOperations);
+                            inventory.removeItem(slot2, recipeCopy.getInput2().getCount() * maxOperations);
 
                             inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
                             inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));

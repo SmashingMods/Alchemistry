@@ -70,9 +70,10 @@ class GuidebookParseTest {
         System.out.println("[GuidebookParseTest] parsed " + jsonFiles.size() + " guidebook JSON files");
     }
 
-    // Walks a classpath directory for *.json, handling both the exploded-directory (file:) layout Gradle's test
-    // task uses and the jar: layout a packaged run would use. Each ClassLoader root that contains the directory is
-    // walked, so a split across resource roots is covered.
+    // Walks a classpath directory for *.json. Gradle's test task always runs against the exploded-directory
+    // (file:) layout under build/resources/main, so in practice only the file: branch below executes. The jar:
+    // branch is defensive cover should the book ever be run from a packaged jar -- correct, but UNTESTED here.
+    // Each ClassLoader root that contains the directory is walked, so a split across resource roots is covered.
     private static List<Path> walkJsonResources(String classpathDir) throws IOException, URISyntaxException {
         List<Path> result = new ArrayList<>();
         for (URL url : Collections.list(GuidebookParseTest.class.getClassLoader().getResources(classpathDir))) {

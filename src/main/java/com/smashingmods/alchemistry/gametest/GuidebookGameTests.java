@@ -158,9 +158,10 @@ public class GuidebookGameTests {
         return ResourceLocation.tryParse(id.trim());
     }
 
-    // Walks a classpath directory for *.json, handling both the exploded-directory (file:) layout the gameTestServer
-    // run uses and the jar: layout a packaged run would use. Mirrors the enumeration in the Tier-0 GuidebookParseTest
-    // so both tiers sweep the same files.
+    // Walks a classpath directory for *.json. The gameTestServer run always uses the exploded-directory (file:)
+    // layout under build/resources/main, so in practice only the file: branch below executes. The jar: branch is
+    // defensive cover should the book ever be run from a packaged jar -- correct, but UNTESTED here. Mirrors the
+    // enumeration in the Tier-0 GuidebookParseTest so both tiers sweep the same files.
     private static List<Path> walkJsonResources(String classpathDir) throws IOException, URISyntaxException {
         List<Path> result = new ArrayList<>();
         for (URL url : Collections.list(GuidebookGameTests.class.getClassLoader().getResources(classpathDir))) {

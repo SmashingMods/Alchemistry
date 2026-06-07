@@ -1,16 +1,19 @@
 {
   "variants": {
     "facing=east": {
-      "model": "alchemistry:block/dissolver"
+      "model": "alchemistry:block/dissolver",
+      "y": 90
     },
     "facing=north": {
       "model": "alchemistry:block/dissolver"
     },
     "facing=south": {
-      "model": "alchemistry:block/dissolver"
+      "model": "alchemistry:block/dissolver",
+      "y": 180
     },
     "facing=west": {
-      "model": "alchemistry:block/dissolver"
+      "model": "alchemistry:block/dissolver",
+      "y": 270
     }
   }
 }

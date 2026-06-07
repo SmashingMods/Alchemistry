@@ -1,16 +1,19 @@
 {
   "variants": {
     "facing=east": {
-      "model": "alchemistry:block/combiner"
+      "model": "alchemistry:block/combiner",
+      "y": 90
     },
     "facing=north": {
       "model": "alchemistry:block/combiner"
     },
     "facing=south": {
-      "model": "alchemistry:block/combiner"
+      "model": "alchemistry:block/combiner",
+      "y": 180
     },
     "facing=west": {
-      "model": "alchemistry:block/combiner"
+      "model": "alchemistry:block/combiner",
+      "y": 270
     }
   }
 }

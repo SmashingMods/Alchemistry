@@ -72,8 +72,8 @@ public class BlockStateGenerator extends BlockStateProvider {
             Direction direction = blockState.getValue(HorizontalDirectionalBlock.FACING);
             return ConfiguredModel.builder()
                     .modelFile(pModelFile)
-                    .rotationX(direction.getAxis() == Direction.Axis.Y ? direction.getAxisDirection().getStep() * -19 : 0)
-                    .rotationY(direction.getAxis() == Direction.Axis.Y ? ((direction.get2DDataValue() + 2) % 4) *90 : 0)
+                    .rotationX(direction.getAxis() == Direction.Axis.Y ? direction.getAxisDirection().getStep() * -90 : 0)
+                    .rotationY(direction.getAxis() != Direction.Axis.Y ? ((direction.get2DDataValue() + 2) % 4) *90 : 0)
                     .build();
         });
         registerBlockItemModel(pBlock);

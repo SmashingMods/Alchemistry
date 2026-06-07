@@ -23,6 +23,7 @@ OLD
 eclipse
 run
 runs
+logs/
 classes
 gradle
 modelfiles

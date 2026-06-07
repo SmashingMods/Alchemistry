@@ -74,6 +74,10 @@ runs {
     // The gametest system is also enabled by default for other run configs under the /test command.
     gameTestServer {
         systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        // Run the gametest world under build/ so it is ephemeral (wiped by `clean`) instead of leaving a
+        // committed run dir. The configureEach acceptEula task above reads this same workingDirectory, so the
+        // EULA flag lands in build/gametest/eula.txt automatically.
+        workingDirectory = layout.buildDirectory.dir('gametest')
     }
 
     data {
@@ -97,10 +101,31 @@ tasks.named('runClient') {
     dependsOn 'prepareSilentClientOptions'
 }
 
+// Stage the gametest structure template(s) into the gameTestServer working directory before launch.
+// On 1.20.2 the SNBT (text) structure format is only read from a `gameteststructures/` directory relative to
+// the run's working dir (StructureTemplateManager registers that source under IS_RUNNING_IN_IDE, and
+// StructureUtils falls back to the same path); the resource-pack loader handles binary .nbt only. With
+// @PrefixGameTestTemplate(false) the framework resolves `alchemistry:loadsemptytemplate` to the un-prefixed
+// file gameteststructures/loadsemptytemplate.snbt -- so the source template lives outside src/main/resources
+// (keeping it out of the published jar) and is copied in here.
+tasks.register('prepareGameTestStructures', Copy) {
+    description = 'Stages the gametest SNBT structure templates into the gameTestServer working directory.'
+    from 'src/main/gametest'
+    include '*.snbt'
+    into runs.named('gameTestServer').flatMap { it.workingDirectory.dir('gameteststructures') }
+}
+
+tasks.named('runGameTestServer') {
+    dependsOn 'prepareGameTestStructures'
+}
+
 repositories {
     mavenLocal()
     maven { url "https://maven.blamejared.com" }
     maven { url "https://maven.tamaized.com/releases" }
+    // JUnit (org.junit.*) is not mirrored by the repos above; settings.gradle has no
+    // dependencyResolutionManagement, so the test deps need Maven Central here.
+    mavenCentral()
 }
 
 dependencies {
@@ -116,7 +141,14 @@ dependencies {
     // JEI: no NeoForge build for MC 1.20.2 (the -forge jar's loaderVersion=[48,) rejects NeoForge); @JeiPlugin
     // compiles against the common-api but stays dormant at runtime this phase -- D6.
     // Patchouli: dropped this phase -- no 1.20.2 Patchouli build (D6 gap); the guidebook is gated separately.
+
+    // JUnit 5 for the plain-JUnit `test` source set. testImplementation extends implementation,
+    // so the Minecraft classpath (net.neoforged:neoforge above) is inherited by the test compile/runtime.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+tasks.named('test', Test) { useJUnitPlatform() }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
 def replaceProperties = [
@@ -137,6 +169,10 @@ processResources {
 }
 
 jar {
+    // The gametest holder lives in src/main so the mod scan registers it for the gameTestServer run, but it
+    // is test-only scaffolding and must not ship in the published jar.
+    exclude 'com/smashingmods/alchemistry/gametest/**'
+
     manifest {
         attributes([
                 "Specification-Title"     : "$archivesBaseName",

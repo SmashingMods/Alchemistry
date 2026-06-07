@@ -94,4 +94,49 @@ class ProbabilitySetTest extends BootstrappedTest {
             }
         }
     }
+
+    @Test
+    void probSet_nonWeightedRollsEachGroupIndependently() {
+        // Non-weighted set: each group rolls on its own probability, so a probability-100 group is always
+        // included and a probability-0 group is all but always excluded (it only slips in on the single nextInt(101)
+        // == 0 outcome, never on the always-included path). A single 100-total set is exactly 100, so the builder
+        // appends no AIR "nothing" group -- the certain group is the whole output. Asserted across many seeds:
+        // membership and the certain group's presence, not an exact roll.
+        ProbabilitySet set = ProbabilitySet.Builder.createSet()
+                .addGroup(100.0, new ItemStack(Items.IRON_INGOT))
+                .addGroup(0.0, new ItemStack(Items.GOLD_INGOT))
+                .build();
+
+        for (long seed = 0; seed < 256; seed++) {
+            List<ItemStack> output = set.calculateOutput(RandomSource.create(seed));
+            assertTrue(output.stream().anyMatch(stack -> stack.is(Items.IRON_INGOT)),
+                    () -> "the probability-100 group must always be rolled in");
+            for (ItemStack produced : output) {
+                assertTrue(produced.is(Items.IRON_INGOT) || produced.is(Items.GOLD_INGOT),
+                        () -> "produced item not in any declared group: " + produced.getItem());
+            }
+        }
+    }
+
+    @Test
+    void probSet_rollsAccumulate() {
+        // rolls > 1 runs the whole selection that many times and concatenates the results. Over a non-weighted set
+        // whose only group is certain (probability 100), every roll contributes that group's single stack, so the
+        // output holds exactly one stack per roll -- the accumulation, pinned independently of any random draw.
+        int rolls = 3;
+        ProbabilitySet set = ProbabilitySet.Builder.createSet()
+                .addGroup(100.0, new ItemStack(Items.IRON_INGOT))
+                .rolls(rolls)
+                .build();
+
+        for (long seed = 0; seed < 256; seed++) {
+            List<ItemStack> output = set.calculateOutput(RandomSource.create(seed));
+            assertEquals(rolls, output.size(),
+                    () -> "a certain group rolled " + rolls + " times must accumulate one stack per roll");
+            for (ItemStack produced : output) {
+                assertTrue(produced.is(Items.IRON_INGOT),
+                        () -> "every accumulated stack must be the certain group's item: " + produced.getItem());
+            }
+        }
+    }
 }

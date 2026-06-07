@@ -205,6 +205,9 @@ java {
     withJavadocJar()
 }
 
+// Keep the test-only gametest scaffolding out of the published sources jar too, mirroring the binary jar exclude.
+tasks.named('sourcesJar') { exclude 'com/smashingmods/alchemistry/gametest/**' }
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -62,7 +61,7 @@ public class FusionControllerBlock extends AbstractReactorBlock {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockState(pPos).getValue(PowerStateProperty.POWER_STATE) != PowerState.DISABLED) {
                 BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (FusionControllerBlockEntity) blockEntity, pPos);
+                ((ServerPlayer) pPlayer).openMenu((FusionControllerBlockEntity) blockEntity, pPos);
                 return InteractionResult.SUCCESS;
             }
             return InteractionResult.FAIL;

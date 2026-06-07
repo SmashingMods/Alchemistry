@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import javax.annotation.Nullable;
@@ -25,7 +24,7 @@ public class CompactorRecipeSerializer<T extends CompactorRecipe> implements Rec
                 ResourceLocation.CODEC.fieldOf("id").forGetter(CompactorRecipe::getId),
                 ExtraCodecs.strictOptionalField(Codec.STRING, "group", "compactor").forGetter(CompactorRecipe::getGroup),
                 AlchemistryRecipeCodecs.INGREDIENT_STACK.fieldOf("input").forGetter(CompactorRecipe::getInput),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(CompactorRecipe::getOutput)
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(CompactorRecipe::getOutput)
         ).apply(instance, pFactory::create));
     }
 

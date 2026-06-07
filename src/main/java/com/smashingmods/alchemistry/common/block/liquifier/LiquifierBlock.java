@@ -17,7 +17,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nonnull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -56,7 +55,7 @@ public class LiquifierBlock extends AbstractProcessingBlock {
             }
 
             if (!interactionSuccessful) {
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (LiquifierBlockEntity) blockEntity, pPos);
+                ((ServerPlayer) pPlayer).openMenu((LiquifierBlockEntity) blockEntity, pPos);
             }
             return InteractionResult.CONSUME;
         }

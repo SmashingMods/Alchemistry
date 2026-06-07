@@ -6,7 +6,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import javax.annotation.Nullable;
@@ -21,9 +20,9 @@ public class FusionRecipeSerializer<T extends FusionRecipe> implements RecipeSer
         this.codec = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceLocation.CODEC.fieldOf("id").forGetter(FusionRecipe::getId),
                 Codec.STRING.fieldOf("group").forGetter(FusionRecipe::getGroup),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("input1").forGetter(FusionRecipe::getInput1),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("input2").forGetter(FusionRecipe::getInput2),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("output").forGetter(FusionRecipe::getOutput)
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("input1").forGetter(FusionRecipe::getInput1),
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("input2").forGetter(FusionRecipe::getInput2),
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output").forGetter(FusionRecipe::getOutput)
         ).apply(instance, pFactory::create));
     }
 

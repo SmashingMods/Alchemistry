@@ -6,7 +6,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -20,9 +19,9 @@ public class FissionRecipeSerializer<T extends FissionRecipe> implements RecipeS
         this.codec = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceLocation.CODEC.fieldOf("id").forGetter(FissionRecipe::getId),
                 Codec.STRING.fieldOf("group").forGetter(FissionRecipe::getGroup),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("input").forGetter(FissionRecipe::getInput),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("output1").forGetter(FissionRecipe::getOutput1),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("output2").forGetter(FissionRecipe::getOutput2)
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("input").forGetter(FissionRecipe::getInput),
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output1").forGetter(FissionRecipe::getOutput1),
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("output2").forGetter(FissionRecipe::getOutput2)
         ).apply(instance, pFactory::create));
     }
 

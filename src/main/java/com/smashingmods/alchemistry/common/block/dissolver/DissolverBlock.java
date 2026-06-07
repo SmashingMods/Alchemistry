@@ -17,7 +17,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nonnull;
 
 public class DissolverBlock extends AbstractProcessingBlock {
@@ -47,7 +46,7 @@ public class DissolverBlock extends AbstractProcessingBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            NetworkHooks.openScreen(((ServerPlayer) pPlayer), (DissolverBlockEntity) blockEntity, pPos);
+            ((ServerPlayer) pPlayer).openMenu((DissolverBlockEntity) blockEntity, pPos);
             return InteractionResult.CONSUME;
         }
         return InteractionResult.SUCCESS;

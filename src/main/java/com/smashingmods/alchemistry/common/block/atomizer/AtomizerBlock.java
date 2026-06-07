@@ -23,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nullable;
 
 import java.util.List;
@@ -68,7 +67,7 @@ public class AtomizerBlock extends AbstractProcessingBlock {
             }
 
             if (!interactionSuccessful) {
-                NetworkHooks.openScreen(((ServerPlayer) pPlayer), (AtomizerBlockEntity) blockEntity, pPos);
+                ((ServerPlayer) pPlayer).openMenu((AtomizerBlockEntity) blockEntity, pPos);
             }
             return InteractionResult.CONSUME;
         }

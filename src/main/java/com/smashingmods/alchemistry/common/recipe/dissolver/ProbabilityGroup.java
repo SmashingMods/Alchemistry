@@ -80,7 +80,7 @@ public class ProbabilityGroup {
     public void toNetwork(FriendlyByteBuf buf) {
         buf.writeInt(output.size());
         for (ItemStack stack : output) {
-            buf.writeItemStack(stack, false);
+            buf.writeItem(stack);
         }
         buf.writeDouble(probability);
     }

@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
@@ -24,7 +23,7 @@ public class AtomizerRecipeSerializer<T extends AtomizerRecipe> implements Recip
                 ResourceLocation.CODEC.fieldOf("id").forGetter(AtomizerRecipe::getId),
                 ExtraCodecs.strictOptionalField(Codec.STRING, "group", "atomizer").forGetter(AtomizerRecipe::getGroup),
                 AlchemistryRecipeCodecs.FLUID_STACK.fieldOf("input").forGetter(AtomizerRecipe::getInput),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(AtomizerRecipe::getOutput)
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(AtomizerRecipe::getOutput)
         ).apply(instance, pFactory::create));
     }
 

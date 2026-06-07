@@ -23,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.network.NetworkHooks;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -64,7 +63,7 @@ public class CombinerBlock extends AbstractProcessingBlock {
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            NetworkHooks.openScreen(((ServerPlayer) pPlayer), (CombinerBlockEntity) blockEntity, pPos);
+            ((ServerPlayer) pPlayer).openMenu((CombinerBlockEntity) blockEntity, pPos);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.SUCCESS;

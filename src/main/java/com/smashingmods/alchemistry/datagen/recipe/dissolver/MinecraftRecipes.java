@@ -668,7 +668,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
         dissolver(Items.SLIME_BLOCK, createSet().addGroup(100, toItemStack("protein", 9*2), toItemStack("sucrose", 9*2)).build(), true);
         dissolver(Items.COBWEB, createSet().addGroup(100, toItemStack("protein", 2)).build(), true);
 
-        for (Item item : List.of(Items.TALL_GRASS, Items.SEAGRASS, Items.GRASS, Items.DEAD_BUSH)) {
+        for (Item item : List.of(Items.TALL_GRASS, Items.SEAGRASS, Items.SHORT_GRASS, Items.DEAD_BUSH)) {
             dissolver(item, createSet()
                     .addGroup(25, toItemStack("cellulose"))
                     .build(), true);

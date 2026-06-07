@@ -8,7 +8,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipeCodecs;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -26,7 +25,7 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
                 ResourceLocation.CODEC.fieldOf("id").forGetter(CombinerRecipe::getId),
                 Codec.STRING.fieldOf("group").forGetter(CombinerRecipe::getGroup),
                 AlchemistryRecipeCodecs.INGREDIENT_STACK.listOf().fieldOf("input").forGetter(CombinerRecipe::getInput),
-                CraftingRecipeCodecs.ITEMSTACK_OBJECT_CODEC.fieldOf("result").forGetter(CombinerRecipe::getOutput)
+                ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(CombinerRecipe::getOutput)
         ).apply(instance, (id, group, input, output) -> pFactory.create(id, group, new LinkedHashSet<>(input), output)));
     }
 
@@ -56,7 +55,7 @@ public class CombinerRecipeSerializer<T extends CombinerRecipe> implements Recip
         for (int i = 0; i < pRecipe.getInput().size(); i++) {
             pRecipe.getInput().get(i).toNetwork(pBuffer);
         }
-        pBuffer.writeItemStack(pRecipe.getOutput(), true);
+        pBuffer.writeItem(pRecipe.getOutput());
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {

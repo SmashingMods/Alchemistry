@@ -21,7 +21,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.LiteralContents;
+import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -62,11 +62,11 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private int startIndex;
 
     public RecipeSelectorScreen(P pParentScreen, B pBlockEntity, LinkedList<R> pRecipes) {
-        super(MutableComponent.create(new LiteralContents("")));
+        super(MutableComponent.create(PlainTextContents.create("")));
         this.parentScreen = pParentScreen;
         this.blockEntity = pBlockEntity;
         this.recipes = pRecipes;
-        this.searchBox = new EditBox(Minecraft.getInstance().font, 0, 0, 92, 12, MutableComponent.create(new LiteralContents("")));
+        this.searchBox = new EditBox(Minecraft.getInstance().font, 0, 0, 92, 12, MutableComponent.create(PlainTextContents.create("")));
         if (!blockEntity.getSearchText().isEmpty()) {
             searchBox.setValue(blockEntity.getSearchText());
             searchRecipeList(blockEntity.getSearchText());

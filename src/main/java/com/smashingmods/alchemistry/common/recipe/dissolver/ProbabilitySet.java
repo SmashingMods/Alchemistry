@@ -8,13 +8,13 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class ProbabilitySet {
 
@@ -80,12 +80,15 @@ public class ProbabilitySet {
     }
 
     public NonNullList<ItemStack> calculateOutput() {
+        return calculateOutput(RandomSource.create());
+    }
+
+    public NonNullList<ItemStack> calculateOutput(RandomSource pRandom) {
         NonNullList<ItemStack> toReturn = NonNullList.create();
-        Random random = new Random();
 
         for (int i = 1; i <= rolls; i++) {
             double totalProbability = getTotalProbability();
-            double targetProbability = random.nextDouble();
+            double targetProbability = pRandom.nextDouble();
 
             if (weighted) {
                 double outputProbability = 0.0;
@@ -102,7 +105,7 @@ public class ProbabilitySet {
                 if ((totalProbability / 100) < targetProbability) return toReturn;
 
                 for (ProbabilityGroup group : probabilityGroups) {
-                    if (group.getProbability() >= random.nextInt(101)) {
+                    if (group.getProbability() >= pRandom.nextInt(101)) {
                         toReturn.addAll(group.getOutput());
                     }
                 }

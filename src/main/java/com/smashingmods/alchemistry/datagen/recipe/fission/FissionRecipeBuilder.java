@@ -27,13 +27,18 @@ public class FissionRecipeBuilder implements RecipeBuilder {
 
     public FissionRecipeBuilder(ElementItem pInput) {
         this.input = pInput;
-        int inputAtomicNumber = pInput.getAtomicNumber();
-        if (inputAtomicNumber % 2 == 0) {
-            this.output1 = ItemRegistry.getElementByAtomicNumber(inputAtomicNumber / 2).map(ItemStack::new).orElse(ItemStack.EMPTY);
-        } else {
-            this.output1 = ItemRegistry.getElementByAtomicNumber((inputAtomicNumber / 2) + 1).map(ItemStack::new).orElse(ItemStack.EMPTY);
-        }
-        this.output2 = ItemRegistry.getElementByAtomicNumber(inputAtomicNumber / 2).map(ItemStack::new).orElse(ItemStack.EMPTY);
+        int[] split = fissionSplit(pInput.getAtomicNumber());
+        this.output1 = ItemRegistry.getElementByAtomicNumber(split[0]).map(ItemStack::new).orElse(ItemStack.EMPTY);
+        this.output2 = ItemRegistry.getElementByAtomicNumber(split[1]).map(ItemStack::new).orElse(ItemStack.EMPTY);
+    }
+
+    /**
+     * Splits an input atomic number into the two fission output atomic numbers: an even number halves evenly,
+     * while an odd number rounds the first output up so the pair still sums to the input.
+     */
+    public static int[] fissionSplit(int atomicNumber) {
+        int half = atomicNumber / 2;
+        return (atomicNumber % 2 == 0) ? new int[]{half, half} : new int[]{half + 1, half};
     }
 
     public static FissionRecipeBuilder createRecipe(ElementItem pInput) {

@@ -28,10 +28,10 @@ public class FusionRecipeProvider {
 
         for (int x = 1; x < elements.size(); x++) {
             for (int y = 1; y < elements.size(); y++) {
-                if (!(x > y) && (x + y) <= elements.size()) {
+                if (isValidFusion(x, y, elements.size())) {
                     Optional<ElementItem> input1 = ItemRegistry.getElementByAtomicNumber(x);
                     Optional<ElementItem> input2 = ItemRegistry.getElementByAtomicNumber(y);
-                    Optional<ElementItem> output = ItemRegistry.getElementByAtomicNumber(x + y);
+                    Optional<ElementItem> output = ItemRegistry.getElementByAtomicNumber(fusionOutput(x, y));
 
                     if (input1.isPresent() && input2.isPresent() && output.isPresent()) {
                         fusion(input1.get(), input2.get(), output.get());
@@ -39,6 +39,18 @@ public class FusionRecipeProvider {
                 }
             }
         }
+    }
+
+    /**
+     * A fusion pair is valid when the inputs are ordered (to avoid mirror duplicates) and their combined
+     * atomic number still maps to an existing element.
+     */
+    public static boolean isValidFusion(int x, int y, int count) {
+        return !(x > y) && (x + y) <= count;
+    }
+
+    public static int fusionOutput(int x, int y) {
+        return x + y;
     }
 
     private void fusion(ElementItem pInput1, ElementItem pInput2, ElementItem pOutput) {

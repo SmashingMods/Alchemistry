@@ -33,7 +33,7 @@ public class AtomizerRecipeProvider {
     }
 
     private void register() {
-        ItemRegistry.getElements().stream().filter(element -> element.getMatterState().equals(MatterState.LIQUID) || element.getMatterState().equals(MatterState.GAS) && !element.isArtificial()).forEach(chemicalToFluidRecipe());
+        ItemRegistry.getElements().stream().filter(element -> (element.getMatterState().equals(MatterState.LIQUID) || element.getMatterState().equals(MatterState.GAS)) && !element.isArtificial()).forEach(chemicalToFluidRecipe());
         ItemRegistry.getCompounds().stream().filter(compound -> compound.getMatterState().equals(MatterState.LIQUID) || compound.getMatterState().equals(MatterState.GAS)).forEach(chemicalToFluidRecipe());
         ItemRegistry.getCompoundByName("water").ifPresent(water -> atomizer(new FluidStack(Fluids.WATER, 500), new ItemStack(water, 8)));
     }

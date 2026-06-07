@@ -38,7 +38,7 @@ public class LiquifierRecipeProvider {
     }
 
     private void register() {
-        ItemRegistry.getElements().stream().filter(element -> element.getMatterState().equals(MatterState.LIQUID) || element.getMatterState().equals(MatterState.GAS) && !element.isArtificial()).forEach(fluidToChemicalRecipe());
+        ItemRegistry.getElements().stream().filter(element -> (element.getMatterState().equals(MatterState.LIQUID) || element.getMatterState().equals(MatterState.GAS)) && !element.isArtificial()).forEach(fluidToChemicalRecipe());
         ItemRegistry.getCompounds().stream().filter(compound -> compound.getMatterState().equals(MatterState.LIQUID) || compound.getMatterState().equals(MatterState.GAS)).forEach(fluidToChemicalRecipe());
         ItemRegistry.getCompoundByName("water").ifPresent(water -> liquifier(new ItemStack(water, 8), new FluidStack(Fluids.WATER, 500)));
     }

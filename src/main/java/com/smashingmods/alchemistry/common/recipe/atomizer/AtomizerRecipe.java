@@ -46,7 +46,10 @@ public class AtomizerRecipe extends AbstractProcessingRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.of(input.getFluid().getBucket()));
+        // NonNullList.of(default, elements...) treats the first arg as the list's default, not an element, so
+        // passing only the ingredient yields a size-0 list (JEI then renders an empty input slot). Supply
+        // Ingredient.EMPTY as the default and the real ingredient as the single element.
+        return NonNullList.of(Ingredient.EMPTY, Ingredient.of(input.getFluid().getBucket()));
     }
 
     @Override

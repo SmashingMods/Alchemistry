@@ -49,7 +49,14 @@ public class FusionRecipe extends AbstractProcessingRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(Ingredient.of(input1, input2));
+        // Two distinct inputs, one per slot. NonNullList.of(default, elements...) treats the first arg as the
+        // list's default, not an element; Ingredient.of(input1, input2) would also collapse both stacks into a
+        // single either-or ingredient. Build the list and add both inputs as separate ingredients so JEI fills
+        // both input slots (matching FusionRecipeCategory's two INPUT slots).
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+        ingredients.add(Ingredient.of(input1));
+        ingredients.add(Ingredient.of(input2));
+        return ingredients;
     }
 
     @Override

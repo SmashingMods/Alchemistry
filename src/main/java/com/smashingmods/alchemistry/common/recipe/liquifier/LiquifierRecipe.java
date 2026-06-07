@@ -41,7 +41,10 @@ public class LiquifierRecipe extends AbstractProcessingRecipe {
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.of(input.getIngredient());
+        // NonNullList.of(default, elements...) treats the first arg as the list's default, not an element, so
+        // passing only the ingredient yields a size-0 list (JEI then renders an empty input slot). Supply
+        // Ingredient.EMPTY as the default and the real ingredient as the single element.
+        return NonNullList.of(Ingredient.EMPTY, input.getIngredient());
     }
 
     @Override

@@ -140,10 +140,13 @@ dependencies {
     implementation "smashingmods:chemlib:${minecraft_version}-${chemlib_version}"
     implementation "smashingmods:alchemylib:${minecraft_version}-${alchemylib_version}"
 
-    // JEI: the common API is declared for compile time use only.
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
-    // JEI: no NeoForge build for MC 1.20.2 (the -forge jar's loaderVersion=[48,) rejects NeoForge); @JeiPlugin
-    // compiles against the common-api but stays dormant at runtime this phase -- D6.
+    // JEI: compiled against the NeoForge API (which transitively pulls in the common API), because the Atomizer
+    // and Liquifier categories reference NeoForgeTypes.FLUID_STACK for their fluid slots -- that symbol lives in the
+    // neoforge-api jar, not the common-api jar. The NeoForge build supplies the runtime implementation. As of MC
+    // 1.20.4 a NeoForge-flavored JEI exists, so JEI is an active (optional) integration again -- it loads at runtime
+    // when present and the plugin renders the recipe categories.
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
     // Patchouli: dropped this phase -- no 1.20.2 Patchouli build (D6 gap); the guidebook is gated separately.
 
     // JUnit 5 for the plain-JUnit `test` source set. testImplementation extends implementation,

@@ -8,6 +8,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -49,9 +50,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder pBuilder, AtomizerRecipe pRecipe, IFocusGroup pFocusGroup) {
-        // JEI is dormant on NeoForge 1.20.2 (no NeoForge-flavored JEI yet, so this category never renders).
-        // The fluid input slot relied on the Forge-only ForgeTypes.FLUID_STACK; the JEI common-api exposes no
-        // usable platform-neutral fluid ingredient type here. Re-add the fluid slot when JEI ships a NeoForge build (1.20.4+).
+        pBuilder.addSlot(RecipeIngredientRole.INPUT, 14, 24).addIngredient(NeoForgeTypes.FLUID_STACK, pRecipe.getInput());
         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, 113, 24).addItemStack(pRecipe.getOutput());
     }
 }

@@ -147,7 +147,12 @@ dependencies {
     // when present and the plugin renders the recipe categories.
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
-    // Patchouli: dropped this phase -- no 1.20.2 Patchouli build (D6 gap); the guidebook is gated separately.
+    // Patchouli: a NeoForge build exists again as of MC 1.20.4, so the guidebook is an active (optional)
+    // integration -- it loads the book at runtime when present. The book is pure data (JSON under
+    // patchouli_books/), with no Java referencing the vazkii.patchouli.api package, so the single-jar
+    // compileOnly + runtimeOnly shape is enough; no separate -api artifact is needed. Mirrors JEI's optional shape.
+    compileOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
+    runtimeOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
 
     // JUnit 5 for the plain-JUnit `test` source set. testImplementation extends implementation,
     // so the Minecraft classpath (net.neoforged:neoforge above) is inherited by the test compile/runtime.

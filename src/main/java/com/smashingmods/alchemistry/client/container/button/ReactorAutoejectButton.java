@@ -52,7 +52,7 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
         // forge does. As a workaround we "wrap" manually simply by using a list of components.
         // As such we invoke Screen#renderComponentTooltip directly and give it the list of components.
 
-        if (pMouseX >= getX() && pMouseX <= getX() + width && pMouseY >= getX() && pMouseY <= getX() + height) {
+        if (pMouseX >= getX() && pMouseX <= getX() + width && pMouseY >= getY() && pMouseY <= getY() + height) {
             boolean autoeject = ((AbstractReactorBlockEntity) blockEntity).isAutoEject();
             pGuiGraphics.renderTooltip(Minecraft.getInstance().font, autoeject ? TOOLTIP_ENABLED : TOOLTIP_DISABLED, Optional.empty(), pMouseX, pMouseY);
         }

@@ -120,7 +120,7 @@ public class RecipeRegistry {
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
         if (recipeTypeMap.get(pRecipeType) == null) {
-            // As of 1.20.2 RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value.
+            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value.
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
                     .filter(holder -> holder.value().getType().equals(pRecipeType))
                     .map(holder -> (R) holder.value())
@@ -134,7 +134,7 @@ public class RecipeRegistry {
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
         if (recipeGroupMap.get(pGroup) == null) {
-            // As of 1.20.2 RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value.
+            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value.
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
                 .filter(holder -> holder.value().getGroup().equals(pGroup))
                 .map(holder -> (R) holder.value())

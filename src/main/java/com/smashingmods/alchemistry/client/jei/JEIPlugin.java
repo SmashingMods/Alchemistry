@@ -61,7 +61,7 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration pRegistration) {
         RecipeManager recipeManager = Objects.requireNonNull(Minecraft.getInstance().level).getRecipeManager();
 
-        // As of 1.20.2 RecipeManager#getAllRecipesFor returns RecipeHolders; unwrap to the recipe value for JEI.
+        // RecipeManager#getAllRecipesFor returns RecipeHolders; unwrap to the recipe value for JEI.
         pRegistration.addRecipes(RecipeTypes.ATOMIZER, recipeManager.getAllRecipesFor(RecipeRegistry.ATOMIZER_TYPE.get()).stream().map(RecipeHolder::value).toList());
         pRegistration.addRecipes(RecipeTypes.COMBINER, recipeManager.getAllRecipesFor(RecipeRegistry.COMBINER_TYPE.get()).stream().map(RecipeHolder::value).toList());
         pRegistration.addRecipes(RecipeTypes.COMPACTOR, recipeManager.getAllRecipesFor(RecipeRegistry.COMPACTOR_TYPE.get()).stream().map(RecipeHolder::value).toList());

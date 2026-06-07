@@ -10,8 +10,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 /**
- * Shared {@link Codec}s for the recipe types that are reused across more than one serializer. As of
- * 1.20.2 recipe serializers are codec-based, so the wrapper types that AlchemyLib exposes without a
+ * Shared {@link Codec}s for the recipe types that are reused across more than one serializer. Recipe
+ * serializers are codec-based, so the wrapper types that AlchemyLib exposes without a
  * codec ({@link IngredientStack}) and the amount-keyed fluid shape Alchemistry stores on disk need
  * codecs defined here rather than re-derived in every serializer.
  */

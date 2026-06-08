@@ -66,6 +66,13 @@ runs {
         // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
+        // Open the dev client at 1920x1080 instead of the tiny default. net.minecraft.client.main.Main parses
+        // --width/--height to seed the initial window size; the default dev window is small enough that Minecraft
+        // CLAMPS guiScale down to whatever fits (effectively AUTO), so the guiScale:3 we stamp into options.txt
+        // below never takes hold. A full-size window leaves room for scale 3, so the two changes go together.
+        // Mirrors the data run's programArguments.addAll form for the paired key/value args.
+        programArguments.addAll '--width', '1920', '--height', '1080'
+
         // Silent dev client: stamp a sound-off options.txt into the runClient working directory before every
         // launch so client runs never blast audio while working. The same template also pins guiScale:3 so every
         // runClient launches at a readable GUI scale. Overwrites each run on purpose - these are throwaway test
@@ -75,6 +82,15 @@ runs {
             description = 'Copies the sound-off, guiScale:3 options.txt template into the runClient working directory.'
             from project.file('run-config/options.txt')
             into run.workingDirectory
+            // The template must win over a stale runs/client/options.txt every launch. Minecraft rewrites that file
+            // on exit -- expanding it to ~150 keys and resetting guiScale to whatever the (previously tiny) window
+            // could fit -- so a leftover copy from the last session would otherwise survive and our guiScale:3 would
+            // be lost. INCLUDE makes the copy last-writer-wins, and upToDateWhen { false } forces the task to run
+            // every launch (a Copy that snapshots its dest dir as an output would skip as UP-TO-DATE and leave the
+            // stale file in place). Same always-run idiom this file uses on runGameTestServer; these are throwaway
+            // run dirs (runs/ is gitignored), so re-stamping every launch is free.
+            duplicatesStrategy = DuplicatesStrategy.INCLUDE
+            outputs.upToDateWhen { false }
         }
         run.dependsOn silentOptions.get()
     }

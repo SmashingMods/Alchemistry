@@ -8,3 +8,4 @@ soundCategory_neutral:0.0
 soundCategory_player:0.0
 soundCategory_ambient:0.0
 soundCategory_voice:0.0
+guiScale:3

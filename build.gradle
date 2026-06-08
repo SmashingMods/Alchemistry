@@ -67,21 +67,81 @@ runs {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
         // Silent dev client: stamp a sound-off options.txt into the runClient working directory before every
-        // launch so client runs never blast audio while working. Overwrites each run on purpose - these are
-        // throwaway test runs. Defined inside the client block (referencing this run's workingDirectory) because
-        // NeoGradle 7.1 no longer resolves the run by name via runs.named('client')/the runClient task.
+        // launch so client runs never blast audio while working. The same template also pins guiScale:3 so every
+        // runClient launches at a readable GUI scale. Overwrites each run on purpose - these are throwaway test
+        // runs. Defined inside the client block (referencing this run's workingDirectory) because NeoGradle 7.1 no
+        // longer resolves the run by name via runs.named('client')/the runClient task.
         def silentOptions = project.tasks.register('prepareSilentClientOptions', Copy) {
-            description = 'Copies the sound-off options.txt template into the runClient working directory.'
+            description = 'Copies the sound-off, guiScale:3 options.txt template into the runClient working directory.'
             from project.file('run-config/options.txt')
             into run.workingDirectory
         }
         run.dependsOn silentOptions.get()
     }
 
-    server {
+    server { run ->
         runType "server"
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         programArgument '--nogui'
+
+        // Auto-op the dev player on every runServer. The NeoGradle dev client connects offline as username "Dev"
+        // (no auth-player override is set in this runs{} block), whose offline UUID is the namespaced hash
+        // UUID.nameUUIDFromBytes("OfflinePlayer:Dev") = 380df991-f603-344c-a090-369bad2a924a. The dedicated server
+        // reads ops.json once at startup, so we stamp it into the run's working directory before launch -- giving
+        // the dev player level-4 (full) operator rights every run without a manual /op. Mirrors the acceptEula task
+        // above and, like it, is defined inside this block referencing this run's workingDirectory (NeoGradle 7.1 no
+        // longer resolves the run via runs.named('server')/the runServer task). Dev/test only -- runs/ is gitignored
+        // and never published.
+        def opsDevServer = project.tasks.register('prepareDevServerOps') {
+            def opsFile = run.workingDirectory.file('ops.json')
+            outputs.file(opsFile)
+            doLast {
+                def target = opsFile.get().asFile
+                target.parentFile.mkdirs()
+                target.text = '''[
+  {
+    "uuid": "380df991-f603-344c-a090-369bad2a924a",
+    "name": "Dev",
+    "level": 4,
+    "bypassesPlayerLimit": true
+  }
+]
+'''
+            }
+        }
+        run.dependsOn opsDevServer.get()
+
+        // Force creative on the dev server, durably. gamemode=creative sets the default mode for joining players;
+        // force-gamemode=true re-applies it on every join so saved player data can never leave the dev player stuck
+        // in survival. We update only these two keys (read-modify-write) instead of overwriting the whole file,
+        // because Minecraft owns the other ~60 entries in server.properties and regenerates/rewrites it on shutdown;
+        // clobbering them would fight the server. If the file is absent (fresh run dir) we write just these keys and
+        // the server fills in the rest at startup. Mirrors the acceptEula/ops tasks' shape; same workingDirectory
+        // reasoning. Dev/test only.
+        def propsDevServer = project.tasks.register('prepareDevServerProperties') {
+            def propsFile = run.workingDirectory.file('server.properties')
+            outputs.file(propsFile)
+            doLast {
+                def target = propsFile.get().asFile
+                target.parentFile.mkdirs()
+                def forced = ['gamemode': 'creative', 'force-gamemode': 'true']
+                def lines = target.exists() ? target.readLines('UTF-8') : []
+                def seen = [] as Set
+                def merged = lines.collect { line ->
+                    def m = (line =~ /^\s*([\w.-]+)\s*=/)
+                    if (m && forced.containsKey(m.group(1))) {
+                        def key = m.group(1)
+                        seen << key
+                        "${key}=${forced[key]}"
+                    } else {
+                        line
+                    }
+                }
+                forced.each { key, value -> if (!seen.contains(key)) merged << "${key}=${value}" }
+                target.text = merged.join('\n') + '\n'
+            }
+        }
+        run.dependsOn propsDevServer.get()
     }
 
     // This run config launches GameTestServer and runs all registered gametests, then exits.
@@ -202,6 +262,9 @@ repositories {
     mavenLocal()
     maven { url "https://maven.blamejared.com" }
     maven { url "https://maven.tamaized.com/releases" }
+    // CurseMaven serves the dev-only power/pipes test mods (GeneratorGalore, Pipez) pulled in as runtimeOnly
+    // below. Scoped to the curse.maven group so it is only consulted for those coordinates.
+    maven { url "https://www.cursemaven.com"; content { includeGroup "curse.maven" } }
     // JUnit (org.junit.*) is not mirrored by the repos above; settings.gradle has no
     // dependencyResolutionManagement, so the test deps need Maven Central here.
     mavenCentral()
@@ -228,6 +291,13 @@ dependencies {
     // compileOnly + runtimeOnly shape is enough; no separate -api artifact is needed. Mirrors JEI's optional shape.
     compileOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
     runtimeOnly "vazkii.patchouli:Patchouli:${patchouli_version}"
+
+    // Dev-only power/pipes test mods, runtimeOnly so they load in runClient/runServer for hands-on testing of
+    // Alchemistry's FE machines and fluid/item handling. Pure runtime: no source compiles against them, they are
+    // NOT listed as dependencies in neoforge.mods.toml, and the publication below bundles only our jar/sources/
+    // javadoc -- so they are never shipped and never a load requirement of the released mod.
+    runtimeOnly "curse.maven:generatorgalore-691049:6799851" // GeneratorGalore -- FE generators
+    runtimeOnly "curse.maven:pipez-443900:5609056"           // Pipez -- item/fluid/energy pipes
 
     // JUnit 5 for the plain-JUnit `test` source set. testImplementation extends implementation,
     // so the Minecraft classpath (net.neoforged:neoforge above) is inherited by the test compile/runtime.

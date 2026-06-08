@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/15phosphorus_and_103lawrencium_to_118oganesson",
   "input1": {
     "item": "chemlib:phosphorus"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/wooden_slabs",
   "input": {
     "ingredient": {
       "tag": "minecraft:wooden_slabs"

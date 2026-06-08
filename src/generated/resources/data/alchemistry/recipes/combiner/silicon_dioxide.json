@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/silicon_dioxide",
   "input": [
     {
       "count": 2,

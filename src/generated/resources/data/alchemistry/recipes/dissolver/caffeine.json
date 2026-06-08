@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/caffeine",
   "input": {
     "ingredient": {
       "item": "chemlib:caffeine"

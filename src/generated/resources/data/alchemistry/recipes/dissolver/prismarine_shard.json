@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/prismarine_shard",
   "input": {
     "ingredient": {
       "item": "minecraft:prismarine_shard"

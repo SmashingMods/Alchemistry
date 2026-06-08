@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_104rutherfordium_to_115moscovium",
   "input1": {
     "item": "chemlib:sodium"
   },

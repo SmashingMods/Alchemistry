@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_96curium_to_109meitnerium",
   "input1": {
     "item": "chemlib:aluminum"
   },

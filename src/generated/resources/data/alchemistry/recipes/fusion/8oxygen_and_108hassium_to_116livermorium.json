@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_108hassium_to_116livermorium",
   "input1": {
     "item": "chemlib:oxygen"
   },

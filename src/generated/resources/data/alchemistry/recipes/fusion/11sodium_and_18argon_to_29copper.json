@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_18argon_to_29copper",
   "input1": {
     "item": "chemlib:sodium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/7nitrogen_and_42molybdenum_to_49indium",
   "input1": {
     "item": "chemlib:nitrogen"
   },

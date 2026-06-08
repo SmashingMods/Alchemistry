@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/5boron_and_8oxygen_to_13aluminum",
   "input1": {
     "item": "chemlib:boron"
   },

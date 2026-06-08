@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/chitin",
   "input": {
     "ingredient": {
       "item": "chemlib:chitin"

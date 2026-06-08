@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/lithium_carbonate",
   "input": {
     "ingredient": {
       "item": "chemlib:lithium_carbonate"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/cobalt_nitrate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:cobalt_nitrate_dust"

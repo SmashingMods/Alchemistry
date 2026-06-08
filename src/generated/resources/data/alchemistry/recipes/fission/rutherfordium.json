@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/rutherfordium",
   "input": {
     "item": "chemlib:rutherfordium"
   },

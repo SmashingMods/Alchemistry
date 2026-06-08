@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_29copper_to_43technetium",
   "input1": {
     "item": "chemlib:silicon"
   },

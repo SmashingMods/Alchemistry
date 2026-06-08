@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/blue_terracotta",
   "input": {
     "ingredient": {
       "item": "minecraft:blue_terracotta"

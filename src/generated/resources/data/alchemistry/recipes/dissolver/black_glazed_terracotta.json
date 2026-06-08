@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/black_glazed_terracotta",
   "input": {
     "ingredient": {
       "item": "minecraft:black_glazed_terracotta"

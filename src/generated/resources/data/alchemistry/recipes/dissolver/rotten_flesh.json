@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/rotten_flesh",
   "input": {
     "ingredient": {
       "item": "minecraft:rotten_flesh"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/58cerium_and_59praseodymium_to_117tennessine",
   "input1": {
     "item": "chemlib:cerium"
   },

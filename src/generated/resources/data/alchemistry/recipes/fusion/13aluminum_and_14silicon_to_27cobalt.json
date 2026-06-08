@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_14silicon_to_27cobalt",
   "input1": {
     "item": "chemlib:aluminum"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/mossy_cobblestone_slab",
   "input": {
     "ingredient": {
       "item": "minecraft:mossy_cobblestone_slab"

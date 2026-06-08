@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/moss_carpet",
   "input": {
     "ingredient": {
       "item": "minecraft:moss_carpet"

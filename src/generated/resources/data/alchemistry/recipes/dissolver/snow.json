@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/snow",
   "input": {
     "ingredient": {
       "item": "minecraft:snow"

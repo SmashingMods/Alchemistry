@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/end_stone_brick_slab",
   "input": {
     "ingredient": {
       "item": "minecraft:end_stone_brick_slab"

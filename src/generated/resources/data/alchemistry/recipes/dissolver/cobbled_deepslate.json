@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/cobbled_deepslate",
   "input": {
     "ingredient": {
       "item": "minecraft:cobbled_deepslate"

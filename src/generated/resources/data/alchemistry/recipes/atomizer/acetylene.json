@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
-  "id": "alchemistry:atomizer/acetylene",
   "input": {
     "amount": 500,
     "fluid": "chemlib:acetylene_fluid"

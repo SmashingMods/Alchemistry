@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_59praseodymium_to_76osmium",
   "input1": {
     "item": "chemlib:chlorine"
   },

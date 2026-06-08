@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/chests/wooden",
   "input": {
     "ingredient": {
       "tag": "forge:chests/wooden"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/43technetium_and_51antimony_to_94plutonium",
   "input1": {
     "item": "chemlib:technetium"
   },

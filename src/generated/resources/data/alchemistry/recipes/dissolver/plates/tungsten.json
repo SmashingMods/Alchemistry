@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/tungsten",
   "input": {
     "ingredient": {
       "tag": "forge:plates/tungsten"

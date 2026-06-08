@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/red_mushroom",
   "input": {
     "ingredient": {
       "item": "minecraft:red_mushroom"

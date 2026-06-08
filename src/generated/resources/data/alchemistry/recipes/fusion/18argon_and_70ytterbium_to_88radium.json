@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/18argon_and_70ytterbium_to_88radium",
   "input1": {
     "item": "chemlib:argon"
   },

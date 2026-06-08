@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_109meitnerium_to_115moscovium",
   "input1": {
     "item": "chemlib:carbon"
   },

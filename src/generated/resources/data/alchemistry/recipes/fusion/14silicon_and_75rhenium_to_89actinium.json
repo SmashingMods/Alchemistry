@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_75rhenium_to_89actinium",
   "input1": {
     "item": "chemlib:silicon"
   },

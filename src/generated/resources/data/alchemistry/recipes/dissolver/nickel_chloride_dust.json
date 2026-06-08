@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nickel_chloride_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:nickel_chloride_dust"

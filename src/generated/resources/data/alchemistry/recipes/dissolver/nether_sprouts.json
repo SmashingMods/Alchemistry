@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nether_sprouts",
   "input": {
     "ingredient": {
       "item": "minecraft:nether_sprouts"

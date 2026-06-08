@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dead_tube_coral",
   "input": {
     "ingredient": {
       "item": "minecraft:dead_tube_coral"

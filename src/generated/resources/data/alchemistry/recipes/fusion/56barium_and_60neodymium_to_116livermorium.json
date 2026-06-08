@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/56barium_and_60neodymium_to_116livermorium",
   "input1": {
     "item": "chemlib:barium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_27cobalt_to_35bromine",
   "input1": {
     "item": "chemlib:oxygen"
   },

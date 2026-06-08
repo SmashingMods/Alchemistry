@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
-  "id": "alchemistry:compactor/diorite",
   "input": {
     "ingredient": {
       "item": "chemlib:silicon_dioxide"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_63europium_to_76osmium",
   "input1": {
     "item": "chemlib:aluminum"
   },

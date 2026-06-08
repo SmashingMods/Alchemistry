@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/starch",
   "input": {
     "ingredient": {
       "item": "chemlib:starch"

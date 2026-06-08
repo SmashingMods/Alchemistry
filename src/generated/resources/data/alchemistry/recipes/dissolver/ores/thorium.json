@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ores/thorium",
   "input": {
     "ingredient": {
       "tag": "forge:ores/thorium"

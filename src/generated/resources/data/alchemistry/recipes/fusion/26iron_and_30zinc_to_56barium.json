@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/26iron_and_30zinc_to_56barium",
   "input1": {
     "item": "chemlib:iron"
   },

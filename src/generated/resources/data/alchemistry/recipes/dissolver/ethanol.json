@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ethanol",
   "input": {
     "ingredient": {
       "item": "chemlib:ethanol"

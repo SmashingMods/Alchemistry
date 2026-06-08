@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/1hydrogen_and_71lutetium_to_72hafnium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

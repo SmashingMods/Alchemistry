@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_9fluorine_to_11sodium",
   "input1": {
     "item": "chemlib:helium"
   },

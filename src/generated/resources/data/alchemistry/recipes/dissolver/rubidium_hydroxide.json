@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/rubidium_hydroxide",
   "input": {
     "ingredient": {
       "item": "chemlib:rubidium_hydroxide"

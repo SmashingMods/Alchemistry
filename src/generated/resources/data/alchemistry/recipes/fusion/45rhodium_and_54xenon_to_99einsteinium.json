@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/45rhodium_and_54xenon_to_99einsteinium",
   "input1": {
     "item": "chemlib:rhodium"
   },

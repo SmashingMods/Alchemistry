@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_12magnesium_to_23vanadium",
   "input1": {
     "item": "chemlib:sodium"
   },

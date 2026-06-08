@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/7nitrogen_and_77iridium_to_84polonium",
   "input1": {
     "item": "chemlib:nitrogen"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_12magnesium_to_20calcium",
   "input1": {
     "item": "chemlib:oxygen"
   },

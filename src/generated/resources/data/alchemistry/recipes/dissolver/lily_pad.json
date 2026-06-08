@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/lily_pad",
   "input": {
     "ingredient": {
       "item": "minecraft:lily_pad"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_46palladium_to_76osmium",
   "input1": {
     "item": "chemlib:zinc"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_12magnesium_to_18argon",
   "input1": {
     "item": "chemlib:carbon"
   },

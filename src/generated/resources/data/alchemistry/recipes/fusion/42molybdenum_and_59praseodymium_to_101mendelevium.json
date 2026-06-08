@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/42molybdenum_and_59praseodymium_to_101mendelevium",
   "input1": {
     "item": "chemlib:molybdenum"
   },

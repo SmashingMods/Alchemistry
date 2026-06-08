@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/technetium",
   "input": {
     "item": "chemlib:technetium"
   },

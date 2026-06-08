@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/antimony_trioxide_dust",
   "input": [
     {
       "count": 8,

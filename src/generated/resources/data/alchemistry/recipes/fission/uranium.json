@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/uranium",
   "input": {
     "item": "chemlib:uranium"
   },

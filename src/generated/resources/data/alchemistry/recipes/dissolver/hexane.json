@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/hexane",
   "input": {
     "ingredient": {
       "item": "chemlib:hexane"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/gold_nugget",
   "input": {
     "ingredient": {
       "item": "minecraft:gold_nugget"

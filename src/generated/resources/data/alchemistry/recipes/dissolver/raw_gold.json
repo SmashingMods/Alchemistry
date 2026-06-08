@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/raw_gold",
   "input": {
     "ingredient": {
       "item": "minecraft:raw_gold"

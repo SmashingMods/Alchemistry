@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/carbon_disulfide",
   "input": {
     "ingredient": {
       "item": "chemlib:carbon_disulfide"

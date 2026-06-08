@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/hydrochloric_acid",
   "input": {
     "ingredient": {
       "item": "chemlib:hydrochloric_acid"

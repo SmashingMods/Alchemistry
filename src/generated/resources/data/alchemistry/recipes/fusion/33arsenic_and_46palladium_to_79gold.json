@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/33arsenic_and_46palladium_to_79gold",
   "input1": {
     "item": "chemlib:arsenic"
   },

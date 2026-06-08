@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/han_purple",
   "input": {
     "ingredient": {
       "item": "chemlib:han_purple"

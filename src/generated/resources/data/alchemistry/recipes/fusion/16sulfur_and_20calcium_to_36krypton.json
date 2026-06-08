@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_20calcium_to_36krypton",
   "input1": {
     "item": "chemlib:sulfur"
   },

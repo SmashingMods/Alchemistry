@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/45rhodium_and_59praseodymium_to_104rutherfordium",
   "input1": {
     "item": "chemlib:rhodium"
   },

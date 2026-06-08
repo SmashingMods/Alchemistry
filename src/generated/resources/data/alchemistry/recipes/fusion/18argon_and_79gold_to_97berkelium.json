@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/18argon_and_79gold_to_97berkelium",
   "input1": {
     "item": "chemlib:argon"
   },

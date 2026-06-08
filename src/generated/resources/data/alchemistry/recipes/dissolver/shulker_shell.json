@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/shulker_shell",
   "input": {
     "ingredient": {
       "item": "minecraft:shulker_shell"

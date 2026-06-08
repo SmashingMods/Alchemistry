@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/triglyceride_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:triglyceride_dust"

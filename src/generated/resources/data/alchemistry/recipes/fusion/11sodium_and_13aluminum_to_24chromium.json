@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_13aluminum_to_24chromium",
   "input1": {
     "item": "chemlib:sodium"
   },

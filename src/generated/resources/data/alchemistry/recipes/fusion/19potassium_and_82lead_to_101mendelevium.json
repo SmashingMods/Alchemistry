@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/19potassium_and_82lead_to_101mendelevium",
   "input1": {
     "item": "chemlib:potassium"
   },

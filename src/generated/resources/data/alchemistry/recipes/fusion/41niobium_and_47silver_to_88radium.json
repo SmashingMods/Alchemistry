@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/41niobium_and_47silver_to_88radium",
   "input1": {
     "item": "chemlib:niobium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_11sodium_to_22titanium",
   "input1": {
     "item": "chemlib:sodium"
   },

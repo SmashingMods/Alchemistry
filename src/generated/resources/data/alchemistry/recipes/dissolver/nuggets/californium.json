@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/californium",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/californium"

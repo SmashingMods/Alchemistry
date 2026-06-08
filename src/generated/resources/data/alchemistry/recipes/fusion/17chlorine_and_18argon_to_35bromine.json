@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_18argon_to_35bromine",
   "input1": {
     "item": "chemlib:chlorine"
   },

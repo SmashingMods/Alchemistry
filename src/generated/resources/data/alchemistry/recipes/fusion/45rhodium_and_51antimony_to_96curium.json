@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/45rhodium_and_51antimony_to_96curium",
   "input1": {
     "item": "chemlib:rhodium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/copper_nitrate",
   "input": {
     "ingredient": {
       "item": "chemlib:copper_nitrate"

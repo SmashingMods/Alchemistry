@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/21scandium_and_91protactinium_to_112copernicium",
   "input1": {
     "item": "chemlib:scandium"
   },

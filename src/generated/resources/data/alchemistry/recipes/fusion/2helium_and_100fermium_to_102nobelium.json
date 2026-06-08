@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_100fermium_to_102nobelium",
   "input1": {
     "item": "chemlib:helium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/silicon_dioxide",
   "input": {
     "ingredient": {
       "item": "chemlib:silicon_dioxide"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/pink_concrete",
   "input": {
     "ingredient": {
       "item": "minecraft:pink_concrete"

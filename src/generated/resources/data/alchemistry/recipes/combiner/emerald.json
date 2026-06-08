@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/emerald",
   "input": [
     {
       "count": 4,

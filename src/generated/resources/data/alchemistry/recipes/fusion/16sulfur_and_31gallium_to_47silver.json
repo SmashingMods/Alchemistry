@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_31gallium_to_47silver",
   "input1": {
     "item": "chemlib:sulfur"
   },

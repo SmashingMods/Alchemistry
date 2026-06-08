@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_22titanium_to_33arsenic",
   "input1": {
     "item": "chemlib:sodium"
   },

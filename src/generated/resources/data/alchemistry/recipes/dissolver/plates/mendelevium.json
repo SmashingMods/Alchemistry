@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/mendelevium",
   "input": {
     "ingredient": {
       "tag": "forge:plates/mendelevium"

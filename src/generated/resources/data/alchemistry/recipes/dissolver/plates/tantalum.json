@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/tantalum",
   "input": {
     "ingredient": {
       "tag": "forge:plates/tantalum"

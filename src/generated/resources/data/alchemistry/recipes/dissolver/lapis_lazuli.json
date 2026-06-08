@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/lapis_lazuli",
   "input": {
     "ingredient": {
       "item": "minecraft:lapis_lazuli"

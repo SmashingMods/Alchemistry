@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/23vanadium_and_67holmium_to_90thorium",
   "input1": {
     "item": "chemlib:vanadium"
   },

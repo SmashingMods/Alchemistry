@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/20calcium_and_22titanium_to_42molybdenum",
   "input1": {
     "item": "chemlib:calcium"
   },

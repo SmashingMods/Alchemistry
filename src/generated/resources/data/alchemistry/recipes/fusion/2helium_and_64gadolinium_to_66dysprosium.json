@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_64gadolinium_to_66dysprosium",
   "input1": {
     "item": "chemlib:helium"
   },

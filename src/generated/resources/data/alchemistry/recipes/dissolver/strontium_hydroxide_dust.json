@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/strontium_hydroxide_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:strontium_hydroxide_dust"

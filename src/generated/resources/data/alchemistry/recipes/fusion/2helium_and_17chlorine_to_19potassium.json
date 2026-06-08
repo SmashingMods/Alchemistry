@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_17chlorine_to_19potassium",
   "input1": {
     "item": "chemlib:helium"
   },

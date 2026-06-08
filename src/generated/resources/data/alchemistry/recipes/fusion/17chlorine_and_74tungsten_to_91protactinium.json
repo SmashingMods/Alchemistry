@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_74tungsten_to_91protactinium",
   "input1": {
     "item": "chemlib:chlorine"
   },

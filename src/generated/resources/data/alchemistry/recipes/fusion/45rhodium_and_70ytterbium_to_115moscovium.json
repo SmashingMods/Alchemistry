@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/45rhodium_and_70ytterbium_to_115moscovium",
   "input1": {
     "item": "chemlib:rhodium"
   },

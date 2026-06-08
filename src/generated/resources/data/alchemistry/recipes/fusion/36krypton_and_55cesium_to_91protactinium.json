@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/36krypton_and_55cesium_to_91protactinium",
   "input1": {
     "item": "chemlib:krypton"
   },

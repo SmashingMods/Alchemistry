@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/beta_carotene",
   "input": {
     "ingredient": {
       "item": "chemlib:beta_carotene"

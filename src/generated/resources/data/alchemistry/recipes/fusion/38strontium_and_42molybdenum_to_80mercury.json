@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/38strontium_and_42molybdenum_to_80mercury",
   "input1": {
     "item": "chemlib:strontium"
   },

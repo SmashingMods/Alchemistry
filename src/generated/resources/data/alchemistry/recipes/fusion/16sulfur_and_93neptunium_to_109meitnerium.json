@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_93neptunium_to_109meitnerium",
   "input1": {
     "item": "chemlib:sulfur"
   },

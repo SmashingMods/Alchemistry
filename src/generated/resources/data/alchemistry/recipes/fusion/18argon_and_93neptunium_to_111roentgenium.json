@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/18argon_and_93neptunium_to_111roentgenium",
   "input1": {
     "item": "chemlib:argon"
   },

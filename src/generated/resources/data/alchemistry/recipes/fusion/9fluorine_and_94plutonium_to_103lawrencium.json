@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_94plutonium_to_103lawrencium",
   "input1": {
     "item": "chemlib:fluorine"
   },

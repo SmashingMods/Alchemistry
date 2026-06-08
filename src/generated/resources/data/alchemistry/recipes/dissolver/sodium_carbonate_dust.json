@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/sodium_carbonate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:sodium_carbonate_dust"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_76osmium_to_89actinium",
   "input1": {
     "item": "chemlib:aluminum"
   },

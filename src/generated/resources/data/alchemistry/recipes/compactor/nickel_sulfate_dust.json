@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
-  "id": "alchemistry:compactor/nickel_sulfate_dust",
   "input": {
     "count": 8,
     "ingredient": {

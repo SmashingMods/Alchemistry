@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_71lutetium_to_101mendelevium",
   "input1": {
     "item": "chemlib:zinc"
   },

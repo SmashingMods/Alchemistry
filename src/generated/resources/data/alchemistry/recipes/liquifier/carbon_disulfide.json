@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:liquifier",
   "group": "alchemistry:liquifier",
-  "id": "alchemistry:liquifier/carbon_disulfide",
   "input": {
     "count": 8,
     "ingredient": {

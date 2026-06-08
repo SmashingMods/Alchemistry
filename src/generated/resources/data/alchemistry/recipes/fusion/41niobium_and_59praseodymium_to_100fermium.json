@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/41niobium_and_59praseodymium_to_100fermium",
   "input1": {
     "item": "chemlib:niobium"
   },

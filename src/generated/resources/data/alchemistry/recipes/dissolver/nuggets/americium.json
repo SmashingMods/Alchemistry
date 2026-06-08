@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/americium",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/americium"

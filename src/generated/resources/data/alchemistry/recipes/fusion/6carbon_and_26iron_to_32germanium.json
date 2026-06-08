@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_26iron_to_32germanium",
   "input1": {
     "item": "chemlib:carbon"
   },

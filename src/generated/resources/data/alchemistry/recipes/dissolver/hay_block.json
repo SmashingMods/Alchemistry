@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/hay_block",
   "input": {
     "ingredient": {
       "item": "minecraft:hay_block"

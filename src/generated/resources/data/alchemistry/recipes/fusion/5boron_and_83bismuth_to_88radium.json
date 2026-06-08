@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/5boron_and_83bismuth_to_88radium",
   "input1": {
     "item": "chemlib:boron"
   },

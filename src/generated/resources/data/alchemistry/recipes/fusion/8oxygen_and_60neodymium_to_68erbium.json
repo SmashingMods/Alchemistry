@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_60neodymium_to_68erbium",
   "input1": {
     "item": "chemlib:oxygen"
   },

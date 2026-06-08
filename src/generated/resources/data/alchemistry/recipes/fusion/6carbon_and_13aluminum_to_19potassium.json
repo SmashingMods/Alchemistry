@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_13aluminum_to_19potassium",
   "input1": {
     "item": "chemlib:carbon"
   },

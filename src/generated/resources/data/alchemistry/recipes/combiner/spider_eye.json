@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/spider_eye",
   "input": [
     {
       "count": 2,

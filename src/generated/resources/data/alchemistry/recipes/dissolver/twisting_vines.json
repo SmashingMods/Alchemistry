@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/twisting_vines",
   "input": {
     "ingredient": {
       "item": "minecraft:twisting_vines"

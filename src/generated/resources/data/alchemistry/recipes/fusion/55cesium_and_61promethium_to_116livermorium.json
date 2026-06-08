@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/55cesium_and_61promethium_to_116livermorium",
   "input1": {
     "item": "chemlib:cesium"
   },

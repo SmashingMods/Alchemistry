@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/48cadmium_and_57lanthanum_to_105dubnium",
   "input1": {
     "item": "chemlib:cadmium"
   },

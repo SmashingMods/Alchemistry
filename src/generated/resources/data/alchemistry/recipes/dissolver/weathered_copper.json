@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/weathered_copper",
   "input": {
     "ingredient": {
       "item": "minecraft:weathered_copper"

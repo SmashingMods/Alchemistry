@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_57lanthanum_to_71lutetium",
   "input1": {
     "item": "chemlib:silicon"
   },

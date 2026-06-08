@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/39yttrium_and_49indium_to_88radium",
   "input1": {
     "item": "chemlib:yttrium"
   },

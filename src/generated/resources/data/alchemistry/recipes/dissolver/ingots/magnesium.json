@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/magnesium",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/magnesium"

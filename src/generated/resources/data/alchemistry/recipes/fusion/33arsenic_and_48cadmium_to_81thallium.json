@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/33arsenic_and_48cadmium_to_81thallium",
   "input1": {
     "item": "chemlib:arsenic"
   },

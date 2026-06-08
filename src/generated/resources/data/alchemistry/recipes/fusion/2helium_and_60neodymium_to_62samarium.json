@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_60neodymium_to_62samarium",
   "input1": {
     "item": "chemlib:helium"
   },

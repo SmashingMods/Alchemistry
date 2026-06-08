@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/copernicium",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/copernicium"

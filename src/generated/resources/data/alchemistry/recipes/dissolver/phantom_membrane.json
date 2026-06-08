@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/phantom_membrane",
   "input": {
     "ingredient": {
       "item": "minecraft:phantom_membrane"

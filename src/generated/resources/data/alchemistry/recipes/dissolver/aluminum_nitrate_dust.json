@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/aluminum_nitrate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:aluminum_nitrate_dust"

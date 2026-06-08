@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/3lithium_and_12magnesium_to_15phosphorus",
   "input1": {
     "item": "chemlib:lithium"
   },

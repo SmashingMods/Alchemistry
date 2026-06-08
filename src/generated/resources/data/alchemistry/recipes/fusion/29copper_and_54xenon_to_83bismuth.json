@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/29copper_and_54xenon_to_83bismuth",
   "input1": {
     "item": "chemlib:copper"
   },

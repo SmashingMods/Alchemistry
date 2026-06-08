@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/orange_concrete_powder",
   "input": {
     "ingredient": {
       "item": "minecraft:orange_concrete_powder"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/28nickel_and_88radium_to_116livermorium",
   "input1": {
     "item": "chemlib:nickel"
   },

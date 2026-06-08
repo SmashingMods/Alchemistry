@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_42molybdenum_to_59praseodymium",
   "input1": {
     "item": "chemlib:chlorine"
   },

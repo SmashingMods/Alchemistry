@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/pointed_dripstone",
   "input": {
     "ingredient": {
       "item": "minecraft:pointed_dripstone"

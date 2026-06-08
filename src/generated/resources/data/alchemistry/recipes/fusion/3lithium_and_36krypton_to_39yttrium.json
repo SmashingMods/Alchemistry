@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/3lithium_and_36krypton_to_39yttrium",
   "input1": {
     "item": "chemlib:lithium"
   },

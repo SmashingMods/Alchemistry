@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/scandium",
   "input": {
     "ingredient": {
       "tag": "forge:plates/scandium"

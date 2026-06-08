@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_73tantalum_to_87francium",
   "input1": {
     "item": "chemlib:silicon"
   },

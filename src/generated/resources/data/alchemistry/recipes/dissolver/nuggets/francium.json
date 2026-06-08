@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/francium",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/francium"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/salmon",
   "input": {
     "ingredient": {
       "item": "minecraft:salmon"

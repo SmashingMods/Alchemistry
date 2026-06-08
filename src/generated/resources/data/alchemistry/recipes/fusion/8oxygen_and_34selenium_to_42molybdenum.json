@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_34selenium_to_42molybdenum",
   "input1": {
     "item": "chemlib:oxygen"
   },

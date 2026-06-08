@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/phosphorus",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/phosphorus"

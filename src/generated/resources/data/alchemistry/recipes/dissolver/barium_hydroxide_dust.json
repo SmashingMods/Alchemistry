@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/barium_hydroxide_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:barium_hydroxide_dust"

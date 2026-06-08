@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/19potassium_and_76osmium_to_95americium",
   "input1": {
     "item": "chemlib:potassium"
   },

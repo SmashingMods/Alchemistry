@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/20calcium_and_36krypton_to_56barium",
   "input1": {
     "item": "chemlib:calcium"
   },

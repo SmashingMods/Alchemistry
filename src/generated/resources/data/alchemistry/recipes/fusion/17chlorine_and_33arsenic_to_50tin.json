@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_33arsenic_to_50tin",
   "input1": {
     "item": "chemlib:chlorine"
   },

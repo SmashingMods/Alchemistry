@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ores/emerald",
   "input": {
     "ingredient": {
       "tag": "forge:ores/emerald"

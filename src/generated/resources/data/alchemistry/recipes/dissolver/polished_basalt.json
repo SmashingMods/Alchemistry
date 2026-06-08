@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/polished_basalt",
   "input": {
     "ingredient": {
       "item": "minecraft:polished_basalt"

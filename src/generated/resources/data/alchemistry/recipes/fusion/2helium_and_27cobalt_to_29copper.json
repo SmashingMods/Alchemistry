@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_27cobalt_to_29copper",
   "input1": {
     "item": "chemlib:helium"
   },

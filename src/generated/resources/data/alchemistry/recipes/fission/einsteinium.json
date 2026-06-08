@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/einsteinium",
   "input": {
     "item": "chemlib:einsteinium"
   },

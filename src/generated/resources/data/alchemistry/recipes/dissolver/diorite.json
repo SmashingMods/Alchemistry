@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/diorite",
   "input": {
     "ingredient": {
       "item": "minecraft:diorite"

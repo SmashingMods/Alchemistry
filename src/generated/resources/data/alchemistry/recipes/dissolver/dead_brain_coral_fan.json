@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dead_brain_coral_fan",
   "input": {
     "ingredient": {
       "item": "minecraft:dead_brain_coral_fan"

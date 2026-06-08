@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/26iron_and_73tantalum_to_99einsteinium",
   "input1": {
     "item": "chemlib:iron"
   },

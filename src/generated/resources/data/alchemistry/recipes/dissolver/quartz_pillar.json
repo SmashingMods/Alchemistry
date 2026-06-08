@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/quartz_pillar",
   "input": {
     "ingredient": {
       "item": "minecraft:quartz_pillar"

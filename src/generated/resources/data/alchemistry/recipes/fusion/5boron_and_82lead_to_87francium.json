@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/5boron_and_82lead_to_87francium",
   "input1": {
     "item": "chemlib:boron"
   },

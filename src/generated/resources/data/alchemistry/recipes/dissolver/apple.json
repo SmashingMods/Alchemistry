@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/apple",
   "input": {
     "ingredient": {
       "item": "minecraft:apple"

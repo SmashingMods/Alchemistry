@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ender_pearl",
   "input": {
     "ingredient": {
       "item": "minecraft:ender_pearl"

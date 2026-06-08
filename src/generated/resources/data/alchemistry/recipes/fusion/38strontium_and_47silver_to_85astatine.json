@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/38strontium_and_47silver_to_85astatine",
   "input1": {
     "item": "chemlib:strontium"
   },

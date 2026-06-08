@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/europium",
   "input": {
     "item": "chemlib:europium"
   },

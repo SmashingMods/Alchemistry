@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/shulker_shell",
   "input": [
     {
       "count": 8,

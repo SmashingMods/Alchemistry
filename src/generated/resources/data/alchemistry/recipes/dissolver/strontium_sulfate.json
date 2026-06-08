@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/strontium_sulfate",
   "input": {
     "ingredient": {
       "item": "chemlib:strontium_sulfate"

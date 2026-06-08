@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/26iron_and_89actinium_to_115moscovium",
   "input1": {
     "item": "chemlib:iron"
   },

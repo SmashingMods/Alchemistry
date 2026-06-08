@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/7nitrogen_and_24chromium_to_31gallium",
   "input1": {
     "item": "chemlib:nitrogen"
   },

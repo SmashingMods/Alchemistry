@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_75rhenium_to_105dubnium",
   "input1": {
     "item": "chemlib:zinc"
   },

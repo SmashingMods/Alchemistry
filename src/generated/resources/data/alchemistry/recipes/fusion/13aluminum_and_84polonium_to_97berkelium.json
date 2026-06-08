@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_84polonium_to_97berkelium",
   "input1": {
     "item": "chemlib:aluminum"
   },

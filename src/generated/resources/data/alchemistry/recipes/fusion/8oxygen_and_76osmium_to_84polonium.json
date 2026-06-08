@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_76osmium_to_84polonium",
   "input1": {
     "item": "chemlib:oxygen"
   },

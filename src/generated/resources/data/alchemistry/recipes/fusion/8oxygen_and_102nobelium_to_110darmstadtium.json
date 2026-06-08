@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_102nobelium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:oxygen"
   },

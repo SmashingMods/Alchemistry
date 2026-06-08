@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/zinc_nitrate",
   "input": {
     "ingredient": {
       "item": "chemlib:zinc_nitrate"

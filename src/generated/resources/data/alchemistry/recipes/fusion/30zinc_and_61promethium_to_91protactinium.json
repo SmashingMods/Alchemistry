@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_61promethium_to_91protactinium",
   "input1": {
     "item": "chemlib:zinc"
   },

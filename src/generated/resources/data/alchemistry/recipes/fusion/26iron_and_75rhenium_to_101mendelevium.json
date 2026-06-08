@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/26iron_and_75rhenium_to_101mendelevium",
   "input1": {
     "item": "chemlib:iron"
   },

@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ores/palladium",
   "input": {
     "ingredient": {
       "tag": "forge:ores/palladium"

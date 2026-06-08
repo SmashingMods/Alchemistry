@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/36krypton_and_71lutetium_to_107bohrium",
   "input1": {
     "item": "chemlib:krypton"
   },

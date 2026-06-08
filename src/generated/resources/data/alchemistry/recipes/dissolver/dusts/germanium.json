@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dusts/germanium",
   "input": {
     "ingredient": {
       "tag": "forge:dusts/germanium"

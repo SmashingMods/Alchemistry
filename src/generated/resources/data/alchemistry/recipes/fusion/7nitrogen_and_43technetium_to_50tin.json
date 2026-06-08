@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/7nitrogen_and_43technetium_to_50tin",
   "input1": {
     "item": "chemlib:nitrogen"
   },

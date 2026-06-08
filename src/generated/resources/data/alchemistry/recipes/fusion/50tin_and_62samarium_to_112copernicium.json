@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/50tin_and_62samarium_to_112copernicium",
   "input1": {
     "item": "chemlib:tin"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/21scandium_and_70ytterbium_to_91protactinium",
   "input1": {
     "item": "chemlib:scandium"
   },

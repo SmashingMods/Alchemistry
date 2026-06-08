@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/20calcium_and_87francium_to_107bohrium",
   "input1": {
     "item": "chemlib:calcium"
   },

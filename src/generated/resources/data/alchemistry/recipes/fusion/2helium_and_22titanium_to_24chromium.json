@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_22titanium_to_24chromium",
   "input1": {
     "item": "chemlib:helium"
   },

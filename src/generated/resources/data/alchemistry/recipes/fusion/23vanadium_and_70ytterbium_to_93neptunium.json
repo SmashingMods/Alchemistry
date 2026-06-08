@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/23vanadium_and_70ytterbium_to_93neptunium",
   "input1": {
     "item": "chemlib:vanadium"
   },

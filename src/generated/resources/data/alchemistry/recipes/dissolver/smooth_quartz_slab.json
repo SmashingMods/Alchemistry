@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/smooth_quartz_slab",
   "input": {
     "ingredient": {
       "item": "minecraft:smooth_quartz_slab"

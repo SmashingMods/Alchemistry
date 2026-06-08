@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/iron_horse_armor",
   "input": {
     "ingredient": {
       "item": "minecraft:iron_horse_armor"

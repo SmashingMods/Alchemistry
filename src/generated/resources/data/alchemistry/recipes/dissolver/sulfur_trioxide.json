@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/sulfur_trioxide",
   "input": {
     "ingredient": {
       "item": "chemlib:sulfur_trioxide"

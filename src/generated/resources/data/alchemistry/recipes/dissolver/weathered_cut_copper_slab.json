@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/weathered_cut_copper_slab",
   "input": {
     "ingredient": {
       "item": "minecraft:weathered_cut_copper_slab"

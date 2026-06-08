@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_107bohrium_to_118oganesson",
   "input1": {
     "item": "chemlib:sodium"
   },

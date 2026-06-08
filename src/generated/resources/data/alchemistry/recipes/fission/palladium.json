@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/palladium",
   "input": {
     "item": "chemlib:palladium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_11sodium_to_13aluminum",
   "input1": {
     "item": "chemlib:helium"
   },

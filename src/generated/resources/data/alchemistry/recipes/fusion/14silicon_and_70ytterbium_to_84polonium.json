@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_70ytterbium_to_84polonium",
   "input1": {
     "item": "chemlib:silicon"
   },

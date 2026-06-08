@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/33arsenic_and_59praseodymium_to_92uranium",
   "input1": {
     "item": "chemlib:arsenic"
   },

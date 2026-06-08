@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/46palladium_and_53iodine_to_99einsteinium",
   "input1": {
     "item": "chemlib:palladium"
   },

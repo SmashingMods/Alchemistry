@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/packed_ice",
   "input": {
     "ingredient": {
       "item": "minecraft:packed_ice"

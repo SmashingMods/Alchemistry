@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/1hydrogen_and_51antimony_to_52tellurium",
   "input1": {
     "item": "chemlib:hydrogen"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_31gallium_to_39yttrium",
   "input1": {
     "item": "chemlib:oxygen"
   },

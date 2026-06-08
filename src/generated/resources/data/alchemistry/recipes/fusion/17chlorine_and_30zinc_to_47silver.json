@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_30zinc_to_47silver",
   "input1": {
     "item": "chemlib:chlorine"
   },

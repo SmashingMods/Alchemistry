@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_53iodine_to_67holmium",
   "input1": {
     "item": "chemlib:silicon"
   },

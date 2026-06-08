@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/iron_disulfide",
   "input": {
     "ingredient": {
       "item": "chemlib:iron_disulfide"

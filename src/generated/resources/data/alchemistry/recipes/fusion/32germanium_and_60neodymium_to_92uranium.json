@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/32germanium_and_60neodymium_to_92uranium",
   "input1": {
     "item": "chemlib:germanium"
   },

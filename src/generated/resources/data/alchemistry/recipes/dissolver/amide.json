@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/amide",
   "input": {
     "ingredient": {
       "item": "chemlib:amide"

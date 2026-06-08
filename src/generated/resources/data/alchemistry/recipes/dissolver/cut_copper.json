@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/cut_copper",
   "input": {
     "ingredient": {
       "item": "minecraft:cut_copper"

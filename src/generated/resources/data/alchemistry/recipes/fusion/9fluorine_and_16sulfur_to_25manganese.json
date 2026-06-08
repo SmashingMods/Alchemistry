@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_16sulfur_to_25manganese",
   "input1": {
     "item": "chemlib:fluorine"
   },

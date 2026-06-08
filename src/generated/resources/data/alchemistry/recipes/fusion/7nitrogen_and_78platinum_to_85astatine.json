@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/7nitrogen_and_78platinum_to_85astatine",
   "input1": {
     "item": "chemlib:nitrogen"
   },

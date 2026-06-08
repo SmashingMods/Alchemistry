@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_58cerium_to_64gadolinium",
   "input1": {
     "item": "chemlib:carbon"
   },

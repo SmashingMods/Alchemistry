@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/polished_granite",
   "input": {
     "ingredient": {
       "item": "minecraft:polished_granite"

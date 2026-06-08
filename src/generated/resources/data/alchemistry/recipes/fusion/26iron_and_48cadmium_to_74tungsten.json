@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/26iron_and_48cadmium_to_74tungsten",
   "input1": {
     "item": "chemlib:iron"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/3lithium_and_40zirconium_to_43technetium",
   "input1": {
     "item": "chemlib:lithium"
   },

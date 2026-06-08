@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_73tantalum_to_103lawrencium",
   "input1": {
     "item": "chemlib:zinc"
   },

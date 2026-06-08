@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_73tantalum_to_89actinium",
   "input1": {
     "item": "chemlib:sulfur"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/fire_coral",
   "input": {
     "ingredient": {
       "item": "minecraft:fire_coral"

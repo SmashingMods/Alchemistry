@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/skeleton_skull",
   "input": {
     "ingredient": {
       "item": "minecraft:skeleton_skull"

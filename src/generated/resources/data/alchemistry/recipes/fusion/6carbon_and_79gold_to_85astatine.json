@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_79gold_to_85astatine",
   "input1": {
     "item": "chemlib:carbon"
   },

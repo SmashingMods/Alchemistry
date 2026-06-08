@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/20calcium_and_52tellurium_to_72hafnium",
   "input1": {
     "item": "chemlib:calcium"
   },

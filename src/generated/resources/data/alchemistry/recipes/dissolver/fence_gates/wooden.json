@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/fence_gates/wooden",
   "input": {
     "ingredient": {
       "tag": "forge:fence_gates/wooden"

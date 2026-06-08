@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/darmstadtium",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/darmstadtium"

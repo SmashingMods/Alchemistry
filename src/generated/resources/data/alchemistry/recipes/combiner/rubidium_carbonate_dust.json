@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:combiner",
   "group": "alchemistry:combiner",
-  "id": "alchemistry:combiner/rubidium_carbonate_dust",
   "input": [
     {
       "count": 8,

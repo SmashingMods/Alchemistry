@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/rubidium_carbonate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:rubidium_carbonate_dust"

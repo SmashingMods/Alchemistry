@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_50tin_to_52tellurium",
   "input1": {
     "item": "chemlib:helium"
   },

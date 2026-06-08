@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dragon_breath",
   "input": {
     "ingredient": {
       "item": "minecraft:dragon_breath"

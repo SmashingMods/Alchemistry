@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_15phosphorus_to_23vanadium",
   "input1": {
     "item": "chemlib:oxygen"
   },

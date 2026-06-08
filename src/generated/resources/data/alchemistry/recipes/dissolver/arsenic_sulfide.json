@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/arsenic_sulfide",
   "input": {
     "ingredient": {
       "item": "chemlib:arsenic_sulfide"

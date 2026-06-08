@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/beryllium_carbonate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:beryllium_carbonate_dust"

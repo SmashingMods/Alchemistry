@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/obsidian",
   "input": {
     "ingredient": {
       "item": "minecraft:obsidian"

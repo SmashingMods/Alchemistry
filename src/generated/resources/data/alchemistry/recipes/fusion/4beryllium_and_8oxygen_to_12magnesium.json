@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/4beryllium_and_8oxygen_to_12magnesium",
   "input1": {
     "item": "chemlib:beryllium"
   },

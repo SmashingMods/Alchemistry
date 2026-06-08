@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/promethium",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/promethium"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/spore_blossom",
   "input": {
     "ingredient": {
       "item": "minecraft:spore_blossom"

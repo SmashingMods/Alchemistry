@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/baked_potato",
   "input": {
     "ingredient": {
       "item": "minecraft:baked_potato"

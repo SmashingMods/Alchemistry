@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/37rubidium_and_57lanthanum_to_94plutonium",
   "input1": {
     "item": "chemlib:rubidium"
   },

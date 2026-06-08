@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nether_brick_slab",
   "input": {
     "ingredient": {
       "item": "minecraft:nether_brick_slab"

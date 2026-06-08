@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/flerovium",
   "input": {
     "ingredient": {
       "tag": "forge:plates/flerovium"

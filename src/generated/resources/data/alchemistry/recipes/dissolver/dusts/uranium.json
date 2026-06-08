@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dusts/uranium",
   "input": {
     "ingredient": {
       "tag": "forge:dusts/uranium"

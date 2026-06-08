@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/11sodium_and_101mendelevium_to_112copernicium",
   "input1": {
     "item": "chemlib:sodium"
   },

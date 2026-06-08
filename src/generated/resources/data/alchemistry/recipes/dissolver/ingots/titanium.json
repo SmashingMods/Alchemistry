@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/titanium",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/titanium"

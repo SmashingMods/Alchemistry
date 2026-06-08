@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_32germanium_to_62samarium",
   "input1": {
     "item": "chemlib:zinc"
   },

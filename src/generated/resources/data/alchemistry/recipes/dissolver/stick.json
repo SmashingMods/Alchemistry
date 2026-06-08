@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/stick",
   "input": {
     "ingredient": {
       "item": "minecraft:stick"

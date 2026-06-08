@@ -16,6 +16,7 @@
     "D"
   ],
   "result": {
-    "item": "alchemistry:reactor_output"
+    "count": 1,
+    "id": "alchemistry:reactor_output"
   }
 }

@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/nobelium",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/nobelium"

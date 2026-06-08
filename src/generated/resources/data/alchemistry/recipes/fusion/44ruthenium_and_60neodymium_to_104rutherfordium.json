@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/44ruthenium_and_60neodymium_to_104rutherfordium",
   "input1": {
     "item": "chemlib:ruthenium"
   },

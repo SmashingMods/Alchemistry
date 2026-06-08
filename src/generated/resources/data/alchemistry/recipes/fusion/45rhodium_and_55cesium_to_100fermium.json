@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/45rhodium_and_55cesium_to_100fermium",
   "input1": {
     "item": "chemlib:rhodium"
   },

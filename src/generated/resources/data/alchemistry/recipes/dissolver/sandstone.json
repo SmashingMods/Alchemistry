@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/sandstone",
   "input": {
     "ingredient": {
       "item": "minecraft:sandstone"

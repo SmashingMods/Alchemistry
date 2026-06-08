@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/short_grass",
   "input": {
     "ingredient": {
       "item": "minecraft:short_grass"

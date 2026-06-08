@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_59praseodymium_to_73tantalum",
   "input1": {
     "item": "chemlib:silicon"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/cesium_hydroxide",
   "input": {
     "ingredient": {
       "item": "chemlib:cesium_hydroxide"

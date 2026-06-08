@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_30zinc_to_44ruthenium",
   "input1": {
     "item": "chemlib:silicon"
   },

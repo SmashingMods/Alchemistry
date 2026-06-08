@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/3lithium_and_101mendelevium_to_104rutherfordium",
   "input1": {
     "item": "chemlib:lithium"
   },

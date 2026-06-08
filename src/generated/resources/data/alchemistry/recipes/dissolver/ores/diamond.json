@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ores/diamond",
   "input": {
     "ingredient": {
       "tag": "forge:ores/diamond"

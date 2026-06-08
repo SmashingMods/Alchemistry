@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/19potassium_and_22titanium_to_41niobium",
   "input1": {
     "item": "chemlib:potassium"
   },

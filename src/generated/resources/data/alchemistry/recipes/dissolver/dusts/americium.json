@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dusts/americium",
   "input": {
     "ingredient": {
       "tag": "forge:dusts/americium"

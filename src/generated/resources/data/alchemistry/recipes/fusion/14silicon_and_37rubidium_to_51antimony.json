@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_37rubidium_to_51antimony",
   "input1": {
     "item": "chemlib:silicon"
   },

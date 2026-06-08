@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_104rutherfordium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:carbon"
   },

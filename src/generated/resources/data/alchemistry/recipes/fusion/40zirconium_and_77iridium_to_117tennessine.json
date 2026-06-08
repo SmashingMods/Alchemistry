@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/40zirconium_and_77iridium_to_117tennessine",
   "input1": {
     "item": "chemlib:zirconium"
   },

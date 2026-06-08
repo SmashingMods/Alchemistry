@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/5boron_and_47silver_to_52tellurium",
   "input1": {
     "item": "chemlib:boron"
   },

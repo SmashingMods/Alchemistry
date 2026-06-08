@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_88radium_to_104rutherfordium",
   "input1": {
     "item": "chemlib:sulfur"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/36krypton_and_59praseodymium_to_95americium",
   "input1": {
     "item": "chemlib:krypton"
   },

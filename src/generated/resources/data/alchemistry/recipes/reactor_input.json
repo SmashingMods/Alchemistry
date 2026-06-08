@@ -16,6 +16,7 @@
     "H"
   ],
   "result": {
-    "item": "alchemistry:reactor_input"
+    "count": 1,
+    "id": "alchemistry:reactor_input"
   }
 }

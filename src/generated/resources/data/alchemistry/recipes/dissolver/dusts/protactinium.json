@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dusts/protactinium",
   "input": {
     "ingredient": {
       "tag": "forge:dusts/protactinium"

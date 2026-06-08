@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/54xenon_and_64gadolinium_to_118oganesson",
   "input1": {
     "item": "chemlib:xenon"
   },

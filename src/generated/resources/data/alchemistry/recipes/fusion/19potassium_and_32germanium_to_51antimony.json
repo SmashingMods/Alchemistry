@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/19potassium_and_32germanium_to_51antimony",
   "input1": {
     "item": "chemlib:potassium"
   },

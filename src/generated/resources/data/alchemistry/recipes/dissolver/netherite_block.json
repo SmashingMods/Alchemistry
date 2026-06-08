@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/netherite_block",
   "input": {
     "ingredient": {
       "item": "minecraft:netherite_block"

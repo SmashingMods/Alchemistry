@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_61promethium_to_77iridium",
   "input1": {
     "item": "chemlib:sulfur"
   },

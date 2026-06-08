@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/22titanium_and_61promethium_to_83bismuth",
   "input1": {
     "item": "chemlib:titanium"
   },

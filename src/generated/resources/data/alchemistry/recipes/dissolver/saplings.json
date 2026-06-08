@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/saplings",
   "input": {
     "ingredient": {
       "tag": "minecraft:saplings"

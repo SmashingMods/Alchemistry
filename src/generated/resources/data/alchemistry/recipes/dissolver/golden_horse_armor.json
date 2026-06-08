@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/golden_horse_armor",
   "input": {
     "ingredient": {
       "item": "minecraft:golden_horse_armor"

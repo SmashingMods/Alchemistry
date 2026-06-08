@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_63europium_to_71lutetium",
   "input1": {
     "item": "chemlib:oxygen"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/30zinc_and_43technetium_to_73tantalum",
   "input1": {
     "item": "chemlib:zinc"
   },

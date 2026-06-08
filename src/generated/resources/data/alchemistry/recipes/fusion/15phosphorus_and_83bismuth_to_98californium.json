@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/15phosphorus_and_83bismuth_to_98californium",
   "input1": {
     "item": "chemlib:phosphorus"
   },

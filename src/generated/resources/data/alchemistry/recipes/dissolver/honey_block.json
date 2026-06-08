@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/honey_block",
   "input": {
     "ingredient": {
       "item": "minecraft:honey_block"

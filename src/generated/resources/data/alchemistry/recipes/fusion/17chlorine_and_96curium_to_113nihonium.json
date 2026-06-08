@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/17chlorine_and_96curium_to_113nihonium",
   "input1": {
     "item": "chemlib:chlorine"
   },

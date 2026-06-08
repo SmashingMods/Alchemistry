@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/crafting_table",
   "input": {
     "ingredient": {
       "item": "minecraft:crafting_table"

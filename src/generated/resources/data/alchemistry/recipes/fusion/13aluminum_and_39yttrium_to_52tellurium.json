@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_39yttrium_to_52tellurium",
   "input1": {
     "item": "chemlib:aluminum"
   },

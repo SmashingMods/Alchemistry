@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/37rubidium_and_69thulium_to_106seaborgium",
   "input1": {
     "item": "chemlib:rubidium"
   },

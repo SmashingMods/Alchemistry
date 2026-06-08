@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/sulfuric_acid",
   "input": {
     "ingredient": {
       "item": "chemlib:sulfuric_acid"

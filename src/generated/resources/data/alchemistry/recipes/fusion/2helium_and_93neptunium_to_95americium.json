@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_93neptunium_to_95americium",
   "input1": {
     "item": "chemlib:helium"
   },

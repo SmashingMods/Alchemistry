@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/7nitrogen_and_71lutetium_to_78platinum",
   "input1": {
     "item": "chemlib:nitrogen"
   },

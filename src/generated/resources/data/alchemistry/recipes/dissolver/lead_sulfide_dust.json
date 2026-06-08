@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/lead_sulfide_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:lead_sulfide_dust"

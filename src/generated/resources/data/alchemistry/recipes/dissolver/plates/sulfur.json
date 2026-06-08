@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/sulfur",
   "input": {
     "ingredient": {
       "tag": "forge:plates/sulfur"

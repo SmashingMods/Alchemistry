@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/27cobalt_and_41niobium_to_68erbium",
   "input1": {
     "item": "chemlib:cobalt"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/12magnesium_and_55cesium_to_67holmium",
   "input1": {
     "item": "chemlib:magnesium"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/36krypton_and_53iodine_to_89actinium",
   "input1": {
     "item": "chemlib:krypton"
   },

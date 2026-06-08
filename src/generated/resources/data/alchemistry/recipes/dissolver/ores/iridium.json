@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ores/iridium",
   "input": {
     "ingredient": {
       "tag": "forge:ores/iridium"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/38strontium_and_46palladium_to_84polonium",
   "input1": {
     "item": "chemlib:strontium"
   },

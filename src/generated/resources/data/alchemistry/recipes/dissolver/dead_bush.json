@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dead_bush",
   "input": {
     "ingredient": {
       "item": "minecraft:dead_bush"

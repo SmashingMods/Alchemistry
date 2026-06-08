@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_9fluorine_to_18argon",
   "input1": {
     "item": "chemlib:fluorine"
   },

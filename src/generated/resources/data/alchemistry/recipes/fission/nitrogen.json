@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/nitrogen",
   "input": {
     "item": "chemlib:nitrogen"
   },

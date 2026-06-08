@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/manganese_carbonate",
   "input": {
     "ingredient": {
       "item": "chemlib:manganese_carbonate"

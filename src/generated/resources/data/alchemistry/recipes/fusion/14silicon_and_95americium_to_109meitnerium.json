@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_95americium_to_109meitnerium",
   "input1": {
     "item": "chemlib:silicon"
   },

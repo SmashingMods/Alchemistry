@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/4beryllium_and_10neon_to_14silicon",
   "input1": {
     "item": "chemlib:beryllium"
   },

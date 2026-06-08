@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/2helium_and_99einsteinium_to_101mendelevium",
   "input1": {
     "item": "chemlib:helium"
   },

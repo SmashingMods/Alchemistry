@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:scute"
+        "recipe": "minecraft:turtle_scute"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:scute"
+      "minecraft:turtle_scute"
     ]
   },
   "sends_telemetry_event": true

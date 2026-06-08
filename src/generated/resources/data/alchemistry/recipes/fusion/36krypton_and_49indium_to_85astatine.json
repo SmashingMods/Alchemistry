@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/36krypton_and_49indium_to_85astatine",
   "input1": {
     "item": "chemlib:krypton"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/32germanium_and_53iodine_to_85astatine",
   "input1": {
     "item": "chemlib:germanium"
   },

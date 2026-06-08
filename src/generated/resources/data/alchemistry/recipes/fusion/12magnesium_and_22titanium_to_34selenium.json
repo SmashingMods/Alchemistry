@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/12magnesium_and_22titanium_to_34selenium",
   "input1": {
     "item": "chemlib:magnesium"
   },

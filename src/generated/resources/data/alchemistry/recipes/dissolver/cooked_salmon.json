@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/cooked_salmon",
   "input": {
     "ingredient": {
       "item": "minecraft:cooked_salmon"

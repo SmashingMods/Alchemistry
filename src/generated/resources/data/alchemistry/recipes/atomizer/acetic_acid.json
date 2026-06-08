@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
-  "id": "alchemistry:atomizer/acetic_acid",
   "input": {
     "amount": 500,
     "fluid": "chemlib:acetic_acid_fluid"

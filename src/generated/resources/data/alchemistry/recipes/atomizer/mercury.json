@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
-  "id": "alchemistry:atomizer/mercury",
   "input": {
     "amount": 500,
     "fluid": "chemlib:mercury_fluid"

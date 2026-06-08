@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/3lithium_and_8oxygen_to_11sodium",
   "input1": {
     "item": "chemlib:lithium"
   },

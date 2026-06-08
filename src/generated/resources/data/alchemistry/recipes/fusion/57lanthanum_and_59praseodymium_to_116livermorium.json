@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/57lanthanum_and_59praseodymium_to_116livermorium",
   "input1": {
     "item": "chemlib:lanthanum"
   },

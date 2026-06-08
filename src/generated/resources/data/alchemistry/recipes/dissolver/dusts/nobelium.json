@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dusts/nobelium",
   "input": {
     "ingredient": {
       "tag": "forge:dusts/nobelium"

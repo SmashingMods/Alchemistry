@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_50tin_to_66dysprosium",
   "input1": {
     "item": "chemlib:sulfur"
   },

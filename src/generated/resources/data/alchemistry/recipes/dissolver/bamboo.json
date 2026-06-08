@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/bamboo",
   "input": {
     "ingredient": {
       "item": "minecraft:bamboo"

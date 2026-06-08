@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/calcium",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/calcium"

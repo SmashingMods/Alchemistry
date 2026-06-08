@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/15phosphorus_and_16sulfur_to_31gallium",
   "input1": {
     "item": "chemlib:phosphorus"
   },

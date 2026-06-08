@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/20calcium_and_25manganese_to_45rhodium",
   "input1": {
     "item": "chemlib:calcium"
   },

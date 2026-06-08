@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/38strontium_and_80mercury_to_118oganesson",
   "input1": {
     "item": "chemlib:strontium"
   },

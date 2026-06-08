@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/clay_ball",
   "input": {
     "ingredient": {
       "item": "minecraft:clay_ball"

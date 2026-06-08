@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/netherite_ingot",
   "input": {
     "ingredient": {
       "item": "minecraft:netherite_ingot"

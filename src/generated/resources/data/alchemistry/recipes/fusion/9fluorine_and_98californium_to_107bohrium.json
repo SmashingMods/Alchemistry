@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_98californium_to_107bohrium",
   "input1": {
     "item": "chemlib:fluorine"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/magnesium_nitrate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:magnesium_nitrate_dust"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/34selenium_and_46palladium_to_80mercury",
   "input1": {
     "item": "chemlib:selenium"
   },

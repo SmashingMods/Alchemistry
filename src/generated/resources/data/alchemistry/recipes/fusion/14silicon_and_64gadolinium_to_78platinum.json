@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_64gadolinium_to_78platinum",
   "input1": {
     "item": "chemlib:silicon"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/dyes/green",
   "input": {
     "ingredient": {
       "tag": "forge:dyes/green"

@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/uranium",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/uranium"

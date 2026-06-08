@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/13aluminum_and_88radium_to_101mendelevium",
   "input1": {
     "item": "chemlib:aluminum"
   },

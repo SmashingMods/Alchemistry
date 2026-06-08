@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_17chlorine_to_26iron",
   "input1": {
     "item": "chemlib:fluorine"
   },

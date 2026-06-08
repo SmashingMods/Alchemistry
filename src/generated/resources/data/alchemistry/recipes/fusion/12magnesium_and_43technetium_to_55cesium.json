@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/12magnesium_and_43technetium_to_55cesium",
   "input1": {
     "item": "chemlib:magnesium"
   },

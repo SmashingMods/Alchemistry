@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_30zinc_to_39yttrium",
   "input1": {
     "item": "chemlib:fluorine"
   },

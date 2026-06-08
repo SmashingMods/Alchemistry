@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_71lutetium_to_79gold",
   "input1": {
     "item": "chemlib:oxygen"
   },

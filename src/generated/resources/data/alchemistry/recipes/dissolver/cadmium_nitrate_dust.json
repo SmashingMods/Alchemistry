@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/cadmium_nitrate_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:cadmium_nitrate_dust"

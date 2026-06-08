@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/plates/palladium",
   "input": {
     "ingredient": {
       "tag": "forge:plates/palladium"

@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/storage_blocks/lead",
   "input": {
     "ingredient": {
       "tag": "forge:storage_blocks/lead"

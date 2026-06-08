@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/tropical_fish",
   "input": {
     "ingredient": {
       "item": "minecraft:tropical_fish"

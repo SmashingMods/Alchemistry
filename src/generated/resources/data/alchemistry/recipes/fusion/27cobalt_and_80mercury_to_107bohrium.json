@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/27cobalt_and_80mercury_to_107bohrium",
   "input1": {
     "item": "chemlib:cobalt"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/29copper_and_81thallium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:copper"
   },

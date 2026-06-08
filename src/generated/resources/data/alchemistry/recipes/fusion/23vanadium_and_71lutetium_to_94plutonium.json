@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/23vanadium_and_71lutetium_to_94plutonium",
   "input1": {
     "item": "chemlib:vanadium"
   },

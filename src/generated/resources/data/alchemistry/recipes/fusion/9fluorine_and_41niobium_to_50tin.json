@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/9fluorine_and_41niobium_to_50tin",
   "input1": {
     "item": "chemlib:fluorine"
   },

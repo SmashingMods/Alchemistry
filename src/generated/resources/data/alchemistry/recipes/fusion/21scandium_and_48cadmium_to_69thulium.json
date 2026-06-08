@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/21scandium_and_48cadmium_to_69thulium",
   "input1": {
     "item": "chemlib:scandium"
   },

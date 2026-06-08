@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/6carbon_and_31gallium_to_37rubidium",
   "input1": {
     "item": "chemlib:carbon"
   },

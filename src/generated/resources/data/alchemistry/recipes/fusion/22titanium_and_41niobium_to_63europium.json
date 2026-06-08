@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/22titanium_and_41niobium_to_63europium",
   "input1": {
     "item": "chemlib:titanium"
   },

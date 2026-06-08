@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/26iron_and_84polonium_to_110darmstadtium",
   "input1": {
     "item": "chemlib:iron"
   },

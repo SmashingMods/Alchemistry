@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/deepslate_tiles",
   "input": {
     "ingredient": {
       "item": "minecraft:deepslate_tiles"

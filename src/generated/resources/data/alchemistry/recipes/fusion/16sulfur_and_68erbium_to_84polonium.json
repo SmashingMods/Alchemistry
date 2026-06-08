@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_68erbium_to_84polonium",
   "input1": {
     "item": "chemlib:sulfur"
   },

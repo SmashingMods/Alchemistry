@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/magma_block",
   "input": {
     "ingredient": {
       "item": "minecraft:magma_block"

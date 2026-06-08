@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/nuggets/gold",
   "input": {
     "ingredient": {
       "tag": "forge:nuggets/gold"

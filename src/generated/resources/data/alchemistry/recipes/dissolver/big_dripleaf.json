@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/big_dripleaf",
   "input": {
     "ingredient": {
       "item": "minecraft:big_dripleaf"

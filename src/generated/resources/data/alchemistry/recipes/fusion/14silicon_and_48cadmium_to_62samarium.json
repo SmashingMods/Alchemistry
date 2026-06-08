@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_48cadmium_to_62samarium",
   "input1": {
     "item": "chemlib:silicon"
   },

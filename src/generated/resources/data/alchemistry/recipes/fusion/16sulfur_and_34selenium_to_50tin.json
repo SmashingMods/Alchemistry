@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/16sulfur_and_34selenium_to_50tin",
   "input1": {
     "item": "chemlib:sulfur"
   },

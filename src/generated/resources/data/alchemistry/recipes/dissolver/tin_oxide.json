@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/tin_oxide",
   "input": {
     "ingredient": {
       "item": "chemlib:tin_oxide"

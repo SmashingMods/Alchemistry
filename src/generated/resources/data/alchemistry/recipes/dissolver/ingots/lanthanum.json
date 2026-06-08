@@ -10,7 +10,6 @@
   ],
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/ingots/lanthanum",
   "input": {
     "ingredient": {
       "tag": "forge:ingots/lanthanum"

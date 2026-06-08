@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/weeping_vines",
   "input": {
     "ingredient": {
       "item": "minecraft:weeping_vines"

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_79gold_to_87francium",
   "input1": {
     "item": "chemlib:oxygen"
   },

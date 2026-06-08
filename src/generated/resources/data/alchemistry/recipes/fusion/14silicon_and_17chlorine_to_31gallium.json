@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/14silicon_and_17chlorine_to_31gallium",
   "input1": {
     "item": "chemlib:silicon"
   },

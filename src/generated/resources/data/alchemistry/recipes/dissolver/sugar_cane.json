@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/sugar_cane",
   "input": {
     "ingredient": {
       "item": "minecraft:sugar_cane"

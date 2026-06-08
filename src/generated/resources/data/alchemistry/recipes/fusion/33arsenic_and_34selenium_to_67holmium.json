@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/33arsenic_and_34selenium_to_67holmium",
   "input1": {
     "item": "chemlib:arsenic"
   },

@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/24chromium_and_61promethium_to_85astatine",
   "input1": {
     "item": "chemlib:chromium"
   },

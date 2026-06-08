@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/bone_block",
   "input": {
     "ingredient": {
       "item": "minecraft:bone_block"

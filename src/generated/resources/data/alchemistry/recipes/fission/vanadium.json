@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fission",
   "group": "fission",
-  "id": "alchemistry:fission/vanadium",
   "input": {
     "item": "chemlib:vanadium"
   },

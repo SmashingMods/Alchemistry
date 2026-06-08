@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/zinc_sulfide_dust",
   "input": {
     "ingredient": {
       "item": "chemlib:zinc_sulfide_dust"

@@ -1,10 +1,9 @@
 {
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
-  "id": "alchemistry:dissolver/scute",
   "input": {
     "ingredient": {
-      "item": "minecraft:scute"
+      "item": "minecraft:turtle_scute"
     }
   },
   "output": {

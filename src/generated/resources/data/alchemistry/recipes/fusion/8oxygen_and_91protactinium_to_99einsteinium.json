@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/8oxygen_and_91protactinium_to_99einsteinium",
   "input1": {
     "item": "chemlib:oxygen"
   },

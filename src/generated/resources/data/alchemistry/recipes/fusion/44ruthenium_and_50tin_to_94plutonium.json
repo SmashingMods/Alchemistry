@@ -1,7 +1,6 @@
 {
   "type": "alchemistry:fusion",
   "group": "fusion",
-  "id": "alchemistry:fusion/44ruthenium_and_50tin_to_94plutonium",
   "input1": {
     "item": "chemlib:ruthenium"
   },

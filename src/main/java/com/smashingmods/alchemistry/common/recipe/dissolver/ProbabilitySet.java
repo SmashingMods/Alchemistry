@@ -3,7 +3,9 @@ package com.smashingmods.alchemistry.common.recipe.dissolver;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,6 +26,17 @@ public class ProbabilitySet {
             Codec.INT.fieldOf("rolls").forGetter(ProbabilitySet::getRolls)
     ).apply(instance, ProbabilitySet::new));
 
+    /**
+     * Network codec composing the {@link ProbabilityGroup#STREAM_CODEC group codec} with the {@code weighted}
+     * flag and {@code rolls} count, mirroring {@link #CODEC the on-disk shape}.
+     */
+    public static final StreamCodec<RegistryFriendlyByteBuf, ProbabilitySet> STREAM_CODEC = StreamCodec.composite(
+            ProbabilityGroup.STREAM_CODEC.apply(ByteBufCodecs.list()), ProbabilitySet::getProbabilityGroups,
+            ByteBufCodecs.BOOL, ProbabilitySet::isWeighted,
+            ByteBufCodecs.INT, ProbabilitySet::getRolls,
+            ProbabilitySet::new
+    );
+
     private final List<ProbabilityGroup> probabilityGroups;
     private final boolean weighted;
     private final int rolls;
@@ -37,27 +50,6 @@ public class ProbabilitySet {
         this.probabilityGroups = pProbabilityGroups;
         this.weighted = pWeighted;
         this.rolls = pRolls;
-    }
-
-    public void toNetwork(FriendlyByteBuf pBuffer) {
-        pBuffer.writeInt(probabilityGroups.size());
-        pBuffer.writeInt(rolls);
-        pBuffer.writeBoolean(weighted);
-        for (ProbabilityGroup group : probabilityGroups) {
-            group.toNetwork(pBuffer);
-        }
-    }
-
-    public static ProbabilitySet fromNetwork(FriendlyByteBuf pbuffer) {
-        List<ProbabilityGroup> groupArrayList = new ArrayList<>();
-        int size = pbuffer.readInt();
-        int rolls = pbuffer.readInt();
-        boolean weighted = pbuffer.readBoolean();
-
-        for (int index = 0; index < size; index++) {
-            groupArrayList.add(ProbabilityGroup.fromNetwork(pbuffer));
-        }
-        return new ProbabilitySet(groupArrayList, weighted, rolls);
     }
 
     public NonNullList<ItemStack> calculateOutput() {

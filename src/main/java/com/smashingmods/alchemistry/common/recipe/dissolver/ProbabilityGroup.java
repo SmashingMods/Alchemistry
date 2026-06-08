@@ -1,10 +1,11 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
@@ -19,6 +20,17 @@ public class ProbabilityGroup {
             AlchemistryRecipeCodecs.ITEM_STACK_RESULT.listOf().fieldOf("results").forGetter(ProbabilityGroup::getOutput),
             Codec.DOUBLE.fieldOf("probability").forGetter(ProbabilityGroup::getProbability)
     ).apply(instance, ProbabilityGroup::new));
+
+    /**
+     * Network codec mirroring the on-disk shape: the {@code results} stacks (which may be empty, as the
+     * weighted "nothing" roll is) followed by the {@code probability}. {@link ItemStack#OPTIONAL_STREAM_CODEC}
+     * accepts empty stacks, matching the buffer encoding this replaces.
+     */
+    public static final StreamCodec<RegistryFriendlyByteBuf, ProbabilityGroup> STREAM_CODEC = StreamCodec.composite(
+            ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()), ProbabilityGroup::getOutput,
+            ByteBufCodecs.DOUBLE, ProbabilityGroup::getProbability,
+            ProbabilityGroup::new
+    );
 
     private final List<ItemStack> output;
     private final double probability;
@@ -39,23 +51,5 @@ public class ProbabilityGroup {
 
     public double getProbability() {
         return this.probability;
-    }
-
-    public void toNetwork(FriendlyByteBuf buf) {
-        buf.writeInt(output.size());
-        for (ItemStack stack : output) {
-            buf.writeItem(stack);
-        }
-        buf.writeDouble(probability);
-    }
-
-    public static ProbabilityGroup fromNetwork(FriendlyByteBuf buf) {
-        List<ItemStack> stacks = Lists.newArrayList();
-        int size = buf.readInt();
-        for (int i = 0; i < size; i++) {
-            stacks.add(buf.readItem());
-        }
-        double probability = buf.readDouble();
-        return new ProbabilityGroup(stacks, probability);
     }
 }

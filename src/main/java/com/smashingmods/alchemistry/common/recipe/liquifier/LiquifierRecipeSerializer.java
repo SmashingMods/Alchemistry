@@ -1,12 +1,14 @@
 package com.smashingmods.alchemistry.common.recipe.liquifier;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -15,38 +17,32 @@ import net.neoforged.neoforge.fluids.FluidStack;
 public class LiquifierRecipeSerializer<T extends LiquifierRecipe> implements RecipeSerializer<T> {
 
     private final IFactory<T> factory;
-    private final Codec<T> codec;
+    private final MapCodec<T> codec;
+    private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
     public LiquifierRecipeSerializer(IFactory<T> factory) {
         this.factory = factory;
-        this.codec = RecordCodecBuilder.create(instance -> instance.group(
-                ResourceLocation.CODEC.fieldOf("id").forGetter(LiquifierRecipe::getId),
-                ExtraCodecs.strictOptionalField(Codec.STRING, "group", "liquifier").forGetter(LiquifierRecipe::getGroup),
+        this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "liquifier").forGetter(LiquifierRecipe::getGroup),
                 AlchemistryRecipeCodecs.INGREDIENT_STACK.fieldOf("input").forGetter(LiquifierRecipe::getInput),
                 AlchemistryRecipeCodecs.FLUID_STACK.fieldOf("result").forGetter(LiquifierRecipe::getOutput)
-        ).apply(instance, factory::create));
+        ).apply(instance, (group, input, output) -> factory.create(AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID, group, input, output)));
+        this.streamCodec = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, LiquifierRecipe::getGroup,
+                AlchemistryRecipeCodecs.INGREDIENT_STACK_STREAM_CODEC, LiquifierRecipe::getInput,
+                FluidStack.OPTIONAL_STREAM_CODEC, LiquifierRecipe::getOutput,
+                (group, input, output) -> factory.create(AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID, group, input, output)
+        );
     }
 
     @Override
-    public Codec<T> codec() {
+    public MapCodec<T> codec() {
         return codec;
     }
 
     @Override
-    public T fromNetwork(FriendlyByteBuf pBuffer) {
-        ResourceLocation id = pBuffer.readResourceLocation();
-        String group = pBuffer.readUtf(Short.MAX_VALUE);
-        IngredientStack input = IngredientStack.fromNetwork(pBuffer);
-        FluidStack output = pBuffer.readFluidStack();
-        return this.factory.create(id, group, input, output);
-    }
-
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
-        pBuffer.writeResourceLocation(pRecipe.getId());
-        pBuffer.writeUtf(pRecipe.getGroup());
-        pRecipe.getInput().toNetwork(pBuffer);
-        pBuffer.writeFluidStack(pRecipe.getOutput());
+    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+        return streamCodec;
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {

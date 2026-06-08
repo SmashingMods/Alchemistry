@@ -1,10 +1,13 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Recipe;
@@ -13,38 +16,32 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 public class DissolverRecipeSerializer<T extends DissolverRecipe> implements RecipeSerializer<T> {
 
     private final DissolverRecipeSerializer.IFactory<T> factory;
-    private final Codec<T> codec;
+    private final MapCodec<T> codec;
+    private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
     public DissolverRecipeSerializer(DissolverRecipeSerializer.IFactory<T> pFactory) {
         this.factory = pFactory;
-        this.codec = RecordCodecBuilder.create(instance -> instance.group(
-                ResourceLocation.CODEC.fieldOf("id").forGetter(DissolverRecipe::getId),
+        this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 Codec.STRING.fieldOf("group").forGetter(DissolverRecipe::getGroup),
                 AlchemistryRecipeCodecs.INGREDIENT_STACK.fieldOf("input").forGetter(DissolverRecipe::getInput),
                 ProbabilitySet.CODEC.fieldOf("output").forGetter(DissolverRecipe::getOutput)
-        ).apply(instance, pFactory::create));
+        ).apply(instance, (group, input, output) -> pFactory.create(AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID, group, input, output)));
+        this.streamCodec = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8, DissolverRecipe::getGroup,
+                AlchemistryRecipeCodecs.INGREDIENT_STACK_STREAM_CODEC, DissolverRecipe::getInput,
+                ProbabilitySet.STREAM_CODEC, DissolverRecipe::getOutput,
+                (group, input, output) -> pFactory.create(AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID, group, input, output)
+        );
     }
 
     @Override
-    public Codec<T> codec() {
+    public MapCodec<T> codec() {
         return codec;
     }
 
     @Override
-    public T fromNetwork(FriendlyByteBuf pBuffer) {
-        ResourceLocation id = pBuffer.readResourceLocation();
-        String group = pBuffer.readUtf(Short.MAX_VALUE);
-        IngredientStack input = IngredientStack.fromNetwork(pBuffer);
-        ProbabilitySet output = ProbabilitySet.fromNetwork(pBuffer);
-        return this.factory.create(id, group, input, output);
-    }
-
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
-        pBuffer.writeResourceLocation(pRecipe.getId());
-        pBuffer.writeUtf(pRecipe.getGroup());
-        pRecipe.getInput().toNetwork(pBuffer);
-        pRecipe.getOutput().toNetwork(pBuffer);
+    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+        return streamCodec;
     }
 
     public interface IFactory<T extends Recipe<Inventory>> {

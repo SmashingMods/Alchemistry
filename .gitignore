@@ -19,6 +19,7 @@ build
 
 # other
 OLD
+*.log
 #libs
 eclipse
 run

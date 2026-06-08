@@ -120,10 +120,17 @@ public class RecipeRegistry {
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
         if (recipeTypeMap.get(pRecipeType) == null) {
-            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value.
+            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
+            // holder's id onto it. Recipe identity moved to the RecipeHolder, so decoded recipes carry a
+            // placeholder id (AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID); stamping the real id here makes
+            // every recipe this registry hands out keyable via getId() (block entity save/restore, compareTo).
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
                     .filter(holder -> holder.value().getType().equals(pRecipeType))
-                    .map(holder -> (R) holder.value())
+                    .map(holder -> {
+                        R recipe = (R) holder.value();
+                        recipe.setId(holder.id());
+                        return recipe;
+                    })
                     .sorted()
                     .collect(Collectors.toCollection(LinkedList::new));
             recipeTypeMap.put(pRecipeType, recipes);
@@ -134,10 +141,16 @@ public class RecipeRegistry {
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
         if (recipeGroupMap.get(pGroup) == null) {
-            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value.
+            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
+            // holder's id onto it (see getRecipesByType). getRecipeByGroupAndId filters this list by
+            // getId(), so the real id has to be stamped here too, not just on the by-type cache.
             LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
                 .filter(holder -> holder.value().getGroup().equals(pGroup))
-                .map(holder -> (R) holder.value())
+                .map(holder -> {
+                    R recipe = (R) holder.value();
+                    recipe.setId(holder.id());
+                    return recipe;
+                })
                 .sorted()
                 .collect(Collectors.toCollection(LinkedList::new));
             recipeGroupMap.put(pGroup, recipes);

@@ -59,8 +59,8 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
         String advancementPath = String.format("recipes/combiner/%s", pRecipeId.getPath());
 
-        ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.getPath()));
-        ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);
+        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.getPath()));
+        ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, advancementPath);
 
         CombinerRecipe recipe = new CombinerRecipe(recipeLocation, group, input, result);
         pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));

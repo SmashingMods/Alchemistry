@@ -31,7 +31,7 @@ import java.util.Optional;
 
 public class FissionTransferPacket implements AlchemyPacket {
 
-    public static final Type<FissionTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "fission_transfer"));
+    public static final Type<FissionTransferPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "fission_transfer"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FissionTransferPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

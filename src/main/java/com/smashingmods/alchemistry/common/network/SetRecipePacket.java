@@ -16,7 +16,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SetRecipePacket implements AlchemyPacket {
 
-    public static final Type<SetRecipePacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "set_recipe"));
+    public static final Type<SetRecipePacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "set_recipe"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SetRecipePacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

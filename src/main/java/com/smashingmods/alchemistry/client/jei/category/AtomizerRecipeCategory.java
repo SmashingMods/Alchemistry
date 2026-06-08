@@ -34,7 +34,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.drawableBuilder(new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_jei.png"), 0, 0, 150, 75)
+        return guiHelper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/atomizer_jei.png"), 0, 0, 150, 75)
                 .build();
     }
 

@@ -16,7 +16,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SetSideConfigurationPacket implements AlchemyPacket {
 
-    public static final Type<SetSideConfigurationPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "set_side_configuration"));
+    public static final Type<SetSideConfigurationPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "set_side_configuration"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, SetSideConfigurationPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

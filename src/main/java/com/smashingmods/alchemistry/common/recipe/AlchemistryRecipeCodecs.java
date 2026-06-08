@@ -29,7 +29,7 @@ public final class AlchemistryRecipeCodecs {
      * the recipe registry and block entities key on, so decoded recipes hold this placeholder until that
      * keying is sourced from the holder.
      */
-    public static final ResourceLocation UNKEYED_RECIPE_ID = new ResourceLocation(Alchemistry.MODID, "unkeyed");
+    public static final ResourceLocation UNKEYED_RECIPE_ID = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "unkeyed");
 
     private AlchemistryRecipeCodecs() {
     }

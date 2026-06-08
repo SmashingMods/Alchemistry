@@ -49,7 +49,7 @@ public class FissionRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input)).getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input)).getPath())))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -67,8 +67,8 @@ public class FissionRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
-        ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fission/%s", pRecipeId.getPath()));
-        ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fission/%s", pRecipeId.getPath()));
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("fission/%s", pRecipeId.getPath()));
+        ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/fission/%s", pRecipeId.getPath()));
 
         FissionRecipe recipe = new FissionRecipe(recipeId, group, new ItemStack(input), output1, output2);
         pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));

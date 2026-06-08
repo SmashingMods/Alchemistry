@@ -54,7 +54,7 @@ public class DissolverScreen extends AbstractProcessingScreen<DissolverMenu> {
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/dissolver_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

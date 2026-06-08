@@ -32,7 +32,7 @@ import java.util.Optional;
 
 public class FusionTransferPacket implements AlchemyPacket {
 
-    public static final Type<FusionTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "fusion_transfer"));
+    public static final Type<FusionTransferPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "fusion_transfer"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FusionTransferPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

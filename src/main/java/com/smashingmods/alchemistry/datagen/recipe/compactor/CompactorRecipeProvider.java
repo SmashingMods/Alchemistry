@@ -166,14 +166,14 @@ public class CompactorRecipeProvider {
 
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, ItemStack pOutput) {
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
         Ingredient ingredient = Ingredient.of(tagKey);
         compactor(ingredient, pOutput);
     }
 
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
         compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
@@ -192,7 +192,7 @@ public class CompactorRecipeProvider {
 
     @SuppressWarnings("SameParameterValue")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pInputTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
         compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, pCondition);
     }
 

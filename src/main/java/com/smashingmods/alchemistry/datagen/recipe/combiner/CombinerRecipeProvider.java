@@ -95,7 +95,7 @@ public class CombinerRecipeProvider {
             } else if (obj instanceof IngredientStack ingredientStack) {
                 ingredientStackList.add(ingredientStack);
             } else if (obj instanceof String itemTag) {
-                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(itemTag));
+                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(itemTag));
                 ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
             }
         }
@@ -114,7 +114,7 @@ public class CombinerRecipeProvider {
             if (obj instanceof ItemStack itemStack) {
                 ingredientStackList.add(new IngredientStack(itemStack));
             } else if (obj instanceof String itemTag) {
-                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(itemTag));
+                TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(itemTag));
                 ingredientStackList.add(new IngredientStack(Ingredient.of(tagKey)));
             }
         }

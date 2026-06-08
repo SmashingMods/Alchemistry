@@ -53,8 +53,8 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
-        ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath()));
-        ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, String.format("recipes/dissolver/%s", pRecipeId.getPath()));
+        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath()));
+        ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/dissolver/%s", pRecipeId.getPath()));
 
         DissolverRecipe recipe = new DissolverRecipe(recipeLocation, group, input, result);
         pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));

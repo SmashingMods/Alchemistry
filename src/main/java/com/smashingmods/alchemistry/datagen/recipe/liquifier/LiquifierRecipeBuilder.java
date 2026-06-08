@@ -54,8 +54,8 @@ public class LiquifierRecipeBuilder implements RecipeBuilder {
     @Override
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
 
-        ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("liquifier/%s", pRecipeId.getPath()));
-        ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, String.format("recipes/liquifier/%s", pRecipeId.getPath()));
+        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("liquifier/%s", pRecipeId.getPath()));
+        ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/liquifier/%s", pRecipeId.getPath()));
 
         LiquifierRecipe recipe = new LiquifierRecipe(recipeLocation, group, input, output);
         pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));

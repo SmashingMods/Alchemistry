@@ -34,7 +34,7 @@ import java.util.stream.IntStream;
 
 public class CombinerTransferPacket implements AlchemyPacket {
 
-    public static final Type<CombinerTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "combiner_transfer"));
+    public static final Type<CombinerTransferPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "combiner_transfer"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CombinerTransferPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

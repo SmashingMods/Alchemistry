@@ -56,7 +56,7 @@ public class LiquifierRecipeProvider {
 
     @SuppressWarnings("unused")
     private void liquifier(String pItemTag, FluidStack pOutput) {
-        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, new ResourceLocation(pItemTag));
+        TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pItemTag));
         liquifier(new IngredientStack(Ingredient.of(tagKey)), pOutput);
     }
 

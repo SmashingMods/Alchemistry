@@ -70,13 +70,13 @@ public class DissolverRecipeProvider {
     }
 
     public void dissolver(String pItemTag, ProbabilitySet pSet) {
-        ResourceLocation itemId = new ResourceLocation(pItemTag);
+        ResourceLocation itemId = ResourceLocation.parse(pItemTag);
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, itemId);
         dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId);
     }
 
     public void dissolver(String pItemTag, ProbabilitySet pSet, ICondition pCondition) {
-        ResourceLocation itemId = new ResourceLocation(pItemTag);
+        ResourceLocation itemId = ResourceLocation.parse(pItemTag);
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, itemId);
         dissolver(new IngredientStack(Ingredient.of(tagKey)), pSet, itemId, pCondition);
     }

@@ -74,7 +74,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/combiner_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/combiner_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override

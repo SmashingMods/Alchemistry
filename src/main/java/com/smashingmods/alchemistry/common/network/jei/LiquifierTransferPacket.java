@@ -34,7 +34,7 @@ import java.util.Optional;
 
 public class LiquifierTransferPacket implements AlchemyPacket {
 
-    public static final Type<LiquifierTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "liquifier_transfer"));
+    public static final Type<LiquifierTransferPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "liquifier_transfer"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, LiquifierTransferPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

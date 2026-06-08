@@ -13,7 +13,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ToggleAutoBalanceButtonPacket implements AlchemyPacket {
 
-    public static final Type<ToggleAutoBalanceButtonPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "toggle_auto_balance_button"));
+    public static final Type<ToggleAutoBalanceButtonPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "toggle_auto_balance_button"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ToggleAutoBalanceButtonPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

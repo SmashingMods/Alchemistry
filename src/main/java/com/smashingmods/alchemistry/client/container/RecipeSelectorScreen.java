@@ -124,7 +124,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private void renderBg(GuiGraphics pGuiGraphics) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     private void renderRecipeBox(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
@@ -138,7 +138,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
     private void renderScrollbar(GuiGraphics pGuiGraphics) {
         int scrollPosition = (int) (93.0f * scrollOffset);
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
     }
 
     private void renderRecipeButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
@@ -154,7 +154,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             } else if (pMouseX >= xStart && pMouseX < xStart + RECIPE_BOX_SIZE && pMouseY >= yStart && pMouseY < yStart + RECIPE_BOX_SIZE) {
                 vOffset += RECIPE_BOX_SIZE * 2;
             }
-            pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+            pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
         }
     }
 
@@ -244,7 +244,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private void renderSlot(GuiGraphics pGuiGraphics, int pX, int pY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
     }
 
     public <W extends GuiEventListener & Renderable & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {

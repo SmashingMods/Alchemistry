@@ -38,7 +38,7 @@ public class FusionRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath())))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -60,8 +60,8 @@ public class FusionRecipeBuilder implements RecipeBuilder {
         String input2String = String.format("%s%s", input2.getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input2)).getPath());
         String outputString = String.format("%s%s", ((ElementItem) output.getItem()).getAtomicNumber(), Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(output.getItem())).getPath());
 
-        ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("fusion/%s_and_%s_to_%s", input1String, input2String, outputString));
-        ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, String.format("recipes/fusion/%s", pRecipeId.getPath()));
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("fusion/%s_and_%s_to_%s", input1String, input2String, outputString));
+        ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/fusion/%s", pRecipeId.getPath()));
 
         FusionRecipe recipe = new FusionRecipe(recipeId, group, new ItemStack(input1), new ItemStack(input2), output);
         pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));

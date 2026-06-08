@@ -29,7 +29,7 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Alchemistry.MODID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "jei_plugin");
     }
 
     @Override

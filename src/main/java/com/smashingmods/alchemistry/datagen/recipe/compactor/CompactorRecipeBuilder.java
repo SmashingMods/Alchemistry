@@ -35,7 +35,7 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, recipeId.getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, recipeId.getPath())))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -54,8 +54,8 @@ public class CompactorRecipeBuilder implements RecipeBuilder {
     @Override
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
         String advancementPath = String.format("recipes/compactor/%s", pRecipeId.getPath());
-        ResourceLocation recipeId = new ResourceLocation(Alchemistry.MODID, String.format("compactor/%s", pRecipeId.getPath()));
-        ResourceLocation advancementId = new ResourceLocation(Alchemistry.MODID, advancementPath);
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("compactor/%s", pRecipeId.getPath()));
+        ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, advancementPath);
 
         CompactorRecipe recipe = new CompactorRecipe(recipeId, group, input, result);
         pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));

@@ -14,7 +14,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ToggleReactorAutoejectPacket implements AlchemyPacket {
 
-    public static final Type<ToggleReactorAutoejectPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "toggle_reactor_autoeject"));
+    public static final Type<ToggleReactorAutoejectPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "toggle_reactor_autoeject"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ToggleReactorAutoejectPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

@@ -112,7 +112,7 @@ public class RecipeDisplayUtil {
             return Pair.of(left, right);
 
         }
-        return Pair.of(new ResourceLocation("minecraft:empty"), "");
+        return Pair.of(ResourceLocation.parse("minecraft:empty"), "");
     }
 
     public static ItemStack getTarget(ProcessingRecipe pRecipe) {

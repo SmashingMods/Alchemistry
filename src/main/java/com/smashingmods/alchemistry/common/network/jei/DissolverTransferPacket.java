@@ -34,7 +34,7 @@ import java.util.Optional;
 
 public class DissolverTransferPacket implements AlchemyPacket {
 
-    public static final Type<DissolverTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "dissolver_transfer"));
+    public static final Type<DissolverTransferPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "dissolver_transfer"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, DissolverTransferPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

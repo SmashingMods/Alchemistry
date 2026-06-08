@@ -23,7 +23,7 @@ public class RecipeUtils {
 
     public static ItemStack toStack(String pString, int pCount) {
 
-        ResourceLocation resourceLocation = new ResourceLocation(pString);
+        ResourceLocation resourceLocation = ResourceLocation.parse(pString);
 
         Optional<ElementItem> optionalElement = ItemRegistry.getElementByName(pString);
         Optional<CompoundItem> optionalCompound = ItemRegistry.getCompoundByName(pString.replace(" ", "_"));
@@ -51,10 +51,10 @@ public class RecipeUtils {
     }
 
     public static ResourceLocation getLocation(Item pItem, String pType) {
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pItem)).getPath()));
+        return ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pItem)).getPath()));
     }
 
     public static ResourceLocation getLocation(FluidStack pFluidStack, String pType) {
-        return new ResourceLocation(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pFluidStack.getFluid())).getPath()));
+        return ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("%s/%s", pType, Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pFluidStack.getFluid())).getPath()));
     }
 }

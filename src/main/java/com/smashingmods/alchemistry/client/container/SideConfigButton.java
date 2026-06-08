@@ -21,8 +21,8 @@ import java.util.Locale;
 
 class SideConfigButton extends AbstractWidget {
 
-    private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
-    private static final ResourceLocation BARRIER_LOCATION = new ResourceLocation("minecraft", "textures/item/barrier.png");
+    private static final ResourceLocation ICONS_LOCATION = ResourceLocation.fromNamespaceAndPath(AlchemyLib.MODID, "textures/gui/widgets.png");
+    private static final ResourceLocation BARRIER_LOCATION = ResourceLocation.fromNamespaceAndPath("minecraft", "textures/item/barrier.png");
     private final SideModeScreen<?> parentScreen;
     @Nullable
     private final Direction side;

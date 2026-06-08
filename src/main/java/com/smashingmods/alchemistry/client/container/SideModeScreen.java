@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Screen {
 
-    private static final ResourceLocation TEXTURE_SOURCE = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
+    private static final ResourceLocation TEXTURE_SOURCE = ResourceLocation.fromNamespaceAndPath(AlchemyLib.MODID, "textures/gui/widgets.png");
 
     // Side mod configuration screen layout:
     // N: North

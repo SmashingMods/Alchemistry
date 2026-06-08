@@ -31,7 +31,7 @@ import java.util.Optional;
 
 public class CompactorTransferPacket implements AlchemyPacket {
 
-    public static final Type<CompactorTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "compactor_transfer"));
+    public static final Type<CompactorTransferPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "compactor_transfer"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, CompactorTransferPacket> STREAM_CODEC = StreamCodec.composite(
             BlockPos.STREAM_CODEC, packet -> packet.blockPos,

@@ -35,7 +35,7 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(new ResourceLocation(Alchemistry.MODID, recipeId.getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, recipeId.getPath())))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -55,8 +55,8 @@ public class AtomizerRecipeBuilder implements RecipeBuilder {
     public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
         String advancementPath = String.format("recipes/atomizer/%s", pRecipeId.getPath());
 
-        ResourceLocation recipeLocation = new ResourceLocation(Alchemistry.MODID, String.format("atomizer/%s", pRecipeId.getPath()));
-        ResourceLocation advancementLocation = new ResourceLocation(Alchemistry.MODID, advancementPath);
+        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("atomizer/%s", pRecipeId.getPath()));
+        ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, advancementPath);
 
         AtomizerRecipe recipe = new AtomizerRecipe(recipeLocation, group, input, result);
         pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));

@@ -7,11 +7,13 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -21,6 +23,7 @@ import net.minecraft.world.item.ItemStack;
 public class FusionRecipeCategory implements IRecipeCategory<FusionRecipe> {
 
     private IGuiHelper guiHelper;
+    private IDrawable background;
 
     public FusionRecipeCategory() {}
 
@@ -34,8 +37,21 @@ public class FusionRecipeCategory implements IRecipeCategory<FusionRecipe> {
     }
 
     @Override
-    public IDrawable getBackground() {
-        return guiHelper.createDrawable(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/fusion_jei.png"), 0, 0, 150, 75);
+    public int getWidth() {
+        return 150;
+    }
+
+    @Override
+    public int getHeight() {
+        return 75;
+    }
+
+    @Override
+    public void draw(FusionRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, GuiGraphics pGuiGraphics, double pMouseX, double pMouseY) {
+        if (background == null) {
+            background = guiHelper.createDrawable(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/fusion_jei.png"), 0, 0, 150, 75);
+        }
+        background.draw(pGuiGraphics);
     }
 
     @Override

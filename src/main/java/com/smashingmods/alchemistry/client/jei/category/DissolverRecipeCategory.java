@@ -31,6 +31,7 @@ import java.util.*;
 public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe> {
 
     private IGuiHelper guiHelper;
+    private IDrawable background;
 
     @SuppressWarnings("unused")
     public DissolverRecipeCategory() {}
@@ -45,8 +46,13 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
     }
 
     @Override
-    public IDrawable getBackground() {
-        return guiHelper.createDrawable(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
+    public int getWidth() {
+        return 150;
+    }
+
+    @Override
+    public int getHeight() {
+        return 150;
     }
 
     @Override
@@ -61,6 +67,11 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public void draw(DissolverRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, GuiGraphics pGuiGraphics, double pMouseX, double pMouseY) {
+
+        if (background == null) {
+            background = guiHelper.createDrawable(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
+        }
+        background.draw(pGuiGraphics);
 
         Font font = Minecraft.getInstance().font;
         List<Double> probabilities = new LinkedList<>();
@@ -125,9 +136,9 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                     if (!items.get(itemIndex).isEmpty()) {
                         pBuilder.addSlot(RecipeIngredientRole.OUTPUT, x, y).addItemStack(items.get(itemIndex));
                     } else {
-                        pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
-                            list.clear();
-                            list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
+                        pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addRichTooltipCallback((iRecipeSlotView, tooltip) -> {
+                            tooltip.clear();
+                            tooltip.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
                         });
                     }
                 }

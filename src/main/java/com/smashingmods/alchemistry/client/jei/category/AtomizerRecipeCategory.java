@@ -7,12 +7,14 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -22,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
 
     private final IGuiHelper guiHelper;
+    private IDrawable background;
 
     public AtomizerRecipeCategory(IGuiHelper pGuiHelper) {
         this.guiHelper = pGuiHelper;
@@ -33,9 +36,22 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
     }
 
     @Override
-    public IDrawable getBackground() {
-        return guiHelper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/atomizer_jei.png"), 0, 0, 150, 75)
-                .build();
+    public int getWidth() {
+        return 150;
+    }
+
+    @Override
+    public int getHeight() {
+        return 75;
+    }
+
+    @Override
+    public void draw(AtomizerRecipe pRecipe, IRecipeSlotsView pRecipeSlotsView, GuiGraphics pGuiGraphics, double pMouseX, double pMouseY) {
+        if (background == null) {
+            background = guiHelper.drawableBuilder(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/atomizer_jei.png"), 0, 0, 150, 75)
+                    .build();
+        }
+        background.draw(pGuiGraphics);
     }
 
     @Override

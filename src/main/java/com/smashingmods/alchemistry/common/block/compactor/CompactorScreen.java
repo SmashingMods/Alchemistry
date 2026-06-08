@@ -21,6 +21,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
@@ -101,7 +102,7 @@ public class CompactorScreen extends AbstractProcessingScreen<CompactorMenu> {
                 if (pMouseX >= xStart && pMouseX < xEnd && pMouseY >= yStart && pMouseY < yEnd) {
                     List<Component> components = new ArrayList<>();
                     components.add(0, MutableComponent.create(new TranslatableContents("alchemistry.container.target", null, TranslatableContents.NO_ARGS)).withStyle(ChatFormatting.YELLOW, ChatFormatting.UNDERLINE));
-                    components.addAll(target.getTooltipLines(getMinecraft().player, TooltipFlag.Default.NORMAL));
+                    components.addAll(target.getTooltipLines(Item.TooltipContext.of(getMinecraft().level), getMinecraft().player, TooltipFlag.Default.NORMAL));
                     pGuiGraphics.renderTooltip(font, components, target.getTooltipImage(), pMouseX, pMouseY);
                 }
             }

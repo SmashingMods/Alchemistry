@@ -13,15 +13,14 @@ import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.registry.Registry;
 import com.smashingmods.alchemylib.api.capability.AlchemyCapabilities;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +34,7 @@ public class Alchemistry {
     public static final PacketHandler PACKET_HANDLER = new PacketHandler();
 
     public Alchemistry(IEventBus modEventBus) {
-        modEventBus.addListener(this::clientSetupEvent);
+        modEventBus.addListener(this::registerMenuScreens);
         modEventBus.addListener(this::registerCapabilities);
         modEventBus.addListener(PACKET_HANDLER::register);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
@@ -73,15 +72,13 @@ public class Alchemistry {
                 (be, side) -> be.getController() != null ? be.getController().getOutputHandler() : null);
     }
 
-    public void clientSetupEvent(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            MenuScreens.register(MenuRegistry.ATOMIZER_MENU.get(), AtomizerScreen::new);
-            MenuScreens.register(MenuRegistry.COMPACTOR_MENU.get(), CompactorScreen::new);
-            MenuScreens.register(MenuRegistry.COMBINER_MENU.get(), CombinerScreen::new);
-            MenuScreens.register(MenuRegistry.DISSOLVER_MENU.get(), DissolverScreen::new);
-            MenuScreens.register(MenuRegistry.LIQUIFIER_MENU.get(), LiquifierScreen::new);
-            MenuScreens.register(MenuRegistry.FISSION_CONTROLLER_MENU.get(), FissionControllerScreen::new);
-            MenuScreens.register(MenuRegistry.FUSION_CONTROLLER_MENU.get(), FusionControllerScreen::new);
-        });
+    public void registerMenuScreens(final RegisterMenuScreensEvent event) {
+        event.register(MenuRegistry.ATOMIZER_MENU.get(), AtomizerScreen::new);
+        event.register(MenuRegistry.COMPACTOR_MENU.get(), CompactorScreen::new);
+        event.register(MenuRegistry.COMBINER_MENU.get(), CombinerScreen::new);
+        event.register(MenuRegistry.DISSOLVER_MENU.get(), DissolverScreen::new);
+        event.register(MenuRegistry.LIQUIFIER_MENU.get(), LiquifierScreen::new);
+        event.register(MenuRegistry.FISSION_CONTROLLER_MENU.get(), FissionControllerScreen::new);
+        event.register(MenuRegistry.FUSION_CONTROLLER_MENU.get(), FusionControllerScreen::new);
     }
 }

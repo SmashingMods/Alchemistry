@@ -1058,7 +1058,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
 
         dissolver(Items.TURTLE_EGG, createSet().addGroup(100, toItemStack("protein", 4), toItemStack("calcium_carbonate", 8)).build());
 
-        dissolver(Items.SCUTE, createSet().addGroup(100, toItemStack("protein", 2)).build());
+        dissolver(Items.TURTLE_SCUTE, createSet().addGroup(100, toItemStack("protein", 2)).build());
 
         dissolver(Items.GOLDEN_APPLE, createSet().addGroup(100, toItemStack("gold", 8 * 16),
                         toItemStack("cellulose"),

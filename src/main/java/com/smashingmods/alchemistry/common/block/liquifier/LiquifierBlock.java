@@ -5,7 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -45,17 +47,22 @@ public class LiquifierBlock extends AbstractProcessingBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
-            BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            boolean interactionSuccessful = true;
-
-            if (blockEntity instanceof LiquifierBlockEntity) {
-                interactionSuccessful = ((LiquifierBlockEntity) blockEntity).onBlockActivated(pLevel, pPos, pPlayer, pHand);
+            if (pLevel.getBlockEntity(pPos) instanceof LiquifierBlockEntity blockEntity && blockEntity.onBlockActivated(pLevel, pPos, pPlayer, pHand)) {
+                return ItemInteractionResult.CONSUME;
             }
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        return ItemInteractionResult.SUCCESS;
+    }
 
-            if (!interactionSuccessful) {
-                ((ServerPlayer) pPlayer).openMenu((LiquifierBlockEntity) blockEntity, pPos);
+    @Override
+    @SuppressWarnings("deprecation")
+    public InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
+        if (!pLevel.isClientSide()) {
+            if (pLevel.getBlockEntity(pPos) instanceof LiquifierBlockEntity blockEntity) {
+                ((ServerPlayer) pPlayer).openMenu(blockEntity, pPos);
             }
             return InteractionResult.CONSUME;
         }

@@ -6,11 +6,11 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
     @SubscribeEvent
@@ -22,7 +22,7 @@ public class DataGenerators {
 
         generator.addProvider(pEvent.includeServer(), new RecipeGenerator(packOutput, lookupProvider));
         generator.addProvider(pEvent.includeClient(), new BlockStateGenerator(packOutput, pEvent.getExistingFileHelper()));
-        generator.addProvider(pEvent.includeServer(), LootTableGenerator.create(packOutput));
+        generator.addProvider(pEvent.includeServer(), LootTableGenerator.create(packOutput, lookupProvider));
         generator.addProvider(pEvent.includeServer(), new BlockTagGenerator(packOutput, lookupProvider, fileHelper));
         generator.addProvider(pEvent.includeClient(), new LocalizationGenerator(packOutput));
     }

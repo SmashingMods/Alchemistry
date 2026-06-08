@@ -10,7 +10,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class DataGenerators {
 
     @SubscribeEvent

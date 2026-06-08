@@ -208,15 +208,15 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                 .addGroup(12.5, toItemStack("cellulose"))
                 .build());
 
-        dissolver("forge:fences/wooden", createSet()
+        dissolver("c:fences/wooden", createSet()
                 .addGroup(33.3334, toItemStack("cellulose"))
                 .build());
 
-        dissolver("forge:fence_gates/wooden", createSet()
+        dissolver("c:fence_gates/wooden", createSet()
                 .addGroup(100, toItemStack("cellulose"))
                 .build());
 
-        dissolver("forge:chests/wooden", createSet()
+        dissolver("c:chests/wooden", createSet()
                 .addGroup(100, toItemStack("cellulose", 2))
                 .build());
 
@@ -416,7 +416,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                 .build());
 
         // Ores
-        dissolver("forge:ores/coal", createSet()
+        dissolver("c:ores/coal", createSet()
                 .addGroup(100, toItemStack("graphite", 8), toItemStack("sulfur", 8))
                 .build());
 
@@ -426,7 +426,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
 
         dissolver(Items.CHARCOAL, createSet().addGroup(100, toItemStack("graphite", 2)).build());
 
-        dissolver("forge:storage_blocks/charcoal", createSet().addGroup(100, toItemStack("graphite", 18)).build(), tagNotEmptyCondition("forge:storage_blocks/charcoal"));
+        dissolver("c:storage_blocks/charcoal", createSet().addGroup(100, toItemStack("graphite", 18)).build(), tagNotEmptyCondition("c:storage_blocks/charcoal"));
 
         for (Item item : List.of(Items.EMERALD, Items.EMERALD_BLOCK)) {
             int multiplier = 1;
@@ -440,7 +440,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("vanadium", 4 * multiplier))
                     .build());
         }
-        dissolver("forge:ores/emerald", createSet()
+        dissolver("c:ores/emerald", createSet()
                 .addGroup(100,
                         toItemStack("beryl", 8 * 2),
                         toItemStack("chromium", 8 * 2),
@@ -455,7 +455,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
             dissolver(item, createSet()
                     .addGroup(100, toItemStack("graphite", 64 * 2 * multiplier)).build());
         }
-        dissolver("forge:ores/diamond", createSet()
+        dissolver("c:ores/diamond", createSet()
                 .addGroup(100, toItemStack("graphite", 64 * 2 * 2)).build());
 
         for (Item item : List.of(Items.LAPIS_LAZULI, Items.LAPIS_BLOCK)) {
@@ -470,7 +470,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                     .build());
         }
 
-        dissolver("forge:ores/lapis", createSet()
+        dissolver("c:ores/lapis", createSet()
                 .addGroup(100,
                         toItemStack("sodium", 6 * 9),
                         toItemStack("mullite", 3 * 9),
@@ -491,9 +491,9 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("silicon_dioxide", 32 * multiplier))
                     .build());
         }
-        dissolver("forge:storage_blocks/quartz", createSet()
+        dissolver("c:storage_blocks/quartz", createSet()
                 .addGroup(100, toItemStack("barium", 16 * 4), toItemStack("silicon_dioxide", 32 * 4)) .build());
-        dissolver("forge:ores/quartz", createSet()
+        dissolver("c:ores/quartz", createSet()
                 .addGroup(100, toItemStack("barium", 16 * 4), toItemStack("silicon_dioxide", 32 * 4)) .build());
 
 
@@ -508,7 +508,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("strontium_carbonate", multiplier))
                     .build());
         }
-        dissolver("forge:ores/redstone", createSet()
+        dissolver("c:ores/redstone", createSet()
                 .addGroup(100,
                         toItemStack("iron_oxide", 6),
                         toItemStack("strontium_carbonate", 6))
@@ -526,7 +526,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("iron", multiplier))
                     .build());
         }
-//        dissolver("forge:ores/iron", createSet().addGroup(100, toItemStack("iron", 32)).build());
+//        dissolver("c:ores/iron", createSet().addGroup(100, toItemStack("iron", 32)).build());
 
         for (Item item : List.of(Items.GOLD_INGOT, Items.GOLD_NUGGET, Items.GOLD_BLOCK, Items.RAW_GOLD, Items.RAW_GOLD_BLOCK)) {
             int multiplier = 1;
@@ -540,7 +540,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("gold", multiplier))
                     .build());
         }
-//        dissolver("forge:ores/gold", createSet().addGroup(100, toItemStack("gold", 32)).build());
+//        dissolver("c:ores/gold", createSet().addGroup(100, toItemStack("gold", 32)).build());
 
         for (Item item : List.of(Items.COPPER_INGOT, Items.COPPER_BLOCK, Items.RAW_COPPER, Items.RAW_COPPER_BLOCK, Items.CUT_COPPER)) {
             int multiplier = 1;
@@ -554,7 +554,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("copper", multiplier))
                     .build());
         }
-//        dissolver("forge:ores/copper", createSet().addGroup(100, toItemStack("copper", 32)).build());
+//        dissolver("c:ores/copper", createSet().addGroup(100, toItemStack("copper", 32)).build());
 
         for (Item item : List.of(Items.EXPOSED_COPPER, Items.EXPOSED_CUT_COPPER, Items.EXPOSED_CUT_COPPER_SLAB, Items.WEATHERED_COPPER, Items.WEATHERED_CUT_COPPER, Items.WEATHERED_CUT_COPPER_SLAB, Items.OXIDIZED_COPPER, Items.OXIDIZED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER_SLAB)) {
             int oxide = 5;
@@ -636,27 +636,27 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                 .build(), true);
 
         // Dyes
-        dissolver("forge:dyes/white", createSet().addGroup(100, toItemStack("hydroxylapatite")).build());
-        dissolver("forge:dyes/orange", createSet().addGroup(100, toItemStack("potassium_dichromate", 4)).build());
-        dissolver("forge:dyes/magenta", createSet().addGroup(100, toItemStack("han_purple", 4)).build());
-        dissolver("forge:dyes/light_blue", createSet().addGroup(100, toItemStack("cobalt_aluminate", 2), toItemStack("antimony_trioxide", 2)).build());
-        dissolver("forge:dyes/yellow", createSet().addGroup(100, toItemStack("lead_iodide", 4)).build());
-        dissolver("forge:dyes/lime", createSet().addGroup(100, toItemStack("cadmium_sulfide", 2), toItemStack("chromium_oxide", 2)).build());
-        dissolver("forge:dyes/pink", createSet().addGroup(100, toItemStack("arsenic_sulfide", 4)).build());
-        dissolver("forge:dyes/gray", createSet().addGroup(100, toItemStack("barium_sulfate", 4)).build());
-        dissolver("forge:dyes/light_gray", createSet().addGroup(100, toItemStack("magnesium_sulfate", 4)).build());
-        dissolver("forge:dyes/cyan", createSet().addGroup(100, toItemStack("copper_chloride", 4)).build());
-        dissolver("forge:dyes/purple", createSet().addGroup(100, toItemStack("potassium_permanganate", 4)).build());
-        dissolver("forge:dyes/blue", createSet().addGroup(100, toItemStack("cobalt_aluminate", 4)).build());
-        dissolver("forge:dyes/brown", createSet().addGroup(100, toItemStack("cellulose", 4)).build());
-        dissolver("forge:dyes/green", createSet().addGroup(100, toItemStack("nickel_chloride", 4)).build());
-        dissolver("forge:dyes/red", createSet().addGroup(100, toItemStack("mercury_sulfide", 4)).build());
-        dissolver("forge:dyes/black", createSet().addGroup(100, toItemStack("titanium_oxide", 4)).build());
+        dissolver("c:dyes/white", createSet().addGroup(100, toItemStack("hydroxylapatite")).build());
+        dissolver("c:dyes/orange", createSet().addGroup(100, toItemStack("potassium_dichromate", 4)).build());
+        dissolver("c:dyes/magenta", createSet().addGroup(100, toItemStack("han_purple", 4)).build());
+        dissolver("c:dyes/light_blue", createSet().addGroup(100, toItemStack("cobalt_aluminate", 2), toItemStack("antimony_trioxide", 2)).build());
+        dissolver("c:dyes/yellow", createSet().addGroup(100, toItemStack("lead_iodide", 4)).build());
+        dissolver("c:dyes/lime", createSet().addGroup(100, toItemStack("cadmium_sulfide", 2), toItemStack("chromium_oxide", 2)).build());
+        dissolver("c:dyes/pink", createSet().addGroup(100, toItemStack("arsenic_sulfide", 4)).build());
+        dissolver("c:dyes/gray", createSet().addGroup(100, toItemStack("barium_sulfate", 4)).build());
+        dissolver("c:dyes/light_gray", createSet().addGroup(100, toItemStack("magnesium_sulfate", 4)).build());
+        dissolver("c:dyes/cyan", createSet().addGroup(100, toItemStack("copper_chloride", 4)).build());
+        dissolver("c:dyes/purple", createSet().addGroup(100, toItemStack("potassium_permanganate", 4)).build());
+        dissolver("c:dyes/blue", createSet().addGroup(100, toItemStack("cobalt_aluminate", 4)).build());
+        dissolver("c:dyes/brown", createSet().addGroup(100, toItemStack("cellulose", 4)).build());
+        dissolver("c:dyes/green", createSet().addGroup(100, toItemStack("nickel_chloride", 4)).build());
+        dissolver("c:dyes/red", createSet().addGroup(100, toItemStack("mercury_sulfide", 4)).build());
+        dissolver("c:dyes/black", createSet().addGroup(100, toItemStack("titanium_oxide", 4)).build());
 
         dissolver("minecraft:wool", createSet().addGroup(100, toItemStack("keratin", 2), toItemStack("triglyceride")).build());
         dissolver("minecraft:carpets", createSet().addGroup((2.0 / 3.0) * 100, toItemStack("keratin", 2), toItemStack("triglyceride")).build());
 
-        dissolver("forge:glass", createSet().addGroup(100, toItemStack("silicon_dioxide", 4)).build());
+        dissolver("c:glass", createSet().addGroup(100, toItemStack("silicon_dioxide", 4)).build());
 
 
         // mobs
@@ -687,12 +687,12 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                         toItemStack("cellulose"))
                 .build(), true);
 
-        dissolver("forge:storage_blocks/apple", createSet().addGroup(100,
+        dissolver("c:storage_blocks/apple", createSet().addGroup(100,
                         toItemStack("sucrose", 9),
                         toItemStack("cellulose", 9))
-                .build(), tagNotEmptyCondition("forge:storage_blocks/apple"));
+                .build(), tagNotEmptyCondition("c:storage_blocks/apple"));
 
-        dissolver("forge:seeds", createSet().addGroup(100, toItemStack("cellulose")).build());
+        dissolver("c:seeds", createSet().addGroup(100, toItemStack("cellulose")).build());
 
         dissolver(Items.SPIDER_EYE, createSet().addGroup(100,
                         toItemStack("beta_carotene", 2),
@@ -793,7 +793,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
 
         dissolver(Items.SUGAR_CANE, createSet().addGroup(100, toItemStack("sucrose")).build());
 
-        dissolver("forge:storage_blocks/sugar_cane", createSet().addGroup(100, toItemStack("sucrose", 9)).build(), tagNotEmptyCondition("forge:storage_blocks/sugar_cane"));
+        dissolver("c:storage_blocks/sugar_cane", createSet().addGroup(100, toItemStack("sucrose", 9)).build(), tagNotEmptyCondition("c:storage_blocks/sugar_cane"));
 
         dissolver(Items.SUGAR, createSet().addGroup(100, toItemStack("sucrose")).build());
 
@@ -803,11 +803,11 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                         toItemStack("graphite", 2))
                 .build(), true);
 
-        dissolver("forge:storage_blocks/gunpowder", createSet().addGroup(100,
+        dissolver("c:storage_blocks/gunpowder", createSet().addGroup(100,
                         toItemStack("potassium_nitrate", 18),
                         toItemStack("sulfur", 72),
                         toItemStack("graphite", 18))
-                .build(), tagNotEmptyCondition("forge:storage_blocks/gunpowder"));
+                .build(), tagNotEmptyCondition("c:storage_blocks/gunpowder"));
 
 
         dissolver(Items.BLAZE_POWDER, createSet().addGroup(100,
@@ -977,10 +977,10 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                     .build());
         }
 
-        dissolver("forge:storage_blocks/potato", createSet().weighted().rolls(9)
+        dissolver("c:storage_blocks/potato", createSet().weighted().rolls(9)
                 .addGroup(10, toItemStack("starch"))
                 .addGroup(25, toItemStack("potassium", 5))
-                .build(), tagNotEmptyCondition("forge:storage_blocks/potato"));
+                .build(), tagNotEmptyCondition("c:storage_blocks/potato"));
 
         for (Item item : List.of(Items.COOKED_PORKCHOP, Items.COOKED_BEEF, Items.COOKED_MUTTON, Items.COOKED_CHICKEN, Items.COOKED_RABBIT)) {
             dissolver(item, createSet().addGroup(100, toItemStack("protein", 4)).build());
@@ -1038,7 +1038,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
 
         dissolver(Items.CARROT, createSet().addGroup(20, toItemStack("beta_carotene")).build());
 
-        dissolver("forge:storage_blocks/carrot", createSet().rolls(9).addGroup(20, toItemStack("beta_carotene")).build(), tagNotEmptyCondition("forge:storage_blocks/carrot"));
+        dissolver("c:storage_blocks/carrot", createSet().rolls(9).addGroup(20, toItemStack("beta_carotene")).build(), tagNotEmptyCondition("c:storage_blocks/carrot"));
 
         dissolver(Items.WITHER_SKELETON_SKULL, createSet().addGroup(100,
                         toItemStack("hydroxylapatite", 8),
@@ -1070,10 +1070,10 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                 .addGroup(50, toItemStack("iron_oxide"))
                 .build());
 
-        dissolver("forge:storage_blocks/beetroot", createSet().rolls(9)
+        dissolver("c:storage_blocks/beetroot", createSet().rolls(9)
                 .addGroup(100, toItemStack("sucrose"))
                 .addGroup(50, toItemStack("iron_oxide"))
-                .build(), tagNotEmptyCondition("forge:storage_blocks/beetroot"));
+                .build(), tagNotEmptyCondition("c:storage_blocks/beetroot"));
 
         dissolver(Items.BONE, createSet()
                 .addGroup(50, toItemStack("hydroxylapatite", 3))
@@ -1105,7 +1105,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
 
         dissolver(Items.BAMBOO, createSet().addGroup(100, toItemStack("cellulose")).build());
 
-        dissolver("forge:storage_blocks/bamboo", createSet().addGroup(100, toItemStack("cellulose", 9)).build(), tagNotEmptyCondition("forge:storage_blocks/bamboo"));
+        dissolver("c:storage_blocks/bamboo", createSet().addGroup(100, toItemStack("cellulose", 9)).build(), tagNotEmptyCondition("c:storage_blocks/bamboo"));
 
 
 

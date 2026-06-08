@@ -48,12 +48,12 @@ public class ChemlibRecipes extends DissolverRecipeProvider {
         }
 
         for (ElementItem element : ItemRegistry.getElementsByMatterState(MatterState.SOLID).toList()) {
-            String ingotTag = String.format("forge:ingots/%s", element.getChemicalName());
-            String nuggetTag = "forge:nuggets/" + element.getChemicalName();
-            String dustTag = "forge:dusts/" + element.getChemicalName();
-            String plateTag = "forge:plates/" + element.getChemicalName();
-            String oreTag = "forge:ores/" + element.getChemicalName();
-            String storageBlockTag = "forge:storage_blocks/" + element.getChemicalName();
+            String ingotTag = String.format("c:ingots/%s", element.getChemicalName());
+            String nuggetTag = "c:nuggets/" + element.getChemicalName();
+            String dustTag = "c:dusts/" + element.getChemicalName();
+            String plateTag = "c:plates/" + element.getChemicalName();
+            String oreTag = "c:ores/" + element.getChemicalName();
+            String storageBlockTag = "c:storage_blocks/" + element.getChemicalName();
 
             if (!element.getChemicalName().equals("sulfur")) {
                 dissolver(ingotTag, createSet().addGroup(new ItemStack(element, 16)).build(), tagNotEmptyCondition(ingotTag));

@@ -63,7 +63,7 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         if (currentRecipe != null) {
             LiquifierRecipe tempRecipe = currentRecipe.copy();
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
-                    && (getFluidStorage().getFluidStack().isFluidEqual(tempRecipe.getOutput()) || getFluidStorage().isEmpty())
+                    && (FluidStack.isSameFluidSameComponents(getFluidStorage().getFluidStack(), tempRecipe.getOutput()) || getFluidStorage().isEmpty())
                     && (getFluidStorage().getFluidAmount() + tempRecipe.getOutput().getAmount()) <= getFluidStorage().getCapacity()
                     && (tempRecipe.getInput().matches(input) && input.getCount() >= tempRecipe.getInput().getCount());
         } else {

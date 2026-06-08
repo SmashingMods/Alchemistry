@@ -44,8 +44,8 @@ class PacketStreamCodecRoundTripTest extends BootstrappedTest {
 
     @Test
     void setRecipePacket_roundTripsAndSerializesEachField() {
-        ResourceLocation id = new ResourceLocation("alchemistry", "fusion/iron");
-        ResourceLocation otherId = new ResourceLocation("alchemistry", "fusion/gold");
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("alchemistry", "fusion/iron");
+        ResourceLocation otherId = ResourceLocation.fromNamespaceAndPath("alchemistry", "fusion/gold");
 
         assertRoundTrips(SetRecipePacket.STREAM_CODEC, new SetRecipePacket(POS, id, "g"));
         // blockPos field differs

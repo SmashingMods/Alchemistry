@@ -22,7 +22,7 @@ class SetRecipePacketTest extends BootstrappedTest {
     @Test
     void setRecipePacket_roundTrip() {
         BlockPos pos = new BlockPos(12, -34, 56);
-        ResourceLocation recipeId = new ResourceLocation("alchemistry", "fusion/iron");
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath("alchemistry", "fusion/iron");
         String group = "alchemistry:fusion";
 
         SetRecipePacket original = new SetRecipePacket(pos, recipeId, group);

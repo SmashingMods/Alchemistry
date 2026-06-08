@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class RecipeCardinalityTest extends BootstrappedTest {
 
-    private static final ResourceLocation ID = new ResourceLocation("alchemistry", "test");
+    private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("alchemistry", "test");
     private static final String GROUP = "test";
 
     @Test

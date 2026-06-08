@@ -51,7 +51,7 @@ class RecipeDisplayUtilTest extends BootstrappedTest {
 
     private static LiquifierRecipe liquifierRecipe() {
         return new LiquifierRecipe(
-                new ResourceLocation("alchemistry", "test/liquifier"),
+                ResourceLocation.fromNamespaceAndPath("alchemistry", "test/liquifier"),
                 "liquifier",
                 new IngredientStack(Items.STONE, INPUT_COUNT),
                 new FluidStack(Fluids.WATER, 1000));

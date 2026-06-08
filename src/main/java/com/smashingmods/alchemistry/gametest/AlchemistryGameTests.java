@@ -48,13 +48,13 @@ public class AlchemistryGameTests {
     // its recipe type. A missing id means that rung never registered, so the gate fails the required test.
     private static void assertChainLoaded(GameTestHelper helper) {
         assertRegistered(helper, "chemlib element", BuiltInRegistries.ITEM,
-                new ResourceLocation("chemlib", "hydrogen"));
+                ResourceLocation.fromNamespaceAndPath("chemlib", "hydrogen"));
         assertRegistered(helper, "alchemistry block", BuiltInRegistries.BLOCK,
-                new ResourceLocation(Alchemistry.MODID, "dissolver"));
+                ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "dissolver"));
         assertRegistered(helper, "alchemistry block-entity type", BuiltInRegistries.BLOCK_ENTITY_TYPE,
-                new ResourceLocation(Alchemistry.MODID, "dissolver_block_entity"));
+                ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "dissolver_block_entity"));
         assertRegistered(helper, "alchemistry recipe type", BuiltInRegistries.RECIPE_TYPE,
-                new ResourceLocation(Alchemistry.MODID, "dissolver"));
+                ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "dissolver"));
         helper.succeed();
     }
 

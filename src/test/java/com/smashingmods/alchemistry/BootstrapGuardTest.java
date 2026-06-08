@@ -17,6 +17,6 @@ class BootstrapGuardTest extends BootstrappedTest {
 
     @Test
     void bootstrapPopulatesItemRegistry() {
-        assertTrue(BuiltInRegistries.ITEM.containsKey(new ResourceLocation("minecraft", "stone")));
+        assertTrue(BuiltInRegistries.ITEM.containsKey(ResourceLocation.fromNamespaceAndPath("minecraft", "stone")));
     }
 }

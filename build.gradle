@@ -96,7 +96,7 @@ runs {
         workingDirectory = layout.buildDirectory.dir('gametest')
 
         // Stage the gametest structure template(s) into the gameTestServer working directory before launch.
-        // On 1.20.2 the SNBT (text) structure format is only read from a `gameteststructures/` directory relative to
+        // The SNBT (text) structure format is only read from a `gameteststructures/` directory relative to
         // the run's working dir (StructureTemplateManager registers that source under IS_RUNNING_IN_IDE, and
         // StructureUtils falls back to the same path); the resource-pack loader handles binary .nbt only. With
         // @PrefixGameTestTemplate(false) the framework resolves `alchemistry:loadsemptytemplate` to the un-prefixed

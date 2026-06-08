@@ -208,8 +208,8 @@ public class ReactorGameTests {
     // works because in this gametest absolutePos() is a pure translation (no rotation): the controller's own tick()
     // builds its shape from the controller's ABSOLUTE position with world facing NORTH, and translation commutes with
     // relative(), so our relative-space shell maps cell-for-cell onto the absolute shell the controller validates
-    // against. We deliberately avoid relativePos(): on NeoForge 20.2.x it does not round-trip absolutePos() (it
-    // mishandles the X/Z axes), so the shell is built entirely in relative space.
+    // against. The shell is built entirely in relative space rather than relying on relativePos() to invert
+    // absolutePos().
     private static List<BlockPos> buildShellAndPlacePorts(GameTestHelper helper) {
         ReactorShape shape = new ReactorShape(CONTROLLER_POS, ReactorType.FISSION, FACING);
         Map<BoundingBox, List<Block>> shapeMap = shape.createShapeMap();

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeAll;
  * {@link Bootstrap#bootStrap()} guards itself against re-entry, so inheriting it per subclass is harmless.</p>
  *
  * <p>Subclasses use vanilla registry entries (e.g. {@code Items.STONE}, {@code Fluids.WATER}) that
- * {@link Bootstrap#bootStrap()} registers; constructing a mod {@code Item} on 1.20.2 would instead trigger an
+ * {@link Bootstrap#bootStrap()} registers; constructing a mod {@code Item} would instead trigger an
  * intrusive-holder registry write that needs the registry unfrozen, which these tests neither need nor want.</p>
  */
 public abstract class BootstrappedTest {

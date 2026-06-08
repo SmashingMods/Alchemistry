@@ -15,8 +15,8 @@
     }
   ],
   "result": {
-    "item": "patchouli:guide_book",
-    "nbt": {
+    "id": "patchouli:guide_book",
+    "components": {
       "patchouli:book": "alchemistry:alchemistry_book"
     }
   }

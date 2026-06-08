@@ -5,15 +5,25 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SetRecipePacket implements AlchemyPacket {
 
-    public static final ResourceLocation ID = new ResourceLocation(Alchemistry.MODID, "set_recipe");
+    public static final Type<SetRecipePacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "set_recipe"));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SetRecipePacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, packet -> packet.blockPos,
+            ResourceLocation.STREAM_CODEC, packet -> packet.recipeId,
+            ByteBufCodecs.STRING_UTF8, packet -> packet.group,
+            SetRecipePacket::new
+    );
 
     private final BlockPos blockPos;
     private final ResourceLocation recipeId;
@@ -25,36 +35,21 @@ public class SetRecipePacket implements AlchemyPacket {
         this.group = pGroup;
     }
 
-    public SetRecipePacket(FriendlyByteBuf pBuffer) {
-        this.blockPos = pBuffer.readBlockPos();
-        this.recipeId = pBuffer.readResourceLocation();
-        this.group = pBuffer.readUtf();
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     @Override
-    public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeBlockPos(blockPos);
-        pBuffer.writeResourceLocation(recipeId);
-        pBuffer.writeUtf(group);
-    }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
-
-    @Override
-    public void handle(PlayPayloadContext pContext) {
-        pContext.player().ifPresent(player -> {
-            Level level = player.level();
-            BlockEntity blockEntity = level.getBlockEntity(blockPos);
-            RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
-                if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
-                    processingBlockEntity.setProgress(0);
-                    processingBlockEntity.setRecipe(recipe);
-                    processingBlockEntity.setChanged();
-                }
-            });
+    public void handle(IPayloadContext pContext) {
+        Level level = pContext.player().level();
+        BlockEntity blockEntity = level.getBlockEntity(blockPos);
+        RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
+            if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
+                processingBlockEntity.setProgress(0);
+                processingBlockEntity.setRecipe(recipe);
+                processingBlockEntity.setChanged();
+            }
         });
     }
 }

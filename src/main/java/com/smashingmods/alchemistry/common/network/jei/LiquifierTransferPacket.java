@@ -4,6 +4,7 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.client.jei.RecipeTypes;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierMenu;
+import com.smashingmods.alchemistry.common.recipe.AlchemistryRecipeCodecs;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -15,14 +16,17 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 import javax.annotation.Nullable;
 
 import java.util.Arrays;
@@ -30,7 +34,14 @@ import java.util.Optional;
 
 public class LiquifierTransferPacket implements AlchemyPacket {
 
-    public static final ResourceLocation ID = new ResourceLocation(Alchemistry.MODID, "liquifier_transfer");
+    public static final Type<LiquifierTransferPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "liquifier_transfer"));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, LiquifierTransferPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, packet -> packet.blockPos,
+            AlchemistryRecipeCodecs.INGREDIENT_STACK_STREAM_CODEC, packet -> packet.input,
+            ByteBufCodecs.BOOL, packet -> packet.maxTransfer,
+            LiquifierTransferPacket::new
+    );
 
     private final BlockPos blockPos;
     private final IngredientStack input;
@@ -42,64 +53,49 @@ public class LiquifierTransferPacket implements AlchemyPacket {
         this.maxTransfer = pMaxTransfer;
     }
 
-    public LiquifierTransferPacket(FriendlyByteBuf pBuffer) {
-        this.blockPos = pBuffer.readBlockPos();
-        this.input = IngredientStack.fromNetwork(pBuffer);
-        this.maxTransfer = pBuffer.readBoolean();
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     @Override
-    public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeBlockPos(blockPos);
-        input.toNetwork(pBuffer);
-        pBuffer.writeBoolean(maxTransfer);
-    }
+    public void handle(IPayloadContext pContext) {
+        if (!(pContext.player() instanceof ServerPlayer player)) {
+            return;
+        }
+        if (!(player.level().getBlockEntity(blockPos) instanceof LiquifierBlockEntity blockEntity)) {
+            return;
+        }
+        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        Inventory inventory = player.getInventory();
 
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
+        RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
+            .ifPresent(recipe -> {
 
-    @Override
-    public void handle(PlayPayloadContext pContext) {
-        pContext.player().ifPresent(sender -> {
-            if (!(sender instanceof ServerPlayer player)) {
-                return;
-            }
-            if (!(player.level().getBlockEntity(blockPos) instanceof LiquifierBlockEntity blockEntity)) {
-                return;
-            }
-            ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
-            Inventory inventory = player.getInventory();
+                LiquifierRecipe recipeCopy = recipe.copy();
 
-            RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
-                .ifPresent(recipe -> {
+                inputHandler.emptyToInventory(inventory);
 
-                    LiquifierRecipe recipeCopy = recipe.copy();
+                ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipeCopy.getInput());
+                ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipeCopy.getInput().getCount());
+                boolean creative = player.gameMode.isCreative();
+                boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
 
-                    inputHandler.emptyToInventory(inventory);
-
-                    ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipeCopy.getInput());
-                    ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipeCopy.getInput().getCount());
-                    boolean creative = player.gameMode.isCreative();
-                    boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
-
-                    if (canTransfer) {
-                        if (creative) {
-                            ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().getItems()[0].getItem(), recipeCopy.getInput().getCount());
-                            int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
-                            inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
-                        } else {
-                            int slot = inventory.findSlotMatchingItem(inventoryInput);
-                            int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), maxTransfer, false);
-                            inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
-                            inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
-                        }
-                        blockEntity.setProgress(0);
-                        blockEntity.setRecipe(recipe);
+                if (canTransfer) {
+                    if (creative) {
+                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().getItems()[0].getItem(), recipeCopy.getInput().getCount());
+                        int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
+                        inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                    } else {
+                        int slot = inventory.findSlotMatchingItem(inventoryInput);
+                        int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), maxTransfer, false);
+                        inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
+                        inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     }
-                });
-        });
+                    blockEntity.setProgress(0);
+                    blockEntity.setRecipe(recipe);
+                }
+            });
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<LiquifierMenu, LiquifierRecipe> {

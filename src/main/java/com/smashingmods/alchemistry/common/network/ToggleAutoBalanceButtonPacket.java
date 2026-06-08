@@ -4,13 +4,22 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ToggleAutoBalanceButtonPacket implements AlchemyPacket {
 
-    public static final ResourceLocation ID = new ResourceLocation(Alchemistry.MODID, "toggle_auto_balance_button");
+    public static final Type<ToggleAutoBalanceButtonPacket> TYPE = new Type<>(new ResourceLocation(Alchemistry.MODID, "toggle_auto_balance_button"));
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, ToggleAutoBalanceButtonPacket> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, packet -> packet.blockPos,
+            ByteBufCodecs.BOOL, packet -> packet.autoBalance,
+            ToggleAutoBalanceButtonPacket::new
+    );
 
     private final BlockPos blockPos;
     private final boolean autoBalance;
@@ -20,32 +29,19 @@ public class ToggleAutoBalanceButtonPacket implements AlchemyPacket {
         this.autoBalance = pBalance;
     }
 
-    public ToggleAutoBalanceButtonPacket(FriendlyByteBuf pBuffer) {
-        this.blockPos = pBuffer.readBlockPos();
-        this.autoBalance = pBuffer.readBoolean();
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
     @Override
-    public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeBlockPos(blockPos);
-        pBuffer.writeBoolean(autoBalance);
-    }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
-
-    @Override
-    public void handle(PlayPayloadContext pContext) {
-        pContext.player().ifPresent(player -> {
-            if (player.level().getBlockEntity(blockPos) instanceof FusionControllerBlockEntity fusionController) {
-                fusionController.setAutoBalanced(autoBalance);
-                fusionController.autoBalance();
-                fusionController.updateRecipe();
-                fusionController.setCanProcess(fusionController.canProcessRecipe());
-                fusionController.setChanged();
-            }
-        });
+    public void handle(IPayloadContext pContext) {
+        if (pContext.player().level().getBlockEntity(blockPos) instanceof FusionControllerBlockEntity fusionController) {
+            fusionController.setAutoBalanced(autoBalance);
+            fusionController.autoBalance();
+            fusionController.updateRecipe();
+            fusionController.setCanProcess(fusionController.canProcessRecipe());
+            fusionController.setChanged();
+        }
     }
 }

@@ -1,0 +1,36 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "ingredient": {
+      "tag": "c:ores/lapis"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 54,
+            "item": "chemlib:sodium"
+          },
+          {
+            "count": 27,
+            "item": "chemlib:mullite"
+          },
+          {
+            "count": 18,
+            "item": "chemlib:calcium_sulfide"
+          },
+          {
+            "count": 27,
+            "item": "chemlib:silicon"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

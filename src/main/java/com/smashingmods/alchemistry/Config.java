@@ -1,12 +1,8 @@
 package com.smashingmods.alchemistry;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.nio.file.Path;
 
 public class Config {
 
@@ -174,15 +170,5 @@ public class Config {
                     .defineInRange("ticksPerOperation", 50, 1, Integer.MAX_VALUE);
             builder.pop();
         }
-    }
-
-    public static void loadConfig(ModConfigSpec spec, Path path) {
-        final CommentedFileConfig configData = CommentedFileConfig.builder(path)
-                .sync()
-                .autosave()
-                .writingMode(WritingMode.REPLACE)
-                .build();
-        configData.load();
-        spec.setConfig(configData);
     }
 }

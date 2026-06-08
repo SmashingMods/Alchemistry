@@ -18,10 +18,9 @@ import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,12 +32,11 @@ public class Alchemistry {
     public static final String MODID = "alchemistry";
     public static final PacketHandler PACKET_HANDLER = new PacketHandler();
 
-    public Alchemistry(IEventBus modEventBus) {
+    public Alchemistry(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::registerMenuScreens);
         modEventBus.addListener(this::registerCapabilities);
         modEventBus.addListener(PACKET_HANDLER::register);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
-        Config.loadConfig(Config.COMMON_SPEC, FMLPaths.CONFIGDIR.get().resolve("alchemistry-common.toml"));
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Registry.register(modEventBus);
 
         // Make sure that `/reload` and world loading wipe the machine recipe cache.

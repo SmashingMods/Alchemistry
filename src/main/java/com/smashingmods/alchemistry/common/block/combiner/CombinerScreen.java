@@ -109,7 +109,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                         ItemStack itemStack = currentRecipe.getInput().get(index).getIngredient().getItems()[(int) (Math.random() * currentRecipe.getInput().get(index).getIngredient().getItems().length)];
 
                         boolean required = handler.getStacks().stream().noneMatch(handlerItem -> {
-                            boolean sameItem = ItemStack.isSameItemSameTags(itemStack, handlerItem);
+                            boolean sameItem = ItemStack.isSameItemSameComponents(itemStack, handlerItem);
                             boolean minCount = handlerItem.getCount() >= itemStack.getCount();
                             return sameItem && minCount;
                         });

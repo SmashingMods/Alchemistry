@@ -12,6 +12,7 @@ import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -199,27 +200,27 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         ListTag bufferTag = new ListTag();
         internalBuffer.stream()
                 .filter(itemStack -> !itemStack.isEmpty())
-                .forEach(itemStack -> bufferTag.add(itemStack.save(new CompoundTag())));
+                .forEach(itemStack -> bufferTag.add(itemStack.save(pRegistries, new CompoundTag())));
         pTag.put("buffer", bufferTag);
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         ListTag bufferTag = pTag.getList("buffer", 10);
         bufferTag.stream()
                 .filter(tag -> tag instanceof CompoundTag)
                 .map(CompoundTag.class::cast)
-                .map(ItemStack::of)
+                .map(tag -> ItemStack.parseOptional(pRegistries, tag))
                 .forEach(internalBuffer::add);
 
         if (level != null && level.isClientSide()) {

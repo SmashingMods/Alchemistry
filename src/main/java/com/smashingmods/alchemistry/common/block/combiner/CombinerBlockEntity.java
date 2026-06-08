@@ -12,6 +12,7 @@ import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.EnergyStorageHandler;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -64,7 +65,7 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
             ItemStack output = getOutputHandler().getStackInSlot(0).copy();
             return getEnergyHandler().getEnergyStored() >= getEnergyPerTick()
                     && (tempRecipe.getOutput().getCount() + output.getCount()) <= tempRecipe.getOutput().getMaxStackSize()
-                    && (ItemStack.isSameItemSameTags(output, tempRecipe.getOutput()) || output.isEmpty())
+                    && (ItemStack.isSameItemSameComponents(output, tempRecipe.getOutput()) || output.isEmpty())
                     && tempRecipe.matchInputs(getInputHandler().getStacks());
         }
         return false;
@@ -163,16 +164,16 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
+    protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (currentRecipe != null) {
             pTag.putString("recipeId", currentRecipe.getId().toString());
         }
-        super.saveAdditional(pTag);
+        super.saveAdditional(pTag, pRegistries);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
+    protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
+        super.loadAdditional(pTag, pRegistries);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         if (level != null && level.isClientSide()) {
             RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {

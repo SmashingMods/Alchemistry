@@ -5,11 +5,9 @@ import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import javax.annotation.Nonnull;
 
@@ -32,11 +30,6 @@ public class LiquifierRecipe extends AbstractProcessingRecipe {
     @Override
     public RecipeType<?> getType() {
         return RecipeRegistry.LIQUIFIER_TYPE.get();
-    }
-
-    @Override
-    public boolean matches(Inventory pContainer, Level pLevel) {
-        return false;
     }
 
     @Override

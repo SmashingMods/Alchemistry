@@ -2,10 +2,8 @@ package com.smashingmods.alchemistry.common.recipe.fission;
 
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -35,11 +33,6 @@ public class FissionRecipe extends AbstractProcessingRecipe {
     @Override
     public RecipeType<?> getType() {
         return RecipeRegistry.FISSION_TYPE.get();
-    }
-
-    @Override
-    public ItemStack assemble(Inventory pContainer, HolderLookup.Provider pRegistries) {
-        return output1;
     }
 
     @Override

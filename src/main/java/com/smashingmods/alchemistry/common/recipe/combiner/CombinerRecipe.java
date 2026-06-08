@@ -5,7 +5,6 @@ import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -35,11 +34,6 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
     @Override
     public RecipeType<?> getType() {
         return RecipeRegistry.COMBINER_TYPE.get();
-    }
-
-    @Override
-    public ItemStack assemble(Inventory pContainer, HolderLookup.Provider pRegistries) {
-        return output;
     }
 
     @Override

@@ -8,9 +8,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.neoforge.fluids.FluidStack;
 
@@ -45,7 +45,7 @@ public class AtomizerRecipeSerializer<T extends AtomizerRecipe> implements Recip
         return streamCodec;
     }
 
-    public interface IFactory<T extends Recipe<Inventory>> {
+    public interface IFactory<T extends Recipe<RecipeInput>> {
         T create(ResourceLocation resource, String group, FluidStack input, ItemStack output);
     }
 }

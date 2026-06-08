@@ -9,9 +9,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class CompactorRecipeSerializer<T extends CompactorRecipe> implements RecipeSerializer<T> {
@@ -45,7 +45,7 @@ public class CompactorRecipeSerializer<T extends CompactorRecipe> implements Rec
         return streamCodec;
     }
 
-    public interface IFactory<T extends Recipe<Inventory>> {
+    public interface IFactory<T extends Recipe<RecipeInput>> {
         T create(ResourceLocation pId, String pGroup, IngredientStack pInput, ItemStack pOutput);
     }
 }

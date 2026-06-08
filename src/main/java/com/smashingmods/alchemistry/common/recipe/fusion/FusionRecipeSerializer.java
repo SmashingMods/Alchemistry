@@ -8,9 +8,9 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class FusionRecipeSerializer<T extends FusionRecipe> implements RecipeSerializer<T> {
@@ -46,7 +46,7 @@ public class FusionRecipeSerializer<T extends FusionRecipe> implements RecipeSer
         return streamCodec;
     }
 
-    public interface IFactory<T extends Recipe<Inventory>> {
+    public interface IFactory<T extends Recipe<RecipeInput>> {
         T create(ResourceLocation pId, String pGroup, ItemStack pInput1, ItemStack pInput2, ItemStack pOutput);
     }
 }

@@ -1,9 +1,9 @@
 package com.smashingmods.alchemistry.common.network.jei;
 
 import com.smashingmods.alchemistry.testsupport.BootstrappedTest;
-import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.junit.jupiter.api.Test;
@@ -16,8 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Round-trip test for {@link CombinerTransferPacket}, mirroring {@link com.smashingmods.alchemistry.common.network.SetRecipePacketTest}.
  * Its three fields (BlockPos + ItemStack + boolean) are private with no getters, so the round-trip is asserted two
  * ways: by re-reading the encoded buffer in the same field order, and by re-encoding the decoded packet and comparing
- * the bytes. The {@link ItemStack} field is written through {@code writeItem}, which serializes the item's registry id,
- * so this extends {@link BootstrappedTest} and uses a vanilla {@code Items.*} stack.
+ * the bytes. The {@link ItemStack} field is written through {@link ItemStack#OPTIONAL_STREAM_CODEC}, which serializes
+ * the item's registry id, so this extends {@link BootstrappedTest} (for a registry-backed buffer) and uses a vanilla
+ * {@code Items.*} stack.
  */
 class CombinerTransferPacketTest extends BootstrappedTest {
 
@@ -29,27 +30,32 @@ class CombinerTransferPacketTest extends BootstrappedTest {
 
         CombinerTransferPacket original = new CombinerTransferPacket(pos, output, maxTransfer);
 
-        // Encode, then decode via the buffer constructor, then re-encode the decoded copy.
-        FriendlyByteBuf encoded = new FriendlyByteBuf(Unpooled.buffer());
-        original.write(encoded);
+        // Encode via the stream codec, then decode it back, then re-encode the decoded copy.
+        RegistryFriendlyByteBuf encoded = registryBuffer();
+        CombinerTransferPacket.STREAM_CODEC.encode(encoded, original);
         byte[] encodedBytes = readableBytes(encoded);
 
-        // The encode order is blockPos, output, maxTransfer -- re-read it to assert the field values survive the trip.
-        FriendlyByteBuf forFields = new FriendlyByteBuf(Unpooled.wrappedBuffer(encodedBytes));
-        assertEquals(pos, forFields.readBlockPos());
-        ItemStack decodedOutput = forFields.readItem();
-        assertTrue(ItemStack.isSameItemSameTags(output, decodedOutput));
+        // The encode order is blockPos, output, maxTransfer -- re-read each field with the codec the packet composes
+        // to assert the field values survive the trip.
+        RegistryFriendlyByteBuf forFields = registryBuffer();
+        forFields.writeBytes(encodedBytes);
+        assertEquals(pos, BlockPos.STREAM_CODEC.decode(forFields));
+        ItemStack decodedOutput = ItemStack.OPTIONAL_STREAM_CODEC.decode(forFields);
+        assertTrue(ItemStack.isSameItemSameComponents(output, decodedOutput));
         assertEquals(output.getCount(), decodedOutput.getCount());
-        assertEquals(maxTransfer, forFields.readBoolean());
+        assertEquals(maxTransfer, ByteBufCodecs.BOOL.decode(forFields));
 
-        CombinerTransferPacket decoded = new CombinerTransferPacket(new FriendlyByteBuf(Unpooled.wrappedBuffer(encodedBytes)));
-        FriendlyByteBuf reEncoded = new FriendlyByteBuf(Unpooled.buffer());
-        decoded.write(reEncoded);
+        RegistryFriendlyByteBuf forDecode = registryBuffer();
+        forDecode.writeBytes(encodedBytes);
+        CombinerTransferPacket decoded = CombinerTransferPacket.STREAM_CODEC.decode(forDecode);
+
+        RegistryFriendlyByteBuf reEncoded = registryBuffer();
+        CombinerTransferPacket.STREAM_CODEC.encode(reEncoded, decoded);
 
         assertArrayEquals(encodedBytes, readableBytes(reEncoded));
     }
 
-    private static byte[] readableBytes(FriendlyByteBuf buffer) {
+    private static byte[] readableBytes(RegistryFriendlyByteBuf buffer) {
         byte[] bytes = new byte[buffer.readableBytes()];
         buffer.getBytes(buffer.readerIndex(), bytes);
         return bytes;

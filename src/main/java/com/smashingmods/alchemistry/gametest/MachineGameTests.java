@@ -24,15 +24,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -180,7 +180,7 @@ public class MachineGameTests {
     public void menuOpens(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
 
-        Player player = helper.makeMockPlayer();
+        Player player = helper.makeMockPlayer(GameType.CREATIVE);
         AbstractContainerMenu menu = dissolver.createMenu(0, player.getInventory(), player);
 
         helper.assertTrue(menu instanceof DissolverMenu,
@@ -198,7 +198,7 @@ public class MachineGameTests {
      * untouched, which the per-slot count assertions pin.
      *
      * <p>The branch needs a non-creative {@link ServerPlayer} whose inventory holds both inputs: the mock player from
-     * {@link GameTestHelper#makeMockPlayer()} is a plain creative {@code Player}, which the handler's
+     * {@link GameTestHelper#makeMockPlayer(GameType)} is a plain creative {@code Player}, which the handler's
      * {@code instanceof ServerPlayer} check rejects and whose creativity would route to the no-inventory-debit
      * creative branch. So a real {@code ServerPlayer} is built directly on the gametest level -- not placed onto the
      * network -- and its default {@code SURVIVAL} game mode is the non-creative path. {@code maxTransfer=false} pins
@@ -217,7 +217,7 @@ public class MachineGameTests {
         // A loaded fusion recipe whose two inputs differ, so input1 and input2 land in distinct inventory slots --
         // the only arrangement under which debiting the same slot twice is distinguishable from debiting each once.
         FusionRecipe recipe = RecipeRegistry.getFusionRecipe(
-                        r -> !ItemStack.isSameItemSameTags(r.getInput1(), r.getInput2()), helper.getLevel())
+                        r -> !ItemStack.isSameItemSameComponents(r.getInput1(), r.getInput2()), helper.getLevel())
                 .orElseThrow(() -> new AssertionError("no fusion recipe with two distinct inputs loaded"));
 
         ItemStack input1 = recipe.getInput1();
@@ -240,17 +240,16 @@ public class MachineGameTests {
 
         // Drive the production receive path: build the packet JEI would send and invoke its handler with a real
         // server-bound context carrying the non-creative player. maxTransfer=false pins exactly one operation.
-        PlayPayloadContext context = new PlayPayloadContext(
-                null, null, null, PacketFlow.SERVERBOUND, null, Optional.of(player));
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
         new FusionTransferPacket(controller.getBlockPos(), input1, input2, false).handle(context);
 
         // Both machine input slots filled with the recipe inputs at one operation's count.
         ProcessingSlotHandler machineInputs = controller.getInputHandler();
         ItemStack machineSlot0 = machineInputs.getStackInSlot(0);
         ItemStack machineSlot1 = machineInputs.getStackInSlot(1);
-        helper.assertTrue(ItemStack.isSameItemSameTags(machineSlot0, input1) && machineSlot0.getCount() == input1.getCount(),
+        helper.assertTrue(ItemStack.isSameItemSameComponents(machineSlot0, input1) && machineSlot0.getCount() == input1.getCount(),
                 "machine input slot 0 expected " + input1.getItem() + " x" + input1.getCount() + ", found " + machineSlot0);
-        helper.assertTrue(ItemStack.isSameItemSameTags(machineSlot1, input2) && machineSlot1.getCount() == input2.getCount(),
+        helper.assertTrue(ItemStack.isSameItemSameComponents(machineSlot1, input2) && machineSlot1.getCount() == input2.getCount(),
                 "machine input slot 1 expected " + input2.getItem() + " x" + input2.getCount() + ", found " + machineSlot1);
 
         // Each inventory slot debited by exactly its own input's count -- input1's slot by input1's count, input2's
@@ -300,7 +299,7 @@ public class MachineGameTests {
     private static ServerPlayer makeServerPlayer(GameTestHelper helper) {
         GameProfile profile = new GameProfile(UUID.randomUUID(), "test-fusion-player");
         return new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(), profile,
-                CommonListenerCookie.createInitial(profile).clientInformation());
+                CommonListenerCookie.createInitial(profile, false).clientInformation());
     }
 
     // The set of every item the resolved recipe can output, flattened across its probability groups. Used as the

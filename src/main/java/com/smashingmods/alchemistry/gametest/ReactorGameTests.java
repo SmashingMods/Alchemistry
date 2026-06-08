@@ -14,6 +14,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,13 +23,12 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * In-world test for the fission reactor multiblock ({@code MachineGameTests} covers the standalone machines). Like
@@ -110,16 +110,16 @@ public class ReactorGameTests {
      * controller's {@code autoeject} flag flips.
      *
      * <p>The packet is constructed and its production
-     * {@link ToggleReactorAutoejectPacket#handle(PlayPayloadContext) handle(PlayPayloadContext)} is invoked directly
-     * with a minimal-but-real {@link PlayPayloadContext} record. The handler reads only {@code player()} (then
+     * {@link ToggleReactorAutoejectPacket#handle(IPayloadContext) handle(IPayloadContext)} is invoked directly
+     * with a minimal-but-real {@link GameTestPayloadContext}. The handler reads only {@code player()} (then
      * {@code player.level().getBlockEntity(pos)}), so the context carries {@link PacketFlow#SERVERBOUND} -- the real
-     * server-bound flow -- and {@code Optional.of(}a {@link GameTestHelper#makeMockPlayer() mock player}{@code )},
-     * whose {@code level()} is the gametest {@link net.minecraft.server.level.ServerLevel}; the four unused handlers
-     * (reply/packet/work/channel) are {@code null}. This is the production handler logic, executed server-side against
-     * the real block-entity, so it proves the handler body, its block-entity effect, and the side. <b>Limitation:</b>
-     * it does not exercise the registrar's decoder-and-side binding -- that the id is wired server-bound to this
-     * handler with this decoder -- which is covered by the boot smoke ({@code fullChainLoaded}) plus the encode/decode
-     * round-trip unit tests; nor the network-thread-to-main-thread {@code workHandler().execute(...)} hop, which
+     * server-bound flow -- and a {@link GameTestHelper#makeMockPlayer(GameType) mock player} whose {@code level()}
+     * is the gametest {@link net.minecraft.server.level.ServerLevel}; every other context method is unused and
+     * throws. This is the production handler logic, executed server-side against the real block-entity, so it proves
+     * the handler body, its block-entity effect, and the side. <b>Limitation:</b> it does not exercise the
+     * registrar's decoder-and-side binding -- that the id is wired server-bound to this handler with this decoder --
+     * which is covered by the boot smoke ({@code fullChainLoaded}) plus the encode/decode round-trip unit tests; nor
+     * the network-thread-to-main-thread {@link IPayloadContext#enqueueWork(Runnable)} hop, which
      * {@link com.smashingmods.alchemylib.api.network.AbstractPacketHandler} performs and which a gametest already runs
      * on the server main thread.</p>
      *
@@ -144,10 +144,9 @@ public class ReactorGameTests {
 
         // Drive the production receive path: build the packet the client would send, then invoke its handler with a
         // real server-bound context whose player lives in the gametest level. See the class/method docs for why the
-        // four unused context handlers are null.
-        Player player = helper.makeMockPlayer();
-        PlayPayloadContext context = new PlayPayloadContext(
-                null, null, null, PacketFlow.SERVERBOUND, null, Optional.of(player));
+        // other context methods are unused.
+        Player player = helper.makeMockPlayer(GameType.CREATIVE);
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
         new ToggleReactorAutoejectPacket(controllerWorldPos, target).handle(context);
 
         // One tick to settle, then assert the handler applied the flip to the block-entity it was addressed to.

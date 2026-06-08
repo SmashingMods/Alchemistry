@@ -12,6 +12,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -85,7 +86,7 @@ public class FluidMachineGameTests {
         // for the operation to finish without manual tick driving.
         helper.succeedWhen(() -> {
             helper.assertFalse(liquifier.getFluidStorage().isEmpty(), "liquifier produced no fluid");
-            helper.assertTrue(liquifier.getFluidStorage().getFluid().isFluidEqual(recipe.getOutput()),
+            helper.assertTrue(FluidStack.isSameFluidSameComponents(liquifier.getFluidStorage().getFluid(), recipe.getOutput()),
                     "liquifier output fluid is not the recipe's output fluid: expected " + recipe.getOutput().getFluid()
                             + ", found " + liquifier.getFluidStorage().getFluid().getFluid());
             helper.assertTrue(liquifier.getFluidStorage().getFluidAmount() == recipe.getOutput().getAmount(),
@@ -125,7 +126,7 @@ public class FluidMachineGameTests {
         helper.succeedWhen(() -> {
             ItemStack produced = atomizer.getOutputHandler().getStackInSlot(0);
             helper.assertFalse(produced.isEmpty(), "atomizer produced no output item");
-            helper.assertTrue(ItemStack.isSameItemSameTags(produced, recipe.getOutput()),
+            helper.assertTrue(ItemStack.isSameItemSameComponents(produced, recipe.getOutput()),
                     "atomizer output item is not the recipe's output: expected " + recipe.getOutput().getItem()
                             + ", found " + produced.getItem());
             helper.assertTrue(produced.getCount() == recipe.getOutput().getCount(),

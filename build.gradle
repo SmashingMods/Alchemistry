@@ -314,6 +314,7 @@ dependencies {
     // javadoc -- so they are never shipped and never a load requirement of the released mod.
     runtimeOnly "curse.maven:generatorgalore-691049:6799851" // GeneratorGalore -- FE generators
     runtimeOnly "curse.maven:pipez-443900:5609056"           // Pipez -- item/fluid/energy pipes
+    runtimeOnly "curse.maven:ctm-267602:5587515"             // CTM (tterrag) -- connected textures (dev-only); verifies reactor-glass .mcmeta
 
     // JUnit 5 for the plain-JUnit `test` source set. testImplementation extends implementation,
     // so the Minecraft classpath (net.neoforged:neoforge above) is inherited by the test compile/runtime.

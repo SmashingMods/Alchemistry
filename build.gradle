@@ -11,7 +11,7 @@ version = "$minecraft_version-$mod_version"
 group = 'com.smashingmods'
 archivesBaseName = 'alchemistry'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 // Wire Alchemistry's access transformer into the NeoGradle build.
 // The AT name-form (f_43902_ -> values) is handled separately; this only registers the file.
@@ -237,7 +237,7 @@ dependencies {
 
 tasks.named('test', Test) { useJUnitPlatform() }
 
-def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
+def resourceTargets = ['META-INF/neoforge.mods.toml', 'pack.mcmeta']
 def replaceProperties = [
         minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
         neo_version: neo_version, neo_version_range: neo_version_range,

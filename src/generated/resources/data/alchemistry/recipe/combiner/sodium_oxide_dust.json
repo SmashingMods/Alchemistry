@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:sodium_oxide"
-      }
+      "ingredient": "chemlib:sodium_oxide"
     }
   ],
   "result": {

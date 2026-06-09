@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:melon_slice"
-    }
+    "ingredient": "minecraft:melon_slice"
   },
   "output": {
     "groups": [

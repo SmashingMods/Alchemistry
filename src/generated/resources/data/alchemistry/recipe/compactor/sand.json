@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "ingredient": {
-      "item": "chemlib:silicon_dioxide"
-    }
+    "ingredient": "chemlib:silicon_dioxide"
   },
   "result": {
     "item": "minecraft:sand"

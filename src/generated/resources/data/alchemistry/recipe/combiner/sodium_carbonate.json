@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:sodium"
-      }
+      "ingredient": "chemlib:sodium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:carbonate"
-      }
+      "ingredient": "chemlib:carbonate"
     }
   ],
   "result": {

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:calcium_carbonate"
-    }
+    "ingredient": "chemlib:calcium_carbonate"
   },
   "result": {
     "item": "chemlib:calcium_carbonate_dust"

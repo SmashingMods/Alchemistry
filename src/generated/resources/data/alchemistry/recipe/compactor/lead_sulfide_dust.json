@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:lead_sulfide"
-    }
+    "ingredient": "chemlib:lead_sulfide"
   },
   "result": {
     "item": "chemlib:lead_sulfide_dust"

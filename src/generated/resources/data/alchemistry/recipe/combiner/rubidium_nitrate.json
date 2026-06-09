@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:rubidium"
-      }
+      "ingredient": "chemlib:rubidium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:nitrate"
-      }
+      "ingredient": "chemlib:nitrate"
     }
   ],
   "result": {

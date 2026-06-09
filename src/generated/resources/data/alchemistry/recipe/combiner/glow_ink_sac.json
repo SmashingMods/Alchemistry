@@ -4,15 +4,11 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:phosphorus"
-      }
+      "ingredient": "chemlib:phosphorus"
     },
     {
       "count": 4,
-      "ingredient": {
-        "item": "chemlib:copper_chloride"
-      }
+      "ingredient": "chemlib:copper_chloride"
     }
   ],
   "result": {

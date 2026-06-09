@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:aluminum_hydroxide"
-    }
+    "ingredient": "chemlib:aluminum_hydroxide"
   },
   "output": {
     "groups": [

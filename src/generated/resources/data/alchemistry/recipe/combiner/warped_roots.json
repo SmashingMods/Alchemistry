@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:copper_chloride"
-      }
+      "ingredient": "chemlib:copper_chloride"
     },
     {
-      "ingredient": {
-        "item": "chemlib:cellulose"
-      }
+      "ingredient": "chemlib:cellulose"
     }
   ],
   "result": {

@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:potassium"
-      }
+      "ingredient": "chemlib:potassium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:chlorine"
-      }
+      "ingredient": "chemlib:chlorine"
     }
   ],
   "result": {

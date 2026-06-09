@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:antimony_trioxide"
-    }
+    "ingredient": "chemlib:antimony_trioxide"
   },
   "output": {
     "groups": [

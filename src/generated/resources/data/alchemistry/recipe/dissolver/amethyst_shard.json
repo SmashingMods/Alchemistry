@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:amethyst_shard"
-    }
+    "ingredient": "minecraft:amethyst_shard"
   },
   "output": {
     "groups": [

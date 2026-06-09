@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
+      "ingredient": "chemlib:sulfur"
     }
   ],
   "result": {

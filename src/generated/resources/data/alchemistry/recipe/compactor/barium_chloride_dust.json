@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:barium_chloride"
-    }
+    "ingredient": "chemlib:barium_chloride"
   },
   "result": {
     "item": "chemlib:barium_chloride_dust"

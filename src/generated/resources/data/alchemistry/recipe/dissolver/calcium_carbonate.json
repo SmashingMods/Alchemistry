@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:calcium_carbonate"
-    }
+    "ingredient": "chemlib:calcium_carbonate"
   },
   "output": {
     "groups": [

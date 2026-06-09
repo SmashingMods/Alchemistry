@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:wet_sponge"
-    }
+    "ingredient": "minecraft:wet_sponge"
   },
   "output": {
     "groups": [

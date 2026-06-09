@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:potassium_carbonate"
-      }
+      "ingredient": "chemlib:potassium_carbonate"
     }
   ],
   "result": {

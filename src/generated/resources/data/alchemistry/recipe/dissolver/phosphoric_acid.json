@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:phosphoric_acid"
-    }
+    "ingredient": "chemlib:phosphoric_acid"
   },
   "output": {
     "groups": [

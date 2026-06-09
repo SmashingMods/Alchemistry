@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:manganese_nitrate"
-      }
+      "ingredient": "chemlib:manganese_nitrate"
     }
   ],
   "result": {

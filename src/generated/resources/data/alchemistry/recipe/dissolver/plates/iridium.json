@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/iridium"
-    }
+    "ingredient": "#c:plates/iridium"
   },
   "output": {
     "groups": [

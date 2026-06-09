@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:polished_andesite"
-    }
+    "ingredient": "minecraft:polished_andesite"
   },
   "output": {
     "groups": [

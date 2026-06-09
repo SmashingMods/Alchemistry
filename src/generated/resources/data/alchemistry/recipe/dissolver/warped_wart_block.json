@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:warped_wart_block"
-    }
+    "ingredient": "minecraft:warped_wart_block"
   },
   "output": {
     "groups": [

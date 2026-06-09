@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:ruthenium"
-    }
+    "ingredient": "chemlib:ruthenium"
   },
   "result": {
     "item": "chemlib:ruthenium_dust"

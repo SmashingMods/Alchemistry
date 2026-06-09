@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:iron_ii_sulfate_dust"
-    }
+    "ingredient": "chemlib:iron_ii_sulfate_dust"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:nether_wart_block"
-    }
+    "ingredient": "minecraft:nether_wart_block"
   },
   "output": {
     "groups": [

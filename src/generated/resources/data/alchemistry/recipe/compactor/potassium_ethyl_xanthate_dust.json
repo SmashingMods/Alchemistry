@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:potassium_ethyl_xanthate"
-    }
+    "ingredient": "chemlib:potassium_ethyl_xanthate"
   },
   "result": {
     "item": "chemlib:potassium_ethyl_xanthate_dust"

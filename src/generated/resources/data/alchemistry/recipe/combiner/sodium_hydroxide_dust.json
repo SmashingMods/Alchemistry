@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:sodium_hydroxide"
-      }
+      "ingredient": "chemlib:sodium_hydroxide"
     }
   ],
   "result": {

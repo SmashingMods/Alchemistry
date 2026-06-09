@@ -3,19 +3,13 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:selenium"
-      }
+      "ingredient": "chemlib:selenium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:phosphoric_acid"
-      }
+      "ingredient": "chemlib:phosphoric_acid"
     },
     {
-      "ingredient": {
-        "item": "chemlib:chitin"
-      }
+      "ingredient": "chemlib:chitin"
     }
   ],
   "result": {

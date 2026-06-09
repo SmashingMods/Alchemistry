@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:dead_fire_coral_fan"
-    }
+    "ingredient": "minecraft:dead_fire_coral_fan"
   },
   "output": {
     "groups": [

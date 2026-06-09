@@ -4,21 +4,15 @@
   "input": [
     {
       "count": 16,
-      "ingredient": {
-        "item": "chemlib:water"
-      }
+      "ingredient": "chemlib:water"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:kaolinite"
-      }
+      "ingredient": "chemlib:kaolinite"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:calcium_carbonate"
-      }
+      "ingredient": "chemlib:calcium_carbonate"
     }
   ],
   "result": {

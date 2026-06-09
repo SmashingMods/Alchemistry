@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:nickel_sulfide"
-    }
+    "ingredient": "chemlib:nickel_sulfide"
   },
   "output": {
     "groups": [

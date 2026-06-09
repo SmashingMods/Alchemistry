@@ -3,18 +3,10 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "P": {
-      "item": "minecraft:piston"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    },
-    "S": {
-      "item": "minecraft:stone_pressure_plate"
-    }
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:piston",
+    "R": "minecraft:redstone",
+    "S": "minecraft:stone_pressure_plate"
   },
   "pattern": [
     "IPI",

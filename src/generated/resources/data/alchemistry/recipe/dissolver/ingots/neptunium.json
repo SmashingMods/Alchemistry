@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/neptunium"
-    }
+    "ingredient": "#c:ingots/neptunium"
   },
   "output": {
     "groups": [

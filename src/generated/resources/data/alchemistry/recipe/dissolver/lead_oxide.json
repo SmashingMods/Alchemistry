@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:lead_oxide"
-    }
+    "ingredient": "chemlib:lead_oxide"
   },
   "output": {
     "groups": [

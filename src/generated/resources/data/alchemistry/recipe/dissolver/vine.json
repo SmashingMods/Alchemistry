@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:vine"
-    }
+    "ingredient": "minecraft:vine"
   },
   "output": {
     "groups": [

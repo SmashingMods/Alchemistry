@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:dried_kelp_block"
-    }
+    "ingredient": "minecraft:dried_kelp_block"
   },
   "output": {
     "groups": [

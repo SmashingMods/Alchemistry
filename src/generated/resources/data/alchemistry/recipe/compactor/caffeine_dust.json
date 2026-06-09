@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:caffeine"
-    }
+    "ingredient": "chemlib:caffeine"
   },
   "result": {
     "item": "chemlib:caffeine_dust"

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:basalt"
-    }
+    "ingredient": "minecraft:basalt"
   },
   "output": {
     "groups": [

@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:nickel"
-      }
+      "ingredient": "chemlib:nickel"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:chlorine"
-      }
+      "ingredient": "chemlib:chlorine"
     }
   ],
   "result": {

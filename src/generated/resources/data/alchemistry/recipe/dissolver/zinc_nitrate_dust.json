@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:zinc_nitrate_dust"
-    }
+    "ingredient": "chemlib:zinc_nitrate_dust"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cut_sandstone"
-    }
+    "ingredient": "minecraft:cut_sandstone"
   },
   "output": {
     "groups": [

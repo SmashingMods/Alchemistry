@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:titanium_oxide"
-    }
+    "ingredient": "chemlib:titanium_oxide"
   },
   "output": {
     "groups": [

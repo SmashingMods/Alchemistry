@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:calcium"
-      }
+      "ingredient": "chemlib:calcium"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:chlorine"
-      }
+      "ingredient": "chemlib:chlorine"
     }
   ],
   "result": {

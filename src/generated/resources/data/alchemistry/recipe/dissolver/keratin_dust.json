@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:keratin_dust"
-    }
+    "ingredient": "chemlib:keratin_dust"
   },
   "output": {
     "groups": [

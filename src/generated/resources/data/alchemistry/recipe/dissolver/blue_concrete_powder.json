@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:blue_concrete_powder"
-    }
+    "ingredient": "minecraft:blue_concrete_powder"
   },
   "output": {
     "groups": [

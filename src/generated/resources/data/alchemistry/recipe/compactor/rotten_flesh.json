@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 3,
-    "ingredient": {
-      "item": "chemlib:protein"
-    }
+    "ingredient": "chemlib:protein"
   },
   "result": {
     "item": "minecraft:rotten_flesh"

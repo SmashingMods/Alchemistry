@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:warped_nylium"
-    }
+    "ingredient": "minecraft:warped_nylium"
   },
   "output": {
     "groups": [

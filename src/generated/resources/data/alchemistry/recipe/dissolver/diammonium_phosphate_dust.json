@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:diammonium_phosphate_dust"
-    }
+    "ingredient": "chemlib:diammonium_phosphate_dust"
   },
   "output": {
     "groups": [

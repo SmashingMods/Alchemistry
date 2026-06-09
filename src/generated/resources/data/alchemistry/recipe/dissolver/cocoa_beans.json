@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cocoa_beans"
-    }
+    "ingredient": "minecraft:cocoa_beans"
   },
   "output": {
     "groups": [

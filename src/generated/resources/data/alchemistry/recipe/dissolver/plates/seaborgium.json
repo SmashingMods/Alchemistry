@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/seaborgium"
-    }
+    "ingredient": "#c:plates/seaborgium"
   },
   "output": {
     "groups": [

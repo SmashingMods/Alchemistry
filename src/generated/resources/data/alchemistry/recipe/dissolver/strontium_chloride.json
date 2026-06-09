@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:strontium_chloride"
-    }
+    "ingredient": "chemlib:strontium_chloride"
   },
   "output": {
     "groups": [

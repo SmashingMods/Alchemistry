@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:barium_oxide"
-    }
+    "ingredient": "chemlib:barium_oxide"
   },
   "output": {
     "groups": [

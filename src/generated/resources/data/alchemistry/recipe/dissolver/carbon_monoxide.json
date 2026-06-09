@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:carbon_monoxide"
-    }
+    "ingredient": "chemlib:carbon_monoxide"
   },
   "output": {
     "groups": [

@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:lead"
-      }
+      "ingredient": "chemlib:lead"
     },
     {
-      "ingredient": {
-        "item": "chemlib:carbonate"
-      }
+      "ingredient": "chemlib:carbonate"
     }
   ],
   "result": {

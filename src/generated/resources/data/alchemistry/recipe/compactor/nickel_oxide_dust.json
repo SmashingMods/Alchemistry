@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:nickel_oxide"
-    }
+    "ingredient": "chemlib:nickel_oxide"
   },
   "result": {
     "item": "chemlib:nickel_oxide_dust"

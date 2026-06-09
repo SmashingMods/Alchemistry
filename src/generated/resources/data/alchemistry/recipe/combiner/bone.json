@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:hydroxylapatite"
-      }
+      "ingredient": "chemlib:hydroxylapatite"
     }
   ],
   "result": {

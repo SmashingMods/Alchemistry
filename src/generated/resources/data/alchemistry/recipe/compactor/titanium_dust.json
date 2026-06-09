@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:titanium"
-    }
+    "ingredient": "chemlib:titanium"
   },
   "result": {
     "item": "chemlib:titanium_dust"

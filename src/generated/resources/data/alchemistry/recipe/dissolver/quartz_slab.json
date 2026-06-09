@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:quartz_slab"
-    }
+    "ingredient": "minecraft:quartz_slab"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:spider_eye"
-    }
+    "ingredient": "minecraft:spider_eye"
   },
   "output": {
     "groups": [

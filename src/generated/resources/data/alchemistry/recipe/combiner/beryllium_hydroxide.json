@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:hydroxide"
-      }
+      "ingredient": "chemlib:hydroxide"
     },
     {
-      "ingredient": {
-        "item": "chemlib:beryllium"
-      }
+      "ingredient": "chemlib:beryllium"
     }
   ],
   "result": {

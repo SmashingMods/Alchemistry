@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cooked_rabbit"
-    }
+    "ingredient": "minecraft:cooked_rabbit"
   },
   "output": {
     "groups": [

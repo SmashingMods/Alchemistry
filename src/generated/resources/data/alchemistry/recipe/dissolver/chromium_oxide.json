@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:chromium_oxide"
-    }
+    "ingredient": "chemlib:chromium_oxide"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:crying_obsidian"
-    }
+    "ingredient": "minecraft:crying_obsidian"
   },
   "output": {
     "groups": [

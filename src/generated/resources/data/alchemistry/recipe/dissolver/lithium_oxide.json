@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:lithium_oxide"
-    }
+    "ingredient": "chemlib:lithium_oxide"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:hexane"
-    }
+    "ingredient": "chemlib:hexane"
   },
   "result": {
     "amount": 500,

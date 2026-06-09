@@ -4,20 +4,14 @@
   "input": [
     {
       "count": 4,
-      "ingredient": {
-        "item": "chemlib:selenium"
-      }
+      "ingredient": "chemlib:selenium"
     },
     {
       "count": 4,
-      "ingredient": {
-        "item": "chemlib:germanium"
-      }
+      "ingredient": "chemlib:germanium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:chitin"
-      }
+      "ingredient": "chemlib:chitin"
     }
   ],
   "result": {

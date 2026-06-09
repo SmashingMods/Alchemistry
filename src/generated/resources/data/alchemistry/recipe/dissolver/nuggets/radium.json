@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/radium"
-    }
+    "ingredient": "#c:nuggets/radium"
   },
   "output": {
     "groups": [

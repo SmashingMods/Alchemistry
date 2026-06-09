@@ -3,24 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:ethylene"
-      }
+      "ingredient": "chemlib:ethylene"
     },
     {
-      "ingredient": {
-        "item": "chemlib:ammonia"
-      }
+      "ingredient": "chemlib:ammonia"
     },
     {
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
+      "ingredient": "chemlib:sulfur"
     },
     {
-      "ingredient": {
-        "item": "chemlib:carbon_dioxide"
-      }
+      "ingredient": "chemlib:carbon_dioxide"
     }
   ],
   "result": {

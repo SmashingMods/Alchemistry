@@ -4,25 +4,17 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:silicon"
-      }
+      "ingredient": "chemlib:silicon"
     },
     {
       "count": 6,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
-      "ingredient": {
-        "item": "chemlib:copper"
-      }
+      "ingredient": "chemlib:copper"
     },
     {
-      "ingredient": {
-        "item": "chemlib:barium"
-      }
+      "ingredient": "chemlib:barium"
     }
   ],
   "result": {

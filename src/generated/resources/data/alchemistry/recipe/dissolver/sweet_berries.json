@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:sweet_berries"
-    }
+    "ingredient": "minecraft:sweet_berries"
   },
   "output": {
     "groups": [

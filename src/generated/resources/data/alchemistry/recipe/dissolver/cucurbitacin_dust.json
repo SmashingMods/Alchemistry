@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cucurbitacin_dust"
-    }
+    "ingredient": "chemlib:cucurbitacin_dust"
   },
   "output": {
     "groups": [

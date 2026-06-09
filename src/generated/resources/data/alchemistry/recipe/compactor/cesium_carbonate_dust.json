@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:cesium_carbonate"
-    }
+    "ingredient": "chemlib:cesium_carbonate"
   },
   "result": {
     "item": "chemlib:cesium_carbonate_dust"

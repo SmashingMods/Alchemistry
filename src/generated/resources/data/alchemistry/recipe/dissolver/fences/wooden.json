@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:fences/wooden"
-    }
+    "ingredient": "#c:fences/wooden"
   },
   "output": {
     "groups": [

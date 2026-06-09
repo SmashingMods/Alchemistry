@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:uranium"
-    }
+    "ingredient": "chemlib:uranium"
   },
   "result": {
     "item": "chemlib:uranium_dust"

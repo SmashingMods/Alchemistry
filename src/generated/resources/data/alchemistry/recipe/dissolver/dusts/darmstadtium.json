@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/darmstadtium"
-    }
+    "ingredient": "#c:dusts/darmstadtium"
   },
   "output": {
     "groups": [

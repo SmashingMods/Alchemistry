@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cooked_mutton"
-    }
+    "ingredient": "minecraft:cooked_mutton"
   },
   "output": {
     "groups": [

@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
+      "ingredient": "chemlib:sulfur"
     },
     {
-      "ingredient": {
-        "item": "chemlib:barium"
-      }
+      "ingredient": "chemlib:barium"
     }
   ],
   "result": {

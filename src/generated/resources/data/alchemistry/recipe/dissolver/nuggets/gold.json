@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/gold"
-    }
+    "ingredient": "#c:nuggets/gold"
   },
   "output": {
     "groups": [

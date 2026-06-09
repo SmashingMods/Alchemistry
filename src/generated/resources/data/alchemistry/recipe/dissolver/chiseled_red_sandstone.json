@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:chiseled_red_sandstone"
-    }
+    "ingredient": "minecraft:chiseled_red_sandstone"
   },
   "output": {
     "groups": [

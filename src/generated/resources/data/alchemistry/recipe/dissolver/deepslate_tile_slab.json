@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:deepslate_tile_slab"
-    }
+    "ingredient": "minecraft:deepslate_tile_slab"
   },
   "output": {
     "groups": [

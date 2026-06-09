@@ -3,21 +3,11 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "O": {
-      "item": "minecraft:obsidian"
-    },
-    "P": {
-      "item": "minecraft:piston"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "D": "minecraft:diamond",
+    "I": "minecraft:iron_ingot",
+    "O": "minecraft:obsidian",
+    "P": "minecraft:piston",
+    "R": "minecraft:redstone"
   },
   "pattern": [
     "IDI",

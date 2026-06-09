@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:strontium_chloride"
-      }
+      "ingredient": "chemlib:strontium_chloride"
     }
   ],
   "result": {

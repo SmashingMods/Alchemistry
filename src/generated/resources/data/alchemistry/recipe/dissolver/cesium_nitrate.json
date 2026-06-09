@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cesium_nitrate"
-    }
+    "ingredient": "chemlib:cesium_nitrate"
   },
   "output": {
     "groups": [

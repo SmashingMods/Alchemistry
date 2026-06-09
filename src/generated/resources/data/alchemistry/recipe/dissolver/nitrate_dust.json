@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:nitrate_dust"
-    }
+    "ingredient": "chemlib:nitrate_dust"
   },
   "output": {
     "groups": [

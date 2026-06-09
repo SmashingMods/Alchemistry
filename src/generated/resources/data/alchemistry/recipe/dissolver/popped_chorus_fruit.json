@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:popped_chorus_fruit"
-    }
+    "ingredient": "minecraft:popped_chorus_fruit"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:rubidium_hydroxide"
-    }
+    "ingredient": "chemlib:rubidium_hydroxide"
   },
   "output": {
     "groups": [

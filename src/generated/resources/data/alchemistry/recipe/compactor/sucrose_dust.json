@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:sucrose"
-    }
+    "ingredient": "chemlib:sucrose"
   },
   "result": {
     "item": "chemlib:sucrose_dust"

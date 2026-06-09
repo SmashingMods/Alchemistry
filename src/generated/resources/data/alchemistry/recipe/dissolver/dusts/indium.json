@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/indium"
-    }
+    "ingredient": "#c:dusts/indium"
   },
   "output": {
     "groups": [

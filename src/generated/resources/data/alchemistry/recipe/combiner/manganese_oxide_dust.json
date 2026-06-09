@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:manganese_oxide"
-      }
+      "ingredient": "chemlib:manganese_oxide"
     }
   ],
   "result": {

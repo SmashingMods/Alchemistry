@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cadmium_hydroxide_dust"
-    }
+    "ingredient": "chemlib:cadmium_hydroxide_dust"
   },
   "output": {
     "groups": [

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/thulium"
-    }
+    "ingredient": "#c:nuggets/thulium"
   },
   "output": {
     "groups": [

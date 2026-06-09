@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:smooth_stone"
-    }
+    "ingredient": "minecraft:smooth_stone"
   },
   "output": {
     "groups": [

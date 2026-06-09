@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:cobalt_nitrate"
-    }
+    "ingredient": "chemlib:cobalt_nitrate"
   },
   "result": {
     "item": "chemlib:cobalt_nitrate_dust"

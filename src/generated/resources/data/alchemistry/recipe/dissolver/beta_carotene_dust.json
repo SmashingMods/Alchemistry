@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:beta_carotene_dust"
-    }
+    "ingredient": "chemlib:beta_carotene_dust"
   },
   "output": {
     "groups": [

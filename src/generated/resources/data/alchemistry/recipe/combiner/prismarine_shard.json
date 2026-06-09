@@ -4,20 +4,14 @@
   "input": [
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:niobium"
-      }
+      "ingredient": "chemlib:niobium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:selenium"
-      }
+      "ingredient": "chemlib:selenium"
     },
     {
       "count": 4,
-      "ingredient": {
-        "item": "chemlib:beryl"
-      }
+      "ingredient": "chemlib:beryl"
     }
   ],
   "result": {

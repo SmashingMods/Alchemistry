@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:calcium_chloride"
-    }
+    "ingredient": "chemlib:calcium_chloride"
   },
   "output": {
     "groups": [

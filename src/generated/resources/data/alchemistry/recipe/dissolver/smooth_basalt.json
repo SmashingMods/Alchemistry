@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:smooth_basalt"
-    }
+    "ingredient": "minecraft:smooth_basalt"
   },
   "output": {
     "groups": [

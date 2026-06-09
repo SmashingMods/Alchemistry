@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cesium_sulfate_dust"
-    }
+    "ingredient": "chemlib:cesium_sulfate_dust"
   },
   "output": {
     "groups": [

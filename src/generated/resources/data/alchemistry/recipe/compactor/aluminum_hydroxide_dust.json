@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:aluminum_hydroxide"
-    }
+    "ingredient": "chemlib:aluminum_hydroxide"
   },
   "result": {
     "item": "chemlib:aluminum_hydroxide_dust"

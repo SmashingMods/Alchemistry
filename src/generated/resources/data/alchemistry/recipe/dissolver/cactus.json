@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cactus"
-    }
+    "ingredient": "minecraft:cactus"
   },
   "output": {
     "groups": [

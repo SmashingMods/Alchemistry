@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dyes/light_gray"
-    }
+    "ingredient": "#c:dyes/light_gray"
   },
   "output": {
     "groups": [

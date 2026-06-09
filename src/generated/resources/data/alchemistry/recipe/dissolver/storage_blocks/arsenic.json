@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:storage_blocks/arsenic"
-    }
+    "ingredient": "#c:storage_blocks/arsenic"
   },
   "output": {
     "groups": [

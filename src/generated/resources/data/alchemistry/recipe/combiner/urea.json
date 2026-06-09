@@ -3,20 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:carbon"
-      }
+      "ingredient": "chemlib:carbon"
     },
     {
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:amide"
-      }
+      "ingredient": "chemlib:amide"
     }
   ],
   "result": {

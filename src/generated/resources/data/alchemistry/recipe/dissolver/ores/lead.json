@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/lead"
-    }
+    "ingredient": "#c:ores/lead"
   },
   "output": {
     "groups": [

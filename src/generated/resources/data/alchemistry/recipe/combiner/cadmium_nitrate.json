@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:nitrate"
-      }
+      "ingredient": "chemlib:nitrate"
     },
     {
-      "ingredient": {
-        "item": "chemlib:cadmium"
-      }
+      "ingredient": "chemlib:cadmium"
     }
   ],
   "result": {

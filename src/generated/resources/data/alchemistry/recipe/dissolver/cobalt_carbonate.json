@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cobalt_carbonate"
-    }
+    "ingredient": "chemlib:cobalt_carbonate"
   },
   "output": {
     "groups": [

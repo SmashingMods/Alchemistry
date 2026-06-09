@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:nitrate"
-      }
+      "ingredient": "chemlib:nitrate"
     },
     {
-      "ingredient": {
-        "item": "chemlib:iron"
-      }
+      "ingredient": "chemlib:iron"
     }
   ],
   "result": {

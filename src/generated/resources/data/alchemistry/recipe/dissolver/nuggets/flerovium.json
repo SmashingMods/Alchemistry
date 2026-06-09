@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/flerovium"
-    }
+    "ingredient": "#c:nuggets/flerovium"
   },
   "output": {
     "groups": [

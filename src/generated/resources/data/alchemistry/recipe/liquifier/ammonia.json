@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:ammonia"
-    }
+    "ingredient": "chemlib:ammonia"
   },
   "result": {
     "amount": 500,

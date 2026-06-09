@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:crimson_nylium"
-    }
+    "ingredient": "minecraft:crimson_nylium"
   },
   "output": {
     "groups": [

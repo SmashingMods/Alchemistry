@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:storage_blocks/hassium"
-    }
+    "ingredient": "#c:storage_blocks/hassium"
   },
   "output": {
     "groups": [

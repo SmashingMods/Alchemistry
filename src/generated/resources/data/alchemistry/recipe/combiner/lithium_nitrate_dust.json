@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:lithium_nitrate"
-      }
+      "ingredient": "chemlib:lithium_nitrate"
     }
   ],
   "result": {

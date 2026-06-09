@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:butane"
-    }
+    "ingredient": "chemlib:butane"
   },
   "result": {
     "amount": 500,

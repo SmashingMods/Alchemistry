@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/yttrium"
-    }
+    "ingredient": "#c:dusts/yttrium"
   },
   "output": {
     "groups": [

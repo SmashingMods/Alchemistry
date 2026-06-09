@@ -4,15 +4,11 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:protein"
-      }
+      "ingredient": "chemlib:protein"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:calcium_carbonate"
-      }
+      "ingredient": "chemlib:calcium_carbonate"
     }
   ],
   "result": {

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:gold_ingot"
-    }
+    "ingredient": "minecraft:gold_ingot"
   },
   "output": {
     "groups": [

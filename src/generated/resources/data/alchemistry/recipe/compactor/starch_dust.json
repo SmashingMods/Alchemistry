@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:starch"
-    }
+    "ingredient": "chemlib:starch"
   },
   "result": {
     "item": "chemlib:starch_dust"

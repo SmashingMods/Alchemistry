@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "ingredient": {
-      "item": "chemlib:magnesium_sulfate"
-    }
+    "ingredient": "chemlib:magnesium_sulfate"
   },
   "result": {
     "item": "minecraft:light_gray_dye"

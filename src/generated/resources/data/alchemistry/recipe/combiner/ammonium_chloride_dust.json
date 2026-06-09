@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:ammonium_chloride"
-      }
+      "ingredient": "chemlib:ammonium_chloride"
     }
   ],
   "result": {

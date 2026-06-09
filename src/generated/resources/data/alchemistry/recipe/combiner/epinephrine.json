@@ -4,26 +4,18 @@
   "input": [
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
-      "ingredient": {
-        "item": "chemlib:nitrogen"
-      }
+      "ingredient": "chemlib:nitrogen"
     },
     {
       "count": 9,
-      "ingredient": {
-        "item": "chemlib:carbon"
-      }
+      "ingredient": "chemlib:carbon"
     },
     {
       "count": 13,
-      "ingredient": {
-        "item": "chemlib:hydrogen"
-      }
+      "ingredient": "chemlib:hydrogen"
     }
   ],
   "result": {

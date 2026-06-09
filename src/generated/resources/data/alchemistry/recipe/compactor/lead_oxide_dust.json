@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:lead_oxide"
-    }
+    "ingredient": "chemlib:lead_oxide"
   },
   "result": {
     "item": "chemlib:lead_oxide_dust"

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:magnesium_chloride"
-    }
+    "ingredient": "chemlib:magnesium_chloride"
   },
   "result": {
     "item": "chemlib:magnesium_chloride_dust"

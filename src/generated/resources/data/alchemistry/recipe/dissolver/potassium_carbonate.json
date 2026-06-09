@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:potassium_carbonate"
-    }
+    "ingredient": "chemlib:potassium_carbonate"
   },
   "output": {
     "groups": [

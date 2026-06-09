@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:calcium_oxide"
-    }
+    "ingredient": "chemlib:calcium_oxide"
   },
   "result": {
     "item": "chemlib:calcium_oxide_dust"

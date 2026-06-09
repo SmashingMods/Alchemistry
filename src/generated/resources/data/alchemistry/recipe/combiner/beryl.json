@@ -4,27 +4,19 @@
   "input": [
     {
       "count": 18,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
       "count": 6,
-      "ingredient": {
-        "item": "chemlib:silicon"
-      }
+      "ingredient": "chemlib:silicon"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:aluminum"
-      }
+      "ingredient": "chemlib:aluminum"
     },
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:beryllium"
-      }
+      "ingredient": "chemlib:beryllium"
     }
   ],
   "result": {

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/zirconium"
-    }
+    "ingredient": "#c:ores/zirconium"
   },
   "output": {
     "groups": [

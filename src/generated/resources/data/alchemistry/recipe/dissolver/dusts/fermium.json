@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/fermium"
-    }
+    "ingredient": "#c:dusts/fermium"
   },
   "output": {
     "groups": [

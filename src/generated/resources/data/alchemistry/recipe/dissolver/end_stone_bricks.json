@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:end_stone_bricks"
-    }
+    "ingredient": "minecraft:end_stone_bricks"
   },
   "output": {
     "groups": [

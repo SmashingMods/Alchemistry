@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "ingredient": {
-      "item": "chemlib:water"
-    }
+    "ingredient": "chemlib:water"
   },
   "result": {
     "item": "minecraft:snowball"

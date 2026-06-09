@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:chiseled_nether_bricks"
-    }
+    "ingredient": "minecraft:chiseled_nether_bricks"
   },
   "output": {
     "groups": [

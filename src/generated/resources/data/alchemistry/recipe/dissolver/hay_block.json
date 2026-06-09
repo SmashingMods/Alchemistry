@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:hay_block"
-    }
+    "ingredient": "minecraft:hay_block"
   },
   "output": {
     "groups": [

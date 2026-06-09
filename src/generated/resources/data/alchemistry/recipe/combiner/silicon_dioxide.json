@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
-      "ingredient": {
-        "item": "chemlib:silicon"
-      }
+      "ingredient": "chemlib:silicon"
     }
   ],
   "result": {

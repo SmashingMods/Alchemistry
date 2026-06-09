@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/lead"
-    }
+    "ingredient": "#c:ingots/lead"
   },
   "output": {
     "groups": [

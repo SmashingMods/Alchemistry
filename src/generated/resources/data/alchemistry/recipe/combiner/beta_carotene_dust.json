@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:beta_carotene"
-      }
+      "ingredient": "chemlib:beta_carotene"
     }
   ],
   "result": {

@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:magnesium"
-      }
+      "ingredient": "chemlib:magnesium"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:chlorine"
-      }
+      "ingredient": "chemlib:chlorine"
     }
   ],
   "result": {

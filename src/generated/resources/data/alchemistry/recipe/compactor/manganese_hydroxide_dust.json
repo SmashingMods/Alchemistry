@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:manganese_hydroxide"
-    }
+    "ingredient": "chemlib:manganese_hydroxide"
   },
   "result": {
     "item": "chemlib:manganese_hydroxide_dust"

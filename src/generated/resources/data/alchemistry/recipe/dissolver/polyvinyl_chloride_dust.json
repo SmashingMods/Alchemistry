@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:polyvinyl_chloride_dust"
-    }
+    "ingredient": "chemlib:polyvinyl_chloride_dust"
   },
   "output": {
     "groups": [

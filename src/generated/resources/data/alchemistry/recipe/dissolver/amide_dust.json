@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:amide_dust"
-    }
+    "ingredient": "chemlib:amide_dust"
   },
   "output": {
     "groups": [

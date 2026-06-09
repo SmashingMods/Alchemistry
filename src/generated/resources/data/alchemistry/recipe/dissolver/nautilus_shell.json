@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:nautilus_shell"
-    }
+    "ingredient": "minecraft:nautilus_shell"
   },
   "output": {
     "groups": [

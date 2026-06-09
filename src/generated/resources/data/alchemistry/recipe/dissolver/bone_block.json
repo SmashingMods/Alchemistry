@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:bone_block"
-    }
+    "ingredient": "minecraft:bone_block"
   },
   "output": {
     "groups": [

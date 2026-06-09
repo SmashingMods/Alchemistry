@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:rubidium_nitrate"
-    }
+    "ingredient": "chemlib:rubidium_nitrate"
   },
   "result": {
     "item": "chemlib:rubidium_nitrate_dust"

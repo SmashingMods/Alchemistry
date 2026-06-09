@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:strontium_sulfate"
-    }
+    "ingredient": "chemlib:strontium_sulfate"
   },
   "output": {
     "groups": [

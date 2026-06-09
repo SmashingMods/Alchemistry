@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/einsteinium"
-    }
+    "ingredient": "#c:plates/einsteinium"
   },
   "output": {
     "groups": [

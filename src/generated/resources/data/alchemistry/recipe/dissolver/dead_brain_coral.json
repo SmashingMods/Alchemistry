@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:dead_brain_coral"
-    }
+    "ingredient": "minecraft:dead_brain_coral"
   },
   "output": {
     "groups": [

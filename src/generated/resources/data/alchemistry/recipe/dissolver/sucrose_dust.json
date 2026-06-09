@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:sucrose_dust"
-    }
+    "ingredient": "chemlib:sucrose_dust"
   },
   "output": {
     "groups": [

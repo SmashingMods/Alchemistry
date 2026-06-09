@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:short_grass"
-    }
+    "ingredient": "minecraft:short_grass"
   },
   "output": {
     "groups": [

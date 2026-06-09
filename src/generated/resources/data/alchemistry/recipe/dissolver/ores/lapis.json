@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/lapis"
-    }
+    "ingredient": "#c:ores/lapis"
   },
   "output": {
     "groups": [

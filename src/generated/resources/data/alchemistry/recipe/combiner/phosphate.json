@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 4,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     },
     {
-      "ingredient": {
-        "item": "chemlib:phosphorus"
-      }
+      "ingredient": "chemlib:phosphorus"
     }
   ],
   "result": {

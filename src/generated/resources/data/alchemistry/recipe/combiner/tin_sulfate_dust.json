@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:tin_sulfate"
-      }
+      "ingredient": "chemlib:tin_sulfate"
     }
   ],
   "result": {

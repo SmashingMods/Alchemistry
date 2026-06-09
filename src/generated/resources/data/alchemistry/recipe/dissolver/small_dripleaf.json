@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:small_dripleaf"
-    }
+    "ingredient": "minecraft:small_dripleaf"
   },
   "output": {
     "groups": [

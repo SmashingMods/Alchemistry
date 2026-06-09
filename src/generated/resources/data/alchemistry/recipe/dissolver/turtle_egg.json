@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:turtle_egg"
-    }
+    "ingredient": "minecraft:turtle_egg"
   },
   "output": {
     "groups": [

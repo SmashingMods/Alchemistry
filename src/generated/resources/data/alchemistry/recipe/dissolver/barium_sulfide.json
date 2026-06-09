@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:barium_sulfide"
-    }
+    "ingredient": "chemlib:barium_sulfide"
   },
   "output": {
     "groups": [

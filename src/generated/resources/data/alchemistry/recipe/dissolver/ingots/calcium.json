@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/calcium"
-    }
+    "ingredient": "#c:ingots/calcium"
   },
   "output": {
     "groups": [

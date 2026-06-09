@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/platinum"
-    }
+    "ingredient": "#c:ingots/platinum"
   },
   "output": {
     "groups": [

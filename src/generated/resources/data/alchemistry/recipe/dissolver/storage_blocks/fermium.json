@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:storage_blocks/fermium"
-    }
+    "ingredient": "#c:storage_blocks/fermium"
   },
   "output": {
     "groups": [

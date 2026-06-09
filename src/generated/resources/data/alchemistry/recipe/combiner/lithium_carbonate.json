@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:carbonate"
-      }
+      "ingredient": "chemlib:carbonate"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:lithium"
-      }
+      "ingredient": "chemlib:lithium"
     }
   ],
   "result": {

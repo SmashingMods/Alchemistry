@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/europium"
-    }
+    "ingredient": "#c:ingots/europium"
   },
   "output": {
     "groups": [

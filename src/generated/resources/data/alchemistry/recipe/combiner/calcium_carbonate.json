@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:calcium"
-      }
+      "ingredient": "chemlib:calcium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:carbonate"
-      }
+      "ingredient": "chemlib:carbonate"
     }
   ],
   "result": {

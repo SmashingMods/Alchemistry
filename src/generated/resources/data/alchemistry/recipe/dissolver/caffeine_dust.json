@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:caffeine_dust"
-    }
+    "ingredient": "chemlib:caffeine_dust"
   },
   "output": {
     "groups": [

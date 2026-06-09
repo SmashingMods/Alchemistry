@@ -2,9 +2,7 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cellulose"
-    }
+    "ingredient": "chemlib:cellulose"
   },
   "result": {
     "item": "minecraft:jungle_log"

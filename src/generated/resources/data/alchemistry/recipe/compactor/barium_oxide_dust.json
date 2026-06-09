@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:barium_oxide"
-    }
+    "ingredient": "chemlib:barium_oxide"
   },
   "result": {
     "item": "chemlib:barium_oxide_dust"

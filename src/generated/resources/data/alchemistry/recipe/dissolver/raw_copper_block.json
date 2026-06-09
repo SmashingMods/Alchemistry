@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:raw_copper_block"
-    }
+    "ingredient": "minecraft:raw_copper_block"
   },
   "output": {
     "groups": [

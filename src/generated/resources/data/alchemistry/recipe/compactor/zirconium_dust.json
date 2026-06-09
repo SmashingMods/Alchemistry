@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:zirconium"
-    }
+    "ingredient": "chemlib:zirconium"
   },
   "result": {
     "item": "chemlib:zirconium_dust"

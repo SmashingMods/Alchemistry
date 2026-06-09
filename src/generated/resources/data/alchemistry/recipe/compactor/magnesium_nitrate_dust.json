@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:magnesium_nitrate"
-    }
+    "ingredient": "chemlib:magnesium_nitrate"
   },
   "result": {
     "item": "chemlib:magnesium_nitrate_dust"

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/rutherfordium"
-    }
+    "ingredient": "#c:nuggets/rutherfordium"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:beryllium_sulfate"
-    }
+    "ingredient": "chemlib:beryllium_sulfate"
   },
   "result": {
     "item": "chemlib:beryllium_sulfate_dust"

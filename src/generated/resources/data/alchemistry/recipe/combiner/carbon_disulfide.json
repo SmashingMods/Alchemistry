@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:carbon"
-      }
+      "ingredient": "chemlib:carbon"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
+      "ingredient": "chemlib:sulfur"
     }
   ],
   "result": {

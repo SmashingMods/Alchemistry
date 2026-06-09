@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:nitrate"
-      }
+      "ingredient": "chemlib:nitrate"
     },
     {
-      "ingredient": {
-        "item": "chemlib:barium"
-      }
+      "ingredient": "chemlib:barium"
     }
   ],
   "result": {

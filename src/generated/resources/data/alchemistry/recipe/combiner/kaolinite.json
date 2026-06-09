@@ -4,20 +4,14 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:silicon_dioxide"
-      }
+      "ingredient": "chemlib:silicon_dioxide"
     },
     {
-      "ingredient": {
-        "item": "chemlib:aluminum_oxide"
-      }
+      "ingredient": "chemlib:aluminum_oxide"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:water"
-      }
+      "ingredient": "chemlib:water"
     }
   ],
   "result": {

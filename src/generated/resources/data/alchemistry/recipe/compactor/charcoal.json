@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 2,
-    "ingredient": {
-      "item": "chemlib:graphite"
-    }
+    "ingredient": "chemlib:graphite"
   },
   "result": {
     "item": "minecraft:charcoal"

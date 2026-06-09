@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:manganese_carbonate_dust"
-    }
+    "ingredient": "chemlib:manganese_carbonate_dust"
   },
   "output": {
     "groups": [

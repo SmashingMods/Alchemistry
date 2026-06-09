@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:magnesium_carbonate"
-    }
+    "ingredient": "chemlib:magnesium_carbonate"
   },
   "result": {
     "item": "chemlib:magnesium_carbonate_dust"

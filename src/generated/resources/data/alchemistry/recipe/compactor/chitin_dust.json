@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:chitin"
-    }
+    "ingredient": "chemlib:chitin"
   },
   "result": {
     "item": "chemlib:chitin_dust"

@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:zinc_sulfide"
-      }
+      "ingredient": "chemlib:zinc_sulfide"
     }
   ],
   "result": {

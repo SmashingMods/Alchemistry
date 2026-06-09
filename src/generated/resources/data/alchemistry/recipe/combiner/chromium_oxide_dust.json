@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:chromium_oxide"
-      }
+      "ingredient": "chemlib:chromium_oxide"
     }
   ],
   "result": {

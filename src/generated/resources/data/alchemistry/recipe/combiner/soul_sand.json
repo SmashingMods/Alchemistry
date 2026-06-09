@@ -4,14 +4,10 @@
   "input": [
     {
       "count": 4,
-      "ingredient": {
-        "item": "chemlib:silicon_dioxide"
-      }
+      "ingredient": "chemlib:silicon_dioxide"
     },
     {
-      "ingredient": {
-        "item": "chemlib:thulium"
-      }
+      "ingredient": "chemlib:thulium"
     }
   ],
   "result": {

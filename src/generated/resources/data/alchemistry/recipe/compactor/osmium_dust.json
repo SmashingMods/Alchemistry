@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:osmium"
-    }
+    "ingredient": "chemlib:osmium"
   },
   "result": {
     "item": "chemlib:osmium_dust"

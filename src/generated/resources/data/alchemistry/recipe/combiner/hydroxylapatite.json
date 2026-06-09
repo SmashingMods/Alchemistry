@@ -4,21 +4,15 @@
   "input": [
     {
       "count": 5,
-      "ingredient": {
-        "item": "chemlib:calcium"
-      }
+      "ingredient": "chemlib:calcium"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:hydroxide"
-      }
+      "ingredient": "chemlib:hydroxide"
     },
     {
       "count": 6,
-      "ingredient": {
-        "item": "chemlib:phosphate"
-      }
+      "ingredient": "chemlib:phosphate"
     }
   ],
   "result": {

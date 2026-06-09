@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "minecraft:music_discs"
-    }
+    "ingredient": "#minecraft:music_discs"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:zinc_sulfate"
-    }
+    "ingredient": "chemlib:zinc_sulfate"
   },
   "result": {
     "item": "chemlib:zinc_sulfate_dust"

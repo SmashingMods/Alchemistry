@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/beryllium"
-    }
+    "ingredient": "#c:plates/beryllium"
   },
   "output": {
     "groups": [

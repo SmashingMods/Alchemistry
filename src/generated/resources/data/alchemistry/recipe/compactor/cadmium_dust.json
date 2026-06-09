@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:cadmium"
-    }
+    "ingredient": "chemlib:cadmium"
   },
   "result": {
     "item": "chemlib:cadmium_dust"

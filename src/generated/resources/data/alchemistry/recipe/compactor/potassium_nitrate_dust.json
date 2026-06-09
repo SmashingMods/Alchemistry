@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:potassium_nitrate"
-    }
+    "ingredient": "chemlib:potassium_nitrate"
   },
   "result": {
     "item": "chemlib:potassium_nitrate_dust"

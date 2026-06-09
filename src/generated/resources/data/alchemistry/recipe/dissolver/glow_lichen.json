@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:glow_lichen"
-    }
+    "ingredient": "minecraft:glow_lichen"
   },
   "output": {
     "groups": [

@@ -3,15 +3,9 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "B": {
-      "item": "minecraft:blaze_powder"
-    },
-    "O": {
-      "item": "chemlib:osmium_ingot"
-    },
-    "P": {
-      "item": "chemlib:platinum_ingot"
-    }
+    "B": "minecraft:blaze_powder",
+    "O": "chemlib:osmium_ingot",
+    "P": "chemlib:platinum_ingot"
   },
   "pattern": [
     "OPO",

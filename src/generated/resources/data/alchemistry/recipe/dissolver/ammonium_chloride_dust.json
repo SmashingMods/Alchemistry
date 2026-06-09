@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:ammonium_chloride_dust"
-    }
+    "ingredient": "chemlib:ammonium_chloride_dust"
   },
   "output": {
     "groups": [

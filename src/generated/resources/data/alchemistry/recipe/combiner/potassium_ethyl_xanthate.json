@@ -3,24 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:potassium"
-      }
+      "ingredient": "chemlib:potassium"
     },
     {
-      "ingredient": {
-        "item": "chemlib:polyvinyl_chloride"
-      }
+      "ingredient": "chemlib:polyvinyl_chloride"
     },
     {
-      "ingredient": {
-        "item": "chemlib:carbon_disulfide"
-      }
+      "ingredient": "chemlib:carbon_disulfide"
     },
     {
-      "ingredient": {
-        "item": "chemlib:water"
-      }
+      "ingredient": "chemlib:water"
     }
   ],
   "result": {

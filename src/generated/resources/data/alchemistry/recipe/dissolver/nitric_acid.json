@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:nitric_acid"
-    }
+    "ingredient": "chemlib:nitric_acid"
   },
   "output": {
     "groups": [

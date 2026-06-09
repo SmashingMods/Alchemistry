@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:lithium_carbonate"
-    }
+    "ingredient": "chemlib:lithium_carbonate"
   },
   "result": {
     "item": "chemlib:lithium_carbonate_dust"

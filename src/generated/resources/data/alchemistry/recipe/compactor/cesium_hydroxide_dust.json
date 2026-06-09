@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:cesium_hydroxide"
-    }
+    "ingredient": "chemlib:cesium_hydroxide"
   },
   "result": {
     "item": "chemlib:cesium_hydroxide_dust"

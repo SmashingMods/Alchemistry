@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:sodium_nitrate_dust"
-    }
+    "ingredient": "chemlib:sodium_nitrate_dust"
   },
   "output": {
     "groups": [

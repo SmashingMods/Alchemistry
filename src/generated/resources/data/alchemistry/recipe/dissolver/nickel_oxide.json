@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:nickel_oxide"
-    }
+    "ingredient": "chemlib:nickel_oxide"
   },
   "output": {
     "groups": [

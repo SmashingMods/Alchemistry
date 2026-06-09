@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/berkelium"
-    }
+    "ingredient": "#c:ores/berkelium"
   },
   "output": {
     "groups": [

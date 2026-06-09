@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cobalt_nitrate"
-    }
+    "ingredient": "chemlib:cobalt_nitrate"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:manganese_hydroxide_dust"
-    }
+    "ingredient": "chemlib:manganese_hydroxide_dust"
   },
   "output": {
     "groups": [

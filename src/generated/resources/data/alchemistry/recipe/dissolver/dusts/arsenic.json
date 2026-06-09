@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/arsenic"
-    }
+    "ingredient": "#c:dusts/arsenic"
   },
   "output": {
     "groups": [

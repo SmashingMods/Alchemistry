@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/francium"
-    }
+    "ingredient": "#c:nuggets/francium"
   },
   "output": {
     "groups": [

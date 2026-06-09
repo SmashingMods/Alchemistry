@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/ruthenium"
-    }
+    "ingredient": "#c:dusts/ruthenium"
   },
   "output": {
     "groups": [

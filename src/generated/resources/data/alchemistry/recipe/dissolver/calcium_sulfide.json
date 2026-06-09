@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:calcium_sulfide"
-    }
+    "ingredient": "chemlib:calcium_sulfide"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:chlorine"
-    }
+    "ingredient": "chemlib:chlorine"
   },
   "result": {
     "amount": 500,

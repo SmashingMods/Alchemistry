@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:aluminum_nitrate"
-    }
+    "ingredient": "chemlib:aluminum_nitrate"
   },
   "result": {
     "item": "chemlib:aluminum_nitrate_dust"

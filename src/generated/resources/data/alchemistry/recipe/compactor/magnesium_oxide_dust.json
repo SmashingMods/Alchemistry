@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:magnesium_oxide"
-    }
+    "ingredient": "chemlib:magnesium_oxide"
   },
   "result": {
     "item": "chemlib:magnesium_oxide_dust"

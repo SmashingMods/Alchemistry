@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:graphite"
-      }
+      "ingredient": "chemlib:graphite"
     }
   ],
   "result": {

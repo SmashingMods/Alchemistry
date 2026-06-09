@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:nitrogen_dioxide"
-    }
+    "ingredient": "chemlib:nitrogen_dioxide"
   },
   "result": {
     "amount": 500,

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:sulfur_dioxide"
-    }
+    "ingredient": "chemlib:sulfur_dioxide"
   },
   "output": {
     "groups": [

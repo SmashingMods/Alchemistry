@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:potassium_cyanide"
-    }
+    "ingredient": "chemlib:potassium_cyanide"
   },
   "output": {
     "groups": [

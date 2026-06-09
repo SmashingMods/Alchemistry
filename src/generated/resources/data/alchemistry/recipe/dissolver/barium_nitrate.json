@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:barium_nitrate"
-    }
+    "ingredient": "chemlib:barium_nitrate"
   },
   "output": {
     "groups": [

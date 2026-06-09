@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:sulfur_dioxide"
-    }
+    "ingredient": "chemlib:sulfur_dioxide"
   },
   "result": {
     "amount": 500,

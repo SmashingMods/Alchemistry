@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:mercury_sulfide_dust"
-    }
+    "ingredient": "chemlib:mercury_sulfide_dust"
   },
   "output": {
     "groups": [

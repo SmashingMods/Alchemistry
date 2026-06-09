@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:zinc_oxide"
-    }
+    "ingredient": "chemlib:zinc_oxide"
   },
   "output": {
     "groups": [

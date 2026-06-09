@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:tin_oxide"
-    }
+    "ingredient": "chemlib:tin_oxide"
   },
   "result": {
     "item": "chemlib:tin_oxide_dust"

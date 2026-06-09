@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:soul_soil"
-    }
+    "ingredient": "minecraft:soul_soil"
   },
   "output": {
     "groups": [

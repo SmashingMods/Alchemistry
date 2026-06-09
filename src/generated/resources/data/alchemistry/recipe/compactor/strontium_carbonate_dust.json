@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:strontium_carbonate"
-    }
+    "ingredient": "chemlib:strontium_carbonate"
   },
   "result": {
     "item": "chemlib:strontium_carbonate_dust"

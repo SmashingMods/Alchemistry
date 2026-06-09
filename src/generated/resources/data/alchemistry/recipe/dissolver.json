@@ -3,18 +3,10 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "M": {
-      "item": "minecraft:magma_block"
-    },
-    "P": {
-      "item": "minecraft:piston"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "I": "minecraft:iron_ingot",
+    "M": "minecraft:magma_block",
+    "P": "minecraft:piston",
+    "R": "minecraft:redstone"
   },
   "pattern": [
     "IPI",

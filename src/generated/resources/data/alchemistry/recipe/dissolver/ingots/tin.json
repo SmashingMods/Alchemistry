@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/tin"
-    }
+    "ingredient": "#c:ingots/tin"
   },
   "output": {
     "groups": [

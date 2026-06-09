@@ -4,15 +4,11 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:chromium"
-      }
+      "ingredient": "chemlib:chromium"
     },
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

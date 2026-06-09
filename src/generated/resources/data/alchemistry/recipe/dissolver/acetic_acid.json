@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:acetic_acid"
-    }
+    "ingredient": "chemlib:acetic_acid"
   },
   "output": {
     "groups": [

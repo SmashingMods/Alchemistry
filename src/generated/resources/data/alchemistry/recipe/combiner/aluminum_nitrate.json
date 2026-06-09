@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:aluminum"
-      }
+      "ingredient": "chemlib:aluminum"
     },
     {
       "count": 3,
-      "ingredient": {
-        "item": "chemlib:nitrate"
-      }
+      "ingredient": "chemlib:nitrate"
     }
   ],
   "result": {

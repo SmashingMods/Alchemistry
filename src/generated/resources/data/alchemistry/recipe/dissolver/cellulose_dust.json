@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:cellulose_dust"
-    }
+    "ingredient": "chemlib:cellulose_dust"
   },
   "output": {
     "groups": [

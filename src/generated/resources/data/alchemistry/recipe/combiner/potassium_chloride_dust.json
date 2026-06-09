@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:potassium_chloride"
-      }
+      "ingredient": "chemlib:potassium_chloride"
     }
   ],
   "result": {

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "ingredient": {
-      "item": "chemlib:chromium_oxide"
-    }
+    "ingredient": "chemlib:chromium_oxide"
   },
   "result": {
     "item": "minecraft:lime_dye"

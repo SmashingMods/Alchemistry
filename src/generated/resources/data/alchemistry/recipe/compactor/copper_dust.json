@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:copper"
-    }
+    "ingredient": "chemlib:copper"
   },
   "result": {
     "item": "chemlib:copper_dust"

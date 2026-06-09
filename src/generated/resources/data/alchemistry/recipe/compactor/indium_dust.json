@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:indium"
-    }
+    "ingredient": "chemlib:indium"
   },
   "result": {
     "item": "chemlib:indium_dust"

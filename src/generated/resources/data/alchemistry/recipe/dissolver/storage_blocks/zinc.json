@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:storage_blocks/zinc"
-    }
+    "ingredient": "#c:storage_blocks/zinc"
   },
   "output": {
     "groups": [

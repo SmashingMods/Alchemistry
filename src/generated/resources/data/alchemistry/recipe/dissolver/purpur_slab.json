@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:purpur_slab"
-    }
+    "ingredient": "minecraft:purpur_slab"
   },
   "output": {
     "groups": [

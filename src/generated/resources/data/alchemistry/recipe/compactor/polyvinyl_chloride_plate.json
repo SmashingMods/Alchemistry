@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:polyvinyl_chloride"
-    }
+    "ingredient": "chemlib:polyvinyl_chloride"
   },
   "result": {
     "item": "chemlib:polyvinyl_chloride_plate"

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:iron_carbonate"
-    }
+    "ingredient": "chemlib:iron_carbonate"
   },
   "output": {
     "groups": [

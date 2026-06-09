@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/rubidium"
-    }
+    "ingredient": "#c:ores/rubidium"
   },
   "output": {
     "groups": [

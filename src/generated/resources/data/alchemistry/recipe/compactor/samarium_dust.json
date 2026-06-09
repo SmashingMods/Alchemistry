@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:samarium"
-    }
+    "ingredient": "chemlib:samarium"
   },
   "result": {
     "item": "chemlib:samarium_dust"

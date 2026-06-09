@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "C": {
-      "item": "alchemistry:reactor_casing"
-    },
-    "D": {
-      "item": "minecraft:redstone"
-    }
+    "C": "alchemistry:reactor_casing",
+    "D": "minecraft:redstone"
   },
   "pattern": [
     "D",

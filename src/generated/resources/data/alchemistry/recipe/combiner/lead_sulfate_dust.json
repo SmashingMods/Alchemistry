@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:lead_sulfate"
-      }
+      "ingredient": "chemlib:lead_sulfate"
     }
   ],
   "result": {

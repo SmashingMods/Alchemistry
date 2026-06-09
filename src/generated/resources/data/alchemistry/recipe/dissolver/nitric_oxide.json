@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:nitric_oxide"
-    }
+    "ingredient": "chemlib:nitric_oxide"
   },
   "output": {
     "groups": [

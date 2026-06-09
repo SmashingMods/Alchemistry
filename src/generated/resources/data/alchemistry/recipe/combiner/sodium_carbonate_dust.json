@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:sodium_carbonate"
-      }
+      "ingredient": "chemlib:sodium_carbonate"
     }
   ],
   "result": {

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:strontium_carbonate_dust"
-    }
+    "ingredient": "chemlib:strontium_carbonate_dust"
   },
   "output": {
     "groups": [

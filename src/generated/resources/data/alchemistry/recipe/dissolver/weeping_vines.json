@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:weeping_vines"
-    }
+    "ingredient": "minecraft:weeping_vines"
   },
   "output": {
     "groups": [

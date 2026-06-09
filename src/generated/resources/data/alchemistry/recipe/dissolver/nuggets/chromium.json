@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/chromium"
-    }
+    "ingredient": "#c:nuggets/chromium"
   },
   "output": {
     "groups": [

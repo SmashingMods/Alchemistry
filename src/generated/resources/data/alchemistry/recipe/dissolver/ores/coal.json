@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/coal"
-    }
+    "ingredient": "#c:ores/coal"
   },
   "output": {
     "groups": [

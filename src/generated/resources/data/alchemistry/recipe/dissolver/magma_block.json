@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:magma_block"
-    }
+    "ingredient": "minecraft:magma_block"
   },
   "output": {
     "groups": [

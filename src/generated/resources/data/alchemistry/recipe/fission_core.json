@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "B": {
-      "item": "minecraft:blaze_rod"
-    },
-    "Y": {
-      "item": "chemlib:yttrium_ingot"
-    }
+    "B": "minecraft:blaze_rod",
+    "Y": "chemlib:yttrium_ingot"
   },
   "pattern": [
     "YBY",

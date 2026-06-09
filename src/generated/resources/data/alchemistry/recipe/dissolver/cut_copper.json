@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cut_copper"
-    }
+    "ingredient": "minecraft:cut_copper"
   },
   "output": {
     "groups": [

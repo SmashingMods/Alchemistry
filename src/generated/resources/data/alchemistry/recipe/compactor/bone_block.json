@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 6,
-    "ingredient": {
-      "item": "chemlib:hydroxylapatite"
-    }
+    "ingredient": "chemlib:hydroxylapatite"
   },
   "result": {
     "item": "minecraft:bone_block"

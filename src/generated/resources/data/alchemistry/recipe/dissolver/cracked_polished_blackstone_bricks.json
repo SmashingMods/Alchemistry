@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:cracked_polished_blackstone_bricks"
-    }
+    "ingredient": "minecraft:cracked_polished_blackstone_bricks"
   },
   "output": {
     "groups": [

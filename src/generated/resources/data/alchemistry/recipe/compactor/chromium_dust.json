@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:chromium"
-    }
+    "ingredient": "chemlib:chromium"
   },
   "result": {
     "item": "chemlib:chromium_dust"

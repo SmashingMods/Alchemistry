@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:radium"
-    }
+    "ingredient": "chemlib:radium"
   },
   "result": {
     "item": "chemlib:radium_dust"

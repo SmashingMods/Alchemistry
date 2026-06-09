@@ -3,15 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:lead"
-      }
+      "ingredient": "chemlib:lead"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:iodine"
-      }
+      "ingredient": "chemlib:iodine"
     }
   ],
   "result": {

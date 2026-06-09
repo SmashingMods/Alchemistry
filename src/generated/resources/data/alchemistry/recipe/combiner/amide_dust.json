@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:amide"
-      }
+      "ingredient": "chemlib:amide"
     }
   ],
   "result": {

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/holmium"
-    }
+    "ingredient": "#c:plates/holmium"
   },
   "output": {
     "groups": [

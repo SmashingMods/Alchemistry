@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:copper_ii_hydroxide"
-      }
+      "ingredient": "chemlib:copper_ii_hydroxide"
     }
   ],
   "result": {

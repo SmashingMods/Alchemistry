@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:zinc_sulfide"
-    }
+    "ingredient": "chemlib:zinc_sulfide"
   },
   "output": {
     "groups": [

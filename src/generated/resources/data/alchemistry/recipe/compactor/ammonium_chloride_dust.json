@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:ammonium_chloride"
-    }
+    "ingredient": "chemlib:ammonium_chloride"
   },
   "result": {
     "item": "chemlib:ammonium_chloride_dust"

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/aluminum"
-    }
+    "ingredient": "#c:plates/aluminum"
   },
   "output": {
     "groups": [

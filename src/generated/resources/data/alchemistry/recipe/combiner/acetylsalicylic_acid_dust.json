@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:acetylsalicylic_acid"
-      }
+      "ingredient": "chemlib:acetylsalicylic_acid"
     }
   ],
   "result": {

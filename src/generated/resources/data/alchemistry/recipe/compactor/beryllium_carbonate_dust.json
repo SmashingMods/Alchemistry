@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:beryllium_carbonate"
-    }
+    "ingredient": "chemlib:beryllium_carbonate"
   },
   "result": {
     "item": "chemlib:beryllium_carbonate_dust"

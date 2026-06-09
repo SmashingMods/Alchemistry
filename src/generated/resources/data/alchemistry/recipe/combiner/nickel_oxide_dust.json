@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:nickel_oxide"
-      }
+      "ingredient": "chemlib:nickel_oxide"
     }
   ],
   "result": {

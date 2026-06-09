@@ -3,21 +3,11 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "C": {
-      "item": "alchemistry:reactor_casing"
-    },
-    "D": {
-      "item": "minecraft:glowstone_dust"
-    },
-    "G": {
-      "item": "minecraft:glass"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "C": "alchemistry:reactor_casing",
+    "D": "minecraft:glowstone_dust",
+    "G": "minecraft:glass",
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone"
   },
   "pattern": [
     "ICI",

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/silicon"
-    }
+    "ingredient": "#c:dusts/silicon"
   },
   "output": {
     "groups": [

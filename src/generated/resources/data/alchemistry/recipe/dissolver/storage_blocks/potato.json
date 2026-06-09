@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:storage_blocks/potato"
-    }
+    "ingredient": "#c:storage_blocks/potato"
   },
   "output": {
     "groups": [

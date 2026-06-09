@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "minecraft:leaves"
-    }
+    "ingredient": "#minecraft:leaves"
   },
   "output": {
     "groups": [

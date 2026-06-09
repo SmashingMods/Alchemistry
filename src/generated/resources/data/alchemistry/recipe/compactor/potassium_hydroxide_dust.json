@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:potassium_hydroxide"
-    }
+    "ingredient": "chemlib:potassium_hydroxide"
   },
   "result": {
     "item": "chemlib:potassium_hydroxide_dust"

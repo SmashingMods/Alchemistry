@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:rubidium_chloride"
-    }
+    "ingredient": "chemlib:rubidium_chloride"
   },
   "result": {
     "item": "chemlib:rubidium_chloride_dust"

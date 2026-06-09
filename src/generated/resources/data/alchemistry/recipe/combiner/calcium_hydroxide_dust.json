@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:calcium_hydroxide"
-      }
+      "ingredient": "chemlib:calcium_hydroxide"
     }
   ],
   "result": {

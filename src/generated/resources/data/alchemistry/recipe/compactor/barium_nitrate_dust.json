@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:barium_nitrate"
-    }
+    "ingredient": "chemlib:barium_nitrate"
   },
   "result": {
     "item": "chemlib:barium_nitrate_dust"

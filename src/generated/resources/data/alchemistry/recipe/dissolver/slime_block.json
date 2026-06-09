@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:slime_block"
-    }
+    "ingredient": "minecraft:slime_block"
   },
   "output": {
     "groups": [

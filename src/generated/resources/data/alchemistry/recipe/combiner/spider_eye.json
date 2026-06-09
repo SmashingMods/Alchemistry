@@ -4,15 +4,11 @@
   "input": [
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:beta_carotene"
-      }
+      "ingredient": "chemlib:beta_carotene"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:chitin"
-      }
+      "ingredient": "chemlib:chitin"
     }
   ],
   "result": {

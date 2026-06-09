@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:barium_sulfide"
-      }
+      "ingredient": "chemlib:barium_sulfide"
     }
   ],
   "result": {

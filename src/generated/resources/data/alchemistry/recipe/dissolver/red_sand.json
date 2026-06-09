@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:red_sand"
-    }
+    "ingredient": "minecraft:red_sand"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:anvil"
-    }
+    "ingredient": "minecraft:anvil"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 16,
-    "ingredient": {
-      "item": "chemlib:cerium"
-    }
+    "ingredient": "chemlib:cerium"
   },
   "result": {
     "item": "chemlib:cerium_dust"

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/uranium"
-    }
+    "ingredient": "#c:nuggets/uranium"
   },
   "output": {
     "groups": [

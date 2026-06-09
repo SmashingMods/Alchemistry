@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:hanging_roots"
-    }
+    "ingredient": "minecraft:hanging_roots"
   },
   "output": {
     "groups": [

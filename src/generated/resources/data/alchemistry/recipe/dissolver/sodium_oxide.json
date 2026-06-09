@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:sodium_oxide"
-    }
+    "ingredient": "chemlib:sodium_oxide"
   },
   "output": {
     "groups": [

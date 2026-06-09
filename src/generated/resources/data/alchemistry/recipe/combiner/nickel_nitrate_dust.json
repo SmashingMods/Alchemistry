@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:nickel_nitrate"
-      }
+      "ingredient": "chemlib:nickel_nitrate"
     }
   ],
   "result": {

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:potassium_chloride"
-    }
+    "ingredient": "chemlib:potassium_chloride"
   },
   "output": {
     "groups": [

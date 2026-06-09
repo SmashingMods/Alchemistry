@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:copper_i_oxide"
-      }
+      "ingredient": "chemlib:copper_i_oxide"
     }
   ],
   "result": {

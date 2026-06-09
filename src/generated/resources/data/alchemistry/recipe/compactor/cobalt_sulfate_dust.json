@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:cobalt_sulfate"
-    }
+    "ingredient": "chemlib:cobalt_sulfate"
   },
   "result": {
     "item": "chemlib:cobalt_sulfate_dust"

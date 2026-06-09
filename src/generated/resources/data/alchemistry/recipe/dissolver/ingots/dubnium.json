@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/dubnium"
-    }
+    "ingredient": "#c:ingots/dubnium"
   },
   "output": {
     "groups": [

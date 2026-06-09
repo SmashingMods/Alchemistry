@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:shulker_shell"
-    }
+    "ingredient": "minecraft:shulker_shell"
   },
   "output": {
     "groups": [

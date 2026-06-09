@@ -3,14 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:mercury_sulfide"
-      }
+      "ingredient": "chemlib:mercury_sulfide"
     },
     {
-      "ingredient": {
-        "item": "chemlib:cellulose"
-      }
+      "ingredient": "chemlib:cellulose"
     }
   ],
   "result": {

@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:tin_oxide"
-      }
+      "ingredient": "chemlib:tin_oxide"
     }
   ],
   "result": {

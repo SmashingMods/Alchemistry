@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/titanium"
-    }
+    "ingredient": "#c:ingots/titanium"
   },
   "output": {
     "groups": [

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/nobelium"
-    }
+    "ingredient": "#c:plates/nobelium"
   },
   "output": {
     "groups": [

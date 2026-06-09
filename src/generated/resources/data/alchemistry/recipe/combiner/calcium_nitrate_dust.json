@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:calcium_nitrate"
-      }
+      "ingredient": "chemlib:calcium_nitrate"
     }
   ],
   "result": {

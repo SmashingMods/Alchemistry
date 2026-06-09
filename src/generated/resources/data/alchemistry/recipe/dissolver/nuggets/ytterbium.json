@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/ytterbium"
-    }
+    "ingredient": "#c:nuggets/ytterbium"
   },
   "output": {
     "groups": [

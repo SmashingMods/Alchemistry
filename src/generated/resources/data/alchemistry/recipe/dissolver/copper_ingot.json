@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:copper_ingot"
-    }
+    "ingredient": "minecraft:copper_ingot"
   },
   "output": {
     "groups": [

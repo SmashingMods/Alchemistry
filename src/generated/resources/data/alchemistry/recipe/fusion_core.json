@@ -3,12 +3,8 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "N": {
-      "item": "minecraft:netherite_scrap"
-    },
-    "T": {
-      "item": "chemlib:tungsten_ingot"
-    }
+    "N": "minecraft:netherite_scrap",
+    "T": "chemlib:tungsten_ingot"
   },
   "pattern": [
     "TNT",

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:lead_iodide"
-    }
+    "ingredient": "chemlib:lead_iodide"
   },
   "output": {
     "groups": [

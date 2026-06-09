@@ -4,15 +4,11 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:calcium_carbonate"
-      }
+      "ingredient": "chemlib:calcium_carbonate"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:lutetium"
-      }
+      "ingredient": "chemlib:lutetium"
     }
   ],
   "result": {

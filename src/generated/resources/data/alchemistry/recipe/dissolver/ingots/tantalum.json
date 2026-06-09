@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ingots/tantalum"
-    }
+    "ingredient": "#c:ingots/tantalum"
   },
   "output": {
     "groups": [

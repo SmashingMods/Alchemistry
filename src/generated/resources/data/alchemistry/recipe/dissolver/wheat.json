@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:wheat"
-    }
+    "ingredient": "minecraft:wheat"
   },
   "output": {
     "groups": [

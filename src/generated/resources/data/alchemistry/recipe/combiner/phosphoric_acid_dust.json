@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:phosphoric_acid"
-      }
+      "ingredient": "chemlib:phosphoric_acid"
     }
   ],
   "result": {

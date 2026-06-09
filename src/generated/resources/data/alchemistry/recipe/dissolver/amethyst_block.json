@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:amethyst_block"
-    }
+    "ingredient": "minecraft:amethyst_block"
   },
   "output": {
     "groups": [

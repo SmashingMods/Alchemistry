@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dyes/yellow"
-    }
+    "ingredient": "#c:dyes/yellow"
   },
   "output": {
     "groups": [

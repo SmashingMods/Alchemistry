@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:fire_coral_block"
-    }
+    "ingredient": "minecraft:fire_coral_block"
   },
   "output": {
     "groups": [

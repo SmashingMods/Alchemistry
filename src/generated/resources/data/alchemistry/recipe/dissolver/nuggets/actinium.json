@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:nuggets/actinium"
-    }
+    "ingredient": "#c:nuggets/actinium"
   },
   "output": {
     "groups": [

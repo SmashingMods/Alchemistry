@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:cadmium_hydroxide"
-      }
+      "ingredient": "chemlib:cadmium_hydroxide"
     }
   ],
   "result": {

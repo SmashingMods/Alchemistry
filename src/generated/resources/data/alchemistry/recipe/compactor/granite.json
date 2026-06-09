@@ -2,9 +2,7 @@
   "type": "alchemistry:compactor",
   "group": "alchemistry:compactor",
   "input": {
-    "ingredient": {
-      "item": "chemlib:silicon_dioxide"
-    }
+    "ingredient": "chemlib:silicon_dioxide"
   },
   "result": {
     "item": "minecraft:granite"

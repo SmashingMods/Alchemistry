@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:diamond_horse_armor"
-    }
+    "ingredient": "minecraft:diamond_horse_armor"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:iron_iii_nitrate_dust"
-    }
+    "ingredient": "chemlib:iron_iii_nitrate_dust"
   },
   "output": {
     "groups": [

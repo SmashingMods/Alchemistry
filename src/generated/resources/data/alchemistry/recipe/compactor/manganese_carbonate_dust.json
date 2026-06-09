@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:manganese_carbonate"
-    }
+    "ingredient": "chemlib:manganese_carbonate"
   },
   "result": {
     "item": "chemlib:manganese_carbonate_dust"

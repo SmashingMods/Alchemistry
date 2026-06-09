@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:hydrochloric_acid"
-    }
+    "ingredient": "chemlib:hydrochloric_acid"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:urea_dust"
-    }
+    "ingredient": "chemlib:urea_dust"
   },
   "output": {
     "groups": [

@@ -4,21 +4,15 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
+      "ingredient": "chemlib:sulfur"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:graphite"
-      }
+      "ingredient": "chemlib:graphite"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:potassium_nitrate"
-      }
+      "ingredient": "chemlib:potassium_nitrate"
     }
   ],
   "result": {

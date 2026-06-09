@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:magnesium_nitrate"
-      }
+      "ingredient": "chemlib:magnesium_nitrate"
     }
   ],
   "result": {

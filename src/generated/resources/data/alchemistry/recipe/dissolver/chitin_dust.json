@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:chitin_dust"
-    }
+    "ingredient": "chemlib:chitin_dust"
   },
   "output": {
     "groups": [

@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:yellow_glazed_terracotta"
-    }
+    "ingredient": "minecraft:yellow_glazed_terracotta"
   },
   "output": {
     "groups": [

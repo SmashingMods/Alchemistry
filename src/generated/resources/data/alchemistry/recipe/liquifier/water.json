@@ -3,9 +3,7 @@
   "group": "alchemistry:liquifier",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:water"
-    }
+    "ingredient": "chemlib:water"
   },
   "result": {
     "amount": 500,

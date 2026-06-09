@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:iron_ii_sulfate"
-      }
+      "ingredient": "chemlib:iron_ii_sulfate"
     }
   ],
   "result": {

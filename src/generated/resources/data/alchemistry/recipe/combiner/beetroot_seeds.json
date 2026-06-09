@@ -3,19 +3,13 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:sucrose"
-      }
+      "ingredient": "chemlib:sucrose"
     },
     {
-      "ingredient": {
-        "item": "chemlib:iron_oxide"
-      }
+      "ingredient": "chemlib:iron_oxide"
     },
     {
-      "ingredient": {
-        "item": "chemlib:triglyceride"
-      }
+      "ingredient": "chemlib:triglyceride"
     }
   ],
   "result": {

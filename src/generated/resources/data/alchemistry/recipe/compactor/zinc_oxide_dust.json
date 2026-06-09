@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:zinc_oxide"
-    }
+    "ingredient": "chemlib:zinc_oxide"
   },
   "result": {
     "item": "chemlib:zinc_oxide_dust"

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/gold"
-    }
+    "ingredient": "#c:dusts/gold"
   },
   "output": {
     "groups": [

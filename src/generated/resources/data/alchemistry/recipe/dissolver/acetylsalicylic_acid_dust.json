@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:acetylsalicylic_acid_dust"
-    }
+    "ingredient": "chemlib:acetylsalicylic_acid_dust"
   },
   "output": {
     "groups": [

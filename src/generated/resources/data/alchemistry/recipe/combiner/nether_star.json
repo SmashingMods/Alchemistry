@@ -4,27 +4,19 @@
   "input": [
     {
       "count": 64,
-      "ingredient": {
-        "item": "chemlib:mendelevium"
-      }
+      "ingredient": "chemlib:mendelevium"
     },
     {
       "count": 64,
-      "ingredient": {
-        "item": "chemlib:titanium"
-      }
+      "ingredient": "chemlib:titanium"
     },
     {
       "count": 64,
-      "ingredient": {
-        "item": "chemlib:lutetium"
-      }
+      "ingredient": "chemlib:lutetium"
     },
     {
       "count": 64,
-      "ingredient": {
-        "item": "chemlib:dysprosium"
-      }
+      "ingredient": "chemlib:dysprosium"
     }
   ],
   "result": {

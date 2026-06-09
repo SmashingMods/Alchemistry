@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:lead_sulfate_dust"
-    }
+    "ingredient": "chemlib:lead_sulfate_dust"
   },
   "output": {
     "groups": [

@@ -3,18 +3,10 @@
   "category": "misc",
   "group": "machines",
   "key": {
-    "C": {
-      "item": "minecraft:cauldron"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "P": {
-      "item": "minecraft:piston"
-    },
-    "R": {
-      "item": "minecraft:redstone"
-    }
+    "C": "minecraft:cauldron",
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:piston",
+    "R": "minecraft:redstone"
   },
   "pattern": [
     "IPI",

@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:dusts/titanium"
-    }
+    "ingredient": "#c:dusts/titanium"
   },
   "output": {
     "groups": [

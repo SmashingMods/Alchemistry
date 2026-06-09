@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:nether_brick"
-    }
+    "ingredient": "minecraft:nether_brick"
   },
   "output": {
     "groups": [

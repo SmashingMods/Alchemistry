@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:plates/praseodymium"
-    }
+    "ingredient": "#c:plates/praseodymium"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 4,
-    "ingredient": {
-      "item": "chemlib:protein"
-    }
+    "ingredient": "chemlib:protein"
   },
   "result": {
     "item": "minecraft:mutton"

@@ -3,9 +3,7 @@
   "group": "alchemistry:compactor",
   "input": {
     "count": 8,
-    "ingredient": {
-      "item": "chemlib:copper_i_sulfide"
-    }
+    "ingredient": "chemlib:copper_i_sulfide"
   },
   "result": {
     "item": "chemlib:copper_i_sulfide_dust"

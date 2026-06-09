@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:carved_pumpkin"
-    }
+    "ingredient": "minecraft:carved_pumpkin"
   },
   "output": {
     "groups": [

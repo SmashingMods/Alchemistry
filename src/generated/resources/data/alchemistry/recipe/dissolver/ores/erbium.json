@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/erbium"
-    }
+    "ingredient": "#c:ores/erbium"
   },
   "output": {
     "groups": [

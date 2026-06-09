@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:iron_nugget"
-    }
+    "ingredient": "minecraft:iron_nugget"
   },
   "output": {
     "groups": [

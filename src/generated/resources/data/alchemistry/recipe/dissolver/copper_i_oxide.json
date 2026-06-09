@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:copper_i_oxide"
-    }
+    "ingredient": "chemlib:copper_i_oxide"
   },
   "output": {
     "groups": [

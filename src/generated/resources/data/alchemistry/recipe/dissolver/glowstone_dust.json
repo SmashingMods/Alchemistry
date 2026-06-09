@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:glowstone_dust"
-    }
+    "ingredient": "minecraft:glowstone_dust"
   },
   "output": {
     "groups": [

@@ -3,9 +3,7 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": {
-        "item": "chemlib:cellulose"
-      }
+      "ingredient": "chemlib:cellulose"
     }
   ],
   "result": {

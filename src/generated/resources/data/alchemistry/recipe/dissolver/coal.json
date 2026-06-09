@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:coal"
-    }
+    "ingredient": "minecraft:coal"
   },
   "output": {
     "groups": [

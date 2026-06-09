@@ -4,21 +4,15 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:sulfur"
-      }
+      "ingredient": "chemlib:sulfur"
     },
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:germanium"
-      }
+      "ingredient": "chemlib:germanium"
     },
     {
       "count": 2,
-      "ingredient": {
-        "item": "chemlib:graphite"
-      }
+      "ingredient": "chemlib:graphite"
     }
   ],
   "result": {

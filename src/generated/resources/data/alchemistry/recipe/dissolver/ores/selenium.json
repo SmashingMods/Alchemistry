@@ -11,9 +11,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "tag": "c:ores/selenium"
-    }
+    "ingredient": "#c:ores/selenium"
   },
   "output": {
     "groups": [

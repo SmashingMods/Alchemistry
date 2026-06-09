@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:polished_diorite"
-    }
+    "ingredient": "minecraft:polished_diorite"
   },
   "output": {
     "groups": [

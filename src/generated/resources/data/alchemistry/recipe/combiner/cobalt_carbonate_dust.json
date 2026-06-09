@@ -4,9 +4,7 @@
   "input": [
     {
       "count": 8,
-      "ingredient": {
-        "item": "chemlib:cobalt_carbonate"
-      }
+      "ingredient": "chemlib:cobalt_carbonate"
     }
   ],
   "result": {

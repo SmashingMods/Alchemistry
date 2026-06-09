@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "minecraft:mossy_cobblestone_slab"
-    }
+    "ingredient": "minecraft:mossy_cobblestone_slab"
   },
   "output": {
     "groups": [

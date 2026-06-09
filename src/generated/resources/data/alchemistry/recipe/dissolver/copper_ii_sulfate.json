@@ -2,9 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": {
-      "item": "chemlib:copper_ii_sulfate"
-    }
+    "ingredient": "chemlib:copper_ii_sulfate"
   },
   "output": {
     "groups": [

@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "modonomicon"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:stone_pressure_plate"
+    }
+  ],
+  "result": {
+    "id": "modonomicon:modonomicon",
+    "components": {
+      "modonomicon:book_id": "alchemistry:alchemistry_book"
+    }
+  }
+}

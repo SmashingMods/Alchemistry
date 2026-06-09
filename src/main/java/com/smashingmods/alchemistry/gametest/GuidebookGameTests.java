@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.klikli_dev.modonomicon.book.Book;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.smashingmods.alchemistry.Alchemistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -125,21 +126,41 @@ public class GuidebookGameTests {
     }
 
     /**
-     * Asserts Modonomicon actually loaded the book. The parse and ref-resolve checks are blind to whether
-     * Modonomicon ingested the book at all -- the book def could be deleted or renamed and they would still pass.
-     * Modonomicon registers its {@link BookDataManager} as a server datapack-reload listener, so by the time a
-     * gametest runs the books are parsed and keyed by id; this asserts {@code alchemistry:alchemistry_book} is
-     * present in that registry. Renaming or removing the book definition drops the key and fails the check.
+     * Asserts Modonomicon actually loaded the book, with its categories and entries attached. The parse and
+     * ref-resolve checks are blind to whether Modonomicon ingested the book at all -- the book def could be deleted
+     * or renamed and they would still pass. Modonomicon registers its {@link BookDataManager} as a server
+     * datapack-reload listener, so by the time a gametest runs the books are parsed and keyed by id.
+     *
+     * <p>A bare {@code getBook != null} check under-reaches: {@code BookDataManager.apply()} keys the book by id as
+     * soon as its {@code book.json} parses, before attaching categories and entries, and a malformed category or
+     * entry is logged and skipped without removing the key (its build error is recorded transiently and then reset,
+     * so it does not survive the reload for a later {@code BookErrorManager} query). A book corrupt below
+     * {@code book.json} -- a bad page type, a dangling parent, a missing required field -- therefore still registers
+     * its key and would pass a presence-only check while loading empty or broken in-game. So this also asserts the
+     * loaded {@link Book} has at least one category and at least one entry (a skipped category/entry is never added
+     * to the book, so an all-broken book has an empty map and fails here). Counts are deliberately not asserted, so
+     * adding categories or entries does not break the gate. Renaming or removing the book definition drops the key
+     * and fails the presence check.</p>
      */
     @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
     public void guidebook_bookLoads(GameTestHelper helper) {
-        if (BookDataManager.get().getBook(BOOK_ID) == null) {
+        Book book = BookDataManager.get().getBook(BOOK_ID);
+        if (book == null) {
             helper.fail("Modonomicon did not load the guidebook " + BOOK_ID
                     + "; loaded books: " + BookDataManager.get().getBooks().keySet());
         }
+        if (book.getCategories().isEmpty()) {
+            helper.fail("Modonomicon loaded the guidebook " + BOOK_ID
+                    + " with no categories -- a category failed to parse and was skipped");
+        }
+        if (book.getEntries().isEmpty()) {
+            helper.fail("Modonomicon loaded the guidebook " + BOOK_ID
+                    + " with no entries -- an entry failed to parse and was skipped");
+        }
 
-        System.out.println("[GuidebookGameTests] guidebook_bookLoads confirmed " + BOOK_ID + " is loaded");
+        System.out.println("[GuidebookGameTests] guidebook_bookLoads confirmed " + BOOK_ID + " is loaded with "
+                + book.getCategories().size() + " categories and " + book.getEntries().size() + " entries");
         helper.succeed();
     }
 

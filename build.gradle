@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'net.neoforged.gradle.userdev' version '7.1.36'
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
+    id 'net.darkhax.curseforgegradle' version '1.1.28'
 }
 
 apply plugin: 'maven-publish'
@@ -408,32 +408,22 @@ publishing {
     }
 }
 
-// CurseForge publishing disabled; re-enable when release credentials/game-versions are set.
-// cursegradle plugin left applied but dormant. See PORTING_LOG.
-/*
-curseforge {
-    apiKey = secrets.getProperty("apiKey")
-    project {
-        id = '293425'
-        releaseType = 'release'
-        changelogType = 'markdown'
-        changelog = file("changelog.md")
-        addGameVersion 'Forge'
-        addGameVersion 'Java 17'
-        addGameVersion "$minecraft_version"
-        mainArtifact(jar) {
-            displayName = "Alchemistry - $project.version"
-            relations {
-                requiredDependency 'chemlib'
-                requiredDependency 'alchemylib'
-                optionalDependency 'jei'
-                optionalDependency 'patchouli'
-//                optionalDependency 'ctm'
-            }
-        }
-    }
+tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    apiToken = secrets.getProperty("apiKey")
+    dependsOn tasks.named('build')
+    debugMode = project.hasProperty('curseDebug')   // -PcurseDebug = dry run, no upload
+    def main = upload('293425', tasks.jar.archiveFile)
+    main.displayName   = "Alchemistry ${version}"
+    main.releaseType   = 'release'
+    main.changelog     = file('changelog.md')
+    main.changelogType = 'markdown'
+    main.addModLoader('NeoForge')
+    main.addGameVersion("${minecraft_version}")
+    main.addRequirement('chemlib')
+    main.addRequirement('alchemylib')
+    main.addOptional('jei')
+    main.addOptional('patchouli')
 }
-*/
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'

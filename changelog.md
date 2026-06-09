@@ -1,7 +1,10 @@
-# Alchemistry 1.20.1-2.3.4 RELEASE
+# Alchemistry 1.21.1-2.4.4 RELEASE
+
+Requires ChemLib and AlchemyLib for this version.
 
 Changes:
-- Merge PR #327 to fix issues with pushing items through Mekanism pipes into the combiner inventory. Better logic, thank you!
-- Allow NBT when checking item stacks for the dissolver and combiner recipe serializers. For closed PR #321.
+- Updated to Minecraft 1.21.1.
+- Fixed machine GUI tooltips drawing in the wrong order so they no longer get covered up.
+- Element and compound items now display correctly inside the machines and recipe viewer (icons, colors, and tooltips).
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

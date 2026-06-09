@@ -264,8 +264,11 @@ runs {
         }
     }
 
-    data {
-        runType "data"
+    clientData {
+        // 1.21.4 split the old "data" run type into "clientData"/"serverData"; the "--all" datagen
+        // suite (which includes the client-side providers -- models/blockstates/lang -- as well as the
+        // server providers -- recipes/loot/tags/book) runs under clientData in a single pass.
+        runType "clientData"
         // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
         programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }

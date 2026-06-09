@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -28,8 +29,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class CompactorBlock extends AbstractProcessingBlock {
-    public CompactorBlock() {
-        super(CompactorBlockEntity::new);
+    public CompactorBlock(BlockBehaviour.Properties pProperties) {
+        super(CompactorBlockEntity::new, pProperties);
     }
 
     public static final VoxelShape base = Block.box(0, 0, 0, 16, 1, 16);

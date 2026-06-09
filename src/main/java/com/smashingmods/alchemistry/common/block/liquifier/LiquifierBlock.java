@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -24,8 +25,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class LiquifierBlock extends AbstractProcessingBlock {
 
-    public LiquifierBlock() {
-        super(LiquifierBlockEntity::new);
+    public LiquifierBlock(BlockBehaviour.Properties pProperties) {
+        super(LiquifierBlockEntity::new, pProperties);
     }
 
     public static final VoxelShape base = Block.box(0, 0, 0, 16, 1, 16);

@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -29,8 +30,8 @@ import java.util.List;
 
 public class CombinerBlock extends AbstractProcessingBlock {
 
-    public CombinerBlock() {
-        super(CombinerBlockEntity::new);
+    public CombinerBlock(BlockBehaviour.Properties pProperties) {
+        super(CombinerBlockEntity::new, pProperties);
     }
 
     public static final VoxelShape A = Block.box(0.0, 0.0, 0.0, 16.0, 1, 16.0);

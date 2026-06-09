@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,8 +32,8 @@ import java.util.List;
 
 public class FusionControllerBlock extends AbstractReactorBlock {
 
-    public FusionControllerBlock() {
-        super(FusionControllerBlockEntity::new);
+    public FusionControllerBlock(BlockBehaviour.Properties pProperties) {
+        super(FusionControllerBlockEntity::new, pProperties);
     }
 
     @Override

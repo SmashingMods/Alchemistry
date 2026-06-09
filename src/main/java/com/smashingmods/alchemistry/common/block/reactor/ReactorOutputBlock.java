@@ -5,14 +5,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import javax.annotation.Nullable;
 
 public class ReactorOutputBlock extends AbstractProcessingBlock {
-    public ReactorOutputBlock() {
-        super(ReactorOutputBlockEntity::new);
+    public ReactorOutputBlock(BlockBehaviour.Properties pProperties) {
+        super(ReactorOutputBlockEntity::new, pProperties);
     }
 
     @Override

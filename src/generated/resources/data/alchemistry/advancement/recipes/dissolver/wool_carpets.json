@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "c:storage_blocks/quartz"
+        "recipe": "minecraft:wool_carpets"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "c:storage_blocks/quartz"
+      "minecraft:wool_carpets"
     ]
   },
   "sends_telemetry_event": true

@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": "#c:storage_blocks/quartz"
+    "ingredient": "minecraft:quartz_block"
   },
   "output": {
     "groups": [

@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": "#c:glass"
+    "ingredient": "#c:glass_blocks"
   },
   "output": {
     "groups": [

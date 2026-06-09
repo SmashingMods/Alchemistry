@@ -2,7 +2,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:music_discs"
+        "recipe": "c:music_discs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -14,7 +14,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:music_discs"
+      "c:music_discs"
     ]
   },
   "sends_telemetry_event": true

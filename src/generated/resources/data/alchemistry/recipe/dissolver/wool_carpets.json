@@ -2,7 +2,7 @@
   "type": "alchemistry:dissolver",
   "group": "alchemistry:dissolver",
   "input": {
-    "ingredient": "#minecraft:carpets"
+    "ingredient": "#minecraft:wool_carpets"
   },
   "output": {
     "groups": [

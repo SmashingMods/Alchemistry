@@ -7,12 +7,8 @@
   ],
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    {
-      "item": "minecraft:book"
-    },
-    {
-      "item": "minecraft:stone_pressure_plate"
-    }
+    "minecraft:book",
+    "minecraft:stone_pressure_plate"
   ],
   "result": {
     "id": "modonomicon:modonomicon",

@@ -12,6 +12,7 @@ import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -167,14 +168,14 @@ public class CompactorRecipeProvider {
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
-        Ingredient ingredient = Ingredient.of(tagKey);
+        Ingredient ingredient = Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey));
         compactor(ingredient, pOutput);
     }
 
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
-        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
+        compactor(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey)), pCount), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
     public void compactor(Ingredient pInput, ItemStack pOutput) {
@@ -193,21 +194,21 @@ public class CompactorRecipeProvider {
     @SuppressWarnings("SameParameterValue")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
-        compactor(new IngredientStack(Ingredient.of(tagKey), pCount), pOutput, pCondition);
+        compactor(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey)), pCount), pOutput, pCondition);
     }
 
     private void compactor(IngredientStack pInput, ItemStack pOutput, ICondition pCondition) {
         ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem()));
         CompactorRecipeBuilder.createRecipe(pInput, pOutput, recipeId)
                 .group(String.format("%s:compactor", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "compactor", Alchemistry.MODID)))
-                .save(consumer.withConditions(pCondition), recipeId);
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "compactor", Alchemistry.MODID))))
+                .save(consumer.withConditions(pCondition), ResourceKey.create(Registries.RECIPE, recipeId));
     }
 
     public void compactor(IngredientStack pInput, ItemStack pOutput, ResourceLocation pRecipeId) {
         CompactorRecipeBuilder.createRecipe(pInput, pOutput, pRecipeId)
                 .group(String.format("%s:compactor", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "compactor", Alchemistry.MODID)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "compactor", Alchemistry.MODID))))
                 .save(consumer);
     }
 }

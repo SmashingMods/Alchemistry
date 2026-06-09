@@ -20,7 +20,7 @@ public class DataGenerators {
         PackOutput packOutput = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = pEvent.getLookupProvider();
 
-        generator.addProvider(pEvent.includeServer(), new RecipeGenerator(packOutput, lookupProvider));
+        generator.addProvider(pEvent.includeServer(), new RecipeGenerator.Runner(packOutput, lookupProvider));
         generator.addProvider(pEvent.includeClient(), new BlockStateGenerator(packOutput, pEvent.getExistingFileHelper()));
         generator.addProvider(pEvent.includeServer(), LootTableGenerator.create(packOutput, lookupProvider));
         generator.addProvider(pEvent.includeServer(), new BlockTagGenerator(packOutput, lookupProvider, fileHelper));

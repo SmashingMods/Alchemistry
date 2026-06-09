@@ -9,6 +9,7 @@ import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -57,7 +58,7 @@ public class LiquifierRecipeProvider {
     @SuppressWarnings("unused")
     private void liquifier(String pItemTag, FluidStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pItemTag));
-        liquifier(new IngredientStack(Ingredient.of(tagKey)), pOutput);
+        liquifier(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey))), pOutput);
     }
 
     private void liquifier(ItemStack pInput, FluidStack pOutput) {
@@ -69,14 +70,14 @@ public class LiquifierRecipeProvider {
         ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pOutput.getFluid()));
         LiquifierRecipeBuilder
                 .createRecipe(pInput, pOutput, recipeId)
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
-                .save(consumer.withConditions(pCondition), recipeId);
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "liquifier", Alchemistry.MODID))))
+                .save(consumer.withConditions(pCondition), ResourceKey.create(Registries.RECIPE, recipeId));
     }
 
     private void liquifier(IngredientStack pInput, FluidStack pOutput) {
         LiquifierRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(BuiltInRegistries.FLUID.getKey(pOutput.getFluid())))
                 .group(String.format("%s:liquifier", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "liquifier", Alchemistry.MODID)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "liquifier", Alchemistry.MODID))))
                 .save(consumer);
     }
 }

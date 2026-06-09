@@ -8,10 +8,13 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Recipe;
 import javax.annotation.Nullable;
 
 public class DissolverRecipeBuilder implements RecipeBuilder {
@@ -35,7 +38,7 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceKey.create(Registries.RECIPE, recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -48,15 +51,15 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        return input.getIngredient().getItems()[0].getItem();
+        return input.getIngredient().items().getFirst().value();
     }
 
     @Override
-    public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
-        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.getPath()));
-        ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/dissolver/%s", pRecipeId.getPath()));
+    public void save(RecipeOutput pRecipeOutput, ResourceKey<Recipe<?>> pRecipeId) {
+        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("dissolver/%s", pRecipeId.location().getPath()));
+        ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/dissolver/%s", pRecipeId.location().getPath()));
 
         DissolverRecipe recipe = new DissolverRecipe(recipeLocation, group, input, result);
-        pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));
+        pRecipeOutput.accept(ResourceKey.create(Registries.RECIPE, recipeLocation), recipe, advancementBuilder.build(advancementLocation));
     }
 }

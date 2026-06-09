@@ -7,11 +7,14 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import javax.annotation.Nullable;
 
 import java.util.HashSet;
@@ -39,7 +42,7 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         this.advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(recipeId))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceKey.create(Registries.RECIPE, recipeId)))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -56,13 +59,13 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
-        String advancementPath = String.format("recipes/combiner/%s", pRecipeId.getPath());
+    public void save(RecipeOutput pRecipeOutput, ResourceKey<Recipe<?>> pRecipeId) {
+        String advancementPath = String.format("recipes/combiner/%s", pRecipeId.location().getPath());
 
-        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.getPath()));
+        ResourceLocation recipeLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("combiner/%s", pRecipeId.location().getPath()));
         ResourceLocation advancementLocation = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, advancementPath);
 
         CombinerRecipe recipe = new CombinerRecipe(recipeLocation, group, input, result);
-        pRecipeOutput.accept(recipeLocation, recipe, advancementBuilder.build(advancementLocation));
+        pRecipeOutput.accept(ResourceKey.create(Registries.RECIPE, recipeLocation), recipe, advancementBuilder.build(advancementLocation));
     }
 }

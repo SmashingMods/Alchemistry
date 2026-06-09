@@ -6,7 +6,9 @@ import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
@@ -52,15 +54,15 @@ public class AtomizerRecipeProvider {
         ResourceLocation recipeId = Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem()));
         AtomizerRecipeBuilder.createRecipe(pInput, pOutput, recipeId)
                 .group(String.format("%s:atomizer", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer", Alchemistry.MODID)))
-                .save(consumer.withConditions(pCondition), recipeId);
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "atomizer", Alchemistry.MODID))))
+                .save(consumer.withConditions(pCondition), ResourceKey.create(Registries.RECIPE, recipeId));
     }
 
     private void atomizer(FluidStack pInput, ItemStack pOutput) {
         ResourceLocation recipeId = BuiltInRegistries.ITEM.getKey(pOutput.getItem());
         AtomizerRecipeBuilder.createRecipe(pInput, pOutput, Objects.requireNonNull(recipeId))
                 .group(String.format("%s:atomizer", Alchemistry.MODID))
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "atomizer", Alchemistry.MODID)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "atomizer", Alchemistry.MODID))))
                 .save(consumer);
     }
 }

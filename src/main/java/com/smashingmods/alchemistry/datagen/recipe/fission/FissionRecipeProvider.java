@@ -4,7 +4,9 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 
 import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 
@@ -29,7 +31,7 @@ public class FissionRecipeProvider {
     private void fission(ElementItem pInput) {
         FissionRecipeBuilder.createRecipe(pInput)
                 .group("fission")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pInput, "fission", Alchemistry.MODID)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pInput, "fission", Alchemistry.MODID))))
                 .save(consumer);
     }
 }

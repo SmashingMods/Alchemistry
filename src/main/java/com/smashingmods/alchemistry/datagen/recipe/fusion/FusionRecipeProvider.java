@@ -4,7 +4,9 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 
 import java.util.List;
 import java.util.Optional;
@@ -56,7 +58,7 @@ public class FusionRecipeProvider {
     private void fusion(ElementItem pInput1, ElementItem pInput2, ElementItem pOutput) {
         FusionRecipeBuilder.createRecipe(pInput1, pInput2, pOutput)
                 .group("fusion")
-                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(getLocation(pOutput, "fusion", Alchemistry.MODID)))
+                .unlockedBy("has_the_recipe", RecipeUnlockedTrigger.unlocked(ResourceKey.create(Registries.RECIPE, getLocation(pOutput, "fusion", Alchemistry.MODID))))
                 .save(consumer);
     }
 }

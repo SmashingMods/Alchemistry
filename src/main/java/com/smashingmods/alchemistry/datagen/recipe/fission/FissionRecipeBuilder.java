@@ -10,10 +10,13 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import javax.annotation.Nullable;
 
 import java.util.Objects;
@@ -49,7 +52,7 @@ public class FissionRecipeBuilder implements RecipeBuilder {
     @Override
     public RecipeBuilder unlockedBy(String pCriterionName, Criterion<?> pCriterionTrigger) {
         advancementBuilder.addCriterion(pCriterionName, pCriterionTrigger)
-                .rewards(AdvancementRewards.Builder.recipe(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input)).getPath())))
+                .rewards(AdvancementRewards.Builder.recipe(ResourceKey.create(Registries.RECIPE, ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(input)).getPath()))))
                 .requirements(AdvancementRequirements.Strategy.OR);
         return this;
     }
@@ -66,11 +69,11 @@ public class FissionRecipeBuilder implements RecipeBuilder {
     }
 
     @Override
-    public void save(RecipeOutput pRecipeOutput, ResourceLocation pRecipeId) {
-        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("fission/%s", pRecipeId.getPath()));
-        ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/fission/%s", pRecipeId.getPath()));
+    public void save(RecipeOutput pRecipeOutput, ResourceKey<Recipe<?>> pRecipeId) {
+        ResourceLocation recipeId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("fission/%s", pRecipeId.location().getPath()));
+        ResourceLocation advancementId = ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, String.format("recipes/fission/%s", pRecipeId.location().getPath()));
 
         FissionRecipe recipe = new FissionRecipe(recipeId, group, new ItemStack(input), output1, output2);
-        pRecipeOutput.accept(recipeId, recipe, advancementBuilder.build(advancementId));
+        pRecipeOutput.accept(ResourceKey.create(Registries.RECIPE, recipeId), recipe, advancementBuilder.build(advancementId));
     }
 }

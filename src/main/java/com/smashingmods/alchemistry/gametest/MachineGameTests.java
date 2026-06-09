@@ -173,10 +173,9 @@ public class MachineGameTests {
         helper.succeed();
     }
 
-    // NOTE: fusionTransferDebitsBothInputs (driving FusionTransferPacket's server handler) is omitted for this hop.
-    // The transfer packet lives in common/network/jei/ and is excluded from compilation while JEI has no 1.21.3
-    // build (see build.gradle's sourceSets.main.java exclude); the test, its FusionControllerBlockEntity placer, and
-    // the real-ServerPlayer helper went with it. All are restored at 1.21.4 alongside the JEI integration.
+    // The fusion-transfer test (driving FusionTransferPacket's server handler) is gated on the JEI source: the
+    // transfer packet lives in common/network/jei/, which is excluded from compilation while JEI has no 1.21.3
+    // build (see build.gradle's sourceSets.main.java exclude). It is restored at 1.21.4 alongside JEI.
 
     // Places a dissolver at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts

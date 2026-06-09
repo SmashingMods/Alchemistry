@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.common.network.jei.*;
 import com.smashingmods.alchemylib.api.network.AbstractPacketHandler;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
@@ -12,12 +11,12 @@ public class PacketHandler extends AbstractPacketHandler {
         registrar(pEvent, Alchemistry.MODID);
         registerServerBound(ToggleAutoBalanceButtonPacket.TYPE, ToggleAutoBalanceButtonPacket.STREAM_CODEC);
         registerServerBound(SetRecipePacket.TYPE, SetRecipePacket.STREAM_CODEC);
-        registerServerBound(CombinerTransferPacket.TYPE, CombinerTransferPacket.STREAM_CODEC);
-        registerServerBound(CompactorTransferPacket.TYPE, CompactorTransferPacket.STREAM_CODEC);
-        registerServerBound(DissolverTransferPacket.TYPE, DissolverTransferPacket.STREAM_CODEC);
-        registerServerBound(FissionTransferPacket.TYPE, FissionTransferPacket.STREAM_CODEC);
-        registerServerBound(FusionTransferPacket.TYPE, FusionTransferPacket.STREAM_CODEC);
-        registerServerBound(LiquifierTransferPacket.TYPE, LiquifierTransferPacket.STREAM_CODEC);
+        // The six recipe-transfer packets (common/network/jei/) are JEI-only -- each wraps a JEI
+        // IRecipeTransferHandler and is sent only from the JEI plugin's "+" transfer button. JEI has no
+        // 1.21.3 build, so that source is excluded for this hop and the packets have no remaining sender;
+        // their registration is removed with them and restored at 1.21.4 alongside the JEI integration.
+        // NeoForge payload registration is type-keyed (by each packet's CustomPacketPayload.Type id), not a
+        // sequential index, so dropping these does not shift the identity of the packets that remain.
         registerServerBound(ToggleReactorAutoejectPacket.TYPE, ToggleReactorAutoejectPacket.STREAM_CODEC);
         registerServerBound(SetSideConfigurationPacket.TYPE, SetSideConfigurationPacket.STREAM_CODEC);
     }

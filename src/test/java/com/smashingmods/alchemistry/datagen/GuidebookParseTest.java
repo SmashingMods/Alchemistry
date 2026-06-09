@@ -25,35 +25,38 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Tier-0 test: every Patchouli guidebook JSON parses. No bootstrap needed -- this is pure Gson parsing, so it
+ * Tier-0 test: every Modonomicon guidebook JSON parses. No bootstrap needed -- this is pure Gson parsing, so it
  * stays off the Minecraft classpath entirely (unlike {@link com.smashingmods.alchemistry.testsupport.BootstrappedTest}
- * subclasses). The companion {@code guidebook_itemRefsResolve} gametest does the in-world half: that the
- * {@code icon}/{@code item} refs resolve to registered items, which needs the full mod chain loaded (per OQ-2 the
- * registry is only populated in-world, so a unit JVM with just vanilla after {@code Bootstrap} cannot check it).
+ * subclasses). The companion {@code guidebook_itemRefsResolve} gametest does the in-world half: that the book's
+ * item references resolve to registered items, which needs the full mod chain loaded (per OQ-2 the registry is
+ * only populated in-world, so a unit JVM with just vanilla after {@code Bootstrap} cannot check it); the
+ * companion {@code guidebook_bookLoads} gametest proves Modonomicon actually ingested the book.
  *
- * <p>The book ships across two resource roots -- the localized content (categories + entries) under
- * {@code assets/alchemistry/patchouli_books/...} and the book definition under
- * {@code data/alchemistry/patchouli_books/...} -- so both are swept. The files are read from the classpath
- * (Gradle's {@code test} task puts {@code build/resources/main} on the runtime classpath), and the roots are
- * walked rather than a count hardcoded, so an added or removed entry is picked up automatically; the count is
- * asserted as a floor and reported.</p>
+ * <p>Modonomicon keeps the whole book under {@code data/} -- the book definition, categories and entries under
+ * {@code data/alchemistry/modonomicon/books/alchemistry_book/}, and the multiblock structure definitions under
+ * the separate {@code data/alchemistry/modonomicon/multiblocks/} tree -- so both roots are swept. The files are
+ * read from the classpath (Gradle's {@code test} task puts {@code build/resources/main} on the runtime classpath,
+ * and {@code src/generated/resources} is wired into the main resource set, so the datagen-authored book lands
+ * there), and the roots are walked rather than a count hardcoded, so an added or removed entry is picked up
+ * automatically; the count is asserted as a floor and reported.</p>
  */
 class GuidebookParseTest {
 
-    // The two classpath directories the book spans. en_us is the only shipped locale; the book.json lives under
-    // data/, the localized categories/entries under assets/ -- both are walked recursively for *.json.
-    private static final String CONTENT_ROOT = "assets/alchemistry/patchouli_books/alchemistry_book/en_us";
-    private static final String BOOK_ROOT = "data/alchemistry/patchouli_books/alchemistry_book";
+    // The two classpath directories the book spans, both under data/: the book definition + categories + entries
+    // under books/, and the multiblock structure definitions under the separate multiblocks/ tree. Both are walked
+    // recursively for *.json.
+    private static final String BOOK_ROOT = "data/alchemistry/modonomicon/books/alchemistry_book";
+    private static final String MULTIBLOCK_ROOT = "data/alchemistry/modonomicon/multiblocks";
 
-    // 16 content files (6 categories + 10 entries) + 1 book.json. Asserted as a floor so adding a page never
-    // breaks the test, but the exact count is reported so a regression that drops files is still visible.
-    private static final int EXPECTED_FILE_COUNT = 17;
+    // 1 book.json + 6 categories + 10 entries + 2 multiblock definitions. Asserted as a floor so adding a page
+    // never breaks the test, but the exact count is reported so a regression that drops files is still visible.
+    private static final int EXPECTED_FILE_COUNT = 19;
 
     @Test
     void guidebook_allParse() throws IOException, URISyntaxException {
         List<Path> jsonFiles = new ArrayList<>();
-        jsonFiles.addAll(walkJsonResources(CONTENT_ROOT));
         jsonFiles.addAll(walkJsonResources(BOOK_ROOT));
+        jsonFiles.addAll(walkJsonResources(MULTIBLOCK_ROOT));
 
         assertTrue(jsonFiles.size() >= EXPECTED_FILE_COUNT,
                 "expected at least " + EXPECTED_FILE_COUNT + " guidebook JSON files, found " + jsonFiles.size()

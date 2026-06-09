@@ -1,0 +1,85 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "reactor_category",
+  "description": "book.alchemistry.alchemistry_book.reactor_category.reactor.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "alchemistry:reactor_casing"
+  },
+  "name": "book.alchemistry.alchemistry_book.reactor_category.reactor.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.alchemistry.alchemistry_book.reactor_category.reactor.intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:reactor_casing",
+      "text": "book.alchemistry.alchemistry_book.reactor_category.reactor.casing.text",
+      "title1": "book.alchemistry.alchemistry_book.reactor_category.reactor.casing.title",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "count": 1,
+        "item": "alchemistry:reactor_glass"
+      },
+      "text": "book.alchemistry.alchemistry_book.reactor_category.reactor.glass.text",
+      "title": "book.alchemistry.alchemistry_book.reactor_category.reactor.glass.title"
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:reactor_energy",
+      "text": "book.alchemistry.alchemistry_book.reactor_category.reactor.energy.text",
+      "title1": "book.alchemistry.alchemistry_book.reactor_category.reactor.energy.title",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:reactor_input",
+      "text": "book.alchemistry.alchemistry_book.reactor_category.reactor.input.text",
+      "title1": "book.alchemistry.alchemistry_book.reactor_category.reactor.input.title",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:reactor_output",
+      "text": "book.alchemistry.alchemistry_book.reactor_category.reactor.output.text",
+      "title1": "book.alchemistry.alchemistry_book.reactor_category.reactor.output.title",
+      "title2": ""
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": 0,
+  "y": -1
+}

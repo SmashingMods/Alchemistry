@@ -1,0 +1,39 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "liquifier_category",
+  "description": "book.alchemistry.alchemistry_book.liquifier_category.liquifier.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "alchemistry:liquifier"
+  },
+  "name": "book.alchemistry.alchemistry_book.liquifier_category.liquifier.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.alchemistry.alchemistry_book.liquifier_category.liquifier.intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:liquifier",
+      "text": "",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": 0,
+  "y": 0
+}

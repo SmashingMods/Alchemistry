@@ -1,0 +1,58 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "reactor_category",
+  "description": "book.alchemistry.alchemistry_book.reactor_category.fission.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "alchemistry:fission_chamber_controller"
+  },
+  "name": "book.alchemistry.alchemistry_book.reactor_category.fission.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.alchemistry.alchemistry_book.reactor_category.fission.intro.text",
+      "title": "",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:fission_chamber_controller",
+      "text": "book.alchemistry.alchemistry_book.reactor_category.fission.controller.text",
+      "title1": "",
+      "title2": ""
+    },
+    {
+      "type": "modonomicon:crafting_recipe",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "recipe_id_1": "alchemistry:fission_core",
+      "text": "book.alchemistry.alchemistry_book.reactor_category.fission.core.text",
+      "title1": "",
+      "title2": ""
+    }
+  ],
+  "parents": [
+    {
+      "draw_arrow": true,
+      "entry": "reactor_category/reactor",
+      "line_enabled": true,
+      "line_reversed": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 1,
+  "x": -2,
+  "y": 0
+}

@@ -1,0 +1,101 @@
+{
+  "type": "modonomicon:dense",
+  "mapping": {
+    "*": {
+      "type": "modonomicon:display",
+      "display": "minecraft:basalt"
+    },
+    "+": {
+      "type": "modonomicon:display",
+      "display": "minecraft:stone"
+    },
+    "0": {
+      "type": "modonomicon:block",
+      "block": "alchemistry:reactor_casing"
+    },
+    "C": {
+      "type": "modonomicon:block",
+      "block": "alchemistry:reactor_casing"
+    },
+    "E": {
+      "type": "modonomicon:blockstate",
+      "block": "alchemistry:reactor_energy[facing=east]"
+    },
+    "F": {
+      "type": "modonomicon:block",
+      "block": "alchemistry:fission_core"
+    },
+    "G": {
+      "type": "modonomicon:block",
+      "block": "alchemistry:reactor_glass"
+    },
+    "I": {
+      "type": "modonomicon:blockstate",
+      "block": "alchemistry:reactor_input[facing=east]"
+    },
+    "O": {
+      "type": "modonomicon:blockstate",
+      "block": "alchemistry:reactor_output[facing=east]"
+    },
+    "X": {
+      "type": "modonomicon:blockstate",
+      "block": "alchemistry:fission_chamber_controller[facing=east]"
+    }
+  },
+  "pattern": [
+    [
+      "_______",
+      "_CCCCC_",
+      "_CCCCC_",
+      "_CCCCC_",
+      "_CCCCC_",
+      "_CCCCC_",
+      "_______"
+    ],
+    [
+      "_______",
+      "_CGGGC_",
+      "_G___G_",
+      "_G_F_G_",
+      "_G___G_",
+      "_CGGGC_",
+      "_______"
+    ],
+    [
+      "_______",
+      "_CGGGC_",
+      "_G___G_",
+      "_G_F_G_",
+      "_G___G_",
+      "_CGGGC_",
+      "_______"
+    ],
+    [
+      "_______",
+      "_CGGGC_",
+      "_G___G_",
+      "_G_F_X_",
+      "_G___G_",
+      "_CGGGC_",
+      "_______"
+    ],
+    [
+      "_______",
+      "_CCCCC_",
+      "_CCCCI_",
+      "_CC0CE_",
+      "_CCCCO_",
+      "_CCCCC_",
+      "_______"
+    ],
+    [
+      "*+*+*+*",
+      "+*+*+*+",
+      "*+*+*+*",
+      "+*+*+*+",
+      "*+*+*+*",
+      "+*+*+*+",
+      "*+*+*+*"
+    ]
+  ]
+}

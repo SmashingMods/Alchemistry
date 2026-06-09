@@ -25,7 +25,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.AddServerReloadListenersEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -115,10 +115,12 @@ public class RecipeRegistry {
      * This event handler just clears the internal maps, but a better version might update them in-place.
      * That said, datapack reloads don't actually occur that often in regular play, so there is little point
      * over-engineering this.
-     * @param event the AddReloadListener event.
+     * @param event the server reload-listener registration event.
      */
-    public static void postReload(final AddReloadListenerEvent event) {
-        event.addListener(new SimplePreparableReloadListener<Boolean>() {
+    public static void postReload(final AddServerReloadListenersEvent event) {
+        // 1.21.4 renamed AddReloadListenerEvent to AddServerReloadListenersEvent and keys each listener by a
+        // ResourceLocation (the name the listener used to carry through getName()).
+        event.addListener(ResourceLocation.fromNamespaceAndPath(MODID, "cache_invalidator"), new SimplePreparableReloadListener<Boolean>() {
             @Override
             public String getName() {
                 return "Alchemistry Cache Invalidator";

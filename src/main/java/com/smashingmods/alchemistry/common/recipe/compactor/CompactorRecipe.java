@@ -4,10 +4,13 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import javax.annotation.Nonnull;
@@ -24,26 +27,30 @@ public class CompactorRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return RecipeRegistry.COMPACTOR_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return RecipeRegistry.COMPACTOR_TYPE.get();
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        // Compactor recipes are crafted in the machine, never placed through the vanilla recipe book grid.
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        // These recipes are not shown in the vanilla recipe book; use the catch-all crafting category.
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return output;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        // NonNullList.of(default, elements...) treats the first arg as the list's default, not an element, so
-        // passing only the ingredient yields a size-0 list (JEI then renders an empty input slot). Supply
-        // Ingredient.EMPTY as the default and the real ingredient as the single element.
-        return NonNullList.of(Ingredient.EMPTY, input.getIngredient());
     }
 
     @Override

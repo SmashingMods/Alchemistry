@@ -3,10 +3,13 @@ package com.smashingmods.alchemistry.common.recipe.fusion;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import javax.annotation.Nonnull;
@@ -27,30 +30,30 @@ public class FusionRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<? extends Recipe<RecipeInput>> getSerializer() {
         return RecipeRegistry.FUSION_SERIALIZER.get();
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<RecipeInput>> getType() {
         return RecipeRegistry.FUSION_TYPE.get();
+    }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        // Fusion recipes are crafted in the machine, never placed through the vanilla recipe book grid.
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        // These recipes are not shown in the vanilla recipe book; use the catch-all crafting category.
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
     @Override
     public ItemStack getResultItem(HolderLookup.Provider pRegistries) {
         return output;
-    }
-
-    @Override
-    public NonNullList<Ingredient> getIngredients() {
-        // Two distinct inputs, one per slot. NonNullList.of(default, elements...) treats the first arg as the
-        // list's default, not an element; Ingredient.of(input1, input2) would also collapse both stacks into a
-        // single either-or ingredient. Build the list and add both inputs as separate ingredients so JEI fills
-        // both input slots (matching FusionRecipeCategory's two INPUT slots).
-        NonNullList<Ingredient> ingredients = NonNullList.create();
-        ingredients.add(Ingredient.of(input1));
-        ingredients.add(Ingredient.of(input2));
-        return ingredients;
     }
 
     @Override

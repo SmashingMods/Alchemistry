@@ -279,6 +279,8 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     mavenLocal()
+    // BlameJared hosts JEI (mezz.jei), the optional recipe-viewer integration consumed below.
+    maven { url "https://maven.blamejared.com" }
     // Cloudsmith hosts Modonomicon, the optional guidebook integration consumed below.
     maven { url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/" }
     maven { url "https://maven.tamaized.com/releases" }

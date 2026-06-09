@@ -51,7 +51,7 @@ public class DissolverRecipeBuilder implements RecipeBuilder {
 
     @Override
     public Item getResult() {
-        return input.getIngredient().items().getFirst().value();
+        return input.getIngredient().items().findFirst().orElseThrow().value();
     }
 
     @Override

@@ -124,11 +124,11 @@ public class RecipeRegistry {
             // holder's id onto it. Recipe identity moved to the RecipeHolder, so decoded recipes carry a
             // placeholder id (AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID); stamping the real id here makes
             // every recipe this registry hands out keyable via getId() (block entity save/restore, compareTo).
-            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
+            LinkedList<R> recipes = pLevel.getServer().getRecipeManager().getRecipes().stream()
                     .filter(holder -> holder.value().getType().equals(pRecipeType))
                     .map(holder -> {
                         R recipe = (R) holder.value();
-                        recipe.setId(holder.id());
+                        recipe.setId(holder.id().location());
                         return recipe;
                     })
                     .sorted()
@@ -144,11 +144,11 @@ public class RecipeRegistry {
             // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
             // holder's id onto it (see getRecipesByType). getRecipeByGroupAndId filters this list by
             // getId(), so the real id has to be stamped here too, not just on the by-type cache.
-            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                .filter(holder -> holder.value().getGroup().equals(pGroup))
+            LinkedList<R> recipes = pLevel.getServer().getRecipeManager().getRecipes().stream()
+                .filter(holder -> holder.value().group().equals(pGroup))
                 .map(holder -> {
                     R recipe = (R) holder.value();
-                    recipe.setId(holder.id());
+                    recipe.setId(holder.id().location());
                     return recipe;
                 })
                 .sorted()

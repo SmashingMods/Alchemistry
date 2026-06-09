@@ -89,8 +89,9 @@ public class RecipeRegistry {
     }
 
     /**
-     * The recipe types Alchemistry owns. Used to filter the machine recipes out of the server's full recipe
-     * list when syncing them to clients (see {@link com.smashingmods.alchemistry.registry.RecipeSyncHandler}).
+     * The recipe types Alchemistry owns. Used to request these types from the server's recipe sync and to
+     * pull them back out of the client's recipe data (see {@link RecipeSyncHandler} and
+     * {@link com.smashingmods.alchemistry.client.recipe.RecipeReceivedHandler}).
      */
     public static Set<RecipeType<?>> recipeTypes() {
         return Set.of(
@@ -145,9 +146,9 @@ public class RecipeRegistry {
 
     /**
      * The recipes this registry draws from. On the server that is the full recipe list off the recipe
-     * manager. At 1.21.3 that list is server-only ({@code Level#getRecipeManager} was removed and the
-     * client's {@code RecipeAccess} exposes only placeable recipes), so on the client it is instead the
-     * machine recipes the server pushed into {@link ClientRecipeStore} on join and on {@code /reload}.
+     * manager. That list is server-only ({@code Level#getRecipeManager} was removed and the client's
+     * {@code RecipeAccess} exposes only placeable recipes), so on the client it is instead the machine
+     * recipes NeoForge synced into {@link ClientRecipeStore} on join and on {@code /reload}.
      */
     private static Collection<RecipeHolder<?>> recipeHolders(Level pLevel) {
         if (pLevel.isClientSide()) {

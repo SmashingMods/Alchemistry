@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.datagen;
 
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
@@ -17,8 +18,14 @@ import java.util.Objects;
 
 public class LocalizationGenerator extends LanguageProvider {
 
-    public LocalizationGenerator(PackOutput pOutput) {
+    // The Modonomicon guidebook collects its strings into this cache as the book is generated; we flush them
+    // into en_us.json here so a single lang provider owns the file (Modonomicon's own provider would target the
+    // same path). Populated before this provider runs because the data generator runs providers in order.
+    private final LanguageProviderCache bookLang;
+
+    public LocalizationGenerator(PackOutput pOutput, LanguageProviderCache bookLang) {
         super(pOutput, Alchemistry.MODID, "en_us");
+        this.bookLang = bookLang;
     }
 
     @SuppressWarnings("deprecation")
@@ -89,7 +96,7 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.jei.dissolver.rolls", "Rolls");
         add("alchemistry.jei.elements.description", "All elements (except Hydrogen) can be created with the Fusion Chamber multiblock.\\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers.\"");
 
-        add("alchemistry.patchouli.book_name", "Alchemistry Labs Catalogue");
-        add("alchemistry.patchouli.landing_text", "Looking to smash some atoms together? This catalogue will outline the machines you can manufacture in your progression through Alchemistry.");
+        // Flush the Modonomicon guidebook's auto-collected keys (book/category/entry/page names and text).
+        bookLang.data().forEach(this::add);
     }
 }

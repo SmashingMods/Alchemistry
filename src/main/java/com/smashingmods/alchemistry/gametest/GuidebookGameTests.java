@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.klikli_dev.modonomicon.book.Book;
+import com.klikli_dev.modonomicon.book.error.BookErrorManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.smashingmods.alchemistry.Alchemistry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -144,14 +145,24 @@ public class GuidebookGameTests {
      *
      * <p>A bare {@code getBook != null} check under-reaches: {@code BookDataManager.apply()} keys the book by id as
      * soon as its {@code book.json} parses, before attaching categories and entries, and a malformed category or
-     * entry is logged and skipped without removing the key (its build error is recorded transiently and then reset,
-     * so it does not survive the reload for a later {@code BookErrorManager} query). A book corrupt below
-     * {@code book.json} -- a bad page type, a dangling parent, a missing required field -- therefore still registers
-     * its key and would pass a presence-only check while loading empty or broken in-game. So this also asserts the
-     * built {@link Book} has at least one category and at least one entry (a skipped category/entry is never added to
+     * entry is logged and skipped without removing the key. A book corrupt below {@code book.json} -- a bad page
+     * type, a dangling parent, a missing required field -- therefore still registers its key and would pass a
+     * presence-only check while loading empty or broken in-game. So this also asserts the built {@link Book} has at
+     * least one category and at least one entry (a category or entry that fails to parse outright is never added to
      * the book, so an all-broken book has an empty map and fails here). Counts are deliberately not asserted, so
      * adding categories or entries does not break the gate. Renaming or removing the book definition drops the key
      * and fails the presence check.</p>
+     *
+     * <p>The non-empty checks still under-reach on <em>partial</em> corruption, though: {@link Book#build(Level)}
+     * copies every entry up into {@link Book#getEntries()} first and validates afterwards, so an entry with a
+     * dangling parent, a bad page, or a missing {@code entryToOpen} stays in the map (the non-empty check passes)
+     * while recording a {@link BookErrorManager} error. The parse phase ({@code apply()}) resets the error store on
+     * each reload, so a parse error would not survive for a later query -- but the build phase this test drives via
+     * {@link BookDataManager#tryBuildBooks(Level)} does not: {@code buildBooks} resets only the context helper, not
+     * the per-book error store, so a build error is recorded against {@link #BOOK_ID} and is still queryable here.
+     * So after the non-empty checks this also fails if {@code BookErrorManager} recorded any build error for the
+     * book, catching corruption the count checks would otherwise wave through. The clean book records no errors, so
+     * this passes today.</p>
      */
     @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
@@ -173,6 +184,14 @@ public class GuidebookGameTests {
         if (book.getEntries().isEmpty()) {
             helper.fail("Modonomicon built the guidebook " + BOOK_ID
                     + " with no entries -- an entry failed to parse and was skipped");
+        }
+
+        // The non-empty checks above pass on partially-corrupt entries (Book.build copies entries up before
+        // validating them), but the build records the corruption as a BookErrorManager error keyed to the book and
+        // buildBooks does not reset that store, so the error survives for this query.
+        if (BookErrorManager.get().hasErrors(BOOK_ID)) {
+            helper.fail("Modonomicon recorded build errors for " + BOOK_ID + ": "
+                    + BookErrorManager.get().getErrors(BOOK_ID).getErrors());
         }
 
         System.out.println("[GuidebookGameTests] guidebook_bookLoads confirmed " + BOOK_ID + " is loaded with "

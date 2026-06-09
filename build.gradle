@@ -284,6 +284,14 @@ sourceSets.main.java {
     exclude 'com/smashingmods/alchemistry/common/network/jei/**'
 }
 
+// Mirror the main JEI exclude in the test source set: CombinerTransferPacketTest lives in the
+// common/network/jei/ test package and exercises the now-excluded CombinerTransferPacket, so it cannot compile
+// while the production JEI tree is gone. Excluding the package keeps compileTestJava green for this hop; the file
+// is preserved on disk and re-enabled at 1.21.4 alongside the production JEI source.
+sourceSets.test.java {
+    exclude 'com/smashingmods/alchemistry/common/network/jei/**'
+}
+
 repositories {
     mavenLocal()
     maven { url "https://maven.blamejared.com" }

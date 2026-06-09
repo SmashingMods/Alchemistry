@@ -13,11 +13,10 @@ import static com.smashingmods.alchemistry.Alchemistry.MODID;
 
 public class ItemRegistry {
 
-    public static final Item.Properties ITEM_PROPERTIES = new Item.Properties();
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
     public static void fromBlock(DeferredHolder<Block, ? extends Block> block) {
-        ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_PROPERTIES));
+        ITEMS.registerItem(block.getId().getPath(), properties -> new BlockItem(block.get(), properties), new Item.Properties());
     }
 
     public static List<Item> getItems() {

@@ -21,7 +21,6 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.ItemHandlerHelper;
-import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
@@ -62,7 +61,8 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                     case ON -> {
                         if (!isProcessingPaused()) {
                             BlockPos coreCenter = reactorShape.getCoreBoundingBox().getCenter();
-                            DustParticleOptions options = new DustParticleOptions(new Vector3f(1f, 1f, 0.5f), 0.15f);
+                            // Yellow reactor-core dust (RGB 1.0, 1.0, 0.5 packed as 0xRRGGBB).
+                            DustParticleOptions options = new DustParticleOptions(0xFFFF80, 0.15f);
                             ((ServerLevel) level).sendParticles(options,
                                     coreCenter.getX(),
                                     coreCenter.getY(),

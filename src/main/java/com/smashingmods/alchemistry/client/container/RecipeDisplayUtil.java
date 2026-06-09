@@ -44,7 +44,7 @@ public class RecipeDisplayUtil {
         String namespace = StringUtils.capitalize(Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pItemStack.getItem())).getNamespace());
 
         components.add(pComponent.withStyle(ChatFormatting.UNDERLINE, ChatFormatting.YELLOW));
-        components.add(MutableComponent.create(PlainTextContents.create(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getDescription().getString()))));
+        components.add(MutableComponent.create(PlainTextContents.create(String.format("%dx %s", pItemStack.getCount(), pItemStack.getItem().getName().getString()))));
 
         if (pItemStack.getItem() instanceof Chemical chemical) {
 
@@ -78,13 +78,13 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(combinerRecipe.getOutput().getItem());
-            String right = combinerRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
+            String right = combinerRecipe.getOutput().getItem().getName().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(compactorRecipe.getOutput().getItem());
-            String right = compactorRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
+            String right = compactorRecipe.getOutput().getItem().getName().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
@@ -96,13 +96,13 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(fissionRecipe.getInput().getItem());
-            String right = fissionRecipe.getInput().getItem().getDescription().toString().toLowerCase();
+            String right = fissionRecipe.getInput().getItem().getName().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(fusionRecipe.getOutput().getItem());
-            String right = fusionRecipe.getOutput().getItem().getDescription().toString().toLowerCase();
+            String right = fusionRecipe.getOutput().getItem().getName().toString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {

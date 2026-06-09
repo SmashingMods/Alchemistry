@@ -39,7 +39,7 @@ public final class AlchemistryRecipeCodecs {
      * an {@code ingredient} object plus an optional {@code count} that defaults to 1.
      */
     public static final Codec<IngredientStack> INGREDIENT_STACK = RecordCodecBuilder.create(instance -> instance.group(
-            Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(IngredientStack::getIngredient),
+            Ingredient.CODEC.fieldOf("ingredient").forGetter(IngredientStack::getIngredient),
             Codec.INT.optionalFieldOf("count", 1).forGetter(IngredientStack::getCount)
     ).apply(instance, IngredientStack::new));
 

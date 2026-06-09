@@ -17,11 +17,14 @@ import com.smashingmods.alchemylib.client.button.PauseButton;
 import com.smashingmods.alchemylib.client.button.RecipeSelectorButton;
 import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -74,7 +77,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/combiner_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(RenderType::guiTextured, ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/combiner_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 
     @Override
@@ -106,7 +109,8 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
                     if (index < currentRecipe.getInput().size()) {
 
-                        ItemStack itemStack = currentRecipe.getInput().get(index).getIngredient().getItems()[(int) (Math.random() * currentRecipe.getInput().get(index).getIngredient().getItems().length)];
+                        List<Holder<Item>> ingredientItems = currentRecipe.getInput().get(index).getIngredient().items();
+                        ItemStack itemStack = new ItemStack(ingredientItems.get((int) (Math.random() * ingredientItems.size())));
 
                         boolean required = handler.getStacks().stream().noneMatch(handlerItem -> {
                             boolean sameItem = ItemStack.isSameItemSameComponents(itemStack, handlerItem);

@@ -39,10 +39,10 @@ description='''${mod_description}'''
     ordering="NONE"
     side="BOTH"
 
-# Patchouli is an optional integration: when present it loads the guidebook (assets/data under patchouli_books/),
+# Modonomicon is an optional integration: when present it loads the guidebook (data under modonomicon/books/),
 # but Alchemistry runs fine without it, so this is type="optional" rather than "required".
 [[dependencies.${mod_id}]]
-    modId="patchouli"
+    modId="modonomicon"
     type="optional"
     versionRange="[1,)"
     ordering="NONE"

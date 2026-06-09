@@ -25,43 +25,43 @@ public class BlockEntityRegistry {
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AtomizerBlockEntity>> ATOMIZER_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("atomizer_block_entity",
-            () -> BlockEntityType.Builder.of(AtomizerBlockEntity::new, BlockRegistry.ATOMIZER.get()).build(null));
+            () -> new BlockEntityType<>(AtomizerBlockEntity::new, BlockRegistry.ATOMIZER.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CompactorBlockEntity>> COMPACTOR_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("compactor_block_entity",
-            () -> BlockEntityType.Builder.of(CompactorBlockEntity::new, BlockRegistry.COMPACTOR.get()).build(null));
+            () -> new BlockEntityType<>(CompactorBlockEntity::new, BlockRegistry.COMPACTOR.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CombinerBlockEntity>> COMBINER_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("combiner_block_entity",
-            () -> BlockEntityType.Builder.of(CombinerBlockEntity::new, BlockRegistry.COMBINER.get()).build(null));
+            () -> new BlockEntityType<>(CombinerBlockEntity::new, BlockRegistry.COMBINER.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DissolverBlockEntity>> DISSOLVER_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("dissolver_block_entity",
-            () -> BlockEntityType.Builder.of(DissolverBlockEntity::new, BlockRegistry.DISSOLVER.get()).build(null));
+            () -> new BlockEntityType<>(DissolverBlockEntity::new, BlockRegistry.DISSOLVER.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<LiquifierBlockEntity>> LIQUIFIER_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("liquifier_block_entity",
-            () -> BlockEntityType.Builder.of(LiquifierBlockEntity::new, BlockRegistry.LIQUIFIER.get()).build(null));
+            () -> new BlockEntityType<>(LiquifierBlockEntity::new, BlockRegistry.LIQUIFIER.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FissionControllerBlockEntity>> FISSION_CONTROLLER_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("fission_controller_block_entity",
-            () -> BlockEntityType.Builder.of(FissionControllerBlockEntity::new, BlockRegistry.FISSION_CONTROLLER.get()).build(null));
+            () -> new BlockEntityType<>(FissionControllerBlockEntity::new, BlockRegistry.FISSION_CONTROLLER.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<FusionControllerBlockEntity>> FUSION_CONTROLLER_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("fusion_controller_block_entity",
-            () -> BlockEntityType.Builder.of(FusionControllerBlockEntity::new, BlockRegistry.FUSION_CONTROLLER.get()).build(null));
+            () -> new BlockEntityType<>(FusionControllerBlockEntity::new, BlockRegistry.FUSION_CONTROLLER.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ReactorEnergyBlockEntity>> REACTOR_ENERGY_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("reactor_energy_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorEnergyBlockEntity::new, BlockRegistry.REACTOR_ENERGY.get()).build(null));
+            () -> new BlockEntityType<>(ReactorEnergyBlockEntity::new, BlockRegistry.REACTOR_ENERGY.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ReactorInputBlockEntity>> REACTOR_INPUT_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("reactor_input_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorInputBlockEntity::new, BlockRegistry.REACTOR_INPUT.get()).build(null));
+            () -> new BlockEntityType<>(ReactorInputBlockEntity::new, BlockRegistry.REACTOR_INPUT.get()));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ReactorOutputBlockEntity>> REACTOR_OUTPUT_BLOCK_ENTITY
             = BLOCK_ENTITY_TYPES.register("reactor_output_block_entity",
-            () -> BlockEntityType.Builder.of(ReactorOutputBlockEntity::new, BlockRegistry.REACTOR_OUTPUT.get()).build(null));
+            () -> new BlockEntityType<>(ReactorOutputBlockEntity::new, BlockRegistry.REACTOR_OUTPUT.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITY_TYPES.register(eventBus);

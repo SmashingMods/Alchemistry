@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.smashingmods.alchemistry.Alchemistry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
@@ -32,17 +33,18 @@ import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 /**
- * In-world validation of the Patchouli guidebook's item references (the companion {@code guidebook_allParse} JUnit
- * test proves every book JSON parses). This must
- * run in-world rather than as a unit test because the references resolve against {@link BuiltInRegistries#ITEM},
- * which only carries the ChemLib -> AlchemyLib -> Alchemistry chain once the server has loaded it; a unit JVM has
- * only vanilla after {@code Bootstrap}.
+ * In-world validation of the Modonomicon guidebook: that its item references resolve to registered items, and
+ * that Modonomicon actually ingested the book (the companion {@code guidebook_allParse} JUnit test proves every
+ * book JSON parses). Both checks must run in-world rather than as unit tests -- the refs resolve against
+ * {@link BuiltInRegistries#ITEM}, which only carries the ChemLib -> AlchemyLib -> Alchemistry chain once the
+ * server has loaded it (a unit JVM has only vanilla after {@code Bootstrap}), and the book is built by
+ * Modonomicon's server datapack-reload listener, which only runs in a booted server.
  *
  * <p>Like the other holders this class lives in {@code src/main} so the mod scan registers it for the
  * {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar}/{@code javadoc} tasks exclude the
- * {@code gametest} package so it never ships. The single test is {@code required=true} (the {@code @GameTest}
+ * {@code gametest} package so it never ships. Both tests are {@code required=true} (the {@code @GameTest}
  * default), so a failure fails the {@code gameTestServer} gate alongside the full-chain load-smoke in
- * {@link AlchemistryGameTests}. It pins {@code template = "loadsemptytemplate"} with
+ * {@link AlchemistryGameTests}. They pin {@code template = "loadsemptytemplate"} with
  * {@code @PrefixGameTestTemplate(false)} (the staged 3x3x3 air structure, id resolved un-prefixed to
  * {@code alchemistry:loadsemptytemplate}) like the other data-only checks; nothing is placed in-world, the
  * template just gives the framework a structure to run against. Bodies stay as thin plain helpers so the
@@ -51,22 +53,32 @@ import java.util.stream.Stream;
 @GameTestHolder(Alchemistry.MODID)
 public class GuidebookGameTests {
 
-    // The two classpath roots the book spans: localized content (categories + entries) under assets/, the book
-    // definition under data/. Both are swept; the refs all live in the content files but the data root is walked
-    // too so a future icon on the book definition would still be covered.
-    private static final String CONTENT_ROOT = "assets/alchemistry/patchouli_books/alchemistry_book/en_us";
-    private static final String BOOK_ROOT = "data/alchemistry/patchouli_books/alchemistry_book";
+    // The two classpath roots the book spans, both under data/: the book definition + categories + entries under
+    // books/, and the multiblock structure definitions under the separate multiblocks/ tree. Both are swept; the
+    // item refs all live in the book tree, but the multiblock root is walked too so the sweep mirrors
+    // GuidebookParseTest -- its block matchers key on block/display/tag (not item), so they are naturally skipped.
+    private static final String BOOK_ROOT = "data/alchemistry/modonomicon/books/alchemistry_book";
+    private static final String MULTIBLOCK_ROOT = "data/alchemistry/modonomicon/multiblocks";
 
-    // Patchouli fields that hold an item reference. icon is on categories/entries and spotlight pages; item is on
-    // spotlight pages. The recipe field is deliberately NOT here -- it is a RECIPE id (resolved against recipes,
-    // not BuiltInRegistries.ITEM), so treating it as an item ref would be a false failure.
-    private static final List<String> ITEM_REF_KEYS = List.of("icon", "item");
+    // The book id Modonomicon derives from data/alchemistry/modonomicon/books/alchemistry_book/book.json: the
+    // namespace plus the book folder name. This must match BookDataManager's loaded-book key (and the book_id
+    // component the book-grant recipe stamps onto the Modonomicon item).
+    private static final ResourceLocation BOOK_ID =
+            ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "alchemistry_book");
+
+    // The Modonomicon field that holds an item reference. icon (on categories/entries) is a BookIconModel object
+    // and spotlight pages carry an item ItemStack object; both nest the id under an "item" string. recipe_id_1 (a
+    // RECIPE id) and multiblock_id (a multiblock def ref) are deliberately NOT here -- they resolve against the
+    // recipe and multiblock registries, not BuiltInRegistries.ITEM, so treating them as item refs would be a false
+    // failure. Keyed on the leaf field name so collecting it skips both naturally.
+    private static final String ITEM_REF_KEY = "item";
 
     /**
-     * Reads every guidebook JSON off the classpath, extracts each {@code icon}/{@code item} reference, and asserts
-     * the parsed item id is a registered item. Fails on the first unresolved ref (with the file and id), otherwise
-     * succeeds; reports the number of refs checked. Because this runs against a fully-booted server the ChemLib and
-     * Alchemistry items are registered, so the machine/block icons resolve via their {@code BlockItem}s.
+     * Reads every guidebook JSON off the classpath, extracts each {@code item} reference (the id nested in an
+     * {@code icon} {@code BookIconModel} or a spotlight page's {@code item} stack), and asserts the parsed item id
+     * is a registered item. Fails on the first unresolved ref (with the file and id), otherwise succeeds; reports
+     * the number of refs checked. Because this runs against a fully-booted server the ChemLib and Alchemistry items
+     * are registered, so the machine/block icons resolve via their {@code BlockItem}s.
      */
     @GameTest(template = "loadsemptytemplate")
     @PrefixGameTestTemplate(false)
@@ -74,8 +86,8 @@ public class GuidebookGameTests {
         List<Path> jsonFiles;
         try {
             jsonFiles = new ArrayList<>();
-            jsonFiles.addAll(walkJsonResources(CONTENT_ROOT));
             jsonFiles.addAll(walkJsonResources(BOOK_ROOT));
+            jsonFiles.addAll(walkJsonResources(MULTIBLOCK_ROOT));
         } catch (IOException | URISyntaxException e) {
             helper.fail("could not enumerate guidebook JSON resources: " + e);
             throw new IllegalStateException("unreachable -- helper.fail throws", e);
@@ -97,7 +109,7 @@ public class GuidebookGameTests {
             for (String ref : refs) {
                 ResourceLocation id = parseItemId(ref);
                 if (id == null) {
-                    // An exotic icon form we do not recognise -- report rather than silently pass it.
+                    // An exotic item form we do not recognise -- report rather than silently pass it.
                     helper.fail(file.getFileName() + ": unparseable item ref \"" + ref + "\"");
                 }
                 if (!BuiltInRegistries.ITEM.containsKey(id)) {
@@ -112,15 +124,35 @@ public class GuidebookGameTests {
         helper.succeed();
     }
 
-    // Recursively collects the string values of every icon/item key anywhere in the JSON tree. A recursive walk is
-    // used because icon sits at the top level of categories/entries while item sits inside pages[]; collecting only
-    // the ITEM_REF_KEYS values naturally skips recipe ids and the multiblock mapping (keyed by glyphs like "X").
+    /**
+     * Asserts Modonomicon actually loaded the book. The parse and ref-resolve checks are blind to whether
+     * Modonomicon ingested the book at all -- the book def could be deleted or renamed and they would still pass.
+     * Modonomicon registers its {@link BookDataManager} as a server datapack-reload listener, so by the time a
+     * gametest runs the books are parsed and keyed by id; this asserts {@code alchemistry:alchemistry_book} is
+     * present in that registry. Renaming or removing the book definition drops the key and fails the check.
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void guidebook_bookLoads(GameTestHelper helper) {
+        if (BookDataManager.get().getBook(BOOK_ID) == null) {
+            helper.fail("Modonomicon did not load the guidebook " + BOOK_ID
+                    + "; loaded books: " + BookDataManager.get().getBooks().keySet());
+        }
+
+        System.out.println("[GuidebookGameTests] guidebook_bookLoads confirmed " + BOOK_ID + " is loaded");
+        helper.succeed();
+    }
+
+    // Recursively collects the string values of every "item" key anywhere in the JSON tree. A recursive walk is
+    // used because the id sits at differing depths -- the item inside a category/entry icon object, and the item
+    // inside a spotlight page's item stack object; collecting only the ITEM_REF_KEY value naturally skips recipe
+    // ids, multiblock ids, and the multiblock block/display/tag matchers.
     private static void collectItemRefs(JsonElement element, List<String> into) {
         if (element.isJsonObject()) {
             JsonObject object = element.getAsJsonObject();
             for (Entry<String, JsonElement> entry : object.entrySet()) {
                 JsonElement value = entry.getValue();
-                if (ITEM_REF_KEYS.contains(entry.getKey()) && value.isJsonPrimitive()
+                if (ITEM_REF_KEY.equals(entry.getKey()) && value.isJsonPrimitive()
                         && value.getAsJsonPrimitive().isString()) {
                     into.add(value.getAsString());
                 } else {
@@ -135,27 +167,12 @@ public class GuidebookGameTests {
         }
     }
 
-    // Parses the item id out of a Patchouli item-stack string. The common forms are "modid:item",
-    // "modid:item 4" (trailing count), "modid:item#nbt" and "modid:item{nbt}" (NBT suffix); the count and NBT are
-    // stripped before parsing the id. Returns null for a form that does not yield a valid ResourceLocation so the
-    // caller can report it rather than silently pass.
+    // Parses the item id out of a Modonomicon item reference. Modonomicon nests a plain item-id ResourceLocation
+    // under the "item" key (the count, when present, is a sibling field, not a suffix), so the value parses
+    // directly. Returns null for a form that does not yield a valid ResourceLocation so the caller can report it
+    // rather than silently pass.
     private static ResourceLocation parseItemId(String ref) {
-        String id = ref.trim();
-        // Strip a trailing count (e.g. "modid:item 4") -- the id itself never contains a space.
-        int space = id.indexOf(' ');
-        if (space >= 0) {
-            id = id.substring(0, space);
-        }
-        // Strip an NBT suffix in either the #nbt or {nbt} form.
-        int hash = id.indexOf('#');
-        if (hash >= 0) {
-            id = id.substring(0, hash);
-        }
-        int brace = id.indexOf('{');
-        if (brace >= 0) {
-            id = id.substring(0, brace);
-        }
-        return ResourceLocation.tryParse(id.trim());
+        return ResourceLocation.tryParse(ref.trim());
     }
 
     // Walks a classpath directory for *.json. The gameTestServer run uses the exploded-directory (file:)

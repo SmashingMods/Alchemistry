@@ -25,7 +25,7 @@ import java.util.List;
  * {@link ClientPlayerNetworkEvent.LoggingOut} so the next world starts clean. Both events fire on the game
  * event bus, client side only.</p>
  */
-@EventBusSubscriber(modid = Alchemistry.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = Alchemistry.MODID, value = Dist.CLIENT)
 public final class RecipeReceivedHandler {
 
     private RecipeReceivedHandler() {

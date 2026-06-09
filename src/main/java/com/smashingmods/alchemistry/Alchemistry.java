@@ -43,7 +43,7 @@ public class Alchemistry {
         // Make sure that `/reload` and world loading wipe the machine recipe cache.
         NeoForge.EVENT_BUS.addListener(RecipeRegistry::postReload);
 
-        // The machine recipe list is server-only at 1.21.3, so push it to clients on join and on `/reload`
+        // The machine recipe list is server-only, so push it to clients on join and on `/reload`
         // for the recipe-selector GUI.
         NeoForge.EVENT_BUS.addListener(RecipeSyncHandler::onDatapackSync);
     }

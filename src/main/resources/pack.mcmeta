@@ -1,10 +1,10 @@
 {
     "pack": {
         "description": "Alchemistry Resources",
-        "pack_format": 42,
+        "pack_format": 46,
         "supported_formats": {
-            "min_inclusive": 42,
-            "max_inclusive": 57
+            "min_inclusive": 46,
+            "max_inclusive": 61
         }
     }
 }

@@ -12,8 +12,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -61,7 +61,7 @@ public class LiquifierRecipeCategory implements IRecipeCategory<LiquifierRecipe>
     }
 
     @Override
-    public RecipeType<LiquifierRecipe> getRecipeType() {
+    public IRecipeType<LiquifierRecipe> getRecipeType() {
         return RecipeTypes.LIQUIFIER;
     }
 

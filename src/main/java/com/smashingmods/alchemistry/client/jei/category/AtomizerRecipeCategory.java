@@ -12,8 +12,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.neoforge.NeoForgeTypes;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -60,7 +60,7 @@ public class AtomizerRecipeCategory implements IRecipeCategory<AtomizerRecipe> {
     }
 
     @Override
-    public RecipeType<AtomizerRecipe> getRecipeType() {
+    public IRecipeType<AtomizerRecipe> getRecipeType() {
         return RecipeTypes.ATOMIZER;
     }
 

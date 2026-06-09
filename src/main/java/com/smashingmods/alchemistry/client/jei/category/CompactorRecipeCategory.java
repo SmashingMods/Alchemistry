@@ -11,8 +11,8 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -60,7 +60,7 @@ public class CompactorRecipeCategory implements IRecipeCategory<CompactorRecipe>
     }
 
     @Override
-    public RecipeType<CompactorRecipe> getRecipeType() {
+    public IRecipeType<CompactorRecipe> getRecipeType() {
         return RecipeTypes.COMPACTOR;
     }
 

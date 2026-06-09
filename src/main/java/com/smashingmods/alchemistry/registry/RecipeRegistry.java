@@ -14,12 +14,14 @@ import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipeSerializer;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipeSerializer;
+import com.smashingmods.alchemistry.client.recipe.ClientRecipeStore;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -28,10 +30,12 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -85,6 +89,27 @@ public class RecipeRegistry {
     }
 
     /**
+     * The recipe types Alchemistry owns. Used to filter the machine recipes out of the server's full recipe
+     * list when syncing them to clients (see {@link com.smashingmods.alchemistry.registry.RecipeSyncHandler}).
+     */
+    public static Set<RecipeType<?>> recipeTypes() {
+        return Set.of(
+                ATOMIZER_TYPE.get(), COMPACTOR_TYPE.get(), COMBINER_TYPE.get(), DISSOLVER_TYPE.get(),
+                FISSION_TYPE.get(), FUSION_TYPE.get(), LIQUIFIER_TYPE.get()
+        );
+    }
+
+    /**
+     * Empties the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
+     * {@link RecipeRegistry#recipeGroupMap recipeGroupMap} so the next read rebuilds them. Invoked when a
+     * data pack reload changes the server recipes and when the client receives a fresh recipe sync.
+     */
+    public static void clearCache() {
+        recipeTypeMap.clear();
+        recipeGroupMap.clear();
+    }
+
+    /**
      * Attach a ReloadListener that clears the internal {@link RecipeRegistry#recipeTypeMap recipeTypeMap} and
      * {@link RecipeRegistry#recipeGroupMap recipeGroupMap} so that data pack reloading takes effect immediately.
      * This event handler just clears the internal maps, but a better version might update them in-place.
@@ -110,21 +135,33 @@ public class RecipeRegistry {
             @Override
             protected void apply(Boolean pShouldClear, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
                 if (pShouldClear) {
-                    recipeTypeMap.clear();
-                    recipeGroupMap.clear();
+                    clearCache();
                 }
             }
         });
     }
 
+    /**
+     * The recipes this registry draws from. On the server that is the full recipe list off the recipe
+     * manager. At 1.21.3 that list is server-only ({@code Level#getRecipeManager} was removed and the
+     * client's {@code RecipeAccess} exposes only placeable recipes), so on the client it is instead the
+     * machine recipes the server pushed into {@link ClientRecipeStore} on join and on {@code /reload}.
+     */
+    private static Collection<RecipeHolder<?>> recipeHolders(Level pLevel) {
+        if (pLevel.isClientSide()) {
+            return ClientRecipeStore.getRecipes();
+        }
+        return pLevel.getServer().getRecipeManager().getRecipes();
+    }
+
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
         if (recipeTypeMap.get(pRecipeType) == null) {
-            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
+            // The recipe holders pair each recipe with its id; unwrap to the recipe value and stamp the
             // holder's id onto it. Recipe identity moved to the RecipeHolder, so decoded recipes carry a
             // placeholder id (AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID); stamping the real id here makes
             // every recipe this registry hands out keyable via getId() (block entity save/restore, compareTo).
-            LinkedList<R> recipes = pLevel.getServer().getRecipeManager().getRecipes().stream()
+            LinkedList<R> recipes = recipeHolders(pLevel).stream()
                     .filter(holder -> holder.value().getType().equals(pRecipeType))
                     .map(holder -> {
                         R recipe = (R) holder.value();
@@ -141,10 +178,10 @@ public class RecipeRegistry {
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
         if (recipeGroupMap.get(pGroup) == null) {
-            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
+            // The recipe holders pair each recipe with its id; unwrap to the recipe value and stamp the
             // holder's id onto it (see getRecipesByType). getRecipeByGroupAndId filters this list by
             // getId(), so the real id has to be stamped here too, not just on the by-type cache.
-            LinkedList<R> recipes = pLevel.getServer().getRecipeManager().getRecipes().stream()
+            LinkedList<R> recipes = recipeHolders(pLevel).stream()
                 .filter(holder -> holder.value().group().equals(pGroup))
                 .map(holder -> {
                     R recipe = (R) holder.value();

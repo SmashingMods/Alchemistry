@@ -9,7 +9,6 @@ import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +39,7 @@ public class AtomizerBlock extends AbstractProcessingBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public VoxelShape getOcclusionShape(BlockState pState) {
         return SHAPE;
     }
 
@@ -58,14 +57,14 @@ public class AtomizerBlock extends AbstractProcessingBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    public InteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         if (!pLevel.isClientSide()) {
             if (pLevel.getBlockEntity(pPos) instanceof AtomizerBlockEntity blockEntity && blockEntity.onBlockActivated(pLevel, pPos, pPlayer, pHand)) {
-                return ItemInteractionResult.CONSUME;
+                return InteractionResult.CONSUME;
             }
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override

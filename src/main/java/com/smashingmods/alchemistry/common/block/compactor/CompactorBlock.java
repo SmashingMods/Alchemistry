@@ -38,7 +38,7 @@ public class CompactorBlock extends AbstractProcessingBlock {
 
     @Override
     @SuppressWarnings("deprecation")
-    public VoxelShape getOcclusionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos) {
+    public VoxelShape getOcclusionShape(BlockState pState) {
         return SHAPE;
     }
 

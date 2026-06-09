@@ -492,7 +492,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
                             toItemStack("silicon_dioxide", 32 * multiplier))
                     .build());
         }
-        dissolver("c:storage_blocks/quartz", createSet()
+        dissolver(Items.QUARTZ_BLOCK, createSet()
                 .addGroup(100, toItemStack("barium", 16 * 4), toItemStack("silicon_dioxide", 32 * 4)) .build());
         dissolver("c:ores/quartz", createSet()
                 .addGroup(100, toItemStack("barium", 16 * 4), toItemStack("silicon_dioxide", 32 * 4)) .build());
@@ -655,9 +655,9 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
         dissolver("c:dyes/black", createSet().addGroup(100, toItemStack("titanium_oxide", 4)).build());
 
         dissolver("minecraft:wool", createSet().addGroup(100, toItemStack("keratin", 2), toItemStack("triglyceride")).build());
-        dissolver("minecraft:carpets", createSet().addGroup((2.0 / 3.0) * 100, toItemStack("keratin", 2), toItemStack("triglyceride")).build());
+        dissolver("minecraft:wool_carpets", createSet().addGroup((2.0 / 3.0) * 100, toItemStack("keratin", 2), toItemStack("triglyceride")).build());
 
-        dissolver("c:glass", createSet().addGroup(100, toItemStack("silicon_dioxide", 4)).build());
+        dissolver("c:glass_blocks", createSet().addGroup(100, toItemStack("silicon_dioxide", 4)).build());
 
 
         // mobs
@@ -716,7 +716,7 @@ public class MinecraftRecipes extends DissolverRecipeProvider {
         dissolver(Items.SNOWBALL, createSet().addGroup(100, toItemStack("water", 4)).build());
         dissolver(Items.SNOW, createSet().addGroup(100, toItemStack("water", 4)).build());
 
-        dissolver("minecraft:music_discs", createSet().addGroup(100,
+        dissolver("c:music_discs", createSet().addGroup(100,
                         toItemStack("polyvinyl_chloride", 64),
                         toItemStack("lead", 16),
                         toItemStack("cadmium", 16))

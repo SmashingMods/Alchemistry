@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
@@ -126,10 +127,20 @@ public class GuidebookGameTests {
     }
 
     /**
-     * Asserts Modonomicon actually loaded the book, with its categories and entries attached. The parse and
-     * ref-resolve checks are blind to whether Modonomicon ingested the book at all -- the book def could be deleted
-     * or renamed and they would still pass. Modonomicon registers its {@link BookDataManager} as a server
-     * datapack-reload listener, so by the time a gametest runs the books are parsed and keyed by id.
+     * Asserts Modonomicon actually loaded the book and that it builds with its categories and entries attached.
+     * The parse and ref-resolve checks are blind to whether Modonomicon ingested the book at all -- the book def
+     * could be deleted or renamed and they would still pass. Modonomicon registers its {@link BookDataManager} as a
+     * server datapack-reload listener, so by the time a gametest runs the book JSON is parsed: the book is keyed by
+     * id, its categories are attached to it, and each entry is attached to its category.
+     *
+     * <p>Building the book is a separate, later step. Modonomicon only copies a category's entries up into
+     * {@link Book#getEntries()} in {@code Book.build()}, and on the server it runs that build lazily from its
+     * {@code OnDatapackSyncEvent} handler -- which fires on player join or {@code /reload}. A {@code gameTestServer}
+     * run boots a dedicated server with no player ever joining and never runs {@code /reload}, so the build is never
+     * triggered and {@link Book#getEntries()} stays empty even though every entry parsed and is sitting on its
+     * category. This test therefore drives the build itself via {@link BookDataManager#tryBuildBooks(Level)} -- the
+     * exact entry point the player-join handler calls -- so it exercises the real server build path before asserting
+     * (the call is idempotent: {@code tryBuildBooks} no-ops once the books are built).</p>
      *
      * <p>A bare {@code getBook != null} check under-reaches: {@code BookDataManager.apply()} keys the book by id as
      * soon as its {@code book.json} parses, before attaching categories and entries, and a malformed category or
@@ -137,8 +148,8 @@ public class GuidebookGameTests {
      * so it does not survive the reload for a later {@code BookErrorManager} query). A book corrupt below
      * {@code book.json} -- a bad page type, a dangling parent, a missing required field -- therefore still registers
      * its key and would pass a presence-only check while loading empty or broken in-game. So this also asserts the
-     * loaded {@link Book} has at least one category and at least one entry (a skipped category/entry is never added
-     * to the book, so an all-broken book has an empty map and fails here). Counts are deliberately not asserted, so
+     * built {@link Book} has at least one category and at least one entry (a skipped category/entry is never added to
+     * the book, so an all-broken book has an empty map and fails here). Counts are deliberately not asserted, so
      * adding categories or entries does not break the gate. Renaming or removing the book definition drops the key
      * and fails the presence check.</p>
      */
@@ -154,8 +165,13 @@ public class GuidebookGameTests {
             helper.fail("Modonomicon loaded the guidebook " + BOOK_ID
                     + " with no categories -- a category failed to parse and was skipped");
         }
+
+        // The dedicated gameTestServer has no player join to trigger Modonomicon's lazy server-side book build, so
+        // drive it here the way the player-join handler does; without this Book.getEntries() is always empty.
+        BookDataManager.get().tryBuildBooks(helper.getLevel());
+
         if (book.getEntries().isEmpty()) {
-            helper.fail("Modonomicon loaded the guidebook " + BOOK_ID
+            helper.fail("Modonomicon built the guidebook " + BOOK_ID
                     + " with no entries -- an entry failed to parse and was skipped");
         }
 

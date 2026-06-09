@@ -21,7 +21,7 @@ public class ReactorEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         page("intro", () -> BookTextPageModel.create().withText(context().pageText()));
-        pageText("The fission and fusion reactors are an integral part of manipulating matter to form elements for whatever you need to create. They are complex multiblock machines with a lot of requirements to get started.\n\nEvery reactor will need a number of these blocks:\n- Reactor Casing\n- Reactor Glass\n- Reactor Controller\n- Reactor Core\n- Energy Input\n- Item Input\n- Item Output");
+        pageText("The fission and fusion reactors are an integral part of manipulating matter to form elements for whatever you need to create. They are complex multiblock machines with a lot of requirements to get started.\\\\Every reactor will need a number of these blocks:\\\\- Reactor Casing\\- Reactor Glass\\- Reactor Controller\\- Reactor Core\\- Energy Input\\- Item Input\\- Item Output");
 
         page("casing", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:reactor_casing")
                 .withTitle1(context().pageTitle()).withText(context().pageText()));

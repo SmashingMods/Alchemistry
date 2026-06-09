@@ -20,7 +20,7 @@ public class LiquifierEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         page("intro", () -> BookTextPageModel.create().withText(context().pageText()));
-        pageText("The Liquifier is a powered machine that can be used convert elements and compounds into their fluid equivalents.\n\n*From Professor Warren's notes: Of course, every process must be reversible. The right amount of pressure can be used to force the atomic phials back into liquid form by compression against iron.*");
+        pageText("The Liquifier is a powered machine that can be used convert elements and compounds into their fluid equivalents.\\\\*From Professor Warren's notes: Of course, every process must be reversible. The right amount of pressure can be used to force the atomic phials back into liquid form by compression against iron.*");
 
         page("crafting", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:liquifier"));
     }

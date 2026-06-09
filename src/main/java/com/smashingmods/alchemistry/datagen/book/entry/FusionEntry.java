@@ -20,7 +20,7 @@ public class FusionEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         page("intro", () -> BookTextPageModel.create().withText(context().pageText()));
-        pageText("The Fusion Reactor allows you to fuse two elements together to create new elements. The output will be decided by the sum of the atomic number of the two inputs. See JEI for recipes.\n\n*From Professor Warren's notes: Fusion requires the use of a star, and some elements only found in the depths of the Nether. Using these to make a few changes to the Fission Reactor components gives me a more powerful reactor, capable of fusing two elements into one with the sum of their atomic numbers. With careful applications of fission and fusion, I can now turn literally any element into any other one.*");
+        pageText("The Fusion Reactor allows you to fuse two elements together to create new elements. The output will be decided by the sum of the atomic number of the two inputs. See JEI for recipes.\\\\*From Professor Warren's notes: Fusion requires the use of a star, and some elements only found in the depths of the Nether. Using these to make a few changes to the Fission Reactor components gives me a more powerful reactor, capable of fusing two elements into one with the sum of their atomic numbers. With careful applications of fission and fusion, I can now turn literally any element into any other one.*");
 
         page("controller", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:fusion_chamber_controller").withText(context().pageText()));
         pageText("The fusion chamber core controls the process of smashing elements together. It takes power and can have an item input and output.");

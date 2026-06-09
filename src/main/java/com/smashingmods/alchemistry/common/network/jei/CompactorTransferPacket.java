@@ -10,9 +10,9 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -83,7 +83,7 @@ public class CompactorTransferPacket implements AlchemyPacket {
 
                 if (canTransfer) {
                     if (creative) {
-                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().getItems()[0].getItem(), recipeCopy.getInput().getCount());
+                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().items().findFirst().orElseThrow().value(), recipeCopy.getInput().getCount());
                         int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
                         inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {
@@ -114,7 +114,7 @@ public class CompactorTransferPacket implements AlchemyPacket {
         }
 
         @Override
-        public RecipeType<CompactorRecipe> getRecipeType() {
+        public IRecipeType<CompactorRecipe> getRecipeType() {
             return RecipeTypes.COMPACTOR;
         }
 

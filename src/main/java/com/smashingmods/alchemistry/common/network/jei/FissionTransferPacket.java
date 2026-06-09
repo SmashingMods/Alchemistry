@@ -10,9 +10,9 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -110,7 +110,7 @@ public class FissionTransferPacket implements AlchemyPacket {
         }
 
         @Override
-        public RecipeType<FissionRecipe> getRecipeType() {
+        public IRecipeType<FissionRecipe> getRecipeType() {
             return RecipeTypes.FISSION;
         }
 

@@ -12,9 +12,9 @@ import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -29,7 +29,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import javax.annotation.Nullable;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 public class DissolverTransferPacket implements AlchemyPacket {
@@ -71,7 +70,7 @@ public class DissolverTransferPacket implements AlchemyPacket {
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getDissolverRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
+        RecipeRegistry.getDissolverRecipe(recipe -> recipe.getInput().getIngredient().items().map(holder -> new ItemStack(holder.value())).allMatch(input.getIngredient()), player.level())
             .ifPresent(recipe -> {
 
                 DissolverRecipe recipeCopy = recipe.copy();
@@ -86,7 +85,7 @@ public class DissolverTransferPacket implements AlchemyPacket {
 
                 if (canTransfer) {
                     if (creative) {
-                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().getItems()[0].getItem(), recipeCopy.getInput().getCount());
+                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().items().findFirst().orElseThrow().value(), recipeCopy.getInput().getCount());
                         int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
                         inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {
@@ -116,7 +115,7 @@ public class DissolverTransferPacket implements AlchemyPacket {
         }
 
         @Override
-        public RecipeType<DissolverRecipe> getRecipeType() {
+        public IRecipeType<DissolverRecipe> getRecipeType() {
             return RecipeTypes.DISSOLVER;
         }
 

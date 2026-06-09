@@ -10,9 +10,9 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -91,7 +91,7 @@ public class CombinerTransferPacket implements AlchemyPacket {
                         List<ItemStack> creativeInput = new ArrayList<>();
 
                         for (int i = 0; i < recipeCopy.getInput().size(); i++) {
-                            ItemStack item = new ItemStack(recipeCopy.getInput().get(i).getIngredient().getItems()[0].getItem(), recipeCopy.getInput().get(i).getCount());
+                            ItemStack item = new ItemStack(recipeCopy.getInput().get(i).getIngredient().items().findFirst().orElseThrow().value(), recipeCopy.getInput().get(i).getCount());
                             creativeInput.add(i, item);
                         }
 
@@ -139,7 +139,7 @@ public class CombinerTransferPacket implements AlchemyPacket {
         }
 
         @Override
-        public RecipeType<CombinerRecipe> getRecipeType() {
+        public IRecipeType<CombinerRecipe> getRecipeType() {
             return RecipeTypes.COMBINER;
         }
 

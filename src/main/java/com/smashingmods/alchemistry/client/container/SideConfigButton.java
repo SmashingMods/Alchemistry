@@ -7,6 +7,7 @@ import com.smashingmods.alchemylib.api.storage.SideMode;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.core.Direction;
@@ -62,10 +63,10 @@ class SideConfigButton extends AbstractWidget {
         pGuiGraphics.fill(getX() + 1, getY() + 1, getX() + width - 1, getY() + width - 1, backgroundColor);
 
         switch (getCurrentMode()) {
-            case DISABLED -> pGuiGraphics.blit(BARRIER_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 0, 16, 16, 16, 16); // Barrier
-            case ENABLED -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 0, 154, 9, 8, 256, 256); // Checkmark
-            case PULL -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 154, 9, 9, 256, 256); // Orange hollow circle
-            case PUSH -> pGuiGraphics.blit(ICONS_LOCATION, getX() + 4, getY() + 4, width - 8, height - 8, 9, 145, 9, 9, 256, 256); // Blue filled circle
+            case DISABLED -> pGuiGraphics.blit(RenderType::guiTextured, BARRIER_LOCATION, getX() + 4, getY() + 4, 0, 0, width - 8, height - 8, 16, 16, 16, 16); // Barrier
+            case ENABLED -> pGuiGraphics.blit(RenderType::guiTextured, ICONS_LOCATION, getX() + 4, getY() + 4, 0, 154, width - 8, height - 8, 9, 8, 256, 256); // Checkmark
+            case PULL -> pGuiGraphics.blit(RenderType::guiTextured, ICONS_LOCATION, getX() + 4, getY() + 4, 9, 154, width - 8, height - 8, 9, 9, 256, 256); // Orange hollow circle
+            case PUSH -> pGuiGraphics.blit(RenderType::guiTextured, ICONS_LOCATION, getX() + 4, getY() + 4, 9, 145, width - 8, height - 8, 9, 9, 256, 256); // Blue filled circle
             default -> throw new AssertionError("Unexpected mode: " + getCurrentMode());
         }
 

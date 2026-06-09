@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -72,15 +73,15 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     @Override
     public void renderBackground(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         // Blitting a Ninepatch to screen by hand - because why not?
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 14, 4, 4, 5, 146, 4, 4, 256, 256); // Upper right corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMaxY(), 4, 4, 5, 151, 4, 4, 256, 256); // Lower right corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 14, getMaxX() - getMinX(), 4, 4, 146, 1, 4, 256, 256); // Upper edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMaxY(), getMaxX() - getMinX(), 4, 4, 151, 1, 4, 256, 256); // Lower edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256); // Left edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256); // Right edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256); // Fill
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 0, 146, 4, 4, 4, 4, 256, 256); // Upper left corner
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 0, 151, 4, 4, 4, 4, 256, 256); // Lower left corner
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMaxX(), getMinY() - 14, 5, 146, 4, 4, 4, 4, 256, 256); // Upper right corner
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMaxX(), getMaxY(), 5, 151, 4, 4, 4, 4, 256, 256); // Lower right corner
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMinX(), getMinY() - 14, 4, 146, getMaxX() - getMinX(), 4, 1, 4, 256, 256); // Upper edge
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMinX(), getMaxY(), 4, 151, getMaxX() - getMinX(), 4, 1, 4, 256, 256); // Lower edge
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 0, 150, 4, getMaxY() - getMinY() + 10, 4, 1, 256, 256); // Left edge
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 5, 150, 4, getMaxY() - getMinY() + 10, 4, 1, 256, 256); // Right edge
+        pGuiGraphics.blit(RenderType::guiTextured, TEXTURE_SOURCE, getMinX(), getMinY() - 10, 4, 150, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 1, 1, 256, 256); // Fill
     }
 
     @Override

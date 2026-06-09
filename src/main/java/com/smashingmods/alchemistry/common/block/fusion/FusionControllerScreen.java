@@ -14,6 +14,7 @@ import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import com.smashingmods.alchemylib.client.button.LockButton;
 import com.smashingmods.alchemylib.client.button.PauseButton;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -62,7 +63,7 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/fusion_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(RenderType::guiTextured, ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/fusion_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 
     @Override

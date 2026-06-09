@@ -7,6 +7,7 @@ import com.smashingmods.alchemistry.datagen.recipe.combiner.CombinerRecipeBuilde
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.datagen.DatagenHelpers;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
@@ -26,18 +27,20 @@ import java.util.Objects;
 public class DissolverRecipeProvider {
 
     private final RecipeOutput consumer;
+    protected final HolderGetter<Item> itemLookup;
 
-    public DissolverRecipeProvider(RecipeOutput pConsumer) {
+    public DissolverRecipeProvider(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
         this.consumer = pConsumer;
+        this.itemLookup = pItemLookup;
     }
 
-    public static void register(RecipeOutput pConsumer) {
-        new DissolverRecipeProvider(pConsumer).register();
+    public static void register(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        new DissolverRecipeProvider(pConsumer, pItemLookup).register();
     }
 
     private void register() {
-        ChemlibRecipes.register(consumer);
-        MinecraftRecipes.register(consumer);
+        ChemlibRecipes.register(consumer, itemLookup);
+        MinecraftRecipes.register(consumer, itemLookup);
     }
 
     public void dissolver(ItemLike pItemLike, ProbabilitySet pSet) {
@@ -73,13 +76,13 @@ public class DissolverRecipeProvider {
     public void dissolver(String pItemTag, ProbabilitySet pSet) {
         ResourceLocation itemId = ResourceLocation.parse(pItemTag);
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, itemId);
-        dissolver(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey))), pSet, itemId);
+        dissolver(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey))), pSet, itemId);
     }
 
     public void dissolver(String pItemTag, ProbabilitySet pSet, ICondition pCondition) {
         ResourceLocation itemId = ResourceLocation.parse(pItemTag);
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, itemId);
-        dissolver(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey))), pSet, itemId, pCondition);
+        dissolver(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey))), pSet, itemId, pCondition);
     }
 
     public void dissolver(IngredientStack pIngredient, ProbabilitySet pSet, ResourceLocation pRecipeId, ICondition pCondition) {

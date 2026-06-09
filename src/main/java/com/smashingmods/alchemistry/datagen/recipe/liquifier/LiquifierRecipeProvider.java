@@ -7,6 +7,7 @@ import com.smashingmods.chemlib.api.MatterState;
 import com.smashingmods.chemlib.registry.FluidRegistry;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
@@ -29,13 +30,15 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 public class LiquifierRecipeProvider {
 
     private final RecipeOutput consumer;
+    private final HolderGetter<Item> itemLookup;
 
-    public LiquifierRecipeProvider(RecipeOutput pConsumer) {
+    public LiquifierRecipeProvider(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
         this.consumer = pConsumer;
+        this.itemLookup = pItemLookup;
     }
 
-    public static void register(RecipeOutput pConsumer) {
-        new LiquifierRecipeProvider(pConsumer).register();
+    public static void register(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        new LiquifierRecipeProvider(pConsumer, pItemLookup).register();
     }
 
     private void register() {
@@ -58,7 +61,7 @@ public class LiquifierRecipeProvider {
     @SuppressWarnings("unused")
     private void liquifier(String pItemTag, FluidStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pItemTag));
-        liquifier(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey))), pOutput);
+        liquifier(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey))), pOutput);
     }
 
     private void liquifier(ItemStack pInput, FluidStack pOutput) {

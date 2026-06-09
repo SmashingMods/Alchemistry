@@ -10,6 +10,7 @@ import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
@@ -34,13 +35,15 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.getLocation;
 public class CompactorRecipeProvider {
 
     private final RecipeOutput consumer;
+    private final HolderGetter<Item> itemLookup;
 
-    public CompactorRecipeProvider(RecipeOutput pConsumer) {
+    public CompactorRecipeProvider(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
         this.consumer = pConsumer;
+        this.itemLookup = pItemLookup;
     }
 
-    public static void register(RecipeOutput pConsumer) {
-        new CompactorRecipeProvider(pConsumer).register();
+    public static void register(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        new CompactorRecipeProvider(pConsumer, pItemLookup).register();
     }
 
     private void register() {
@@ -168,14 +171,14 @@ public class CompactorRecipeProvider {
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
-        Ingredient ingredient = Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey));
+        Ingredient ingredient = Ingredient.of(itemLookup.getOrThrow(tagKey));
         compactor(ingredient, pOutput);
     }
 
     @SuppressWarnings("unused")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
-        compactor(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey)), pCount), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
+        compactor(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey)), pCount), pOutput, Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(pOutput.getItem())));
     }
 
     public void compactor(Ingredient pInput, ItemStack pOutput) {
@@ -194,7 +197,7 @@ public class CompactorRecipeProvider {
     @SuppressWarnings("SameParameterValue")
     private void compactor(String pInputTag, int pCount, ItemStack pOutput, ICondition pCondition) {
         TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(pInputTag));
-        compactor(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey)), pCount), pOutput, pCondition);
+        compactor(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey)), pCount), pOutput, pCondition);
     }
 
     private void compactor(IngredientStack pInput, ItemStack pOutput, ICondition pCondition) {

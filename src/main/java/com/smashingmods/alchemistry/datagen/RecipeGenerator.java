@@ -30,20 +30,24 @@ public class RecipeGenerator extends RecipeProvider {
 
     @Override
     protected void buildRecipes() {
+        // Tag-backed ingredients resolve their TagKey through this lookup, which yields a
+        // forward-referencing HolderSet.Named without binding the tag's contents at gen-time.
+        // Cross-mod tags (ChemLib's c:ingots/<element>, c:dusts/…, vanilla c:… tags) are not
+        // bound during datagen, so the static BuiltInRegistries.ITEM cannot resolve them here.
+        HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
+
         AtomizerRecipeProvider.register(this.output);
-        CompactorRecipeProvider.register(this.output);
-        CombinerRecipeProvider.register(this.output);
-        DissolverRecipeProvider.register(this.output);
-        LiquifierRecipeProvider.register(this.output);
+        CompactorRecipeProvider.register(this.output, items);
+        CombinerRecipeProvider.register(this.output, items);
+        DissolverRecipeProvider.register(this.output, items);
+        LiquifierRecipeProvider.register(this.output, items);
         FissionRecipeProvider.register(this.output);
         FusionRecipeProvider.register(this.output);
-        generateMachineRecipes();
+        generateMachineRecipes(items);
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")
-    private void generateMachineRecipes() {
-        HolderGetter<Item> items = this.registries.lookupOrThrow(Registries.ITEM);
-
+    private void generateMachineRecipes(HolderGetter<Item> items) {
         Item atomizer = BlockRegistry.ATOMIZER.get().asItem();
         ShapedRecipeBuilder.shaped(items, RecipeCategory.MISC, atomizer)
                 .group("machines")

@@ -1,5 +1,6 @@
 package com.smashingmods.alchemistry.datagen.recipe.dissolver;
 
+import net.minecraft.core.HolderGetter;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -12,12 +13,12 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toItemStack;
 
 public class MinecraftRecipes extends DissolverRecipeProvider {
 
-    public MinecraftRecipes(RecipeOutput pConsumer) {
-        super(pConsumer);
+    public MinecraftRecipes(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        super(pConsumer, pItemLookup);
     }
 
-    public static void register(RecipeOutput pConsumer) {
-        new MinecraftRecipes(pConsumer).register();
+    public static void register(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        new MinecraftRecipes(pConsumer, pItemLookup).register();
     }
 
     protected void register() {

@@ -4,6 +4,7 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceKey;
@@ -28,13 +29,15 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.toIngredientSta
 public class CombinerRecipeProvider {
 
     private final RecipeOutput consumer;
+    private final HolderGetter<Item> itemLookup;
 
-    public CombinerRecipeProvider(RecipeOutput pConsumer) {
+    public CombinerRecipeProvider(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
         this.consumer = pConsumer;
+        this.itemLookup = pItemLookup;
     }
 
-    public static void register(RecipeOutput pConsumer) {
-        new CombinerRecipeProvider(pConsumer).register();
+    public static void register(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        new CombinerRecipeProvider(pConsumer, pItemLookup).register();
     }
 
     private void register() {
@@ -97,7 +100,7 @@ public class CombinerRecipeProvider {
                 ingredientStackList.add(ingredientStack);
             } else if (obj instanceof String itemTag) {
                 TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(itemTag));
-                ingredientStackList.add(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey))));
+                ingredientStackList.add(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey))));
             }
         }
 
@@ -116,7 +119,7 @@ public class CombinerRecipeProvider {
                 ingredientStackList.add(new IngredientStack(itemStack));
             } else if (obj instanceof String itemTag) {
                 TagKey<Item> tagKey = TagKey.create(Registries.ITEM, ResourceLocation.parse(itemTag));
-                ingredientStackList.add(new IngredientStack(Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(tagKey))));
+                ingredientStackList.add(new IngredientStack(Ingredient.of(itemLookup.getOrThrow(tagKey))));
             }
         }
         if (pCondition == null) {

@@ -6,7 +6,9 @@ import com.smashingmods.chemlib.common.items.ChemicalItem;
 import com.smashingmods.chemlib.common.items.CompoundItem;
 import com.smashingmods.chemlib.common.items.ElementItem;
 import com.smashingmods.chemlib.registry.ItemRegistry;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -18,12 +20,12 @@ import static com.smashingmods.alchemylib.datagen.DatagenHelpers.tagNotEmptyCond
 
 public class ChemlibRecipes extends DissolverRecipeProvider {
 
-    public ChemlibRecipes(RecipeOutput pConsumer) {
-        super(pConsumer);
+    public ChemlibRecipes(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        super(pConsumer, pItemLookup);
     }
 
-    public static void register(RecipeOutput pConsumer) {
-        new ChemlibRecipes(pConsumer).register();
+    public static void register(RecipeOutput pConsumer, HolderGetter<Item> pItemLookup) {
+        new ChemlibRecipes(pConsumer, pItemLookup).register();
     }
 
     protected void register() {

@@ -1,13 +1,13 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "combiner_category",
-  "description": "book.alchemistry.alchemistry_book.combiner_category.combiner.description",
+  "category": "machines_category",
+  "description": "book.alchemistry.alchemistry_book.machines_category.combiner.description",
   "hide_while_locked": false,
   "icon": {
     "item": "alchemistry:combiner"
   },
-  "name": "book.alchemistry.alchemistry_book.combiner_category.combiner.name",
+  "name": "book.alchemistry.alchemistry_book.machines_category.combiner.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,7 +16,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.alchemistry.alchemistry_book.combiner_category.combiner.intro.text",
+      "text": "book.alchemistry.alchemistry_book.machines_category.combiner.intro.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -27,13 +27,13 @@
         "type": "modonomicon:none"
       },
       "recipe_id_1": "alchemistry:combiner",
-      "text": "book.alchemistry.alchemistry_book.combiner_category.combiner.crafting.text",
+      "text": "book.alchemistry.alchemistry_book.machines_category.combiner.crafting.text",
       "title1": "",
       "title2": ""
     }
   ],
   "show_when_any_parent_unlocked": false,
   "sort_number": 0,
-  "x": 0,
-  "y": 0
+  "x": -1,
+  "y": -1
 }

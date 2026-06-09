@@ -1,13 +1,13 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "dissolver_category",
-  "description": "book.alchemistry.alchemistry_book.dissolver_category.dissolver.description",
+  "category": "machines_category",
+  "description": "book.alchemistry.alchemistry_book.machines_category.dissolver.description",
   "hide_while_locked": false,
   "icon": {
     "item": "alchemistry:dissolver"
   },
-  "name": "book.alchemistry.alchemistry_book.dissolver_category.dissolver.name",
+  "name": "book.alchemistry.alchemistry_book.machines_category.dissolver.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,7 +16,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.alchemistry.alchemistry_book.dissolver_category.dissolver.intro.text",
+      "text": "book.alchemistry.alchemistry_book.machines_category.dissolver.intro.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -27,7 +27,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.alchemistry.alchemistry_book.dissolver_category.dissolver.relative.text",
+      "text": "book.alchemistry.alchemistry_book.machines_category.dissolver.relative.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -38,7 +38,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.alchemistry.alchemistry_book.dissolver_category.dissolver.absolute.text",
+      "text": "book.alchemistry.alchemistry_book.machines_category.dissolver.absolute.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -55,7 +55,7 @@
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 0,
-  "x": 0,
-  "y": 0
+  "sort_number": 1,
+  "x": 1,
+  "y": -1
 }

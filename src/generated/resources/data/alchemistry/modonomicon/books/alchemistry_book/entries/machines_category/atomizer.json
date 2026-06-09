@@ -1,13 +1,13 @@
 {
   "background_u_index": 0,
   "background_v_index": 0,
-  "category": "compactor_category",
-  "description": "book.alchemistry.alchemistry_book.compactor_category.compactor.description",
+  "category": "machines_category",
+  "description": "book.alchemistry.alchemistry_book.machines_category.atomizer.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "alchemistry:compactor"
+    "item": "alchemistry:atomizer"
   },
-  "name": "book.alchemistry.alchemistry_book.compactor_category.compactor.name",
+  "name": "book.alchemistry.alchemistry_book.machines_category.atomizer.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,7 +16,7 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.alchemistry.alchemistry_book.compactor_category.compactor.intro.text",
+      "text": "book.alchemistry.alchemistry_book.machines_category.atomizer.intro.text",
       "title": "",
       "use_markdown_in_title": false
     },
@@ -26,14 +26,14 @@
       "condition": {
         "type": "modonomicon:none"
       },
-      "recipe_id_1": "alchemistry:compactor",
+      "recipe_id_1": "alchemistry:atomizer",
       "text": "",
       "title1": "",
       "title2": ""
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 0,
-  "x": 0,
+  "sort_number": 2,
+  "x": -2,
   "y": 0
 }

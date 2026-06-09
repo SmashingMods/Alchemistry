@@ -11,9 +11,6 @@ public class PacketHandler extends AbstractPacketHandler {
         registrar(pEvent, Alchemistry.MODID);
         registerServerBound(ToggleAutoBalanceButtonPacket.TYPE, ToggleAutoBalanceButtonPacket.STREAM_CODEC);
         registerServerBound(SetRecipePacket.TYPE, SetRecipePacket.STREAM_CODEC);
-        // The machine recipe list is server-only at 1.21.3; the server sends this on join and `/reload`
-        // so the recipe-selector GUI has recipes to display client-side.
-        registerClientBound(SyncRecipesPacket.TYPE, SyncRecipesPacket.STREAM_CODEC);
         // The six recipe-transfer packets (common/network/jei/) are JEI-only -- each wraps a JEI
         // IRecipeTransferHandler and is sent only from the JEI plugin's "+" transfer button. JEI has no
         // 1.21.3 build, so that source is excluded for this hop and the packets have no remaining sender;

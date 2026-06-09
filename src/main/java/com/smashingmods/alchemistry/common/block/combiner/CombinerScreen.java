@@ -109,7 +109,7 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
 
                     if (index < currentRecipe.getInput().size()) {
 
-                        List<Holder<Item>> ingredientItems = currentRecipe.getInput().get(index).getIngredient().items();
+                        List<Holder<Item>> ingredientItems = currentRecipe.getInput().get(index).getIngredient().items().toList();
                         ItemStack itemStack = new ItemStack(ingredientItems.get((int) (Math.random() * ingredientItems.size())));
 
                         boolean required = handler.getStacks().stream().noneMatch(handlerItem -> {

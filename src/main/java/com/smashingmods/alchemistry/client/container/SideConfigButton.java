@@ -98,7 +98,7 @@ class SideConfigButton extends AbstractWidget {
 
     @Override
     public boolean mouseClicked(double pMouseX, double pMouseY, int pButton) {
-        if (active && visible && clicked(pMouseX, pMouseY)) {
+        if (isMouseOver(pMouseX, pMouseY)) {
             int delta;
             if (pButton == 0) {
                 delta = -1;

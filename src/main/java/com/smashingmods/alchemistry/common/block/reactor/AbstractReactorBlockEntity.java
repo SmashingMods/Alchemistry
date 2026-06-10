@@ -294,6 +294,21 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         }
     }
 
+    /**
+     * 1.21.5 removed {@code BlockBehaviour#onRemove} and split its work into {@code BlockEntity#preRemoveSideEffects}
+     * (run by {@code LevelChunk} while the block entity is still in the level, only when the block actually changes --
+     * never on the constant power-state property flips that the old override guarded against with a block-equality
+     * check) and {@code BlockBehaviour#affectNeighborsAfterRemoval}. The reactor controller's removal teardown --
+     * resetting the I/O faces and powering the cores off via {@link #onRemove()} -- therefore moves here off
+     * {@link AbstractReactorBlock}. {@code super} runs AlchemyLib's {@code AbstractProcessingBlockEntity}
+     * teardown, which drops this controller's inventory.
+     */
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        onRemove();
+        super.preRemoveSideEffects(pPos, pState);
+    }
+
     @Override
     protected void saveAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         if (reactorEnergyBlockEntity != null) {

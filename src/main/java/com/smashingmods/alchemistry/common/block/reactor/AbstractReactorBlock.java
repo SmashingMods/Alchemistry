@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.common.block.reactor;
 
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,13 +22,6 @@ public class AbstractReactorBlock extends AbstractProcessingBlock {
         }
     }
 
-    @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (pState.getBlock() != pNewState.getBlock()) {
-            if (pLevel.getBlockEntity(pPos) instanceof AbstractReactorBlockEntity reactorBlockEntity) {
-                reactorBlockEntity.onRemove();
-            }
-        }
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
+    // 1.21.5 removed BlockBehaviour#onRemove; the controller's removal teardown (resetIO + cores off) now runs from
+    // AbstractReactorBlockEntity#preRemoveSideEffects, which LevelChunk invokes on genuine removal only.
 }

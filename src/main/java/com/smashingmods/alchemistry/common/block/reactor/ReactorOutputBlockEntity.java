@@ -24,4 +24,19 @@ public class ReactorOutputBlockEntity extends BlockEntity {
     public void setController(@Nullable AbstractReactorBlockEntity pController) {
         this.controller = pController;
     }
+
+    /**
+     * 1.21.5 removed {@code BlockBehaviour#onRemove} and split its work into {@link BlockEntity#preRemoveSideEffects}
+     * (run by {@code LevelChunk} while the block entity is still in the level, only when the block actually changes)
+     * and {@code BlockBehaviour#affectNeighborsAfterRemoval}. Detaching this face from its controller is block-entity
+     * teardown, so it moves here off {@link ReactorOutputBlock}: when the output face is broken, clear the controller's
+     * output flag so the multiblock re-validates as incomplete.
+     */
+    @Override
+    public void preRemoveSideEffects(BlockPos pPos, BlockState pState) {
+        if (level != null && !level.isClientSide() && controller != null) {
+            controller.setOutputFound(false);
+        }
+        super.preRemoveSideEffects(pPos, pState);
+    }
 }

@@ -3,9 +3,7 @@ package com.smashingmods.alchemistry.common.block.reactor;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,16 +28,7 @@ public class ReactorEnergyBlock extends AbstractProcessingBlock {
                 .setValue(PowerStateProperty.POWER_STATE, PowerState.DISABLED);
     }
 
-    @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (!pLevel.isClientSide()) {
-            if (pLevel.getBlockEntity(pPos) instanceof ReactorEnergyBlockEntity blockEntity) {
-                if (blockEntity.getController() != null) {
-                    blockEntity.getController().setEnergyFound(false);
-                }
-            }
-        }
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
+    // 1.21.5 removed BlockBehaviour#onRemove; clearing the controller's energy flag on removal now runs from
+    // ReactorEnergyBlockEntity#preRemoveSideEffects, which LevelChunk invokes on genuine removal only.
 }
 

@@ -72,7 +72,7 @@ public class RecipeDisplayUtil {
         if (pRecipe instanceof AtomizerRecipe atomizerRecipe) {
 
             ResourceLocation left = BuiltInRegistries.FLUID.getKey(atomizerRecipe.getInput().getFluid());
-            String right = atomizerRecipe.getInput().getDisplayName().getString().toLowerCase();
+            String right = atomizerRecipe.getInput().getHoverName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
@@ -108,7 +108,7 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
 
             ResourceLocation left = BuiltInRegistries.FLUID.getKey(liquifierRecipe.getOutput().getFluid());
-            String right = liquifierRecipe.getOutput().getDisplayName().getString().toLowerCase();
+            String right = liquifierRecipe.getOutput().getHoverName().getString().toLowerCase();
             return Pair.of(left, right);
 
         }

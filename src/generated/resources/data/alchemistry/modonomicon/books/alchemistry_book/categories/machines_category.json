@@ -4,15 +4,15 @@
   "background_parallax_layers": [],
   "background_texture_zoom_multiplier": 1.0,
   "background_width": 512,
-  "description": "book.alchemistry.alchemistry_book.dissolver_category.description",
+  "description": "book.alchemistry.alchemistry_book.machines_category.description",
   "display_mode": "node",
   "entry_textures": "modonomicon:textures/gui/entry_textures.png",
   "icon": {
-    "item": "alchemistry:dissolver"
+    "item": "alchemistry:combiner"
   },
   "max_scroll_x": 512,
   "max_scroll_y": 512,
-  "name": "book.alchemistry.alchemistry_book.dissolver_category.name",
+  "name": "book.alchemistry.alchemistry_book.machines_category.name",
   "show_category_button": true,
-  "sort_number": 3
+  "sort_number": 1
 }

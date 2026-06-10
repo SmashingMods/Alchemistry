@@ -17,11 +17,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -38,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * read from the classpath (Gradle's {@code test} task puts {@code build/resources/main} on the runtime classpath,
  * and {@code src/generated/resources} is wired into the main resource set, so the datagen-authored book lands
  * there), and the roots are walked rather than a count hardcoded, so an added or removed entry is picked up
- * automatically; the count is asserted as a floor and reported.</p>
+ * automatically; the swept set is asserted to equal the expected consolidated structure and the count is reported.</p>
  */
 class GuidebookParseTest {
 
@@ -48,19 +50,43 @@ class GuidebookParseTest {
     private static final String BOOK_ROOT = "data/alchemistry/modonomicon/books/alchemistry_book";
     private static final String MULTIBLOCK_ROOT = "data/alchemistry/modonomicon/multiblocks";
 
-    // 1 book.json + 6 categories + 10 entries + 2 multiblock definitions. Asserted as a floor so adding a page
-    // never breaks the test, but the exact count is reported so a regression that drops files is still visible.
-    private static final int EXPECTED_FILE_COUNT = 19;
+    // The exact set of guidebook JSON files the datagen authors, each keyed by its path relative to its classpath
+    // root above (forward-slashed). The book is one book.json + 2 categories + 10 entries + 2 multiblock definitions:
+    // the six former per-machine categories were consolidated into a single machines_category (reactor_category
+    // stays), so the machine entries all live under entries/machines_category/. Asserting the whole set -- rather
+    // than a count floor -- means a dropped or renamed file fails the test even if some other file is added in its
+    // place, while an added file is reported as an unexpected extra rather than silently absorbed.
+    private static final Set<String> EXPECTED_BOOK_FILES = Set.of(
+            "book.json",
+            "categories/machines_category.json",
+            "categories/reactor_category.json",
+            "entries/machines_category/atomizer.json",
+            "entries/machines_category/combiner.json",
+            "entries/machines_category/compactor.json",
+            "entries/machines_category/dissolver.json",
+            "entries/machines_category/liquifier.json",
+            "entries/reactor_category/fission.json",
+            "entries/reactor_category/fission_multiblock.json",
+            "entries/reactor_category/fusion.json",
+            "entries/reactor_category/fusion_multiblock.json",
+            "entries/reactor_category/reactor.json");
+    private static final Set<String> EXPECTED_MULTIBLOCK_FILES = Set.of(
+            "fission_reactor.json",
+            "fusion_reactor.json");
 
     @Test
     void guidebook_allParse() throws IOException, URISyntaxException {
-        List<Path> jsonFiles = new ArrayList<>();
-        jsonFiles.addAll(walkJsonResources(BOOK_ROOT));
-        jsonFiles.addAll(walkJsonResources(MULTIBLOCK_ROOT));
+        Map<String, Path> bookFiles = walkJsonResources(BOOK_ROOT);
+        Map<String, Path> multiblockFiles = walkJsonResources(MULTIBLOCK_ROOT);
 
-        assertTrue(jsonFiles.size() >= EXPECTED_FILE_COUNT,
-                "expected at least " + EXPECTED_FILE_COUNT + " guidebook JSON files, found " + jsonFiles.size()
-                        + ": " + jsonFiles);
+        assertEquals(EXPECTED_BOOK_FILES, bookFiles.keySet(),
+                "guidebook book/category/entry files differ from the consolidated structure");
+        assertEquals(EXPECTED_MULTIBLOCK_FILES, multiblockFiles.keySet(),
+                "guidebook multiblock definition files differ from the consolidated structure");
+
+        List<Path> jsonFiles = new ArrayList<>();
+        jsonFiles.addAll(bookFiles.values());
+        jsonFiles.addAll(multiblockFiles.values());
 
         for (Path file : jsonFiles) {
             try (BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
@@ -73,12 +99,14 @@ class GuidebookParseTest {
         System.out.println("[GuidebookParseTest] parsed " + jsonFiles.size() + " guidebook JSON files");
     }
 
-    // Walks a classpath directory for *.json. Gradle's test task always runs against the exploded-directory
-    // (file:) layout under build/resources/main, so in practice only the file: branch below executes. The jar:
-    // branch is defensive cover should the book ever be run from a packaged jar -- correct, but UNTESTED here.
-    // Each ClassLoader root that contains the directory is walked, so a split across resource roots is covered.
-    private static List<Path> walkJsonResources(String classpathDir) throws IOException, URISyntaxException {
-        List<Path> result = new ArrayList<>();
+    // Walks a classpath directory for *.json, keyed by each file's forward-slashed path relative to that directory
+    // (so the keys can be matched against the EXPECTED_* sets regardless of the absolute root or the OS separator).
+    // Gradle's test task always runs against the exploded-directory (file:) layout under build/resources/main, so in
+    // practice only the file: branch below executes. The jar: branch is defensive cover should the book ever be run
+    // from a packaged jar -- correct, but UNTESTED here. Each ClassLoader root that contains the directory is walked,
+    // so a split across resource roots is covered.
+    private static Map<String, Path> walkJsonResources(String classpathDir) throws IOException, URISyntaxException {
+        Map<String, Path> result = new HashMap<>();
         for (URL url : Collections.list(GuidebookParseTest.class.getClassLoader().getResources(classpathDir))) {
             URI uri = url.toURI();
             if ("jar".equals(uri.getScheme())) {
@@ -92,12 +120,18 @@ class GuidebookParseTest {
         return result;
     }
 
-    private static void collectJson(Path dir, List<Path> into) throws IOException {
+    private static void collectJson(Path dir, Map<String, Path> into) throws IOException {
         try (Stream<Path> walk = Files.walk(dir)) {
             walk.filter(Files::isRegularFile)
                     .filter(p -> p.getFileName().toString().endsWith(".json"))
-                    .forEach(into::add);
+                    .forEach(p -> into.put(relativeKey(dir, p), p));
         }
+    }
+
+    // The file's path relative to the walked directory, forward-slashed so keys are stable across resource roots
+    // and operating systems.
+    private static String relativeKey(Path dir, Path file) {
+        return dir.relativize(file).toString().replace('\\', '/');
     }
 
     // A jar: URI needs its FileSystem opened before getPath works; reuse one already open for the same jar.

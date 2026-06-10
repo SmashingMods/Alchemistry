@@ -3,11 +3,7 @@ package com.smashingmods.alchemistry.datagen.book;
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconLanguageProvider;
 import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider;
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel;
-import com.smashingmods.alchemistry.datagen.book.category.AtomizerCategory;
-import com.smashingmods.alchemistry.datagen.book.category.CombinerCategory;
-import com.smashingmods.alchemistry.datagen.book.category.CompactorCategory;
-import com.smashingmods.alchemistry.datagen.book.category.DissolverCategory;
-import com.smashingmods.alchemistry.datagen.book.category.LiquifierCategory;
+import com.smashingmods.alchemistry.datagen.book.category.MachinesCategory;
 import com.smashingmods.alchemistry.datagen.book.category.ReactorCategory;
 import net.minecraft.resources.ResourceLocation;
 
@@ -39,11 +35,7 @@ public class AlchemistryBook extends SingleBookSubProvider {
 
     @Override
     protected void generateCategories() {
-        add(new CombinerCategory(this).generate());
-        add(new DissolverCategory(this).generate());
-        add(new CompactorCategory(this).generate());
-        add(new AtomizerCategory(this).generate());
-        add(new LiquifierCategory(this).generate());
+        add(new MachinesCategory(this).generate());
         add(new ReactorCategory(this).generate());
     }
 

@@ -58,7 +58,7 @@ public class ReactorCategory extends CategoryProvider {
 
     @Override
     protected String categoryDescription() {
-        return "An excerpt from the Alchemistry Labs Catalog:\nSplitting the atom?  Bring it on!  Now you can turn oxygen into beryllium, and you know what that's good for?  Emeralds!  Beat those mumbling Villagers at their own game!\n\nHarness the intense heat and pressure of a Star!  Here at Alchemistry Labs, we've stol- er- FOUND a way to achieve it much more simply.  Now you can turn all that extra nitrogen and oxygen into phosphorus.  Glowstone without going near the Nether!  Well, except for that initial construction...";
+        return "An excerpt from the Alchemistry Labs Catalog:\\\nSplitting the atom?  Bring it on!  Now you can turn oxygen into beryllium, and you know what that's good for?  Emeralds!  Beat those mumbling Villagers at their own game!\\\n\\\nHarness the intense heat and pressure of a Star!  Here at Alchemistry Labs, we've stol- er- FOUND a way to achieve it much more simply.  Now you can turn all that extra nitrogen and oxygen into phosphorus.  Glowstone without going near the Nether!  Well, except for that initial construction...";
     }
 
     @Override

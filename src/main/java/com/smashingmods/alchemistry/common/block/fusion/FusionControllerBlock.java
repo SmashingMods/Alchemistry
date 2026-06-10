@@ -1,6 +1,7 @@
 package com.smashingmods.alchemistry.common.block.fusion;
 
 import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.common.block.TooltipBlock;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlock;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerState;
 import com.smashingmods.alchemylib.api.blockentity.power.PowerStateProperty;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -28,9 +30,9 @@ import net.minecraft.world.phys.BlockHitResult;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.List;
+import java.util.function.Consumer;
 
-public class FusionControllerBlock extends AbstractReactorBlock {
+public class FusionControllerBlock extends AbstractReactorBlock implements TooltipBlock {
 
     public FusionControllerBlock(BlockBehaviour.Properties pProperties) {
         super(FusionControllerBlockEntity::new, pProperties);
@@ -50,9 +52,8 @@ public class FusionControllerBlock extends AbstractReactorBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
-        pTooltip.add(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.fusionEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pFlag) {
+        pTooltipAdder.accept(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.fusionEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
     }
 
     @Override

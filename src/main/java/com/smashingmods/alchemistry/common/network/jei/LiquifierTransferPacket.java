@@ -75,7 +75,7 @@ public class LiquifierTransferPacket implements AlchemyPacket {
 
                 inputHandler.emptyToInventory(inventory);
 
-                ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipeCopy.getInput());
+                ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.getNonEquipmentItems(), recipeCopy.getInput());
                 ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipeCopy.getInput().getCount());
                 boolean creative = player.gameMode.isCreative();
                 boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();

@@ -79,7 +79,7 @@ public class CombinerTransferPacket implements AlchemyPacket {
                 inputHandler.emptyToInventory(inventory);
                 outputHandler.emptyToInventory(inventory);
 
-                List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeCopy.getInput());
+                List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.getNonEquipmentItems(), recipeCopy.getInput());
                 List<ItemStack> recipeInput = new ArrayList<>();
                 IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount())));
 

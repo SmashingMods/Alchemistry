@@ -284,6 +284,10 @@ repositories {
     // Cloudsmith hosts Modonomicon, the optional guidebook integration consumed below.
     maven { url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/" }
     maven { url "https://maven.tamaized.com/releases" }
+    // Modrinth maven serves the dev-rig power/pipes test mods (Energized Power, Pipez) pulled in as runtimeOnly
+    // below. 1.21.1 pulled these from CurseMaven, but the Pipez 1.21.4 builds are published Modrinth-only, so the
+    // rig moved with them. Scoped to the maven.modrinth group so it is only consulted for those coordinates.
+    maven { url "https://api.modrinth.com/maven"; content { includeGroup "maven.modrinth" } }
     // JUnit (org.junit.*) is not mirrored by the repos above; settings.gradle has no
     // dependencyResolutionManagement, so the test deps need Maven Central here.
     mavenCentral()
@@ -312,6 +316,15 @@ dependencies {
     // its internal deps are not dragged onto Alchemistry's classpath. The generated JSON book is the runtime
     // artifact; like JEI, Modonomicon is type="optional" in neoforge.mods.toml so Alchemistry runs without it.
     implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}") { transitive = false }
+
+    // Dev-rig runtime-only test mods (power + pipes) -- not shipped. runtimeOnly so they load in runClient/
+    // runServer for hands-on testing of Alchemistry's FE machines and fluid/item handling. Pure runtime: no
+    // source compiles against them, they are NOT listed as dependencies in neoforge.mods.toml, and the
+    // publication below bundles only our jar/sources/javadoc -- so they are never shipped and never a load
+    // requirement of the released mod. Energized Power stands in for 1.21.1's GeneratorGalore, which has no
+    // 1.21.4 build; its Coal Engine line provides the simple fuel-burning FE generators the rig needs.
+    runtimeOnly "maven.modrinth:energized-power:1.21.4-2.13.0-neoforge" // Energized Power -- FE generators (Coal Engine)
+    runtimeOnly "maven.modrinth:pipez:neoforge-1.21.4-1.2.26"           // Pipez -- item/fluid/energy pipes
 
     // JUnit 5 for the plain-JUnit `test` source set. testImplementation extends implementation,
     // so the Minecraft classpath (net.neoforged:neoforge above) is inherited by the test compile/runtime.

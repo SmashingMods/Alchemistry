@@ -17,7 +17,9 @@ import java.util.List;
  */
 public final class ClientRecipeStore {
 
-    private static Collection<RecipeHolder<?>> recipes = List.of();
+    // volatile: written from the network thread (SyncRecipesPacket handler, ClientRecipeLifecycle logout) and
+    // read from the client/integrated-server threads, so the reference swap has to publish safely.
+    private static volatile Collection<RecipeHolder<?>> recipes = List.of();
 
     private ClientRecipeStore() {
     }
@@ -28,6 +30,15 @@ public final class ClientRecipeStore {
      */
     public static void setRecipes(Collection<RecipeHolder<?>> pRecipes) {
         recipes = List.copyOf(pRecipes);
+    }
+
+    /**
+     * Drops the synced recipes so callers behave as though none exist. Called when the player leaves a server
+     * (see {@link com.smashingmods.alchemistry.client.recipe.ClientRecipeLifecycle}) so the previous server's
+     * recipes -- carrying its stamped ids -- do not linger into a later reconnect.
+     */
+    public static void clear() {
+        recipes = List.of();
     }
 
     /**

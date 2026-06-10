@@ -25,11 +25,11 @@ public class FissionMultiblockEntry extends EntryProvider {
 
         page("required", () -> BookTextPageModel.create().withTitle(context().pageTitle()).withText(context().pageText()));
         pageTitle("Required Blocks");
-        pageText("1x Fission Chamber Controller\\3x Fission Core\\1x Reactor Energy Input\\1x Reactor Item Input\\1x Reactor Item Output\\62x Reactor Casing\\36x Reactor Glass");
+        pageText("1x Fission Chamber Controller\\\n3x Fission Core\\\n1x Reactor Energy Input\\\n1x Reactor Item Input\\\n1x Reactor Item Output\\\n62x Reactor Casing\\\n36x Reactor Glass");
 
         page("optional", () -> BookTextPageModel.create().withTitle(context().pageTitle()).withText(context().pageText()));
         pageTitle("Optional Blocks");
-        pageText("Reactor energy input and item input/output blocks can be placed anywhere that requires a reactor casing but not anywhere there is reactor glass.\\\\Reactor glass is optional. Anywhere that requires reactor glass can be replaced with reactor casing. Make it look however you want.");
+        pageText("Reactor energy input and item input/output blocks can be placed anywhere that requires a reactor casing but not anywhere there is reactor glass.\\\n\\\nReactor glass is optional. Anywhere that requires reactor glass can be replaced with reactor casing. Make it look however you want.");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class CompactorEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         page("intro", () -> BookTextPageModel.create().withText(context().pageText()));
-        pageText("The compactor is a powered machine that will allow you to form simple items by compacting their components.\\\\*From Professor Warren's notes: The simplest form of atomic manipulation is assembling one element or compound into a more convenient form: dusts, and so forth. More pistons, and everything just squeezes together.*");
+        pageText("The compactor is a powered machine that will allow you to form simple items by compacting their components.\\\n\\\n*From Professor Warren's notes: The simplest form of atomic manipulation is assembling one element or compound into a more convenient form: dusts, and so forth. More pistons, and everything just squeezes together.*");
 
         page("crafting", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:compactor"));
     }

@@ -78,13 +78,13 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(combinerRecipe.getOutput().getItem());
-            String right = combinerRecipe.getOutput().getItem().getName().toString().toLowerCase();
+            String right = combinerRecipe.getOutput().getItem().getName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(compactorRecipe.getOutput().getItem());
-            String right = compactorRecipe.getOutput().getItem().getName().toString().toLowerCase();
+            String right = compactorRecipe.getOutput().getItem().getName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
@@ -96,19 +96,19 @@ public class RecipeDisplayUtil {
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(fissionRecipe.getInput().getItem());
-            String right = fissionRecipe.getInput().getItem().getName().toString().toLowerCase();
+            String right = fissionRecipe.getInput().getItem().getName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof FusionRecipe fusionRecipe) {
 
             ResourceLocation left = BuiltInRegistries.ITEM.getKey(fusionRecipe.getOutput().getItem());
-            String right = fusionRecipe.getOutput().getItem().getName().toString().toLowerCase();
+            String right = fusionRecipe.getOutput().getItem().getName().getString().toLowerCase();
             return Pair.of(left, right);
 
         } else if (pRecipe instanceof LiquifierRecipe liquifierRecipe) {
 
             ResourceLocation left = BuiltInRegistries.FLUID.getKey(liquifierRecipe.getOutput().getFluid());
-            String right = liquifierRecipe.getOutput().getDisplayName().toString().toLowerCase();
+            String right = liquifierRecipe.getOutput().getDisplayName().getString().toLowerCase();
             return Pair.of(left, right);
 
         }
@@ -141,14 +141,22 @@ public class RecipeDisplayUtil {
             return atomizerRecipe.getOutput();
         } else if (pRecipe instanceof CombinerRecipe combinerRecipe) {
             if (pIndex >= 0 && pIndex < combinerRecipe.getInput().size()) {
-                new Random().ints(0, combinerRecipe.getInput().get(pIndex).toStacks().size())
-                        .findFirst()
-                        .ifPresent(random -> toReturn.set(combinerRecipe.getInput().get(pIndex).toStacks().get(random)));
+                List<ItemStack> stacks = combinerRecipe.getInput().get(pIndex).toStacks();
+                // An ingredient can resolve to zero stacks (e.g. an empty tag client-side); Random.ints(0, 0) throws,
+                // so only pick when there is something to pick and otherwise leave the EMPTY default in place.
+                if (!stacks.isEmpty()) {
+                    new Random().ints(0, stacks.size())
+                            .findFirst()
+                            .ifPresent(random -> toReturn.set(stacks.get(random)));
+                }
             }
         } else if (pRecipe instanceof CompactorRecipe compactorRecipe) {
-            new Random().ints(0, compactorRecipe.getInput().toStacks().size())
-                    .findFirst()
-                    .ifPresent(random -> toReturn.set(compactorRecipe.getInput().toStacks().get(random)));
+            List<ItemStack> stacks = compactorRecipe.getInput().toStacks();
+            if (!stacks.isEmpty()) {
+                new Random().ints(0, stacks.size())
+                        .findFirst()
+                        .ifPresent(random -> toReturn.set(stacks.get(random)));
+            }
         } else if (pRecipe instanceof DissolverRecipe dissolverRecipe) {
             return !dissolverRecipe.getInput().toStacks().isEmpty() ? dissolverRecipe.getInput().toStacks().get(0) : ItemStack.EMPTY;
         } else if (pRecipe instanceof FissionRecipe fissionRecipe) {

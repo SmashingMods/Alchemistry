@@ -314,19 +314,19 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
         super.loadAdditional(pTag, pRegistries);
 
         if (level != null && !level.isClientSide()) {
-            if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorEnergyPos"))) instanceof ReactorEnergyBlockEntity blockEntity) {
+            if (level.getBlockEntity(blockPosFromTag(pTag.getCompoundOrEmpty("reactorEnergyPos"))) instanceof ReactorEnergyBlockEntity blockEntity) {
                 reactorEnergyBlockEntity = blockEntity;
                 energyFound = true;
             } else {
                 energyFound = false;
             }
-            if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorInputPos"))) instanceof ReactorInputBlockEntity blockEntity) {
+            if (level.getBlockEntity(blockPosFromTag(pTag.getCompoundOrEmpty("reactorInputPos"))) instanceof ReactorInputBlockEntity blockEntity) {
                 reactorInputBlockEntity = blockEntity;
                 inputFound = true;
             } else {
                 inputFound = false;
             }
-            if (level.getBlockEntity(blockPosFromTag(pTag.getCompound("reactorOutputPos"))) instanceof ReactorOutputBlockEntity blockEntity) {
+            if (level.getBlockEntity(blockPosFromTag(pTag.getCompoundOrEmpty("reactorOutputPos"))) instanceof ReactorOutputBlockEntity blockEntity) {
                 reactorOutputBlockEntity = blockEntity;
                 outputFound = true;
             } else {
@@ -334,7 +334,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
             }
         }
 
-        autoeject = pTag.getBoolean("autoeject");
+        autoeject = pTag.getBooleanOr("autoeject", false);
     }
 
     private CompoundTag blockPosToTag(BlockPos pBlockPos) {
@@ -346,7 +346,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     }
 
     private BlockPos blockPosFromTag(CompoundTag pTag) {
-        return new BlockPos(pTag.getInt("x"), pTag.getInt("y"), pTag.getInt("z"));
+        return new BlockPos(pTag.getIntOr("x", 0), pTag.getIntOr("y", 0), pTag.getIntOr("z", 0));
     }
 
     public boolean isAutoEject() {

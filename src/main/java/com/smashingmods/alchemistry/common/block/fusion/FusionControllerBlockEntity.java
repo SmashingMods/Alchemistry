@@ -247,8 +247,8 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
     @Override
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
-        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
-        setAutoBalanced(pTag.getBoolean("autoBalanced"));
+        this.recipeId = ResourceLocation.tryParse(pTag.getStringOr("recipeId", ""));
+        setAutoBalanced(pTag.getBooleanOr("autoBalanced", false));
         if (level != null && level.isClientSide()) {
             RecipeRegistry.getFusionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {

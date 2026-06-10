@@ -215,12 +215,12 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     @Override
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
-        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
-        ListTag bufferTag = pTag.getList("buffer", 10);
+        this.recipeId = ResourceLocation.tryParse(pTag.getStringOr("recipeId", ""));
+        ListTag bufferTag = pTag.getListOrEmpty("buffer");
         bufferTag.stream()
                 .filter(tag -> tag instanceof CompoundTag)
                 .map(CompoundTag.class::cast)
-                .map(tag -> ItemStack.parseOptional(pRegistries, tag))
+                .flatMap(tag -> ItemStack.parse(pRegistries, tag).stream())
                 .forEach(internalBuffer::add);
 
         if (level != null && level.isClientSide()) {

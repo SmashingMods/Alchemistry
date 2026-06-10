@@ -174,7 +174,7 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     @Override
     protected void loadAdditional(CompoundTag pTag, HolderLookup.Provider pRegistries) {
         super.loadAdditional(pTag, pRegistries);
-        this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
+        this.recipeId = ResourceLocation.tryParse(pTag.getStringOr("recipeId", ""));
         if (level != null && level.isClientSide()) {
             RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
                 if (!recipe.equals(currentRecipe)) {

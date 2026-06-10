@@ -9,12 +9,10 @@ import com.klikli_dev.modonomicon.book.error.BookErrorManager;
 import com.klikli_dev.modonomicon.data.BookDataManager;
 import com.smashingmods.alchemistry.Alchemistry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.gametest.GameTestHolder;
-import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,18 +41,17 @@ import java.util.stream.Stream;
  * server has loaded it (a unit JVM has only vanilla after {@code Bootstrap}), and the book is built by
  * Modonomicon's server datapack-reload listener, which only runs in a booted server.
  *
- * <p>Like the other holders this class lives in {@code src/main} so the mod scan registers it for the
- * {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar}/{@code javadoc} tasks exclude the
- * {@code gametest} package so it never ships. Both tests are {@code required=true} (the {@code @GameTest}
- * default), so a failure fails the {@code gameTestServer} gate alongside the full-chain load-smoke in
- * {@link AlchemistryGameTests}. They pin {@code template = "loadsemptytemplate"} with
- * {@code @PrefixGameTestTemplate(false)} (the staged 3x3x3 air structure, id resolved un-prefixed to
- * {@code alchemistry:loadsemptytemplate}) like the other data-only checks; nothing is placed in-world, the
- * template just gives the framework a structure to run against. Bodies stay as thin plain helpers so the
- * {@code @GameTest} methods stay thin.</p>
+ * <p>Like the other test classes the bodies stay here as {@code static} methods and the registration lives in
+ * {@link AlchemistryGameTestRegistry}; the package is compiled into {@code src/main} so the mod scan discovers it,
+ * but the {@code jar}/{@code sourcesJar}/{@code javadoc} tasks exclude it so it never ships. Both tests are
+ * registered as required, so a failure fails the {@code gameTestServer} gate alongside the full-chain load-smoke in
+ * {@link AlchemistryGameTests}. They run against the staged 3x3x3 air structure
+ * ({@code alchemistry:loadsemptytemplate}) like the other data-only checks; nothing is placed in-world, the
+ * structure just gives the framework something to run against.</p>
  */
-@GameTestHolder(Alchemistry.MODID)
 public class GuidebookGameTests {
+
+    private GuidebookGameTests() {}
 
     // The two classpath roots the book spans, both under data/: the book definition + categories + entries under
     // books/, and the multiblock structure definitions under the separate multiblocks/ tree. Both are swept; the
@@ -83,16 +80,14 @@ public class GuidebookGameTests {
      * the number of refs checked. Because this runs against a fully-booted server the ChemLib and Alchemistry items
      * are registered, so the machine/block icons resolve via their {@code BlockItem}s.
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void guidebook_itemRefsResolve(GameTestHelper helper) {
+    public static void guidebook_itemRefsResolve(GameTestHelper helper) {
         List<Path> jsonFiles;
         try {
             jsonFiles = new ArrayList<>();
             jsonFiles.addAll(walkJsonResources(BOOK_ROOT));
             jsonFiles.addAll(walkJsonResources(MULTIBLOCK_ROOT));
         } catch (IOException | URISyntaxException e) {
-            helper.fail("could not enumerate guidebook JSON resources: " + e);
+            helper.fail(Component.literal("could not enumerate guidebook JSON resources: " + e));
             throw new IllegalStateException("unreachable -- helper.fail throws", e);
         }
 
@@ -103,7 +98,7 @@ public class GuidebookGameTests {
                 root = JsonParser.parseReader(reader);
             } catch (Exception e) {
                 // Parse failures are the GuidebookParseTest's job; surface here too so this never silently skips a file.
-                helper.fail(file.getFileName() + ": failed to parse -- " + e.getMessage());
+                helper.fail(Component.literal(file.getFileName() + ": failed to parse -- " + e.getMessage()));
                 throw new IllegalStateException("unreachable -- helper.fail throws", e);
             }
 
@@ -113,10 +108,10 @@ public class GuidebookGameTests {
                 ResourceLocation id = parseItemId(ref);
                 if (id == null) {
                     // An exotic item form we do not recognise -- report rather than silently pass it.
-                    helper.fail(file.getFileName() + ": unparseable item ref \"" + ref + "\"");
+                    helper.fail(Component.literal(file.getFileName() + ": unparseable item ref \"" + ref + "\""));
                 }
                 if (!BuiltInRegistries.ITEM.containsKey(id)) {
-                    helper.fail(file.getFileName() + ": unresolved item ref " + id);
+                    helper.fail(Component.literal(file.getFileName() + ": unresolved item ref " + id));
                 }
                 checked++;
             }
@@ -164,17 +159,15 @@ public class GuidebookGameTests {
      * book, catching corruption the count checks would otherwise wave through. The clean book records no errors, so
      * this passes today.</p>
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void guidebook_bookLoads(GameTestHelper helper) {
+    public static void guidebook_bookLoads(GameTestHelper helper) {
         Book book = BookDataManager.get().getBook(BOOK_ID);
         if (book == null) {
-            helper.fail("Modonomicon did not load the guidebook " + BOOK_ID
-                    + "; loaded books: " + BookDataManager.get().getBooks().keySet());
+            helper.fail(Component.literal("Modonomicon did not load the guidebook " + BOOK_ID
+                    + "; loaded books: " + BookDataManager.get().getBooks().keySet()));
         }
         if (book.getCategories().isEmpty()) {
-            helper.fail("Modonomicon loaded the guidebook " + BOOK_ID
-                    + " with no categories -- a category failed to parse and was skipped");
+            helper.fail(Component.literal("Modonomicon loaded the guidebook " + BOOK_ID
+                    + " with no categories -- a category failed to parse and was skipped"));
         }
 
         // The dedicated gameTestServer has no player join to trigger Modonomicon's lazy server-side book build, so
@@ -182,16 +175,16 @@ public class GuidebookGameTests {
         BookDataManager.get().tryBuildBooks(helper.getLevel());
 
         if (book.getEntries().isEmpty()) {
-            helper.fail("Modonomicon built the guidebook " + BOOK_ID
-                    + " with no entries -- an entry failed to parse and was skipped");
+            helper.fail(Component.literal("Modonomicon built the guidebook " + BOOK_ID
+                    + " with no entries -- an entry failed to parse and was skipped"));
         }
 
         // The non-empty checks above pass on partially-corrupt entries (Book.build copies entries up before
         // validating them), but the build records the corruption as a BookErrorManager error keyed to the book and
         // buildBooks does not reset that store, so the error survives for this query.
         if (BookErrorManager.get().hasErrors(BOOK_ID)) {
-            helper.fail("Modonomicon recorded build errors for " + BOOK_ID + ": "
-                    + BookErrorManager.get().getErrors(BOOK_ID).getErrors());
+            helper.fail(Component.literal("Modonomicon recorded build errors for " + BOOK_ID + ": "
+                    + BookErrorManager.get().getErrors(BOOK_ID).getErrors()));
         }
 
         System.out.println("[GuidebookGameTests] guidebook_bookLoads confirmed " + BOOK_ID + " is loaded with "

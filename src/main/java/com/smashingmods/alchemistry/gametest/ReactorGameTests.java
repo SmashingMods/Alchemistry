@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.gametest;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorEnergyBlockEntity;
@@ -10,20 +9,17 @@ import com.smashingmods.alchemistry.common.network.ToggleReactorAutoejectPacket;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.gametest.GameTestHolder;
-import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.ArrayList;
@@ -33,18 +29,19 @@ import java.util.Map;
 
 /**
  * In-world test for the fission reactor multiblock ({@code MachineGameTests} covers the standalone machines). Like
- * the other holders this class lives in {@code src/main} so the mod scan registers it for
- * the {@code gameTestServer} run, but the {@code jar}/{@code sourcesJar} tasks exclude the {@code gametest} package so
- * it never ships. Both tests are {@code required=true} (the {@code @GameTest} default), so a failure fails the
- * {@code gameTestServer} gate alongside the full-chain load-smoke in {@link AlchemistryGameTests}.
+ * the other test classes the bodies stay here as {@code static} methods and the registration lives in
+ * {@link AlchemistryGameTestRegistry}; the package is compiled into {@code src/main} so the mod scan discovers it,
+ * but the {@code jar}/{@code sourcesJar} tasks exclude it so it never ships. Every test is registered as required,
+ * so a failure fails the {@code gameTestServer} gate alongside the full-chain load-smoke in
+ * {@link AlchemistryGameTests}.
  *
- * <p>Unlike the dissolver tests this one needs room for a 5x5x5 reactor shell, so it pins {@code template =
- * "reactor_space"} -- a staged 9x9x9 all-air structure -- rather than the 3x3x3 {@code loadsemptytemplate}. The
- * structure is sized so the whole shell plus the controller fit with margin to spare. Bodies stay as thin plain
- * helpers, matching the other holders, so the {@code @GameTest} methods stay thin.</p>
+ * <p>Unlike the dissolver tests these need room for a 5x5x5 reactor shell, so they run against the staged 9x9x9
+ * all-air structure ({@code alchemistry:reactor_space}) rather than the 3x3x3 {@code loadsemptytemplate}. The
+ * structure is sized so the whole shell plus the controller fit with margin to spare.</p>
  */
-@GameTestHolder(Alchemistry.MODID)
 public class ReactorGameTests {
+
+    private ReactorGameTests() {}
 
     // Reactor facing. ReactorShape builds the shell from the controller position via Direction.relative() math, and the
     // controller's own tick() rebuilds its shape by reading HORIZONTAL_FACING off the placed block -- so the block we
@@ -76,9 +73,7 @@ public class ReactorGameTests {
      * port its registered resolver proxies to the controller's own {@code getEnergyHandler()} -- the proxy target --
      * so the queried instance must be identical to it.</p>
      */
-    @GameTest(template = "reactor_space")
-    @PrefixGameTestTemplate(false)
-    public void reactorFormsAndProxiesEnergyCap(GameTestHelper helper) {
+    public static void reactorFormsAndProxiesEnergyCap(GameTestHelper helper) {
         FissionControllerBlockEntity controller = placeController(helper);
         List<BlockPos> ports = buildShellAndPlacePorts(helper);
         BlockPos energyPos = ports.get(0);
@@ -91,15 +86,15 @@ public class ReactorGameTests {
         // on the very first tick the criterion can run before the block-entity ticker has, so the shape may briefly
         // be null.
         helper.succeedWhen(() -> {
-            helper.assertTrue(controller.getReactorShape() != null, "controller has not built its reactor shape yet");
-            helper.assertTrue(controller.isValidMultiblock(), "fission reactor multiblock did not validate");
+            helper.assertTrue(controller.getReactorShape() != null, Component.literal("controller has not built its reactor shape yet"));
+            helper.assertTrue(controller.isValidMultiblock(), Component.literal("fission reactor multiblock did not validate"));
 
             ReactorEnergyBlockEntity energy = energyBlockEntity(helper, energyPos);
             BlockPos energyWorldPos = energy.getBlockPos();
             IEnergyStorage proxied = helper.getLevel().getCapability(Capabilities.EnergyStorage.BLOCK, energyWorldPos, null);
-            helper.assertTrue(proxied != null, "reactor energy port did not expose an ENERGY capability");
+            helper.assertTrue(proxied != null, Component.literal("reactor energy port did not expose an ENERGY capability"));
             helper.assertTrue(proxied == controller.getEnergyHandler(),
-                    "reactor energy port capability is not proxied to the controller's energy handler");
+                    Component.literal("reactor energy port capability is not proxied to the controller's energy handler"));
         });
     }
 
@@ -118,17 +113,15 @@ public class ReactorGameTests {
      * formation, so the cached pre-adoption {@code null} is only cleared by the invalidation the fix performs.</p>
      *
      * <p>Determinism rests on the setup body running before the controller's first tick: the controller builds its
-     * shape and adopts its ports only from its server ticker (never from {@code setBlock}), and a {@code @GameTest}
-     * method body runs at structure-load before that ticker has fired (the same first-tick ordering
+     * shape and adopts its ports only from its server ticker (never from {@code setBlock}), and a test method body
+     * runs at structure-load before that ticker has fired (the same first-tick ordering
      * {@link #reactorFormsAndProxiesEnergyCap} relies on). So the cache is created and primed with the pre-adoption
      * {@code null} -- asserted, not assumed, so a future ordering change surfaces as a failure rather than a vacuous
      * pass -- strictly before any adoption or invalidation. The criterion then lets the controller tick: once the
      * multiblock validates and the energy port is adopted, the cache must re-resolve to the controller's energy
      * handler (the same proxy target {@link #reactorFormsAndProxiesEnergyCap} checks).</p>
      */
-    @GameTest(template = "reactor_space")
-    @PrefixGameTestTemplate(false)
-    public void reactorFormationReconnectsCachedPortCapability(GameTestHelper helper) {
+    public static void reactorFormationReconnectsCachedPortCapability(GameTestHelper helper) {
         FissionControllerBlockEntity controller = placeController(helper);
         List<BlockPos> ports = buildShellAndPlacePorts(helper);
         BlockPos energyWorldPos = energyBlockEntity(helper, ports.get(0)).getBlockPos();
@@ -143,24 +136,24 @@ public class ReactorGameTests {
         // the invalidation listener. Assert it rather than assume it, so a setup that accidentally adopted the port
         // first (which would make the post-formation check pass for the wrong reason) fails here instead.
         helper.assertTrue(cache.getCapability() == null,
-                "reactor energy port resolved a capability before the controller adopted it; "
-                        + "the cache-reconnect test needs the pre-adoption null state");
+                Component.literal("reactor energy port resolved a capability before the controller adopted it; "
+                        + "the cache-reconnect test needs the pre-adoption null state"));
 
         // Let the controller tick: it builds its shape, adopts the ports (firing invalidateCapabilities on each), and
         // validates. succeedWhen re-runs the criterion each tick until it passes. The shape guard mirrors
         // reactorFormsAndProxiesEnergyCap -- isValidMultiblock dereferences the shape, which is briefly null on the
         // first tick before the block-entity ticker has built it.
         helper.succeedWhen(() -> {
-            helper.assertTrue(controller.getReactorShape() != null, "controller has not built its reactor shape yet");
-            helper.assertTrue(controller.isValidMultiblock(), "fission reactor multiblock did not validate");
+            helper.assertTrue(controller.getReactorShape() != null, Component.literal("controller has not built its reactor shape yet"));
+            helper.assertTrue(controller.isValidMultiblock(), Component.literal("fission reactor multiblock did not validate"));
 
             // The invalidation the fix performs should have cleared the cached null, so this re-resolves to the
             // controller's energy handler. Without that invalidation the cache stays stuck on the null cached above.
             IEnergyStorage reconnected = cache.getCapability();
             helper.assertTrue(reconnected != null,
-                    "reactor energy port capability cache did not reconnect after multiblock formation");
+                    Component.literal("reactor energy port capability cache did not reconnect after multiblock formation"));
             helper.assertTrue(reconnected == controller.getEnergyHandler(),
-                    "reconnected port capability is not the controller's energy handler");
+                    Component.literal("reconnected port capability is not the controller's energy handler"));
         });
     }
 
@@ -190,9 +183,7 @@ public class ReactorGameTests {
      * the assertable effect is purely the flag flip. The test captures the initial value, sends the opposite, ticks
      * once, and asserts the controller's {@link AbstractReactorBlockEntity#isAutoEject()} changed to match.</p>
      */
-    @GameTest(template = "reactor_space")
-    @PrefixGameTestTemplate(false)
-    public void autoejectPacketTogglesReactor(GameTestHelper helper) {
+    public static void autoejectPacketTogglesReactor(GameTestHelper helper) {
         FissionControllerBlockEntity controller = placeController(helper);
 
         // Capture the starting flag and target its opposite so the assertion is a genuine change, not a coincidental
@@ -214,8 +205,8 @@ public class ReactorGameTests {
         // One tick to settle, then assert the handler applied the flip to the block-entity it was addressed to.
         helper.runAfterDelay(1, () -> {
             helper.assertTrue(controller.isAutoEject() == target,
-                    "ToggleReactorAutoejectPacket handler did not flip autoeject: expected " + target
-                            + ", found " + controller.isAutoEject());
+                    Component.literal("ToggleReactorAutoejectPacket handler did not flip autoeject: expected " + target
+                            + ", found " + controller.isAutoEject()));
             helper.succeed();
         });
     }
@@ -227,17 +218,17 @@ public class ReactorGameTests {
      * the shape twice -- once via {@code resetIO() -> setMultiblockHandlers()} and again in {@code onRemove()}'s own
      * core-block sweep -- so each site is guarded against a null shape; without those guards the removal throws a
      * {@link NullPointerException}. This drives {@code onRemove()} directly on a never-ticked controller -- the
-     * {@code reactorShape == null} state the guards exist for -- and asserts it returns normally.
+     * {@code reactorShape == null} state the guards exist for -- and asserts it returns normally. (1.21.5 moved the
+     * block-entity removal teardown into {@code BlockEntity#preRemoveSideEffects}, which still calls this
+     * {@code onRemove()}; driving it directly keeps the test on the exact null-shape path the guards protect.)
      */
-    @GameTest(template = "reactor_space")
-    @PrefixGameTestTemplate(false)
-    public void removalBeforeTickDoesNotThrow(GameTestHelper helper) {
+    public static void removalBeforeTickDoesNotThrow(GameTestHelper helper) {
         FissionControllerBlockEntity controller = placeController(helper);
 
         // The controller has not ticked, so its lazily-built shape is still null -- the exact state onRemove's null
         // guards protect. Fail explicitly if that precondition ever changes, otherwise the test would pass vacuously.
         helper.assertTrue(controller.getReactorShape() == null,
-                "controller already built its reactor shape; removal test needs the pre-tick null-shape state");
+                Component.literal("controller already built its reactor shape; removal test needs the pre-tick null-shape state"));
 
         controller.onRemove();
         helper.succeed();
@@ -249,14 +240,13 @@ public class ReactorGameTests {
     private static FissionControllerBlockEntity placeController(GameTestHelper helper) {
         helper.setBlock(CONTROLLER_POS, BlockRegistry.FISSION_CONTROLLER.get().defaultBlockState()
                 .setValue(BlockStateProperties.HORIZONTAL_FACING, FACING));
-        BlockEntity blockEntity = helper.getBlockEntity(CONTROLLER_POS);
-        if (!(blockEntity instanceof FissionControllerBlockEntity controller)) {
-            helper.fail("expected a FissionControllerBlockEntity at " + CONTROLLER_POS + ", got "
-                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), CONTROLLER_POS);
+        FissionControllerBlockEntity controller = helper.getBlockEntity(CONTROLLER_POS, FissionControllerBlockEntity.class);
+        if (controller == null) {
+            helper.fail(Component.literal("expected a FissionControllerBlockEntity at " + CONTROLLER_POS), CONTROLLER_POS);
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         helper.assertTrue(controller.getReactorType() == ReactorType.FISSION,
-                "fission controller reactorType was " + controller.getReactorType() + ", expected FISSION");
+                Component.literal("fission controller reactorType was " + controller.getReactorType() + ", expected FISSION"));
         return controller;
     }
 
@@ -300,7 +290,7 @@ public class ReactorGameTests {
                         .thenComparingInt(BlockPos::getZ))
                 .toList();
         helper.assertTrue(sortedBorder.size() >= 3,
-                "expected at least 3 border cells for the reactor ports, found " + sortedBorder.size());
+                Component.literal("expected at least 3 border cells for the reactor ports, found " + sortedBorder.size()));
 
         BlockPos energyPos = sortedBorder.get(0);
         BlockPos inputPos = sortedBorder.get(1);
@@ -314,10 +304,9 @@ public class ReactorGameTests {
 
     // The energy port block-entity at the given structure-relative position, failing the test if it is missing.
     private static ReactorEnergyBlockEntity energyBlockEntity(GameTestHelper helper, BlockPos pos) {
-        BlockEntity blockEntity = helper.getBlockEntity(pos);
-        if (!(blockEntity instanceof ReactorEnergyBlockEntity energy)) {
-            helper.fail("expected a ReactorEnergyBlockEntity at " + pos + ", got "
-                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), pos);
+        ReactorEnergyBlockEntity energy = helper.getBlockEntity(pos, ReactorEnergyBlockEntity.class);
+        if (energy == null) {
+            helper.fail(Component.literal("expected a ReactorEnergyBlockEntity at " + pos), pos);
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return energy;

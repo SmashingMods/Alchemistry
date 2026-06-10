@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.gametest;
 
 import com.mojang.authlib.GameProfile;
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
@@ -13,8 +12,8 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
@@ -25,10 +24,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.gametest.GameTestHolder;
-import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -38,21 +34,20 @@ import java.util.UUID;
 
 /**
  * In-world behaviour tests for the Alchemistry machines, starting with the dissolver ({@code ReactorGameTests}
- * covers the reactor multiblock). Every test here is {@code required=true}
- * (the {@code @GameTest} default), so a failure fails the {@code gameTestServer} gate alongside the full-chain
- * load-smoke in {@link AlchemistryGameTests}. Because a failure is a gate failure, each assertion is written
- * to pass reliably -- membership in the resolved recipe's outputs, or a deterministic non-weighted recipe --
- * rather than chase an exact probabilistic roll.
+ * covers the reactor multiblock). Every test here is registered as required by
+ * {@link AlchemistryGameTestRegistry}, so a failure fails the {@code gameTestServer} gate alongside the full-chain
+ * load-smoke in {@link AlchemistryGameTests}. Because a failure is a gate failure, each assertion is written to pass
+ * reliably -- membership in the resolved recipe's outputs, or a deterministic non-weighted recipe -- rather than
+ * chase an exact probabilistic roll.
  *
- * <p>Like {@link AlchemistryGameTests} this class lives in {@code src/main} so the mod scan registers it for the
- * {@code gameTestServer} run, but the {@code jar} task excludes the {@code gametest} package so it never ships.
- * Each test pins {@code template = "loadsemptytemplate"} (the staged 3x3x3 air structure) with
- * {@code @PrefixGameTestTemplate(false)} so the id resolves un-prefixed to {@code alchemistry:loadsemptytemplate};
- * a single machine block plus a mock player fits inside it. Bodies stay as thin plain helpers so the
- * {@code @GameTest} methods stay thin.</p>
+ * <p>Like {@link AlchemistryGameTests} the bodies stay here as {@code static} methods and the registration lives in
+ * {@link AlchemistryGameTestRegistry}; the package is compiled into {@code src/main} so the mod scan discovers it,
+ * but the {@code jar} task excludes it so it never ships. Each test runs against the staged 3x3x3 air structure
+ * ({@code alchemistry:loadsemptytemplate}); a single machine block plus a mock player fits inside it.</p>
  */
-@GameTestHolder(Alchemistry.MODID)
 public class MachineGameTests {
+
+    private MachineGameTests() {}
 
     // Centre of the 3x3x3 structure, well clear of the structure block, so the placed machine ticks in isolation.
     private static final BlockPos MACHINE_POS = new BlockPos(1, 1, 1);
@@ -81,9 +76,7 @@ public class MachineGameTests {
      * recipe's declared possible outputs. Membership -- not an exact roll -- because the dissolver output is
      * probabilistic. The default 50-tick operation plus buffer transfer completes inside the 100-tick timeout.
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void dissolverProcessing(GameTestHelper helper) {
+    public static void dissolverProcessing(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
 
         // Plenty of energy for the whole operation (default 100 FE/tick x 50 ticks = 5000 FE, capacity 100k).
@@ -96,7 +89,7 @@ public class MachineGameTests {
         // for the operation to finish without manual tick driving.
         helper.succeedWhen(() -> {
             ItemStack produced = firstOutput(dissolver);
-            helper.assertFalse(produced.isEmpty(), "dissolver produced no output");
+            helper.assertFalse(produced.isEmpty(), Component.literal("dissolver produced no output"));
             assertOutputsAreMembers(helper, dissolver, allowedOutputs);
         });
     }
@@ -116,9 +109,7 @@ public class MachineGameTests {
      * instead buffer the remainder and need the output drained across several ticks (also supported, but omitted
      * here to keep the assertion deterministic).</p>
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void dissolverProcessingNoLoss(GameTestHelper helper) {
+    public static void dissolverProcessingNoLoss(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
 
         dissolver.getEnergyHandler().setEnergy(Integer.MAX_VALUE);
@@ -127,13 +118,13 @@ public class MachineGameTests {
         Set<Item> allowedOutputs = possibleOutputs(helper, new ItemStack(DISSOLVABLE_BULK));
         int expected = expectedDeterministicOutputCount(helper, new ItemStack(DISSOLVABLE_BULK));
         helper.assertTrue(expected > 64,
-                "no-loss test must use a >64 output to exercise the oversized-stack path, got " + expected);
+                Component.literal("no-loss test must use a >64 output to exercise the oversized-stack path, got " + expected));
 
         helper.succeedWhen(() -> {
             assertOutputsAreMembers(helper, dissolver, allowedOutputs);
             int total = totalOutputCount(dissolver);
             helper.assertTrue(total == expected,
-                    "dissolver dropped output on the >64 buffer transfer: expected " + expected + ", found " + total);
+                    Component.literal("dissolver dropped output on the >64 buffer transfer: expected " + expected + ", found " + total));
         });
     }
 
@@ -142,11 +133,9 @@ public class MachineGameTests {
      * dissolver-type recipe list from {@link RecipeRegistry} -- not the server's "Loaded N recipes" log line, which
      * counts recipe types rather than entries and would be misleading here.
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void recipeResolution(GameTestHelper helper) {
+    public static void recipeResolution(GameTestHelper helper) {
         int count = RecipeRegistry.getDissolverRecipes(helper.getLevel()).size();
-        helper.assertTrue(count > 0, "expected dissolver recipes to load, found " + count);
+        helper.assertTrue(count > 0, Component.literal("expected dissolver recipes to load, found " + count));
         helper.succeed();
     }
 
@@ -156,15 +145,13 @@ public class MachineGameTests {
      * {@code level.getCapability(Capabilities.ItemHandler.BLOCK, pos, side)}, which returns a plain nullable
      * {@link IItemHandler} rather than a wrapped optional. The handler must be present and expose at least one slot.
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void machineCapability(GameTestHelper helper) {
+    public static void machineCapability(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
 
         IItemHandler handler = helper.getLevel().getCapability(Capabilities.ItemHandler.BLOCK, dissolver.getBlockPos(), null);
 
-        helper.assertTrue(handler != null, "dissolver did not expose an item handler capability");
-        helper.assertTrue(handler.getSlots() > 0, "dissolver item handler exposed no slots");
+        helper.assertTrue(handler != null, Component.literal("dissolver did not expose an item handler capability"));
+        helper.assertTrue(handler.getSlots() > 0, Component.literal("dissolver item handler exposed no slots"));
         helper.succeed();
     }
 
@@ -175,16 +162,14 @@ public class MachineGameTests {
      * {@link DissolverBlockEntity#createMenu(int, net.minecraft.world.entity.player.Inventory, Player)} returns a
      * {@link DissolverMenu}. A mock player supplies the inventory the menu constructor needs.
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void menuOpens(GameTestHelper helper) {
+    public static void menuOpens(GameTestHelper helper) {
         DissolverBlockEntity dissolver = placeDissolver(helper);
 
         Player player = helper.makeMockPlayer(GameType.CREATIVE);
         AbstractContainerMenu menu = dissolver.createMenu(0, player.getInventory(), player);
 
         helper.assertTrue(menu instanceof DissolverMenu,
-                "dissolver did not produce a DissolverMenu, got " + (menu == null ? "null" : menu.getClass().getSimpleName()));
+                Component.literal("dissolver did not produce a DissolverMenu, got " + (menu == null ? "null" : menu.getClass().getSimpleName())));
         helper.succeed();
     }
 
@@ -210,9 +195,7 @@ public class MachineGameTests {
      * two distinct inputs, so the two inputs occupy two distinct inventory slots -- the precondition that makes the
      * single-slot bug observable.</p>
      */
-    @GameTest(template = "loadsemptytemplate")
-    @PrefixGameTestTemplate(false)
-    public void fusionTransferDebitsBothInputs(GameTestHelper helper) {
+    public static void fusionTransferDebitsBothInputs(GameTestHelper helper) {
         FusionControllerBlockEntity controller = placeFusionController(helper);
 
         // A loaded fusion recipe whose two inputs differ, so input1 and input2 land in distinct inventory slots --
@@ -237,7 +220,7 @@ public class MachineGameTests {
         int slot1 = inventory.findSlotMatchingItem(input1);
         int slot2 = inventory.findSlotMatchingItem(input2);
         helper.assertTrue(slot1 != slot2,
-                "the two distinct inputs must occupy distinct inventory slots, both resolved to " + slot1);
+                Component.literal("the two distinct inputs must occupy distinct inventory slots, both resolved to " + slot1));
 
         // Drive the production receive path: build the packet JEI would send and invoke its handler with a real
         // server-bound context carrying the non-creative player. maxTransfer=false pins exactly one operation.
@@ -249,18 +232,18 @@ public class MachineGameTests {
         ItemStack machineSlot0 = machineInputs.getStackInSlot(0);
         ItemStack machineSlot1 = machineInputs.getStackInSlot(1);
         helper.assertTrue(ItemStack.isSameItemSameComponents(machineSlot0, input1) && machineSlot0.getCount() == input1.getCount(),
-                "machine input slot 0 expected " + input1.getItem() + " x" + input1.getCount() + ", found " + machineSlot0);
+                Component.literal("machine input slot 0 expected " + input1.getItem() + " x" + input1.getCount() + ", found " + machineSlot0));
         helper.assertTrue(ItemStack.isSameItemSameComponents(machineSlot1, input2) && machineSlot1.getCount() == input2.getCount(),
-                "machine input slot 1 expected " + input2.getItem() + " x" + input2.getCount() + ", found " + machineSlot1);
+                Component.literal("machine input slot 1 expected " + input2.getItem() + " x" + input2.getCount() + ", found " + machineSlot1));
 
         // Each inventory slot debited by exactly its own input's count -- input1's slot by input1's count, input2's
         // slot by input2's count. Debiting slot1 twice would leave slot2 at its seed and over-drain slot1.
         int remaining1 = inventory.getItem(slot1).getCount();
         int remaining2 = inventory.getItem(slot2).getCount();
         helper.assertTrue(remaining1 == seeded1 - input1.getCount(),
-                "input1 slot debited wrong: expected " + (seeded1 - input1.getCount()) + ", found " + remaining1);
+                Component.literal("input1 slot debited wrong: expected " + (seeded1 - input1.getCount()) + ", found " + remaining1));
         helper.assertTrue(remaining2 == seeded2 - input2.getCount(),
-                "input2 slot was not debited (single-slot bug): expected " + (seeded2 - input2.getCount()) + ", found " + remaining2);
+                Component.literal("input2 slot was not debited (single-slot bug): expected " + (seeded2 - input2.getCount()) + ", found " + remaining2));
         helper.succeed();
     }
 
@@ -269,10 +252,9 @@ public class MachineGameTests {
     // to the absolute world position for us.
     private static DissolverBlockEntity placeDissolver(GameTestHelper helper) {
         helper.setBlock(MACHINE_POS, BlockRegistry.DISSOLVER.get());
-        BlockEntity blockEntity = helper.getBlockEntity(MACHINE_POS);
-        if (!(blockEntity instanceof DissolverBlockEntity dissolver)) {
-            helper.fail("expected a DissolverBlockEntity at " + MACHINE_POS + ", got "
-                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), MACHINE_POS);
+        DissolverBlockEntity dissolver = helper.getBlockEntity(MACHINE_POS, DissolverBlockEntity.class);
+        if (dissolver == null) {
+            helper.fail(Component.literal("expected a DissolverBlockEntity at " + MACHINE_POS), MACHINE_POS);
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return dissolver;
@@ -283,10 +265,9 @@ public class MachineGameTests {
     // multiblock formed, so a bare controller is enough.
     private static FusionControllerBlockEntity placeFusionController(GameTestHelper helper) {
         helper.setBlock(MACHINE_POS, BlockRegistry.FUSION_CONTROLLER.get());
-        BlockEntity blockEntity = helper.getBlockEntity(MACHINE_POS);
-        if (!(blockEntity instanceof FusionControllerBlockEntity controller)) {
-            helper.fail("expected a FusionControllerBlockEntity at " + MACHINE_POS + ", got "
-                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), MACHINE_POS);
+        FusionControllerBlockEntity controller = helper.getBlockEntity(MACHINE_POS, FusionControllerBlockEntity.class);
+        if (controller == null) {
+            helper.fail(Component.literal("expected a FusionControllerBlockEntity at " + MACHINE_POS), MACHINE_POS);
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return controller;
@@ -337,7 +318,7 @@ public class MachineGameTests {
             ItemStack stack = output.getStackInSlot(slot);
             if (!stack.isEmpty()) {
                 helper.assertTrue(allowed.contains(stack.getItem()),
-                        "dissolver output " + stack.getItem() + " is not a declared recipe output");
+                        Component.literal("dissolver output " + stack.getItem() + " is not a declared recipe output"));
             }
         }
     }

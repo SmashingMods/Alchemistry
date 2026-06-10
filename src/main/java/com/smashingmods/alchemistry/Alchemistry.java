@@ -8,6 +8,7 @@ import com.smashingmods.alchemistry.common.block.fission.FissionControllerScreen
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerScreen;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierScreen;
 import com.smashingmods.alchemistry.common.network.PacketHandler;
+import com.smashingmods.alchemistry.gametest.AlchemistryGameTestRegistry;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -39,6 +40,11 @@ public class Alchemistry {
         modEventBus.addListener(PACKET_HANDLER::register);
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.COMMON_SPEC);
         Registry.register(modEventBus);
+
+        // Register the in-game tests. 1.21.5 replaced the annotation-driven gametest framework with a registry-based
+        // one, so the tests are wired explicitly (test functions + instances) rather than discovered from a holder
+        // annotation. The gametest package is excluded from the published jar, so this is dev/test-only scaffolding.
+        AlchemistryGameTestRegistry.register(modEventBus);
 
         // Make sure that `/reload` and world loading wipe the machine recipe cache.
         NeoForge.EVENT_BUS.addListener(RecipeRegistry::postReload);

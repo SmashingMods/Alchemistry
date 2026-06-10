@@ -21,7 +21,7 @@ public class ReactorEntry extends EntryProvider {
     @Override
     protected void generatePages() {
         page("intro", () -> BookTextPageModel.create().withText(context().pageText()));
-        pageText("The fission and fusion reactors are an integral part of manipulating matter to form elements for whatever you need to create. They are complex multiblock machines with a lot of requirements to get started.\\\n\\\nEvery reactor will need a number of these blocks:\\\n- Reactor Casing\\\n- Reactor Glass\\\n- Reactor Controller\\\n- Reactor Core\\\n- Energy Input\\\n- Item Input\\\n- Item Output");
+        pageText("The fission and fusion reactors are an integral part of manipulating matter to form elements for whatever you need to create. They are complex multiblock machines with a lot of requirements to get started.\\\n\\\nEvery reactor will need a number of these blocks:\n- Reactor Casing\n- Reactor Glass\n- Reactor Controller\n- Reactor Core\n- Energy Input\n- Item Input\n- Item Output");
 
         page("casing", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:reactor_casing")
                 .withTitle1(context().pageTitle()).withText(context().pageText()));
@@ -31,12 +31,12 @@ public class ReactorEntry extends EntryProvider {
         page("glass", () -> BookSpotlightPageModel.create().withTitle(context().pageTitle()).withText(context().pageText())
                 .withItem(BlockRegistry.REACTOR_GLASS.get()));
         pageTitle("Reactor Glass");
-        pageText("Reactor glass allows you to view inside of your reactor. It's lead lined, which will hopefully keep the radiation at bay -- maybe. These are made in the combiner, check JEI for the recipe.");
+        pageText("Reactor glass allows you to view inside of your reactor. It's lead lined, which will hopefully keep the radiation at bay. Maybe. These are made in the combiner, check JEI for the recipe.");
 
         page("energy", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:reactor_energy")
                 .withTitle1(context().pageTitle()).withText(context().pageText()));
         pageTitle("Reactor Energy");
-        pageText("Your reactors need power -- a **lot** of power. This block can be connected to energy cables that are hopefully up to the challenge.");
+        pageText("Your reactors need power. A **lot** of power. This block can be connected to energy cables that are hopefully up to the challenge.");
 
         page("input", () -> BookCraftingRecipePageModel.create().withRecipeId1("alchemistry:reactor_input")
                 .withTitle1(context().pageTitle()).withText(context().pageText()));

@@ -51,7 +51,7 @@ public class MachinesCategory extends CategoryProvider {
 
     @Override
     protected String categoryDescription() {
-        return "An excerpt from the Alchemistry Labs Catalog:\\\nEvery great laboratory starts with the right equipment. These powered machines break materials down into their chemical elements and compounds and put them back together again -- the foundation of everything else in Alchemistry.";
+        return "An excerpt from the Alchemistry Labs Catalog:\\\nEvery great laboratory starts with the right equipment. These powered machines break materials down into their chemical elements and compounds and put them back together again. They are the foundation of everything else in Alchemistry.";
     }
 
     @Override

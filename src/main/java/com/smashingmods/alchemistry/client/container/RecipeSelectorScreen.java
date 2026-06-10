@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.client.container;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemylib.api.blockentity.container.AbstractProcessingScreen;
@@ -16,7 +15,6 @@ import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.renderer.CoreShaders;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -243,8 +241,9 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private void renderSlot(GuiGraphics pGuiGraphics, int pX, int pY) {
-        RenderSystem.setShader(CoreShaders.POSITION_TEX);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+        // 1.21.5 removed CoreShaders and the immediate-mode RenderSystem#setShader/setShaderColor setup these two
+        // lines performed; GuiGraphics#blit(RenderType::guiTextured, ...) already binds its own pipeline and draws
+        // untinted (the other blit calls in this screen do the same), so the slot sprite is drawn straight through it.
         pGuiGraphics.blit(RenderType::guiTextured, ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE, 256, 256);
     }
 

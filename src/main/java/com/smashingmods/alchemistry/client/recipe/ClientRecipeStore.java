@@ -19,7 +19,9 @@ import java.util.List;
  */
 public final class ClientRecipeStore {
 
-    private static Collection<RecipeHolder<?>> recipes = List.of();
+    // volatile: written from the network thread (RecipesReceivedEvent handler, logout clear in RecipeReceivedHandler)
+    // and read from the client/integrated-server threads, so the reference swap has to publish safely.
+    private static volatile Collection<RecipeHolder<?>> recipes = List.of();
 
     private ClientRecipeStore() {
     }

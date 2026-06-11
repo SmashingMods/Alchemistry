@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import javax.annotation.Nullable;
 
@@ -71,12 +72,7 @@ public class LiquifierTransferPacket implements AlchemyPacket {
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         Inventory inventory = player.getInventory();
 
-        // allMatch is vacuously true on an empty resolution, and the registry lookup takes the first
-        // hit -- without the length check one empty-resolving recipe would shadow every real recipe.
-        RecipeRegistry.getLiquifierRecipe(recipe -> {
-            ItemStack[] recipeItems = recipe.getInput().getIngredient().getItems();
-            return recipeItems.length > 0 && Arrays.stream(recipeItems).allMatch(input.getIngredient());
-        }, player.level())
+        RecipeRegistry.getLiquifierRecipe(recipe -> matchesTransferredInput(recipe, input), player.level())
             .ifPresent(recipe -> {
 
                 LiquifierRecipe recipeCopy = recipe.copy();
@@ -88,7 +84,8 @@ public class LiquifierTransferPacket implements AlchemyPacket {
 
                 boolean creative = player.gameMode.isCreative();
                 boolean fullMatch = TransferUtils.isFullMatch(inventoryInput);
-                boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && blockEntity.getFluidStorage().isEmpty();
+                boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty()
+                        && tankAccepts(blockEntity.getFluidStorage().getFluidStack(), recipeCopy.getOutput());
 
                 if (canTransfer) {
                     if (creative) {
@@ -116,6 +113,37 @@ public class LiquifierTransferPacket implements AlchemyPacket {
                     blockEntity.setRecipe(recipe);
                 }
             });
+    }
+
+    /**
+     * The recipe-lookup predicate: whether every item the candidate recipe's ingredient resolves to
+     * matches the ingredient the packet carried. allMatch is vacuously true on an empty resolution,
+     * and the registry lookup takes the first hit -- without the length check one empty-resolving
+     * recipe would shadow every real recipe.
+     *
+     * <p>Package-visible so the lookup is unit-testable across the packet's real network round-trip
+     * without a live server.</p>
+     */
+    static boolean matchesTransferredInput(LiquifierRecipe pRecipe, IngredientStack pInput) {
+        ItemStack[] recipeItems = pRecipe.getInput().getIngredient().getItems();
+        return recipeItems.length > 0 && Arrays.stream(recipeItems).allMatch(pInput.getIngredient());
+    }
+
+    /**
+     * Whether the output tank's content permits transferring this recipe: the tank is empty or
+     * already holds the recipe's output fluid -- the same fluid acceptance
+     * {@code LiquifierBlockEntity#canProcessRecipe} runs, so a transfer is refused exactly when the
+     * machine could not process the recipe anyway (a different fluid occupying the tank). The old
+     * gate required the tank to be EMPTY outright: unlike the item machines, whose output slots the
+     * handler first empties into the player inventory, a fluid tank cannot be emptied that way, so
+     * the fluid produced by the machine's very first operation permanently vetoed every later JEI
+     * transfer -- survival and creative alike -- until the tank was piped out.
+     *
+     * <p>Package-visible so the gate that killed the transfer button is unit-testable without a
+     * live block entity.</p>
+     */
+    static boolean tankAccepts(FluidStack pTankFluid, FluidStack pRecipeOutput) {
+        return pTankFluid.isEmpty() || FluidStack.isSameFluidSameComponents(pTankFluid, pRecipeOutput);
     }
 
     /**

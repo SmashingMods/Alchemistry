@@ -1,8 +1,10 @@
 package com.smashingmods.alchemistry.gametest;
 
+import com.mojang.authlib.GameProfile;
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlockEntity;
 import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlockEntity;
+import com.smashingmods.alchemistry.common.network.jei.LiquifierTransferPacket;
 import com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
@@ -10,21 +12,29 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * In-world tests for the two fluid machines -- the liquifier (item in -> fluid out) and the atomizer
  * (fluid in -> item out). {@code MachineGameTests} drives the standalone item-only machines through the
  * dissolver, and {@code ReactorGameTests} covers the reactor multiblock; neither exercises the fluid I/O seam
  * these two share via {@link com.smashingmods.alchemylib.api.blockentity.processing.AbstractFluidBlockEntity}.
- * Both tests here are {@code required=true} (the {@code @GameTest} default), so a failure fails the
+ * Every test here is {@code required=true} (the {@code @GameTest} default), so a failure fails the
  * {@code gameTestServer} gate alongside the full-chain load-smoke in {@link AlchemistryGameTests}.
  *
  * <p>Like the other holders this class lives in {@code src/main} so the mod scan registers it for the
@@ -34,11 +44,12 @@ import java.util.List;
  * a single machine block fits inside it. Bodies stay as thin plain helpers so the {@code @GameTest} methods stay
  * thin, matching the other holders.</p>
  *
- * <p>Both tests are data-driven against a loaded recipe rather than a hand-picked input: each resolves any loaded
- * recipe of its type, seeds that recipe's exact input, and asserts that recipe's exact output. Each seeds the input
- * at exactly one operation's worth so the machine settles after a single operation -- {@code canProcessRecipe()}
- * then blocks a second because the input is fully consumed -- which makes the output an exact equality
- * (fluid type + amount, or item + count) rather than a {@code > 0} lower bound.</p>
+ * <p>The two processing tests are data-driven against a loaded recipe rather than a hand-picked input: each
+ * resolves any loaded recipe of its type, seeds that recipe's exact input, and asserts that recipe's exact output.
+ * Each seeds the input at exactly one operation's worth so the machine settles after a single operation --
+ * {@code canProcessRecipe()} then blocks a second because the input is fully consumed -- which makes the output an
+ * exact equality (fluid type + amount, or item + count) rather than a {@code > 0} lower bound. The liquifier
+ * transfer regression follows the same data-driven shape against the JEI transfer packet's handler.</p>
  */
 @GameTestHolder(Alchemistry.MODID)
 public class FluidMachineGameTests {
@@ -134,6 +145,64 @@ public class FluidMachineGameTests {
         });
     }
 
+    /**
+     * Regression for the dead liquifier "+" button: drives {@link LiquifierTransferPacket}'s server handler against
+     * a liquifier whose tank already holds the recipe's own output fluid -- the state every liquifier reaches after
+     * its first operation. The pre-fix {@code canTransfer} required the tank to be EMPTY outright, and unlike the
+     * item machines (whose output slots the handler first empties into the player inventory) a tank cannot be
+     * emptied that way, so that first operation's fluid permanently vetoed every later JEI transfer in both game
+     * modes -- the machine-input-stays-empty failure this test turns into assertions. Post-fix the gate mirrors
+     * {@code canProcessRecipe}'s fluid acceptance (empty or the recipe's own output), so the transfer must debit
+     * the inventory and fill the machine input while the tank keeps its fluid.
+     *
+     * <p>The handler resolves the recipe by matching every item of a candidate's ingredient against the packet's
+     * ingredient, so the seeded recipe is re-resolved through that same predicate to pin exactly the recipe the
+     * packet acts on. {@code maxTransfer=false} pins one operation, making the debit exact.</p>
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void liquifierTransferWithProducedFluidStillTransfers(GameTestHelper helper) {
+        LiquifierBlockEntity liquifier = placeLiquifier(helper);
+
+        LiquifierRecipe picked = RecipeRegistry.getLiquifierRecipe(r -> true, helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no liquifier recipe loaded"));
+        // Re-resolve the way the handler does -- first recipe whose resolved items all match the packet ingredient.
+        LiquifierRecipe recipe = RecipeRegistry.getLiquifierRecipe(r -> {
+                    ItemStack[] recipeItems = r.getInput().getIngredient().getItems();
+                    return recipeItems.length > 0 && Arrays.stream(recipeItems).allMatch(picked.getInput().getIngredient());
+                }, helper.getLevel())
+                .orElseThrow(() -> new AssertionError("liquifier recipe lookup by input found nothing"));
+
+        // The tank state after one completed operation: exactly the recipe's output fluid.
+        int filled = liquifier.getFluidStorage().fill(recipe.getOutput().copy(), IFluidHandler.FluidAction.EXECUTE);
+        helper.assertTrue(filled == recipe.getOutput().getAmount(),
+                "tank seed under-filled: expected " + recipe.getOutput().getAmount() + ", filled " + filled);
+
+        List<ItemStack> inputStacks = recipe.getInput().toStacks();
+        helper.assertFalse(inputStacks.isEmpty(), "liquifier recipe input resolved to no item stacks");
+        Item inputItem = inputStacks.get(0).getItem();
+        int inputCount = recipe.getInput().getCount();
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        int seeded = inputCount + 3;
+        inventory.add(new ItemStack(inputItem, seeded));
+        int slot = inventory.findSlotMatchingItem(new ItemStack(inputItem));
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new LiquifierTransferPacket(liquifier.getBlockPos(), recipe.getInput(), false).handle(context);
+
+        ItemStack machineInput = liquifier.getInputHandler().getStackInSlot(0);
+        helper.assertTrue(machineInput.is(inputItem) && machineInput.getCount() == inputCount,
+                "transfer must fill the machine input despite the produced fluid (dead-button regression): expected "
+                        + inputItem + " x" + inputCount + ", found " + machineInput);
+        helper.assertTrue(inventory.getItem(slot).getCount() == seeded - inputCount,
+                "inventory debit expected " + (seeded - inputCount) + ", found " + inventory.getItem(slot).getCount());
+        helper.assertTrue(liquifier.getFluidStorage().getFluidAmount() == recipe.getOutput().getAmount(),
+                "the tank's produced fluid must stay untouched, found " + liquifier.getFluidStorage().getFluidAmount());
+        helper.succeed();
+    }
+
     // Places a liquifier at the structure centre and returns its block-entity, failing the test if either the block
     // or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts to the
     // absolute world position for us.
@@ -146,6 +215,16 @@ public class FluidMachineGameTests {
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return liquifier;
+    }
+
+    // A real non-creative ServerPlayer on the gametest level, mirroring MachineGameTests: the transfer handlers
+    // reject a non-ServerPlayer and route a creative player to a branch that never touches the inventory, so this
+    // builds a ServerPlayer directly whose default SURVIVAL game mode is the non-creative path. It is not placed
+    // onto the network -- the handler runs synchronously on the server thread a gametest already executes on.
+    private static ServerPlayer makeServerPlayer(GameTestHelper helper) {
+        GameProfile profile = new GameProfile(UUID.randomUUID(), "test-transfer-player");
+        return new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(), profile,
+                CommonListenerCookie.createInitial(profile, false).clientInformation());
     }
 
     // Places an atomizer at the structure centre and returns its block-entity, failing the test if either the block

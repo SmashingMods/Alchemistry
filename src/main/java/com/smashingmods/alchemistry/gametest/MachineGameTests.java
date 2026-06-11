@@ -176,11 +176,11 @@ public class MachineGameTests {
     /**
      * Drives {@link FusionTransferPacket}'s server handler down its non-creative branch and asserts it debits the
      * two distinct recipe inputs from the right inventory slots while filling both machine input slots. The handler
-     * resolves a fusion recipe, locates each input's inventory slot independently, and removes that input's count
-     * from each -- so the two debits must hit the two distinct slots, not the same slot twice. With one input
-     * removed from {@code slot1} and the other from {@code slot2}, both inventory stacks shrink by their recipe
-     * count; debiting {@code slot1} for both inputs instead would over-drain the first input and leave the second
-     * untouched, which the per-slot count assertions pin.
+     * resolves a fusion recipe, matches both inputs jointly against the main inventory, and removes each input's
+     * count by the slot its claim carried -- so the two debits must hit the two distinct slots, not the same slot
+     * twice. With one input removed from {@code slot1} and the other from {@code slot2}, both inventory stacks
+     * shrink by their recipe count; debiting {@code slot1} for both inputs instead would over-drain the first input
+     * and leave the second untouched, which the per-slot count assertions pin.
      *
      * <p>The branch needs a non-creative {@link ServerPlayer} whose inventory holds both inputs: the mock player from
      * {@link GameTestHelper#makeMockPlayer(GameType)} is a plain {@code Player}, which the handler's

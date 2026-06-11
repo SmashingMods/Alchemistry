@@ -7,6 +7,7 @@ import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -80,26 +81,30 @@ public class FusionTransferPacket implements AlchemyPacket {
                 inputHandler.emptyToInventory(inventory);
                 outputHandler.emptyToInventory(inventory);
 
+                List<IngredientStack> recipeIngredients = buildRecipeIngredients(recipeCopy);
+                List<TransferUtils.SlotMatch> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.getNonEquipmentItems(), recipeIngredients);
+
                 boolean creative = player.gameMode.isCreative();
-                boolean inventoryContains = inventory.contains(input1) && inventory.contains(input2);
-                boolean canTransfer = (inventoryContains || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                boolean fullMatch = TransferUtils.isFullMatch(inventoryInput);
+                boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                 if (canTransfer) {
-                    List<ItemStack> recipeInputs = List.of(recipeCopy.getInput1(), recipeCopy.getInput2());
                     if (creative) {
-                        int maxOperations = TransferUtils.getMaxOperations(recipeInputs, maxTransfer);
+                        int maxOperations = TransferUtils.getMaxOperations(List.of(recipeCopy.getInput1(), recipeCopy.getInput2()), maxTransfer);
 
                         inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
                         inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
                     } else {
-                        int slot1 = inventory.findSlotMatchingItem(recipeCopy.getInput1());
-                        int slot2 = inventory.findSlotMatchingItem(recipeCopy.getInput2());
-                        List<ItemStack> inventoryInputs = List.of(inventory.getItem(slot1), inventory.getItem(slot2));
+                        int maxOperations = TransferUtils.getMaxOperations(inventoryInput, recipeIngredients, maxTransfer);
 
-                        int maxOperations = TransferUtils.getMaxOperations(recipeInputs, inventoryInputs, maxTransfer, false);
-
-                        inventory.removeItem(slot1, recipeCopy.getInput1().getCount() * maxOperations);
-                        inventory.removeItem(slot2, recipeCopy.getInput2().getCount() * maxOperations);
+                        // Remove by the slot each input claimed during matching. The joint match bounded
+                        // the claims by the slots' counts and the operation bound divides a shared slot by
+                        // the TOTAL claim on it, so a same-element recipe (both inputs drawing on one
+                        // stack) removes exactly what the placement below inserts -- two independent slot
+                        // lookups resolved the same stack twice, let the second removal come back empty,
+                        // and inserted items that never left the inventory.
+                        inventory.removeItem(inventoryInput.get(0).slot(), recipeCopy.getInput1().getCount() * maxOperations);
+                        inventory.removeItem(inventoryInput.get(1).slot(), recipeCopy.getInput2().getCount() * maxOperations);
 
                         inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput1().getItem(), recipeCopy.getInput1().getCount() * maxOperations));
                         inputHandler.setOrIncrement(1, new ItemStack(recipeCopy.getInput2().getItem(), recipeCopy.getInput2().getCount() * maxOperations));
@@ -108,6 +113,23 @@ public class FusionTransferPacket implements AlchemyPacket {
                     blockEntity.setRecipe(recipe);
                 }
             });
+    }
+
+    /**
+     * The recipe's two inputs as a joint-matchable ingredient list, index-parallel to the machine's
+     * input slots and carrying each input's count. Fusion inputs are concrete {@link ItemStack}s
+     * rather than the combiner's {@code IngredientStack}s, so this wrap is what lets
+     * {@link TransferUtils#matchIngredientListToItemStack} claim main-inventory slots jointly: most
+     * shipped fusion recipes fuse an element with itself, and matching each input independently
+     * resolved the same stack twice -- authorizing more removals than the stack held and duplicating
+     * the shortfall. The matcher also only ever walks the main inventory, unlike the old
+     * {@code Inventory#contains} gate, whose offhand hits made the main-only slot lookup return -1
+     * and disconnected the player on {@code getItem(-1)}.
+     *
+     * <p>Package-visible so the joint-claim math is unit-testable without a live server.</p>
+     */
+    static List<IngredientStack> buildRecipeIngredients(FusionRecipe pRecipe) {
+        return List.of(new IngredientStack(pRecipe.getInput1()), new IngredientStack(pRecipe.getInput2()));
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<FusionControllerMenu, FusionRecipe> {

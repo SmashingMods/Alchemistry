@@ -83,7 +83,7 @@ public class CombinerTransferPacket implements AlchemyPacket {
                 List<TransferUtils.SlotMatch> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.getNonEquipmentItems(), recipeCopy.getInput());
 
                 boolean creative = player.gameMode.isCreative();
-                boolean fullMatch = isFullMatch(inventoryInput);
+                boolean fullMatch = TransferUtils.isFullMatch(inventoryInput);
                 boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                 if (canTransfer) {
@@ -119,21 +119,6 @@ public class CombinerTransferPacket implements AlchemyPacket {
                     blockEntity.setCanProcess(true);
                 }
             });
-    }
-
-    /**
-     * Whether the matched inventory slots cover every recipe input. {@code pInventoryInput} is
-     * index-parallel to the recipe input with EMPTY at every unmatched position (see
-     * {@link TransferUtils#matchIngredientListToItemStack}); any EMPTY means the player lacks an
-     * ingredient -- or, the match being joint, that a shared stack cannot cover another claim --
-     * and a partial transfer must not run: counts would pair with the wrong ingredients and the
-     * removal loop could run a stack dry part-way through. An empty list (a degenerate
-     * zero-input recipe) is not transferable either.
-     *
-     * <p>Package-visible so the non-creative transfer decision is unit-testable without a live server.</p>
-     */
-    static boolean isFullMatch(List<TransferUtils.SlotMatch> pInventoryInput) {
-        return !pInventoryInput.isEmpty() && pInventoryInput.stream().noneMatch(TransferUtils.SlotMatch::isEmpty);
     }
 
     /**

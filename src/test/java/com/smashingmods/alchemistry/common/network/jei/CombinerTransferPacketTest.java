@@ -23,7 +23,6 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -37,8 +36,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * <p>Also pins the packet's static transfer math, which is package-visible exactly so it can run without a live
  * server: {@link CombinerTransferPacket#buildCreativeTransfer} must keep the placement list index-parallel to the
  * recipe input when an ingredient resolves to no items (empty tag, custom ingredient resolving empty) and must
- * exclude those EMPTY placeholders from the operation count, and {@link CombinerTransferPacket#isFullMatch} must
- * only let the non-creative path transfer when every ingredient claimed a slot.</p>
+ * exclude those EMPTY placeholders from the operation count. The full-match gate the non-creative path uses is
+ * shared by every joint-matching packet and pinned in {@link TransferUtilsTest}.</p>
  */
 class CombinerTransferPacketTest extends BootstrappedTest {
 
@@ -106,25 +105,6 @@ class CombinerTransferPacketTest extends BootstrappedTest {
         CombinerRecipe recipe = twoInputRecipe(zeroResolvingIngredient(1), zeroResolvingIngredient(2));
 
         assertTrue(CombinerTransferPacket.buildCreativeTransfer(recipe, true).isEmpty());
-    }
-
-    @Test
-    void isFullMatch_everyIngredientClaimedASlot_transferable() {
-        assertTrue(CombinerTransferPacket.isFullMatch(List.of(
-                new TransferUtils.SlotMatch(new ItemStack(Items.IRON_INGOT, 4), 0),
-                new TransferUtils.SlotMatch(new ItemStack(Items.GUNPOWDER, 8), 5))));
-    }
-
-    @Test
-    void isFullMatch_partialMatch_notTransferable() {
-        assertFalse(CombinerTransferPacket.isFullMatch(List.of(
-                TransferUtils.SlotMatch.EMPTY,
-                new TransferUtils.SlotMatch(new ItemStack(Items.GUNPOWDER, 8), 5))));
-    }
-
-    @Test
-    void isFullMatch_emptyList_notTransferable() {
-        assertFalse(CombinerTransferPacket.isFullMatch(List.of()));
     }
 
     /**

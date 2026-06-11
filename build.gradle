@@ -245,6 +245,11 @@ runs {
                     // boots on fine -- so a blanket substring match false-positives on every boot. An invalid
                     // dist load Alchemistry actually causes still fails the run: directly via this line-scoped
                     // marker, or upstream as a ModLoadingException / failed server start caught above.
+                    // CAVEAT: the marker is blind to violations Alchemistry CAUSES against vanilla/client
+                    // classes, where the refused line names the foreign class (e.g. a future Alchemistry mixin
+                    // targeting a client class logs the vanilla target, not com/smashingmods, and mixin skips it
+                    // just like CTM's). If a mixin is ever added, re-broaden this check or line-allowlist the
+                    // known dev-mod refusals instead.
                     if (hit == null && text.readLines().any { it.contains('invalid dist') && it.contains('com/smashingmods') }) {
                         hit = 'invalid dist (com/smashingmods class)'
                     }

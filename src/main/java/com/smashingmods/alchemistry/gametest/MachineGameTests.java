@@ -1,12 +1,14 @@
 package com.smashingmods.alchemistry.gametest;
 
 import com.mojang.authlib.GameProfile;
+import com.smashingmods.alchemistry.common.block.combiner.CombinerBlockEntity;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.network.jei.CompactorTransferPacket;
 import com.smashingmods.alchemistry.common.network.jei.FusionTransferPacket;
+import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
@@ -358,6 +360,42 @@ public class MachineGameTests {
         helper.succeed();
     }
 
+    /**
+     * The recipe lock's slot validation must screen by INGREDIENT only and leave counts to the insertion
+     * layer. It used to also bound the inserted count by the target slot's max stack size -- but an empty
+     * slot reports {@code ItemStack.EMPTY.getMaxStackSize() == 1}, so a locked combiner refused every
+     * stack of 2+ items into an empty slot (shift-clicks and stack left-clicks bounced whole, top-ups were
+     * all-or-nothing). Locks a combiner recipe on an empty grid, then asserts a full 64-stack of the
+     * recipe's own ingredient inserts (a partial fill is fine -- capping is the insertion layer's job,
+     * refusing was the bug) while a foreign item still bounces in full.
+     */
+    public static void lockedCombinerAcceptsFullStackOfItsIngredient(GameTestHelper helper) {
+        CombinerBlockEntity combiner = placeCombiner(helper);
+
+        CombinerRecipe locked = RecipeRegistry.getCombinerRecipe(
+                        r -> !r.getInput().isEmpty() && !r.getInput().get(0).toStacks().isEmpty(), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no combiner recipe with resolvable inputs loaded"));
+
+        combiner.setRecipe(locked.copy());
+        combiner.setRecipeLocked(true);
+
+        ItemStack fullStack = locked.getInput().get(0).toStacks().get(0).copyWithCount(64);
+        ItemStack remainder = combiner.getInputHandler().insertItem(0, fullStack.copy(), false);
+        helper.assertTrue(remainder.getCount() < fullStack.getCount(),
+                Component.literal("locked combiner refused a full stack of its own ingredient: " + remainder.getCount()
+                        + " of " + fullStack.getCount() + " bounced"));
+
+        ItemStack foreign = new ItemStack(Items.COBBLESTONE, 64);
+        helper.assertTrue(locked.getInput().stream().noneMatch(ingredient -> ingredient.matches(foreign)),
+                Component.literal("foreign-item precondition failed: " + foreign.getItem() + " is an ingredient of " + locked.getId()));
+        ItemStack foreignRemainder = combiner.getInputHandler().insertItem(1, foreign.copy(), false);
+        helper.assertTrue(foreignRemainder.getCount() == foreign.getCount(),
+                Component.literal("locked combiner accepted an item foreign to its recipe: "
+                        + (foreign.getCount() - foreignRemainder.getCount()) + " inserted"));
+
+        helper.succeed();
+    }
+
     // Places a dissolver at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts
     // to the absolute world position for us.
@@ -369,6 +407,18 @@ public class MachineGameTests {
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return dissolver;
+    }
+
+    // Places a combiner at the structure centre and returns its block-entity, failing the test if either the
+    // block or its block-entity is missing.
+    private static CombinerBlockEntity placeCombiner(GameTestHelper helper) {
+        helper.setBlock(MACHINE_POS, BlockRegistry.COMBINER.get());
+        CombinerBlockEntity combiner = helper.getBlockEntity(MACHINE_POS, CombinerBlockEntity.class);
+        if (combiner == null) {
+            helper.fail(Component.literal("expected a CombinerBlockEntity at " + MACHINE_POS), MACHINE_POS);
+            throw new IllegalStateException("unreachable -- helper.fail throws");
+        }
+        return combiner;
     }
 
     // Places a compactor at the structure centre and returns its block-entity, failing the test if either the

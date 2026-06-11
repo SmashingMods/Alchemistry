@@ -144,18 +144,16 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
 
             public boolean isItemValid(int pSlot, @Nonnull ItemStack pItemStack) {
                 if (currentRecipe != null && isRecipeLocked()) {
+                    // Accept a stack matching ANY of the locked recipe's inputs, in any slot. The grid is
+                    // not index-mapped to the recipe's input list -- the selector and JEI lay inputs out in
+                    // formula order, the recipe stores them in declared order -- so validating slot index
+                    // against ingredient index rejected re-adding the recipe's own ingredients. The recipe
+                    // match and the processing debit both scan the slots per ingredient, so placement
+                    // order never matters to them either. The stack-size bound keeps an insertion from
+                    // overfilling the slot it lands in.
                     List<IngredientStack> ingredients = currentRecipe.getInput();
-                    // Assume slots are 0-indexed and go in order from left to right, top to bottom
-                    if (pSlot < ingredients.size()) {
-                        // If there's a corresponding ingredient for this slot in the recipe
-                        IngredientStack expectedIngredient = ingredients.get(pSlot);
-                        // Allow the item to be inserted into this slot, as long as it does not exceed the max stack size
-                        return expectedIngredient.matches(pItemStack) &&
-                                (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= getStackInSlot(pSlot).getMaxStackSize());
-                    } else {
-                        // If there's no corresponding ingredient for this slot in the recipe, do not allow any items to be inserted
-                        return pItemStack.isEmpty();
-                    }
+                    return ingredients.stream().anyMatch(ingredient -> ingredient.matches(pItemStack))
+                            && (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= getStackInSlot(pSlot).getMaxStackSize());
                 }
                 return super.isItemValid(pSlot, pItemStack);
             }

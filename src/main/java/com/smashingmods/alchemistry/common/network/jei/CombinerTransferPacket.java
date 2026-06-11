@@ -132,8 +132,11 @@ public class CombinerTransferPacket implements AlchemyPacket {
                             inputHandler.setOrIncrement(i, new ItemStack(recipeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
                         }
                     }
-                    blockEntity.setProgress(0);
-                    blockEntity.setRecipe(recipe);
+                    // A JEI transfer is an explicit player choice of one recipe, so it must register as a
+                    // selection (progress reset + selection marker): a plain setRecipe would be replaced by
+                    // the first-sorted auto-pick on the next tick, since the transferred inputs (e.g.
+                    // oxygen + cellulose) are shared by every sapling recipe.
+                    blockEntity.selectRecipe(recipe);
                     blockEntity.setCanProcess(true);
                 }
             });

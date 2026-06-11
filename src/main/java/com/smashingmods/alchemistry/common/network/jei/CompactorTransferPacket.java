@@ -97,8 +97,11 @@ public class CompactorTransferPacket implements AlchemyPacket {
                         inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
                         inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     }
-                    blockEntity.setProgress(0);
-                    blockEntity.setRecipe(recipe);
+                    // A JEI transfer is an explicit player choice of one recipe, so it must register as a
+                    // selection (progress reset + selection marker): a plain setRecipe would be replaced by
+                    // the first cellulose match (acacia log) as soon as updateRecipe next ran -- which the
+                    // setOrIncrement above already triggered through onContentsChanged.
+                    blockEntity.selectRecipe(recipe);
                     blockEntity.setCanProcess(true);
                 }
             });

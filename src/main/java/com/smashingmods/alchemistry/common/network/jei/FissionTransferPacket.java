@@ -7,6 +7,7 @@ import com.smashingmods.alchemistry.common.block.fission.FissionControllerMenu;
 import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import javax.annotation.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class FissionTransferPacket implements AlchemyPacket {
@@ -76,23 +78,44 @@ public class FissionTransferPacket implements AlchemyPacket {
                 inputHandler.emptyToInventory(inventory);
                 outputHander.emptyToInventory(inventory);
 
+                List<IngredientStack> recipeIngredients = buildRecipeIngredients(recipeCopy);
+                List<TransferUtils.SlotMatch> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeIngredients);
+
                 boolean creative = player.gameMode.isCreative();
-                boolean canTransfer = (inventory.contains(recipeCopy.getInput()) || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
+                boolean fullMatch = TransferUtils.isFullMatch(inventoryInput);
+                boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && outputHander.isEmpty();
 
                 if (canTransfer) {
                     if (creative) {
                         int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), maxTransfer);
                         inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {
-                        int slot = inventory.findSlotMatchingItem(recipeCopy.getInput());
-                        int maxOperations = TransferUtils.getMaxOperations(recipeCopy.getInput(), inventory.getItem(slot), maxTransfer, false);
-                        inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
+                        int maxOperations = TransferUtils.getMaxOperations(inventoryInput, recipeIngredients, maxTransfer);
+                        // Remove by the slot the input claimed during matching; the matcher bounded the
+                        // claim by that slot's count, so the removal always succeeds in full.
+                        inventory.removeItem(inventoryInput.get(0).slot(), recipeCopy.getInput().getCount() * maxOperations);
                         inputHandler.setOrIncrement(0, new ItemStack(recipeCopy.getInput().getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     }
                     blockEntity.setProgress(0);
                     blockEntity.setRecipe(recipe);
                 }
             });
+    }
+
+    /**
+     * The recipe's single input as a one-element joint-matchable ingredient list carrying the
+     * input's count. Running the same list matcher the multi-input packets use keeps the gate and
+     * the removal on one walk over the main inventory: the old shape gated on
+     * {@code Inventory#contains}, which scans every compartment (offhand included), but removed via
+     * {@code Inventory#findSlotMatchingItem}, which only scans the main inventory -- so an input
+     * held only in the offhand passed the gate, the slot lookup returned -1, and
+     * {@code getItem(-1)} disconnected the player. An {@code EMPTY} match (absent or count-short
+     * input) now simply fails the full-match gate instead.
+     *
+     * <p>Package-visible so the matching shape is unit-testable without a live server.</p>
+     */
+    static List<IngredientStack> buildRecipeIngredients(FissionRecipe pRecipe) {
+        return List.of(new IngredientStack(pRecipe.getInput()));
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<FissionControllerMenu, FissionRecipe> {

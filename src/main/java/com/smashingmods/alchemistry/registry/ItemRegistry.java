@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.registry;
 
-import net.minecraft.world.item.BlockItem;
+import com.smashingmods.alchemistry.common.block.AlchemistryBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
@@ -18,7 +18,7 @@ public class ItemRegistry {
     public static void fromBlock(DeferredHolder<Block, ? extends Block> block) {
         // Without useBlockDescriptionPrefix, a BlockItem bakes an item.alchemistry.* description id (since 1.21.2),
         // but the generated lang only defines block.alchemistry.* keys.
-        ITEMS.registerItem(block.getId().getPath(), properties -> new BlockItem(block.get(), properties), new Item.Properties().useBlockDescriptionPrefix());
+        ITEMS.registerItem(block.getId().getPath(), properties -> new AlchemistryBlockItem(block.get(), properties), new Item.Properties().useBlockDescriptionPrefix());
     }
 
     public static List<Item> getItems() {

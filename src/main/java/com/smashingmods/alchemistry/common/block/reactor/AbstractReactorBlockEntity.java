@@ -145,6 +145,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                                 reactorEnergyBlockEntity.setController(this);
                             }
                             level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_ENERGY.get());
+                            level.invalidateCapabilities(blockPos);
                         });
             } else {
                 reactorEnergyBlockEntity.setController(this);
@@ -161,6 +162,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                                 reactorInputBlockEntity.setController(this);
                             }
                             level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_INPUT.get());
+                            level.invalidateCapabilities(blockPos);
                         });
             } else {
                 reactorInputBlockEntity.setController(this);
@@ -178,6 +180,7 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
                                 reactorOutputBlockEntity.setController(this);
                             }
                             level.updateNeighborsAt(blockPos, BlockRegistry.REACTOR_OUTPUT.get());
+                            level.invalidateCapabilities(blockPos);
                         });
             } else {
                 reactorOutputBlockEntity.setController(this);
@@ -216,6 +219,9 @@ public abstract class AbstractReactorBlockEntity extends AbstractInventoryBlockE
     @Override
     public boolean isValidMultiblock() {
         if (level != null && !level.isClientSide()) {
+            if (reactorShape == null) {
+                return false;
+            }
 
             Consumer<BlockPos> handleCorePowerState = blockPos -> {
                 if (level != null && !level.isClientSide()) {

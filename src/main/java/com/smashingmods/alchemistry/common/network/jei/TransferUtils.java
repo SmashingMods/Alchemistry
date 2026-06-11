@@ -70,13 +70,16 @@ public class TransferUtils {
         return test ? atomicItem.get() : ItemStack.EMPTY;
     }
 
+    /**
+     * Pairs each ingredient with a matching inventory stack. The returned list is always
+     * index-parallel to {@code pIngredientStackList}: an ingredient the inventory cannot
+     * satisfy is represented by {@link ItemStack#EMPTY} rather than skipped, so positions
+     * keep lining up with the recipe input.
+     */
     public static List<ItemStack> matchIngredientListToItemStack(NonNullList<ItemStack> pItems, List<IngredientStack> pIngredientStackList) {
         List<ItemStack> toReturn = new ArrayList<>();
         for (IngredientStack ingredientStack : pIngredientStackList) {
-            ItemStack itemStack = matchIngredientToItemStack(pItems, ingredientStack);
-            if (!itemStack.isEmpty()) {
-                toReturn.add(itemStack);
-            }
+            toReturn.add(matchIngredientToItemStack(pItems, ingredientStack));
         }
         return toReturn;
     }

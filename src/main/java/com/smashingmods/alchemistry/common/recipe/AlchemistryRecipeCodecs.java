@@ -36,11 +36,15 @@ public final class AlchemistryRecipeCodecs {
 
     /**
      * Mirrors {@link IngredientStack#toJson()} / {@link IngredientStack#fromJson(com.google.gson.JsonObject)}:
-     * an {@code ingredient} object plus an optional {@code count} that defaults to 1.
+     * an {@code ingredient} object plus an optional {@code count} that defaults to 1 and must lie in 1..64.
+     * {@link IngredientStack} itself clamps its count to 64 at construction, so an out-of-range datapack
+     * count would otherwise load "successfully" as a silently different recipe than declared; bounding the
+     * codec makes the degenerate recipe fail loudly at datapack load instead. The largest shipped count is
+     * the combiner's 64.
      */
     public static final Codec<IngredientStack> INGREDIENT_STACK = RecordCodecBuilder.create(instance -> instance.group(
             Ingredient.CODEC_NONEMPTY.fieldOf("ingredient").forGetter(IngredientStack::getIngredient),
-            Codec.INT.optionalFieldOf("count", 1).forGetter(IngredientStack::getCount)
+            ExtraCodecs.intRange(1, 64).optionalFieldOf("count", 1).forGetter(IngredientStack::getCount)
     ).apply(instance, IngredientStack::new));
 
     /**
@@ -55,12 +59,16 @@ public final class AlchemistryRecipeCodecs {
 
     /**
      * Item stack disk codec for recipe inputs and outputs: an {@code item} registry id plus an optional
-     * {@code count} that defaults to 1. Preserves the {@code {"item":..,"count":..}} shape the recipes have
-     * always stored, rather than vanilla {@link ItemStack#CODEC}'s {@code id}/{@code components} shape.
+     * {@code count} that defaults to 1 and must lie in 1..64. A raw {@link ItemStack} carries any count, so
+     * a >64 datapack input would decode here unclamped while the JEI transfer packets wrap inputs into
+     * {@link IngredientStack}, which clamps its claim to 64 -- the gate would pass on a 64-stack but removal
+     * and placement would use the raw count, creating the shortfall; bounding the codec fails the degenerate
+     * recipe loudly at datapack load instead. Preserves the {@code {"item":..,"count":..}} shape the recipes
+     * have always stored, rather than vanilla {@link ItemStack#CODEC}'s {@code id}/{@code components} shape.
      */
     public static final Codec<ItemStack> ITEM_STACK = RecordCodecBuilder.create(instance -> instance.group(
             BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(ItemStack::getItem),
-            Codec.INT.optionalFieldOf("count", 1).forGetter(ItemStack::getCount)
+            ExtraCodecs.intRange(1, 64).optionalFieldOf("count", 1).forGetter(ItemStack::getCount)
     ).apply(instance, ItemStack::new));
 
     /**

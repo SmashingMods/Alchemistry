@@ -46,6 +46,7 @@
   "alchemistry.jei.fission_controller": "Fission Controller",
   "alchemistry.jei.fusion_controller": "Fusion Controller",
   "alchemistry.jei.liquifier": "Liquifier",
+  "alchemistry.jei.recipe_locked": "Machine is locked to another recipe",
   "block.alchemistry.atomizer": "Atomizer",
   "block.alchemistry.combiner": "Combiner",
   "block.alchemistry.compactor": "Compactor",

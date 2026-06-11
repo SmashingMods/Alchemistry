@@ -237,8 +237,17 @@ runs {
                     // Any of these means the chain crashed at (or before) mod load -- the exact failures this gate
                     // exists to catch. "required tests failed" covers a booted run where a required gametest failed.
                     def crashMarkers = ['ModLoadingException', 'Failed to start the minecraft server',
-                                        'invalid dist', 'LoadingFailed', 'required tests failed']
+                                        'LoadingFailed', 'required tests failed']
                     def hit = crashMarkers.find { text.contains(it) }
+                    // RuntimeDistCleaner's "invalid dist" is only fatal for this mod's own classes. Dev-only
+                    // runtime mods probe client classes on the dedicated server too -- CTM mixin-targets
+                    // ModelBakery$ModelBakerImpl, mixin logs the refusal and skips the mixin, and the chain
+                    // boots on fine -- so a blanket substring match false-positives on every boot. An invalid
+                    // dist load Alchemistry actually causes still fails the run: directly via this line-scoped
+                    // marker, or upstream as a ModLoadingException / failed server start caught above.
+                    if (hit == null && text.readLines().any { it.contains('invalid dist') && it.contains('com/smashingmods') }) {
+                        hit = 'invalid dist (com/smashingmods class)'
+                    }
                     if (hit != null) {
                         throw new GradleException("runGameTestServer FAILED: crash marker '${hit}' found in ${log}. " +
                                 "The chain did not load cleanly / a required test failed. See the log for the stack trace.")

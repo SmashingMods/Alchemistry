@@ -71,7 +71,12 @@ public class DissolverTransferPacket implements AlchemyPacket {
         ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getDissolverRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
+        // allMatch is vacuously true on an empty resolution, and the registry lookup takes the first
+        // hit -- without the length check one empty-resolving recipe would shadow every real recipe.
+        RecipeRegistry.getDissolverRecipe(recipe -> {
+            ItemStack[] recipeItems = recipe.getInput().getIngredient().getItems();
+            return recipeItems.length > 0 && Arrays.stream(recipeItems).allMatch(input.getIngredient());
+        }, player.level())
             .ifPresent(recipe -> {
 
                 DissolverRecipe recipeCopy = recipe.copy();

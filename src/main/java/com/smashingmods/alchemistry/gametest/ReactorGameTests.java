@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.gametest.GameTestHolder;
@@ -99,6 +100,67 @@ public class ReactorGameTests {
             helper.assertTrue(proxied != null, "reactor energy port did not expose an ENERGY capability");
             helper.assertTrue(proxied == controller.getEnergyHandler(),
                     "reactor energy port capability is not proxied to the controller's energy handler");
+        });
+    }
+
+    /**
+     * Regression test for the capability-cache reconnect across multiblock formation. An adjacent block (e.g. a pipe)
+     * that queries a reactor port's capability through a {@link BlockCapabilityCache} before the controller adopts the
+     * port caches the resolver's pre-adoption {@code null} (the port's resolver returns {@code null} until its
+     * controller is set). A {@code BlockCapabilityCache} only re-resolves after the level fires an invalidation for the
+     * position, so unless formation invalidates the port's capabilities the cache stays stuck on that {@code null} and
+     * the neighbour never reconnects. {@link AbstractReactorBlockEntity#setMultiblockHandlers()} calls
+     * {@code level.invalidateCapabilities(portPos)} on adoption for exactly this reason; this test fails if that call
+     * is removed.
+     *
+     * <p>Unlike {@link #reactorFormsAndProxiesEnergyCap} -- which re-queries the level fresh each tick and so would
+     * pass even without the invalidation (a fresh query always re-resolves) -- this holds a single cache across
+     * formation, so the cached pre-adoption {@code null} is only cleared by the invalidation the fix performs.</p>
+     *
+     * <p>Determinism rests on the setup body running before the controller's first tick: the controller builds its
+     * shape and adopts its ports only from its server ticker (never from {@code setBlock}), and a {@code @GameTest}
+     * method body runs at structure-load before that ticker has fired (the same first-tick ordering
+     * {@link #reactorFormsAndProxiesEnergyCap} relies on). So the cache is created and primed with the pre-adoption
+     * {@code null} -- asserted, not assumed, so a future ordering change surfaces as a failure rather than a vacuous
+     * pass -- strictly before any adoption or invalidation. The criterion then lets the controller tick: once the
+     * multiblock validates and the energy port is adopted, the cache must re-resolve to the controller's energy
+     * handler (the same proxy target {@link #reactorFormsAndProxiesEnergyCap} checks).</p>
+     */
+    @GameTest(template = "reactor_space")
+    @PrefixGameTestTemplate(false)
+    public void reactorFormationReconnectsCachedPortCapability(GameTestHelper helper) {
+        FissionControllerBlockEntity controller = placeController(helper);
+        List<BlockPos> ports = buildShellAndPlacePorts(helper);
+        BlockPos energyWorldPos = energyBlockEntity(helper, ports.get(0)).getBlockPos();
+
+        // Build the cache and prime it before the controller's ticker runs, so it observes the port's pre-adoption
+        // state. Cache against the absolute world position -- the cache registers its invalidation listener with the
+        // level by absolute pos, the same key setMultiblockHandlers passes to invalidateCapabilities.
+        BlockCapabilityCache<IEnergyStorage, Direction> cache = BlockCapabilityCache.create(
+                Capabilities.EnergyStorage.BLOCK, helper.getLevel(), energyWorldPos, null);
+
+        // The port has no controller yet, so its resolver returns null; this getCapability() caches that null and arms
+        // the invalidation listener. Assert it rather than assume it, so a setup that accidentally adopted the port
+        // first (which would make the post-formation check pass for the wrong reason) fails here instead.
+        helper.assertTrue(cache.getCapability() == null,
+                "reactor energy port resolved a capability before the controller adopted it; "
+                        + "the cache-reconnect test needs the pre-adoption null state");
+
+        // Let the controller tick: it builds its shape, adopts the ports (firing invalidateCapabilities on each), and
+        // validates. succeedWhen re-runs the criterion each tick until it passes. The shape guard mirrors
+        // reactorFormsAndProxiesEnergyCap -- isValidMultiblock dereferences the shape, which is briefly null on the
+        // first tick before the block-entity ticker has built it.
+        helper.succeedWhen(() -> {
+            helper.assertTrue(controller.getReactorShape() != null, "controller has not built its reactor shape yet");
+            helper.assertTrue(controller.isValidMultiblock(), "fission reactor multiblock did not validate");
+
+            // The invalidation the fix performs should have cleared the cached null, so this re-resolves to the
+            // controller's energy handler. Without that invalidation the cache stays stuck on the null cached above.
+            IEnergyStorage reconnected = cache.getCapability();
+            helper.assertTrue(reconnected != null,
+                    "reactor energy port capability cache did not reconnect after multiblock formation");
+            helper.assertTrue(reconnected == controller.getEnergyHandler(),
+                    "reconnected port capability is not the controller's energy handler");
         });
     }
 

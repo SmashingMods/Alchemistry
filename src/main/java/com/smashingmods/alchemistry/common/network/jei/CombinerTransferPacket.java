@@ -80,7 +80,7 @@ public class CombinerTransferPacket implements AlchemyPacket {
                 inputHandler.emptyToInventory(inventory);
                 outputHandler.emptyToInventory(inventory);
 
-                List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeCopy.getInput());
+                List<TransferUtils.SlotMatch> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeCopy.getInput());
 
                 boolean creative = player.gameMode.isCreative();
                 boolean fullMatch = isFullMatch(inventoryInput);
@@ -98,21 +98,17 @@ public class CombinerTransferPacket implements AlchemyPacket {
                             }
                         }
                     } else {
+                        // Items snapshot from the matched stacks before any removal -- removing an
+                        // earlier ingredient's share can empty a stack a later index still places from.
                         List<ItemStack> recipeInput = new ArrayList<>();
-                        IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount())));
+                        IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).itemStack().getItem(), recipeCopy.getInput().get(i).getCount())));
 
-                        List<ItemStack> inventoryStacks = new ArrayList<>();
-                        inventoryInput.stream().map(inventory::findSlotMatchingItem).forEach(slot -> {
-                            if (slot != -1) {
-                                inventoryStacks.add(inventory.getItem(slot));
-                            }
-                        });
-
-                        int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventoryStacks, maxTransfer, false);
-                        recipeInput.forEach(itemStack -> {
-                            int slot = player.getInventory().findSlotMatchingItem(itemStack);
-                            player.getInventory().removeItem(slot, itemStack.getCount() * maxOperations);
-                        });
+                        int maxOperations = TransferUtils.getMaxOperations(inventoryInput, recipeCopy.getInput(), maxTransfer);
+                        // Remove by the slot each ingredient claimed during matching. The joint match
+                        // already bounded the claims by the slots' counts, so every removal succeeds in
+                        // full and the placement below mirrors exactly what left the inventory.
+                        IntStream.range(0, inventoryInput.size()).forEach(i ->
+                                inventory.removeItem(inventoryInput.get(i).slot(), recipeInput.get(i).getCount() * maxOperations));
 
                         for (int i = 0; i < recipeCopy.getInput().size(); i++) {
                             inputHandler.setOrIncrement(i, new ItemStack(recipeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
@@ -129,17 +125,18 @@ public class CombinerTransferPacket implements AlchemyPacket {
     }
 
     /**
-     * Whether the matched inventory stacks cover every recipe input. {@code pInventoryInput} is
+     * Whether the matched inventory slots cover every recipe input. {@code pInventoryInput} is
      * index-parallel to the recipe input with EMPTY at every unmatched position (see
      * {@link TransferUtils#matchIngredientListToItemStack}); any EMPTY means the player lacks an
-     * ingredient, and a partial transfer must not run -- counts would pair with the wrong
-     * ingredients and the placement loop would run past the matches. An empty list (a degenerate
+     * ingredient -- or, the match being joint, that a shared stack cannot cover another claim --
+     * and a partial transfer must not run: counts would pair with the wrong ingredients and the
+     * removal loop could run a stack dry part-way through. An empty list (a degenerate
      * zero-input recipe) is not transferable either.
      *
      * <p>Package-visible so the non-creative transfer decision is unit-testable without a live server.</p>
      */
-    static boolean isFullMatch(List<ItemStack> pInventoryInput) {
-        return !pInventoryInput.isEmpty() && pInventoryInput.stream().noneMatch(ItemStack::isEmpty);
+    static boolean isFullMatch(List<TransferUtils.SlotMatch> pInventoryInput) {
+        return !pInventoryInput.isEmpty() && pInventoryInput.stream().noneMatch(TransferUtils.SlotMatch::isEmpty);
     }
 
     /**

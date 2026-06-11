@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * server: {@link CombinerTransferPacket#buildCreativeTransfer} must keep the placement list index-parallel to the
  * recipe input when an ingredient resolves to no items (empty tag, custom ingredient resolving empty) and must
  * exclude those EMPTY placeholders from the operation count, and {@link CombinerTransferPacket#isFullMatch} must
- * only let the non-creative path transfer when every ingredient matched.</p>
+ * only let the non-creative path transfer when every ingredient claimed a slot.</p>
  */
 class CombinerTransferPacketTest extends BootstrappedTest {
 
@@ -109,13 +109,17 @@ class CombinerTransferPacketTest extends BootstrappedTest {
     }
 
     @Test
-    void isFullMatch_everyIngredientMatched_transferable() {
-        assertTrue(CombinerTransferPacket.isFullMatch(List.of(new ItemStack(Items.IRON_INGOT, 4), new ItemStack(Items.GUNPOWDER, 8))));
+    void isFullMatch_everyIngredientClaimedASlot_transferable() {
+        assertTrue(CombinerTransferPacket.isFullMatch(List.of(
+                new TransferUtils.SlotMatch(new ItemStack(Items.IRON_INGOT, 4), 0),
+                new TransferUtils.SlotMatch(new ItemStack(Items.GUNPOWDER, 8), 5))));
     }
 
     @Test
     void isFullMatch_partialMatch_notTransferable() {
-        assertFalse(CombinerTransferPacket.isFullMatch(List.of(ItemStack.EMPTY, new ItemStack(Items.GUNPOWDER, 8))));
+        assertFalse(CombinerTransferPacket.isFullMatch(List.of(
+                TransferUtils.SlotMatch.EMPTY,
+                new TransferUtils.SlotMatch(new ItemStack(Items.GUNPOWDER, 8), 5))));
     }
 
     @Test

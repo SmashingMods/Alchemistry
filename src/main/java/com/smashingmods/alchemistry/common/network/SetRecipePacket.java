@@ -11,7 +11,6 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SetRecipePacket implements AlchemyPacket {
@@ -42,14 +41,22 @@ public class SetRecipePacket implements AlchemyPacket {
 
     @Override
     public void handle(IPayloadContext pContext) {
-        Level level = pContext.player().level();
-        BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        RecipeRegistry.getRecipeByGroupAndId(group, recipeId, level).ifPresent(recipe -> {
-            if (blockEntity instanceof AbstractProcessingBlockEntity processingBlockEntity) {
-                processingBlockEntity.setProgress(0);
-                processingBlockEntity.setRecipe(recipe);
-                processingBlockEntity.setChanged();
-            }
-        });
+        applyRecipeSelection(pContext.player().level(), blockPos, group, recipeId);
+    }
+
+    /**
+     * Resolves the recipe by group and id and records it as the player's selection on the machine at the
+     * given position (see {@link AbstractProcessingBlockEntity#selectRecipe}). This is the whole server-side
+     * selection path; the network handler delegates here so gametests can drive the real path without a
+     * payload context. A failed lookup is logged rather than dropped silently -- the client only ever sends
+     * ids from the synced recipe list, so a miss means the client and server recipe views disagree.
+     */
+    public static void applyRecipeSelection(Level pLevel, BlockPos pBlockPos, String pGroup, ResourceLocation pRecipeId) {
+        if (pLevel.getBlockEntity(pBlockPos) instanceof AbstractProcessingBlockEntity processingBlockEntity) {
+            RecipeRegistry.getRecipeByGroupAndId(pGroup, pRecipeId, pLevel).ifPresentOrElse(
+                    processingBlockEntity::selectRecipe,
+                    () -> Alchemistry.LOGGER.warn("Ignoring recipe selection {} for the machine at {}: no recipe with group {} and that id is loaded",
+                            pRecipeId, pBlockPos, pGroup));
+        }
     }
 }

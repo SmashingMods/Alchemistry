@@ -7,8 +7,10 @@ import com.smashingmods.alchemistry.common.block.fusion.FusionControllerMenu;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.blockentity.processing.AbstractProcessingBlockEntity;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
+import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
@@ -75,6 +77,14 @@ public class FusionTransferPacket implements AlchemyPacket {
 
         RecipeRegistry.getFusionRecipe(recipe -> ItemStack.isSameItemSameComponents(recipe.getInput1(), input1) && ItemStack.isSameItemSameComponents(recipe.getInput2(), input2), player.level())
             .ifPresent(recipe -> {
+
+                // A locked machine's recipe must not change: setRecipe below would repoint it, and the
+                // moved items would feed a recipe the machine refuses to run. Same-recipe transfers
+                // (refilling the locked recipe's inputs) stay allowed.
+                AbstractProcessingRecipe lockedRecipe = blockEntity.getRecipe();
+                if (blockEntity.isRecipeLocked() && (lockedRecipe == null || !lockedRecipe.getId().equals(recipe.getId()))) {
+                    return;
+                }
 
                 FusionRecipe recipeCopy = recipe.copy();
 
@@ -154,8 +164,16 @@ public class FusionTransferPacket implements AlchemyPacket {
         @Override
         public @Nullable IRecipeTransferError transferRecipe(FusionControllerMenu pContainer, FusionRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
             if (pDoTransfer) {
-                pContainer.getBlockEntity().setRecipe(pRecipe);
-                Alchemistry.PACKET_HANDLER.sendToServer(new FusionTransferPacket(pContainer.getBlockEntity().getBlockPos(), pRecipe.getInput1(), pRecipe.getInput2(), pMaxTransfer));
+                // Mirror of the server handler's lock guard: the server refuses a transfer that would
+                // change a locked machine's recipe, so the client must not repaint its display recipe
+                // either -- the screen would show the new recipe while the machine runs the locked one.
+                AbstractProcessingBlockEntity blockEntity = pContainer.getBlockEntity();
+                AbstractProcessingRecipe lockedRecipe = blockEntity.getRecipe();
+                if (blockEntity.isRecipeLocked() && (lockedRecipe == null || !lockedRecipe.getId().equals(pRecipe.getId()))) {
+                    return null;
+                }
+                blockEntity.setRecipe(pRecipe);
+                Alchemistry.PACKET_HANDLER.sendToServer(new FusionTransferPacket(blockEntity.getBlockPos(), pRecipe.getInput1(), pRecipe.getInput2(), pMaxTransfer));
             }
             return null;
         }

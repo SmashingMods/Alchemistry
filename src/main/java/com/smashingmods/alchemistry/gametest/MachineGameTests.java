@@ -1,10 +1,13 @@
 package com.smashingmods.alchemistry.gametest;
 
 import com.mojang.authlib.GameProfile;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
+import com.smashingmods.alchemistry.common.network.jei.CompactorTransferPacket;
 import com.smashingmods.alchemistry.common.network.jei.FusionTransferPacket;
+import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
@@ -12,6 +15,7 @@ import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.PacketFlow;
@@ -296,6 +300,64 @@ public class MachineGameTests {
         helper.succeed();
     }
 
+    /**
+     * Lock guard regression: a JEI transfer for a DIFFERENT recipe on a locked machine must move nothing. The
+     * lock's contract is that the machine's recipe cannot change ({@code selectRecipe} refuses under it), but the
+     * pre-guard handler still ran the removal and placement -- filling the input with items the locked recipe
+     * would never consume and debiting the player for them. Driven against the compactor: recipe A is selected
+     * and locked, the packet asks for recipe B with B's input fully seeded, and the machine, the inventory and the
+     * locked recipe must all stay exactly as they were. A same-recipe transfer (refilling the locked recipe's own
+     * inputs) stays allowed, which the second handle() pins.
+     */
+    public static void transferOnLockedMachineForDifferentRecipeMovesNothing(GameTestHelper helper) {
+        CompactorBlockEntity compactor = placeCompactor(helper);
+
+        // Two distinct compactor recipes with resolvable inputs, resolved the way the handler resolves them (first
+        // match by output) so each packet acts on exactly the recipe asserted against.
+        CompactorRecipe lockedRecipe = RecipeRegistry.getCompactorRecipe(
+                        r -> r.getInput().getIngredient().items().findAny().isPresent(), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no compactor recipe loaded"));
+        CompactorRecipe otherRecipe = RecipeRegistry.getCompactorRecipe(
+                        r -> !ItemStack.isSameItemSameComponents(r.getOutput(), lockedRecipe.getOutput())
+                                && r.getInput().getIngredient().items().findAny().isPresent(), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no second compactor recipe loaded"));
+
+        compactor.setRecipe(lockedRecipe.copy());
+        compactor.setRecipeLocked(true);
+
+        Item otherInput = otherRecipe.getInput().getIngredient().items().findFirst().map(Holder::value)
+                .orElseThrow(() -> new AssertionError("other recipe input resolved to no items"));
+        int otherSeed = otherRecipe.getInput().getCount() + SLACK;
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.setItem(0, new ItemStack(otherInput, otherSeed));
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new CompactorTransferPacket(compactor.getBlockPos(), otherRecipe.getOutput(), false).handle(context);
+
+        helper.assertTrue(compactor.getInputHandler().isEmpty(),
+                Component.literal("a locked machine must not receive a different recipe's items, found "
+                        + compactor.getInputHandler().getStackInSlot(0)));
+        helper.assertTrue(inventory.getItem(0).getCount() == otherSeed,
+                Component.literal("the player must not be debited for a refused transfer, found " + inventory.getItem(0)));
+        helper.assertTrue(compactor.getRecipe() != null && compactor.getRecipe().getId().equals(lockedRecipe.getId()),
+                Component.literal("the locked recipe must stay in place, found " + compactor.getRecipe()));
+
+        // Refilling the LOCKED recipe's own inputs must still go through.
+        Item lockedInput = lockedRecipe.getInput().getIngredient().items().findFirst().map(Holder::value)
+                .orElseThrow(() -> new AssertionError("locked recipe input resolved to no items"));
+        int lockedCount = lockedRecipe.getInput().getCount();
+        inventory.setItem(1, new ItemStack(lockedInput, lockedCount + SLACK));
+        new CompactorTransferPacket(compactor.getBlockPos(), lockedRecipe.getOutput(), false).handle(context);
+
+        ItemStack machineInput = compactor.getInputHandler().getStackInSlot(0);
+        helper.assertTrue(machineInput.is(lockedInput) && machineInput.getCount() == lockedCount,
+                Component.literal("a same-recipe transfer on a locked machine must still fill the input: expected "
+                        + lockedInput + " x" + lockedCount + ", found " + machineInput));
+        helper.succeed();
+    }
+
     // Places a dissolver at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts
     // to the absolute world position for us.
@@ -307,6 +369,18 @@ public class MachineGameTests {
             throw new IllegalStateException("unreachable -- helper.fail throws");
         }
         return dissolver;
+    }
+
+    // Places a compactor at the structure centre and returns its block-entity, failing the test if either the
+    // block or its block-entity is missing.
+    private static CompactorBlockEntity placeCompactor(GameTestHelper helper) {
+        helper.setBlock(MACHINE_POS, BlockRegistry.COMPACTOR.get());
+        CompactorBlockEntity compactor = helper.getBlockEntity(MACHINE_POS, CompactorBlockEntity.class);
+        if (compactor == null) {
+            helper.fail(Component.literal("expected a CompactorBlockEntity at " + MACHINE_POS), MACHINE_POS);
+            throw new IllegalStateException("unreachable -- helper.fail throws");
+        }
+        return compactor;
     }
 
     // Places a fusion controller at the structure centre and returns its block-entity, failing the test if either the

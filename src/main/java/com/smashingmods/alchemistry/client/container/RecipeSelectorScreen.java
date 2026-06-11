@@ -116,14 +116,17 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-        renderBg(pGuiGraphics);
-
         renderRecipeBox(pGuiGraphics, pMouseX, pMouseY);
         renderWidget(searchBox, leftPos + 58, topPos + 11);
         renderParentTooltips(pGuiGraphics, pMouseX, pMouseY);
     }
 
-    private void renderBg(GuiGraphics pGuiGraphics) {
+    @Override
+    public void renderBackground(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        // Deliberately skips super: this screen is pushed as a GUI layer over the machine screen, and
+        // Screen's background would blur the whole frame including the parent. Drawing only the selector's
+        // own panel keeps the machine screen crisp behind it -- whose buttons stay visible and clickable
+        // around the panel, so no extra way back is needed here.
         pGuiGraphics.blit(ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 

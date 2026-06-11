@@ -2,17 +2,24 @@ package com.smashingmods.alchemistry.gametest;
 
 import com.mojang.authlib.GameProfile;
 import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.block.compactor.CompactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlockEntity;
 import com.smashingmods.alchemistry.common.block.dissolver.DissolverMenu;
+import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlockEntity;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlockEntity;
+import com.smashingmods.alchemistry.common.network.jei.CompactorTransferPacket;
+import com.smashingmods.alchemistry.common.network.jei.FissionTransferPacket;
 import com.smashingmods.alchemistry.common.network.jei.FusionTransferPacket;
+import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.DissolverRecipe;
 import com.smashingmods.alchemistry.common.recipe.dissolver.ProbabilityGroup;
+import com.smashingmods.alchemistry.common.recipe.fission.FissionRecipe;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.BlockRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.protocol.PacketFlow;
@@ -264,6 +271,187 @@ public class MachineGameTests {
         helper.succeed();
     }
 
+    /**
+     * Regression for the same-element max-transfer dupe: drives {@link FusionTransferPacket} for a recipe fusing
+     * an element with itself (hydrogen + hydrogen -> helium), seeded as ONE inventory stack, and asserts the
+     * inventory debit equals the machine placement. Pre-fix the two inputs were matched independently:
+     * {@code findSlotMatchingItem} resolved the same stack twice, max transfer authorized stackCount operations
+     * per input, the second {@code removeItem} came back empty, and the placement still inserted both shares --
+     * duplicating the whole stack out of one debit. The joint claim bounds operations by the TOTAL per-operation
+     * claim on the shared slot (seeded / (count1 + count2)), so what is placed is exactly what was removed; the
+     * conservation assertion fails against the old math, which placed twice the seed.
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void fusionTransferSameElementConservesItems(GameTestHelper helper) {
+        FusionControllerBlockEntity controller = placeFusionController(helper);
+
+        FusionRecipe recipe = RecipeRegistry.getFusionRecipe(
+                        r -> ItemStack.isSameItemSameComponents(r.getInput1(), r.getInput2()), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no same-element fusion recipe loaded"));
+
+        ItemStack input1 = recipe.getInput1();
+        ItemStack input2 = recipe.getInput2();
+        int perOperation = input1.getCount() + input2.getCount();
+
+        // One stack covering two whole operations plus a remainder, so the expected operation count and the
+        // leftover are both non-trivial: max transfer must stop at seeded / perOperation, not seeded per input.
+        int seeded = 2 * perOperation + 1;
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.add(new ItemStack(input1.getItem(), seeded));
+        int slot = inventory.findSlotMatchingItem(input1);
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new FusionTransferPacket(controller.getBlockPos(), input1, input2, true).handle(context);
+
+        int expectedOperations = seeded / perOperation;
+        ProcessingSlotHandler machineInputs = controller.getInputHandler();
+        ItemStack machineSlot0 = machineInputs.getStackInSlot(0);
+        ItemStack machineSlot1 = machineInputs.getStackInSlot(1);
+        helper.assertTrue(machineSlot0.getCount() == input1.getCount() * expectedOperations
+                        && machineSlot1.getCount() == input2.getCount() * expectedOperations,
+                "expected " + expectedOperations + " operations' worth in the machine, found "
+                        + machineSlot0 + " and " + machineSlot1);
+
+        int placed = machineSlot0.getCount() + machineSlot1.getCount();
+        int remaining = inventory.getItem(slot).getCount();
+        helper.assertTrue(remaining + placed == seeded,
+                "items not conserved (same-element dupe): seeded " + seeded + ", inventory " + remaining
+                        + " + machine " + placed);
+        helper.succeed();
+    }
+
+    /**
+     * The short-seed half of the same-element regression: with the inventory holding only ONE input's worth of
+     * the shared element (a 1-count stack for the shipped count-1 recipes), the joint match leaves the second
+     * claim EMPTY, the full-match gate fails, and the handler must not transfer at all. Pre-fix the count-blind
+     * {@code Inventory#contains} gate passed for both inputs, the single item was removed, the second removal
+     * came back empty, and the machine was still filled with both inputs -- items created from a seed that could
+     * not fund one operation, which the machine-stays-empty assertion pins.
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void fusionTransferSameElementShortSeedDoesNotTransfer(GameTestHelper helper) {
+        FusionControllerBlockEntity controller = placeFusionController(helper);
+
+        FusionRecipe recipe = RecipeRegistry.getFusionRecipe(
+                        r -> ItemStack.isSameItemSameComponents(r.getInput1(), r.getInput2()), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no same-element fusion recipe loaded"));
+
+        ItemStack input1 = recipe.getInput1();
+        ItemStack input2 = recipe.getInput2();
+
+        // Only the first claim's worth: the second claim must come up EMPTY and fail the full-match gate.
+        int seeded = input1.getCount();
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        inventory.add(new ItemStack(input1.getItem(), seeded));
+        int slot = inventory.findSlotMatchingItem(input1);
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new FusionTransferPacket(controller.getBlockPos(), input1, input2, false).handle(context);
+
+        ProcessingSlotHandler machineInputs = controller.getInputHandler();
+        helper.assertTrue(machineInputs.getStackInSlot(0).isEmpty() && machineInputs.getStackInSlot(1).isEmpty(),
+                "machine must stay empty on an insufficient seed, found "
+                        + machineInputs.getStackInSlot(0) + " and " + machineInputs.getStackInSlot(1));
+        helper.assertTrue(inventory.getItem(slot).getCount() == seeded,
+                "inventory must stay untouched on an insufficient seed, found " + inventory.getItem(slot));
+        helper.succeed();
+    }
+
+    /**
+     * Regression for the compactor partial-stack dupe: the recipe input sits split across a small stack at a low
+     * slot and a full stack at a higher slot. The count-aware gate matched the full stack, but the pre-fix
+     * removal re-looked the slot up with the count-blind {@code Inventory#findSlotMatchingItem}, hit the small
+     * stack first, drained it short of the recipe count, and the placement still inserted the full count --
+     * creating the shortfall, which the conservation assertion pins. Post-fix the removal debits the very slot
+     * the joint claim carried, so the small stack stays untouched and the matched stack funds the whole debit.
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void compactorTransferPartialStackConservesItems(GameTestHelper helper) {
+        CompactorBlockEntity compactor = placeCompactor(helper);
+
+        // A recipe taking more than one input item, so a stack one short of the recipe count is a genuine
+        // partial stack. The handler resolves recipes by output (first match wins), so re-resolve the picked
+        // recipe the same way to pin exactly the recipe the packet will act on.
+        CompactorRecipe picked = RecipeRegistry.getCompactorRecipe(
+                        r -> r.getInput().getCount() >= 2 && r.getInput().getIngredient().items().findAny().isPresent(), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no compactor recipe with input count >= 2 loaded"));
+        CompactorRecipe recipe = RecipeRegistry.getCompactorRecipe(
+                        r -> ItemStack.isSameItemSameComponents(r.getOutput(), picked.getOutput()), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("compactor recipe lookup by output found nothing"));
+        int inputCount = recipe.getInput().getCount();
+        helper.assertTrue(inputCount >= 2,
+                "the output-resolved recipe must keep an input of count >= 2, got count " + inputCount);
+
+        Item inputItem = recipe.getInput().getIngredient().items().findFirst().map(Holder::value)
+                .orElseThrow(() -> new AssertionError("compactor recipe input resolved to no items"));
+        int small = inputCount - 1;
+        int large = inputCount + SLACK;
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        // Set the slots directly -- Inventory#add would merge the two same-item stacks into one slot. The small
+        // stack sits at the lower index so a count-blind first-match lookup would hit it first.
+        inventory.setItem(0, new ItemStack(inputItem, small));
+        inventory.setItem(9, new ItemStack(inputItem, large));
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new CompactorTransferPacket(compactor.getBlockPos(), recipe.getOutput(), false).handle(context);
+
+        ItemStack machineInput = compactor.getInputHandler().getStackInSlot(0);
+        helper.assertTrue(machineInput.is(inputItem) && machineInput.getCount() == inputCount,
+                "machine input expected " + inputItem + " x" + inputCount + ", found " + machineInput);
+        helper.assertTrue(inventory.getItem(0).getCount() == small,
+                "the small partial stack must stay untouched, found " + inventory.getItem(0));
+        helper.assertTrue(inventory.getItem(9).getCount() == large - inputCount,
+                "the matched full stack must fund the whole debit: expected " + (large - inputCount)
+                        + ", found " + inventory.getItem(9));
+
+        int totalAfter = inventory.getItem(0).getCount() + inventory.getItem(9).getCount() + machineInput.getCount();
+        helper.assertTrue(totalAfter == small + large,
+                "items not conserved (partial-stack dupe): seeded " + (small + large) + ", found " + totalAfter);
+        helper.succeed();
+    }
+
+    /**
+     * Regression for the offhand-only disconnect: an input held ONLY in the offhand passed the pre-fix
+     * {@code Inventory#contains} gate (it scans every compartment), but the main-inventory-only slot lookup then
+     * returned -1 and {@code getItem(-1)} threw out of the network handler, disconnecting the player -- here the
+     * exception would propagate out of {@code handle} and fail the test. The joint matcher only ever walks the
+     * main inventory, so the offhand-only case now simply fails the full-match gate: no exception, no transfer,
+     * offhand untouched. Driven against fission, whose single input keeps the setup minimal.
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void fissionTransferOffhandOnlyDoesNotCrash(GameTestHelper helper) {
+        FissionControllerBlockEntity controller = placeFissionController(helper);
+
+        FissionRecipe recipe = RecipeRegistry.getFissionRecipe(r -> true, helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no fission recipe loaded"));
+        ItemStack input = recipe.getInput();
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        // Seed ONLY the offhand compartment; the main inventory stays empty.
+        inventory.offhand.set(0, new ItemStack(input.getItem(), input.getCount()));
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new FissionTransferPacket(controller.getBlockPos(), input, true).handle(context);
+
+        helper.assertTrue(controller.getInputHandler().isEmpty(),
+                "machine must stay empty when the input is only in the offhand, found "
+                        + controller.getInputHandler().getStackInSlot(0));
+        helper.assertTrue(inventory.offhand.get(0).getCount() == input.getCount(),
+                "offhand stack must stay untouched, found " + inventory.offhand.get(0));
+        helper.succeed();
+    }
+
     // Places a dissolver at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts
     // to the absolute world position for us.
@@ -292,13 +480,40 @@ public class MachineGameTests {
         return controller;
     }
 
-    // A real non-creative ServerPlayer on the gametest level. The transfer handler rejects a non-ServerPlayer and
-    // routes a creative player to a branch that never touches the inventory, so neither the helper's plain-Player mock
+    // Places a compactor at the structure centre and returns its block-entity, failing the test if either the
+    // block or its block-entity is missing.
+    private static CompactorBlockEntity placeCompactor(GameTestHelper helper) {
+        helper.setBlock(MACHINE_POS, BlockRegistry.COMPACTOR.get());
+        BlockEntity blockEntity = helper.getBlockEntity(MACHINE_POS);
+        if (!(blockEntity instanceof CompactorBlockEntity compactor)) {
+            helper.fail("expected a CompactorBlockEntity at " + MACHINE_POS + ", got "
+                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), MACHINE_POS);
+            throw new IllegalStateException("unreachable -- helper.fail throws");
+        }
+        return compactor;
+    }
+
+    // Places a fission controller at the structure centre and returns its block-entity, failing the test if either
+    // the block or its block-entity is missing. Like the fusion controller, a bare controller is enough for the
+    // transfer handler, which addresses it by position without the multiblock formed.
+    private static FissionControllerBlockEntity placeFissionController(GameTestHelper helper) {
+        helper.setBlock(MACHINE_POS, BlockRegistry.FISSION_CONTROLLER.get());
+        BlockEntity blockEntity = helper.getBlockEntity(MACHINE_POS);
+        if (!(blockEntity instanceof FissionControllerBlockEntity controller)) {
+            helper.fail("expected a FissionControllerBlockEntity at " + MACHINE_POS + ", got "
+                    + (blockEntity == null ? "null" : blockEntity.getClass().getSimpleName()), MACHINE_POS);
+            throw new IllegalStateException("unreachable -- helper.fail throws");
+        }
+        return controller;
+    }
+
+    // A real non-creative ServerPlayer on the gametest level. The transfer handlers reject a non-ServerPlayer and
+    // route a creative player to a branch that never touches the inventory, so neither the helper's plain-Player mock
     // nor its deprecated mock server-player (which forces creative) fits; this builds a ServerPlayer directly whose
     // default SURVIVAL game mode is the non-creative path. It is not placed onto the network -- the handler runs
     // synchronously on the server thread a gametest already executes on, so no connection is needed.
     private static ServerPlayer makeServerPlayer(GameTestHelper helper) {
-        GameProfile profile = new GameProfile(UUID.randomUUID(), "test-fusion-player");
+        GameProfile profile = new GameProfile(UUID.randomUUID(), "test-transfer-player");
         return new ServerPlayer(helper.getLevel().getServer(), helper.getLevel(), profile,
                 CommonListenerCookie.createInitial(profile, false).clientInformation());
     }

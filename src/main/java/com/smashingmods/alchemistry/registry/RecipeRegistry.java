@@ -28,10 +28,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -71,8 +71,12 @@ public class RecipeRegistry {
     public static final DeferredHolder<RecipeSerializer<?>, LiquifierRecipeSerializer<LiquifierRecipe>> LIQUIFIER_SERIALIZER
             = SERIALIZERS.register("liquifier", () -> new LiquifierRecipeSerializer<>(LiquifierRecipe::new));
 
-    private static final Map<RecipeType<? extends AbstractProcessingRecipe>, LinkedList<? extends AbstractProcessingRecipe>> recipeTypeMap = new LinkedHashMap<>();
-    private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new LinkedHashMap<>();
+    // Concurrent because these static caches are shared across threads: in single-player the client thread
+    // (screens, JEI, the block entities' display-only mirror) and the integrated server tick both read and
+    // lazily populate them, and the reload listener in postReload clears them mid-flight; see
+    // getRecipesByType. A plain LinkedHashMap raced there.
+    private static final Map<RecipeType<? extends AbstractProcessingRecipe>, LinkedList<? extends AbstractProcessingRecipe>> recipeTypeMap = new ConcurrentHashMap<>();
+    private static final Map<String, LinkedList<? extends AbstractProcessingRecipe>> recipeGroupMap = new ConcurrentHashMap<>();
 
     private static <T extends AbstractProcessingRecipe> DeferredHolder<RecipeType<?>, RecipeType<T>> registerRecipeType(String pType) {
         RecipeType<T> type = new RecipeType<>() {
@@ -119,43 +123,41 @@ public class RecipeRegistry {
 
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByType(RecipeType<R> pRecipeType, Level pLevel) {
-        if (recipeTypeMap.get(pRecipeType) == null) {
-            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
-            // holder's id onto it. Recipe identity moved to the RecipeHolder, so decoded recipes carry a
-            // placeholder id (AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID); stamping the real id here makes
-            // every recipe this registry hands out keyable via getId() (block entity save/restore, compareTo).
-            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                    .filter(holder -> holder.value().getType().equals(pRecipeType))
-                    .map(holder -> {
-                        R recipe = (R) holder.value();
-                        recipe.setId(holder.id());
-                        return recipe;
-                    })
-                    .sorted()
-                    .collect(Collectors.toCollection(LinkedList::new));
-            recipeTypeMap.put(pRecipeType, recipes);
-        }
-        return (LinkedList<R>) recipeTypeMap.get(pRecipeType);
+        // computeIfAbsent keeps the check-then-build-then-store atomic: the reload listener's clear (and, in
+        // single-player, the other side's lazy build) can race a thread reading this cache, so a separate
+        // get/put would corrupt the map.
+        return (LinkedList<R>) recipeTypeMap.computeIfAbsent(pRecipeType, key ->
+                // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
+                // holder's id onto it. Recipe identity moved to the RecipeHolder, so decoded recipes carry a
+                // placeholder id (AlchemistryRecipeCodecs.UNKEYED_RECIPE_ID); stamping the real id here makes
+                // every recipe this registry hands out keyable via getId() (block entity save/restore, compareTo).
+                pLevel.getRecipeManager().getRecipes().stream()
+                        .filter(holder -> holder.value().getType().equals(pRecipeType))
+                        .map(holder -> {
+                            R recipe = (R) holder.value();
+                            recipe.setId(holder.id());
+                            return recipe;
+                        })
+                        .sorted()
+                        .collect(Collectors.toCollection(LinkedList::new)));
     }
 
     @SuppressWarnings("unchecked")
     public static <R extends AbstractProcessingRecipe> LinkedList<R> getRecipesByGroup(String pGroup, Level pLevel) {
-        if (recipeGroupMap.get(pGroup) == null) {
-            // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
-            // holder's id onto it (see getRecipesByType). getRecipeByGroupAndId filters this list by
-            // getId(), so the real id has to be stamped here too, not just on the by-type cache.
-            LinkedList<R> recipes = pLevel.getRecipeManager().getRecipes().stream()
-                .filter(holder -> holder.value().getGroup().equals(pGroup))
-                .map(holder -> {
-                    R recipe = (R) holder.value();
-                    recipe.setId(holder.id());
-                    return recipe;
-                })
-                .sorted()
-                .collect(Collectors.toCollection(LinkedList::new));
-            recipeGroupMap.put(pGroup, recipes);
-        }
-        return (LinkedList<R>) recipeGroupMap.get(pGroup);
+        // computeIfAbsent keeps the check-then-build-then-store atomic; see getRecipesByType.
+        return (LinkedList<R>) recipeGroupMap.computeIfAbsent(pGroup, key ->
+                // RecipeManager#getRecipes returns RecipeHolders; unwrap to the recipe value and stamp the
+                // holder's id onto it (see getRecipesByType). getRecipeByGroupAndId filters this list by
+                // getId(), so the real id has to be stamped here too, not just on the by-type cache.
+                pLevel.getRecipeManager().getRecipes().stream()
+                        .filter(holder -> holder.value().getGroup().equals(pGroup))
+                        .map(holder -> {
+                            R recipe = (R) holder.value();
+                            recipe.setId(holder.id());
+                            return recipe;
+                        })
+                        .sorted()
+                        .collect(Collectors.toCollection(LinkedList::new)));
     }
 
     @SuppressWarnings("unchecked")

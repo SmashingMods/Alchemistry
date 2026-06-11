@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.common.block.compactor;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -46,7 +45,13 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
-            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getInput().matches(getInputHandler().getStackInSlot(0)), level)
+            // The player's selector choice wins while it still matches the input; only machines the player
+            // never chose for fall back to the first matching recipe in sorted order. The compactor lost
+            // selections on the very insert: its input handler's onContentsChanged calls updateRecipe, so
+            // cellulose arriving replaced a selected jungle log with acacia (the first cellulose match)
+            // before the next tick.
+            RecipeRegistry.getCompactorRecipe(recipe -> isSelectedRecipe(recipe) && recipe.getInput().matches(getInputHandler().getStackInSlot(0)), level)
+                .or(() -> RecipeRegistry.getCompactorRecipe(recipe -> recipe.getInput().matches(getInputHandler().getStackInSlot(0)), level))
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
@@ -87,6 +92,10 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
     public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe instanceof CompactorRecipe compactorRecipe) {
             currentRecipe = compactorRecipe;
+        } else if (pRecipe != null) {
+            // A wrong-typed recipe reaching this machine means a recipe lookup went wrong upstream;
+            // dropping it silently made that failure mode invisible in the field.
+            Alchemistry.LOGGER.error("Refusing to set recipe {} on the compactor at {}: not a CompactorRecipe", pRecipe.getId(), getBlockPos());
         }
     }
 
@@ -160,12 +169,11 @@ public class CompactorBlockEntity extends AbstractSearchableBlockEntity {
         super.loadAdditional(pTag, pRegistries);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         if (level != null && level.isClientSide()) {
-            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
-                if (!recipe.equals(currentRecipe)) {
-                    setRecipe(recipe);
-                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
-                }
-            });
+            // Display-only mirror of the server's recipe. This used to also echo a SetRecipePacket back to
+            // the server, which was redundant (onLoad restores the server's recipe from its own save) and,
+            // now that a selection is remembered, would promote every server auto-pick into a player
+            // selection whenever the client's copy lagged a menu sync.
+            RecipeRegistry.getCompactorRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
         }
     }
 

@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.common.block.liquifier;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.liquifier.LiquifierRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -164,12 +163,10 @@ public class LiquifierBlockEntity extends AbstractFluidBlockEntity {
         super.loadAdditional(pTag, pRegistries);
         this.recipeId = ResourceLocation.tryParse(pTag.getString("recipeId"));
         if (level != null && level.isClientSide()) {
-            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
-                if (!recipe.equals(currentRecipe)) {
-                    setRecipe(recipe);
-                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
-                }
-            });
+            // Display-only mirror of the server's recipe; the SetRecipePacket echo this used to send was
+            // redundant (onLoad restores the server's recipe from its own save) and would now fabricate a
+            // player "selection" on a machine that has no recipe selector.
+            RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
         }
     }
 

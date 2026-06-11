@@ -4,17 +4,17 @@
   "input": [
     {
       "ingredient": {
+        "item": "chemlib:triglyceride"
+      }
+    },
+    {
+      "ingredient": {
         "item": "chemlib:sucrose"
       }
     },
     {
       "ingredient": {
         "item": "chemlib:iron_oxide"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:triglyceride"
       }
     }
   ],

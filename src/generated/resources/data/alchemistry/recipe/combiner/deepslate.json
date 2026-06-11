@@ -4,17 +4,17 @@
   "input": [
     {
       "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      }
+    },
+    {
+      "ingredient": {
         "item": "chemlib:aluminum"
       }
     },
     {
       "ingredient": {
         "item": "chemlib:iron"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:silicon_dioxide"
       }
     }
   ],

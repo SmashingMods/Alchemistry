@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:phosphorus"
       }
     },
     {
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:phosphorus"
+        "item": "chemlib:oxygen"
       }
     }
   ],

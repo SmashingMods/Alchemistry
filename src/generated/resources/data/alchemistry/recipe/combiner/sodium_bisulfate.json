@@ -8,12 +8,6 @@
       }
     },
     {
-      "count": 4,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
       "ingredient": {
         "item": "chemlib:hydrogen"
       }
@@ -21,6 +15,12 @@
     {
       "ingredient": {
         "item": "chemlib:sulfur"
+      }
+    },
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:oxygen"
       }
     }
   ],

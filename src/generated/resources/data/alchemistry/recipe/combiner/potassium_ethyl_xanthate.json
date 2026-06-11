@@ -14,12 +14,12 @@
     },
     {
       "ingredient": {
-        "item": "chemlib:carbon_disulfide"
+        "item": "chemlib:water"
       }
     },
     {
       "ingredient": {
-        "item": "chemlib:water"
+        "item": "chemlib:carbon_disulfide"
       }
     }
   ],

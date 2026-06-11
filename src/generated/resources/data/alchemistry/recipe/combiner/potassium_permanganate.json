@@ -8,14 +8,14 @@
       }
     },
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:manganese"
       }
     },
     {
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:manganese"
+        "item": "chemlib:oxygen"
       }
     }
   ],

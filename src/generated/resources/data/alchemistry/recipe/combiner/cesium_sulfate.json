@@ -3,9 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:cesium"
       }
     },
     {
@@ -14,9 +14,9 @@
       }
     },
     {
-      "count": 2,
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:cesium"
+        "item": "chemlib:oxygen"
       }
     }
   ],

@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
       "ingredient": {
-        "item": "chemlib:nitrate"
+        "item": "chemlib:cadmium"
       }
     },
     {
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:cadmium"
+        "item": "chemlib:nitrate"
       }
     }
   ],

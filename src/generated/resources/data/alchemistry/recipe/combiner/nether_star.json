@@ -5,7 +5,7 @@
     {
       "count": 64,
       "ingredient": {
-        "item": "chemlib:mendelevium"
+        "item": "chemlib:lutetium"
       }
     },
     {
@@ -17,13 +17,13 @@
     {
       "count": 64,
       "ingredient": {
-        "item": "chemlib:lutetium"
+        "item": "chemlib:dysprosium"
       }
     },
     {
       "count": 64,
       "ingredient": {
-        "item": "chemlib:dysprosium"
+        "item": "chemlib:mendelevium"
       }
     }
   ],

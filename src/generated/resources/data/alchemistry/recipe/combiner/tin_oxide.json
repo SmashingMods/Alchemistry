@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:tin"
       }
     },
     {
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:tin"
+        "item": "chemlib:oxygen"
       }
     }
   ],

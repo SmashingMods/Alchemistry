@@ -4,12 +4,12 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:sucrose"
+        "item": "chemlib:cellulose"
       }
     },
     {
       "ingredient": {
-        "item": "chemlib:cellulose"
+        "item": "chemlib:sucrose"
       }
     },
     {

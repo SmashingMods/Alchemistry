@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
       "ingredient": {
-        "item": "chemlib:nitrate"
+        "item": "chemlib:zinc"
       }
     },
     {
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:zinc"
+        "item": "chemlib:nitrate"
       }
     }
   ],

@@ -3,14 +3,9 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 5,
+      "count": 8,
       "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:nitrogen"
+        "item": "chemlib:carbon"
       }
     },
     {
@@ -20,9 +15,14 @@
       }
     },
     {
-      "count": 8,
+      "count": 5,
       "ingredient": {
-        "item": "chemlib:carbon"
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:nitrogen"
       }
     }
   ],

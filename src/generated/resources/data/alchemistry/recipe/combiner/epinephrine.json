@@ -3,17 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 3,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:nitrogen"
-      }
-    },
-    {
       "count": 9,
       "ingredient": {
         "item": "chemlib:carbon"
@@ -23,6 +12,17 @@
       "count": 13,
       "ingredient": {
         "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:nitrogen"
+      }
+    },
+    {
+      "count": 3,
+      "ingredient": {
+        "item": "chemlib:oxygen"
       }
     }
   ],

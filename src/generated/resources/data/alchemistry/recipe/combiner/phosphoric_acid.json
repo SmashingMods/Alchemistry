@@ -3,12 +3,6 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": {
-        "item": "chemlib:oxygen"
-      }
-    },
-    {
       "count": 3,
       "ingredient": {
         "item": "chemlib:hydrogen"
@@ -17,6 +11,12 @@
     {
       "ingredient": {
         "item": "chemlib:phosphorus"
+      }
+    },
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:oxygen"
       }
     }
   ],

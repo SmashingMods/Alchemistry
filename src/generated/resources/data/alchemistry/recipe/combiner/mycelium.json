@@ -4,22 +4,22 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:kaolinite"
-      }
-    },
-    {
-      "ingredient": {
-        "item": "chemlib:silicon_dioxide"
-      }
-    },
-    {
-      "ingredient": {
         "item": "chemlib:water"
       }
     },
     {
       "ingredient": {
         "item": "chemlib:chitin"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:kaolinite"
+      }
+    },
+    {
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
       }
     }
   ],

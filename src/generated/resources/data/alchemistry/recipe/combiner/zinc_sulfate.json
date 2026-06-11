@@ -3,9 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:zinc"
       }
     },
     {
@@ -14,8 +13,9 @@
       }
     },
     {
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:zinc"
+        "item": "chemlib:oxygen"
       }
     }
   ],

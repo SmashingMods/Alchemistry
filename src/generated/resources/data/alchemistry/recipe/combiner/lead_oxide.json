@@ -4,12 +4,12 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:lead"
       }
     },
     {
       "ingredient": {
-        "item": "chemlib:lead"
+        "item": "chemlib:oxygen"
       }
     }
   ],

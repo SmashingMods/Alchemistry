@@ -3,9 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:selenium"
+        "item": "chemlib:chitin"
       }
     },
     {
@@ -15,8 +14,9 @@
       }
     },
     {
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:chitin"
+        "item": "chemlib:selenium"
       }
     }
   ],

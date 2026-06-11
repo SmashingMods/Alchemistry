@@ -3,9 +3,8 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
       "ingredient": {
-        "item": "chemlib:oxygen"
+        "item": "chemlib:cobalt"
       }
     },
     {
@@ -15,8 +14,9 @@
       }
     },
     {
+      "count": 4,
       "ingredient": {
-        "item": "chemlib:cobalt"
+        "item": "chemlib:oxygen"
       }
     }
   ],

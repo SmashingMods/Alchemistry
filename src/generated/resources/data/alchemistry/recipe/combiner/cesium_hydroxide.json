@@ -4,12 +4,12 @@
   "input": [
     {
       "ingredient": {
-        "item": "chemlib:hydroxide"
+        "item": "chemlib:cesium"
       }
     },
     {
       "ingredient": {
-        "item": "chemlib:cesium"
+        "item": "chemlib:hydroxide"
       }
     }
   ],

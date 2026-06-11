@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
       "ingredient": {
-        "item": "chemlib:nitrate"
+        "item": "chemlib:barium"
       }
     },
     {
+      "count": 2,
       "ingredient": {
-        "item": "chemlib:barium"
+        "item": "chemlib:nitrate"
       }
     }
   ],

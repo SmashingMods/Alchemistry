@@ -119,28 +119,57 @@ public class TransferUtils {
     /**
      * Pairs each ingredient with a matching inventory stack and its slot, jointly: a slot's
      * count is consumed as ingredients claim it, so two ingredients satisfiable by the same
-     * stack only both match while the stack still holds enough for both, and an ingredient the
-     * consumed slot can no longer cover moves on to the next matching slot. The returned list
+     * stack only both match while the stack still holds enough for both. The returned list
      * is always index-parallel to {@code pIngredientStackList}: an ingredient the inventory
      * cannot satisfy is represented by {@link SlotMatch#EMPTY} rather than skipped, so
      * positions keep lining up with the recipe input.
+     *
+     * <p>Each ingredient claims the matching slot with the MOST remaining items, because the
+     * claimed slot bounds the removal: max transfer removes inputCount x operations from
+     * exactly the claimed slots, so claiming by first match sent both same-element fusion
+     * claims into a small stack sitting at a low slot index and collapsed a shift-transfer
+     * backed by a full 64-stack to {@code smallCount / jointClaim} operations -- one, for the
+     * shipped count-1 recipes. When the size preference leaves an ingredient unsatisfiable
+     * that a first-fit walk could satisfy (a large claim needing the very stack a smaller
+     * claim was steered into), the whole match falls back to first-fit, so the preference
+     * never refuses a transfer the old walk allowed.</p>
      */
     public static List<SlotMatch> matchIngredientListToItemStack(NonNullList<ItemStack> pItems, List<IngredientStack> pIngredientStackList) {
+        List<SlotMatch> preferLargest = matchClaims(pItems, pIngredientStackList, true);
+        if (isFullMatch(preferLargest)) {
+            return preferLargest;
+        }
+        return matchClaims(pItems, pIngredientStackList, false);
+    }
+
+    /**
+     * One joint claim pass over the inventory. With {@code pPreferLargest} each ingredient claims
+     * the matching slot with the most remaining items (ties keep the lowest slot); without it the
+     * first matching slot, the fallback order whose feasibility the callers have always had.
+     */
+    private static List<SlotMatch> matchClaims(NonNullList<ItemStack> pItems, List<IngredientStack> pIngredientStackList, boolean pPreferLargest) {
         int[] remaining = new int[pItems.size()];
         for (int slot = 0; slot < pItems.size(); slot++) {
             remaining[slot] = pItems.get(slot).getCount();
         }
         List<SlotMatch> toReturn = new ArrayList<>();
         for (IngredientStack ingredientStack : pIngredientStackList) {
-            SlotMatch match = SlotMatch.EMPTY;
+            int claimedSlot = -1;
             for (int slot = 0; slot < pItems.size(); slot++) {
-                if (ingredientStack.matches(pItems.get(slot)) && remaining[slot] >= ingredientStack.getCount()) {
-                    remaining[slot] -= ingredientStack.getCount();
-                    match = new SlotMatch(pItems.get(slot), slot);
-                    break;
+                if (ingredientStack.matches(pItems.get(slot)) && remaining[slot] >= ingredientStack.getCount()
+                        && (claimedSlot == -1 || (pPreferLargest && remaining[slot] > remaining[claimedSlot]))) {
+                    claimedSlot = slot;
+                    if (!pPreferLargest) {
+                        break;
+                    }
                 }
             }
-            toReturn.add(match);
+            if (claimedSlot == -1) {
+                toReturn.add(SlotMatch.EMPTY);
+            } else {
+                remaining[claimedSlot] -= ingredientStack.getCount();
+                toReturn.add(new SlotMatch(pItems.get(claimedSlot), claimedSlot));
+            }
         }
         return toReturn;
     }

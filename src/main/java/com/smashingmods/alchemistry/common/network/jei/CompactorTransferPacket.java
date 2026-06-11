@@ -7,6 +7,7 @@ import com.smashingmods.alchemistry.common.block.compactor.CompactorMenu;
 import com.smashingmods.alchemistry.common.recipe.compactor.CompactorRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -23,10 +24,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import javax.annotation.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class CompactorTransferPacket implements AlchemyPacket {
@@ -76,10 +79,12 @@ public class CompactorTransferPacket implements AlchemyPacket {
                 inputHandler.emptyToInventory(inventory);
                 outputHandler.emptyToInventory(inventory);
 
-                ItemStack inventoryInput = TransferUtils.matchIngredientToItemStack(inventory.items, recipeCopy.getInput());
-                ItemStack recipeInput = new ItemStack(inventoryInput.getItem(), recipeCopy.getInput().getCount());
+                List<IngredientStack> recipeIngredients = buildRecipeIngredients(recipeCopy);
+                List<TransferUtils.SlotMatch> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeIngredients);
+
                 boolean creative = player.gameMode.isCreative();
-                boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                boolean fullMatch = TransferUtils.isFullMatch(inventoryInput);
+                boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                 if (canTransfer) {
                     if (creative) {
@@ -92,10 +97,16 @@ public class CompactorTransferPacket implements AlchemyPacket {
                         int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
                         inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {
-                        int slot = inventory.findSlotMatchingItem(inventoryInput);
-                        int maxOperations = TransferUtils.getMaxOperations(recipeInput, inventory.getItem(slot), maxTransfer, false);
-                        inventory.removeItem(slot, recipeCopy.getInput().getCount() * maxOperations);
-                        inputHandler.setOrIncrement(0, new ItemStack(recipeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
+                        TransferUtils.SlotMatch slotMatch = inventoryInput.get(0);
+                        // The placed item is whichever ingredient member the matched slot holds, captured
+                        // before the removal: draining the claimed slot empties the live stack, whose
+                        // getItem() then reports AIR.
+                        Item matchedItem = slotMatch.itemStack().getItem();
+                        int maxOperations = TransferUtils.getMaxOperations(inventoryInput, recipeIngredients, maxTransfer);
+                        // Remove by the slot the input claimed during matching; the matcher bounded the
+                        // claim by that slot's count, so the removal always succeeds in full.
+                        inventory.removeItem(slotMatch.slot(), recipeCopy.getInput().getCount() * maxOperations);
+                        inputHandler.setOrIncrement(0, new ItemStack(matchedItem, recipeCopy.getInput().getCount() * maxOperations));
                     }
                     // A JEI transfer is an explicit player choice of one recipe, so it must register as a
                     // selection (progress reset + selection marker): a plain setRecipe would be replaced by
@@ -105,6 +116,24 @@ public class CompactorTransferPacket implements AlchemyPacket {
                     blockEntity.setCanProcess(true);
                 }
             });
+    }
+
+    /**
+     * The recipe's single ingredient input as a one-element joint-matchable list. Running the same
+     * list matcher the multi-input packets use keeps the gate and the removal on one walk over the
+     * main inventory: the old shape gated through {@code TransferUtils#matchIngredientToItemStack},
+     * which only accepts a slot holding the full per-operation count, but located the removal slot
+     * with the count-blind {@code Inventory#findSlotMatchingItem}, which returns the FIRST slot
+     * holding the item -- with the input split across a partial stack at a low index and a full
+     * stack behind it, the gate passed on the full stack while the removal drained the partial one
+     * short of the recipe count, and the placement still inserted the full count, creating the
+     * shortfall. Removing by the claimed {@link TransferUtils.SlotMatch#slot()} debits exactly the
+     * stack that passed the gate.
+     *
+     * <p>Package-visible so the matching shape is unit-testable without a live server.</p>
+     */
+    static List<IngredientStack> buildRecipeIngredients(CompactorRecipe pRecipe) {
+        return List.of(pRecipe.getInput());
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<CompactorMenu, CompactorRecipe> {

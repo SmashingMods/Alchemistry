@@ -81,11 +81,13 @@ public class CombinerTransferPacket implements AlchemyPacket {
                 outputHandler.emptyToInventory(inventory);
 
                 List<ItemStack> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.getNonEquipmentItems(), recipeCopy.getInput());
-                List<ItemStack> recipeInput = new ArrayList<>();
-                IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount())));
 
                 boolean creative = player.gameMode.isCreative();
-                boolean canTransfer = (!inventoryInput.isEmpty() || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
+                // inventoryInput is index-parallel to the recipe input with EMPTY at every
+                // unmatched ingredient. A partial match must not transfer: counts would pair
+                // with the wrong ingredients and the placement loop would run past the matches.
+                boolean fullMatch = !inventoryInput.isEmpty() && inventoryInput.stream().noneMatch(ItemStack::isEmpty);
+                boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                 if (canTransfer) {
                     if (creative) {
@@ -116,6 +118,9 @@ public class CombinerTransferPacket implements AlchemyPacket {
                             }
                         }
                     } else {
+                        List<ItemStack> recipeInput = new ArrayList<>();
+                        IntStream.range(0, inventoryInput.size()).forEach(i -> recipeInput.add(new ItemStack(inventoryInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount())));
+
                         List<ItemStack> inventoryStacks = new ArrayList<>();
                         inventoryInput.stream().map(inventory::findSlotMatchingItem).forEach(slot -> {
                             if (slot != -1) {

@@ -83,13 +83,7 @@ public class CombinerTransferPacket implements AlchemyPacket {
                 List<TransferUtils.SlotMatch> inventoryInput = TransferUtils.matchIngredientListToItemStack(inventory.items, recipeCopy.getInput());
 
                 boolean creative = player.gameMode.isCreative();
-                // inventoryInput is index-parallel to the recipe input with EMPTY at every
-                // unmatched ingredient. A partial match must not transfer: counts would pair
-                // with the wrong ingredients and the placement loop would run past the matches.
-                // The match is joint -- two ingredients satisfiable by the same stack only both
-                // match while the stack holds enough for both -- so a full match guarantees the
-                // removal loop below cannot run a shared stack dry part-way through.
-                boolean fullMatch = !inventoryInput.isEmpty() && inventoryInput.stream().noneMatch(TransferUtils.SlotMatch::isEmpty);
+                boolean fullMatch = TransferUtils.isFullMatch(inventoryInput);
                 boolean canTransfer = (fullMatch || creative) && inputHandler.isEmpty() && outputHandler.isEmpty();
 
                 if (canTransfer) {

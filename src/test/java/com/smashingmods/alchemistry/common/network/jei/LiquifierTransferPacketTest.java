@@ -11,6 +11,7 @@ import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
@@ -59,9 +60,7 @@ class LiquifierTransferPacketTest extends BootstrappedTest {
               "group": "alchemistry:liquifier",
               "input": {
                 "count": 8,
-                "ingredient": {
-                  "item": "minecraft:iron_ingot"
-                }
+                "ingredient": "minecraft:iron_ingot"
               },
               "result": {
                 "amount": 500,
@@ -131,13 +130,15 @@ class LiquifierTransferPacketTest extends BootstrappedTest {
 
     /**
      * Decodes {@link #RECIPE_JSON} through the serializer's disk codec, exactly as RecipeManager
-     * decodes the datapack file. The serializer is constructed the way the registry binds it; the
-     * codec ignores the dispatcher's {@code type} key, which RecipeManager strips before decoding.
+     * decodes the datapack file -- including the {@link RegistryOps} wrap, which this version's
+     * holder-backed {@code Ingredient.CODEC} needs to resolve the item id. The serializer is
+     * constructed the way the registry binds it; the codec ignores the dispatcher's {@code type}
+     * key, which RecipeManager strips before decoding.
      */
     private static LiquifierRecipe decodeDatapackRecipe() {
         JsonObject json = JsonParser.parseString(RECIPE_JSON).getAsJsonObject();
         return new LiquifierRecipeSerializer<>(LiquifierRecipe::new).codec().codec()
-                .parse(JsonOps.INSTANCE, json)
+                .parse(RegistryOps.create(JsonOps.INSTANCE, registryAccess()), json)
                 .getOrThrow(message -> new AssertionError("datapack-shaped recipe failed to decode: " + message));
     }
 

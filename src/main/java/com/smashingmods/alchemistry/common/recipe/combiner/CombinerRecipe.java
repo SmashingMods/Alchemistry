@@ -53,7 +53,9 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
 
     @Override
     public CombinerRecipe copy() {
-        return new CombinerRecipe(getId(), getGroup(), Set.copyOf(input), output.copy());
+        // Input order is meaningful (JEI transfer slots, display, lock validation);
+        // Set.copyOf would hash-scramble it, so copy into another LinkedHashSet.
+        return new CombinerRecipe(getId(), getGroup(), new LinkedHashSet<>(input), output.copy());
     }
 
     public List<IngredientStack> getInput() {

@@ -1,6 +1,6 @@
 package com.smashingmods.alchemistry.registry;
 
-import net.minecraft.world.item.BlockItem;
+import com.smashingmods.alchemistry.common.block.AlchemistryBlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
@@ -17,7 +17,7 @@ public class ItemRegistry {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
     public static void fromBlock(DeferredHolder<Block, ? extends Block> block) {
-        ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), ITEM_PROPERTIES));
+        ITEMS.register(block.getId().getPath(), () -> new AlchemistryBlockItem(block.get(), ITEM_PROPERTIES));
     }
 
     public static List<Item> getItems() {

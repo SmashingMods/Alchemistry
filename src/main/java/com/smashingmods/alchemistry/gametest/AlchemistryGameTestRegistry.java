@@ -88,6 +88,8 @@ public final class AlchemistryGameTestRegistry {
             define("menu_opens", MachineGameTests::menuOpens, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
     private static final TestEntry FUSION_TRANSFER_DEBITS_BOTH_INPUTS =
             define("fusion_transfer_debits_both_inputs", MachineGameTests::fusionTransferDebitsBothInputs, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+    private static final TestEntry FUSION_TRANSFER_SPLIT_STACKS_MOVES_ALL_FULL_OPERATIONS =
+            define("fusion_transfer_split_stacks_moves_all_full_operations", MachineGameTests::fusionTransferSplitStacksMovesAllFullOperations, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
 
     // -- FluidMachineGameTests: the fluid I/O seam (liquifier item->fluid, atomizer fluid->item). --
     private static final TestEntry LIQUIFIER_PROCESSES_ITEM_TO_FLUID =

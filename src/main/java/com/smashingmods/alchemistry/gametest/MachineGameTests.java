@@ -247,6 +247,55 @@ public class MachineGameTests {
         helper.succeed();
     }
 
+    /**
+     * Quantity-exact regression for the split-stack max-transfer collapse: the shared element sits as a small
+     * stack at a LOW slot index and a full 64-stack at a higher one -- the field arrangement under which a
+     * shift-click on hydrogen + hydrogen moved exactly 2 items. Claiming by first match steered both joint claims
+     * into the small stack, so the per-slot operation bound collapsed to {@code small / (count1 + count2)} = 1
+     * operation; the claims must land on the largest stack instead, yielding {@code 64 / 2} = 32 operations. The
+     * assertions are exact per slot -- machine 32 + 32, the 64-stack emptied, the small stack untouched -- not
+     * just conservation, which the collapsed 1-operation transfer satisfied too.
+     */
+    public static void fusionTransferSplitStacksMovesAllFullOperations(GameTestHelper helper) {
+        FusionControllerBlockEntity controller = placeFusionController(helper);
+
+        FusionRecipe recipe = RecipeRegistry.getFusionRecipe(
+                        r -> ItemStack.isSameItemSameComponents(r.getInput1(), r.getInput2()), helper.getLevel())
+                .orElseThrow(() -> new AssertionError("no same-element fusion recipe loaded"));
+
+        ItemStack input1 = recipe.getInput1();
+        ItemStack input2 = recipe.getInput2();
+        int perOperation = input1.getCount() + input2.getCount();
+        int small = perOperation + 1;
+        int large = 64;
+
+        ServerPlayer player = makeServerPlayer(helper);
+        Inventory inventory = player.getInventory();
+        // Set the slots directly -- Inventory#add would merge the two same-item stacks into one slot. The small
+        // stack sits at the lower index so a first-match claim would land on it.
+        inventory.setItem(0, new ItemStack(input1.getItem(), small));
+        inventory.setItem(9, new ItemStack(input1.getItem(), large));
+
+        IPayloadContext context = new GameTestPayloadContext(player, PacketFlow.SERVERBOUND);
+        new FusionTransferPacket(controller.getBlockPos(), input1, input2, true).handle(context);
+
+        int expectedOperations = large / perOperation;
+        ProcessingSlotHandler machineInputs = controller.getInputHandler();
+        ItemStack machineSlot0 = machineInputs.getStackInSlot(0);
+        ItemStack machineSlot1 = machineInputs.getStackInSlot(1);
+        helper.assertTrue(machineSlot0.getCount() == input1.getCount() * expectedOperations
+                        && machineSlot1.getCount() == input2.getCount() * expectedOperations,
+                Component.literal("expected " + expectedOperations + " operations' worth in the machine (split-stack collapse), found "
+                        + machineSlot0 + " and " + machineSlot1));
+        int expectedLeftover = large - perOperation * expectedOperations;
+        helper.assertTrue(inventory.getItem(9).getCount() == expectedLeftover,
+                Component.literal("the 64-stack must fund the whole transfer: expected " + expectedLeftover
+                        + " left, found " + inventory.getItem(9)));
+        helper.assertTrue(inventory.getItem(0).getCount() == small,
+                Component.literal("the small stack must stay untouched, found " + inventory.getItem(0)));
+        helper.succeed();
+    }
+
     // Places a dissolver at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing. Block-entity positions are structure-relative; getBlockEntity converts
     // to the absolute world position for us.

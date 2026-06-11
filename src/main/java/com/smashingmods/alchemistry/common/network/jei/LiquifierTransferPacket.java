@@ -83,7 +83,12 @@ public class LiquifierTransferPacket implements AlchemyPacket {
 
                 if (canTransfer) {
                     if (creative) {
-                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().getItems()[0].getItem(), recipeCopy.getInput().getCount());
+                        ItemStack[] ingredientItems = recipeCopy.getInput().getIngredient().getItems();
+                        ItemStack creativeInput = ingredientItems.length > 0 ? new ItemStack(ingredientItems[0].getItem(), recipeCopy.getInput().getCount()) : ItemStack.EMPTY;
+                        if (creativeInput.isEmpty()) {
+                            Alchemistry.LOGGER.warn("Skipping JEI transfer of recipe {}: input ingredient resolves to no items", recipeCopy.getId());
+                            return;
+                        }
                         int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
                         inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {

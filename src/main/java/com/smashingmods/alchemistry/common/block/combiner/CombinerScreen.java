@@ -88,11 +88,20 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
         ProcessingSlotHandler handler = blockEntity.getInputHandler();
 
         if (currentRecipe != null) {
+            // Two passes: every item first, the hovered tooltip after, so the tooltip's background is
+            // unconditionally drawn over every ghost -- interleaving let the ghosts drawn after a
+            // hovered cell paint over the tooltip box (the output's tooltip, opening leftward near the
+            // screen edge, landed right on the ghost grid). The hovered stack is captured during the
+            // item pass so the tooltip describes exactly the (randomly picked) ingredient face drawn.
+            ItemStack hoveredStack = ItemStack.EMPTY;
+            MutableComponent hoveredTitle = null;
+
             ItemStack currentOutput = currentRecipe.getOutput();
             pGuiGraphics.renderItem(currentOutput, leftPos + 152, topPos + 15);
 
             if (pMouseX >= leftPos + 149 && pMouseX < leftPos + 173  && pMouseY >= topPos + 11 && pMouseY < topPos + 35) {
-                renderItemTooltip(pGuiGraphics, currentOutput, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", "Current recipe:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                hoveredStack = currentOutput;
+                hoveredTitle = MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", "Current recipe:", TranslatableContents.NO_ARGS));
             }
 
             int xOrigin = leftPos + 48;
@@ -117,11 +126,16 @@ public class CombinerScreen extends AbstractProcessingScreen<CombinerMenu> {
                         if (handler.getStackInSlot(index).isEmpty() && required) {
                             FakeItemRenderer.renderFakeItem(pGuiGraphics, itemStack, x, y, true);
                             if (pMouseX >= x - 2 && pMouseX < x + 16 && pMouseY >= y - 1 && pMouseY < y + 17) {
-                                renderItemTooltip(pGuiGraphics, itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", "Required input item:", TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                                hoveredStack = itemStack;
+                                hoveredTitle = MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", "Required input item:", TranslatableContents.NO_ARGS));
                             }
                         }
                     }
                 }
+            }
+
+            if (hoveredTitle != null) {
+                renderItemTooltip(pGuiGraphics, hoveredStack, hoveredTitle, pMouseX, pMouseY);
             }
         }
     }

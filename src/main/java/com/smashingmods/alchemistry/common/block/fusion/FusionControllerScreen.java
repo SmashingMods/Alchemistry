@@ -82,14 +82,22 @@ public class FusionControllerScreen extends AbstractProcessingScreen<FusionContr
 
             List<ItemStack> inputs = List.of(currentRecipe.getInput1(), currentRecipe.getInput2());
 
+            // Two passes: both ghosts first, the hovered tooltip after, so the upper slot's tooltip
+            // box can never be painted over by the lower slot's ghost drawn right after it.
+            ItemStack hoveredStack = ItemStack.EMPTY;
+
             for (int i = 0; i < inputs.size(); i ++) {
                 y = y + (i * 26);
                 if (handler.getStackInSlot(i).isEmpty()) {
                     FakeItemRenderer.renderFakeItem(pGuiGraphics, inputs.get(i), x, y);
                     if (pMouseX >= x - 1 && pMouseX <= x + 18 && pMouseY > y - 2 && pMouseY <= y + 18) {
-                        renderItemTooltip(pGuiGraphics, inputs.get(i), MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
+                        hoveredStack = inputs.get(i);
                     }
                 }
+            }
+
+            if (!hoveredStack.isEmpty()) {
+                renderItemTooltip(pGuiGraphics, hoveredStack, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)), pMouseX, pMouseY);
             }
         }
     }

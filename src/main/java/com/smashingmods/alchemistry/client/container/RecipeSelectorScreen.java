@@ -135,8 +135,14 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
         renderScrollbar(pGuiGraphics);
         renderRecipeButtons(pGuiGraphics, pMouseX, pMouseY, lastDisplayedIndex);
-        renderRecipeButtonItems(pGuiGraphics, pMouseX, pMouseY, lastDisplayedIndex);
-        renderCurrentRecipe(pGuiGraphics, pMouseX, pMouseY);
+        // Two passes: every ghost item first, every hovered tooltip after, so a tooltip's background
+        // and text are unconditionally drawn over every ghost. Interleaving them let the ghosts drawn
+        // after a hovered entry -- the rest of the grid, the current-recipe target -- paint over the
+        // tooltip's background.
+        renderRecipeButtonItems(pGuiGraphics, lastDisplayedIndex);
+        renderCurrentRecipe(pGuiGraphics);
+        renderRecipeButtonTooltip(pGuiGraphics, pMouseX, pMouseY, lastDisplayedIndex);
+        renderCurrentRecipeTooltips(pGuiGraphics, pMouseX, pMouseY);
     }
 
     private void renderScrollbar(GuiGraphics pGuiGraphics) {
@@ -161,7 +167,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         }
     }
 
-    private void renderRecipeButtonItems(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
+    private void renderRecipeButtonItems(GuiGraphics pGuiGraphics, int pLastDisplayedIndex) {
         LinkedList<AbstractProcessingRecipe> displayedRecipes = getDisplayedRecipes();
         for (int index = startIndex; index >= 0 && index < pLastDisplayedIndex && index < displayedRecipes.size(); index++) {
 
@@ -171,8 +177,19 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             int yStart = recipeBoxTopPos + (firstDisplayedIndex / COLUMNS) * RECIPE_BOX_SIZE + 3;
 
             renderFloatingItem(pGuiGraphics, target, xStart, yStart);
+        }
+    }
+
+    private void renderRecipeButtonTooltip(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
+        LinkedList<AbstractProcessingRecipe> displayedRecipes = getDisplayedRecipes();
+        for (int index = startIndex; index >= 0 && index < pLastDisplayedIndex && index < displayedRecipes.size(); index++) {
+
+            int firstDisplayedIndex = index - startIndex;
+            int xStart = recipeBoxLeftPos + firstDisplayedIndex % COLUMNS * RECIPE_BOX_SIZE + 1;
+            int yStart = recipeBoxTopPos + (firstDisplayedIndex / COLUMNS) * RECIPE_BOX_SIZE + 3;
 
             if (pMouseX >= xStart - 1 && pMouseX <= xStart + 16 && pMouseY >= yStart - 1 && pMouseY <= yStart + 16) {
+                ItemStack target = RecipeDisplayUtil.getTarget(displayedRecipes.get(index));
                 List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe", null, TranslatableContents.NO_ARGS)));
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
@@ -183,7 +200,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         pGuiGraphics.renderFakeItem(pItemStack, pX, pY);
     }
 
-    private void renderCurrentRecipe(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+    private void renderCurrentRecipe(GuiGraphics pGuiGraphics) {
         ProcessingRecipe recipe = blockEntity.getRecipe();
         if (recipe != null) {
 
@@ -196,7 +213,22 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                 }
             });
 
-            // handle rendering tooltips for recipe inputs, can't be done in previous loop because of rendering order
+            // Render the target item
+            ItemStack target = RecipeDisplayUtil.getTarget(recipe);
+            renderFloatingItem(pGuiGraphics, target, leftPos + 21, topPos + 30);
+        } else {
+            // if the recipe is empty, we still need to render the slots
+            recipeLooper((pIndex, pInputSize, pX, pY) -> renderSlot(pGuiGraphics, pX, pY));
+        }
+    }
+
+    // The tooltip half of renderCurrentRecipe, run after every ghost is drawn (see renderRecipeBox)
+    // so the hovered tooltip's background can never be painted over by a later ghost.
+    private void renderCurrentRecipeTooltips(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
+        ProcessingRecipe recipe = blockEntity.getRecipe();
+        if (recipe != null) {
+
+            // handle rendering tooltips for recipe inputs
             recipeLooper((pIndex, pInputSize, pX, pY) -> {
                 if (pIndex < pInputSize && blockEntity.getInputHandler().getStackInSlot(pIndex).isEmpty()) {
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
@@ -208,16 +240,12 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                 }
             });
 
-            // Render the target item
-            ItemStack target = RecipeDisplayUtil.getTarget(recipe);
-            renderFloatingItem(pGuiGraphics, target, leftPos + 21, topPos + 30);
+            // the target item's tooltip
             if (pMouseX >= leftPos + 17 && pMouseX < leftPos + 41 && pMouseY >= topPos + 27 && pMouseY <= topPos + 50) {
+                ItemStack target = RecipeDisplayUtil.getTarget(recipe);
                 List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)));
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
-        } else {
-            // if the recipe is empty, we still need to render the slots
-            recipeLooper((pIndex, pInputSize, pX, pY) -> renderSlot(pGuiGraphics, pX, pY));
         }
     }
 

@@ -94,6 +94,8 @@ public final class AlchemistryGameTestRegistry {
             define("liquifier_processes_item_to_fluid", FluidMachineGameTests::liquifierProcessesItemToFluid, EMPTY_TEMPLATE, LIQUIFIER_MAX_TICKS);
     private static final TestEntry ATOMIZER_PROCESSES_FLUID_TO_ITEM =
             define("atomizer_processes_fluid_to_item", FluidMachineGameTests::atomizerProcessesFluidToItem, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+    private static final TestEntry LIQUIFIER_TRANSFER_WITH_PRODUCED_FLUID_STILL_TRANSFERS =
+            define("liquifier_transfer_with_produced_fluid_still_transfers", FluidMachineGameTests::liquifierTransferWithProducedFluidStillTransfers, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
 
     // -- GuidebookGameTests: the Modonomicon book refs + build. --
     private static final TestEntry GUIDEBOOK_ITEM_REFS_RESOLVE =

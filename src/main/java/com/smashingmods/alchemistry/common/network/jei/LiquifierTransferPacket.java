@@ -26,6 +26,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import javax.annotation.Nullable;
 
@@ -68,7 +69,13 @@ public class LiquifierTransferPacket implements AlchemyPacket {
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getLiquifierRecipe(recipe -> recipe.getInput().getIngredient().items().map(holder -> new ItemStack(holder.value())).allMatch(input.getIngredient()), player.level())
+        // allMatch is vacuously true on an empty resolution, and the registry lookup takes the first
+        // hit -- without the findAny check one empty-resolving recipe would shadow every real recipe.
+        RecipeRegistry.getLiquifierRecipe(recipe -> {
+            Ingredient recipeIngredient = recipe.getInput().getIngredient();
+            return recipeIngredient.items().findAny().isPresent()
+                    && recipeIngredient.items().map(holder -> new ItemStack(holder.value())).allMatch(input.getIngredient());
+        }, player.level())
             .ifPresent(recipe -> {
 
                 LiquifierRecipe recipeCopy = recipe.copy();

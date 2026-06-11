@@ -78,6 +78,34 @@ class FusionTransferPacketTest extends BootstrappedTest {
     }
 
     @Test
+    void sameElementRecipe_splitStacks_maxTransferDrawsBothClaimsFromTheLargestStack() {
+        // The field failure: 64 hydrogen in one slot and a 3-stack at a LOWER slot index. Claiming
+        // by first match steered both inputs into the 3-stack, so the per-slot bound collapsed to
+        // 3 / (1 + 1) = 1 operation and a shift-click moved exactly 2 items out of a 67-item
+        // inventory. Both claims must land on the 64-stack instead: 64 / 2 = 32 operations.
+        FusionRecipe recipe = fusionRecipe(new ItemStack(Items.IRON_INGOT), new ItemStack(Items.IRON_INGOT));
+        NonNullList<ItemStack> inventory = NonNullList.withSize(5, ItemStack.EMPTY);
+        inventory.set(1, new ItemStack(Items.IRON_INGOT, 3));
+        inventory.set(3, new ItemStack(Items.IRON_INGOT, 64));
+
+        List<IngredientStack> ingredients = FusionTransferPacket.buildRecipeIngredients(recipe);
+        List<TransferUtils.SlotMatch> matched = TransferUtils.matchIngredientListToItemStack(inventory, ingredients);
+
+        assertTrue(TransferUtils.isFullMatch(matched));
+        assertEquals(3, matched.get(0).slot());
+        assertEquals(3, matched.get(1).slot());
+
+        int maxOperations = TransferUtils.getMaxOperations(matched, ingredients, true);
+        assertEquals(32, maxOperations);
+
+        // Quantity-exact, not just conserving: the moved total is the full 64-stack (1 x 32 per
+        // input), funded entirely by the claimed slot, with the 3-stack left untouched.
+        int totalDebit = recipe.getInput1().getCount() * maxOperations + recipe.getInput2().getCount() * maxOperations;
+        assertEquals(64, totalDebit);
+        assertEquals(inventory.get(3).getCount(), totalDebit);
+    }
+
+    @Test
     void inputAbsentFromMainInventory_staysEmpty_neverCarriesAForeignSlot() {
         // The offhand shape: Inventory#contains scans every compartment, so an element held only in
         // the offhand passed the old gate while the main-only slot lookup returned -1 and

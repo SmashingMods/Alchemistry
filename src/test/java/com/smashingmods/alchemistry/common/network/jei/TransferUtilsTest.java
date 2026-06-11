@@ -129,9 +129,32 @@ class TransferUtilsTest extends BootstrappedTest {
 
         List<TransferUtils.SlotMatch> matched = TransferUtils.matchIngredientListToItemStack(inventory, ingredients);
 
-        // The first claim drains slot 1, so the second claim moves on to slot 4 instead of failing.
+        // This is the fallback pin: preferring the largest stack would steer the 2-claim into the
+        // 3-stack and strand the 3-claim (2 < 3 left everywhere), so the matcher must fall back to
+        // the first-fit walk -- the 2-claim drains slot 1 and the 3-claim moves on to slot 4. The
+        // size preference may never refuse a transfer first-fit allowed.
         assertEquals(1, matched.get(0).slot());
         assertEquals(4, matched.get(1).slot());
+    }
+
+    @Test
+    void matchIngredientList_smallStackAtLowerSlot_claimsTheLargestStack() {
+        NonNullList<ItemStack> inventory = NonNullList.withSize(5, ItemStack.EMPTY);
+        inventory.set(0, new ItemStack(Items.IRON_INGOT, 3));
+        inventory.set(2, new ItemStack(Items.IRON_INGOT, 64));
+
+        List<IngredientStack> ingredients = List.of(
+                new IngredientStack(Items.IRON_INGOT, 1),
+                new IngredientStack(Items.IRON_INGOT, 1));
+
+        List<TransferUtils.SlotMatch> matched = TransferUtils.matchIngredientListToItemStack(inventory, ingredients);
+
+        // Both count-1 claims fit either stack; they must claim the 64-stack, because the claimed
+        // slot bounds the max-transfer operation count -- first-fit claims on the 3-stack capped a
+        // 64-stack shift-transfer at 3 / 2 = 1 operation (the same-element fusion collapse).
+        assertEquals(2, matched.get(0).slot());
+        assertEquals(2, matched.get(1).slot());
+        assertEquals(32, TransferUtils.getMaxOperations(matched, ingredients, true));
     }
 
     @Test

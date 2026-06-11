@@ -144,4 +144,18 @@ public class TransferUtils {
         }
         return toReturn;
     }
+
+    /**
+     * Whether the matched inventory slots cover every recipe input. {@code pInventoryInput} is
+     * index-parallel to the recipe input with EMPTY at every unmatched position (see
+     * {@link #matchIngredientListToItemStack}); any EMPTY means the player lacks an ingredient --
+     * or, the match being joint, that a shared stack cannot cover another claim -- and a partial
+     * transfer must not run: counts would pair with the wrong ingredients and the removal loop
+     * could run a stack dry part-way through. An empty list (a degenerate zero-input recipe) is
+     * not transferable either. The non-creative transfer paths gate on this before removing
+     * anything.
+     */
+    public static boolean isFullMatch(List<SlotMatch> pInventoryInput) {
+        return !pInventoryInput.isEmpty() && pInventoryInput.stream().noneMatch(SlotMatch::isEmpty);
+    }
 }

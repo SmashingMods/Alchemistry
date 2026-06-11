@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -22,7 +23,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * EMPTY would re-pair every later count with the wrong ingredient, and a per-ingredient match
  * would let the removal loop run a shared stack dry part-way through. Also pins the joint
  * {@link TransferUtils#getMaxOperations(List, List, boolean)} bound: a shared slot divides its
- * count by the TOTAL claim on it, not by each claim separately.
+ * count by the TOTAL claim on it, not by each claim separately, and the shared
+ * {@link TransferUtils#isFullMatch} gate, which must only let a non-creative transfer run when
+ * every ingredient claimed a slot.
  * Extends {@link BootstrappedTest} because building and testing {@code Ingredient}s resolves item
  * holders from the built-in registries.
  */
@@ -166,5 +169,24 @@ class TransferUtilsTest extends BootstrappedTest {
         List<IngredientStack> recipeInput = List.of(new IngredientStack(Items.IRON_INGOT, 2));
 
         assertEquals(1, TransferUtils.getMaxOperations(matches, recipeInput, false));
+    }
+
+    @Test
+    void isFullMatch_everyIngredientClaimedASlot_transferable() {
+        assertTrue(TransferUtils.isFullMatch(List.of(
+                new TransferUtils.SlotMatch(new ItemStack(Items.IRON_INGOT, 4), 0),
+                new TransferUtils.SlotMatch(new ItemStack(Items.GUNPOWDER, 8), 5))));
+    }
+
+    @Test
+    void isFullMatch_partialMatch_notTransferable() {
+        assertFalse(TransferUtils.isFullMatch(List.of(
+                TransferUtils.SlotMatch.EMPTY,
+                new TransferUtils.SlotMatch(new ItemStack(Items.GUNPOWDER, 8), 5))));
+    }
+
+    @Test
+    void isFullMatch_emptyList_notTransferable() {
+        assertFalse(TransferUtils.isFullMatch(List.of()));
     }
 }

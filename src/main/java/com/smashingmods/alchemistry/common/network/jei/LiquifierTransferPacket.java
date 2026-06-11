@@ -69,7 +69,12 @@ public class LiquifierTransferPacket implements AlchemyPacket {
         ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
         Inventory inventory = player.getInventory();
 
-        RecipeRegistry.getLiquifierRecipe(recipe -> Arrays.stream(recipe.getInput().getIngredient().getItems()).allMatch(input.getIngredient()), player.level())
+        // allMatch is vacuously true on an empty resolution, and the registry lookup takes the first
+        // hit -- without the length check one empty-resolving recipe would shadow every real recipe.
+        RecipeRegistry.getLiquifierRecipe(recipe -> {
+            ItemStack[] recipeItems = recipe.getInput().getIngredient().getItems();
+            return recipeItems.length > 0 && Arrays.stream(recipeItems).allMatch(input.getIngredient());
+        }, player.level())
             .ifPresent(recipe -> {
 
                 LiquifierRecipe recipeCopy = recipe.copy();

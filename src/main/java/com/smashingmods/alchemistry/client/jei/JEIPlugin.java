@@ -15,6 +15,7 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -73,12 +74,15 @@ public class JEIPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration pRegistration) {
-        pRegistration.addRecipeTransferHandler(new CombinerTransferPacket.TransferHandler(), RecipeTypes.COMBINER);
-        pRegistration.addRecipeTransferHandler(new CompactorTransferPacket.TransferHandler(), RecipeTypes.COMPACTOR);
-        pRegistration.addRecipeTransferHandler(new DissolverTransferPacket.TransferHandler(), RecipeTypes.DISSOLVER);
-        pRegistration.addRecipeTransferHandler(new FissionTransferPacket.TransferHandler(), RecipeTypes.FISSION);
-        pRegistration.addRecipeTransferHandler(new FusionTransferPacket.TransferHandler(), RecipeTypes.FUSION);
-        pRegistration.addRecipeTransferHandler(new LiquifierTransferPacket.TransferHandler(), RecipeTypes.LIQUIFIER);
+        // The handlers report the lock refusal through JEI's own error factory, so they need the
+        // transfer helper captured at registration -- JEI exposes it nowhere else.
+        IRecipeTransferHandlerHelper transferHelper = pRegistration.getTransferHelper();
+        pRegistration.addRecipeTransferHandler(new CombinerTransferPacket.TransferHandler(transferHelper), RecipeTypes.COMBINER);
+        pRegistration.addRecipeTransferHandler(new CompactorTransferPacket.TransferHandler(transferHelper), RecipeTypes.COMPACTOR);
+        pRegistration.addRecipeTransferHandler(new DissolverTransferPacket.TransferHandler(transferHelper), RecipeTypes.DISSOLVER);
+        pRegistration.addRecipeTransferHandler(new FissionTransferPacket.TransferHandler(transferHelper), RecipeTypes.FISSION);
+        pRegistration.addRecipeTransferHandler(new FusionTransferPacket.TransferHandler(transferHelper), RecipeTypes.FUSION);
+        pRegistration.addRecipeTransferHandler(new LiquifierTransferPacket.TransferHandler(transferHelper), RecipeTypes.LIQUIFIER);
     }
 
     @Override

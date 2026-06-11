@@ -45,6 +45,7 @@
   "alchemistry.jei.fission_controller": "Fission Controller",
   "alchemistry.jei.fusion_controller": "Fusion Controller",
   "alchemistry.jei.liquifier": "Liquifier",
+  "alchemistry.jei.recipe_locked": "Machine is locked to another recipe",
   "alchemistry.patchouli.book_name": "Alchemistry Labs Catalogue",
   "alchemistry.patchouli.landing_text": "Looking to smash some atoms together? This catalogue will outline the machines you can manufacture in your progression through Alchemistry.",
   "block.alchemistry.atomizer": "Atomizer",

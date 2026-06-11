@@ -14,7 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +28,9 @@ public class CombinerRecipeBuilder implements RecipeBuilder {
 
     public CombinerRecipeBuilder(ItemStack pOutput, List<IngredientStack> pInput, ResourceLocation pRecipeId) {
         this.result = pOutput;
-        this.input = new HashSet<>(pInput);
+        // LinkedHashSet keeps the declared input order; a plain HashSet would hash-scramble it
+        // and churn the generated combiner JSONs on the next datagen run.
+        this.input = new LinkedHashSet<>(pInput);
         this.recipeId = pRecipeId;
     }
 

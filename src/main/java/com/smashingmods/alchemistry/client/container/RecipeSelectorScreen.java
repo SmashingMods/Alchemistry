@@ -10,6 +10,7 @@ import com.smashingmods.alchemylib.api.recipe.ProcessingRecipe;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -79,6 +80,14 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         this.leftPos = (width - imageWidth) / 2;
         this.recipeBoxLeftPos = leftPos + 58;
         this.recipeBoxTopPos = topPos + 26;
+        // An explicit way back to the machine screen; routes through onClose so it behaves exactly like
+        // ESC (pops this layer and flags the selector closed). Sits in the free strip below the recipe
+        // grid (grid ends at topPos + 136, panel at topPos + 162).
+        addRenderableWidget(Button.builder(
+                        MutableComponent.create(new TranslatableContents("alchemistry.container.back", "Back", TranslatableContents.NO_ARGS)),
+                        button -> onClose())
+                .bounds(leftPos + 11, topPos + 140, 40, 16)
+                .build());
         super.init();
     }
 
@@ -115,14 +124,17 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
-        renderBg(pGuiGraphics);
-
         renderRecipeBox(pGuiGraphics, pMouseX, pMouseY);
         renderWidget(searchBox, leftPos + 58, topPos + 11);
         renderParentTooltips(pGuiGraphics, pMouseX, pMouseY);
     }
 
-    private void renderBg(GuiGraphics pGuiGraphics) {
+    @Override
+    public void renderBackground(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
+        // Deliberately skips super: this screen is pushed as a GUI layer over the machine screen, and
+        // Screen's background would blur the whole frame and hide the parent. Drawing only the selector's
+        // own panel keeps the machine screen visible behind it, as it was on 1.21.1 (same pattern as
+        // SideModeScreen).
         pGuiGraphics.blit(RenderType::guiTextured, ResourceLocation.fromNamespaceAndPath(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight, 256, 256);
     }
 

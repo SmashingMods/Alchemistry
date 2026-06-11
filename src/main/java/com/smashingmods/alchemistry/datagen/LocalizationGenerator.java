@@ -76,6 +76,7 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.container.sides.title", "Configure Input/Output Sides");
         add("alchemistry.container.sides.button", "Input/Output Configuration");
 
+        add("alchemistry.container.back", "Back");
         add("alchemistry.container.search", "Search...");
         add("alchemistry.container.select_recipe", "Select recipe:");
         add("alchemistry.container.current_recipe", "Current recipe:");

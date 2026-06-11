@@ -7,6 +7,7 @@ import com.smashingmods.alchemistry.common.block.combiner.CombinerMenu;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.MenuRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
+import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.network.AlchemyPacket;
 import com.smashingmods.alchemylib.api.storage.ProcessingSlotHandler;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
@@ -91,13 +92,28 @@ public class CombinerTransferPacket implements AlchemyPacket {
                         List<ItemStack> creativeInput = new ArrayList<>();
 
                         for (int i = 0; i < recipeCopy.getInput().size(); i++) {
-                            ItemStack item = new ItemStack(recipeCopy.getInput().get(i).getIngredient().items().findFirst().orElseThrow().value(), recipeCopy.getInput().get(i).getCount());
+                            IngredientStack ingredientStack = recipeCopy.getInput().get(i);
+                            ItemStack item = ingredientStack.getIngredient().items().findFirst()
+                                    .map(holder -> new ItemStack(holder.value(), ingredientStack.getCount()))
+                                    .orElse(ItemStack.EMPTY);
+                            if (item.isEmpty()) {
+                                Alchemistry.LOGGER.warn("Skipping input {} of recipe {} in JEI transfer: ingredient resolves to no items", i, recipeCopy.getId());
+                            }
                             creativeInput.add(i, item);
                         }
 
-                        int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
+                        // Unresolvable inputs stay EMPTY placeholders so slot indices line up; they must not
+                        // reach getMaxOperations, where a zero-count stack would zero out every slot.
+                        List<ItemStack> resolvedInput = creativeInput.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+                        if (resolvedInput.isEmpty()) {
+                            return;
+                        }
+
+                        int maxOperations = TransferUtils.getMaxOperations(resolvedInput, maxTransfer);
                         for (int i = 0; i < recipeCopy.getInput().size(); i++) {
-                            inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
+                            if (!creativeInput.get(i).isEmpty()) {
+                                inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
+                            }
                         }
                     } else {
                         List<ItemStack> inventoryStacks = new ArrayList<>();

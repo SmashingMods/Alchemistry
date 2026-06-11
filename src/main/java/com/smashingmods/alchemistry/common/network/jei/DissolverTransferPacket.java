@@ -85,7 +85,13 @@ public class DissolverTransferPacket implements AlchemyPacket {
 
                 if (canTransfer) {
                     if (creative) {
-                        ItemStack creativeInput = new ItemStack(recipeCopy.getInput().getIngredient().items().findFirst().orElseThrow().value(), recipeCopy.getInput().getCount());
+                        ItemStack creativeInput = recipeCopy.getInput().getIngredient().items().findFirst()
+                                .map(holder -> new ItemStack(holder.value(), recipeCopy.getInput().getCount()))
+                                .orElse(ItemStack.EMPTY);
+                        if (creativeInput.isEmpty()) {
+                            Alchemistry.LOGGER.warn("Skipping JEI transfer of recipe {}: input ingredient resolves to no items", recipeCopy.getId());
+                            return;
+                        }
                         int maxOperations = TransferUtils.getMaxOperations(creativeInput, maxTransfer);
                         inputHandler.setOrIncrement(0, new ItemStack(creativeInput.getItem(), recipeCopy.getInput().getCount() * maxOperations));
                     } else {

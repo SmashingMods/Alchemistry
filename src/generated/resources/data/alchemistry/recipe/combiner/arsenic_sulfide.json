@@ -4,11 +4,11 @@
   "input": [
     {
       "count": 4,
-      "ingredient": "chemlib:sulfur"
+      "ingredient": "chemlib:arsenic"
     },
     {
       "count": 4,
-      "ingredient": "chemlib:arsenic"
+      "ingredient": "chemlib:sulfur"
     }
   ],
   "result": {

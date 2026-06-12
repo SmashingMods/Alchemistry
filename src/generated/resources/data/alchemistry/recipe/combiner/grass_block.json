@@ -3,13 +3,13 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:kaolinite"
+      "ingredient": "chemlib:water"
     },
     {
       "ingredient": "chemlib:cellulose"
     },
     {
-      "ingredient": "chemlib:water"
+      "ingredient": "chemlib:kaolinite"
     }
   ],
   "result": {

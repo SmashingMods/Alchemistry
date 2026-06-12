@@ -9,10 +9,10 @@
       "ingredient": "chemlib:polyvinyl_chloride"
     },
     {
-      "ingredient": "chemlib:carbon_disulfide"
+      "ingredient": "chemlib:water"
     },
     {
-      "ingredient": "chemlib:water"
+      "ingredient": "chemlib:carbon_disulfide"
     }
   ],
   "result": {

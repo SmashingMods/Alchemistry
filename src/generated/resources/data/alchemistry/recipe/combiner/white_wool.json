@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:triglyceride"
-    },
-    {
       "count": 2,
       "ingredient": "chemlib:keratin"
+    },
+    {
+      "ingredient": "chemlib:triglyceride"
     }
   ],
   "result": {

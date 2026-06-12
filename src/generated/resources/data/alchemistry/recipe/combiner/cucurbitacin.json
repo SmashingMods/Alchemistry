@@ -7,12 +7,12 @@
       "ingredient": "chemlib:carbon"
     },
     {
-      "count": 8,
-      "ingredient": "chemlib:oxygen"
-    },
-    {
       "count": 44,
       "ingredient": "chemlib:hydrogen"
+    },
+    {
+      "count": 8,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

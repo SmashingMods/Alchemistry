@@ -3,13 +3,13 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:mercury"
+      "ingredient": "chemlib:chitin"
     },
     {
       "ingredient": "chemlib:phosphoric_acid"
     },
     {
-      "ingredient": "chemlib:chitin"
+      "ingredient": "chemlib:mercury"
     }
   ],
   "result": {

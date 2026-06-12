@@ -7,12 +7,12 @@
       "ingredient": "chemlib:calcium"
     },
     {
-      "count": 2,
-      "ingredient": "chemlib:hydroxide"
-    },
-    {
       "count": 6,
       "ingredient": "chemlib:phosphate"
+    },
+    {
+      "count": 2,
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

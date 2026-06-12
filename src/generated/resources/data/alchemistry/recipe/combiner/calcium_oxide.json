@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:calcium"
     },
     {
-      "ingredient": "chemlib:calcium"
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

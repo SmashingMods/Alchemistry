@@ -4,11 +4,11 @@
   "input": [
     {
       "count": 18,
-      "ingredient": "chemlib:sucrose"
+      "ingredient": "chemlib:protein"
     },
     {
       "count": 18,
-      "ingredient": "chemlib:protein"
+      "ingredient": "chemlib:sucrose"
     }
   ],
   "result": {

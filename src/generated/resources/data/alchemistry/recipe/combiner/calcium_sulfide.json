@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:sulfur"
+      "ingredient": "chemlib:calcium"
     },
     {
-      "ingredient": "chemlib:calcium"
+      "ingredient": "chemlib:sulfur"
     }
   ],
   "result": {

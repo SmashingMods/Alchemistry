@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:hydroxide"
+      "ingredient": "chemlib:calcium"
     },
     {
-      "ingredient": "chemlib:calcium"
+      "count": 2,
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 3,
-      "ingredient": "chemlib:nitrate"
+      "ingredient": "chemlib:iron"
     },
     {
-      "ingredient": "chemlib:iron"
+      "count": 3,
+      "ingredient": "chemlib:nitrate"
     }
   ],
   "result": {

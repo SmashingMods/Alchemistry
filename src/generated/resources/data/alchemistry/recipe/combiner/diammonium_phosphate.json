@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:hydrogen"
-    },
-    {
       "count": 2,
       "ingredient": "chemlib:ammonium"
+    },
+    {
+      "ingredient": "chemlib:hydrogen"
     },
     {
       "ingredient": "chemlib:phosphate"

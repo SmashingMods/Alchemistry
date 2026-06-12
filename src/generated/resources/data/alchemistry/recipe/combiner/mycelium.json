@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:kaolinite"
-    },
-    {
-      "ingredient": "chemlib:silicon_dioxide"
-    },
-    {
       "ingredient": "chemlib:water"
     },
     {
       "ingredient": "chemlib:chitin"
+    },
+    {
+      "ingredient": "chemlib:kaolinite"
+    },
+    {
+      "ingredient": "chemlib:silicon_dioxide"
     }
   ],
   "result": {

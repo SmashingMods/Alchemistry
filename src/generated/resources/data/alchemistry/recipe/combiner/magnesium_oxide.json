@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:magnesium"
     },
     {
-      "ingredient": "chemlib:magnesium"
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

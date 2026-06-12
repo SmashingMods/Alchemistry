@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:protein"
-    },
-    {
       "count": 8,
       "ingredient": "chemlib:calcium_carbonate"
+    },
+    {
+      "count": 2,
+      "ingredient": "chemlib:protein"
     }
   ],
   "result": {

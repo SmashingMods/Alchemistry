@@ -71,9 +71,11 @@ public final class AlchemistryGameTestRegistry {
     // entry registers its body to TEST_FUNCTION here and gets a matching FunctionGameTestInstance in the event below.
     private static final List<TestEntry> TESTS = new ArrayList<>();
 
-    // -- AlchemistryGameTests: the full-chain load smoke. --
+    // -- AlchemistryGameTests: the full-chain load smoke + the payload-registration pin. --
     private static final TestEntry FULL_CHAIN_LOADED =
             define("full_chain_loaded", AlchemistryGameTests::fullChainLoaded, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+    private static final TestEntry SENT_PAYLOADS_REGISTERED_SERVER_BOUND =
+            define("sent_payloads_registered_server_bound", AlchemistryGameTests::sentPayloadsRegisteredServerBound, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
 
     // -- MachineGameTests: the standalone item machines (dissolver) + the fusion transfer handler. --
     private static final TestEntry DISSOLVER_PROCESSING =

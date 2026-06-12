@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:phosphorus"
-    },
-    {
       "count": 4,
       "ingredient": "chemlib:copper_chloride"
+    },
+    {
+      "count": 2,
+      "ingredient": "chemlib:phosphorus"
     }
   ],
   "result": {

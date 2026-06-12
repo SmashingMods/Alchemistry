@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:nitrate"
+      "ingredient": "chemlib:lithium"
     },
     {
-      "ingredient": "chemlib:lithium"
+      "ingredient": "chemlib:nitrate"
     }
   ],
   "result": {

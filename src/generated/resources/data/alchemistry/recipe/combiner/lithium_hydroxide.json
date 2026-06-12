@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:hydroxide"
+      "ingredient": "chemlib:lithium"
     },
     {
-      "ingredient": "chemlib:lithium"
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

@@ -4,11 +4,11 @@
   "input": [
     {
       "count": 4,
-      "ingredient": "chemlib:selenium"
+      "ingredient": "chemlib:protein"
     },
     {
       "count": 4,
-      "ingredient": "chemlib:protein"
+      "ingredient": "chemlib:selenium"
     }
   ],
   "result": {

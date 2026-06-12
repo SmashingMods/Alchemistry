@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:zinc"
     },
     {
       "ingredient": "chemlib:sulfur"
     },
     {
-      "ingredient": "chemlib:zinc"
+      "count": 4,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

@@ -6,14 +6,14 @@
       "ingredient": "chemlib:sodium"
     },
     {
-      "count": 4,
-      "ingredient": "chemlib:oxygen"
-    },
-    {
       "ingredient": "chemlib:hydrogen"
     },
     {
       "ingredient": "chemlib:sulfur"
+    },
+    {
+      "count": 4,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

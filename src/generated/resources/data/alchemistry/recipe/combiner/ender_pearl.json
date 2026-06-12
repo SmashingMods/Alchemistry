@@ -8,11 +8,11 @@
     },
     {
       "count": 16,
-      "ingredient": "chemlib:neodymium"
+      "ingredient": "chemlib:mercury"
     },
     {
       "count": 16,
-      "ingredient": "chemlib:mercury"
+      "ingredient": "chemlib:neodymium"
     }
   ],
   "result": {

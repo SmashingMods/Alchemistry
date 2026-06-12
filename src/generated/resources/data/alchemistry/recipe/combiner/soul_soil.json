@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": "chemlib:silicon_dioxide"
+      "ingredient": "chemlib:thulium"
     },
     {
-      "ingredient": "chemlib:thulium"
+      "count": 4,
+      "ingredient": "chemlib:silicon_dioxide"
     }
   ],
   "result": {

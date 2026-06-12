@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:hydroxide"
+      "ingredient": "chemlib:cadmium"
     },
     {
-      "ingredient": "chemlib:cadmium"
+      "count": 2,
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

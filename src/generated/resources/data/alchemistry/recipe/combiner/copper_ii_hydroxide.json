@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:hydroxide"
+      "ingredient": "chemlib:copper"
     },
     {
-      "ingredient": "chemlib:copper"
+      "count": 2,
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

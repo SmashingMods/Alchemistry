@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:hydroxide"
+      "ingredient": "chemlib:barium"
     },
     {
-      "ingredient": "chemlib:barium"
+      "count": 2,
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

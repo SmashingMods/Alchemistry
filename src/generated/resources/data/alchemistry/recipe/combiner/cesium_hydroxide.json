@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:hydroxide"
+      "ingredient": "chemlib:cesium"
     },
     {
-      "ingredient": "chemlib:cesium"
+      "ingredient": "chemlib:hydroxide"
     }
   ],
   "result": {

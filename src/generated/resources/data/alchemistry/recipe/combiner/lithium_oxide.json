@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:oxygen"
-    },
-    {
       "count": 2,
       "ingredient": "chemlib:lithium"
+    },
+    {
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

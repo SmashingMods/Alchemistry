@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:carbon"
+      "ingredient": "chemlib:potassium"
     },
     {
-      "ingredient": "chemlib:potassium"
+      "ingredient": "chemlib:carbon"
     },
     {
       "ingredient": "chemlib:nitrogen"

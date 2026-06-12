@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 3,
-      "ingredient": "chemlib:oxygen"
-    },
-    {
       "count": 2,
       "ingredient": "chemlib:iron"
+    },
+    {
+      "count": 3,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

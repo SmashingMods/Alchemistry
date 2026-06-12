@@ -3,20 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:oxygen"
-    },
-    {
       "count": 8,
       "ingredient": "chemlib:carbon"
+    },
+    {
+      "count": 10,
+      "ingredient": "chemlib:hydrogen"
     },
     {
       "count": 4,
       "ingredient": "chemlib:nitrogen"
     },
     {
-      "count": 10,
-      "ingredient": "chemlib:hydrogen"
+      "count": 2,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

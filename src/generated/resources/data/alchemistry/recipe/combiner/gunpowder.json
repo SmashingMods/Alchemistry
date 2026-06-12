@@ -3,16 +3,16 @@
   "group": "alchemistry:combiner",
   "input": [
     {
+      "count": 2,
+      "ingredient": "chemlib:potassium_nitrate"
+    },
+    {
       "count": 8,
       "ingredient": "chemlib:sulfur"
     },
     {
       "count": 2,
       "ingredient": "chemlib:graphite"
-    },
-    {
-      "count": 2,
-      "ingredient": "chemlib:potassium_nitrate"
     }
   ],
   "result": {

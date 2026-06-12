@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 3,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:sulfur"
     },
     {
-      "ingredient": "chemlib:sulfur"
+      "count": 3,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

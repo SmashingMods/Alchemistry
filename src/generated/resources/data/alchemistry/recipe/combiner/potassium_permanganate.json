@@ -6,11 +6,11 @@
       "ingredient": "chemlib:potassium"
     },
     {
-      "count": 4,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:manganese"
     },
     {
-      "ingredient": "chemlib:manganese"
+      "count": 4,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

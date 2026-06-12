@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:cellulose"
+      "ingredient": "chemlib:water"
     },
     {
-      "ingredient": "chemlib:water"
+      "ingredient": "chemlib:cellulose"
     }
   ],
   "result": {

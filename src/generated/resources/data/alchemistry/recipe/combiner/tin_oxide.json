@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:tin"
     },
     {
-      "ingredient": "chemlib:tin"
+      "count": 2,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

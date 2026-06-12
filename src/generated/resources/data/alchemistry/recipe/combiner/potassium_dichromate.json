@@ -4,11 +4,11 @@
   "input": [
     {
       "count": 2,
-      "ingredient": "chemlib:chromium"
+      "ingredient": "chemlib:potassium"
     },
     {
       "count": 2,
-      "ingredient": "chemlib:potassium"
+      "ingredient": "chemlib:chromium"
     },
     {
       "count": 7,

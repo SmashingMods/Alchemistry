@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:silicon_dioxide"
+      "ingredient": "chemlib:aluminum_oxide"
     },
     {
-      "ingredient": "chemlib:aluminum_oxide"
+      "count": 2,
+      "ingredient": "chemlib:silicon_dioxide"
     },
     {
       "count": 2,

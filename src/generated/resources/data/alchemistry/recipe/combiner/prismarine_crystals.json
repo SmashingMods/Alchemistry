@@ -7,11 +7,11 @@
       "ingredient": "chemlib:silicon_dioxide"
     },
     {
-      "ingredient": "chemlib:selenium"
-    },
-    {
       "count": 3,
       "ingredient": "chemlib:phosphorus"
+    },
+    {
+      "ingredient": "chemlib:selenium"
     }
   ],
   "result": {

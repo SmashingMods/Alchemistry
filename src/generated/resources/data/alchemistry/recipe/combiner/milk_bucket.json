@@ -3,19 +3,19 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:protein"
-    },
-    {
-      "ingredient": "minecraft:bucket"
-    },
-    {
       "count": 4,
       "ingredient": "chemlib:calcium"
     },
     {
+      "count": 2,
+      "ingredient": "chemlib:protein"
+    },
+    {
       "count": 16,
       "ingredient": "chemlib:water"
+    },
+    {
+      "ingredient": "minecraft:bucket"
     }
   ],
   "result": {

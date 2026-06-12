@@ -3,20 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 18,
-      "ingredient": "chemlib:oxygen"
-    },
-    {
-      "count": 6,
-      "ingredient": "chemlib:silicon"
+      "count": 3,
+      "ingredient": "chemlib:beryllium"
     },
     {
       "count": 2,
       "ingredient": "chemlib:aluminum"
     },
     {
-      "count": 3,
-      "ingredient": "chemlib:beryllium"
+      "count": 6,
+      "ingredient": "chemlib:silicon"
+    },
+    {
+      "count": 18,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

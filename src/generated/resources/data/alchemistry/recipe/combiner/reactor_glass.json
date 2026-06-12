@@ -3,10 +3,10 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "ingredient": "chemlib:lead_oxide"
+      "ingredient": "chemlib:silicon_dioxide"
     },
     {
-      "ingredient": "chemlib:silicon_dioxide"
+      "ingredient": "chemlib:lead_oxide"
     }
   ],
   "result": {

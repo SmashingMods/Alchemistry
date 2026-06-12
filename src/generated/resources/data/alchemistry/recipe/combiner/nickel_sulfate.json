@@ -6,11 +6,11 @@
       "ingredient": "chemlib:nickel"
     },
     {
-      "count": 4,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:sulfur"
     },
     {
-      "ingredient": "chemlib:sulfur"
+      "count": 4,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

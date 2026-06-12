@@ -3,11 +3,11 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:silicon"
     },
     {
-      "ingredient": "chemlib:silicon"
+      "count": 2,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

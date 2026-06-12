@@ -4,19 +4,19 @@
   "input": [
     {
       "count": 8,
-      "ingredient": "chemlib:aluminum_oxide"
+      "ingredient": "chemlib:magnesium_oxide"
     },
     {
       "count": 8,
       "ingredient": "chemlib:potassium_chloride"
     },
     {
-      "count": 24,
-      "ingredient": "chemlib:silicon_dioxide"
+      "count": 8,
+      "ingredient": "chemlib:aluminum_oxide"
     },
     {
-      "count": 8,
-      "ingredient": "chemlib:magnesium_oxide"
+      "count": 24,
+      "ingredient": "chemlib:silicon_dioxide"
     }
   ],
   "result": {

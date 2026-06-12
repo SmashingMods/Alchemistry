@@ -3,14 +3,14 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": "chemlib:oxygen"
+      "ingredient": "chemlib:tin"
     },
     {
       "ingredient": "chemlib:sulfur"
     },
     {
-      "ingredient": "chemlib:tin"
+      "count": 4,
+      "ingredient": "chemlib:oxygen"
     }
   ],
   "result": {

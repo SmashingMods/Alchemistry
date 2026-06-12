@@ -3,20 +3,20 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 4,
-      "ingredient": "chemlib:titanium_oxide"
-    },
-    {
       "count": 32,
       "ingredient": "chemlib:beryl"
+    },
+    {
+      "count": 24,
+      "ingredient": "chemlib:niobium"
     },
     {
       "count": 8,
       "ingredient": "chemlib:selenium"
     },
     {
-      "count": 24,
-      "ingredient": "chemlib:niobium"
+      "count": 4,
+      "ingredient": "chemlib:titanium_oxide"
     }
   ],
   "result": {

@@ -3,12 +3,12 @@
   "group": "alchemistry:combiner",
   "input": [
     {
-      "count": 2,
-      "ingredient": "chemlib:selenium"
-    },
-    {
       "count": 4,
       "ingredient": "chemlib:protein"
+    },
+    {
+      "count": 2,
+      "ingredient": "chemlib:selenium"
     }
   ],
   "result": {

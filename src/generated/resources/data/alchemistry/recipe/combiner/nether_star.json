@@ -4,7 +4,7 @@
   "input": [
     {
       "count": 64,
-      "ingredient": "chemlib:mendelevium"
+      "ingredient": "chemlib:lutetium"
     },
     {
       "count": 64,
@@ -12,11 +12,11 @@
     },
     {
       "count": 64,
-      "ingredient": "chemlib:lutetium"
+      "ingredient": "chemlib:dysprosium"
     },
     {
       "count": 64,
-      "ingredient": "chemlib:dysprosium"
+      "ingredient": "chemlib:mendelevium"
     }
   ],
   "result": {

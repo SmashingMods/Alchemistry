@@ -100,29 +100,13 @@ public class CombinerTransferPacket implements AlchemyPacket {
 
                 if (canTransfer) {
                     if (creative) {
-                        List<ItemStack> creativeInput = new ArrayList<>();
-
-                        for (int i = 0; i < recipeCopy.getInput().size(); i++) {
-                            IngredientStack ingredientStack = recipeCopy.getInput().get(i);
-                            ItemStack[] ingredientItems = ingredientStack.getIngredient().getItems();
-                            ItemStack item = ingredientItems.length > 0 ? new ItemStack(ingredientItems[0].getItem(), ingredientStack.getCount()) : ItemStack.EMPTY;
-                            if (item.isEmpty()) {
-                                Alchemistry.LOGGER.warn("Skipping input {} of recipe {} in JEI transfer: ingredient resolves to no items", i, recipeCopy.getId());
-                            }
-                            creativeInput.add(i, item);
-                        }
-
-                        // Unresolvable inputs stay EMPTY placeholders so slot indices line up; they must not
-                        // reach getMaxOperations, where a zero-count stack would zero out every slot.
-                        List<ItemStack> resolvedInput = creativeInput.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
-                        if (resolvedInput.isEmpty()) {
+                        List<ItemStack> creativeTransfer = buildCreativeTransfer(recipeCopy, maxTransfer);
+                        if (creativeTransfer.isEmpty()) {
                             return;
                         }
-
-                        int maxOperations = TransferUtils.getMaxOperations(resolvedInput, maxTransfer);
-                        for (int i = 0; i < recipeCopy.getInput().size(); i++) {
-                            if (!creativeInput.get(i).isEmpty()) {
-                                inputHandler.setOrIncrement(i, new ItemStack(creativeInput.get(i).getItem(), recipeCopy.getInput().get(i).getCount() * maxOperations));
+                        for (int i = 0; i < creativeTransfer.size(); i++) {
+                            if (!creativeTransfer.get(i).isEmpty()) {
+                                inputHandler.setOrIncrement(i, creativeTransfer.get(i));
                             }
                         }
                     } else {
@@ -150,6 +134,43 @@ public class CombinerTransferPacket implements AlchemyPacket {
                     blockEntity.setCanProcess(true);
                 }
             });
+    }
+
+    /**
+     * Computes the stacks a creative transfer places, index-parallel to the recipe input slots
+     * (EMPTY = leave that slot untouched). An input whose ingredient resolves to no items (empty
+     * tag, custom ingredient resolving empty) logs a warning and stays an EMPTY placeholder so the
+     * remaining inputs keep their slot indices; the placeholders are excluded from
+     * getMaxOperations, where a zero-count stack would zero out every slot. Returns an empty list
+     * when no input resolves at all -- nothing to transfer.
+     *
+     * <p>Package-visible so the slot alignment and operation math are unit-testable without a live server.</p>
+     */
+    static List<ItemStack> buildCreativeTransfer(CombinerRecipe pRecipe, boolean pMaxTransfer) {
+        List<ItemStack> creativeInput = new ArrayList<>();
+
+        for (int i = 0; i < pRecipe.getInput().size(); i++) {
+            IngredientStack ingredientStack = pRecipe.getInput().get(i);
+            ItemStack[] ingredientItems = ingredientStack.getIngredient().getItems();
+            ItemStack item = ingredientItems.length > 0 ? new ItemStack(ingredientItems[0].getItem(), ingredientStack.getCount()) : ItemStack.EMPTY;
+            if (item.isEmpty()) {
+                Alchemistry.LOGGER.warn("Skipping input {} of recipe {} in JEI transfer: ingredient resolves to no items", i, pRecipe.getId());
+            }
+            creativeInput.add(i, item);
+        }
+
+        List<ItemStack> resolvedInput = creativeInput.stream().filter(itemStack -> !itemStack.isEmpty()).toList();
+        if (resolvedInput.isEmpty()) {
+            return List.of();
+        }
+
+        int maxOperations = TransferUtils.getMaxOperations(resolvedInput, pMaxTransfer);
+        List<ItemStack> toPlace = new ArrayList<>();
+        for (int i = 0; i < pRecipe.getInput().size(); i++) {
+            ItemStack item = creativeInput.get(i);
+            toPlace.add(item.isEmpty() ? ItemStack.EMPTY : new ItemStack(item.getItem(), pRecipe.getInput().get(i).getCount() * maxOperations));
+        }
+        return toPlace;
     }
 
     public static class TransferHandler implements IRecipeTransferHandler<CombinerMenu, CombinerRecipe> {

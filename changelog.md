@@ -11,5 +11,10 @@ Changes:
 - Machine tooltips now show the actual configured energy use instead of an unfilled placeholder, and all Alchemistry blocks list the mod name in their tooltip.
 - Machine GUIs are no longer double-darkened (via AlchemyLib 1.1.6).
 - Recipe selector search now matches item display names.
+- Fixed the liquifier's JEI "+" transfer being permanently disabled once the machine had produced any fluid.
+- JEI's shift-"+" now fills as many operations as your inventory allows, drawing from your largest stacks.
+- Locked machines now accept refills of their recipe's own ingredients (any slot, full stacks); other items are still refused.
+- JEI's "+" on a machine locked to a different recipe now refuses cleanly with a "locked" tooltip instead of moving items.
+- The recipe selector no longer blurs the machine screen behind it, and ghost-item tooltips now render above neighboring ghost items.
 
 Have questions about the new version or just want to chat? Join the Discord: https://discord.gg/4swu3fy

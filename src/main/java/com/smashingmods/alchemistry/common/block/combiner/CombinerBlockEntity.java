@@ -2,7 +2,6 @@ package com.smashingmods.alchemistry.common.block.combiner;
 
 import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
-import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.combiner.CombinerRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -48,7 +47,13 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     @Override
     public void updateRecipe() {
         if (level != null && !level.isClientSide() && !getInputHandler().isEmpty() && !isRecipeLocked()) {
-            RecipeRegistry.getCombinerRecipe(recipe -> recipe.matchInputs(getInputHandler().getStacks()), level)
+            // The player's selector choice wins while it still matches the inputs; only machines the player
+            // never chose for (or whose choice the current inputs don't satisfy, e.g. a partially filled
+            // grid) fall back to the first matching recipe in sorted order. Without the preference,
+            // ambiguous inputs -- oxygen + cellulose is shared by every sapling recipe -- reverted the
+            // selection to the first match on the next tick.
+            RecipeRegistry.getCombinerRecipe(recipe -> isSelectedRecipe(recipe) && recipe.matchInputs(getInputHandler().getStacks()), level)
+                .or(() -> RecipeRegistry.getCombinerRecipe(recipe -> recipe.matchInputs(getInputHandler().getStacks()), level))
                 .ifPresent(recipe -> {
                     if (currentRecipe == null || !currentRecipe.equals(recipe)) {
                         setProgress(0);
@@ -96,6 +101,10 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
     public <R extends AbstractProcessingRecipe> void setRecipe(@Nullable R pRecipe) {
         if (pRecipe instanceof CombinerRecipe combinerRecipe) {
             currentRecipe = combinerRecipe;
+        } else if (pRecipe != null) {
+            // A wrong-typed recipe reaching this machine means a recipe lookup went wrong upstream;
+            // dropping it silently made that failure mode invisible in the field.
+            Alchemistry.LOGGER.error("Refusing to set recipe {} on the combiner at {}: not a CombinerRecipe", pRecipe.getId(), getBlockPos());
         }
     }
 
@@ -176,12 +185,11 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
         super.loadAdditional(pTag, pRegistries);
         this.recipeId = ResourceLocation.tryParse(pTag.getStringOr("recipeId", ""));
         if (level != null && level.isClientSide()) {
-            RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
-                if (!recipe.equals(currentRecipe)) {
-                    setRecipe(recipe);
-                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
-                }
-            });
+            // Display-only mirror of the server's recipe. This used to also echo a SetRecipePacket back to
+            // the server, which was redundant (onLoad restores the server's recipe from its own save) and,
+            // now that a selection is remembered, would promote every server auto-pick into a player
+            // selection whenever the client's copy lagged a menu sync.
+            RecipeRegistry.getCombinerRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
         }
     }
 

@@ -4,7 +4,6 @@ import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.common.block.reactor.AbstractReactorBlockEntity;
 import com.smashingmods.alchemistry.common.block.reactor.ReactorType;
-import com.smashingmods.alchemistry.common.network.SetRecipePacket;
 import com.smashingmods.alchemistry.common.recipe.fusion.FusionRecipe;
 import com.smashingmods.alchemistry.registry.BlockEntityRegistry;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
@@ -250,12 +249,10 @@ public class FusionControllerBlockEntity extends AbstractReactorBlockEntity {
         this.recipeId = ResourceLocation.tryParse(pTag.getStringOr("recipeId", ""));
         setAutoBalanced(pTag.getBooleanOr("autoBalanced", false));
         if (level != null && level.isClientSide()) {
-            RecipeRegistry.getFusionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(recipe -> {
-                if (!recipe.equals(currentRecipe)) {
-                    setRecipe(recipe);
-                    Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(getBlockPos(), recipe.getId(), recipe.getGroup()));
-                }
-            });
+            // Display-only mirror of the server's recipe; the SetRecipePacket echo this used to send was
+            // redundant (onLoad restores the server's recipe from its own save) and would now fabricate a
+            // player "selection" on a machine that has no recipe selector.
+            RecipeRegistry.getFusionRecipe(recipe -> recipe.getId().equals(recipeId), level).ifPresent(this::setRecipe);
         }
     }
 

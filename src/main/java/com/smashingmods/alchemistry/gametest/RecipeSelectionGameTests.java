@@ -14,6 +14,7 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -194,6 +195,42 @@ public class RecipeSelectionGameTests {
         });
     }
 
+    /**
+     * The lock's slot validation must screen by INGREDIENT only and leave counts to the insertion
+     * layer. It used to also bound the inserted count by the target slot's max stack size -- but an
+     * empty slot reports {@code ItemStack.EMPTY.getMaxStackSize() == 1}, so a locked combiner
+     * refused every stack of 2+ items into an empty slot (shift-clicks and stack left-clicks
+     * bounced whole, top-ups were all-or-nothing). Locks a sapling recipe on an empty grid, then
+     * asserts a full 64-stack of the recipe's own ingredient inserts (a partial fill is fine --
+     * capping is the insertion layer's job, refusing was the bug) while a foreign item still
+     * bounces in full.
+     */
+    @GameTest(template = "loadsemptytemplate")
+    @PrefixGameTestTemplate(false)
+    public void lockedCombinerAcceptsFullStackOfItsIngredient(GameTestHelper helper) {
+        CombinerBlockEntity combiner = placeCombiner(helper);
+        CombinerRecipe locked = combinerRecipe(helper, JUNGLE_SAPLING_RECIPE);
+
+        SetRecipePacket.applyRecipeSelection(helper.getLevel(), combiner.getBlockPos(), locked.getGroup(), locked.getId());
+        combiner.setRecipeLocked(true);
+
+        ItemStack fullStack = locked.getInput().get(0).toStacks().get(0).copyWithCount(64);
+        ItemStack remainder = combiner.getInputHandler().insertItem(0, fullStack.copy(), false);
+        helper.assertTrue(remainder.getCount() < fullStack.getCount(),
+                "locked combiner refused a full stack of its own ingredient: " + remainder.getCount()
+                        + " of " + fullStack.getCount() + " bounced");
+
+        ItemStack foreign = new ItemStack(Items.COBBLESTONE, 64);
+        helper.assertTrue(locked.getInput().stream().noneMatch(ingredient -> ingredient.matches(foreign)),
+                "foreign-item precondition failed: " + foreign.getItem() + " is an ingredient of " + locked.getId());
+        ItemStack foreignRemainder = combiner.getInputHandler().insertItem(1, foreign.copy(), false);
+        helper.assertTrue(foreignRemainder.getCount() == foreign.getCount(),
+                "locked combiner accepted an item foreign to its recipe: "
+                        + (foreign.getCount() - foreignRemainder.getCount()) + " inserted");
+
+        helper.succeed();
+    }
+
     // Places a combiner at the structure centre and returns its block-entity, failing the test if either the
     // block or its block-entity is missing.
     private static CombinerBlockEntity placeCombiner(GameTestHelper helper) {
@@ -233,7 +270,7 @@ public class RecipeSelectionGameTests {
     }
 
     // Fills the combiner's input slots with exactly one operation's worth of the recipe's ingredients
-    // (slot i = ingredient i), the layout the recipe-locked slot validation also assumes.
+    // (slot i = ingredient i, the layout the selector and JEI also produce).
     private static void seedInputs(CombinerBlockEntity combiner, CombinerRecipe recipe) {
         List<IngredientStack> inputs = recipe.getInput();
         for (int slot = 0; slot < inputs.size(); slot++) {

@@ -17,8 +17,10 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.transfer.IRecipeTransferHandlerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -177,7 +179,11 @@ public class LiquifierTransferPacket implements AlchemyPacket {
 
     public static class TransferHandler implements IRecipeTransferHandler<LiquifierMenu, LiquifierRecipe> {
 
-        public TransferHandler() {}
+        private final IRecipeTransferHandlerHelper transferHelper;
+
+        public TransferHandler(IRecipeTransferHandlerHelper pTransferHelper) {
+            this.transferHelper = pTransferHelper;
+        }
 
         @Override
         public Class<LiquifierMenu> getContainerClass() {
@@ -196,15 +202,18 @@ public class LiquifierTransferPacket implements AlchemyPacket {
 
         @Override
         public @Nullable IRecipeTransferError transferRecipe(LiquifierMenu pContainer, LiquifierRecipe pRecipe, IRecipeSlotsView pRecipeSlots, Player pPlayer, boolean pMaxTransfer, boolean pDoTransfer) {
+            // Mirror of the server handler's lock guard: the server refuses a transfer that would
+            // change a locked machine's recipe, so the client must not repaint its display recipe
+            // either -- the screen would show the new recipe while the machine runs the locked one.
+            // Sits outside the pDoTransfer branch so JEI's gating pass greys the transfer button,
+            // and returns a user error rather than null -- JEI reads null as success, which left
+            // the button looking alive while the click did nothing.
+            AbstractProcessingBlockEntity blockEntity = pContainer.getBlockEntity();
+            AbstractProcessingRecipe lockedRecipe = blockEntity.getRecipe();
+            if (blockEntity.isRecipeLocked() && (lockedRecipe == null || !lockedRecipe.getId().equals(pRecipe.getId()))) {
+                return transferHelper.createUserErrorWithTooltip(Component.translatable("alchemistry.jei.recipe_locked"));
+            }
             if (pDoTransfer) {
-                // Mirror of the server handler's lock guard: the server refuses a transfer that would
-                // change a locked machine's recipe, so the client must not repaint its display recipe
-                // either -- the screen would show the new recipe while the machine runs the locked one.
-                AbstractProcessingBlockEntity blockEntity = pContainer.getBlockEntity();
-                AbstractProcessingRecipe lockedRecipe = blockEntity.getRecipe();
-                if (blockEntity.isRecipeLocked() && (lockedRecipe == null || !lockedRecipe.getId().equals(pRecipe.getId()))) {
-                    return null;
-                }
                 blockEntity.setRecipe(pRecipe);
                 Alchemistry.PACKET_HANDLER.sendToServer(new LiquifierTransferPacket(blockEntity.getBlockPos(), pRecipe.getInput(), pMaxTransfer));
             }

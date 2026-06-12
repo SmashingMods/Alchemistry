@@ -95,6 +95,7 @@ public class LocalizationGenerator extends LanguageProvider {
         add("alchemistry.jei.dissolver.absolute", "Absolute");
         add("alchemistry.jei.dissolver.type", "Type");
         add("alchemistry.jei.dissolver.rolls", "Rolls");
+        add("alchemistry.jei.recipe_locked", "Machine is locked to another recipe");
         add("alchemistry.jei.elements.description", "All elements (except Hydrogen) can be created with the Fusion Chamber multiblock.\\nThe multiblock accepts 2 elements as input and fuses them together to create a new element equal to the sum of their atomic numbers.\"");
 
         // Flush the Modonomicon guidebook's auto-collected keys (book/category/entry/page names and text).

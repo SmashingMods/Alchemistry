@@ -15,6 +15,8 @@ import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemistry.registry.RecipeSyncHandler;
 import com.smashingmods.alchemistry.registry.Registry;
 import com.smashingmods.alchemylib.api.capability.AlchemyCapabilities;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Style;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -32,6 +34,8 @@ public class Alchemistry {
     @SuppressWarnings("unused")
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "alchemistry";
+    // Mirrors ChemLib.MOD_ID_TEXT_STYLE so both mods' tooltip footers render identically.
+    public static final Style MOD_ID_TEXT_STYLE = Style.EMPTY.withFont(Style.DEFAULT_FONT).withItalic(true).withColor(ChatFormatting.BLUE);
     public static final PacketHandler PACKET_HANDLER = new PacketHandler();
 
     public Alchemistry(IEventBus modEventBus, ModContainer modContainer) {

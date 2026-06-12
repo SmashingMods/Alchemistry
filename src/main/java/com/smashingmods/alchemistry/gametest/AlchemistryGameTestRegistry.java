@@ -97,6 +97,16 @@ public final class AlchemistryGameTestRegistry {
     private static final TestEntry LOCKED_COMBINER_ACCEPTS_FULL_STACK_OF_ITS_INGREDIENT =
             define("locked_combiner_accepts_full_stack_of_its_ingredient", MachineGameTests::lockedCombinerAcceptsFullStackOfItsIngredient, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
 
+    // -- RecipeSelectionGameTests: the recipe-selection contract on the selector machines (combiner + compactor). --
+    private static final TestEntry COMBINER_AUTO_PICK_DETERMINISTIC =
+            define("combiner_auto_pick_deterministic", RecipeSelectionGameTests::combinerAutoPickDeterministic, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+    private static final TestEntry COMBINER_SELECTION_STICKS_THROUGH_PROCESSING =
+            define("combiner_selection_sticks_through_processing", RecipeSelectionGameTests::combinerSelectionSticksThroughProcessing, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+    private static final TestEntry COMPACTOR_SELECTION_STICKS_THROUGH_PROCESSING =
+            define("compactor_selection_sticks_through_processing", RecipeSelectionGameTests::compactorSelectionSticksThroughProcessing, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+    private static final TestEntry COMBINER_RESELECT_MID_PROCESSING_TAKES_EFFECT =
+            define("combiner_reselect_mid_processing_takes_effect", RecipeSelectionGameTests::combinerReselectMidProcessingTakesEffect, EMPTY_TEMPLATE, DEFAULT_MAX_TICKS);
+
     // -- FluidMachineGameTests: the fluid I/O seam (liquifier item->fluid, atomizer fluid->item). --
     private static final TestEntry LIQUIFIER_PROCESSES_ITEM_TO_FLUID =
             define("liquifier_processes_item_to_fluid", FluidMachineGameTests::liquifierProcessesItemToFluid, EMPTY_TEMPLATE, LIQUIFIER_MAX_TICKS);

@@ -149,11 +149,13 @@ public class CombinerBlockEntity extends AbstractSearchableBlockEntity {
                     // formula order, the recipe stores them in declared order -- so validating slot index
                     // against ingredient index rejected re-adding the recipe's own ingredients. The recipe
                     // match and the processing debit both scan the slots per ingredient, so placement
-                    // order never matters to them either. The stack-size bound keeps an insertion from
-                    // overfilling the slot it lands in.
+                    // order never matters to them either. Deliberately no count bound: the insertion layer
+                    // already caps counts gracefully (ItemStackHandler#insertItem returns the overflow, the
+                    // menu's Slot logic tops up to the stack limit), whereas bounding by the TARGET slot's
+                    // max stack size here refused every stack of 2+ items into an empty slot --
+                    // ItemStack.EMPTY.getMaxStackSize() is 1.
                     List<IngredientStack> ingredients = currentRecipe.getInput();
-                    return ingredients.stream().anyMatch(ingredient -> ingredient.matches(pItemStack))
-                            && (getStackInSlot(pSlot).getCount() + pItemStack.getCount() <= getStackInSlot(pSlot).getMaxStackSize());
+                    return ingredients.stream().anyMatch(ingredient -> ingredient.matches(pItemStack));
                 }
                 return super.isItemValid(pSlot, pItemStack);
             }

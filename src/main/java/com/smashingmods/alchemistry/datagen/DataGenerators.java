@@ -35,6 +35,7 @@ public class DataGenerators {
         pEvent.addProvider(LootTableGenerator.create(packOutput, lookupProvider));
         pEvent.addProvider(new BlockTagGenerator(packOutput, lookupProvider));
         pEvent.addProvider(new GameTestStructureProvider(packOutput));
+        pEvent.addProvider(new GameTestRegistriesProvider(packOutput, lookupProvider));
         pEvent.addProvider(NeoBookProvider.of(pEvent, new AlchemistryBook(Alchemistry.MODID, enUsCache)));
         pEvent.addProvider(new AlchemistryMultiblockProvider(packOutput));
         // Registered after the book provider so the cache is fully populated when this provider runs (the data

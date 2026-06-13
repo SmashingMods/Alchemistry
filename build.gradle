@@ -357,6 +357,12 @@ jar {
     exclude 'data/alchemistry/structure/loadsemptytemplate.nbt'
     exclude 'data/alchemistry/structure/reactor_space.nbt'
 
+    // And the gametest datapack-registry entries: GameTestRegistriesProvider emits the test_environment + test_instance
+    // JSON the gameTestServer run loads, but they too are test-only scaffolding. These registries are gametest-specific,
+    // so the whole namespaced directory is excluded.
+    exclude 'data/alchemistry/test_environment/**'
+    exclude 'data/alchemistry/test_instance/**'
+
     manifest {
         attributes([
                 "Specification-Title"     : "$archivesBaseName",

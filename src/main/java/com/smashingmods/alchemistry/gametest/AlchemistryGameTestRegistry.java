@@ -1,7 +1,6 @@
 package com.smashingmods.alchemistry.gametest;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.FunctionGameTestInstance;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -10,7 +9,6 @@ import net.minecraft.gametest.framework.TestEnvironmentDefinition;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.event.RegisterGameTestsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -31,14 +29,24 @@ import static com.smashingmods.alchemistry.Alchemistry.MODID;
  *   <li>a <b>test environment</b> -- a {@link TestEnvironmentDefinition} that sets up/tears down the world for a
  *       batch; an empty {@link TestEnvironmentDefinition.AllOf} is a no-op, which is all these tests need;</li>
  *   <li>a <b>test instance</b> -- a {@link FunctionGameTestInstance} pairing the function key with a
- *       {@link TestData} (the structure to load plus run parameters: tick budget, required flag), registered into
- *       the {@code TEST_INSTANCE} datapack registry.</li>
+ *       {@link TestData} (the structure to load plus run parameters: tick budget, required flag), held in the
+ *       {@code TEST_INSTANCE} datapack registry.</li>
  * </ul>
  *
- * <p>NeoForge surfaces the environment + instance registration through {@link RegisterGameTestsEvent} (mod bus); the
- * function registry is a plain built-in registry a {@link DeferredRegister} can append to. The {@code gameTestServer}
- * run launches with no test selection, so it runs every non-manual instance registered here. Each test is registered
- * with {@code required = true}, so a single failure fails the gate.</p>
+ * <p>The function registry is a plain built-in registry a {@link DeferredRegister} appends to at mod-construction
+ * time, so it is populated here. The environment and instances, by contrast, live in the {@code TEST_ENVIRONMENT}
+ * and {@code TEST_INSTANCE} <i>datapack</i> registries: they ship as generated JSON under
+ * {@code data/alchemistry/test_environment/} and {@code data/alchemistry/test_instance/} (emitted by
+ * {@link com.smashingmods.alchemistry.datagen.GameTestRegistriesProvider} from the {@link #tests()} list below) and
+ * are loaded from the data pack like any other datapack-registry entry. The {@code gameTestServer} run launches with
+ * no test selection, so it runs every non-manual instance the data pack contributes. Each instance is generated with
+ * {@code required = true}, so a single failure fails the gate.</p>
+ *
+ * <p>Datapack JSON is deliberately the only registration path: NeoForge's {@code RegisterGameTestsEvent} re-fires on
+ * a normal dedicated server <i>after</i> its datapack registries have frozen (via
+ * {@code ServerLifecycleHooks.handleServerStarting}), so a runtime {@code event.registerEnvironment(...)} there throws
+ * "Registry is already frozen" and crashes the server. Shipping the entries as data sidesteps the event entirely:
+ * they are populated while the registries are still writable and are inert on a normal server.</p>
  *
  * <p>The structures are the staged all-air boxes from {@link GameTestStructureProvider}: a 3x3x3
  * {@code alchemistry:loadsemptytemplate} for the single-block and data-only tests, and a 9x9x9
@@ -51,8 +59,9 @@ public final class AlchemistryGameTestRegistry {
     private AlchemistryGameTestRegistry() {}
 
     // The empty no-op environment every Alchemistry test runs in: no game-rule tweaks, time-of-day, or weather, since
-    // these tests drive block-entities and data directly rather than depending on world conditions.
-    private static final ResourceLocation ENVIRONMENT_ID = ResourceLocation.fromNamespaceAndPath(MODID, "default");
+    // these tests drive block-entities and data directly rather than depending on world conditions. Shared with the
+    // datagen provider, which emits the matching test_environment JSON and points every instance's TestData at it.
+    public static final ResourceLocation ENVIRONMENT_ID = ResourceLocation.fromNamespaceAndPath(MODID, "default");
 
     // The two staged structures (see GameTestStructureProvider): a 3x3x3 air box for the single-block / data-only
     // tests and a 9x9x9 air box with room for a 5x5x5 reactor shell.
@@ -132,19 +141,15 @@ public final class AlchemistryGameTestRegistry {
             define("removal_before_tick_does_not_throw", ReactorGameTests::removalBeforeTickDoesNotThrow, REACTOR_TEMPLATE, DEFAULT_MAX_TICKS);
 
     public static void register(IEventBus modEventBus) {
+        // Only the function bodies register at runtime; the environment and instances ship as datapack JSON (see the
+        // class javadoc) so nothing touches the frozen TEST_ENVIRONMENT/TEST_INSTANCE registries on a normal server.
         TEST_FUNCTIONS.register(modEventBus);
-        modEventBus.addListener(AlchemistryGameTestRegistry::registerGameTests);
     }
 
-    // Registers the no-op environment, then one FunctionGameTestInstance per declared test, each pinned to its
-    // structure and tick budget and marked required so a failure fails the gate.
-    private static void registerGameTests(RegisterGameTestsEvent event) {
-        Holder<TestEnvironmentDefinition> environment = event.registerEnvironment(ENVIRONMENT_ID, new TestEnvironmentDefinition.AllOf());
-        for (TestEntry entry : TESTS) {
-            TestData<Holder<TestEnvironmentDefinition>> data =
-                    new TestData<>(environment, entry.structure(), entry.maxTicks(), 0, true);
-            event.registerTest(entry.instanceId(), new FunctionGameTestInstance(entry.functionKey(), data));
-        }
+    // The declared tests, for the datagen provider that emits the test_environment + test_instance JSON. Read after
+    // class init (every TestEntry is created by a static define(...) call above), so the list is fully populated.
+    public static List<TestEntry> tests() {
+        return TESTS;
     }
 
     // Registers a test body to TEST_FUNCTION and records it for instance registration. The function and instance share
@@ -157,16 +162,17 @@ public final class AlchemistryGameTestRegistry {
     }
 
     // One gametest: the DeferredHolder for its body (whose key both feeds the FunctionGameTestInstance and names the
-    // instance) plus the structure and tick budget the instance runs under.
-    private record TestEntry(DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> function,
-                             ResourceLocation structure, int maxTicks) {
+    // instance) plus the structure and tick budget the instance runs under. Public so the datagen provider can read
+    // each entry's id, function key, structure, and tick budget when emitting the test_instance JSON.
+    public record TestEntry(DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> function,
+                            ResourceLocation structure, int maxTicks) {
 
-        ResourceKey<Consumer<GameTestHelper>> functionKey() {
+        public ResourceKey<Consumer<GameTestHelper>> functionKey() {
             return function.getKey();
         }
 
         // The test instance is keyed by the same id as its function, so the gameTestServer log names it modid:name.
-        ResourceLocation instanceId() {
+        public ResourceLocation instanceId() {
             return function.getId();
         }
     }

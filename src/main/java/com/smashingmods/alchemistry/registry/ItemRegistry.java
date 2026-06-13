@@ -16,7 +16,9 @@ public class ItemRegistry {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
     public static void fromBlock(DeferredHolder<Block, ? extends Block> block) {
-        ITEMS.registerItem(block.getId().getPath(), properties -> new AlchemistryBlockItem(block.get(), properties), new Item.Properties());
+        // Without useBlockDescriptionPrefix, a BlockItem bakes an item.alchemistry.* description id (since 1.21.2),
+        // but the generated lang only defines block.alchemistry.* keys.
+        ITEMS.registerItem(block.getId().getPath(), properties -> new AlchemistryBlockItem(block.get(), properties), new Item.Properties().useBlockDescriptionPrefix());
     }
 
     public static List<Item> getItems() {

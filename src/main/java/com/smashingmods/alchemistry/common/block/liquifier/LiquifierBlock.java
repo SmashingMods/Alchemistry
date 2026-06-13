@@ -1,12 +1,18 @@
 package com.smashingmods.alchemistry.common.block.liquifier;
 
+import com.smashingmods.alchemistry.Config;
+import com.smashingmods.alchemistry.common.block.TooltipBlock;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -22,8 +28,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nonnull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.function.Consumer;
 
-public class LiquifierBlock extends AbstractProcessingBlock {
+public class LiquifierBlock extends AbstractProcessingBlock implements TooltipBlock {
 
     public LiquifierBlock(BlockBehaviour.Properties pProperties) {
         super(LiquifierBlockEntity::new, pProperties);
@@ -43,6 +50,11 @@ public class LiquifierBlock extends AbstractProcessingBlock {
     @SuppressWarnings("deprecation")
     public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return SHAPE;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pFlag) {
+        pTooltipAdder.accept(Component.translatable("tooltip.alchemistry.energy_requirement", Config.Common.liquifierEnergyPerTick.get()));
     }
 
     @Override

@@ -4,8 +4,10 @@ import com.smashingmods.alchemistry.Config;
 import com.smashingmods.alchemistry.common.block.atomizer.AtomizerBlock;
 import com.smashingmods.alchemistry.common.block.combiner.CombinerBlock;
 import com.smashingmods.alchemistry.common.block.compactor.CompactorBlock;
+import com.smashingmods.alchemistry.common.block.dissolver.DissolverBlock;
 import com.smashingmods.alchemistry.common.block.fission.FissionControllerBlock;
 import com.smashingmods.alchemistry.common.block.fusion.FusionControllerBlock;
+import com.smashingmods.alchemistry.common.block.liquifier.LiquifierBlock;
 import com.smashingmods.alchemistry.testsupport.BootstrappedTest;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.MappedRegistry;
@@ -62,8 +64,10 @@ class EnergyRequirementTooltipTest extends BootstrappedTest {
     private static final int ATOMIZER_FE = 11;
     private static final int COMBINER_FE = 22;
     private static final int COMPACTOR_FE = 33;
-    private static final int FISSION_FE = 44;
-    private static final int FUSION_FE = 55;
+    private static final int DISSOLVER_FE = 44;
+    private static final int FISSION_FE = 55;
+    private static final int FUSION_FE = 66;
+    private static final int LIQUIFIER_FE = 77;
 
     @BeforeAll
     static void prepareConfigAndRegistries() {
@@ -77,8 +81,10 @@ class EnergyRequirementTooltipTest extends BootstrappedTest {
         primeConfigValue(Config.Common.atomizerEnergyPerTick, ATOMIZER_FE);
         primeConfigValue(Config.Common.combinerEnergyPerTick, COMBINER_FE);
         primeConfigValue(Config.Common.compactorEnergyPerTick, COMPACTOR_FE);
+        primeConfigValue(Config.Common.dissolverEnergyPerTick, DISSOLVER_FE);
         primeConfigValue(Config.Common.fissionEnergyPerTick, FISSION_FE);
         primeConfigValue(Config.Common.fusionEnergyPerTick, FUSION_FE);
+        primeConfigValue(Config.Common.liquifierEnergyPerTick, LIQUIFIER_FE);
     }
 
     @Test
@@ -97,6 +103,11 @@ class EnergyRequirementTooltipTest extends BootstrappedTest {
     }
 
     @Test
+    void dissolver_energyTooltipFeedsTheArg() {
+        assertEnergyArg(new DissolverBlock(machineProperties("dissolver")), DISSOLVER_FE);
+    }
+
+    @Test
     void fissionController_energyTooltipFeedsTheArg() {
         assertEnergyArg(new FissionControllerBlock(machineProperties("fission_chamber_controller")), FISSION_FE);
     }
@@ -104,6 +115,11 @@ class EnergyRequirementTooltipTest extends BootstrappedTest {
     @Test
     void fusionController_energyTooltipFeedsTheArg() {
         assertEnergyArg(new FusionControllerBlock(machineProperties("fusion_chamber_controller")), FUSION_FE);
+    }
+
+    @Test
+    void liquifier_energyTooltipFeedsTheArg() {
+        assertEnergyArg(new LiquifierBlock(machineProperties("liquifier")), LIQUIFIER_FE);
     }
 
     // The standard machine properties with the block id set, which BlockBehaviour's constructor needs (it resolves

@@ -5,8 +5,6 @@ import com.smashingmods.alchemistry.common.block.TooltipBlock;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -53,7 +51,7 @@ public class CompactorBlock extends AbstractProcessingBlock implements TooltipBl
 
     @Override
     public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, TooltipDisplay pTooltipDisplay, Consumer<Component> pTooltipAdder, TooltipFlag pFlag) {
-        pTooltipAdder.accept(MutableComponent.create(new TranslatableContents("tooltip.alchemistry.energy_requirement", String.valueOf(Config.Common.compactorEnergyPerTick.get()), TranslatableContents.NO_ARGS)));
+        pTooltipAdder.accept(Component.translatable("tooltip.alchemistry.energy_requirement", Config.Common.compactorEnergyPerTick.get()));
     }
 
     @Override

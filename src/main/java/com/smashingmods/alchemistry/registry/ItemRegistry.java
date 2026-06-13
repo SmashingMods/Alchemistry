@@ -16,9 +16,17 @@ public class ItemRegistry {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
     public static void fromBlock(DeferredHolder<Block, ? extends Block> block) {
-        // Without useBlockDescriptionPrefix, a BlockItem bakes an item.alchemistry.* description id (since 1.21.2),
-        // but the generated lang only defines block.alchemistry.* keys.
-        ITEMS.registerItem(block.getId().getPath(), properties -> new AlchemistryBlockItem(block.get(), properties), new Item.Properties().useBlockDescriptionPrefix());
+        ITEMS.registerItem(block.getId().getPath(), properties -> new AlchemistryBlockItem(block.get(), properties), blockItemProperties());
+    }
+
+    /**
+     * The {@link Item.Properties} every Alchemistry block-item registers with. Without
+     * {@code useBlockDescriptionPrefix} a BlockItem bakes an {@code item.alchemistry.*} description id (since
+     * 1.21.2), but the generated lang only defines {@code block.alchemistry.*} keys, so the prefix is what makes
+     * the names resolve.
+     */
+    static Item.Properties blockItemProperties() {
+        return new Item.Properties().useBlockDescriptionPrefix();
     }
 
     public static List<Item> getItems() {

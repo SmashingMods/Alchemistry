@@ -1,0 +1,41 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/carrot"
+      }
+    }
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/carrot"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 20.0,
+        "results": [
+          {
+            "item": "chemlib:beta_carotene"
+          }
+        ]
+      },
+      {
+        "probability": 80.0,
+        "results": [
+          {
+            "item": "minecraft:air"
+          }
+        ]
+      }
+    ],
+    "rolls": 9,
+    "weighted": false
+  }
+}

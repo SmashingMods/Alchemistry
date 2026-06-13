@@ -1,6 +1,5 @@
 package com.smashingmods.alchemistry.client.container;
 
-import com.smashingmods.alchemistry.Alchemistry;
 import com.smashingmods.alchemistry.common.network.SetSideConfigurationPacket;
 import com.smashingmods.alchemylib.AlchemyLib;
 import com.smashingmods.alchemylib.api.storage.SideMode;
@@ -12,6 +11,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
 
 import javax.annotation.Nullable;
@@ -21,8 +21,8 @@ import java.util.Locale;
 
 class SideConfigButton extends AbstractWidget {
 
-    private static final ResourceLocation ICONS_LOCATION = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
-    private static final ResourceLocation BARRIER_LOCATION = new ResourceLocation("minecraft", "textures/item/barrier.png");
+    private static final ResourceLocation ICONS_LOCATION = AlchemyLib.modLoc("textures/gui/widgets.png");
+    private static final ResourceLocation BARRIER_LOCATION = ResourceLocation.withDefaultNamespace("textures/item/barrier.png");
     private final SideModeScreen<?> parentScreen;
     @Nullable
     private final Direction side;
@@ -91,7 +91,7 @@ class SideConfigButton extends AbstractWidget {
         }
         SideMode newMode = SideMode.getFromOrdinal(ordinal);
         parentScreen.getInventory().setSideMode(side, newMode);
-        Alchemistry.PACKET_HANDLER.sendToServer(new SetSideConfigurationPacket(parentScreen.getBlockEntity().getBlockPos(), parentScreen.getInventory().sideModesToShort()));
+        PacketDistributor.sendToServer(new SetSideConfigurationPacket(parentScreen.getBlockEntity().getBlockPos(), parentScreen.getInventory().sideModesToShort()));
         tooltip.set(2, getCurrentModeComponent());
     }
 

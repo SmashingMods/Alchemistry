@@ -1,65 +1,63 @@
 package com.smashingmods.alchemistry.common.recipe.atomizer;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import net.minecraft.network.FriendlyByteBuf;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.smashingmods.alchemistry.Alchemistry;
+import com.smashingmods.alchemistry.common.recipe.RecipeCodecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Objects;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class AtomizerRecipeSerializer<T extends AtomizerRecipe> implements RecipeSerializer<T> {
 
+    private static int parseCount = 0;
+
     private final IFactory<T> factory;
+    private final MapCodec<T> codec;
+    private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
 
     public AtomizerRecipeSerializer(IFactory<T> pFactory) {
         this.factory = pFactory;
+        this.codec = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Codec.STRING.optionalFieldOf("group", "atomizer").forGetter(AtomizerRecipe::getGroup),
+                RecipeCodecs.LEGACY_FLUID_STACK_CODEC.fieldOf("input").forGetter(AtomizerRecipe::getInput),
+                RecipeCodecs.LEGACY_ITEM_STACK_CODEC.fieldOf("result").forGetter(AtomizerRecipe::getOutput)
+        ).apply(instance, (group, input, output) -> {
+            int n = ++parseCount;
+            Alchemistry.LOGGER.info("[Alchemistry] AtomizerSerializer parsed recipe #{}: group={} input={} output={}", n, group, input, output);
+            return this.factory.create(null, group, input, output);
+        }));
+        this.streamCodec = StreamCodec.composite(
+                ByteBufCodecs.STRING_UTF8,
+                AtomizerRecipe::getGroup,
+                FluidStack.STREAM_CODEC,
+                AtomizerRecipe::getInput,
+                ItemStack.STREAM_CODEC,
+                AtomizerRecipe::getOutput,
+                (group, input, output) -> {
+                    Alchemistry.LOGGER.info("[Alchemistry] AtomizerSerializer streamCodec decoded: group={} input={} output={}", group, input, output);
+                    return this.factory.create(null, group, input, output);
+                }
+        );
     }
 
     @Override
-    public T fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-
-        String recipeGroup = pSerializedRecipe.has("group") ? pSerializedRecipe.get("group").getAsString() : "atomizer";
-
-        if (!pSerializedRecipe.has("input")) {
-            throw new JsonSyntaxException("Missing input, expected to find an object.");
-        }
-
-        JsonObject inputObject = pSerializedRecipe.getAsJsonObject("input");
-        ResourceLocation fluidLocation = new ResourceLocation(inputObject.get("fluid").getAsString());
-        int fluidAmount = inputObject.has("amount") ? inputObject.get("amount").getAsInt() : 1000;
-        FluidStack input = new FluidStack(Objects.requireNonNull(ForgeRegistries.FLUIDS.getValue(fluidLocation)), fluidAmount);
-
-        if (!pSerializedRecipe.has("result")) {
-            throw new JsonSyntaxException("Missing result, expected to find a string or object.");
-        }
-
-        ItemStack output = ShapedRecipe.itemStackFromJson(pSerializedRecipe.getAsJsonObject("result"));
-        return this.factory.create(pRecipeId, recipeGroup, input, output);
+    public MapCodec<T> codec() {
+        return codec;
     }
 
     @Override
-    public T fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-        String recipeGroup = pBuffer.readUtf(Short.MAX_VALUE);
-        FluidStack input = pBuffer.readFluidStack();
-        ItemStack output = pBuffer.readItem();
-        return this.factory.create(pRecipeId, recipeGroup, input, output);
+    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+        return streamCodec;
     }
 
-    @Override
-    public void toNetwork(FriendlyByteBuf pBuffer, T pRecipe) {
-        pBuffer.writeUtf(pRecipe.getGroup());
-        pBuffer.writeFluidStack(pRecipe.getInput());
-        pBuffer.writeItem(pRecipe.getOutput());
-    }
-
-    public interface IFactory<T extends Recipe<Inventory>> {
+    public interface IFactory<T extends Recipe<?>> {
         T create(ResourceLocation resource, String group, FluidStack input, ItemStack output);
     }
 }

@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:hydroxylapatite"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 5,
+            "item": "chemlib:calcium"
+          },
+          {
+            "count": 6,
+            "item": "chemlib:phosphate"
+          },
+          {
+            "count": 2,
+            "item": "chemlib:hydroxide"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

@@ -3,10 +3,10 @@ package com.smashingmods.alchemistry.common.recipe.combiner;
 import com.smashingmods.alchemistry.registry.RecipeRegistry;
 import com.smashingmods.alchemylib.api.item.IngredientStack;
 import com.smashingmods.alchemylib.api.recipe.AbstractProcessingRecipe;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import org.jetbrains.annotations.NotNull;
@@ -38,12 +38,12 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
     }
 
     @Override
-    public ItemStack assemble(Inventory pContainer, RegistryAccess pRegistryAccess) {
+    public ItemStack assemble(RecipeInput recipeInput, HolderLookup.Provider provider) {
         return output;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         return output;
     }
 
@@ -54,7 +54,7 @@ public class CombinerRecipe extends AbstractProcessingRecipe {
 
     @Override
     public int compareTo(@NotNull AbstractProcessingRecipe pRecipe) {
-        return getId().compareTo(pRecipe.getId());
+        return safeCompareIds(pRecipe);
     }
 
     @Override

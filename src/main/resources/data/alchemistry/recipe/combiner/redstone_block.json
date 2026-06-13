@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "chemlib:strontium_carbonate"
+      }
+    },
+    {
+      "count": 9,
+      "ingredient": {
+        "item": "chemlib:iron_oxide"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:redstone_block"
+  }
+}

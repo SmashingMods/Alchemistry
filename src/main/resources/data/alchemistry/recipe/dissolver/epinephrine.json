@@ -1,0 +1,36 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "item": "chemlib:epinephrine"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 100.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:carbon"
+          },
+          {
+            "count": 13,
+            "item": "chemlib:hydrogen"
+          },
+          {
+            "item": "chemlib:nitrogen"
+          },
+          {
+            "count": 3,
+            "item": "chemlib:oxygen"
+          }
+        ]
+      }
+    ],
+    "rolls": 1,
+    "weighted": false
+  }
+}

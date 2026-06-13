@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 5,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:hydroxide"
+      }
+    },
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:ethanol"
+  }
+}

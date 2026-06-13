@@ -1,0 +1,93 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Client",
+      "presentation": {
+        "group": "Mod Development - Alchemistry-1211",
+        "order": 0
+      },
+      "projectName": "Alchemistry-1211",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\clientRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\clientRunVmArgs.txt",
+        "-Dfml.modFolders\u003dalchemistry%%D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Data",
+      "presentation": {
+        "group": "Mod Development - Alchemistry-1211",
+        "order": 1
+      },
+      "projectName": "Alchemistry-1211",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\dataRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\dataRunVmArgs.txt",
+        "-Dfml.modFolders\u003dalchemistry%%D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "GameTestServer",
+      "presentation": {
+        "group": "Mod Development - Alchemistry-1211",
+        "order": 2
+      },
+      "projectName": "Alchemistry-1211",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\gameTestServerRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\gameTestServerRunVmArgs.txt",
+        "-Dfml.modFolders\u003dalchemistry%%D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    },
+    {
+      "type": "java",
+      "request": "launch",
+      "name": "Server",
+      "presentation": {
+        "group": "Mod Development - Alchemistry-1211",
+        "order": 3
+      },
+      "projectName": "Alchemistry-1211",
+      "mainClass": "net.neoforged.devlaunch.Main",
+      "args": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\serverRunProgramArgs.txt"
+      ],
+      "vmArgs": [
+        "@D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\build\\moddev\\serverRunVmArgs.txt",
+        "-Dfml.modFolders\u003dalchemistry%%D:\\Proy. Independientes\\Mods de Minecraft\\Alchemistry-1211\\bin\\main"
+      ],
+      "cwd": "${workspaceFolder}\\run",
+      "env": {},
+      "console": "internalConsole",
+      "shortenCommandLine": "none"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:hydroxide"
+  }
+}

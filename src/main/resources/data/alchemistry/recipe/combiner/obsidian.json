@@ -1,0 +1,33 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:aluminum_oxide"
+      }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:potassium_chloride"
+      }
+    },
+    {
+      "count": 24,
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:magnesium_oxide"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:obsidian"
+  }
+}

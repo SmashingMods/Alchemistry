@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:chromium"
+  },
+  "input2": {
+    "item": "chemlib:mercury"
+  },
+  "output": {
+    "item": "chemlib:rutherfordium"
+  }
+}

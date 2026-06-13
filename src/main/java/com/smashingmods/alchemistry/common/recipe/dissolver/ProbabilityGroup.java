@@ -1,84 +1,71 @@
 package com.smashingmods.alchemistry.common.recipe.dissolver;
 
-import com.google.common.collect.Lists;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import net.minecraft.network.FriendlyByteBuf;
+import com.mojang.datafixers.util.Either;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.smashingmods.alchemistry.common.recipe.RecipeCodecs;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class ProbabilityGroup {
+public record ProbabilityGroup(List<ItemStack> output, double probability) {
+    private static final Codec<ItemStack> ITEM_STACK_COMPAT_CODEC = Codec.either(
+            RecipeCodecs.LEGACY_ITEM_STACK_CODEC,
+            ItemStack.CODEC
+    ).xmap(either -> either.map(stack -> stack, stack -> stack), Either::right);
 
-    private final List<ItemStack> output;
-    private final double probability;
+    // Stream codec that filters out empty ItemStacks before encoding (1.20.1 recipes use minecraft:air for "no result")
+    private static final StreamCodec<RegistryFriendlyByteBuf, List<ItemStack>> NON_EMPTY_ITEM_LIST_STREAM_CODEC =
+            StreamCodec.of(
+                    (buf, list) -> ItemStack.LIST_STREAM_CODEC.encode(buf, list.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList())),
+                    ItemStack.LIST_STREAM_CODEC::decode
+            );
 
-    public ProbabilityGroup(List<ItemStack> pOutput, double pProbability) {
-        this.output = pOutput;
-        this.probability = pProbability;
-    }
+    public static final StreamCodec<RegistryFriendlyByteBuf, ProbabilityGroup> STREAM_CODEC = StreamCodec.composite(
+            NON_EMPTY_ITEM_LIST_STREAM_CODEC,
+            ProbabilityGroup::output,
+
+            ByteBufCodecs.DOUBLE,
+            ProbabilityGroup::probability,
+            
+            ProbabilityGroup::new);
+    public static final MapCodec<ProbabilityGroup> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+                // Filter empty ItemStacks (minecraft:air used in 1.20.1 as "no result")
+                ITEM_STACK_COMPAT_CODEC.listOf()
+                    .xmap(
+                        list -> list.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList()),
+                        list -> list
+                    )
+                    .fieldOf("results").forGetter(ProbabilityGroup::output),
+            Codec.DOUBLE.fieldOf("probability").forGetter(ProbabilityGroup::probability)).apply(inst, ProbabilityGroup::new));
+    public static final StreamCodec<RegistryFriendlyByteBuf, List<ProbabilityGroup>> LIST_STREAM_CODEC = STREAM_CODEC.apply(ByteBufCodecs.collection(NonNullList::createWithCapacity));
 
     public ProbabilityGroup(List<ItemStack> pOutput) {
-        this.output = pOutput;
-        this.probability = 100;
+        this(pOutput, 100);
     }
 
-    public List<ItemStack> getOutput() {
-        return this.output;
-    }
+    public static ProbabilityGroup createSafety(List<ItemStack> outputs, double probability) {
+        List<ItemStack> output = new ArrayList<>();
 
-    public double getProbability() {
-        return this.probability;
-    }
-
-    public JsonElement serialize() {
-        JsonObject output = new JsonObject();
-        output.add("probability", new JsonPrimitive(probability));
-        JsonArray results = new JsonArray();
-
-        for (ItemStack itemStack : this.output) {
+        for (ItemStack itemStack : outputs) {
 
             int count = itemStack.getCount();
 
             while (count > 64) {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.add("item", new JsonPrimitive(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemStack.getItem())).toString()));
-                jsonObject.add("count", new JsonPrimitive(64));
-                results.add(jsonObject);
+                output.add(new ItemStack(itemStack.getItem(), 64));
                 count -= 64;
             }
 
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.add("item", new JsonPrimitive(Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(itemStack.getItem())).toString()));
-
-            if (count > 1) {
-                jsonObject.add("count", new JsonPrimitive(count));
-            }
-            results.add(jsonObject);
+            output.add(new ItemStack(itemStack.getItem(), Math.max(count, 1)));
         }
-        output.add("results", results);
-        return output;
-    }
-
-    public void toNetwork(FriendlyByteBuf buf) {
-        buf.writeInt(output.size());
-        for (ItemStack stack : output) {
-            buf.writeItemStack(stack, false);
-        }
-        buf.writeDouble(probability);
-    }
-
-    public static ProbabilityGroup fromNetwork(FriendlyByteBuf buf) {
-        List<ItemStack> stacks = Lists.newArrayList();
-        int size = buf.readInt();
-        for (int i = 0; i < size; i++) {
-            stacks.add(buf.readItem());
-        }
-        double probability = buf.readDouble();
-        return new ProbabilityGroup(stacks, probability);
+        
+        return new ProbabilityGroup(output, probability);
     }
 }

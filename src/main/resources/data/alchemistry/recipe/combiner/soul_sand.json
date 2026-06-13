@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 4,
+      "ingredient": {
+        "item": "chemlib:silicon_dioxide"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:thulium"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:soul_sand"
+  }
+}

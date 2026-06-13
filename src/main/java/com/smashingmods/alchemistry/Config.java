@@ -2,8 +2,7 @@ package com.smashingmods.alchemistry;
 
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.nio.file.Path;
@@ -11,10 +10,10 @@ import java.nio.file.Path;
 public class Config {
 
     public static final Common COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
 
     static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        final Pair<Common, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Common::new);
         COMMON = specPair.getLeft();
         COMMON_SPEC = specPair.getRight();
     }
@@ -29,37 +28,37 @@ public class Config {
         private static final String categoryFission = "fission";
         private static final String categoryFusion = "fusion";
 
-        public static IntValue atomizerEnergyCapacity;
-        public static IntValue atomizerEnergyPerTick;
-        public static IntValue atomizerTicksPerOperation;
-        public static IntValue atomizerFluidCapacity;
+        public static ModConfigSpec.IntValue atomizerEnergyCapacity;
+        public static ModConfigSpec.IntValue atomizerEnergyPerTick;
+        public static ModConfigSpec.IntValue atomizerTicksPerOperation;
+        public static ModConfigSpec.IntValue atomizerFluidCapacity;
 
-        public static IntValue compactorEnergyCapacity;
-        public static IntValue compactorEnergyPerTick;
-        public static IntValue compactorTicksPerOperation;
+        public static ModConfigSpec.IntValue compactorEnergyCapacity;
+        public static ModConfigSpec.IntValue compactorEnergyPerTick;
+        public static ModConfigSpec.IntValue compactorTicksPerOperation;
 
-        public static IntValue combinerEnergyCapacity;
-        public static IntValue combinerEnergyPerTick;
-        public static IntValue combinerTicksPerOperation;
+        public static ModConfigSpec.IntValue combinerEnergyCapacity;
+        public static ModConfigSpec.IntValue combinerEnergyPerTick;
+        public static ModConfigSpec.IntValue combinerTicksPerOperation;
 
-        public static IntValue dissolverEnergyCapacity;
-        public static IntValue dissolverEnergyPerTick;
-        public static IntValue dissolverTicksPerOperation;
+        public static ModConfigSpec.IntValue dissolverEnergyCapacity;
+        public static ModConfigSpec.IntValue dissolverEnergyPerTick;
+        public static ModConfigSpec.IntValue dissolverTicksPerOperation;
 
-        public static IntValue liquifierEnergyCapacity;
-        public static IntValue liquifierEnergyPerTick;
-        public static IntValue liquifierTicksPerOperation;
-        public static IntValue liquifierFluidCapacity;
+        public static ModConfigSpec.IntValue liquifierEnergyCapacity;
+        public static ModConfigSpec.IntValue liquifierEnergyPerTick;
+        public static ModConfigSpec.IntValue liquifierTicksPerOperation;
+        public static ModConfigSpec.IntValue liquifierFluidCapacity;
 
-        public static IntValue fissionEnergyCapacity;
-        public static IntValue fissionEnergyPerTick;
-        public static IntValue fissionTicksPerOperation;
+        public static ModConfigSpec.IntValue fissionEnergyCapacity;
+        public static ModConfigSpec.IntValue fissionEnergyPerTick;
+        public static ModConfigSpec.IntValue fissionTicksPerOperation;
 
-        public static IntValue fusionEnergyCapacity;
-        public static IntValue fusionEnergyPerTick;
-        public static IntValue fusionTicksPerOperation;
+        public static ModConfigSpec.IntValue fusionEnergyCapacity;
+        public static ModConfigSpec.IntValue fusionEnergyPerTick;
+        public static ModConfigSpec.IntValue fusionTicksPerOperation;
 
-        public Common(ForgeConfigSpec.Builder builder) {
+        public Common(ModConfigSpec.Builder builder) {
 
             builder.comment("Chemical Atomizer").push(categoryAtomizer);
             atomizerEnergyCapacity = builder
@@ -176,13 +175,13 @@ public class Config {
         }
     }
 
-    public static void loadConfig(ForgeConfigSpec spec, Path path) {
+    public static void loadConfig(ModConfigSpec spec, Path path) {
         final CommentedFileConfig configData = CommentedFileConfig.builder(path)
                 .sync()
                 .autosave()
                 .writingMode(WritingMode.REPLACE)
                 .build();
         configData.load();
-        spec.setConfig(configData);
+        spec.correct(configData);
     }
 }

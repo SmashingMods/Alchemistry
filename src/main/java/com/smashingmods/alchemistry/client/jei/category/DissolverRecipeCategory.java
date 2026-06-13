@@ -20,8 +20,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -41,12 +39,12 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
 
     @Override
     public Component getTitle() {
-        return MutableComponent.create(new TranslatableContents("alchemistry.jei.dissolver", null, TranslatableContents.NO_ARGS));
+        return Component.translatable("alchemistry.jei.dissolver");
     }
 
     @Override
     public IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Alchemistry.MODID, "textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
+        return guiHelper.createDrawable(Alchemistry.modLoc("textures/gui/dissolver_jei.png"), 0, 0, 150, 150);
     }
 
     @Override
@@ -65,13 +63,13 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         Font font = Minecraft.getInstance().font;
         List<Double> probabilities = new LinkedList<>();
 
-        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> probabilities.add(group.getProbability())));
+        pRecipe.getOutput().probabilityGroups().forEach(group -> group.output().forEach(itemStack -> probabilities.add(group.probability())));
         Collections.sort(probabilities);
         Collections.reverse(probabilities);
 
-        double totalProbability = pRecipe.getOutput().getProbabilityGroups().stream().mapToDouble(ProbabilityGroup::getProbability).sum();
-        boolean weighted = pRecipe.getOutput().isWeighted();
-        int rolls = pRecipe.getOutput().getRolls();
+        double totalProbability = pRecipe.getOutput().probabilityGroups().stream().mapToDouble(ProbabilityGroup::probability).sum();
+        boolean weighted = pRecipe.getOutput().weighted();
+        int rolls = pRecipe.getOutput().rolls();
 
         String typeString = I18n.get("alchemistry.jei.dissolver.type");
         String relativeString = I18n.get("alchemistry.jei.dissolver.relative");
@@ -108,7 +106,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         int yOrigin = 46;
 
         Map<ItemStack, Double> itemProbabilityMap = new HashMap<>();
-        pRecipe.getOutput().getProbabilityGroups().forEach(group -> group.getOutput().forEach(itemStack -> itemProbabilityMap.put(itemStack, group.getProbability())));
+        pRecipe.getOutput().probabilityGroups().forEach(group -> group.output().forEach(itemStack -> itemProbabilityMap.put(itemStack, group.probability())));
 
         List<ItemStack> items = itemProbabilityMap.entrySet().stream()
                 .sorted(Comparator.comparing(Map.Entry<ItemStack, Double>::getValue).reversed())
@@ -128,7 +126,7 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                         } else {
                             pBuilder.addSlot(RecipeIngredientRole.RENDER_ONLY, x, y).addItemStack(new ItemStack(Items.BARRIER)).addTooltipCallback((iRecipeSlotView, list) -> {
                                 list.clear();
-                                list.add(MutableComponent.create(new TranslatableContents("alchemistry.container.nothing", null, TranslatableContents.NO_ARGS)));
+                                list.add(Component.translatable("alchemistry.container.nothing"));
                             });
                         }
                     }
@@ -137,3 +135,4 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
         });
     }
 }
+

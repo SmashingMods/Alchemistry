@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:beryllium"
+  },
+  "input2": {
+    "item": "chemlib:francium"
+  },
+  "output": {
+    "item": "chemlib:protactinium"
+  }
+}

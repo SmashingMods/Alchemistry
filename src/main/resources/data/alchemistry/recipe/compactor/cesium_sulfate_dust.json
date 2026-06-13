@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:cesium_sulfate"
+    }
+  },
+  "result": {
+    "item": "chemlib:cesium_sulfate_dust"
+  }
+}

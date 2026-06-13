@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:graphite"
+    }
+  },
+  "result": {
+    "item": "chemlib:graphite_dust"
+  }
+}

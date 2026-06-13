@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:cobalt"
+  },
+  "input2": {
+    "item": "chemlib:praseodymium"
+  },
+  "output": {
+    "item": "chemlib:radon"
+  }
+}

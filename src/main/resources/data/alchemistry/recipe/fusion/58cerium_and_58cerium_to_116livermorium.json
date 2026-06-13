@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:cerium"
+  },
+  "input2": {
+    "item": "chemlib:cerium"
+  },
+  "output": {
+    "item": "chemlib:livermorium"
+  }
+}

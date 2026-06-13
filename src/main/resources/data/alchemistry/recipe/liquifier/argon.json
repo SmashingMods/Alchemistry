@@ -1,0 +1,14 @@
+{
+  "type": "alchemistry:liquifier",
+  "group": "alchemistry:liquifier",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:argon"
+    }
+  },
+  "result": {
+    "amount": 500,
+    "fluid": "chemlib:argon_fluid"
+  }
+}

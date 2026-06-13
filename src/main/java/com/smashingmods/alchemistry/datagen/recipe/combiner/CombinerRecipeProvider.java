@@ -13,9 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.crafting.ConditionalRecipe;
+import net.neoforged.neoforge.common.crafting.conditions.ICondition;
+import net.neoforged.neoforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -78,8 +78,6 @@ public class CombinerRecipeProvider {
         combiner(Items.MILK_BUCKET, toIngredientStack("calcium", 4), toIngredientStack("protein", 2), toIngredientStack("water", 16), new ItemStack(Items.BUCKET));
         combiner(Items.REDSTONE_BLOCK, toIngredientStack("iron_oxide", 9), toIngredientStack("strontium_carbonate", 9));
         combiner(Items.REDSTONE, toIngredientStack("iron_oxide"), toIngredientStack("strontium_carbonate"));
-
-        // Testing space, if there's anything below this line yell at Tim because he forgot to delete it
     }
 
     private void combiner(ItemLike pOutput, Object ... pInput) {

@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 20,
+      "ingredient": {
+        "item": "chemlib:hydrogen"
+      }
+    },
+    {
+      "count": 10,
+      "ingredient": {
+        "item": "chemlib:oxygen"
+      }
+    },
+    {
+      "count": 12,
+      "ingredient": {
+        "item": "chemlib:carbon"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:starch"
+  }
+}

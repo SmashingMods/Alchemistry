@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:sodium"
+  },
+  "input2": {
+    "item": "chemlib:dubnium"
+  },
+  "output": {
+    "item": "chemlib:livermorium"
+  }
+}

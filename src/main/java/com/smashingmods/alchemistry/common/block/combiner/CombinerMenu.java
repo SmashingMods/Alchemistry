@@ -12,10 +12,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
 import java.util.LinkedList;
-import java.util.Objects;
 
 public class CombinerMenu extends AbstractProcessingMenu {
 
@@ -24,27 +23,26 @@ public class CombinerMenu extends AbstractProcessingMenu {
     private final LinkedList<CombinerRecipe> displayedRecipes = new LinkedList<>();
 
     public CombinerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition())));
     }
 
     protected CombinerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.COMBINER_MENU.get(), pContainerId, pInventory, pBlockEntity, 4, 1);
 
         this.level = pInventory.player.level();
-        this.blockEntity = (CombinerBlockEntity) pBlockEntity;
-        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
-        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
-
-        setupRecipeList();
-        // input 2x2 grid
+        this.blockEntity = (pBlockEntity instanceof CombinerBlockEntity be) ? be : null;
+        ProcessingSlotHandler inputHandler = (this.blockEntity != null) ? this.blockEntity.getInputHandler() : new ProcessingSlotHandler(4);
+        ProcessingSlotHandler outputHandler = (this.blockEntity != null) ? this.blockEntity.getOutputHandler() : new ProcessingSlotHandler(1);
         addSlots(SlotItemHandler::new, inputHandler, 2, 2, 0, inputHandler.getSlots(), 48, 22);
-        // output
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
+        if (this.blockEntity == null) return;
+        setupRecipeList();
     }
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        Objects.requireNonNull(this.getBlockEntity().getLevel());
+        if (pPlayer.isSpectator()) return false;
+        if (this.getBlockEntity() == null) return false;
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), pPlayer, BlockRegistry.COMBINER.get());
     }
 

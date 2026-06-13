@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:molybdenum"
+  },
+  "output1": {
+    "item": "chemlib:scandium"
+  },
+  "output2": {
+    "item": "chemlib:scandium"
+  }
+}

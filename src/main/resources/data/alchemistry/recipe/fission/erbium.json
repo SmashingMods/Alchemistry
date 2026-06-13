@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:erbium"
+  },
+  "output1": {
+    "item": "chemlib:selenium"
+  },
+  "output2": {
+    "item": "chemlib:selenium"
+  }
+}

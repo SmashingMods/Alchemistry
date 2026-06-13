@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:sodium_nitrate"
+    }
+  },
+  "result": {
+    "item": "chemlib:sodium_nitrate_dust"
+  }
+}

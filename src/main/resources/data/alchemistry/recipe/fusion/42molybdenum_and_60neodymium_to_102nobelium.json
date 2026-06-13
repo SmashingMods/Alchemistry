@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:molybdenum"
+  },
+  "input2": {
+    "item": "chemlib:neodymium"
+  },
+  "output": {
+    "item": "chemlib:nobelium"
+  }
+}

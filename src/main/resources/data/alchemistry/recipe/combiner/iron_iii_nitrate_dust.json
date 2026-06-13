@@ -1,0 +1,15 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:iron_iii_nitrate"
+      }
+    }
+  ],
+  "result": {
+    "item": "chemlib:iron_iii_nitrate_dust"
+  }
+}

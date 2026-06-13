@@ -1,36 +1,33 @@
 package com.smashingmods.alchemistry.common.network;
 
 import com.smashingmods.alchemistry.Alchemistry;
-import com.smashingmods.alchemistry.common.network.jei.*;
-import com.smashingmods.alchemylib.api.network.AbstractPacketHandler;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.simple.SimpleChannel;
+import com.smashingmods.alchemistry.common.network.jei.CombinerTransferPacket;
+import com.smashingmods.alchemistry.common.network.jei.CompactorTransferPacket;
+import com.smashingmods.alchemistry.common.network.jei.DissolverTransferPacket;
+import com.smashingmods.alchemistry.common.network.jei.FissionTransferPacket;
+import com.smashingmods.alchemistry.common.network.jei.FusionTransferPacket;
+import com.smashingmods.alchemistry.common.network.jei.LiquifierTransferPacket;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.HandlerThread;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-public class PacketHandler extends AbstractPacketHandler {
-
-    private final SimpleChannel simpleChannel;
-
-    public PacketHandler() {
-        this.simpleChannel = createChannel(new ResourceLocation(Alchemistry.MODID, "main"), "1.1.0");
-    }
-
-    @Override
-    public PacketHandler register() {
-        registerMessage(ToggleAutoBalanceButtonPacket.class, ToggleAutoBalanceButtonPacket::new);
-        registerMessage(SetRecipePacket.class, SetRecipePacket::new);
-        registerMessage(CombinerTransferPacket.class, CombinerTransferPacket::new);
-        registerMessage(CompactorTransferPacket.class, CompactorTransferPacket::new);
-        registerMessage(DissolverTransferPacket.class, DissolverTransferPacket::new);
-        registerMessage(FissionTransferPacket.class, FissionTransferPacket::new);
-        registerMessage(FusionTransferPacket.class, FusionTransferPacket::new);
-        registerMessage(LiquifierTransferPacket.class, LiquifierTransferPacket::new);
-        registerMessage(ToggleReactorAutoejectPacket.class, ToggleReactorAutoejectPacket::new);
-        registerMessage(SetSideConfigurationPacket.class, SetSideConfigurationPacket::new);
-        return this;
-    }
-
-    @Override
-    protected SimpleChannel getChannel() {
-        return simpleChannel;
+@EventBusSubscriber(modid = Alchemistry.MODID)
+public class PacketHandler {
+    @SubscribeEvent
+    public static void registerPayloads(RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1").executesOn(HandlerThread.MAIN);
+        
+        registrar.playToServer(ToggleAutoBalanceButtonPacket.TYPE, ToggleAutoBalanceButtonPacket.STREAM_CODEC, ToggleAutoBalanceButtonPacket::handle);
+        registrar.playToServer(SetRecipePacket.TYPE, SetRecipePacket.STREAM_CODEC, SetRecipePacket::handle);
+        registrar.playToServer(CombinerTransferPacket.TYPE, CombinerTransferPacket.STREAM_CODEC, CombinerTransferPacket::handle);
+        registrar.playToServer(CompactorTransferPacket.TYPE, CompactorTransferPacket.STREAM_CODEC, CompactorTransferPacket::handle);
+        registrar.playToServer(DissolverTransferPacket.TYPE, DissolverTransferPacket.STREAM_CODEC, DissolverTransferPacket::handle);
+        registrar.playToServer(FissionTransferPacket.TYPE, FissionTransferPacket.STREAM_CODEC, FissionTransferPacket::handle);
+        registrar.playToServer(FusionTransferPacket.TYPE, FusionTransferPacket.STREAM_CODEC, FusionTransferPacket::handle);
+        registrar.playToServer(LiquifierTransferPacket.TYPE, LiquifierTransferPacket.STREAM_CODEC, LiquifierTransferPacket::handle);
+        registrar.playToServer(ToggleReactorAutoejectPacket.TYPE, ToggleReactorAutoejectPacket.STREAM_CODEC, ToggleReactorAutoejectPacket::handle);
+        registrar.playToServer(SetSideConfigurationPacket.TYPE, SetSideConfigurationPacket.STREAM_CODEC, SetSideConfigurationPacket::handle);
     }
 }

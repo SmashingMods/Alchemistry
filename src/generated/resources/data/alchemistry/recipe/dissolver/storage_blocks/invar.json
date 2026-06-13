@@ -1,0 +1,43 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/invar"
+      }
+    }
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/invar"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 2.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:iron"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:nickel"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  }
+}

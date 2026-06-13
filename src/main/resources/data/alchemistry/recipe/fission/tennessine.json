@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fission",
+  "group": "fission",
+  "input": {
+    "item": "chemlib:tennessine"
+  },
+  "output1": {
+    "item": "chemlib:praseodymium"
+  },
+  "output2": {
+    "item": "chemlib:cerium"
+  }
+}

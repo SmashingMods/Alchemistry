@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/electrum"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:gold"
+          }
+        ]
+      },
+      {
+        "probability": 1.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:silver"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": true
+  }
+}

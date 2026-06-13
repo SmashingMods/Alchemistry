@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "forge:storage_blocks/potato"
+      }
+    }
+  ],
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/potato"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 10.0,
+        "results": [
+          {
+            "item": "chemlib:starch"
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "count": 5,
+            "item": "chemlib:potassium"
+          }
+        ]
+      }
+    ],
+    "rolls": 9,
+    "weighted": true
+  }
+}

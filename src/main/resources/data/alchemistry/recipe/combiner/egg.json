@@ -1,0 +1,21 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 2,
+      "ingredient": {
+        "item": "chemlib:protein"
+      }
+    },
+    {
+      "count": 8,
+      "ingredient": {
+        "item": "chemlib:calcium_carbonate"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:egg"
+  }
+}

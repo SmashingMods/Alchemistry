@@ -9,23 +9,20 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.SlotItemHandler;
+import net.neoforged.neoforge.items.SlotItemHandler;
 
-import java.util.Objects;
 
 public class FusionControllerMenu extends AbstractProcessingMenu {
 
     public FusionControllerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity(pBuffer.readBlockPos())));
+        this(pContainerId, pInventory, pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition())));
     }
 
     protected FusionControllerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.FUSION_CONTROLLER_MENU.get(), pContainerId, pInventory, pBlockEntity, 2, 1);
-
-        FusionControllerBlockEntity blockEntity = (FusionControllerBlockEntity) pBlockEntity;
-        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
-        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
-
+        FusionControllerBlockEntity blockEntity = (pBlockEntity instanceof FusionControllerBlockEntity be) ? be : null;
+        ProcessingSlotHandler inputHandler = (blockEntity != null) ? blockEntity.getInputHandler() : new ProcessingSlotHandler(2);
+        ProcessingSlotHandler outputHandler = (blockEntity != null) ? blockEntity.getOutputHandler() : new ProcessingSlotHandler(1);
         addSlots(SlotItemHandler::new, inputHandler, 0, inputHandler.getSlots(), 48, 18);
         addSlots(SlotItemHandler::new, inputHandler, 1, inputHandler.getSlots(), 48, 44);
         addSlots(SlotItemHandler::new, outputHandler, 120, 31);
@@ -33,6 +30,8 @@ public class FusionControllerMenu extends AbstractProcessingMenu {
 
     @Override
     public boolean stillValid(Player pPlayer) {
-        return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(this.getBlockEntity().getLevel()), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.FUSION_CONTROLLER.get());
+        if (pPlayer.isSpectator()) return false;
+        if (this.getBlockEntity() == null) return false;
+        return stillValid(ContainerLevelAccess.create(this.getBlockEntity().getLevel(), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.FUSION_CONTROLLER.get());
     }
 }

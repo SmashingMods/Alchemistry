@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:scandium"
+  },
+  "input2": {
+    "item": "chemlib:radium"
+  },
+  "output": {
+    "item": "chemlib:meitnerium"
+  }
+}

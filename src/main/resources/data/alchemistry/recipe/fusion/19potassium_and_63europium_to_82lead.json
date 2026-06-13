@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:fusion",
+  "group": "fusion",
+  "input1": {
+    "item": "chemlib:potassium"
+  },
+  "input2": {
+    "item": "chemlib:europium"
+  },
+  "output": {
+    "item": "chemlib:lead"
+  }
+}

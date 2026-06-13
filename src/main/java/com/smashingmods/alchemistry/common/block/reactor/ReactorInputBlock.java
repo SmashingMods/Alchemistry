@@ -1,18 +1,31 @@
 package com.smashingmods.alchemistry.common.block.reactor;
 
+import com.mojang.serialization.MapCodec;
 import com.smashingmods.alchemylib.api.block.AbstractProcessingBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
 
 public class ReactorInputBlock extends AbstractProcessingBlock {
+    public static final MapCodec<ReactorInputBlock> CODEC = simpleCodec(ReactorInputBlock::new);
+
     public ReactorInputBlock() {
         super(ReactorInputBlockEntity::new);
+    }
+
+    private ReactorInputBlock(BlockBehaviour.Properties pProperties) {
+        this();
+    }
+
+    @Override
+    public MapCodec<ReactorInputBlock> codec() {
+        return CODEC;
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.smashingmods.alchemylib.api.item.IngredientStack;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +33,7 @@ public class TransferUtils {
         return maxCount / pRecipeInput.getCount();
     }
 
-    public static int getMaxOperations(List<ItemStack> pRecipeInputList, @Nonnull List<ItemStack> pInventoryItems, boolean pMaxTransfer, boolean pCreative) {
+    public static int getMaxOperations(List<ItemStack> pRecipeInputList, List<ItemStack> pInventoryItems, boolean pMaxTransfer, boolean pCreative) {
 
         List<Integer> ints = new ArrayList<>();
         for (int i = 0; i < pRecipeInputList.size(); i++) {

@@ -21,12 +21,12 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.LiteralContents;
-import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.network.chat.contents.PlainTextContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.LinkedList;
@@ -62,11 +62,11 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private int startIndex;
 
     public RecipeSelectorScreen(P pParentScreen, B pBlockEntity, LinkedList<R> pRecipes) {
-        super(MutableComponent.create(new LiteralContents("")));
+        super(MutableComponent.create(new PlainTextContents.LiteralContents("")));
         this.parentScreen = pParentScreen;
         this.blockEntity = pBlockEntity;
         this.recipes = pRecipes;
-        this.searchBox = new EditBox(Minecraft.getInstance().font, 0, 0, 92, 12, MutableComponent.create(new LiteralContents("")));
+        this.searchBox = new EditBox(Minecraft.getInstance().font, 0, 0, 92, 12, MutableComponent.create(new PlainTextContents.LiteralContents("")));
         if (!blockEntity.getSearchText().isEmpty()) {
             searchBox.setValue(blockEntity.getSearchText());
             searchRecipeList(blockEntity.getSearchText());
@@ -91,7 +91,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             searchBox.setSuggestion(I18n.get("alchemistry.container.search"));
         } else {
             if (displayedRecipes.size() < MAX_DISPLAYED_RECIPES) {
-                mouseScrolled(0, 0, 0);
+                mouseScrolled(0, 0, 0, 0);
                 scrollOffset = 0.0f;
             }
             blockEntity.setSearchText(searchBox.getValue());
@@ -124,7 +124,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     private void renderBg(GuiGraphics pGuiGraphics) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/recipe_select_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     private void renderRecipeBox(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
@@ -138,7 +138,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
     private void renderScrollbar(GuiGraphics pGuiGraphics) {
         int scrollPosition = (int) (93.0f * scrollOffset);
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
+        pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/recipe_select_gui.png"), leftPos + 154, topPos + 28 + scrollPosition, 18 + (isScrollBarActive() ? 0 : 12), imageHeight, 12, 15);
     }
 
     private void renderRecipeButtons(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, int pLastDisplayedIndex) {
@@ -154,7 +154,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             } else if (pMouseX >= xStart && pMouseX < xStart + RECIPE_BOX_SIZE && pMouseY >= yStart && pMouseY < yStart + RECIPE_BOX_SIZE) {
                 vOffset += RECIPE_BOX_SIZE * 2;
             }
-            pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+            pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/recipe_select_gui.png"), xStart, yStart, 0, vOffset, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
         }
     }
 
@@ -170,7 +170,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             renderFloatingItem(pGuiGraphics, target, xStart, yStart);
 
             if (pMouseX >= xStart - 1 && pMouseX <= xStart + 16 && pMouseY >= yStart - 1 && pMouseY <= yStart + 16) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.select_recipe", null, TranslatableContents.NO_ARGS)));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, Component.translatable("alchemistry.container.select_recipe"));
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         }
@@ -199,7 +199,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
                     ItemStack itemStack = RecipeDisplayUtil.getRecipeInputByIndex(recipe, pIndex);
 
                     if (pMouseX >= pX - 1 && pMouseX < pX + 17 && pMouseY >= pY - 1 && pMouseY < pY + 17 && !itemStack.isEmpty()) {
-                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, MutableComponent.create(new TranslatableContents("alchemistry.container.required_input", null, TranslatableContents.NO_ARGS)));
+                        List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(itemStack, Component.translatable("alchemistry.container.required_input"));
                         pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
                     }
                 }
@@ -209,7 +209,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
             ItemStack target = RecipeDisplayUtil.getTarget(recipe);
             renderFloatingItem(pGuiGraphics, target, leftPos + 21, topPos + 30);
             if (pMouseX >= leftPos + 17 && pMouseX < leftPos + 41 && pMouseY >= topPos + 27 && pMouseY <= topPos + 50) {
-                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, MutableComponent.create(new TranslatableContents("alchemistry.container.current_recipe", null, TranslatableContents.NO_ARGS)));
+                List<Component> components = RecipeDisplayUtil.getItemTooltipComponent(target, Component.translatable("alchemistry.container.current_recipe"));
                 pGuiGraphics.renderTooltip(font, components, Optional.empty(), pMouseX, pMouseY);
             }
         } else {
@@ -244,7 +244,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     private void renderSlot(GuiGraphics pGuiGraphics, int pX, int pY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
+        pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/recipe_select_gui.png"), pX, pY, 0, imageHeight + RECIPE_BOX_SIZE * 3, RECIPE_BOX_SIZE, RECIPE_BOX_SIZE);
     }
 
     public <W extends GuiEventListener & Renderable & NarratableEntry> void renderWidget(W pWidget, int pX, int pY) {
@@ -323,7 +323,7 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
 
             if (boxX > 0 && boxX <= RECIPE_BOX_SIZE + 1 && boxY > 0 && boxY <= RECIPE_BOX_SIZE + 1 && !blockEntity.isRecipeLocked() && isValidRecipeIndex(index)) {
                 AbstractProcessingRecipe recipe = getDisplayedRecipes().get(index);
-                Alchemistry.PACKET_HANDLER.sendToServer(new SetRecipePacket(blockEntity.getBlockPos(), recipe.getId(), recipe.getGroup()));
+                PacketDistributor.sendToServer(new SetRecipePacket(blockEntity.getBlockPos(), recipe.getId(), recipe.getGroup()));
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0f));
                 return true;
             }
@@ -369,9 +369,9 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
     }
 
     @Override
-    public boolean mouseScrolled(double pMouseX, double pMouseY, double pDelta) {
-        if (pMouseX >= leftPos && pMouseX < leftPos + imageWidth && pMouseY >= topPos && pMouseY < topPos + imageHeight && isScrollBarActive()) {
-            scrollOffset = Mth.clamp(scrollOffset - (float) pDelta / (float) getOffscreenRows(), 0.0f, 1.0f);
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (mouseX >= leftPos && mouseX < leftPos + imageWidth && mouseY >= topPos && mouseY < topPos + imageHeight && isScrollBarActive()) {
+            scrollOffset = Mth.clamp(scrollOffset - (float) scrollY / (float) getOffscreenRows(), 0.0f, 1.0f);
             startIndex = (int) ((double) (scrollOffset * (float) getOffscreenRows()) + 0.5d) * COLUMNS;
         }
         return true;
@@ -439,3 +439,4 @@ public class RecipeSelectorScreen<P extends AbstractProcessingScreen<?>, B exten
         getDisplayedRecipes().addAll(recipes);
     }
 }
+

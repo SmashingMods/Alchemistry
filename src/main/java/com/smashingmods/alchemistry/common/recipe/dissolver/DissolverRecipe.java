@@ -42,7 +42,7 @@ public class DissolverRecipe extends AbstractProcessingRecipe {
 
     @Override
     public int compareTo(AbstractProcessingRecipe pRecipe) {
-        return getId().compareNamespaced(pRecipe.getId());
+        return safeCompareIds(pRecipe);
     }
 
     @Override

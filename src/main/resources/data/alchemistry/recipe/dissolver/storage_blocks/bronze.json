@@ -1,0 +1,34 @@
+{
+  "type": "alchemistry:dissolver",
+  "group": "alchemistry:dissolver",
+  "input": {
+    "count": 1,
+    "ingredient": {
+      "tag": "forge:storage_blocks/bronze"
+    }
+  },
+  "output": {
+    "groups": [
+      {
+        "probability": 75.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:copper"
+          }
+        ]
+      },
+      {
+        "probability": 25.0,
+        "results": [
+          {
+            "count": 9,
+            "item": "chemlib:tin"
+          }
+        ]
+      }
+    ],
+    "rolls": 16,
+    "weighted": false
+  }
+}

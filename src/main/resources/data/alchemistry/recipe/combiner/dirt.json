@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:kaolinite"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:cellulose"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:water"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:dirt"
+  }
+}

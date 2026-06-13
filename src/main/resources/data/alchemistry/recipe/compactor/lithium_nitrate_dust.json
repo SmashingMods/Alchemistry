@@ -1,0 +1,13 @@
+{
+  "type": "alchemistry:compactor",
+  "group": "alchemistry:compactor",
+  "input": {
+    "count": 8,
+    "ingredient": {
+      "item": "chemlib:lithium_nitrate"
+    }
+  },
+  "result": {
+    "item": "chemlib:lithium_nitrate_dust"
+  }
+}

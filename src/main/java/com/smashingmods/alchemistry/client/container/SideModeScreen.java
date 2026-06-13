@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Screen {
 
-    private static final ResourceLocation TEXTURE_SOURCE = new ResourceLocation(AlchemyLib.MODID, "textures/gui/widgets.png");
+    private static final ResourceLocation TEXTURE_SOURCE = AlchemyLib.modLoc("textures/gui/widgets.png");
 
     // Side mod configuration screen layout:
     // N: North
@@ -62,7 +62,7 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     @Override
     public void render(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY, float pPartialTick) {
         drawnTooltip = null;
-        renderBackground(pGuiGraphics);
+        renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         pGuiGraphics.drawCenteredString(font, title, width / 2, getMinY() - 7, 0xFF_FFFFFF);
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
         if (drawnTooltip != null) {
@@ -71,17 +71,17 @@ public class SideModeScreen<P extends AbstractProcessingScreen<?>> extends Scree
     }
 
     @Override
-    public void renderBackground(GuiGraphics pGuiGraphics) {
+    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         // Blitting a Ninepatch to screen by hand - because why not?
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 14, 4, 4, 5, 146, 4, 4, 256, 256); // Upper right corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMaxY(), 4, 4, 5, 151, 4, 4, 256, 256); // Lower right corner
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 14, getMaxX() - getMinX(), 4, 4, 146, 1, 4, 256, 256); // Upper edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMaxY(), getMaxX() - getMinX(), 4, 4, 151, 1, 4, 256, 256); // Lower edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256); // Left edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256); // Right edge
-        pGuiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256); // Fill
+        guiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 14, 4, 4, 0, 146, 4, 4, 256, 256); // Upper left corner
+        guiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMaxY(), 4, 4, 0, 151, 4, 4, 256, 256); // Lower left corner
+        guiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 14, 4, 4, 5, 146, 4, 4, 256, 256); // Upper right corner
+        guiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMaxY(), 4, 4, 5, 151, 4, 4, 256, 256); // Lower right corner
+        guiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 14, getMaxX() - getMinX(), 4, 4, 146, 1, 4, 256, 256); // Upper edge
+        guiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMaxY(), getMaxX() - getMinX(), 4, 4, 151, 1, 4, 256, 256); // Lower edge
+        guiGraphics.blit(TEXTURE_SOURCE, getMinX() - 4, getMinY() - 10, 4, getMaxY() - getMinY() + 10, 0, 150, 4, 1, 256, 256); // Left edge
+        guiGraphics.blit(TEXTURE_SOURCE, getMaxX(), getMinY() - 10, 4, getMaxY() - getMinY() + 10, 5, 150, 4, 1, 256, 256); // Right edge
+        guiGraphics.blit(TEXTURE_SOURCE, getMinX(), getMinY() - 10, getMaxX() - getMinX(), getMaxY() - getMinY() + 10, 4, 150, 1, 1, 256, 256); // Fill
     }
 
     @Override

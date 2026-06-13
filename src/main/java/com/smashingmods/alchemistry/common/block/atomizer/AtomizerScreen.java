@@ -14,7 +14,6 @@ import com.smashingmods.alchemylib.client.button.SideModeButton;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
@@ -31,7 +30,7 @@ public class AtomizerScreen extends AbstractProcessingScreen<AtomizerMenu> {
         super(pMenu, pPlayerInventory, pTitle);
         displayData.add(new ProgressDisplayData(pMenu.getBlockEntity(), 78, 35, 60, 9, Direction2D.RIGHT));
         displayData.add(new EnergyDisplayData(pMenu.getBlockEntity(), 12, 12, 16, 54));
-        displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 48, 12, 16, 54));
+        displayData.add(new FluidDisplayData((AbstractFluidBlockEntity) pMenu.getBlockEntity(), 49, 12, 16, 54));
 
         SideModeScreen<AtomizerScreen> sideModeScreen = new SideModeScreen<>(this);
         sideModeButton = new SideModeButton(this, sideModeScreen);
@@ -55,12 +54,12 @@ public class AtomizerScreen extends AbstractProcessingScreen<AtomizerMenu> {
 
     @Override
     protected void renderBg(GuiGraphics pGuiGraphics, float pPartialTick, int pMouseX, int pMouseY) {
-        pGuiGraphics.blit(new ResourceLocation(Alchemistry.MODID, "textures/gui/atomizer_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
+        pGuiGraphics.blit(Alchemistry.modLoc("textures/gui/atomizer_gui.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight);
     }
 
     @Override
     protected void renderLabels(GuiGraphics pGuiGraphics, int pMouseX, int pMouseY) {
-        MutableComponent title = MutableComponent.create(new TranslatableContents("alchemistry.container.atomizer", null, TranslatableContents.NO_ARGS));
+        MutableComponent title = Component.translatable("alchemistry.container.atomizer");
         pGuiGraphics.drawString(font, title, imageWidth / 2 - font.width(title) / 2, -10, 0xFFFFFFFF);
     }
 }

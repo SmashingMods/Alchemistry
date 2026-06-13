@@ -1,0 +1,27 @@
+{
+  "type": "alchemistry:combiner",
+  "group": "alchemistry:combiner",
+  "input": [
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:sucrose"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:iron_oxide"
+      }
+    },
+    {
+      "count": 1,
+      "ingredient": {
+        "item": "chemlib:triglyceride"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:beetroot_seeds"
+  }
+}

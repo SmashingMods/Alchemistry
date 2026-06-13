@@ -239,6 +239,7 @@ public class DissolverBlockEntity extends AbstractInventoryBlockEntity {
     public void dropContents(Level pLevel, BlockPos pBlockPos) {
         if (!pLevel.isClientSide()) {
             Containers.dropContents(pLevel, pBlockPos, internalBuffer);
+            internalBuffer.clear();
         }
         super.dropContents(pLevel, pBlockPos);
     }

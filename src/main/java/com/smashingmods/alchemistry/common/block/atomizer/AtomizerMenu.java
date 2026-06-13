@@ -11,25 +11,29 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-import java.util.Objects;
 
 public class AtomizerMenu extends AbstractProcessingMenu {
 
     public AtomizerMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition()))));
+        this(pContainerId, pInventory, pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition())));
     }
 
     protected AtomizerMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.ATOMIZER_MENU.get(), pContainerId, pInventory, pBlockEntity, 0, 1);
-        AtomizerBlockEntity blockEntity = (AtomizerBlockEntity) pBlockEntity;
-        ProcessingSlotHandler outputHandler = blockEntity.getOutputHandler();
+        AtomizerBlockEntity blockEntity = (pBlockEntity instanceof AtomizerBlockEntity be) ? be : null;
+        ProcessingSlotHandler outputHandler = (blockEntity != null) ? blockEntity.getOutputHandler() : new ProcessingSlotHandler(1);
         addSlots(SlotItemHandler::new, outputHandler, 1, 1, 0, outputHandler.getSlots(), 120, 31);
+    }
+
+    @Override
+    protected boolean isFluidMachine() {
+        return true;
     }
 
     @Override
     public boolean stillValid(Player pPlayer) {
         if (pPlayer.isSpectator()) return false;
-        Objects.requireNonNull(this.getBlockEntity().getLevel());
+        if (this.getBlockEntity() == null) return false;
         return stillValid(ContainerLevelAccess.create(this.getBlockEntity().getLevel(), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.ATOMIZER.get());
     }
 }

@@ -17,14 +17,4 @@ public abstract class AbstractReactorBlock extends AbstractProcessingBlock {
             reactorBlockEntity.resetIO();
         }
     }
-
-    @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
-        if (pState.getBlock() != pNewState.getBlock()) {
-            if (pLevel.getBlockEntity(pPos) instanceof AbstractReactorBlockEntity reactorBlockEntity) {
-                reactorBlockEntity.onRemove();
-            }
-        }
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
-    }
 }

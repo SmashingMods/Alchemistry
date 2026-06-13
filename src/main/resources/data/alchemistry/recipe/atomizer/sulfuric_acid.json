@@ -2,7 +2,7 @@
   "type": "alchemistry:atomizer",
   "group": "alchemistry:atomizer",
   "input": {
-    "amount": "500",
+    "amount": 500,
     "fluid": "chemlib:sulfuric_acid_fluid"
   },
   "result": {

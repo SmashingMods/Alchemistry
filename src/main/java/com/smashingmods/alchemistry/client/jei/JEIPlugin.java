@@ -62,7 +62,6 @@ public class JEIPlugin implements IModPlugin {
             return;
         }
 
-        // Diagnostic: log all recipe types present in RecipeManager
         java.util.Map<String, Long> typeCount = recipeManager.getRecipes().stream()
             .collect(java.util.stream.Collectors.groupingBy(
                 h -> {
@@ -75,7 +74,6 @@ public class JEIPlugin implements IModPlugin {
             .filter(e -> e.getKey().contains("alchemistry"))
             .forEach(e -> LOGGER.info("[Alchemistry JEI]   type='{}' count={}", e.getKey(), e.getValue()));
         LOGGER.info("[Alchemistry JEI] ATOMIZER_TYPE.get()='{}' identity={}", RecipeRegistry.ATOMIZER_TYPE.get(), System.identityHashCode(RecipeRegistry.ATOMIZER_TYPE.get()));
-        // Also check: does any recipe have a type equal to ATOMIZER_TYPE.get()?
         long atomizerByClass = recipeManager.getRecipes().stream()
             .filter(h -> h.value() instanceof com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe)
             .count();
@@ -89,7 +87,6 @@ public class JEIPlugin implements IModPlugin {
         var fusion = RecipeRegistry.getFusionRecipes(minecraft.level).stream().toList();
         var liquifier = RecipeRegistry.getLiquifierRecipes(minecraft.level).stream().toList();
         
-        // If still 0, try by class directly
         if (atomizer.isEmpty()) {
             var atomizerDirect = recipeManager.getRecipes().stream()
                 .filter(h -> h.value() instanceof com.smashingmods.alchemistry.common.recipe.atomizer.AtomizerRecipe)

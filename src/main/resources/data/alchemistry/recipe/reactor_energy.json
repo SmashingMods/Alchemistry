@@ -16,7 +16,7 @@
     "D"
   ],
   "result": {
-    "item": "alchemistry:reactor_energy"
+    "id": "alchemistry:reactor_energy"
   },
   "show_notification": true
 }

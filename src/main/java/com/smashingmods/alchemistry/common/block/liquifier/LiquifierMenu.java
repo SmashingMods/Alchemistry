@@ -11,24 +11,29 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-import java.util.Objects;
 
 public class LiquifierMenu extends AbstractProcessingMenu {
 
     public LiquifierMenu(int pContainerId, Inventory pInventory, FriendlyByteBuf pBuffer) {
-        this(pContainerId, pInventory, Objects.requireNonNull(pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition()))));
+        this(pContainerId, pInventory, pInventory.player.level().getBlockEntity((pBuffer != null ? pBuffer.readBlockPos() : pInventory.player.blockPosition())));
     }
 
     protected LiquifierMenu(int pContainerId, Inventory pInventory, BlockEntity pBlockEntity) {
         super(MenuRegistry.LIQUIFIER_MENU.get(), pContainerId, pInventory, pBlockEntity, 1, 0);
-        LiquifierBlockEntity blockEntity = (LiquifierBlockEntity) pBlockEntity;
-        ProcessingSlotHandler inputHandler = blockEntity.getInputHandler();
+        LiquifierBlockEntity blockEntity = (pBlockEntity instanceof LiquifierBlockEntity be) ? be : null;
+        ProcessingSlotHandler inputHandler = (blockEntity != null) ? blockEntity.getInputHandler() : new ProcessingSlotHandler(1);
         addSlots(SlotItemHandler::new, inputHandler, 1, 1, 0, inputHandler.getSlots(), 48, 31);
+    }
+
+    @Override
+    protected boolean isFluidMachine() {
+        return true;
     }
 
     @Override
     public boolean stillValid(Player pPlayer) {
         if (pPlayer.isSpectator()) return false;
-        return stillValid(ContainerLevelAccess.create(Objects.requireNonNull(this.getBlockEntity().getLevel()), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.LIQUIFIER.get());
+        if (this.getBlockEntity() == null) return false;
+        return stillValid(ContainerLevelAccess.create(this.getBlockEntity().getLevel(), this.getBlockEntity().getBlockPos()), pPlayer, BlockRegistry.LIQUIFIER.get());
     }
 }

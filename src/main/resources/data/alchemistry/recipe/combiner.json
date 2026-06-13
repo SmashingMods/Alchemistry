@@ -25,7 +25,7 @@
     "IPI"
   ],
   "result": {
-    "item": "alchemistry:combiner"
+    "id": "alchemistry:combiner"
   },
   "show_notification": true
 }

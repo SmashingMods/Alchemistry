@@ -9,6 +9,6 @@
   },
   "result": {
     "fluid": "thermal:syrup_fluid",
-    "amount": "500"
+    "amount": 500
   }
 }

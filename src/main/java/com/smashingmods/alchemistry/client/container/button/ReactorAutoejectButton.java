@@ -50,7 +50,7 @@ public class ReactorAutoejectButton extends AbstractAlchemyButton {
         // You may wonder: Why override #renderButtonTooltip method instead of overriding #getMessage?
         // The answer is simple: For some reason forge doesn't wrap components - especially not on newlines,
         // although according to https://github.com/Darkhax-Minecraft/Enchantment-Descriptions/issues/60#issuecomment-825041462
-        // forge does. As a workaround we "wrap" manually simply by using a list of components.
+        // Forge does. Wrap manually with a list of components.
         // As such we invoke Screen#renderComponentTooltip directly and give it the list of components.
 
         if (pMouseX >= getX() && pMouseX <= getX() + width && pMouseY >= getX() && pMouseY <= getX() + height) {

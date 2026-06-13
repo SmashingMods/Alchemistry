@@ -3,7 +3,7 @@
   "group": "alchemistry:atomizer",
   "input": {
     "fluid": "thermal:syrup_fluid",
-    "amount": "500"
+    "amount": 500
   },
   "result": {
     "item": "chemlib:sucrose",

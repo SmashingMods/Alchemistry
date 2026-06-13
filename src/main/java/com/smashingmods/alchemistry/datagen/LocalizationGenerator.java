@@ -40,7 +40,6 @@ public class LocalizationGenerator extends LanguageProvider {
                     path = path.replace("_menu", "");
                     String translation = WordUtils.capitalize(path.replace("_", " "));
                     add(String.format("alchemistry.container.%s", path), translation);
-                    // weird place to put this, but gives all the stuff we want!
                     add(String.format("alchemistry.jei.%s", path), translation);
                 });
 

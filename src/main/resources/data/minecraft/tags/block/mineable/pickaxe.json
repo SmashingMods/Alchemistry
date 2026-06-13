@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "alchemistry:atomizer",
+    "alchemistry:compactor",
+    "alchemistry:combiner",
+    "alchemistry:dissolver",
+    "alchemistry:liquifier",
+    "alchemistry:fission_chamber_controller",
+    "alchemistry:fusion_chamber_controller",
+    "alchemistry:fission_core",
+    "alchemistry:fusion_core",
+    "alchemistry:reactor_casing",
+    "alchemistry:reactor_glass",
+    "alchemistry:reactor_energy",
+    "alchemistry:reactor_input",
+    "alchemistry:reactor_output"
+  ]
+}

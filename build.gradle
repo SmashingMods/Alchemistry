@@ -274,8 +274,13 @@ repositories {
     maven { url "https://maven.tamaized.com/releases" }
     // Modrinth maven serves the dev-rig power/pipes test mods (Energized Power, Pipez) pulled in as runtimeOnly
     // below. 1.21.1 pulled these from CurseMaven, but the Pipez 1.21.x builds are published Modrinth-only, so the
-    // rig moved with them. Scoped to the maven.modrinth group so it is only consulted for those coordinates.
-    maven { url "https://api.modrinth.com/maven"; content { includeGroup "maven.modrinth" } }
+    // rig moved with them. exclusiveContent makes Modrinth the ONLY repo consulted for the maven.modrinth group AND
+    // excludes that group from every other repo above -- otherwise gradle queries tamaized/blamejared/cloudsmith
+    // first for an uncached maven.modrinth artifact and a slow/timed-out one of them fails the whole resolution.
+    exclusiveContent {
+        forRepository { maven { url "https://api.modrinth.com/maven" } }
+        filter { includeGroup "maven.modrinth" }
+    }
     // JUnit (org.junit.*) is not mirrored by the repos above; settings.gradle has no
     // dependencyResolutionManagement, so the test deps need Maven Central here.
     mavenCentral()

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:combiner_reselect_mid_processing_takes_effect",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

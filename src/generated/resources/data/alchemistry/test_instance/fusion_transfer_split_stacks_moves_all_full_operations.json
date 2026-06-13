@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:fusion_transfer_split_stacks_moves_all_full_operations",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

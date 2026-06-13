@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:sent_payloads_registered_server_bound",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:liquifier_transfer_with_produced_fluid_still_transfers",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

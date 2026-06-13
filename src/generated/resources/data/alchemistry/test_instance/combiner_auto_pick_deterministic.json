@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:combiner_auto_pick_deterministic",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

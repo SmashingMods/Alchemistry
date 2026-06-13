@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:fusion_transfer_debits_both_inputs",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

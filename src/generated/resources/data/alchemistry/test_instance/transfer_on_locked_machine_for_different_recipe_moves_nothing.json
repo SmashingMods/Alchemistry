@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:transfer_on_locked_machine_for_different_recipe_moves_nothing",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

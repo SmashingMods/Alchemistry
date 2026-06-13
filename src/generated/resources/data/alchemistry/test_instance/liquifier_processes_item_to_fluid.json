@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:liquifier_processes_item_to_fluid",
+  "max_ticks": 200,
+  "structure": "alchemistry:loadsemptytemplate"
+}

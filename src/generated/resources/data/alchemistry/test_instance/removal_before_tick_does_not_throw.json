@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:removal_before_tick_does_not_throw",
+  "max_ticks": 100,
+  "structure": "alchemistry:reactor_space"
+}

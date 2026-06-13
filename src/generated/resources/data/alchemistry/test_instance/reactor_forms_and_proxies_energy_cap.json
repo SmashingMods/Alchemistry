@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:reactor_forms_and_proxies_energy_cap",
+  "max_ticks": 100,
+  "structure": "alchemistry:reactor_space"
+}

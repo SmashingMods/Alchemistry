@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:locked_combiner_accepts_full_stack_of_its_ingredient",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

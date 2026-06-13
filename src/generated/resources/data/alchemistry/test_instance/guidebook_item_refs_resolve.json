@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:guidebook_item_refs_resolve",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

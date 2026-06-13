@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:guidebook_book_loads",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

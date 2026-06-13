@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:atomizer_processes_fluid_to_item",
+  "max_ticks": 100,
+  "structure": "alchemistry:loadsemptytemplate"
+}

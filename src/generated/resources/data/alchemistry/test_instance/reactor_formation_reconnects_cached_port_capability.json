@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:function",
+  "environment": "alchemistry:default",
+  "function": "alchemistry:reactor_formation_reconnects_cached_port_capability",
+  "max_ticks": 100,
+  "structure": "alchemistry:reactor_space"
+}

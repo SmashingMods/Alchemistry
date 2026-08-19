@@ -93,7 +93,10 @@ public class DissolverRecipeCategory implements IRecipeCategory<DissolverRecipe>
                 if (probabilities.size() > index) {
                     NumberFormat numberFormat = NumberFormat.getInstance();
                     numberFormat.setMaximumFractionDigits(2);
-                    double percent = (probabilities.get(index) / totalProbability) * 100;
+                    double percent = probabilities.get(index);
+                    if (weighted) {
+                        percent = (percent / totalProbability) * 100;
+                    }
                     pGuiGraphics.drawString(font, numberFormat.format(percent) + "%", x, y, 0xFFFFFFFF, true);
                 }
             }
